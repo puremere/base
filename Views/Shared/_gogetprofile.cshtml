@@ -1,0 +1,519 @@
+﻿@model banimo.ViewModel.userdata
+
+
+<style>
+    .c-profile-page .o-page__content {
+        padding-left: 0;
+        padding-right: 22px;
+        -webkit-box-flex: 0;
+        flex: 0 0 79%;
+        max-width: 79%;
+        margin-top: -55px;
+    }
+
+
+
+    .o-page__content {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+    }
+
+    .o-grid .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: 0px;
+        margin-left: 0px;
+    }
+
+    .o-grid .col-12 {
+        -webkit-box-flex: 0;
+        flex: 0 0 100%;
+        max-width: 100%;
+        direction: rtl;
+    }
+
+    .o-headline--profile {
+        padding-left: 0;
+        -webkit-box-align: end;
+        align-items: flex-end;
+        color: #858585;
+        margin: 10px 0 15px;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+    }
+
+    .o-headline {
+        padding: 0 30px;
+        padding-left: 30px;
+        position: relative;
+        display: flex;
+    }
+
+    .o-headline--profile > span {
+        color: inherit;
+        font-weight: 400;
+    }
+
+    .o-headline > h2, .o-headline > span {
+        font-size: 1rem;
+        line-height: 31px;
+    }
+
+    .c-profile-stats {
+        background-color: #fff;
+        box-shadow: 0 12px 12px 0 hsla(0,0%,71%,.1);
+        border: 1px solid #dedede;
+        margin-bottom: 23px;
+        padding-bottom: 43px;
+        height: calc(100% - 68px);
+    }
+
+    .c-profile-stats__row {
+        -ms-flex-wrap: wrap;
+        margin-right: 0;
+        margin-left: 0;
+        border-bottom: 1px solid #f1f1f1;
+        min-height: 90px;
+        text-align: right;
+        direction: rtl
+    }
+
+
+    .c-profile-stats__col {
+        position: relative;
+        width: 100%;
+        min-height: 1px;
+        -webkit-box-flex: 0;
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding: 20px 30px;
+        border-right: 1px solid #f1f1f1;
+    }
+
+        .c-profile-stats__col:first-child {
+            float: left;
+        }
+
+        .c-profile-stats__col p {
+            font-size: 1rem;
+            line-height: 1.158;
+            letter-spacing: -.5px;
+            color: #939393;
+        }
+
+            .c-profile-stats__col p span {
+                display: block;
+                font-size: .929rem;
+                line-height: 1.692;
+                letter-spacing: -.3px;
+                margin-bottom: 4px;
+                color: #bababa;
+            }
+
+    .c-profile-stats__action {
+        padding: 14px 30px 17px;
+        text-align: center;
+        border-top: 1px solid #f1f1f1;
+        font-size: .857rem;
+        line-height: 1.833;
+        position: absolute;
+        bottom: 14px;
+        height: 54px;
+        left: 0;
+        right: 0;
+        margin-top: -1px;
+    }
+
+    .c-profile-stats__action_edit {
+        padding: 14px 30px 17px;
+        text-align: center;
+        border-top: 1px solid #f1f1f1;
+        font-size: .857rem;
+        line-height: 1.833;
+        position: absolute;
+        bottom: 14px;
+        height: 54px;
+        left: 0;
+        right: 0;
+        margin-top: -1px;
+        width: 10%;
+        margin-left: 40%;
+    }
+
+    .c-profile-stats__action_edit2 {
+        padding: 14px 30px 17px;
+        text-align: center;
+        border-top: 1px solid #f1f1f1;
+        font-size: .857rem;
+        line-height: 1.833;
+        position: absolute;
+        bottom: 14px;
+        height: 54px;
+        left: 0;
+        right: 0;
+        margin-top: -1px;
+        width: 10%;
+        margin-left: 50%;
+    }
+
+    .btn-link-spoiler {
+        color: #1ca2bd;
+        padding: 0;
+        line-height: 2;
+        display: inline-block;
+        background: none;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        position: relative;
+        text-align: center;
+        white-space: nowrap;
+        line-height: 22px;
+    }
+
+    .btn-link-spoiler--edit::before {
+        font-family: "Font Awesome 5 pro";
+        font-weight: 900;
+        content: "\f007";
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1em;
+        margin-left: .7em;
+    }
+
+    .btn-link-spoiler--confirm::before {
+        font-family: "Font Awesome 5 pro";
+        font-weight: 900;
+        content: "\f00c";
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1em;
+        margin-left: .7em;
+    }
+
+    .btn-link-spoiler--cancel::before {
+        font-family: "Font Awesome 5 pro";
+        font-weight: 900;
+        content: "\f00D";
+        position: absolute;
+        left: 100%;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 1em;
+        margin-left: .7em;
+    }
+
+    .btn-link-spoiler::after {
+        left: 0;
+        right: 0;
+        top: 50%;
+        margin-top: .85em;
+        content: "";
+        position: absolute;
+        border-bottom: 1px dashed #1ca2bd;
+    }
+
+    .firstofrow {
+        border-right: 0px;
+    }
+
+    .c-ui-input {
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        line-height: 22px;
+    }
+
+    .c-ui-input__field, .dk-selectric-input {
+        border-radius: 5px;
+        background: #fff;
+        border: 1px solid #eee;
+        color: #717171;
+        font-size: 12px;
+        font-size: 1rem;
+        line-height: 1.571;
+        padding: 11px 12px;
+        width: 100%;
+        letter-spacing: -.8px;
+    }
+</style>
+<section class="o-page__content">
+    <div class="o-grid">
+        <div class="row">
+            <div class="col-12">
+                <div  class="back" style="display:none; text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+
+                    <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                    <span style=" margin-right: 15px;font-size:15px">بازگشت</span>
+                </div>
+                <div class="dataSection">
+                    <div class="o-headline o-headline--profile"><span>اطلاعات شخصی</span> </div><div class="c-profile-stats">
+                        <script>
+                            $(".back").click(function () {
+                                $("#SECTIONOFIBdiv").animate({
+                                    'margin-right': number
+                                }, function () {
+                                    $('#productlistHoLDER').html("");
+                                    $("#SECTIONOFIBdiv").css("display", "none");
+
+                                });
+
+                                //$("#FILTERholder").css("display", "block");
+                            })
+                        </script>
+                        <div class="c-profile-stats__row">
+                            <div class="c-profile-stats__col">
+                                <label class="c-ui-input edit" style="display:none">
+                                    <input id="Editfullname" class="c-ui-input__field" type="text" value="@Model.fullname" placeholder="نام خود را وارد کنید">
+                                </label>
+                                <p class="profile">
+                                    <span>نام و نام خانوادگی:</span>
+                                    <span class="c-profile-stats__value">
+                                        @{
+                                            {
+                                                if (Model.fullname == "" || Model.email == null)
+                                                {
+                                                    <i id="emailholder">-</i>
+                                                }
+                                                else
+                                                {
+                                                    @Model.fullname
+                                                }
+                                            }
+                                        }
+                                    </span>
+
+
+
+
+                                </p>
+                            </div>
+                            <div class="c-profile-stats__col firstofrow">
+                                <label class="c-ui-input edit" style="display:none">
+                                    <input id="EditEmail" class="c-ui-input__field" type="text" value="@Model.email" placeholder="پست الکترونیکی خود را وارد کنید">
+                                </label>
+                                <p class="profile">
+                                    <span>پست الکترونیک :</span>
+                                    <span class="c-profile-stats__value">
+                                        @{
+                                            if (Model.email == "" || Model.email == null)
+                                            {
+                                                <i id="emailholder">-</i>
+                                            }
+                                            else
+                                            {
+                                                @Model.email
+                                            }
+                                        }
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="c-profile-stats__row">
+                            <div class="c-profile-stats__col">
+                                <label class="c-ui-input edit" style="display:none">
+                                    <input id="Editphone" class="c-ui-input__field" type="text" value="@Model.phone" placeholder="تلفن خود را وارد کنید">
+                                </label>
+                                <p class="profile">
+                                    <span>شماره تلفن همراه:</span>
+                                    @{
+                                        if (Model.phone == null)
+                                        {
+                                            <i>-</i>
+                                        }
+                                        else
+                                        {
+                                            @Model.phone
+                                        }
+                                    }
+                                </p>
+                            </div>
+                            <div class="c-profile-stats__col firstofrow">
+                                <label class="c-ui-input edit" style="display:none">
+                                    <input id="EditAddress" class="c-ui-input__field" type="text" value="@Model.address" placeholder=" آدرس خود را وارد کنید">
+                                </label>
+                                <p class="profile">
+                                    <span>آدرس:</span>
+                                    @{
+                                        if (Model.address == null || Model.address == "")
+                                        {
+                                            <i id="addressholder">-</i>
+                                        }
+                                        else
+                                        {
+                                            @Model.address
+                                        }
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                        <div class="c-profile-stats__row">
+
+                            <div class="c-profile-stats__col ">
+                                <label class="c-ui-input edit" style="display:none">
+                                    <input id="EditCity" class="c-ui-input__field" type="text" value="@Model.city" placeholder=" شهر را وارد کنید">
+                                </label>
+                                <p class="profile">
+                                    <span>شهر:</span>
+                                    @{
+                                        if (Model.city == null || Model.city == "")
+                                        {
+                                            <i id="addressholder">-</i>
+                                        }
+                                        else
+                                        {
+                                            @Model.city
+                                        }
+                                    }
+                                </p>
+                            </div>
+                            <div class="c-profile-stats__col firstofrow">
+                                <label class="c-ui-input edit" style="display:none">
+                                    <input id="EditProvice" class="c-ui-input__field" type="text" value="@Model.province" placeholder="استان خود را وارد کنید">
+                                </label>
+                                <p class="profile">
+                                    <span>استان:</span>
+                                    @{
+                                        if (Model.province == null)
+                                        {
+                                            <i>-</i>
+                                        }
+                                        else
+                                        {
+                                            @Model.province
+                                        }
+                                    }
+                                </p>
+                            </div>
+                        </div>
+                        @*<div class="c-profile-stats__row">
+                <div class="c-profile-stats__col">
+                    <label class="c-ui-input edit" style="display:none">
+                        <input class="c-ui-input__field" type="text" name="additionalinfo[first_name]" value="@Model.email" placeholder=" ایمیل خود را وارد کنید">
+                    </label>
+                    <p class="profile">
+                        <span>ایمیل:</span>
+                       @Model.
+                    </p>
+                </div>
+                <div class="c-profile-stats__col firstofrow">
+                    <label class="c-ui-input edit" style="display:none">
+                        <input class="c-ui-input__field" type="text" name="additionalinfo[first_name]" value="" placeholder="نام خود را وارد کنید">
+                    </label>
+                    <p class="profile"><span>شماره کارت:</span><span class="c-profile-stats__value"></span></p>
+                </div>
+            </div>*@
+                        <div class="c-profile-stats__row">
+                            <div class="c-profile-stats__action profile">
+                                <div id="editdata" class="btn-link-spoiler btn-link-spoiler--edit">
+                                    ویرایش
+                                    اطلاعات شخصی
+                                </div>
+                                <script>
+                                    $("#editdata").click(function () {
+
+                                        $(".edit").each(function () {
+                                            $(this).css("display", "block")
+                                            $(".c-profile-stats__row").css("min-height", "95px")
+                                        })
+                                        $(".profile").each(function () {
+                                            $(this).css("display", "none")
+                                        })
+                                    })
+                                </script>
+                            </div>
+                            <div class="c-profile-stats__action_edit edit" style="display:none">
+                                <div id="confirm" class="btn-link-spoiler btn-link-spoiler--confirm">
+                                    تایید
+                                </div>
+                                <script>
+                            $("#confirm").click(function () {
+                                var email = $("#EditEmail").val();
+                                var address = $("#EditAddress").val();
+                                var fullname = $("#Editfullname").val();
+                                var city = $("#EditCity").val();
+                                var province = $("#EditProvice").val();
+                                var mobile = "@Model.phone"
+                                if (email === "" && address === "" && fullname === "") {
+
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 8000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.error("لطفا تمامی موارد را کامل کنید")
+                                }
+                                else {
+
+                                    $.ajax({
+                                        url: '/Home/updataProfile',
+                                        dataType: 'html',
+                                        data: {
+                                            email: email,
+                                            address: address,
+                                            fullname: fullname,
+                                            phone: mobile,
+                                            province: province,
+                                            city : city
+                                        },
+                                        success: function (data) {
+                                            window.location.href = "/Home/myProfile?type=1";
+
+
+                                        },
+                                        error: function () {
+
+                                        }
+                                    });
+                                    //$(".edit").each(function () {
+                                    //    $(this).css("display", "none")
+                                    //    $(".c-profile-stats__row").css("min-height", "90px")
+                                    //})
+                                    //$(".profile").each(function () {
+                                    //    $(this).css("display", "block")
+                                    //})
+                                }
+
+
+                            })
+                                </script>
+                            </div>
+                            <div class="c-profile-stats__action_edit2 edit" style="display:none">
+                                <div id="cancel" class="btn-link-spoiler btn-link-spoiler--cancel">
+                                    لغو
+                                </div>
+                                <script>
+
+                                    $("#cancel").click(function () {
+
+                                        $(".edit").each(function () {
+                                            $(this).css("display", "none")
+                                            $(".c-profile-stats__row").css("min-height", "90px")
+                                        })
+                                        $(".profile").each(function () {
+                                            $(this).css("display", "block")
+                                        })
+                                    })
+                                </script>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

@@ -1,0 +1,97 @@
+﻿@model banimo.ViewModel.ArticleList
+@{
+                /**/
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
+                ViewBag.Title = "مدیریت مطالب";
+
+}
+
+@if (Model.articles != null)
+{
+<link href="~/Content/cubeportfolio.min.css" rel="stylesheet" />
+                /**/
+<div style="margin:20px;padding: 70px; background-color:white;border-radius: 8px; box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
+    <div class="clearfix">
+        <div id="js-filters-blog-posts" class="cbp-l-filters-list cbp-l-filters-left">
+            <div data-filter="*" class="cbp-filter-item-active cbp-filter-item cbp-l-filters-list-first">همه (<div class="cbp-filter-counter"></div>)</div>
+
+            @{
+
+                List<String> CatList = (from p in Model.articles
+                                        select p.catName).Distinct().ToList();
+                List<String> CatListEn = (from p in Model.articles
+                                          select p.catNameEn).Distinct().ToList();
+
+            }
+            @for (int i = 0; i < CatListEn.Count() - 1; i++)
+            {
+                var item = CatListEn[i];
+
+                string filter = "." + @item;
+                <div data-filter=@filter class="cbp-filter-item">@CatList[i] (<div class="cbp-filter-counter"></div>)</div>
+
+            }
+            <div data-filter=".@CatListEn.Last()" class="cbp-filter-item cbp-l-filters-list-last">@CatList.Last() (<div class="cbp-filter-counter"></div>)</div>
+
+
+
+        </div>
+
+        <div class="cbp-search cbp-l-filters-right">
+            <input style="border-radius:5px" id="js-search-blog-posts" type="text" placeholder="عبارت مورد نظر خود را جستجو کنید" autocomplete="off" data-search=".cbp-l-grid-blog-title" class="cbp-search-input">
+            <div class="cbp-search-icon"></div>
+            <div class="cbp-search-nothing">نتیجه ای یافت نشد <i>{{query}}</i></div>
+        </div>
+    </div>
+
+    <div id="js-grid-blog-posts" class="cbp">
+
+        @foreach (var newitem in Model.articles)
+        {
+            string classname = "cbp-item " + newitem.catNameEn + "";
+
+            string imagaddress = newitem.image == "" ? "/images/panelimages/placeholder.jpg" : "/images/panelimages/" + newitem.image;
+        <div class="@classname" style="direction:rtl; border:1px solid #ddd;border-radius: 8px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
+         
+            <a href="/Home/magDetail?currentid=@newitem.ID" target="" class="cbp-caption">
+                <div class="cbp-caption-defaultWrap">
+                    <img src="@imagaddress" style="max-height:230px; max-width:380px ; background-color:white; object-fit: scale-down;" />
+                </div>
+                <div class="cbp-caption-activeWrap">
+                    <div class="cbp-l-caption-alignCenter">
+                        <div class="cbp-l-caption-body">
+                            <div class="cbp-l-caption-text">مشاهده مطلب</div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+            <a style="padding: 0 7px" href="" target="_blank" class="cbp-l-grid-blog-title">@newitem.title</a>
+            <div style="padding:0 7px">
+                <div class="cbp-l-grid-blog-date">@newitem.date</div>
+                <div class="cbp-l-grid-blog-split">|</div>
+                <a href="#" class="cbp-l-grid-blog-comments">@newitem.view نظرات</a>
+
+            </div>
+            <br />
+            @*<div class="cbp-l-grid-blog-desc" style="max-height:35px; text-align:right">@Html.Raw(newitem.content)</div>*@
+        </div>
+
+        }
+
+
+    </div>
+
+    <!-- load jquery -->
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+
+    <!-- load cubeportfolio -->
+    <script src="~/Scripts/jquery.cubeportfolio.min.js"></script>
+
+    <!-- init cubeportfolio -->
+    <script src="~/Scripts/main.js"></script>
+
+</div>
+}
+
+

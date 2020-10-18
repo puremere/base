@@ -1,0 +1,475 @@
+﻿@model AdminPanel.ViewModel.RootObjectFilter
+
+@using System.Data.Entity
+
+
+@{
+    ViewBag.Title = "productdetail";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">ایجاد فیلتر سریع </a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">مدیریت فیلتر</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+            <div class="">
+                <div class="form-group ">
+                    <div class="row">
+                        <div class="col-lg-6" style="margin:15px 0px">
+                            <div class="col-lg-6">
+                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                    اعمال همه فیلتر های دسته  -
+                                </label>
+                            </div>
+
+
+
+                            <div class="col-lg-6">
+                                @{
+                                    List<SelectListItem> listItems = new List<SelectListItem>();
+                                    if (Model.filtersModel != null)
+                                    {
+
+                                        foreach (var item in Model.filtersModel)
+                                        {
+
+
+                                            if (item.filtersubcat != null)
+                                            {
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = item.title,
+                                                    Value = "0"
+                                                });
+                                                foreach (var subcat in item.filtersubcat)
+                                                {
+                                                    if (subcat.filtersubcat2 != null)
+                                                    {
+                                                        listItems.Add(new SelectListItem
+                                                        {
+                                                            Text = "------" + subcat.title,
+                                                            Value = "0"
+                                                        });
+                                                        foreach (var subcat2 in subcat.filtersubcat2)
+                                                        {
+                                                            listItems.Add(new SelectListItem
+                                                            {
+                                                                Text = "--------------" + subcat2.title,
+                                                                Value = "3" + subcat2.ID
+                                                            });
+                                                        }
+
+                                                    }
+                                                    else
+                                                    {
+                                                        listItems.Add(new SelectListItem
+                                                        {
+                                                            Text = "------" + subcat.title,
+                                                            Value = "2" + subcat.ID
+                                                        });
+
+                                                    }
+
+
+                                                }
+                                            }
+                                            else
+                                            {
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = item.title,
+                                                    Value = "1" + item.ID
+                                                });
+
+                                            }
+
+
+
+                                        }
+                                    }
+
+
+                                }
+                                @Html.DropDownList("maincat", listItems, "-- Select Status --", new { id = "maindrop", style = "width:100%", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6" style="margin:15px 0px">
+                            <div class="col-lg-6">
+                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                    جهت  دسته بندی  -
+                                </label>
+                            </div>
+
+                            <div class="col-lg-6">
+                                @Html.DropDownList("clonedrop", listItems, "-- Select Status --", new { id = "clonedrop", style = "width:100%; height:300px", @class = "form-control", @multiple = "" })
+                            </div>
+                        </div>
+                    </div>
+                  
+
+
+
+
+
+
+
+                    <div class="component " style="direction:rtl">
+
+                        @* <button id="DEFcatok" class="btn btn-primary " onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                        <button id="clonefilter" class="btn btn-primary ">تایید</button>
+                        <script>
+                            $("#clonefilter").click(function () {
+                                 var cloneVAL = $("#clonedrop").val().toString();
+                                 var mainval = $("#maindrop").val();
+                               
+                                if (cloneVAL != "" && mainval != "" && cloneVAL != "0" && mainval != "0") {
+                                    alert(cloneVAL);
+                                    $.ajax({
+                                        url: '/Admin/doclonefilter',
+                                        dataType: 'html',
+                                        data: {
+                                            mainval: mainval,
+                                            cloneval: cloneVAL
+                                        },
+                                        success: function (data) {
+
+                                            toastr.options = {
+                                                "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                            }
+
+                                            toastr.success('انجام شد')
+
+                                        },
+                                        error: function () {
+                                            alert("خطا")
+                                        }
+                                    });
+
+                                }
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+
+                                    toastr.error(' دسته بندی مبدا یا مقصد دارای خطا می باشد ')
+                                }
+
+                            })
+
+                        </script>
+
+
+                    </div>
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+        <div id="menu1" class="tab-pane fade" style="padding-top:20px">
+            <div class="form-group ">
+                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                    انتخاب دسته  -
+                </label>
+
+
+                @{
+                    List<SelectListItem> listOfCatsForEdit = new List<SelectListItem>();
+                    if (Model.filtersModel != null)
+                    {
+                        foreach (var item in Model.filtersModel)
+                        {
+
+
+                            if (item.filtersubcat != null)
+                            {
+
+                                listOfCatsForEdit.Add(new SelectListItem
+                                {
+                                    Text = item.title,
+                                    Value = "0"
+                                });
+                                foreach (var subcat in item.filtersubcat)
+                                {
+                                    if (subcat.filtersubcat2 != null)
+                                    {
+                                        listOfCatsForEdit.Add(new SelectListItem
+                                        {
+                                            Text = "------" + subcat.title,
+                                            Value = "0"
+                                        });
+                                        foreach (var subcat2 in subcat.filtersubcat2)
+                                        {
+                                            listOfCatsForEdit.Add(new SelectListItem
+                                            {
+                                                Text = "--------------" + subcat2.title,
+                                                Value = "3" + subcat2.ID
+                                            });
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        listOfCatsForEdit.Add(new SelectListItem
+                                        {
+                                            Text = "------" + subcat.title,
+                                            Value = "2" + subcat.ID
+                                        });
+
+                                    }
+
+
+                                }
+                            }
+                            else
+                            {
+                                listOfCatsForEdit.Add(new SelectListItem
+                                {
+                                    Text = item.title,
+                                    Value = "1" + item.ID
+                                });
+
+                            }
+
+
+
+                        }
+
+                    }
+
+                }
+
+
+
+                <div class="component ">
+                    @Html.DropDownList("selectedCatForEdit", listItems, "-- Select Status --", new { id = "selectedCatForEdit", style = "width:100%", @class = "form-control" })
+                </div>
+
+
+                @*<div class="component">
+                        @Html.DropDownList("MySkills", new SelectList(Model.filtersModel, "ID", "title"), "---", new { id = "catlist", style = "width:100%", @class = "DRPd" })
+
+                        <script>
+                            $("#catlist").change(function () {
+                                var catVALUE = "subcat" + catlist.value;
+                                $(".subcatlist").css("display", "none");
+                                $(".subcatlist2").css("display", "none");
+                                $("#" + catVALUE).css("display", "block");
+                                var item = "1" + this.value;
+                                $("#finalid").text(item);
+                                var subcat1text = $("#" + catVALUE + " option:selected").val();
+                                if (subcat1text != undefined) {
+                                    var item = "2" + subcat1text;
+                                    $("#finalid").text(item);
+
+
+                                    var sub = "subcat2" + subcat1text;
+                                    var subcat2text = $("#" + sub + " option:selected").val();
+                                    if (subcat2text != undefined) {
+
+                                        $(".subcatlist2").css("display", "none");
+                                        $("#" + sub).css("display", "block");
+
+                                        var item = "3" + subcat2text;
+                                        $("#finalid").text(item);
+
+                                    }
+                                }
+
+
+
+                            })
+                        </script>
+                    </div>
+                    <div class="component " id="subcatholder">
+                        @{
+                            foreach (var item in Model.filtersModel)
+                            {
+                                if (item.filtersubcat != null)
+                                {
+                                    string subid = "subcat" + @item.ID;
+                                    <div id=@subid style="display:none" class="subcatlist">
+                                        @Html.DropDownList("subcats", new SelectList(item.filtersubcat, "ID", "title"), new { style = "width:100%", @class = "DRPd SUB" })
+
+                                    </div>
+                                }
+
+                            }
+                        }
+                        <script>
+                            $(".SUB").change(function () {
+                                var catVALUE = "subcat2" + this.value;
+                                $(".subcatlist2").css("display", "none");
+                                $("#" + catVALUE).css("display", "block");
+                                var item = "2" + this.value;
+                                $("#finalid").text(item);
+                                var subcat1text = $("#" + catVALUE + " option:selected").val();
+                                if (subcat1text != undefined) {
+                                    var item = "3" + subcat1text;
+                                    $("#finalid").text(item);
+
+                                }
+
+                            })
+                        </script>
+
+                    </div>
+                    <div class="component " id="subcatholder2">
+                        @{
+
+                            foreach (var item in Model.filtersModel)
+                            {
+                                if (item.filtersubcat != null)
+                                {
+                                    foreach (var item2 in item.filtersubcat)
+                                    {
+                                        if (item2.filtersubcat2 != null)
+                                        {
+                                            string subid = "subcat2" + @item2.ID;
+                                            <div id=@subid style="display:none" class="subcatlist2">
+                                                @Html.DropDownList("subcats", new SelectList(item2.filtersubcat2, "ID", "title"), new { style = "width:100%", @class = "DRPd SUB2 " })
+                                            </div>
+                                        }
+
+                                    }
+                                }
+
+
+                            }
+                        }
+                        <script>
+                            $(".SUB2").change(function () {
+                                var item = "3" + this.value;
+                                $("#finalid").text(item);
+
+                            })
+                        </script>
+                    </div>
+                    <div id="finalid">
+                    </div>*@
+
+
+
+
+
+                <div class="component " style="direction:rtl">
+
+                    @* <button id="DEFcatok" class="btn btn-primary " onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                    <button id="getfilters" class="btn btn-primary ">تایید</button>
+
+
+                    <script>
+                        $("#getfilters").click(function () {
+
+                            var VALUE = $("#selectedCatForEdit").val();
+
+
+                            if (VALUE != "" && VALUE != "0") {
+
+
+                                $.ajax({
+                                    url: '/Admin/getfilters',
+                                    dataType: 'html',
+                                    data: {
+                                        catID: VALUE,
+                                    },
+                                    success: function (data) {
+
+                                        $("#mainDetailHolder").html(data)
+                                        $("#questioncolorholder").css("display", "inline")
+
+
+                                    },
+                                    error: function () {
+                                        alert("خطا")
+                                    }
+                                });
+                            }
+                            else {
+                                toastr.options = {
+                                    "debug": false,
+                                    "positionClass": "toast-top-center",
+                                    "onclick": null,
+                                    "fadeIn": 300,
+                                    "fadeOut": 1000,
+                                    "timeOut": 5000,
+                                    "extendedTimeOut": 1000
+                                }
+
+                                toastr.error(' دسترسی جهت دسته بندی مورد نظر وجود ندارد ')
+                            }
+
+                        })
+
+                    </script>
+
+
+                </div>
+
+
+
+            </div>
+
+            <div id="mainDetailHolder"></div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<script src="//code.jquery.com/jquery-3.2.1.js"></script>
+<script src="~/Scripts/bootstrap-colorpicker.js"></script>
+<script>
+    $(function () {
+        $('#colorcode').colorpicker();
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+

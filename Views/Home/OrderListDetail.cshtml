@@ -1,0 +1,174 @@
+﻿@model banimo.ViewModel.orderListDetailViewModel
+
+@{
+    ViewBag.Title = "OrderListDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p id="idholder" style="display: none">@Model.orderid</p>
+
+<div class="">
+    <div id="orderlistholder">
+             
+        
+        <div class="page-head">
+            <div class="container">
+                <h3>جزئیات سفارش</h3>
+            </div>
+        </div>
+        <!-- //banner -->
+        <!-- check out -->
+        <div class="checkout">
+            <div class="container">
+                <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s" style="margin-bottom:15px">
+                    <table class="timetable_sub">
+                        <thead>
+                            <tr class="tablehead">
+
+
+                                <th>شماره تلفن کاربر</th>
+                                <th>آدرس کاربر</th>
+
+                            </tr>
+                        </thead>
+                        <tr>
+
+
+
+                            <td class="invert">@Model.userinfo.phone</td>
+                            <td class="invert ">@Model.userinfo.address</td>
+
+
+                        </tr>
+
+
+
+
+
+                    </table>
+                </div>
+             
+                <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                    <table class="timetable_sub">
+                        <thead>
+                            <tr class="tablehead">
+                               
+                                <th>محصول</th>
+                                <th>تعداد</th>
+                                <th>نام محصول</th>
+                                
+                            </tr>
+                        </thead>
+                        @{
+
+
+
+
+                            foreach (var item in Model.listofproduct)
+                            {
+                                int i = item.ID;
+                                string classremname = "rem" + i;
+                                string classclosename = "close" + i;
+                                string classminusname = "minus" + i;
+                                string classaddname = "add" + i;
+                                string finaltotal = "total" + i;
+                                string imagesrc = item.imagethum;
+                                string quantity = item.qauntity.ToString();
+                                string price = item.PriceNow.ToString();
+                                decimal total = item.qauntity * item.PriceNow;
+                                string name = item.title;
+                                <tr class=@classremname>
+                                   
+                                    <td style="width: 50%" class="invert-image"><a href="single.html"><img src=@imagesrc alt=" " class="img-responsive" /></a></td>
+                                    <td class="invert">
+                                        <div class="quantity">
+                                            <div class="quantity-select row">
+                                                <div class="entry value"><span>@quantity</span></div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="invert">@name</td>
+                                    
+
+                                </tr>
+
+
+
+                            }
+
+                        }
+
+
+
+                        
+
+
+                    </table>
+                </div>
+                <div class="checkout-left">
+                    <div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                        @*@Html.ActionLink("تایید سفارش", "EndOrder", "Home", new { @class = "sub", style = "cursor:pointer", id = "confirm" })*@
+                        <a id="deliveryconfirmation" style="cursor:pointer" data-toggle="modal" data-target=""><span class="glyphicon glyphicon-ok " aria-hidden="true"></span> ارسال شد</a>
+                    </div>
+                    @*<div class="checkout-right-basket animated wow slideInRight" data-wow-delay=".5s">
+                        <a href="mens.html"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>Back To Shopping</a>
+                    </div>*@
+                    <div class="checkout-left-basket animated wow slideInLeft" data-wow-delay=".5s">
+                        <h4>جمع کل</h4>
+                        <ul class="breifing">
+                            <li>جمع کل <i>-</i> <span > @Model.TotalPrice</span></li>
+
+                        </ul>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#deliveryconfirmation').click(function () {
+                    var ID = $("#idholder").text();
+                    $.ajax({
+                        url: '/Home/deliverydone',
+                        dataType: 'html',
+                        data: {
+                            id: ID,
+                           
+                        },
+                        success: function (data) {
+                            var URL = "/Home/Profile"
+                            window.location.href = URL;
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000
+                            }
+
+                            toastr.success('تغییرات انجام شد') 
+
+
+
+                        },
+                        error: function () {
+
+                        }
+                    }); 
+
+                })
+
+            })
+        </script>
+     
+        
+
+
+    </div>
+   
+</div>

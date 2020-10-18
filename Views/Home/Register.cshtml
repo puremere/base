@@ -1,0 +1,1004 @@
+﻿@using BotDetect.Web.Mvc;
+@using banimo.Classes;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="direction:rtl">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/registerStyle.css" rel="stylesheet" />
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+
+
+
+    <!-- js -->
+    <script type="text/javascript" src="/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <script>
+        $(document).ready(function () {
+            function isValidPhonenumber(phonenumber) {
+                var pattern = /^09[0-9]{9}$/;
+                return pattern.test(phonenumber);
+            };
+            function isNotNull(str) {
+                var pattern = /^[A-Za-z0-9]{1,20}$/;
+                return pattern.test(str);
+            };
+            $('#registertext').on('input', function (e) {
+
+                var val = $(this).val();
+                if (val.length > 0) {
+
+                    if (!isValidPhonenumber(val)) {
+
+                        $("#registererror").css("display", "block");
+                        $("#registertext").css("color", "#ef5662");
+                        $("#registertext").css("border", "1px solid #ef5662");
+                        $("#mainlabla").addClass("error");
+
+
+                    }
+                    else {
+                        $("#registererror").css("display", "none");
+                        $("#registertext").css("color", "#777");
+                        $("#registertext").css("border", "1px solid #c8c8c8");
+                        $("#mainlabla").removeClass("error");
+                    }
+
+                }
+                else {
+
+                    $("#registererror").css("display", "none");
+                    $("#registertext").css("color", "#777");
+                    $("#registertext").css("border", "1px solid #c8c8c8");
+                    $("#mainlabla").removeClass("error");
+                }
+
+            });
+            $('#registerpassword').on('input', function (e) {
+
+                var val = $(this).val();
+
+                if ($(this).val().length === 0) {
+                    $("#registerpassword-error").css("display", "block");
+                    $("#registertext").css("color", "#ef5662");
+                    $("#registerpassword").css("border", "1px solid #ef5662");
+                    $("#mainlabla2").addClass("error");
+                }
+                else {
+                    $("#registerpassword-error").css("display", "none");
+                    $("#registertext").css("color", "#777");
+                    $("#registerpassword").css("border", "1px solid #c8c8c8");
+                    $("#mainlabla2").removeClass("error");
+                }
+
+            });
+            $("#accountAutoLogin").on('change', function (e) {
+
+                if (!$(this).is(':checked')) {
+
+                    $("#registeragreement-error").css("display", "block");
+                }
+                else {
+                    $("#registeragreement-error").css("display", "none");
+
+                }
+            });
+
+        })
+    </script>
+
+    <script src="~/Scripts/toastr.js"></script>
+    @Scripts.Render("~/Scripts/captcha.validate.js")
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+        <main id="main">
+            <div class="semi-modal-layout">
+                <section class="o-page o-page--account-box">
+                    <div class="c-account-box">
+                        <a href="/" class="c-account-box__logo">sup-ect.com</a>
+                        <div class="c-account-box__headline">ثبت‌ نام در @System.Configuration.ConfigurationManager.AppSettings["siteName"]</div>
+                        <div class="c-account-box__content">
+                            @using (Html.BeginForm("CustomerVerification", "CustomerLogin", FormMethod.Post,
+                            new { enctype = "multipart/form-data", id = "registreForm", @class = "c-form-account" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="rc" value="ZURUU1UzMVowaHFXNFFGZEdCb01pdz09"><input type="hidden" name="rd" value="a3RYVkxNOER0Q0IvaFpnQlVZMVNpdXV2bGxSSWJvRDEvbU8wN0VvdjFFakowc1NVQU9wdW9JOFF5QXhldEx0cg~~">
+                                <div class="c-message-light c-message-light--info">ثبت نام تنها با موبایل امکان پذیر است.</div>
+                                <div class="c-form-account__title">شماره موبایل</div>
+                                <div class="c-form-account__row js-valid-row">
+                                    <div class="c-form-account__col">
+                                        <label id="mainlabla" class="c-ui-input c-ui-input--account-login">
+                                            <input id="registertext" class="c-ui-input__field c-ui-input__field--right-placeholder" type="text" name="registertext" placeholder="شماره موبایل خود را وارد نمایید" value="">
+
+                                            <span id="registererror" class="hase-error c-ui-feedback-hint">  شماره موبایل را وارد نمایید</span>
+
+                                        </label>
+
+                                    </div>
+                                </div>
+                              
+
+                                <div class="c-form-account__title">کلمه عبور</div>
+                                <div class="c-form-account__row js-valid-row">
+                                    <div class="c-form-account__col">
+                                        <label id="mainlabla2" class="c-ui-input c-ui-input--account-password">
+                                            <input id="registerpassword" class="c-ui-input__field c-ui-input__field--right-placeholder" type="password" name="registerpassword" placeholder="کلمه عبور خود را وارد نمایید">
+                                            <div id="registerpassword-error" class="error c-ui-feedback-hint">رمز عبور را وارد نمایید</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="c-form-account__row js-valid-row">
+                                    <div class="c-form-account__col">
+                                        <label id="mainlabla" class="c-ui-input c-ui-input--account-login">
+                                            <input id="registertext" class="c-ui-input__field c-ui-input__field--right-placeholder" type="text" name="registerMoaref" placeholder="شماره موبایل معرف را وارد نمایید" value="">
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="c-form-account__agree js-valid-row">
+                                    <label class="c-ui-checkbox c-ui-checkbox--primary">
+                                        <input type="checkbox" value="1" name="register[agreement]" id="accountAutoLogin" checked="checked">
+                                        <span id="span" class="c-ui-checkbox__check"></span>
+                                        <div style="margin-right: 10px;" id="registeragreement-error" class="error c-ui-feedback-hint">برای ثبت نام باید با موافقت خود را با این شرایط اعلام نمایید</div>
+                                    </label>
+
+                                    <label for="accountAutoLogin">
+                                        @*<a data-snt-event="dkLoginClick" data-snt-params="{&quot;type&quot;:&quot;privacy-policy&quot;,&quot;site&quot;:&quot;registration-page&quot;}" href="/page/privacy/" class="btn-link-spoiler" title="حریم خصوصی">حریم خصوصی</a>*@
+                                        <span>حریم خصوصی و شرایط و قوانین</span>
+                                        <a data-snt-event="dkLoginClick" data-snt-params="{&quot;type&quot;:&quot;terms-condition&quot;,&quot;site&quot;:&quot;registration-page&quot;}" href="#" class="btn-link-spoiler" title="شرایط و قوانین">شرایط و قوانین</a>
+                                        استفاده از سرویس های سایت @System.Configuration.ConfigurationManager.AppSettings["siteName"] را مطالعه نموده و با کلیه موارد آن موافقم.
+                                    </label>
+                                </div>
+
+
+
+                                <div class="c-form-account__row js-valid-row">
+                                    <div class="c-form-account__col">
+
+                                        @{MvcCaptcha registrationCaptcha = CaptchaHelper.GetRegistrationCaptcha(); }
+                                        @if (!registrationCaptcha.IsSolved)
+                                        {
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    @Html.Captcha(registrationCaptcha)
+                                                </div>
+                                                <div class="col-lg-12" style="margin-top:10px">
+                                                    @Html.Label("کد را وارد نمایید", new { @class = "col-md-4 control-label",
+                                                     @for = "CaptchaCode" , style = "float:right; margin-top:15px"})
+
+                                                    <div class="col-md-6" style="float:right">
+                                                        @Html.TextBox("CaptchaCode", null, new { @class = "form-control captchaVal" })
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div>
+
+
+                                    <br />
+
+
+                                </div>
+                                <div id="verify" class="mybtn addtocart" style="">
+                                    <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
+                                        <i class="glyphicon glyphicon-plus" style="display: inline-block; color: white; "></i> <i style="font-size:25px;color:white" class="fas fa-user"></i>
+
+                                    </div>
+                                    <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">ثبت نام در @System.Configuration.ConfigurationManager.AppSettings["siteName"]</p>
+                                    <script>
+                                        $("#verify").click(function () {
+                                            function isNotNull(str) {
+                                                var pattern = /^[A-Za-z0-9]{1,20}$/;
+                                                return pattern.test(str);
+                                            };
+                                            function isValidPhonenumber(phonenumber) {
+                                                var pattern = /^09[0-9]{9}$/;
+                                                return pattern.test(phonenumber);
+                                            };
+                                            ///  alert("ssss");
+                                            var n = $("#accountAutoLogin:checked").length;
+                                            var pass = $("#registerpassword").val();
+                                            var val = $("#registertext").val();
+                                            //  alert(n);
+                                            if ($("#accountAutoLogin:checked").is(':checked')) {
+                                                $("#registeragreement-error").css("display", "none");
+                                            }
+                                            else {
+                                                $("#registeragreement-error").css("display", "block");
+                                            }
+
+                                            if (pass.length === 0) {
+
+                                                $("#registerpassword-error").css("display", "block");
+                                                $("#registertext").css("color", "#ef5662");
+                                                $("#registerpassword").css("border", "1px solid #ef5662");
+                                                $("#mainlabla2").addClass("error");
+
+                                            }
+                                            if (!isValidPhonenumber(val)) {
+
+                                                $("#registererror").css("display", "block");
+                                                $("#registertext").css("color", "#ef5662");
+                                                $("#registertext").css("border", "1px solid #ef5662");
+                                                $("#mainlabla").addClass("error");
+
+
+                                            }
+                                            if (n === 1 && pass.length > 0 && isValidPhonenumber(val)) {
+
+
+                                                $("form#registreForm").submit();
+
+                                            }
+                                            //
+                                        })
+
+                                    </script>
+                                    @*<p > افزودن به سبد خرید</p>*@
+                                </div>
+                            }
+                            @*<form class="c-form-account" method="post" id="registerForm" data-name="register" novalidate="novalidate"></form>*@
+                        </div>
+                        <div class="c-account-box__footer">
+                            <span>قبلا در @System.Configuration.ConfigurationManager.AppSettings["siteName"] ثبت‌نام کرده‌اید؟</span>
+                            <a data-snt-event="dkLoginClick" data-snt-params="{&quot;type&quot;:&quot;login&quot;,&quot;site&quot;:&quot;registration-page&quot;}" href="/Home/login" class="btn-link-spoiler">وارد شویــد</a>
+                        </div>
+                    </div>
+                </section>
+                <footer class="c-footer-light">
+                    <div class="container">
+                        <ul class="c-footer-light__links">
+                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                            <li><a href="/Home/contactus" title="تماس با ما">تماس با ما</a></li>
+                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                        </ul>
+                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت آتی روناک (فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]) می‌باشد.</p>
+                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+    @{
+        if (ViewBag.message != null)
+        {
+            <script>
+
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 8000,
+                "extendedTimeOut": 1000,
+
+
+            }
+            toastr.error('@ViewBag.message');
+            </script>
+        }
+
+    }
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<script>
+        $(document).ready(function () {
+
+
+            document.getElementById("forgetclickevent").onclick = function () {
+
+
+                $("#submitdiv").css("display", "none");
+                $("#logindiv").css("display", "none");
+                $("#forgetdiv").css("display", "block");
+
+            }
+            document.getElementById("gobacktologin").onclick = function () {
+
+
+                $("#submitdiv").css("display", "block");
+                $("#logindiv").css("display", "block");
+                $("#forgetdiv").css("display", "none");
+
+            }
+
+            function isValidEmailAddress(emailAddress) {
+                var pattern = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return pattern.test(emailAddress);
+            };
+            function isValidPhonenumber(phonenumber) {
+                var pattern = /^09[0-9]{9}$/;
+                return pattern.test(phonenumber);
+            };
+            function isNotNull(str) {
+                if (str != "") {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+
+            };
+
+
+
+
+            document.getElementById("lgnsubmitt").onclick = function () {
+
+
+                var Email = $("#login-email").val();
+                var Phone = $("#login-email").val();
+                var kaptchaRP = $("#mychptcha").text();
+                if (kaptchaRP == "") {
+                    if (isValidEmailAddress(Email)) {
+                        Phone = "";
+                    }
+                    if (isValidPhonenumber(Phone)) {
+                        Email = "";
+                    }
+                    // var Phone = $("#signin-phone").val();
+                    var Pass = $("#login-password").val();
+                    var ischecked;
+                    if ($("#rememberme").is(":checked")) {
+                        ischecked = "checked";
+                    }
+                    else {
+                        ischecked = "unchecked";
+                    }
+
+
+
+                    if ((isValidEmailAddress(Email) | isValidPhonenumber(Phone)) & isNotNull(Pass)) {
+
+                        $('#lbllogin').text("درحال پردازش ...");
+                        $.ajax({
+                            url: '/CustomerLogin/CustomerLogin',
+                            dataType: 'html',
+                            data: {
+                                email: Email,
+                                pass: Pass,
+                                ischecked: ischecked,
+                                phone: Phone,
+                                kRP: kaptchaRP
+                            },
+                            success: function (data) {
+
+                                var srt = data.substring(0, 1);
+                                var URL = data.substring(1, data.length);
+
+                                if (srt === "2") {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 8000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.error("نام کاربری یا رمز عبور اشتباه است")
+
+                                }
+
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 8000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.success("با موفیت وارد شدید")
+                                    // $('#lbllogin').text("با موفیت وارد شدید");
+
+                                    window.location.href = URL;
+                                }
+
+
+                            },
+                            error: function () {
+                                $('#lbllogin').text("خطا در سرور");
+                            }
+                        });
+                    }
+                    else {
+                        if (!isNotNull(Pass) & !(isValidEmailAddress(Email) || isValidPhonenumber(Phone))) {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 8000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error("رمز عبور را وارد نمایید")
+                            toastr.error("ایمیل یا شماره موبایل صحیح وارد نمایید")
+
+
+                        }
+
+
+                        else if (!isNotNull(Pass)) {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 8000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error("رمز عبور را وارد نمایید")
+
+                        }
+                        else if (!(isValidEmailAddress(Email) || isValidPhonenumber(Phone))) {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 8000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error("ایمیل  یا شماره موبایل صحیح وارد نمایید")
+
+                        }
+
+
+                    }
+                }
+                else {
+                    $('#lbllogin').text("هویت خود را تایید کنید");
+                }
+
+
+            }
+            document.getElementById("subscribesubmit").onclick = function () {
+
+
+
+                $('#lblsubscribeSubmit').text("");
+                var rpass = $("#Rsignup-password").val();
+                var Email = $("#signup-email").val();
+                var Phone = $("#signup-email").val();
+
+                if (isValidEmailAddress(Email)) {
+                    Phone = "";
+                }
+                if (isValidPhonenumber(Phone)) {
+                    Email = "";
+                }
+                var Pass = $("#signup-password").val();
+
+                if (Pass === rpass) {
+                    if ((isValidEmailAddress(Email) | isValidPhonenumber(Phone)) & isNotNull(Pass)) {
+                        //$("#subscribesubmit").css("display", "none");
+                        $.ajax({
+                            url: '/CustomerLogin/CustomerVerification',
+                            dataType: 'html',
+                            data: {
+                                email: Email,
+                                phone: Phone
+                            },
+                            success: function (srt) {
+                                if (srt === "6") {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 8000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.error('شماره تلفن یاایمیل شما قبلاً وارد شده ')
+                                }
+
+                                else if (srt === "4") {
+                                    $("#VCODE").css("display", "block");
+                                    $("#finalsubmit").css("display", "block");
+                                    $("#subscribesubmit2").css("display", "block");
+                                    $("#subscribesubmit").css("display", "none");
+
+                                    if (isValidPhonenumber(Phone)) {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 8000,
+                                            "extendedTimeOut": 1000,
+
+
+                                        }
+                                        toastr.success('کد فعال سازی به شماره شما ارسال و درصورت عدم موفقیت  با همان  شماره تماس حاصل میشود ')
+                                    }
+
+
+                                }
+                                else if (srt === "5") {
+                                    $("#VCODE").css("display", "block");
+                                    $("#finalsubmit").css("display", "block");
+                                    $("#subscribesubmit").css("display", "none");
+
+                                    if (isValidEmailAddress(Email)) {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 8000,
+                                            "extendedTimeOut": 1000,
+
+
+                                        }
+                                        toastr.success('کد فعال سازی به ایمیل شما ارسال شد  ')
+                                    }
+
+
+                                }
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 8000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.success(srt)
+                                }
+
+
+
+
+
+                            },
+                            error: function () {
+                                $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                            }
+                        });
+
+
+                    }
+                    else {
+
+
+                        if (!(isValidEmailAddress(Email) || isValidPhonenumber(Phone)) & isNotNull(Pass)) {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error('ایمیل یا شماره موبایل صحیح وارد نمایید')
+                        }
+                        else if ((isValidEmailAddress(Email) || isValidPhonenumber(Phone)) & !isNotNull(Pass)) {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error('رمز عبور را وارد نمایید')
+                        }
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error('ایمیل یا شماره موبایل صحیح وارد نمایید')
+                            toastr.error('رمز عبور را وارد نمایید')
+                        }
+
+
+                    }
+                }
+                else {
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000,
+
+
+                    }
+                    toastr.error('تکرار رمز عبور مطابقت ندارد')
+
+                }
+
+
+
+
+                // if (isValidEmailAddress(Email) & isNotNull(Pass) & isValidPhonenumber(Phone)) {
+
+
+            }
+            document.getElementById("subscribesubmit2").onclick = function () {
+
+
+
+                $('#lblsubscribeSubmit').text("");
+                var rpass = $("#Rsignup-password").val();
+                var Email = $("#signup-email").val();
+                var Phone = $("#signup-email").val();
+
+                if (isValidEmailAddress(Email)) {
+                    Phone = "";
+                }
+                if (isValidPhonenumber(Phone)) {
+                    Email = "";
+                }
+                var Pass = $("#signup-password").val();
+
+                if (Pass === rpass) {
+                    if ((isValidEmailAddress(Email) | isValidPhonenumber(Phone)) & isNotNull(Pass)) {
+                        //$("#subscribesubmit").css("display", "none");
+                        $.ajax({
+                            url: '/CustomerLogin/CustomerVerification',
+                            dataType: 'html',
+                            data: {
+                                email: Email,
+                                phone: Phone
+                            },
+                            success: function (srt) {
+                                if (srt === "6") {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 8000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.error('شماره تلفن یاایمیل شما قبلاً وارد شده ')
+                                }
+
+                                else if (srt === "4") {
+                                    $("#VCODE").css("display", "block");
+                                    $("#finalsubmit").css("display", "block");
+                                    $("#subscribesubmit").css("display", "none");
+
+                                    if (isValidPhonenumber(Phone)) {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 8000,
+                                            "extendedTimeOut": 1000,
+
+
+                                        }
+                                        toastr.success('کد فعال سازی به شماره شما ارسال و درصورت عدم موفقیت  با همان  شماره تماس حاصل میشود ')
+                                    }
+
+
+                                }
+                                else if (srt === "5") {
+                                    $("#VCODE").css("display", "block");
+                                    $("#finalsubmit").css("display", "block");
+                                    $("#subscribesubmit").css("display", "none");
+
+                                    if (isValidEmailAddress(Email)) {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 8000,
+                                            "extendedTimeOut": 1000,
+
+
+                                        }
+                                        toastr.success('کد فعال سازی به ایمیل شما ارسال شد  ')
+                                    }
+
+
+                                }
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 8000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.success(srt)
+                                }
+
+
+
+
+
+                            },
+                            error: function () {
+                                $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                            }
+                        });
+
+
+                    }
+                    else {
+
+
+                        if (!(isValidEmailAddress(Email) || isValidPhonenumber(Phone)) & isNotNull(Pass)) {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error('ایمیل یا شماره موبایل صحیح وارد نمایید')
+                        }
+                        else if ((isValidEmailAddress(Email) || isValidPhonenumber(Phone)) & !isNotNull(Pass)) {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error('رمز عبور را وارد نمایید')
+                        }
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error('ایمیل یا شماره موبایل صحیح وارد نمایید')
+                            toastr.error('رمز عبور را وارد نمایید')
+                        }
+
+
+                    }
+                }
+                else {
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000,
+
+
+                    }
+                    toastr.error('تکرار رمز عبور مطابقت ندارد')
+
+                }
+
+
+
+
+                // if (isValidEmailAddress(Email) & isNotNull(Pass) & isValidPhonenumber(Phone)) {
+
+
+            }
+            document.getElementById("finalsubmit").onclick = function () {
+
+                $('#lblsubscribeSubmit').text("");
+                var rpass = $("#Rsignup-password").val();
+                var Email = $("#signup-email").val();
+                var Phone = $("#signup-email").val();
+                var Val = $("#Veficationcode").val();
+
+                if (isValidEmailAddress(Email)) {
+                    Phone = "";
+                }
+                if (isValidPhonenumber(Phone)) {
+                    Email = "";
+                }
+                var Pass = $("#signup-password").val();
+
+                $('#lblsubscribeSubmit').text("درحال پردازش ...");
+                $.ajax({
+                    url: '/CustomerLogin/CustomerRegister',
+                    dataType: 'html',
+                    data: {
+                        email: Email,
+                        pass: Pass,
+                        phone: Phone,
+                        val: Val
+                    },
+                    success: function (data) {
+
+                        var srt = data.substring(0, data.indexOf("*"));;
+                        var URL = data.substring(data.indexOf("*") + 1)
+
+                        if (srt === "3") {
+                            $('#lblsubscribeSubmit').text("ایمیل وارد شده موجود است، لطفاً از ایمیل دیگری استفاده کنید");
+                        }
+
+                        else if (srt === "2") {
+                            $('#lblsubscribeSubmit').text("ایمیل یا شماره تلفن وارد شده موجود است، لطفاً از ایمیل دیگری استفاده کنید");
+                        }
+                        else if (srt === "5") {
+                            $('#lblsubscribeSubmit').text("کد تایید صحیح نیست!");
+                        }
+                        else {
+
+                            $('#lblsubscribeSubmit').text("ثبت با موفقیت انجام شد");
+                            window.location.href = URL;
+                        }
+
+
+
+
+                    },
+                    error: function () {
+                        $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                    }
+                });
+
+
+
+
+                // if (isValidEmailAddress(Email) & isNotNull(Pass) & isValidPhonenumber(Phone)) {
+
+
+            }
+
+            document.getElementById("forgetpassword").onclick = function () {
+
+
+                var Email = $("#emailforget").val();
+
+
+
+                if (isValidEmailAddress(Email)) {
+
+                    $('#lblforgeteSubmit').text("درحال پردازش ...");
+                    $.ajax({
+                        url: '/CustomerLogin/ForgetPass',
+                        dataType: 'html',
+                        data: {
+                            email: Email
+
+
+                        },
+                        success: function (data) {
+
+                            if (data === "1") {
+                                $('#lblforgeteSubmit').text(" لینک بازنشانی نام ورود به ایمیل شما ارسال شد. ");
+                            }
+
+                            else if (data === "2") {
+                                $('#lblforgeteSubmit').text("خطای سیستم");
+                            }
+                            else if (data === "3") {
+                                $('#lblforgeteSubmit').text("ایمیل وارد شده وجود ندارد");
+                            }
+                            else {
+                                $('#lblforgeteSubmit').text(data)
+                            }
+
+
+                        },
+                        error: function () {
+                            $('#lblforgeteSubmit').text("خطا در سرور");
+                        }
+                    });
+                }
+                else {
+
+                    $('#lblforgeteSubmit').text('ایمیل صحیح وارد نمایید')
+
+
+
+
+                }
+
+            }
+
+        })
+    </script>*@

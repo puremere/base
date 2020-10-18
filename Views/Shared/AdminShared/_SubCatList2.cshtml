@@ -1,0 +1,222 @@
+﻿@model AdminPanel.ViewModel.CatPageViewModel
+
+@{
+    if (Model.levelfinder == "def") {
+        if (Model.Cats.Count() > 0)
+        {
+             <label class="control-label component ">
+        منو 3 :
+    </label>
+    <div class="component">
+    @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslistlevel3", style = "width:100%; min-width:185px"  })
+</div>
+    <script>
+        $("#subcatslistlevel3").change(function () {
+            var selectedValue = subcatslistlevel3.value;
+            var sentitem = "3" + subcatslistlevel3.value;
+         
+
+            $.ajax({
+                url: '/Admin/getsubcatlistlevel3',
+                dataType: 'html',
+                data: {
+                    subcatid: selectedValue,
+                    levelfinder: "def"
+
+                },
+                success: function (data) {
+
+                    $.ajax({
+                        url: '/Admin/bringFilterForProductSet',
+                        dataType: 'html',
+                        data: {
+                            catid: sentitem
+                        },
+                        success: function (data) {
+
+                            $('#filterholderforproduct').html(data);
+
+                        },
+                        error: function () {
+                            alert("nashod")
+                        }
+                    });
+
+                },
+                error: function () {
+
+                }
+            });
+        })
+       
+
+    </script>
+        }
+        
+    }
+    else if(Model.levelfinder == "chg") 
+    {
+       
+             <label class="control-label component ">
+                    منو 3 :
+                </label>
+                <div class="component">
+                    @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslist2forchange", style = "width:100%; min-width:135px", onchange = "setglobalsubcatid(subcatslist2)" })
+                </div>
+                <script>
+
+                    $("#subcatslistforchangelevel2").change(function () {
+                        var selectedValue = this.value;
+
+                        $.ajax({
+                            url: '/Admin/getsubcatlistlevel3',
+                            dataType: 'html',
+                            data: {
+                                subcatid: selectedValue,
+                                levelfinder: "chg"
+                            },
+                            success: function (data) {
+
+
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+
+                        
+                    })
+    
+
+
+                </script>
+    
+                @*<div id="subcat2holderforedit" class="component">
+   
+                </div>*@
+        
+    }
+    else if (Model.levelfinder == "del") { 
+        
+
+                <label class="control-label component ">
+                    منو 3 :
+                </label>
+                <div class="component">
+                    @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslist2fordel", style = "width:100%; min-width:135px", onchange = "setglobalsubcatid(subcatslist2)" })
+                </div>
+                <script>
+
+                    $("#subcatslistfordeletelevel2").change(function () {
+                        var selectedValue = this.value;
+
+                        $.ajax({
+                            url: '/Admin/getsubcatlistlevel3',
+                            dataType: 'html',
+                            data: {
+                                subcatid: selectedValue,
+                                levelfinder:"del"
+                            },
+                            success: function (data) {
+
+
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+
+                        //$.ajax({
+                        //    url: '/Admin/getsubcatlist2',
+                        //    dataType: 'html',
+                        //    data: {
+                        //        subcatid: selectedValue,
+                        //        levelfinder : "del",
+                        //    },
+                        //    success: function (data) {
+
+                        //        $('#subcat2holderforedelete').html(data);
+
+
+                        //    },
+                        //    error: function () {
+                        //        alert("nashod")
+                        //    }
+                        //});
+                    })
+    
+
+
+                </script>
+            <div id="subcat2holderforedelete" class="component">
+
+            </div>
+    }
+     else if (Model.levelfinder == "list") { 
+        
+
+                <label class="control-label component ">
+                    منو 3 :
+                </label>
+                <div class="component">
+                    @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslist2fordel", style = "width:100%; min-width:135px", onchange = "setglobalsubcatid(subcatslist2)" })
+                </div>
+                <script>
+
+                    $("#subcatslistfordeletelevel2").change(function () {
+                        var selectedValue = this.value;
+
+                        $.ajax({
+                            url: '/Admin/getsubcatlistlevel3',
+                            dataType: 'html',
+                            data: {
+                                subcatid: selectedValue,
+                                levelfinder: "list"
+                            },
+                            success: function (data) {
+
+
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+
+                        //$.ajax({
+                        //    url: '/Admin/getsubcatlist2',
+                        //    dataType: 'html',
+                        //    data: {
+                        //        subcatid: selectedValue,
+                        //        levelfinder : "del",
+                        //    },
+                        //    success: function (data) {
+
+                        //        $('#subcat2holderforedelete').html(data);
+
+
+                        //    },
+                        //    error: function () {
+                        //        alert("nashod")
+                        //    }
+                        //});
+                    })
+    
+
+
+                </script>
+            <div id="subcat2holderforedelete" class="component">
+
+            </div>
+    }
+}
+
+
+   
+
+
+    
+
+

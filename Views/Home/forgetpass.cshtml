@@ -1,0 +1,195 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="direction:rtl">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+
+
+    <link href="~/Content/forgetPassStyle.css" rel="stylesheet" />
+    <!-- js -->
+    <script type="text/javascript" src="/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <script>
+        $(document).ready(function () {
+            function isValidPhonenumber(phonenumber) {
+                var pattern = /^09[0-9]{9}$/;
+                return pattern.test(phonenumber);
+            };
+            function isNotNull(str) {
+                var pattern = /^[A-Za-z0-9]{1,20}$/;
+                return pattern.test(str);
+            };
+            $('#forgettext').on('input', function (e) {
+
+                var val = $(this).val();
+                if (val.length > 0) {
+
+                    if (!isNotNull(val) || !isValidPhonenumber(val)) {
+
+                        $("#remember-error").css("display", "block");
+                        $("#forgettext").css("color", "#ef5662");
+                        $("#forgettext").css("border", "1px solid #ef5662");
+                        $("#mainlabla2").addClass("error");
+
+                    }
+                    else {
+                        $("#remember-error").css("display", "none");
+                        $("#forgettext").css("color", "#777");
+                        $("#forgettext").css("border", "1px solid #c8c8c8");
+                        $("#mainlabla2").removeClass("error");
+                    }
+                }
+                else {
+
+
+                    $("#remember-error").css("display", "block");
+                    $("#forgettext").css("color", "#ef5662");
+                    $("#forgettext").css("border", "1px solid #ef5662");
+                    $("#mainlabla2").addClass("error");
+                }
+
+            });
+           
+
+        })
+    </script>
+
+    <script src="~/Scripts/toastr.js"></script>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+        <main id="main">
+            <div class="semi-modal-layout">
+                <section class="o-page o-page--account-box">
+                    <div class="c-account-box">
+                        <a href="/" class="c-account-box__logo">sup-ect.ir</a>
+                        <div class="c-account-box__headline">نغییر کلمه عبور</div>
+                        <div class="c-account-box__content">
+                            <form class="c-form-account" data-name="remember" method="post" id="rememberForm" novalidate="novalidate">
+                                <input type="hidden" name="rc" value="UC93TE55a281dk5QYnZBMjRRcjZHdz09"><input type="hidden" name="rd" value="cHdSdHlsMkFjckE4UG44NFFDZEtpcWdKMzRqVVRSM1k4L1FldlVBVEQ0UjFNbFF2TUFnamdOYlR2aHJ3UFU5TA~~">
+                                <div class="c-form-account__title"> شماره موبایل</div>
+                                <div class="c-form-account__row">
+                                    <div class="c-form-account__col">
+                                        <label id="mainlabla2" class="c-ui-input c-ui-input--account-login">
+                                            <input id="forgettext" class="c-ui-input__field" type="text" name="remember[email_phone]" placeholder=" شماره موبایل خود را وارد نمایید">
+                                            <div id="remember-error" class="error c-ui-feedback-hint"> شماره موبایل را وارد نمایید</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div id="fogetconfirm" class="mybtn addtocart" style="">
+                                    <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
+                                         <i style="font-size:25px;color:white;margin-right:20px" class="fas fa-lock"></i>
+
+                                    </div>
+                                    <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">تغییر رمز عبور</p>
+                                    <script>
+                                        $("#fogetconfirm").click(function () {
+                                            function isNotNull(str) {
+                                                var pattern = /^[A-Za-z0-9]{1,20}$/;
+                                                return pattern.test(str);
+                                            };
+                                            function isValidPhonenumber(phonenumber) {
+                                                var pattern = /^09[0-9]{9}$/;
+                                                return pattern.test(phonenumber);
+                                            };
+
+
+
+                                            var val = $("#forgettext").val();
+
+
+                                            if (!isNotNull(val) || !isValidPhonenumber(val)) {
+
+                                                $("#remember-error").css("display", "block");
+                                                $("#forgettext").css("color", "#ef5662");
+                                                $("#forgettext").css("border", "1px solid #ef5662");
+                                                $("#mainlabla2").addClass("error");
+
+                                            }
+                                            else {
+                                                $.ajax({
+                                                    url: '/CustomerLogin/forgetPass',
+                                                    dataType: 'html',
+                                                    data: {
+                                                       
+                                                        phone: val
+                                                    },
+                                                    success: function (srt) {
+
+                                                        if (srt === "300") {
+                                                            $("#remember-error").css("display", "block");
+                                                            $("#remember-error").text("شماره موبایل وارد شده در @System.Configuration.ConfigurationManager.AppSettings["siteName"] ثبت نشده است");
+                                                            $("#remember-error").css("display", "block");
+                                                            $("#forgettext").css("color", "#ef5662");
+                                                            $("#forgettext").css("border", "1px solid #ef5662");
+                                                            $("#mainlabla2").addClass("error");
+                                                        }
+                                                        
+
+                                                        if (srt === "200") {
+
+                                                            var url = '@Url.Action("confirm", "Home", new { id = "__val__"})';
+                                                            var url2 = url.replace("__val__", val);
+                                                            window.location.href = url2;
+
+
+
+                                                        }
+
+
+
+
+
+
+
+
+                                                    },
+                                                    error: function () {
+                                                        $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                                                    }
+                                                });
+                                            }
+
+                                        })
+                                    </script>
+
+                                    @*<p > افزودن به سبد خرید</p>*@
+                                </div>
+                               
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                <footer class="c-footer-light">
+                    <div class="container">
+                        <ul class="c-footer-light__links">
+                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                            <li><a href="/Home/contactus" title="تماس با ما">تماس با ما</a></li>
+                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                        </ul>
+                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت آتی روناک (فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]) می‌باشد.</p>
+                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

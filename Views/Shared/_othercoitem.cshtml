@@ -1,0 +1,33 @@
+﻿@model IEnumerable<banimo.ViewModel.Datum> 
+
+
+  @{
+      if (Model.Count() > 0)
+      {
+          string srt = "";
+            foreach (var item in Model)
+            {
+               
+
+                <a  style="cursor:pointer; width:200px" class="gotodetail" id=@item.ID><img src="@Url.Action("DetailImage", "Home", new { filename = item.imagelist.First().title })"  style="width:280px"></a>
+
+            }
+      }
+      else
+      {
+          <p style="padding:10px; margin-right:15px;">موردی وجود ندارد</p>
+      }
+    
+}
+<script>
+        $(document).ready(function () {
+            $('.gotodetail').click(function () {
+                var ID = this.id;
+                ID.replace("co","")
+                var url = "/Home/ProductDetail?id=o" + ID;
+                window.location.href = url;
+            })
+        })
+
+
+    </script>

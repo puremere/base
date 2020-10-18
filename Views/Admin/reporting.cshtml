@@ -1,0 +1,24 @@
+﻿@using Stimulsoft.Report.Mvc;
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "reporting";
+}
+
+@Html.Stimulsoft().StiMvcViewer(new StiMvcViewerOptions()
+{
+    Actions =
+    {
+        GetReport = "GetReport",
+     //   ViewerEvent= "DesignerEvent",
+        DesignReport = "DesignerEvent",
+       // ExportReport = "SaveReport",
+    }
+})
+
+
+<h2>Using the Viewer and Designer in One Project</h2>
+
+<br />
+@Html.ActionLink("Design Report", "Designer")
+<br /><br />
+@Html.ActionLink("View Report", "Viewer")

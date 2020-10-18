@@ -1,0 +1,238 @@
+﻿@{
+    ViewBag.Title = "پروفایل";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<style>
+    .accordion {
+        background-color: #007d80;
+        color: #fff;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+            /*background-color: #007d80;*/
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+    }
+</style>
+
+
+<div style="display:block" id="namehodlerrr">@ViewBag.name</div>
+
+@{
+
+
+   
+
+
+
+                <div style="margin:30px 0px 30px 0px"></div>
+                <div style="width:70%; margin:auto">
+
+                    <button class="accordion" style="text-align:right; font-size:22px; margin-top:15px">اطلاعات شما<span style="float:left" class="glyphicon glyphicon-circle-arrow-down "></span></button>
+
+                    <div class="panel" id="userdatapanel">
+
+                    </div>
+
+                    <button class="accordion" style="text-align: right; font-size: 22px; margin-top: 15px">افزودن محصول<span style="float:left" class="glyphicon glyphicon-circle-arrow-down "></span></button>
+
+                    <div class="panel" id="setnewproduct">
+
+                    </div>
+
+                    <button class="accordion" style="text-align: right; font-size: 22px; margin-top: 15px">ویرایش محصول<span style="float:left" class="glyphicon glyphicon-circle-arrow-down "></span></button>
+                    <div class="panel" id="panelforedit">
+                        <div class=" row" style="direction:rtl; margin-top:35px">
+                            <h4  style="display: inline-block; float:right; margin:20px">نام محصول:</h4>
+                            <input type="text" id="somevalue" name="somevalue" class="input" style="margin-top:10px" />
+                            <div id="getPD" class=" sub" style="width: 100px; text-align: center; display: inline-block;float:left; margin-right: 40px">تایید</div>
+                        </div>
+                        <div id="imageproductsummery" ></div>
+
+
+                    </div>
+
+                    <button class="accordion" style="text-align: right; font-size: 22px; margin-top: 15px">لیست سفارش ها<span style="float:left" class="glyphicon glyphicon-circle-arrow-down "></span></button>
+
+                    <div class="panel" id="OrdersList">
+
+                    </div>
+
+                </div>
+
+                <div style="margin:30px 0px 30px 0px"></div>
+
+              
+
+
+
+    
+    
+    
+    
+
+}
+
+<script>
+    //$(".panel").css("display","block")
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.display === "block") {
+                panel.style.display = "none";
+            } else {
+                panel.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+       
+        
+        var panel = this.nextElementSibling;
+        $.ajax({
+            url: '/Home/OrdersList',
+            dataType: 'html',
+            success: function (data) {
+
+                $('#OrdersList').html(data);
+
+            },
+            error: function () {
+                alert("nashod")
+            }
+        });
+
+        $.ajax({
+            url: '/Home/userdatapanel',
+            dataType: 'html',
+            success: function (data) {
+
+                $('#userdatapanel').html(data);
+
+            },
+            error: function () {
+                alert("nashod")
+            }
+        });
+        $.ajax({
+            url: '/Home/setnewproduct',
+            dataType: 'html',
+            success: function (data) {
+
+                $('#setnewproduct').html(data);
+
+            },
+            error: function () {
+                alert("nashod")
+            }
+        });
+       
+        $('#somevalue').autocomplete({
+            
+            source: '@Url.Action("Autocomplete")'
+          
+            //source: availableTags
+
+        });
+        
+        $('#getPD').click(function () {
+            var val = $('#somevalue').val();
+            $.ajax({
+                url: '/Home/getproductdetail',
+                dataType: 'html',
+                data: {
+                    name: val
+
+                },
+                success: function (data) {
+
+                    $('#imageproductsummery').html(data);
+
+                },
+                error: function () {
+                    alert("nashod")
+                }
+            });
+           
+
+
+
+
+        });
+
+    })
+
+</script>
+
+
+<script>
+    if ($("#namehodlerrr").text() != "") {
+        $("#panelforedit").css("display", "block")
+        var val = $("#namehodlerrr").text();
+        alert(val)
+        $.ajax({
+            url: '/Home/getproductdetail',
+            dataType: 'html',
+            data: {
+                name: val
+
+            },
+            success: function (data) {
+
+                $('#imageproductsummery').html(data);
+
+            },
+            error: function () {
+                
+            }
+        });
+
+    }
+</script>
+
+ @if (ViewBag.message == "محصول مورد نظر اضافه شد")
+    {
+<script>
+    toastr.options = {
+        "debug": false,
+        "positionClass": "toast-top-center",
+        "onclick": null,
+        "fadeIn": 300,
+        "fadeOut": 1000,
+        "timeOut": 5000,
+        "extendedTimeOut": 1000
+    }
+    toastr.success("محصول مورد نظر اضافه شد");
+    document.getElementById("setnewproduct").css("display", "block");
+</script>
+
+
+    }

@@ -1,0 +1,94 @@
+﻿@model AdminPanel.ViewModel.FeaturDataList
+<div class="row">
+    @{
+        if (Model.featurDataDetail != null && Model.featurDataDetail.Count() > 0)
+        {
+            foreach (var myitem in Model.featurDataDetail)
+            {
+                if (myitem.value == "Master")
+                {
+                    <div class="row" style="box-shadow:none; font-size:18px; padding:10px ">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
+                            @myitem.title :
+                        </label>
+                        <input value="@myitem.value" class="control-label col-md-8 col-sm-8 col-xs-12 featureInputServer" id="@myitem.title" type="text" style="display:none" />
+                    </div>
+                }
+                else
+                {
+                    <div class="row" style="padding:10px">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: right">
+                            @myitem.title :
+                        </label>
+                        <div class=" col-md-8 col-sm-8 col-xs-12 ">
+                            <input value="@myitem.value" class="form-control featureInputServer" id="@myitem.title" type="text" />
+
+                        </div>
+
+
+                        @*<script>
+                                $(document).ready(function () {
+                                    var ID = "@myitem.ID";
+                                    var filterdetaillist = "DEFfilterdetaillist" + ID;
+                                    var filterVALUE = $("#" + filterdetaillist + " option:selected").val();
+                                    //$("#allfilterid").append(ID + "-" + filterVALUE + ",");
+                                    $('.featureInputServer').on('change', function () {
+                                        //alert($(this).val());
+                                        $("#allfilterid").append(ID + "-" + $(this).val() + ";");
+
+                                    });
+
+
+                                })
+                            </script>*@
+                    </div>
+                }
+
+
+
+            }
+            <p id="featuretobeServer" style="display:none"></p>
+            <div class="form-group ">
+                <a id="featureConfirm" class="btn btn-primary">تایید</a>
+                <script>
+                    $(document).ready(function () {
+                        var filter = "";
+                        $("#featuretobeServer").text("");
+                        $("#allfeaturetextServer").text("");
+                        $("input.featureInputServer").each(function () {
+                            var id = $(this).attr('id');
+                           
+                            var text = $(this).val();
+                            $("#allfeaturetextServer").append(id + ":" + text + ";");
+
+                        })
+
+                        $("#featureConfirm").click(function () {
+                            $("#featuretobeServer").text("");
+                            $("#allfeaturetextServer").text("");
+                            $("input.featureInputServer").each(function () {
+                                var id = $(this).attr('id');
+                                var text = $(this).val();
+                                $("#allfeaturetextServer").append(id + ":" + text + ";");
+
+                            })
+
+
+
+                            $('#featureModal').modal('toggle');
+
+                        })
+
+
+
+                    })
+                </script>
+
+            </div>
+        }
+        else
+        {
+            <p> فیچر</p>
+        }
+    }
+</div>

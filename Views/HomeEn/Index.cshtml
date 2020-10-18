@@ -1,0 +1,896 @@
+﻿@model banimo.ViewModePost.getMaindataViewModel
+
+
+@{
+    ViewBag.Title = " banimoshop.com - ارائه با کیفیت ترین روسری  و شال ";
+    Layout = "~/Views/Shared/_LayoutEn.cshtml";
+  
+}
+
+
+@{
+  
+    
+    
+    
+    
+    
+    if (@Model != null)
+    {
+        <div class="banner-grid">
+            <div id="visual">
+                <div class="slide-visual">
+                    <!-- Slide Image Area (1000 x 424) -->
+                    <ul class="slide-group">
+                        @foreach (var item in Model.slides)
+                        {
+                            <li><img src="@Url.Action("slider", "Home", new { filename = item.image })" class="img-responsive"></li>
+                        }
+
+                        @*<li><img class="img-responsive" src="~/images/ba2.jpg" alt="Dummy Image" /></li>
+                            <li><img class="img-responsive" src="~/images/ba3.jpg" alt="Dummy Image" /></li>*@
+                    </ul>
+
+                    <!-- Slide Description Image Area (316 x 328) -->
+
+                    <div class="script-wrap">
+                        @*<ul class="script-group">
+                                <li><div class="inner-script"><img class="img-responsive" src="~/images/baa1.jpg" alt="Dummy Image" /></div></li>
+                                <li><div class="inner-script"><img class="img-responsive" src="~/images/baa2.jpg" alt="Dummy Image" /></div></li>
+                                <li><div class="inner-script"><img class="img-responsive" src="~/images/baa3.jpg" alt="Dummy Image" /></div></li>
+                            </ul>*@
+                        <div class="slide-controller">
+                            <a href="#" class="btn-prev"><img src="~/images/btn_prev.png" alt="Prev Slide" /></a>
+                            <a href="#" class="btn-play"><img src="~/images/btn_play.png" alt="Start Slide" /></a>
+                            <a href="#" class="btn-pause"><img src="~/images/btn_pause.png" alt="Pause Slide" /></a>
+                            <a href="#" class="btn-next"><img src="~/images/btn_next.png" alt="Next Slide" /></a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <script type="text/javascript" src="~/Scripts/pignose.layerslider.js"></script>
+            <script type="text/javascript">
+                //<![CDATA[
+                $(window).load(function () {
+                    $('#visual').pignoseLayerSlider({
+                        play: '.btn-play',
+                        pause: '.btn-pause',
+                        next: '.btn-next',
+                        prev: '.btn-prev'
+                    });
+                });
+                //]]>
+            </script>
+
+        </div>
+    }
+    <!-- banner -->
+
+    <!-- //banner -->
+    <!-- content -->
+}
+
+    
+<!-- //content-bottom -->
+<!-- product-nav -->
+
+
+
+
+
+
+<!-- //product-nav -->
+<style>
+    .onvanholder {
+        float: right;
+        display: inline-block;
+        width: 20%;
+        text-align: center;
+        border-bottom: 1px red solid;
+        padding-bottom: 6px;
+        padding-right: 5px;
+        font-weight: bold;
+    }
+
+    .khat {
+        display: inline-block;
+        border-bottom: 1px #ddd solid;
+        width: 75%;
+        height: 0px;
+        margin-top: 30px;
+    }
+</style>
+<div style="background-color: #f6f5f5; padding: 2% 0px">
+    <div class="" style="width:98%; margin-left:auto; margin-right:auto;background-color:#fff;padding:10px; border-radius:8px">
+        <div class="row" style="margin:10px">
+            <div class="onvanholder">
+                <div style=" text-align:right"> @Html.ActionLink("پرفروش ترین ها", "gogetproductlist", new { sortID = 2 }, new { style = " color: #808080;" }) </div>
+            </div>
+            <div class="khat"></div>
+
+        </div>
+
+        <div id="bestholder" class="resCarousel" data-items="2-4-4-4" data-slide="1" data-speed="500">
+
+
+            <div class="resCarousel-inner">
+                @{
+    if (Model.bestseller != null)
+    {
+        foreach (var item in Model.bestseller)
+        {
+
+            string imagefile = "placeholder.jpg";
+            if (item.title != null)
+            {
+                imagefile = item.image;
+            }
+            string ID = "N" + item.ID.ToString();
+            string addtocartid = "addtocart" + ID;
+            string price = item.price;
+
+
+
+            <div class="item showmedetail" id=@ID style="cursor:pointer">
+
+
+                <div>
+                    <div style="padding:15px">
+                        <div>
+                            <img src="@Url.Action("Thumbnail", "Home", new {filename = item.image })" alt="" class="pro-image-front " style="width:100%; padding:5px">
+                        </div>
+                        <div style="margin-top:10px">
+                            @*<style>
+                                .titleholder {
+                                    white-space: nowrap;
+                                    width: 90%;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    margin: 20px auto;
+                                    text-align: center;
+                                    direction: rtl;
+                                }
+                            </style>*@
+                            <div class="titleholder" style="white-space: nowrap; width: 90%; overflow: hidden; text-overflow: ellipsis; margin: 20px auto; text-align: center; ">
+                                <h5>@item.title</h5>
+
+                            </div>
+                        </div>
+                        <div style="margin-top:10px">
+
+                            @{
+                                if( item.price == "0")
+                                {
+                                     <div class="row" style="margin:0px 15px">
+                                          <p style="display:inline-block">تماس بگیرید</p>  
+                                     </div>
+                                }
+                                else
+	                            {
+                             <div class="row" style="margin:0px 15px">
+
+                                <div class="" >
+                                    <div class="" >
+                                        @if (item.price != item.oldPrice)
+                                        {
+                                            <del style="color:red">  @item.oldPrice  </del>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin:0px 15px">
+
+                                <p style="display:inline-block">تومان</p>  <p style="display:inline-block">@item.price</p>
+
+                            </div>
+	                            }
+                            }
+                                
+                         
+                           
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+            </div>
+            <button class='btn btn-default leftRs'><</button>
+            <button class='btn btn-default rightRs'>></button>
+
+        </div>
+    </div>
+
+</div>
+
+
+<img src="@Url.Action("DetailImage", "Home", new { filename = @Model.banner1 })" style="width:100%; height:300px" />
+
+
+
+<div style="background-color: #f6f5f5; padding: 2% 0px">
+    <div class="" style="width:98%; margin-left:auto; margin-right:auto;background-color:#fff;padding:10px; border-radius:8px">
+        <div class="row" style="margin:10px">
+            <div class="onvanholder">
+                <div style=" text-align:right"> @Html.ActionLink("پیشنهادهای ویژه", "gogetproductlist", new { sortID = 2 }, new { style = " color: #808080;" }) </div>
+            </div>
+            <div class="khat"></div>
+
+        </div>
+
+        <div id="bestholder" class="resCarousel" data-items="2-4-4-4" data-slide="1" data-speed="500">
+
+
+            <div class="resCarousel-inner">
+                @{
+    if (Model.specialOffers != null)
+    {
+        foreach (var item in Model.specialOffers)
+        {
+
+            string imagefile = "placeholder.jpg";
+            if (item.title != null)
+            {
+                imagefile = item.image;
+            }
+            string ID = "N" + item.ID.ToString();
+            string addtocartid = "addtocart" + ID;
+            string price = item.price;
+
+
+
+            <div class="item showmedetail" id=@ID style="cursor:pointer">
+
+
+                <div>
+                    <div style="padding:15px">
+                        <div>
+                            <img src="@Url.Action("Thumbnail", "Home", new {filename = item.image })" alt="" class="pro-image-front " style="width:100%; padding:5px">
+                        </div>
+                        <div style="margin-top:10px">
+                            @*<style>
+                                .titleholder {
+                                    white-space: nowrap;
+                                    width: 90%;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    margin: 20px auto;
+                                    text-align: center;
+                                    direction: rtl;
+                                }
+                            </style>*@
+                            <div class="titleholder" style="white-space: nowrap; width: 90%; overflow: hidden; text-overflow: ellipsis; margin: 20px auto; text-align: center; ">
+                                <h5>@item.title</h5>
+
+                            </div>
+                        </div>
+                        <div style="margin-top:10px">
+
+                            <div class="row" style="margin:0px 15px">
+
+                                <div class="" >
+                                    <div class="" >
+                                        @if (item.price != item.oldPrice)
+                                        {
+                                            <del style="color:red">  @item.oldPrice  </del>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin:0px 15px">
+
+                                <p style="display:inline-block">تومان</p>  <p style="display:inline-block">@item.price</p>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        }
+    }
+
+}
+
+
+
+
+
+
+
+
+            </div>
+            <button class='btn btn-default leftRs'><</button>
+            <button class='btn btn-default rightRs'>></button>
+
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<img src="@Url.Action("DetailImage", "Home", new { filename = @Model.banner2 })" style="width:100%; height:300px" />
+
+
+<div style="background-color: #f6f5f5; padding: 2% 0px">
+    <div class="" style="width:98%; margin-left:auto; margin-right:auto;background-color:#fff;padding:10px; border-radius:8px">
+        <div class="row" style="margin:10px">
+            <div class="onvanholder">
+                <div style=" text-align:right"> @Html.ActionLink("جدیدترین ها", "gogetproductlist", new { sortID = 2 }, new { style = " color: #808080;" }) </div>
+            </div>
+            <div class="khat"></div>
+
+        </div>
+
+        <div id="bestholder" class="resCarousel" data-items="2-4-4-4" data-slide="1" data-speed="500">
+
+
+            <div class="resCarousel-inner">
+                @{
+                    if (Model.newest != null)
+                    {
+                        foreach (var item in Model.newest)
+                        {
+
+                            string imagefile = "placeholder.jpg";
+                            if (item.title != null)
+                            {
+                                imagefile = item.image;
+                            }
+                            string ID = "N" + item.ID.ToString();
+                            string addtocartid = "addtocart" + ID;
+                            string price = item.price;
+
+
+
+                        <div class="item showmedetail" id=@ID style="cursor:pointer">
+
+
+                <div>
+                    <div style="padding:15px">
+                        <div>
+                            <img src="@Url.Action("Thumbnail", "Home", new {filename = item.image })" alt="" class="pro-image-front " style="width:100%; padding:5px">
+                        </div>
+                        <div style="margin-top:10px">
+                            @*<style>
+                                .titleholder {
+                                    white-space: nowrap;
+                                    width: 90%;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    margin: 20px auto;
+                                    text-align: center;
+                                    direction: rtl;
+                                }
+                            </style>*@
+                            <div class="titleholder" style="white-space: nowrap; width: 90%; overflow: hidden; text-overflow: ellipsis; margin: 20px auto; text-align: center; ">
+                                <h5>@item.title</h5>
+
+                            </div>
+                        </div>
+                        <div style="margin-top:10px">
+
+                            <div class="row" style="margin:0px 15px">
+
+                                <div class="" >
+                                    <div class="" >
+                                        @if (item.price != item.oldPrice)
+                                        {
+                                            <del style="color:red">  @item.oldPrice  </del>
+                                        }
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="row" style="margin:0px 15px">
+
+                                <p style="display:inline-block">تومان</p>  <p style="display:inline-block">@item.price</p>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+                        }
+                    }
+
+                }
+
+
+
+
+
+
+
+
+            </div>
+            <button class='btn btn-default leftRs'><</button>
+            <button class='btn btn-default rightRs'>></button>
+
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+
+    $('.showmedetail').click(function () {
+
+
+        var ID = this.id;
+        var url = "/Home/ProductDetail?id=" + ID;
+        window.location.href = url;
+    })
+    $('.addtocart').click(function () {
+       
+        var ID = this.id;
+
+        //var pricetotal = document.getElementById("spanfortotal").textContent;
+        var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+        //var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+        //var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+        //var finalcount = parseInt(counttotal, 10) + 1;
+        //$('#spanfortotal').text(final);
+        //$('#simpleCart_quantityy').text(finalcount)
+
+
+
+
+        $.ajax({
+            url: '/Home/addtocart',
+            dataType: 'html',
+            data: {
+                id: ID,
+                price: tobeadded
+
+            },
+            success: function (data) {
+                $.ajax({
+                    url: '/Home/gogetfinalprice',
+
+
+                    success: function (data) {
+                        $("#spanfortotal").text(data).toString("###,###")
+                        $("#spanfortotal2").text(data)
+
+                    },
+                    error: function () {
+
+                    }
+                });
+                $.ajax({
+                    url: '/Home/gogetfinalquantity',
+
+
+                    success: function (data) {
+                        $("#simpleCart_quantityy").text(data)
+
+                    },
+                    error: function () {
+
+                    }
+                });
+
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000,
+
+
+                }
+                toastr.success('محصول مورد نظر به سبد اضافه شد')
+
+
+
+            },
+            error: function () {
+
+            }
+        });
+
+
+    })
+
+</script>
+
+
+
+
+
+
+
+
+<script>
+    //ResCarouselCustom();
+    var pageRefresh = true;
+
+    function ResCarouselCustom() {
+        var items = $("#dItems").val(),
+            slide = $("#dSlide").val(),
+            speed = $("#dSpeed").val(),
+            interval = $("#dInterval").val()
+
+        var itemsD = "data-items=\"" + items + "\"",
+            slideD = "data-slide=\"" + slide + "\"",
+            speedD = "data-speed=\"" + speed + "\"",
+            intervalD = "data-interval=\"" + interval + "\"";
+
+
+        var atts = "";
+        atts += items != "" ? itemsD + " " : "";
+        atts += slide != "" ? slideD + " " : "";
+        atts += speed != "" ? speedD + " " : "";
+        atts += interval != "" ? intervalD + " " : ""
+
+        //console.log(atts);
+
+        var dat = "";
+        dat += '<h4 >' + atts + '</h4>'
+        dat += '<div class=\"resCarousel\" ' + atts + '>'
+        dat += '<div class="resCarousel-inner">'
+        for (var i = 1; i <= 14; i++) {
+            dat += '<div class=\"item\"><div><h1>' + i + '</h1></div></div>'
+        }
+        dat += '</div>'
+        dat += '<button class=\'btn btn-default leftRs\'><i class=\"fa fa-fw fa-angle-left\"></i></button>'
+        dat += '<button class=\'btn btn-default rightRs\'><i class=\"fa fa-fw fa-angle-right\"></i></button>    </div>'
+        console.log(dat);
+        $("#customRes").html(null).append(dat);
+
+        if (!pageRefresh) {
+            ResCarouselSize();
+        } else {
+            pageRefresh = false;
+        }
+        //ResCarouselSlide();
+    }
+
+    $("#eventLoad").on('ResCarouselLoad', function () {
+        //console.log("triggered");
+        var dat = "";
+        var lenghtI = $(this).find(".item").length;
+        if (lenghtI <= 30) {
+            for (var i = lenghtI; i <= lenghtI + 10; i++) {
+                dat += '<div class="item"><div class="tile"><div><h1>' + (i + 1) + '</h1></div><h3>Title</h3><p>content</p></div></div>'
+            }
+            $(this).append(dat);
+        }
+    });
+</script>
+
+<script src="~/Scripts/resCarousel.js"></script>
+@{
+    if (Model.newest != null)
+    {
+        <script>
+        $(document).ready(function () {
+            var count = @Model.newest.Count() 
+
+            $("#newholder").attr("data-value", (2 * count)- 1 );
+        })
+
+
+     </script>
+        
+    }
+        if (Model.bestseller != null)
+        {
+            <script>
+        $(document).ready(function () {
+            var count = @Model.bestseller.Count()
+
+            $("#bestholder").attr("data-value", (2 * count)- 1 );
+        })
+
+
+            </script>
+        }
+
+    if (Model.specialOffers != null)
+    {
+        <script>
+        $(document).ready(function () {
+            var count = @Model.specialOffers.Count()
+
+            $("#offerholder").attr("data-value", (2 * count)- 1 );
+        })
+
+
+       </script>
+    }
+ }
+
+
+
+
+
+
+
+
+@*<div class="product-easy">
+    <div class="container">
+
+        <script src="~/Scripts/easyResponsiveTabs.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#horizontalTab').easyResponsiveTabs({
+                    type: 'default', //Types: default, vertical, accordion
+                    width: 'auto', //auto or any width like 600px
+                    fit: true   // 100% fit in a container
+                });
+            });
+
+        </script>
+
+
+
+
+        <div class="sap_tabs">
+            <div id="horizontalTab" style="display: block; width: 100%; margin: 0px;">
+                <ul class="resp-tabs-list">
+                    <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>آخرین محصولات </span></li>
+                    <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>پیشنهادات ویژه</span></li>
+                    <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>پرفروش ترین ها</span></li>
+
+                </ul>
+                <div class="resp-tabs-container">
+                    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-0">
+                        <div class="row" id="newcontenthere">
+
+
+
+
+
+                            @{
+                                foreach (var item in Model.newest)
+                                {
+                                    string imagefile = "placeholder.jpg";
+                                    if (item.title != null)
+                                    {
+                                        imagefile = item.image;
+                                    }
+                                    string ID = "N" + item.ID.ToString();
+                                    string addtocartid = "addtocart" + ID;
+                                    string price = item.price;
+
+
+
+
+                                    <div class="col-md-4 product-men" style="margin-bottom:25px">
+                                        <div class="men-pro-item simpleCart_shelfItem">
+                                            <div class="men-thumb-item">
+                                                <img style="height:350px" src="@Url.Action("Thumbnail", "Home", new { filename = imagefile })" alt="" class="pro-image-front">
+                                                <img style="height:350px" src="@Url.Action("Thumbnail", "Home", new { filename = imagefile })" alt="" class="pro-image-back">
+
+
+                                                <div class="men-cart-pro">
+                                                    <div class="inner-men-cart-pro">
+                                                        <a id=@ID class="link-product-add-cart showmedetail">مشاهده جزئیات</a>
+
+                                                    </div>
+                                                </div>
+                                                <span class="product-new-top">جدید</span>
+
+                                            </div>
+                                            <div class="item-info-product ">
+                                                <h4><a href="single.html">@item.title</a></h4>
+                                                <div class="info-product-price">
+                                                    <span class="item_price">تومان @item.price </span>
+                                                    @if (item.oldPrice != item.price)
+                                                    {
+                                                        <del>@item.oldPrice</del>
+                                                    }
+
+                                                </div>
+                                                <a id=@addtocartid class="item_add single-item hvr-outline-out button2 addtocart"><i class="glyphicon glyphicon-plus-sign"></i>سبد خرید</a>
+
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                }
+                            }
+
+
+                        </div>
+                        @Html.ActionLink("بیشتر", "ProductList", new { sortID = 6 }, new { @class = "item_add single-item hvr-outline-out button2 gogetlist", style = "margin-left: 50%;padding: 7px 20px;font-size: 20px;" })
+
+
+
+
+                    </div>
+                    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-1">
+                        <div class="row" id="offercontenthere">
+
+
+                            @{
+                                foreach (var item in Model.specialOffers)
+                                {
+                                    string imagefile = "placeholder.jpg";
+                                    if (item.title != null)
+                                    {
+                                        imagefile = item.image;
+                                    }
+                                    string ID = "S" + item.ID.ToString();
+                                    string addtocartid = "addtocart" + ID;
+                                    string price = item.price;
+
+
+
+
+                                    <div class="col-md-4 product-men" style="margin-bottom:25px">
+                                        <div class="men-pro-item simpleCart_shelfItem">
+                                            <div class="men-thumb-item">
+                                                <img style="height:350px" src="@Url.Action("Thumbnail", "Home", new { filename = imagefile })" alt="" class="pro-image-front">
+                                                <img style="height:350px" src="@Url.Action("Thumbnail", "Home", new { filename = imagefile })" alt="" class="pro-image-back">
+
+
+                                                <div class="men-cart-pro">
+                                                    <div class="inner-men-cart-pro">
+                                                        <a id=@ID class="link-product-add-cart showmedetail">مشاهده جزئیات</a>
+
+                                                    </div>
+                                                </div>
+                                                <span class="product-new-top">پیشنهاد ویژه</span>
+
+                                            </div>
+                                            <div class="item-info-product ">
+                                                <h4><a href="single.html">@item.title</a></h4>
+                                                <div class="info-product-price">
+                                                    <span class="item_price">تومان @item.price </span>
+                                                    @if (item.oldPrice != item.price)
+                                                    {
+                                                        <del>@item.oldPrice</del>
+                                                    }
+
+                                                </div>
+                                                <a id=@addtocartid class="item_add single-item hvr-outline-out button2 addtocart"><i class="glyphicon glyphicon-plus-sign"></i>سبد خرید</a>
+
+                                           
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                }
+                            }
+
+                        </div>
+                        <a style="margin-left: 50%;padding: 7px 20px;font-size: 20px;" class="item_add single-item hvr-outline-out button2 addtocart">بیشتر</a>
+
+                    </div>
+                    <div class="tab-1 resp-tab-content" aria-labelledby="tab_item-2">
+                        <div class="row" id="bestsellercontenthere">
+
+
+                            @{
+                                foreach (var item in Model.bestseller)
+                                {
+                                    string imagefile = "placeholder.jpg";
+                                    if (item.title != null)
+                                    {
+                                        imagefile = item.image;
+                                    }
+                                    string ID = "B" + item.ID.ToString();
+                                    string addtocartid = "addtocart" + ID;
+                                    string price = item.price;
+
+
+
+
+                                    <div class="col-md-4 product-men" style="margin-bottom:25px">
+                                        <div class="men-pro-item simpleCart_shelfItem">
+                                            <div class="men-thumb-item">
+                                                <img style="height:350px" src="@Url.Action("Thumbnail", "Home", new { filename = imagefile })" alt="" class="pro-image-front">
+                                                <img style="height:350px" src="@Url.Action("Thumbnail", "Home", new { filename = imagefile })" alt="" class="pro-image-back">
+
+
+                                                <div class="men-cart-pro">
+                                                    <div class="inner-men-cart-pro">
+                                                        <a id=@ID class="link-product-add-cart showmedetail">مشاهده جزئیات</a>
+
+                                                    </div>
+                                                </div>
+                                                <span class="product-new-top">پرفروش</span>
+
+                                            </div>
+                                            <div class="item-info-product ">
+                                                <h4><a href="single.html">@item.title</a></h4>
+                                                <div class="info-product-price">
+                                                    <span class="item_price">تومان @item.price </span>
+                                                    @if (item.oldPrice != item.price)
+                                                    {
+                                                        <del>@item.oldPrice</del>
+                                                    }
+
+                                                </div>
+                                                <a id=@addtocartid class="item_add single-item hvr-outline-out button2 addtocart"><i class="glyphicon glyphicon-plus-sign"></i>سبد خرید</a>
+
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+                                }
+                            }
+
+                        </div>
+                        <a style="margin-left: 50%;padding: 7px 20px;font-size: 20px;" class="item_add single-item hvr-outline-out button2 gogetlist">بیشتر</a>
+                        @Html.ActionLink("بیشتر", "gogetproductlist", new { sortID = 2 }, new { @class = "item_add single-item hvr-outline-out button2 gogetlist", style = "margin-left: 50%;padding: 7px 20px;font-size: 20px;" })
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
+
+
+
+@*<div class="" style="float:right">
+    <a id=@addtocartid class="item_add single-item hvr-outline-out button2 addtocart"><i class="glyphicon glyphicon-plus-sign"></i>سبد خرید</a>
+
+
+
+
+</div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+

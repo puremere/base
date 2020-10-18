@@ -1,0 +1,551 @@
+﻿@model banimo.ViewModel.UserListOfAdmin
+@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+
+    .fieldholder {
+        /*width: 30%;
+            display: inline-block;*/
+        margin: 10px;
+    }
+
+    .REM {
+        border-radius: 5px;
+    }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">لیست کاربران</a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">ایجاد کاربر جدید</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+
+
+            <div class="row">
+               
+                <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                    <div class=" ">
+                        <span style="color:red; display:none">*</span>
+                        <input class="form-control" style="min-width:250px" type="text" id="searchinput" name="searchinput" placeholder="عبارت مورد نظر را جستجو کنید" />
+                    </div>
+                </div>
+
+                <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                    <a id="changeUserList" class="lgnsubmitt btn btn-primary">تایید</a>
+
+                </div>
+                <script>
+                    $("#changeUserList").click(function () {
+                        var search = $("#searchinput").val();
+                      
+                        $.ajax({
+                            url: '/Admin/getNewListUser',
+                            dataType: 'html',
+                            data: {
+                                search: search,
+                               
+                            },
+                            success: function (data) {
+
+                                $("#Listholder").html(data);
+                            },
+                            error: function () {
+
+                            }
+                        });
+
+                    })
+                </script>
+                <div id="Listholder">
+                    <div class="row" style="padding:20px">
+                        <div style="overflow-x:auto;padding:10px">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                    <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> کاربران  </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="morris-area-chart">
+                                        <div style="overflow:auto">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            ID
+                                                        </th>
+                                                        <th>
+                                                            نام و نام خانوادگی
+                                                        </th>
+                                                        <th>
+                                                            ایمیل
+                                                        </th>
+                                                        <th>
+                                                           موبایل
+                                                        </th>
+                                                        <th>
+                                                            آدرس
+                                                        </th>
+
+                                                        <th>
+
+                                                        </th>
+
+                                                        <th>
+
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var item in Model.Users)
+                                                    {
+
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ID)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.fullname)
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                @Html.DisplayFor(modelItem => item.email)
+                                                            </td>
+
+                                                            <td style=" text-align:right">
+                                                                @Html.DisplayFor(modelItem => item.mobile)
+                                                            </td>
+                                                            <td style="text-align: right;">
+                                                                @Html.DisplayFor(modelItem => item.address)
+
+                                                            </td>
+
+                                                            <td style="text-align: center;">
+
+                                                                @{
+                                                                    var ID = @item.ID;
+                                                                    <a id=@ID class="btn btn-primary Pbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
+
+                                                                }
+
+                                                            </td>
+                                                            <td style="text-align: center;">
+
+                                                                @{
+
+                                                                    <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                                }
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+
+
+                                                </tbody>
+                                            </table>
+                                            <script>
+
+                                            $(".Dbutton").click(function () {
+
+                                                var id = $(this).attr("id");
+
+                                                $.ajax({
+                                                    url: '/Admin/DeleteUser',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        id: id,
+                                                    },
+                                                    success: function (data) {
+
+                                                        var search = $("#searchinput").val();
+
+                                                        $.ajax({
+                                                            url: '/Admin/getNewListUser',
+                                                            dataType: 'html',
+                                                            data: {
+                                                                search: search,
+
+                                                            },
+                                                            success: function (data) {
+
+                                                                $("#Listholder").html(data);
+                                                            },
+                                                            error: function () {
+
+                                                            }
+                                                        });
+
+                                                    },
+                                                    error: function () {
+
+                                                    }
+                                                });
+                                            })
+                                            $(".Pbutton").click(function () {
+                                                        var rowid = $(this).attr("id");
+                                                       var articles = @Html.Raw(Json.Encode(Model.Users));
+                                                      $("#detailholder").css("display", "inline-block");
+
+                                                       $.each(articles, function (index, item) {
+                                                           if (item.ID.toString() === rowid) {
+                                                               
+                                                               $("#UserListUpdate option").each(function () {
+                                                                   
+                                                                   if ($(this).val() === item.userTypeID) {
+                                                                     
+                                                                         $(this).attr("selected", "selected");
+                                                                   }
+                                                               })
+
+                                                               var imagaddress = "/images/panelimages/" + item.image;
+                                                               $("#fullnameUpdate").val(item.fullname);
+                                                               $("#emailupdate").val(item.email);
+                                                               $("#phoneupdate").val(item.mobile);
+                                                               $("#addressupdate").val(item.address);
+                                                               $("#IDupdate").val(item.ID);
+
+
+
+                                                           }
+
+
+                                                         });
+
+                                                    })
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row" id="detailholder" style="padding: 0px 20px;display:none;width: 100%;margin: 0px;">
+
+
+
+                    @using (Html.BeginForm("updateUser", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "updateUser" }))
+                    {
+
+                    <div style="padding: 15px 15px; border: 1px solid #d8d8d8; border-radius: 5px">
+                     
+                        <div class="row">
+                            <div class="row fieldholder col-lg-3" style="margin:15px 0">
+                                <label> طبقه بندی بندی</label>
+
+                                @{
+                                    List<SelectListItem> UserTypeList = new List<SelectListItem>();
+                                    UserTypeList.Add(new SelectListItem
+                                    {
+                                        Text = "کاربر",
+                                        Value = "0",
+
+                                    });
+                                    UserTypeList.Add(new SelectListItem
+                                    {
+                                        Text = "ادمین",
+                                        Value = "1",
+
+                                    });
+
+
+
+                                    <div class=" ">
+                                        <span style="color:red; display:none">*</span>
+                                        @Html.DropDownList("UserListUpdate", UserTypeList, "-- انتخاب سرگروه --", new { id = "UserListUpdate", name = "UserListUpdate", style = "", @class = "form-control" })
+                                    </div>
+                                }
+
+
+
+                            </div>
+                            <div class="row fieldholder col-lg-3" style="margin:15px 0">
+                                <label style="text-align: right">
+                                    نام و نام خانوادگی :
+                                </label>
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+                                    <input value="" type="text" id="fullnameUpdate" name="fullnameUpdate" required="required" class="form-control ">
+
+                                </div>
+
+
+                            </div>
+
+
+                            <div class="row fieldholder col-lg-3" style="margin:15px 0">
+                                <label style="text-align: right">
+                                    شماره موبایل :
+                                </label>
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+                                    <input value="" type="text" id="phoneupdate" name="phoneupdate" required="required" class="form-control REM2">
+                                </div>
+
+
+                            </div>
+
+                            
+                            <input id="IDupdate" name="IDupdate" hidden />
+
+
+                        </div>
+                        <div class="row">
+                            <div class="row fieldholder col-lg-3" style="margin:15px 0">
+                                <label style="text-align: right">
+                                    ایمیل :
+                                </label>
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+                                    <input value="" type="text" id="emailupdate" name="emailupdate" required="required" class="form-control ">
+                                </div>
+
+
+                            </div>
+                            <div class="row fieldholder col-lg-3" style="margin:15px 0">
+                                <label style="text-align: right">
+                                    آدرس :
+                                </label>
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+                                    <input value="" type="text" id="addressupdate" name="addressupdate" required="required" class="form-control ">
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+
+                            <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                                <a id="UserUpdateButt" class="lgnsubmitt btn btn-primary">تایید</a>
+
+                            </div>
+                        </div>
+                        <script>
+
+
+                            $("#UserUpdateButt").click(function () {
+                                // alert("aa");
+
+                                var int = 0;
+                                $(".REM2").each(function () {
+
+                                    if ($(this).val() === "") {
+                                        $(this).siblings("span").css("display", "inline-block");
+                                        int = 1;
+                                    }
+                                })
+                                if (int === 0) {
+                                    $("#updateUser").submit();
+                                }
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+                                    toastr.error('لطفاً تمامی موارد را کامل کنید')
+
+                                }
+
+
+                            })
+                        </script>
+                    </div>
+
+                    }
+
+
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+        <div id="menu1" class="tab-pane fade" style="padding-top:20px">
+            @using (Html.BeginForm("setNewUser", "Admin", FormMethod.Post,
+new { enctype = "multipart/form-data", id = "addUser" }))
+            {
+
+
+            <div style="padding: 15px 5px;border: 1px solid #d8d8d8;border-radius: 5px;">
+                <div class="row">
+
+                    <div class="row fieldholder col-lg-3">
+                        <label style="text-align: right">
+                            رمز عبور :
+                        </label>
+                        <div>
+                            <span style="color:red; display:none">*</span>
+                            <input value="" type="text" id="password" name="password" required="required" class="form-control REM">
+                        </div>
+
+
+                    </div>
+                    <div class="row fieldholder col-lg-3">
+                        <label style="text-align: right">
+                            شماره موبایل :
+                        </label>
+                        <div>
+                            <span style="color:red; display:none">*</span>
+                            <input value="" type="text" id="phone" name="phone" required="required" class="form-control REM">
+                        </div>
+
+
+                    </div>
+                    <div class="row fieldholder col-lg-3">
+                        <label> طبقه بندی بندی</label>
+
+                        @{
+                            List<SelectListItem> UserTypeList2 = new List<SelectListItem>();
+                            UserTypeList2.Add(new SelectListItem
+                            {
+                                Text = "کاربر",
+                                Value = "0",
+
+                            });
+                            UserTypeList2.Add(new SelectListItem
+                            {
+                                Text = "ادمین",
+                                Value = "1",
+
+                            });
+
+
+
+                            <div class=" ">
+                                <span style="color:red; display:none">*</span>
+                                @Html.DropDownList("UserList", UserTypeList2,  new { id = "UserList", name = "UserList", style = "", @class = "form-control REM" })
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="row fieldholder col-lg-3">
+                        <label style="text-align: right">
+                            نام و نام خانوادگی :
+                        </label>
+                        <div>
+                            <span style="color:red; display:none">*</span>
+                            <input value="" type="text" id="fullname" name="fullname" required="required" class="form-control ">
+
+                        </div>
+
+
+                    </div>
+                    <div class="row fieldholder col-lg-3">
+                        <label style="text-align: right">
+                            ایمیل :
+                        </label>
+                        <div>
+                            <span style="color:red; display:none">*</span>
+                            <input value="" type="text" id="email" name="email" required="required" class="form-control ">
+                        </div>
+
+
+                    </div>
+                    <div class="row fieldholder col-lg-3">
+                        <label style="text-align: right">
+                            آدرس :
+                        </label>
+                        <div>
+                            <span style="color:red; display:none">*</span>
+                            <input value="" type="text" id="address" name="address" required="required" class="form-control ">
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class="row">
+
+                    <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                        <a id="CreateButt" class="lgnsubmitt btn btn-primary">تایید</a>
+
+                    </div>
+                </div>
+                <script>
+
+
+                    $("#CreateButt").click(function () {
+                        // alert("aa");
+
+                        var int = 0;
+                        $(".REM").each(function () {
+
+                            if ($(this).val() === "") {
+                                $(this).siblings("span").css("display", "inline-block");
+                                int = 1;
+                            }
+                        })
+                        if (int === 0) {
+                            $("#addUser").submit();
+                        }
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000
+                            }
+                            toastr.error('لطفاً تمامی موارد را کامل کنید')
+
+                        }
+
+
+                    })
+                </script>
+            </div>
+
+
+            }
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+

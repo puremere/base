@@ -1,0 +1,875 @@
+﻿
+@model AdminPanel.ViewModel.NewDatumm
+
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "ویرایش محصول";
+}
+
+@section scripts{
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+
+            toolbar: 'undo redo | formatselect | ' +
+                ' bold italic backcolor | alignleft aligncenter ' +
+                ' alignright alignjustify | bullist numlist outdent indent |' +
+                ' removeformat | help',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tiny.cloud/css/codepen.min.css'
+            ]
+        });
+        //tinymce.activeEditor.execCommand('mceDirectionRTL');
+    </script>
+    <script>
+        tinymce.get('productdesc').setContent('@Model.description');
+    </script>
+}
+<p id="messageholder">@ViewBag.message</p>
+<script>
+    var message = $("#messageholder").text();
+
+    if (message === "3") {
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('جهت تعریف محصول جدید باید رنگ محصول تغییر کند')
+    }
+
+    else if (message === "2") {
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('خطا در ارتباط با سرور')
+    }
+    else if (message === "1") {
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.success('محصول مورد نظر با موفقیت افزوده شد')
+    }
+    else if (message === "4") {
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('محصول تکراری است')
+    }
+</script>
+
+<div class="row">
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style="display: inline-block;"> جزئیات محصول</h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+
+
+
+                    <div id="sec2" style="display:block">
+                        @using (@Html.BeginForm("Edit", "Admin", FormMethod.Post,
+                    new { enctype = "multipart/form-data", id = "signupformforedit" }))
+                        {
+                            @Html.HiddenFor(m => m.ID);
+
+                            <div class="form-group ">
+                                <input id="addnew" name="addnew" type="hidden" value="false" />
+                                <input id="inputallfilterid" name="inputallfilterid" type="hidden" />
+                                <input id="inputallrangeid" name="inputallrangeid" type="hidden" />
+                                <input id="inputallfeatureid" name="inputallfeatureid" type="hidden" />
+                                <input id="inputallcolid" name="inputallcolid" type="hidden" />
+                                <input id="Selectedfilters" name="Selectedfilters" type="hidden" />
+
+
+                                <input id="catID" name="catID" type="hidden" value="@Model.catid" />
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                    نام :
+                                </label>
+                                @{
+                                    if (Model.title != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.title, new { @class = "form-control col-md-7 col-xs-12", id = "title" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="title" name="title" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                }
+
+
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    قیمت :
+                                </label>
+                                @{
+                                    if (Model.productprice != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.productprice, new { @class = "form-control col-md-7 col-xs-12", id = "productprice", name = "productprice" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="productprice" name="productprice" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    تخفیف :
+                                </label>
+                                @{
+                                    if (Model.discount != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.discount, new { @class = "form-control col-md-7 col-xs-12", name = "discount", id = "discount" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="discount" name="discount" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    شماره گروه :
+                                </label>
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <input value=@Model.SetId type="text" id="SetID" name="SetID" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    واحد :
+                                </label>
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <input value='@Model.vahed' type="text" id="vahed" name="vahed" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    تعداد محصول :
+                                </label>
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <input value=@Model.count type="text" id="count" name="count" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                    توضیحات :
+                                </label>
+
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <textarea id="productdesc" required="required" class="form-control" name="productdesc" style="height:170px">@Model.description</textarea>
+                                </div>
+
+
+
+
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    تگ ها :
+                                </label>
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <input data-role="tagsinput" id="tagupdate" name="tagupdate" required="required" class="form-control REM2" style="min-height:150px">
+                                </div>
+                                <script>
+                                    var hashtags = '@Model.tag';
+
+                                    var res = hashtags.split("-");
+                                    $('input[name=tagupdate]').tagsinput('removeAll');
+                                    $.each(res, function (i) {
+                                        $('input[name=tagupdate]').tagsinput('add', res[i]);
+                                    });
+                                </script>
+                            </div>
+
+                            <div class="row " style="padding-top:20px">
+                                <div class="col-lg-3">
+                                    <div style="display:inline-block">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
+                                            مشاهده  فیلتر
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" id="filterholderforproduct">
+                                                        @{
+
+                                                            <div style=" border-bottom:1px solid #ddd; padding:0px ; margin:0px;margin-bottom:10px; padding-bottom:10px">
+                                                                <p style="margin:5px">فیلتر های گزینه ای:</p>
+                                                                @if (Model.filters != null && Model.filters.Count() > 0)
+                                                                {
+                                                                    foreach (var myitem in Model.filters)
+                                                                    {
+                                                                        if (myitem.filterdetailes != null)
+                                                                        {
+                                                                            string ID = myitem.ID;
+                                                                            string filterdetailtitle = "DEFfilterdetailtitle" + ID;
+                                                                            string filterdetaillist = "DEFfilterdetaillist" + ID;
+                                                                            string parentID = "parent" + ID;
+                                                                            if (myitem.filterkinde == "1")
+                                                                            {
+                                                                                <div id=@parentID class="form-group  selectedfilter">
+                                                                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                                                                                        @myitem.filtername :
+                                                                                    </label>
+
+                                                                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                                        <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
+                                                                                            @if (myitem.filterdetailes != null)
+                                                                                            {
+                                                                                                if (myitem.filterdetailes != null)
+                                                                                                {
+                                                                                                    foreach (var detail in myitem.filterdetailes)
+                                                                                                    {
+                                                                                                        if (Model.productfilterlist != null)
+                                                                                                        {
+                                                                                                            if (Model.productfilterlist.Any(s => s.detailname.Contains(detail.detailname)))
+                                                                                                            {
+                                                                                                                <option value=@detail.ID selected> @detail.detailname</option>
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                <option value=@detail.ID> @detail.detailname</option>
+                                                                                                            }
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            <option value=@detail.ID> @detail.detailname</option>
+                                                                                                        }
+
+
+
+                                                                                                    }
+                                                                                                }
+
+                                                                                            }
+
+
+
+                                                                                        </select>
+
+
+                                                                                    </div>
+
+
+
+
+
+                                                                                </div>
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <div id=@parentID class="form-group ">
+                                                                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                                                                                        @myitem.filtername :
+                                                                                    </label>
+
+                                                                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                                        <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect" multiple>
+                                                                                            @if (myitem.filterdetailes != null)
+                                                                                            {
+                                                                                                if (myitem.filterdetailes != null)
+                                                                                                {
+                                                                                                    foreach (var detail in myitem.filterdetailes)
+                                                                                                    {
+                                                                                                        if (Model.productfilterlist != null)
+                                                                                                        {
+                                                                                                            if (Model.productfilterlist.Any(s => s.detailname.Contains(detail.detailname)))
+                                                                                                            {
+                                                                                                                <option value=@detail.ID selected> @detail.detailname</option>
+                                                                                                            }
+                                                                                                            else
+                                                                                                            {
+                                                                                                                <option value=@detail.ID> @detail.detailname</option>
+                                                                                                            }
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                                            <option value=@detail.ID> @detail.detailname</option>
+                                                                                                        }
+
+
+
+                                                                                                    }
+                                                                                                }
+
+                                                                                            }
+
+
+
+                                                                                        </select>
+
+                                                                                    </div>
+
+
+
+
+
+                                                                                </div>
+
+                                                                            }
+
+                                                                        }
+
+                                                                    }
+                                                                }
+
+                                                            </div>
+
+
+                                                            if (Model.range != null)
+                                                            {
+
+                                                                <div class="row" id="rangHolder" style="border-bottom:1px solid #ddd; padding:0px ; margin:0px;margin-bottom:10px;padding-bottom:10px ">
+                                                                    <p style="margin:5px">فیلتر های بازه ای:</p>
+                                                                    @foreach (var range in Model.range)
+                                                                    {
+
+                                                                        string id = "R" + range.ID;
+                                                                        <label class="control-label col-lg-3 col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                                                                            @range.title :
+                                                                        </label>
+                                                                        <input id=@id value=@range.value class="rangeInput form-control col-md-2 col-sm-2 col-xs-12" />
+
+                                                                    }
+                                                                </div>
+
+                                                            }
+
+                                                            <div style="background-color : @Model.color" id="colorholder" class="form-group ">
+                                                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                                                    رنگ :
+                                                                </label>
+                                                                @{
+                                                                    if (Model.color != "")
+                                                                    {
+
+
+                                                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                            @{
+                                                                            <select id=productcolor name=productcolor onchange="Getcolorlist(this)" style="width:100%" class="" multiple>
+                                                                                @if (Model.Colores != null)
+                                                                                {
+                                                                                    foreach (var color in Model.Colores)
+                                                                                    {
+                                                                                        if (color.Value == Model.color)
+                                                                                        {
+                                                                                            <option value=@color.Value selected> @color.Text    </option>
+
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <option value=@color.Value> @color.Text    </option>
+
+                                                                                        }
+                                                                                    }
+
+                                                                            }
+
+                                                                            </select>
+                                                                            }
+                                                                            @* @Html.DropDownListFor(m => m.color, Model.Colores, new { id = "productcolor", name = "productcolor", onchange = "Getcolorlist(this)", style = "width:100%", @class = "DRPd" })*@
+                                                                        </div>
+
+
+                                                                        <script>
+
+                                                                            //function Getcolorlist(productcolor) {
+                                                                            //    var selectedValue = productcolor.value;
+                                                                            //    $("#colorholder").css("background-color", selectedValue);
+
+                                                                            //}
+                                                                            $(document).ready(function () {
+                                                                                $("#productcolor option").each(function () {
+                                                                                    if ($(this).val() != '') {
+                                                                                        $(this).css('background-color', $(this).val());
+                                                                                    }
+                                                                                });
+                                                                            });
+
+
+                                                                        </script>
+
+
+
+                                                                    }
+                                                                    else if (Model.Colores != null)
+                                                                    {
+                                                                        <div class="col-md-5 col-sm-5 col-xs-12">
+
+                                                                            @Html.DropDownListFor(m => m.color, Model.Colores, "--", new { id = "productcolor", name = "productcolor", onchange = "Getcolorlist(this)", style = "width:100%", @class = "DRPd" })
+                                                                        </div>
+
+
+                                                                        <script>
+
+                                                                            //function Getcolorlist(productcolor) {
+                                                                            //    var selectedValue = productcolor.value;
+                                                                            //    $("#colorholder").css("background-color", selectedValue);
+
+                                                                            //}
+                                                                            $(document).ready(function () {
+                                                                                $("#productcolor option").each(function () {
+                                                                                    if ($(this).val() != '') {
+                                                                                        $(this).css('background-color', $(this).val());
+                                                                                    }
+                                                                                });
+                                                                            });
+
+
+
+                                                                        </script>
+                                                                    }
+                                                                }
+
+
+                                                            </div>
+
+
+                                                            <p id="allfilterid" style="display:none"></p>
+                                                            <div class="form-group ">
+                                                                <a id="FilterConfirm" class="btn btn-primary">تایید</a>
+                                                                <script>
+                                                                    $("#FilterConfirm").click(function () {
+
+                                                                        $('#filterModal').modal('toggle');
+
+                                                                    })
+                                                                </script>
+                                                            </div>
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display:inline-block">
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#featureModal">
+                                            مشاهده  ویژگی
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="featureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" id="featureholderforproduct">
+
+                                                        @{
+
+                                                            if (Model.featureList != null && Model.featureList != null)
+                                                            {
+                                                                foreach (var myitem in Model.featureList)
+                                                                {
+                                                                    if (myitem.value == "Master")
+                                                                    {
+                                                                        <div class="row" style="box-shadow:none; font-size:18px; padding:10px ">
+                                                                            <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
+                                                                                @myitem.title :
+                                                                            </label>
+                                                                            <div class=" col-md-8 col-sm-8 col-xs-12 featureInput">
+                                                                                <input value="@myitem.value" class="control-label col-md-8 col-sm-8 col-xs-12 featureInput" id="@myitem.title" type="text" style="display:none" />
+
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div class="row" style="padding:10px">
+                                                                            <label class="control-label col-md-3 col-sm-3 col-xs-12" style="text-align: right">
+                                                                                @myitem.title :
+                                                                            </label>
+                                                                            <div class=" col-md-8 col-sm-8 col-xs-12 featureInput">
+                                                                                <input value="@myitem.value" class="form-control" id="@myitem.title" type="text" />
+
+                                                                            </div>
+
+
+
+                                                                        </div>
+                                                                    }
+
+
+
+                                                                }
+                                                                <p id="featuretobe" style="display:none"></p>
+                                                                <p id="rangetobe" style="display:none"></p>
+                                                                <div class="form-group ">
+                                                                    <a id="featureConfirm" class="btn btn-primary">تایید</a>
+
+                                                                    <script>
+                                                                        $("#featureConfirm").click(function () {
+
+                                                                            $('#featureModal').modal('toggle');
+
+                                                                        })
+                                                                    </script>
+                                                                </div>
+                                                            }
+
+                                                        }
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+                            <div class="row" style="padding-top:20px">
+                                <input class="col-md-4 col-sm-4 col-xs-12 " style="padding-right: 20px;display: inline-block; float: right" id="fileupload" type="file" name="fileupload" multiple="multiple" accept="image/*">
+                                <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+                                </div>
+
+                                <div id="imagelistholder" class="col-md-12 col-sm-12 col-xs-12" style="margin-top:2%">
+
+                                    @{
+                                        string myListOfImage = "";
+                                        if (Model.imagelist != null)
+                                        {
+
+                                            foreach (var item in Model.imagelist)
+                                            {
+                                                myListOfImage = myListOfImage + item.title + ",";
+
+                                                string ID = item.ID.ToString();
+                                                string deletetid = "addtocart" + ID;
+                                                string title = "titleof" + ID;
+                                                string id = Model.ID;
+
+                                                <div class="imagelistholder">
+
+                                                    <div class="con">
+
+                                                        <img src="~/images/panelimages/@item.title" data-imagezoom="true" class=" back">
+                                                        <div id=@deletetid class="btn deleteimage">حذف</div>
+                                                        <div style="display:none" id=@title>@item.title</div>
+                                                    </div>
+
+                                                    <style>
+                                                        .imagelistholder {
+                                                            display: inline-block;
+                                                            width: 200px;
+                                                            padding: 5px;
+                                                            border: 1px solid #eee;
+                                                            box-shadow: 3px 3px #eee;
+                                                            border-radius: 25px;
+                                                        }
+
+                                                        .con {
+                                                            position: relative;
+                                                            width: 100%;
+                                                        }
+
+                                                            /* Make the image responsive */
+                                                            .con img {
+                                                                width: 100%;
+                                                                height: auto;
+                                                                border-radius: 25px;
+                                                            }
+
+                                                            /* Style the button and place it in the middle of the container/image */
+                                                            .con .btn {
+                                                                position: absolute;
+                                                                top: 50%;
+                                                                left: 50%;
+                                                                transform: translate(-50%, -50%);
+                                                                -ms-transform: translate(-50%, -50%);
+                                                                background-color: #555;
+                                                                color: white;
+                                                                font-size: 16px;
+                                                                padding: 12px 24px;
+                                                                border: none;
+                                                                cursor: pointer;
+                                                                border-radius: 5px;
+                                                            }
+
+                                                                .con .btn:hover {
+                                                                    background-color: black;
+                                                                }
+                                                    </style>
+
+
+                                                </div>
+
+                                            }
+                                        }
+
+
+
+                                        <input id="ImageList" name="ImageList" type="hidden" value="@myListOfImage" />
+                                    }
+
+
+                                    <div style="display:none" id="orderidholder">@Model.ID</div>
+                                    <script>
+
+
+                                        $(".deleteimage").click(function () {
+
+                                            var orderid = $("#orderidholder").text();
+                                            var id = this.id;
+                                            var res = id.substring(9, id.length);
+                                            var titleid = "titleof" + res;
+                                            var name = $('#' + titleid).text();
+
+
+                                            $.ajax({
+                                                url: '/Admin/Deleteimage',
+                                                dataType: 'html',
+                                                data: {
+                                                    id: id,
+                                                    title: name,
+                                                    orderid: orderid
+                                                },
+                                                success: function (data) {
+                                                    var url = "@Url.Action("Edit", "Admin", new { id = "__myid__", catID = "__mycatID__" })";
+                                                    var url2 = url.replace("__myid__", "@Model.ID");
+                                                    var url3 = url2.replace("__mycatID__", "@Model.catid");
+                                                    window.location.href = url3;
+
+                                                },
+                                                error: function () {
+
+                                                }
+                                            });
+                                        })
+                                    </script>
+
+                                </div>
+                            </div>
+                            <div class="row" style="padding-top:20px">
+                                <div style="display:inline-block">
+                                    <a id="editproduct" class="lgnsubmitt btn btn-primary">تایید</a>
+                                    <script>
+                                $("#editproduct").click(function () {
+
+                                    var name = $("#title").val();
+                                    var desc = $("#productdesc").val();
+                                    var file = $("#fileupload").val();
+                                    var price = $("#productprice").val();
+                                    var vahed = $("#vahed").val();
+                                    var vahed = $("#count").val();
+                                    var filters = $("#allfilterid").text();
+                                    var file = fileupload.value;
+
+                                    var setid = $("#SetID").val();
+                                    var discount = $("#discount").val();
+
+
+                                    if (name != "" &  vahed != "" & price != "" & discount != "" & setid != "" & ("@Model.imagelist" != "" || fileupload.files.length != 0)) {
+
+                                        $("#inputallfilterid").val("");
+                                        let filtervalue = "";
+                                        $('.filterselect').each(function () {
+                                            var id = $(this).attr("id");
+                                            var ID = (id + "").replace("DEFfilterdetaillist", "");
+
+                                            if ($(this).val() !== null) {
+                                                filtervalue = filtervalue + (ID + "-" + $(this).val() + ";");
+
+                                            }
+                                        });
+                                        $("#inputallfilterid").val(filtervalue);
+                                        $("#inputallrangeid").val("");
+                                        let rangevalue = "";
+                                        $('.rangeInput').each(function () {
+                                            let id = $(this).attr("id");
+                                            let ID = (id + "").replace("R", "");
+                                            if ($(this).val() !== null) {
+                                                rangevalue = rangevalue + (ID + "-" + $(this).val() + ";");
+                                            }
+                                        })
+                                        $("#inputallrangeid").val(rangevalue);
+
+                                        $("#inputallfeatureid").val("");
+                                        let featurevalue = "";
+                                        $(".featureInput input").each(function () {
+                                            var id = $(this).attr('id');
+                                            var text = $(this).val();
+                                            featurevalue = featurevalue + (id + ":" + text + ";");
+                                        })
+                                        $("#inputallfeatureid").val(featurevalue);
+
+
+                                        var colval = "";
+                                        $("#productcolor option:selected").each(function () {
+                                            colval = colval + $(this).val() + ",";
+                                        });
+                                        $("#inputallcolid").val(colval);
+                                        $("#Selectedfilters").val($(".selectedfilter option:selected").text());
+                                        $("#signupformforedit").submit();
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('تمامی موارد را کامل کنید')
+                                    }
+
+
+                                })
+
+                                    </script>
+
+                                </div>
+                                <div style="display:inline-block">
+                                    <input type="checkbox" id="addnewbut" style="color:black; display:inline-block" />
+                                    <p style="display:inline-block">ثبت به عنوان محصول جدید</p>
+                                    <script>
+                                        $("#addnewbut").click(function () {
+
+                                            if ($(this).is(':checked')) {
+                                                $("#addnew").val("True");
+                                                $("#imagelistholder").css("display", "none")
+                                            }
+                                            else {
+                                                $("#addnew").val("false");
+                                                $("#imagelistholder").css("display", "block")
+                                            }
+
+                                            //if ()
+                                        })
+                                    </script>
+                                </div>
+
+
+                            </div>
+                        }
+
+                    </div>
+
+
+
+                    <div class=" ln_solid"></div>
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

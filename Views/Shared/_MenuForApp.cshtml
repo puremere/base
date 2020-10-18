@@ -1,0 +1,232 @@
+﻿@model banimo.ViewModel.MyCollectionOfCatsList
+
+@{
+/**/
+<div id="bestholder" class="resCarousel"  data-slide="1" data-speed="500">
+
+
+    <div class="resCarousel-inner " style="direction:rtl; padding:5px 0 15px 0;">
+        @{
+            if (Model.catsdata != null && Model.catsdata.Count() > 0)
+            {
+                if (Model.catsdata.First().mycatcollection != null)
+                {
+                    foreach (var item in Model.catsdata.First().mycatcollection)
+                    {
+
+                        string ID = item.ID;
+
+                        <div class="item  ITEMCAT" id=@ID style="">
+                            @item.title
+                        </div>
+
+                    }
+                }
+            }
+
+        }
+
+
+
+
+        <script>
+            var width = screen.width;
+            var number = "-" + width + "px";
+            $(".subcatSection").css("margin-right", number);
+            $(".subcatSection2").css("margin-right", number);
+
+        </script>
+
+
+
+
+
+
+    </div>
+
+    <div id="subcatdiv">
+        @{
+            if (Model.catsdata != null && Model.catsdata.Count() > 0)
+            {
+                if (Model.catsdata.First().mycatcollection != null)
+                {
+                    foreach (var cat in Model.catsdata.First().mycatcollection)
+                    {
+                        string catallid = '1' + @cat.ID;
+                        <div class="subcatSection" id="holder-@cat.ID" style="height: 100%;display:none; position: fixed;top: 0;z-index: 99999;background-color: white;width: 100%;right: 0;">
+                            <div class="returnbutt" style="">
+
+                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span style=" margin-right: 15px;font-size:15px">بازگشت</span>
+                            </div>
+                            <div style="margin:0 10px">
+
+                                <div class= " actionitem" id=@catallid style="width:100%; margin:10px 0;border-radius:2px;box-shadow: 0px 1px 1px #ddd;  padding:6px 10px ; border:1px solid #ddd;text-align:right">
+                                    همه
+                                </div>
+                                @if (Model.catsdata.First().mysubcatcollection != null)
+                                {
+                                    foreach (var item in Model.catsdata.First().mysubcatcollection)
+                                    {
+                                        if (item.CatID == cat.ID)
+                                        {
+                                            string ID = item.ID;
+
+                                            <div class="subcatitem" id=@ID style="display:none; width:100%; margin:10px 0;border-radius:2px;box-shadow: 0px 1px 1px #ddd;  padding:6px 10px ; border:1px solid #ddd;text-align:right">
+                                                @item.title
+                                            </div>
+                                        }
+
+
+                                    }
+                                }
+
+                            </div>
+
+                        </div>
+                    }
+                }
+            }
+
+
+
+
+        }
+        <script>
+           
+
+            $(".ITEMCAT").click(function () {
+                const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+                
+                var id = "holder-" + $(this).attr('id');
+                $("#" + id).css("display", "block");
+                $("#" + id).animate({
+                    'margin-right': '0px'
+                }, something());
+                async function something() {
+                   
+                    var node = document.getElementById(id);
+
+                    var children = node.getElementsByClassName("subcatitem");
+                   
+                    for (var i = 0; i < children.length; i++) {
+                       
+                        $("#" + id +" #"+ children[i].id).fadeIn()
+                        await delay(250);
+                    }
+                  
+                    
+                }
+                
+               
+            })
+            $(".returnbutt").click(function () {
+                var parent = $(this).parent(); 
+                parent.animate({
+                    'margin-right' : number
+                }, function () {
+                    parent.css("display", "none");
+                    $(".subcatitem").css('display', 'none');
+                })
+            })
+            $(".subcatitem").click(function () {
+
+                var id2 = "subholeder-" + $(this).attr('id');
+
+               
+                $("#" + id2).animate({
+                    'margin-right': '0px'
+                }, something2());
+                async function something2() {
+                    $("#" + id2).css("display", "block");
+                    var node = document.getElementById(id2);
+
+                    var children = node.getElementsByClassName("subcatitem2");
+
+                    for (var i = 0; i < children.length; i++) {
+                     
+                        $("#" + id2 + " #" + children[i].id).fadeIn()
+                        await delay(250);
+                      
+                    }
+
+
+                }
+               
+            })
+            $(".returnbutt2").click(function () {
+                var subparent = $(this).parent();
+              
+                subparent.animate({
+                    'margin-right': number
+                }, function () {
+                    subparent.css("display", "none");
+                    $(".subcatitem2").css('display', 'none');
+                })
+            })
+        </script>
+    </div>
+    <div id="subcat2">
+        @{
+            if (Model.catsdata != null && Model.catsdata.Count() > 0)
+            {
+                if (Model.catsdata.First().mysubcatcollection != null)
+                {
+                    foreach (var subcat in Model.catsdata.First().mysubcatcollection)
+                    {
+                        string allid = '2' + @subcat.ID;
+                        <div  class="subcatSection2" id="subholeder-@subcat.ID" style="height: 100%;display:none; position: fixed;top: 0;z-index: 999999;background-color:#fff;width: 100%;right: 0;">
+                            <div class="returnbutt2" >
+
+                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span style=" margin-right: 15px;font-size:15px">بازگشت</span>
+                            </div>
+                            <div style="margin:0 10px">
+                                <div class="actionitem" id=@allid style="width:100%; margin:10px 0;border-radius:2px;box-shadow: 0px 1px 1px #ddd;  padding:6px 10px ; border:1px solid #ddd;text-align:right">
+                                    همه
+                                </div>
+                                @if (Model.catsdata.First().mysubcatcollection2 != null)
+                                {
+                                    foreach (var subcat2item in Model.catsdata.First().mysubcatcollection2)
+                                    {
+                                        if (subcat2item.subcatid == subcat.ID)
+                                        {
+                                            string ID = "3" + subcat2item.ID;
+
+                                            <div class="actionitem subcatitem2" id=@ID style="display:block; width:100%; margin:10px 0;border-radius:2px;box-shadow: 0px 1px 1px #ddd;  padding:6px 10px ; border:1px solid #ddd;text-align:right">
+                                                @subcat2item.title
+                                            </div>
+                                        }
+
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+                    }
+                }
+            }
+
+
+        }
+        <script>
+            $(".actionitem").click(function () {
+                var itemid = $(this).attr('id');
+                window.location.href = "/Home/ProductList?catmode=" + itemid;
+            })
+        </script>
+    </div>
+    
+
+
+
+
+
+</div>
+}
+
+
+
+

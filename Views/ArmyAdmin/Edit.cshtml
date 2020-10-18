@@ -1,0 +1,2761 @@
+﻿@model banimo.Classes.editmodel
+
+
+
+@{
+    Layout = "~/Views/Shared/_armyadminlayout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+@{
+    if (@Model.type == "1")
+    {
+        <div class="row">
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h4 style="display: inline-block;"> جزئیات </h4>
+                        <ul class="nav navbar-left panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+
+
+                            <div id="sec1">
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        نام :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.firstname</p>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        نام خانوادگی :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.lastname</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        نام پدر :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.fathersname</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        تاریخ اسارت :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.capturedate</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        محل اسارت :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.captureplace</p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        تاریخ آزادی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.freedomdate</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        ارگان خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.nirooType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        دوران خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.timeType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        موقعیت خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.situation
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                                <div class="form-group rowholder">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 control-label">
+                                        عکس :
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+                                        <div class="imagelistholder">
+
+                                            <div class="con">
+                                                @{
+        string url = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+        <img src=@url data-imagezoom="true" class=" back">
+
+                                                }
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                        <div style="display:none" id="orderidholder">@Model.ID</div>
+
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="form-group">
+
+                                    <a id="editbutt" class="lgnsubmitt">ویرایش</a>
+                                    <script>
+                                        $("#editbutt").click(function () {
+
+                                            $("#sec1").css("display", "none");
+                                            $("#sec2").css("display", "block");
+
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+                            <div id="sec2" style="display:none">
+                                @using (Html.BeginForm("Edit", "ArmyAdmin", FormMethod.Post,
+                                                        new { enctype = "multipart/form-data", id = "signupformforedit" }))
+                                {
+                                    @Html.HiddenFor(m => m.ID);
+                                    @Html.HiddenFor(m => m.type);
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام :
+                                        </label>
+                                        @{
+                                    if (Model.firstname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.firstname, new { @class = "form-control col-md-7 col-xs-12", id = "firstname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="firstname" name="firstname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام خانوادگی :
+                                        </label>
+                                        @{
+                                    if (Model.lastname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.lastname, new { @class = "form-control col-md-7 col-xs-12", id = "lastname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="lastname" name="lastname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام پدر :
+                                        </label>
+                                        @{
+                                    if (Model.fathersname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.fathersname, new { @class = "form-control col-md-7 col-xs-12", id = "fathersname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="fathersname" name="fathersname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            تاریخ اسارت :
+                                        </label>
+                                        @{
+                                    if (Model.capturedate != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.capturedate, new { @class = "form-control col-md-7 col-xs-12", id = "capturedate" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="capturedate" name="capturedate" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            محل اسارت :
+                                        </label>
+                                        @{
+                                    if (Model.captureplace != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.captureplace, new { @class = "form-control col-md-7 col-xs-12", id = "captureplace" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="captureplace" name="captureplace" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            ارگان خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listniroo = new List<SelectListItem>();
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "ارتش",
+                                        Value = "1"
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "سپاه",
+                                        Value = "2",
+
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "پدافند",
+                                        Value = "3",
+
+                                    });
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("nirooType", listniroo, new { id = "nirooType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            دوران خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listtime = new List<SelectListItem>();
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "قبل از جنگ",
+                                        Value = "1"
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "تا قطع نامه",
+                                        Value = "2",
+
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "بعد از قطعنامه",
+                                        Value = "3",
+
+                                    });
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("timeType", listtime, new { id = "timeType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            موقعیت خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listItems = new List<SelectListItem>();
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "وظیفه",
+                                        Value = "وظیفه"
+                                    });
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "کادر",
+                                        Value = "کادر",
+
+                                    });
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("situation", listItems, new { id = "situation", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12 ">آپلود عکس:</label>
+                                        @*@Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+
+                                        <input class="col-md-4 col-sm-4 col-xs-12 " style="display: inline-block; float: right" id="fileupload" type="file" name="fileupload" multiple="multiple" accept="image/*">
+                                        <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+
+                                            <div class="imagelistholder">
+                                                @{
+
+                                                    <div class="con">
+
+                                                        @{
+                                    string myurll = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+                                    <img src=@myurll data-imagezoom="true" class=" back">
+                                                        }
+
+
+                                                    </div>
+
+                                                    <style>
+                                                        .imagelistholder {
+                                                            display: inline-block;
+                                                            width: 200px;
+                                                            padding: 5px;
+                                                            border: 1px solid #eee;
+                                                            box-shadow: 3px 3px #eee;
+                                                            border-radius: 25px;
+                                                        }
+
+                                                        .con {
+                                                            position: relative;
+                                                            width: 100%;
+                                                        }
+
+                                                            /* Make the image responsive */
+                                                            .con img {
+                                                                width: 100%;
+                                                                height: auto;
+                                                                border-radius: 25px;
+                                                            }
+
+                                                            /* Style the button and place it in the middle of the container/image */
+                                                            .con .btn {
+                                                                position: absolute;
+                                                                top: 50%;
+                                                                left: 50%;
+                                                                transform: translate(-50%, -50%);
+                                                                -ms-transform: translate(-50%, -50%);
+                                                                background-color: #555;
+                                                                color: white;
+                                                                font-size: 16px;
+                                                                padding: 12px 24px;
+                                                                border: none;
+                                                                cursor: pointer;
+                                                                border-radius: 5px;
+                                                            }
+
+                                                                .con .btn:hover {
+                                                                    background-color: black;
+                                                                }
+                                                    </style>
+                                                }
+
+
+
+                                            </div>
+
+                                            <div style="display:none" id="orderidholder">@Model.ID</div>
+                                            <script>
+
+
+                                                $(".deleteimage").click(function () {
+
+                                                    var id = @Model.ID
+
+
+
+
+                                                      $.ajax({
+                                                          url: '/ArmyAdmin/Deleteimage',
+                                                          dataType: 'html',
+                                                          data: {
+                                                              id: id,
+                                                          },
+                                                          success: function (data) {
+                                                              window.location.href = "/ArmyAdmin/Edit?id =" + orderid;
+                                                              window.location.reload();
+                                                          },
+                                                          error: function () {
+
+                                                          }
+                                                      });
+                                                })
+                                            </script>
+
+                                        </div>
+
+
+
+                                    </div>
+                                }
+
+
+
+
+                                <div class="form-group">
+
+                                    <a id="editproduct" class="lgnsubmitt">تایید</a>
+                                    <script>
+                                        $("#editproduct").click(function () {
+                                         
+                                            var firstname = $("#firstname").val();
+                                            var lastname = $("#lastname").val();
+                                            var fathersname = $("#fathersname").val();
+                                            var captureplace = $("#captureplace").text();
+                                            var capturetime = $("#capturetime").text();
+                                            var nirooType = $("#nirooType").text();
+                                            var timeType = $("#nirooType").text();
+                                            var situation = $("#situation").text();
+
+
+                                            if (firstname != null & lastname != null) {
+                                                $("#signupformforedit").submit();
+                                            }
+
+                                            else {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('تمامی موارد را کامل کنید')
+                                            }
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+                        <div class=" ln_solid"></div>
+
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    }
+
+
+    else if (@Model.type == "2")
+    {
+        <div class="row">
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h4 style="display: inline-block;"> جزئیات </h4>
+                        <ul class="nav navbar-left panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+
+
+                            <div id="sec1">
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        نام :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.firstname</p>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        نام خانوادگی :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.lastname</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        نام پدر :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.fathersname</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        تاریخ جانبازی :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.damagedate</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        محل جانبازی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.damageplace</p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        اولویت :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.priority</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        ارگان خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.nirooType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        دوران خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.timeType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        موقعیت خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.situation
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                                <div class="form-group rowholder">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 control-label">
+                                        عکس :
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+                                        <div class="imagelistholder">
+
+                                            <div class="con">
+                                                @{
+        string urll = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+        <img src=@urll data-imagezoom="true" class=" back">
+
+                                                }
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                        <div style="display:none" id="orderidholder">@Model.ID</div>
+
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="form-group">
+
+                                    <a id="editbutt" class="lgnsubmitt">ویرایش</a>
+                                    <script>
+                                        $("#editbutt").click(function () {
+
+                                            $("#sec1").css("display", "none");
+                                            $("#sec2").css("display", "block");
+
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+                            <div id="sec2" style="display:none">
+                                @using (Html.BeginForm("Edit", "ArmyAdmin", FormMethod.Post,
+                                                        new { enctype = "multipart/form-data", id = "signupformforedit" }))
+                                {
+                                    @Html.HiddenFor(m => m.ID);
+                                    @Html.HiddenFor(m => m.type);
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام :
+                                        </label>
+                                        @{
+                                    if (Model.firstname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.firstname, new { @class = "form-control col-md-7 col-xs-12", id = "firstname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="firstname" name="firstname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام خانوادگی :
+                                        </label>
+                                        @{
+                                    if (Model.lastname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.lastname, new { @class = "form-control col-md-7 col-xs-12", id = "lastname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="lastname" name="lastname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام پدر :
+                                        </label>
+                                        @{
+                                    if (Model.fathersname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.fathersname, new { @class = "form-control col-md-7 col-xs-12", id = "fathersname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="fathersname" name="fathersname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            تاریخ جانبازی :
+                                        </label>
+                                        @{
+                                    if (Model.damagedate != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.damagedate, new { @class = "form-control col-md-7 col-xs-12", id = "damagedate" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="damagedate" name="damagedate" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            محل جانبازی  :
+                                        </label>
+                                        @{
+                                    if (Model.damageplace != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.damageplace, new { @class = "form-control col-md-7 col-xs-12", id = "damageplace" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="damageplace" name="damageplace" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            اولویت  :
+                                        </label>
+                                        @{
+                                    if (Model.priority != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.priority, new { @class = "form-control col-md-7 col-xs-12", id = "priority" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="priority" name="priority" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            ارگان خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listniroo = new List<SelectListItem>();
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "ستاد کل",
+                                        Value = "1"
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "نیروی زمینی",
+                                        Value = "2",
+
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "پدافند هوایی",
+                                        Value = "3",
+
+                                      });
+                                     listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "نیروی هوایی",
+                                        Value = "4",
+
+                                    });
+                                     listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "نیروی دریایی",
+                                        Value = "5",
+
+                                    });
+                                   
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("nirooType", listniroo, new { id = "nirooType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            دوران خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listtime = new List<SelectListItem>();
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "قبل از انقلاب",
+                                        Value = "1"
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "22 ماهه اول انقلاب",
+                                        Value = "2",
+
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "دوران دفاع مقدس",
+                                        Value = "3",
+
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "بعد از جنگ",
+                                        Value = "4",
+
+
+                                    });
+                                   
+
+
+                                    
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("timeType", listtime, new { id = "timeType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            موقعیت خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listItems = new List<SelectListItem>();
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "وظیفه",
+                                        Value = "وظیفه"
+                                    });
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "کادر",
+                                        Value = "کادر",
+
+                                    });
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("situation", listItems, new { id = "situation", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12 ">آپلود عکس:</label>
+                                        @*@Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+
+                                        <input class="col-md-4 col-sm-4 col-xs-12 " style="display: inline-block; float: right" id="fileupload" type="file" name="fileupload" multiple="multiple" accept="image/*">
+                                        <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+
+                                            <div class="imagelistholder">
+                                                @{
+
+                                                    <div class="con">
+
+                                                        @{
+                                    string myurll = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+                                    <img src=@myurll data-imagezoom="true" class=" back">
+                                                        }
+
+
+                                                    </div>
+
+                                                    <style>
+                                                        .imagelistholder {
+                                                            display: inline-block;
+                                                            width: 200px;
+                                                            padding: 5px;
+                                                            border: 1px solid #eee;
+                                                            box-shadow: 3px 3px #eee;
+                                                            border-radius: 25px;
+                                                        }
+
+                                                        .con {
+                                                            position: relative;
+                                                            width: 100%;
+                                                        }
+
+                                                            /* Make the image responsive */
+                                                            .con img {
+                                                                width: 100%;
+                                                                height: auto;
+                                                                border-radius: 25px;
+                                                            }
+
+                                                            /* Style the button and place it in the middle of the container/image */
+                                                            .con .btn {
+                                                                position: absolute;
+                                                                top: 50%;
+                                                                left: 50%;
+                                                                transform: translate(-50%, -50%);
+                                                                -ms-transform: translate(-50%, -50%);
+                                                                background-color: #555;
+                                                                color: white;
+                                                                font-size: 16px;
+                                                                padding: 12px 24px;
+                                                                border: none;
+                                                                cursor: pointer;
+                                                                border-radius: 5px;
+                                                            }
+
+                                                                .con .btn:hover {
+                                                                    background-color: black;
+                                                                }
+                                                    </style>
+                                                }
+
+
+
+                                            </div>
+
+                                            <div style="display:none" id="orderidholder">@Model.ID</div>
+                                            <script>
+
+
+                                                $(".deleteimage").click(function () {
+
+                                                    var id = @Model.ID
+
+
+
+
+                                                      $.ajax({
+                                                          url: '/ArmyAdmin/Deleteimage',
+                                                          dataType: 'html',
+                                                          data: {
+                                                              id: id,
+                                                          },
+                                                          success: function (data) {
+                                                              window.location.href = "/ArmyAdmin/Edit?id =" + orderid;
+                                                              window.location.reload();
+                                                          },
+                                                          error: function () {
+
+                                                          }
+                                                      });
+                                                })
+                                            </script>
+
+                                        </div>
+
+
+
+                                    </div>
+                                }
+
+
+
+
+                                <div class="form-group">
+
+                                    <a id="editproduct" class="lgnsubmitt">تایید</a>
+                                    <script>
+                                        $("#editproduct").click(function () {
+                                          
+                                            var firstname = $("#firstname").val();
+                                            var lastname = $("#lastname").val();
+                                            var fathersname = $("#fathersname").val();
+                                            var captureplace = $("#captureplace").text();
+                                            var capturetime = $("#capturetime").text();
+                                            var nirooType = $("#nirooType").text();
+                                            var timeType = $("#nirooType").text();
+                                            var situation = $("#situation").text();
+
+
+                                            if (firstname != null & lastname != null) {
+                                                $("#signupformforedit").submit();
+                                            }
+
+                                            else {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('تمامی موارد را کامل کنید')
+                                            }
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+                        <div class=" ln_solid"></div>
+
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    }
+    
+    else if (@Model.type == "3")
+    {
+        <div class="row">
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h4 style="display: inline-block;"> جزئیات </h4>
+                        <ul class="nav navbar-left panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+
+
+                            <div id="sec1">
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        نام و نام خانوادگی :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.fullname</p>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        استان :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.ostanName</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        سال :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.year</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        تاریخ تولد :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.birthday</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        تاریخ شهادت :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.deathday</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        محل شهادت :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.deathplace</p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        محل دفن :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.graveplace</p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        زندگی نامه :
+                                    </label>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                        <p class=" col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">@Model.biography</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        وصیت نامه :
+                                    </label>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                        <p class=" col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">@Model.will</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                       خاطرات :
+                                    </label>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                        <p class=" col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">@Model.memories</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        ارگان خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.nirooType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        دوران خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.timeType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                              
+
+                                <div class="form-group rowholder">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 control-label">
+                                        عکس :
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+                                        <div class="imagelistholder">
+
+                                            <div class="con">
+                                                @{
+        string url = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+        <img src=@url data-imagezoom="true" class=" back">
+
+                                                }
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                        <div style="display:none" id="orderidholder">@Model.ID</div>
+
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="form-group">
+
+                                    <a id="editbutt" class="lgnsubmitt">ویرایش</a>
+                                    <script>
+                                        $("#editbutt").click(function () {
+
+                                            $("#sec1").css("display", "none");
+                                            $("#sec2").css("display", "block");
+
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+                            <div id="sec2" style="display:none">
+                                @using (Html.BeginForm("Edit", "ArmyAdmin", FormMethod.Post,
+                                                        new { enctype = "multipart/form-data", id = "signupformforedit" }))
+                                {
+                                    @Html.HiddenFor(m => m.ID);
+                                    @Html.HiddenFor(m => m.type);
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام  و نام خانوادگی :
+                                        </label>
+                                        @{
+                                    if (Model.fullname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.fullname, new { @class = "form-control col-md-7 col-xs-12", id = "fullname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="fullname" name="fullname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            استان :
+                                        </label>
+                                        @{
+                                    if (Model.ostanName != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.ostanName, new { @class = "form-control col-md-7 col-xs-12", id = "ostanName" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="ostanName" name="ostanName" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            سال :
+                                        </label>
+                                        @{
+                                    if (Model.year != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.year, new { @class = "form-control col-md-7 col-xs-12", id = "year" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="year" name="year" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            تاریخ تولد :
+                                        </label>
+                                        @{
+                                    if (Model.birthday != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control col-md-7 col-xs-12", id = "birthday" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="birthday" name="birthday" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            تاریخ شهادت :
+                                        </label>
+                                        @{
+                                    if (Model.deathday != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.deathday, new { @class = "form-control col-md-7 col-xs-12", id = "deathday" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="deathday" name="deathday" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                          <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            محل شهادت :
+                                        </label>
+                                        @{
+                                    if (Model.deathplace != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.deathplace, new { @class = "form-control col-md-7 col-xs-12", id = "deathplace" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="deathplace" name="deathplace" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                          <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            محل دفن :
+                                        </label>
+                                        @{
+                                    if (Model.graveplace != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.graveplace, new { @class = "form-control col-md-7 col-xs-12", id = "graveplace" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="graveplace" name="graveplace" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                        
+                                         <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                           زندگی نامه :
+                                        </label>
+                                        @{
+                                    if (Model.biography != "")
+                                    {
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                            @Html.TextAreaFor(m => m.biography, new { @class = "form-control col-md-7 col-xs-12", id = "biography", style = "text-align: justify; margin-top: 15px; line-height: 2; font-size: 12px;; height:300" })
+                                       </div>
+                                       
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input type="text" id="biography" name="biography" class="form-control col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                         <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                           وصیت نامه :
+                                        </label>
+                                             @{
+                                    if (Model.will != "")
+                                    {
+
+                                         <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                             @Html.TextAreaFor(m => m.will, new { @class = "form-control col-md-7 col-xs-12", id = "will", style = "text-align: justify; margin-top: 15px; line-height: 2; font-size: 12px; height:300" })
+                                         </div>
+
+
+                                    }
+                                    else
+                                    {
+                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                             <input type="text" id="will" name="will" class="form-control col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">
+                                         </div>
+                                    }
+                                             }
+
+
+
+                                    </div>
+                                      <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                           خاطرات :
+                                        </label>
+                                        @{
+                                    if (Model.memories != "")
+                                    {
+                                        
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                            @Html.TextAreaFor(m => m.memories, new { @class = "form-control col-md-7 col-xs-12", id = "memories", style = "text-align: justify; margin-top: 15px; line-height: 2; font-size: 12px; height:300" })
+                                       </div>
+                                       
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                            <input type="text" id="memories" name="memories" class="form-control col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            ارگان خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listniroo = new List<SelectListItem>();
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "ارتش",
+                                        Value = "1"
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "سپاه",
+                                        Value = "2",
+
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "پدافند",
+                                        Value = "3",
+
+                                    });
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("nirooType", listniroo, new { id = "nirooType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            دوران خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listtime = new List<SelectListItem>();
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "قبل از جنگ",
+                                        Value = "1"
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "تا قطع نامه",
+                                        Value = "2",
+
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "بعد از قطعنامه",
+                                        Value = "3",
+
+                                    });
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("timeType", listtime, new { id = "timeType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+                                    </div>
+
+                                 
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12 ">آپلود عکس:</label>
+                                        @*@Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+
+                                        <input class="col-md-4 col-sm-4 col-xs-12 " style="display: inline-block; float: right" id="fileupload" type="file" name="fileupload" multiple="multiple" accept="image/*">
+                                        <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+
+                                            <div class="imagelistholder">
+                                                @{
+
+                                                    <div class="con">
+
+                                                        @{
+                                    string myurll = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+                                    <img src=@myurll data-imagezoom="true" class=" back">
+                                                        }
+
+
+                                                    </div>
+
+                                                    <style>
+                                                        .imagelistholder {
+                                                            display: inline-block;
+                                                            width: 200px;
+                                                            padding: 5px;
+                                                            border: 1px solid #eee;
+                                                            box-shadow: 3px 3px #eee;
+                                                            border-radius: 25px;
+                                                        }
+
+                                                        .con {
+                                                            position: relative;
+                                                            width: 100%;
+                                                        }
+
+                                                            /* Make the image responsive */
+                                                            .con img {
+                                                                width: 100%;
+                                                                height: auto;
+                                                                border-radius: 25px;
+                                                            }
+
+                                                            /* Style the button and place it in the middle of the container/image */
+                                                            .con .btn {
+                                                                position: absolute;
+                                                                top: 50%;
+                                                                left: 50%;
+                                                                transform: translate(-50%, -50%);
+                                                                -ms-transform: translate(-50%, -50%);
+                                                                background-color: #555;
+                                                                color: white;
+                                                                font-size: 16px;
+                                                                padding: 12px 24px;
+                                                                border: none;
+                                                                cursor: pointer;
+                                                                border-radius: 5px;
+                                                            }
+
+                                                                .con .btn:hover {
+                                                                    background-color: black;
+                                                                }
+                                                    </style>
+                                                }
+
+
+
+                                            </div>
+
+                                            <div style="display:none" id="orderidholder">@Model.ID</div>
+                                            <script>
+
+
+                                                $(".deleteimage").click(function () {
+
+                                                    var id = @Model.ID
+
+
+
+
+                                                      $.ajax({
+                                                          url: '/ArmyAdmin/Deleteimage',
+                                                          dataType: 'html',
+                                                          data: {
+                                                              id: id,
+                                                          },
+                                                          success: function (data) {
+                                                              window.location.href = "/ArmyAdmin/Edit?id =" + orderid;
+                                                              window.location.reload();
+                                                          },
+                                                          error: function () {
+
+                                                          }
+                                                      });
+                                                })
+                                            </script>
+
+                                        </div>
+
+
+
+                                    </div>
+                                }
+
+
+
+
+                                <div class="form-group">
+
+                                    <a id="editproduct" class="lgnsubmitt">تایید</a>
+                                    <script>
+                                        $("#editproduct").click(function () {
+                                           
+                                            var fullname = $("#fullname").val();
+                                            var ostanName = $("#ostanName").val();
+                                            var year = $("#year").val();
+                                            var birthday = $("#birthday").text();
+                                            var deathday = $("#deathday").text();
+                                            var deathplace = $("#deathplace").text();
+                                            var graveplace = $("#graveplace").text();
+                                            var biography = $("#biography").text();
+                                            var memories = $("#memories").text();
+                                            var will = $("#will").text();
+                                            var nirooType = $("#nirooType").text();
+                                            var timeType = $("#timeType").text();
+                                          
+                                            
+
+                                            if (fullname != null) {
+                                                $("#signupformforedit").submit();
+                                            }
+
+                                            else {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('تمامی موارد را کامل کنید')
+                                            }
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+                        <div class=" ln_solid"></div>
+
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    }
+    
+      else if (@Model.type == "4")
+    {
+        <div class="row">
+
+
+            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h4 style="display: inline-block;"> جزئیات </h4>
+                        <ul class="nav navbar-left panel_toolbox">
+                            <li>
+                                <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="#">Settings 1</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Settings 2</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+
+
+                            <div id="sec1">
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        نام :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.firstname</p>
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        نام خانوادگی :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.lastname</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        نام پدر :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.fathersname</p>
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                        تاریخ تولد :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.birthday</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        کد ملی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.melicode</p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        کد ایثار :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.isarcode</p>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        مدت زمان خدمت :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">@Model.staytime</p>
+                                    </div>
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        ارگان خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.nirooType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        دوران خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.timeType
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        موقعیت خدمتی :
+                                    </label>
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <p class=" col-md-7 col-xs-12">
+                                            @Model.situation
+                                        </p>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+                                <div class="form-group rowholder">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 control-label">
+                                        عکس :
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+                                        <div class="imagelistholder">
+
+                                            <div class="con">
+                                                @{
+        string urll = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+        <img src=@urll data-imagezoom="true" class=" back">
+
+                                                }
+                                            </div>
+
+
+
+
+                                        </div>
+
+                                        <div style="display:none" id="orderidholder">@Model.ID</div>
+
+
+                                    </div>
+
+
+
+                                </div>
+                                <div class="form-group">
+
+                                    <a id="editbutt" class="lgnsubmitt">ویرایش</a>
+                                    <script>
+                                        $("#editbutt").click(function () {
+
+                                            $("#sec1").css("display", "none");
+                                            $("#sec2").css("display", "block");
+
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+                            </div>
+                            <div id="sec2" style="display:none">
+                                @using (Html.BeginForm("Edit", "ArmyAdmin", FormMethod.Post,
+                                                        new { enctype = "multipart/form-data", id = "signupformforedit" }))
+                                {
+                                    @Html.HiddenFor(m => m.ID);
+                                    @Html.HiddenFor(m => m.type);
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام :
+                                        </label>
+                                        @{
+                                    if (Model.firstname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.firstname, new { @class = "form-control col-md-7 col-xs-12", id = "firstname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="firstname" name="firstname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام خانوادگی :
+                                        </label>
+                                        @{
+                                    if (Model.lastname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.lastname, new { @class = "form-control col-md-7 col-xs-12", id = "lastname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="lastname" name="lastname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            نام پدر :
+                                        </label>
+                                        @{
+                                    if (Model.fathersname != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.fathersname, new { @class = "form-control col-md-7 col-xs-12", id = "fathersname" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="fathersname" name="fathersname" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            تاریخ تولد :
+                                        </label>
+                                        @{
+                                    if (Model.birthday != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.birthday, new { @class = "form-control col-md-7 col-xs-12", id = "birthday" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="birthday" name="birthday" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            کد ملی  :
+                                        </label>
+                                        @{
+                                    if (Model.melicode != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.melicode, new { @class = "form-control col-md-7 col-xs-12", id = "melicode" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="melicode" name="melicode" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+
+                                    </div>
+                                 
+                                     <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            کد ایثار  :
+                                        </label>
+                                        @{
+                                    if (Model.isarcode != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.isarcode, new { @class = "form-control col-md-7 col-xs-12", id = "isarcode" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="isarcode" name="isarcode" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+
+                                    </div>
+
+                                       <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            مدت زمان خدمت  :
+                                        </label>
+                                        @{
+                                    if (Model.staytime != "")
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            @Html.TextBoxFor(m => m.staytime, new { @class = "form-control col-md-7 col-xs-12", id = "staytime" })
+
+                                        </div>
+
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                            <input type="text" id="staytime" name="staytime" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                        }
+
+
+
+
+                                    </div>
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            ارگان خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listniroo = new List<SelectListItem>();
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "ستاد کل",
+                                        Value = "1"
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "نیروی زمینی",
+                                        Value = "2",
+
+                                    });
+                                    listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "پدافند هوایی",
+                                        Value = "3",
+
+                                      });
+                                     listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "نیروی هوایی",
+                                        Value = "4",
+
+                                    });
+                                     listniroo.Add(new SelectListItem
+                                    {
+                                        Text = "نیروی دریایی",
+                                        Value = "5",
+
+                                    });
+                                   
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("nirooType", listniroo, new { id = "nirooType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+
+
+                                    </div>
+
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            دوران خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listtime = new List<SelectListItem>();
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "قبل از انقلاب",
+                                        Value = "1"
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "22 ماهه اول انقلاب",
+                                        Value = "2",
+
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "دوران دفاع مقدس",
+                                        Value = "3",
+
+                                    });
+                                    listtime.Add(new SelectListItem
+                                    {
+                                        Text = "بعد از جنگ",
+                                        Value = "4",
+
+
+                                    });
+                                   
+
+
+                                    
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("timeType", listtime, new { id = "timeType", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                            موقعیت خدمتی :
+                                        </label>
+                                        @{
+
+                                    List<SelectListItem> listItems = new List<SelectListItem>();
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "وظیفه",
+                                        Value = "وظیفه"
+                                    });
+                                    listItems.Add(new SelectListItem
+                                    {
+                                        Text = "کادر",
+                                        Value = "کادر",
+
+                                    });
+
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        @Html.DropDownList("situation", listItems, new { id = "situation", @class = "form-control col-md-7 col-xs-12" })
+                                    </div>
+                                        }
+
+
+
+                                    </div>
+
+                                    <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12 ">آپلود عکس:</label>
+                                        @*@Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+
+                                        <input class="col-md-4 col-sm-4 col-xs-12 " style="display: inline-block; float: right" id="fileupload" type="file" name="fileupload" multiple="multiple" accept="image/*">
+                                        <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+                                        </div>
+
+                                        <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+
+                                            <div class="imagelistholder">
+                                                @{
+
+                                                    <div class="con">
+
+                                                        @{
+                                    string myurll = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+                                    <img src=@myurll data-imagezoom="true" class=" back">
+                                                        }
+
+
+                                                    </div>
+
+                                                    <style>
+                                                        .imagelistholder {
+                                                            display: inline-block;
+                                                            width: 200px;
+                                                            padding: 5px;
+                                                            border: 1px solid #eee;
+                                                            box-shadow: 3px 3px #eee;
+                                                            border-radius: 25px;
+                                                        }
+
+                                                        .con {
+                                                            position: relative;
+                                                            width: 100%;
+                                                        }
+
+                                                            /* Make the image responsive */
+                                                            .con img {
+                                                                width: 100%;
+                                                                height: auto;
+                                                                border-radius: 25px;
+                                                            }
+
+                                                            /* Style the button and place it in the middle of the container/image */
+                                                            .con .btn {
+                                                                position: absolute;
+                                                                top: 50%;
+                                                                left: 50%;
+                                                                transform: translate(-50%, -50%);
+                                                                -ms-transform: translate(-50%, -50%);
+                                                                background-color: #555;
+                                                                color: white;
+                                                                font-size: 16px;
+                                                                padding: 12px 24px;
+                                                                border: none;
+                                                                cursor: pointer;
+                                                                border-radius: 5px;
+                                                            }
+
+                                                                .con .btn:hover {
+                                                                    background-color: black;
+                                                                }
+                                                    </style>
+                                                }
+
+
+
+                                            </div>
+
+                                            <div style="display:none" id="orderidholder">@Model.ID</div>
+                                            <script>
+
+
+                                                $(".deleteimage").click(function () {
+
+                                                    var id = @Model.ID
+
+
+
+
+                                                      $.ajax({
+                                                          url: '/ArmyAdmin/Deleteimage',
+                                                          dataType: 'html',
+                                                          data: {
+                                                              id: id,
+                                                          },
+                                                          success: function (data) {
+                                                              window.location.href = "/ArmyAdmin/Edit?id =" + orderid;
+                                                              window.location.reload();
+                                                          },
+                                                          error: function () {
+
+                                                          }
+                                                      });
+                                                })
+                                            </script>
+
+                                        </div>
+
+
+
+                                    </div>
+                                }
+
+
+
+
+                                <div class="form-group">
+
+                                    <a id="editproduct" class="lgnsubmitt">تایید</a>
+                                    <script>
+                                        $("#editproduct").click(function () {
+                                           
+                                            var firstname = $("#firstname").val();
+                                            var lastname = $("#lastname").val();
+                                            var fathersname = $("#fathersname").val();
+                                            var birthday = $("#birthday").text();
+                                            var melicode = $("#melicode").text();
+                                            var isarcode = $("#isarcode").text();
+                                            var staytime = $("#staytime").text();
+                                            var nirooType = $("#nirooType").text();
+                                            var timeType = $("#timeType").text();
+                                            var timeType = $("#nirooType").text();
+                                            var situation = $("#situation").text();
+
+
+                                            if (firstname != null & lastname != null) {
+                                                $("#signupformforedit").submit();
+                                            }
+
+                                            else {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('تمامی موارد را کامل کنید')
+                                            }
+
+
+                                        })
+
+                                    </script>
+
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+
+
+
+                        <div class=" ln_solid"></div>
+
+
+
+
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    }
+    
+}
+
+

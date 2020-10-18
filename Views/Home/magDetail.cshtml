@@ -1,0 +1,184 @@
+﻿@model banimo.ViewModel.articleDetailVM
+@{
+    /**/
+
+    ViewBag.Title = "magDetail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/magDetailStyle.css" rel="stylesheet" />
+<link href="~/Content/detailStyle.css" rel="stylesheet" />
+
+<div class="row detailParent" style="">
+    @Html.Raw(Model.articles.First().content)
+</div>
+
+
+<div id="maxwidth">
+    <div style=" margin:20px; direction:rtl; text-align:right;border-radius: 8px; box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
+        <div id="commentsection">
+
+
+            <div class="c-comments ">
+
+
+
+                <div class="c-comments__filter" style="padding-right:20px;">
+                    <span class="c-faq__filter-title h4">نظرات کاربران</span>
+
+                </div>
+                <div id="product-comment-list">
+
+                    <ul id="comment" class="c-comments__list" style="margin:0">
+
+                        @if (Model.comment != null)
+                        {
+                            foreach (var item in Model.comment)
+                            {
+                                <li>
+                                    @if (item.IsOwner == "1")
+                                    {
+                                        <div class="c-message-light c-message-light--purchased" style="float: left;width: 40%;direction: ltr;"><span>خریدار این محصول</span>  <i class="fa fa-cart-plus"></i></div>
+
+                                    }
+                                    <section>
+
+                                        <div class="article">
+                                            <div class="header">
+                                                <div>
+                                                    <p style="margin-bottom:5px ">@item.title</p>
+                                                    <span>توسط @item.name در تاریخ  @item.time  </span>
+                                                </div>
+                                            </div>
+                                            <p>@item.comment</p>
+                                            <br />
+                                            @if (item.Answer != null)
+                                            {
+                                                <div class="header" style="margin-bottom:10px;margin-right:50px">
+                                                    <div style="">
+
+                                                        <span>پاسخ فروشنده در تاریخ  @item.rtime  </span>
+                                                    </div>
+                                                </div>
+                                                <p style="margin-right:50px">@item.Answer</p>
+                                            }
+
+
+                                        </div>
+
+                                    </section>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li style="">
+                                <p style="float:right;margin-left: 20px;font-size: 14px;">اولین نظر را شما ثبت کنید</p>
+                                <div id="commentmore" style=" cursor: pointer ;margin-bottom:15px;font-size: 14px;" class="commentmoreandmore">
+                                    <i class="fa fa-plus addcommnet" style=" font-size: 18px; padding-top: 6px;  padding-right: 15px; color: #00BFD6; font-size: 14px;"></i><p style="color: #00BFD6;float: right;">افزودن نظر </p>
+                                </div>
+                            </li>
+
+                        }
+
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="minwidth" style="padding:20px">
+    @if (Model.comment != null)
+    {
+
+        <div class="row" style="padding:10px; border-bottom:1px solid #ddd ">
+            @if (Model.comment.Count() > 0)
+            {
+                <p style="float:right; ">مفیدترین نظرات کاربران</p>
+            }
+            else
+            {
+                <p style="float:right; margin-bottom:10px">اولین نفری باشید که نظر خود را ثبت میکنید</p>
+            }
+
+            <div id="" style="cursor: pointer; " class="commentmoreandmore">
+                <i class="fa fa-plus " style="float: left; font-size: 18px; padding-top: 1px; padding-right: 15px; color: #00BFD6;"></i><p style="color: #00BFD6">
+                    افزودن نظر
+                </p>
+            </div>
+        </div>
+        <div id="commentholdersmall" style="width:100% ; overflow:hidden; text-align:justify;direction:rtl;line-height:2; margin-top:10px ; ">
+
+            @{
+                foreach (var item in Model.comment)
+                {
+                    <div style="margin-top:15px; background-color:#eee; width:100%; padding:10px; border-radius:5px">
+                        <div>
+                            <p style="font-weight:bold">@item.title</p>
+                            <p>@item.name  در تاریخ @item.time</p>
+                            <p style="direction:rtl; text-align:justify">@item.comment</p>
+                        </div>
+                        <br />
+                        @if (item.Answer != null)
+                        {
+                            <div style="border-top:1px solid #000; padding-top:15px">
+
+                                <p> فروشنده در تاریخ @item.rtime</p>
+                                <p style="direction:rtl; text-align:justify">@item.Answer</p>
+                            </div>
+                        }
+
+
+                    </div>
+
+
+                }
+
+
+            }
+        </div>
+
+    }
+    else
+    {
+
+        <div style="text-align:center; width:100%">
+            <i class="fal fa-info-circle" style="font-size:46px; margin-bottom:10px"></i>
+            <p style="">هنوز هیچ دیدگاهی در مورد این محصول درج نشده است</p>
+        </div>
+        <div id="commentmore" class="commentmoreandmore" style="display:inline-block; background-color:red; border-radius:50%;position:fixed; bottom:25px ; left :25px; padding:10px">
+            <i class="fal fa-pencil addcommnet" style="color:white;font-size:18px; display:table-cell;vertical-align:middle;text-align:center;text-decoration:none">
+
+            </i>
+
+        </div>
+
+    }
+
+    <script>
+    $(".commentmoreandmore").click(function () {
+
+        if ('@Session["token"]' !== "") {
+            window.location.href = "/Home/AddComment?id=" + '@Model.articles.First().ID' + "&img=" + '@Model.articles.First().image' + "&Commenttype=1";
+
+        }
+        else {
+            var url = '@Url.Action("login", "Home")';
+            window.location.href = url;
+        }
+
+    });
+    </script>
+</div>
+
+
+<script>
+
+    if ($(window).width() < 900) {
+        $("#maxwidth").hide();
+    }
+    else {
+        $("#minwidth").hide();
+    }
+</script>

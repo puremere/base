@@ -1,0 +1,1853 @@
+﻿@using banimo.Classes;
+@model banimo.ViewModel.productlistclass
+@{
+    ViewBag.Title = "لیست محصولات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*
+    <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
+    <link href="~/Content/jquery.mobile-1.4.5.css" rel="stylesheet" />*@
+@section scripts{
+    <link href="~/Content/ProductListStyle.css" rel="stylesheet" />
+
+
+    @*<script>
+            $(document).ajaxStart(function () {
+
+                $("#loading").fadeIn();
+            });
+            $(document).ajaxComplete(function () {
+
+
+            });
+
+        </script>*@
+
+}
+
+
+
+
+
+
+
+
+<div id="filterAndSortButt" class="row minwidth" style="display:none">
+    @if (Model.filtergroup.filters != null || Model.filtergroup.ranges != null || Model.filtergroup.colors != null)
+    {
+        <div id="filterBut" class="filtersortmenu" style="width:44%; float:right"> <i style=" margin-left: 10px" class="fal fa-filter"></i><span style="font-size:11px">فیلتر</span> </div>
+
+        <div id="sortholderBut" class="filtersortmenu" style="width:44%; float:right">  <i style=" margin-left: 10px" class="fal fa-sort-amount-up"></i><span style="font-size:11px" id="textOfSort">پرفروش ترین ها</span></div>
+    }
+    else
+    {
+        <div id="sortholderBut" class="filtersortmenu" style="width:88%; float:right">  <i style=" margin-left: 10px" class="fal fa-sort-amount-up"></i><span style="font-size:11px" id="textOfSort">پرفروش ترین ها</span></div>
+
+    }
+
+    <div id="iconholder" class="filtersortmenu" style="width:12% ; float:right">
+
+        <i class="fal fa-list" style="display:none ;font-weight:400; font-size:16px"> </i>
+        <i class="fal fa-th-large" style="font-weight:400;font-size:16px"> </i>
+
+    </div>
+
+</div>
+
+<div id="sortholder" style="display:none">
+    <div id="horizontalTab">
+        <label class="radoioholder">
+            پرفروش ترین
+            <input id="2sorty" type="radio" checked="checked" name="radio">
+            <span class="radiocheckmark"></span>
+        </label>
+        <label class="radoioholder">
+            پیشنهاد ویژه
+            <input id="3sorty" type="radio" name="radio">
+            <span class="radiocheckmark"></span>
+        </label>
+        <label class="radoioholder">
+            قیمت از زیاد به کم
+            <input id="4sorty" type="radio" name="radio">
+            <span class="radiocheckmark"></span>
+        </label>
+        <label class="radoioholder">
+            قیمت از کم به زیاد
+            <input id="5sorty" type="radio" name="radio">
+            <span class="radiocheckmark"></span>
+        </label>
+        <label class="radoioholder">
+            جدید ترین
+            <input id="1sorty" type="radio" name="radio">
+            <span class="radiocheckmark"></span>
+        </label>
+        <label class="radoioholder">
+            بیشترین درصد تخفیف
+            <input id="7sorty" type="radio" name="radio">
+            <span class="radiocheckmark"></span>
+        </label>
+        <div id="sortybuttHolder">
+            <div id="sortybutton" class="btn btn-success">انتخاب</div>
+        </div>
+
+
+    </div>
+
+
+
+</div>
+<script>
+    $(".resp-tab-item").click(function () {
+        var id = $(this).prop("id");
+
+        $.ajax({
+            url: '/Home/changesortid',
+            data: {
+                ID: id,
+
+            },
+            dataType: 'html',
+            success: function () {
+                //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+
+                $.ajax({
+                    url: '/Home/gogetproductlist',
+                    aType: 'html',
+                    success: function (data) {
+                        $("#SIBdiv").css("height", "");
+                        $('#productlist').html(data);
+                        window.scrollTo(0, 0);
+                    },
+                    error: function () {
+                        //alert("nashod")
+                    },
+                    complete: function () {
+                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                        $('#spaceholder').css("height", '');
+                        $("#textOfSort").text(text);
+
+                    }
+                });
+
+            },
+            error: function () {
+                //alert("nashod")
+            }
+        });
+
+
+    });
+    $("#sortybutton").click(function () {
+        var id = "";
+        var text = "";
+        $("input[name=radio]").each(function () {
+            if (this.checked) {
+                id = $(this).attr('id');
+                text = $(this).parent().text();
+
+            }
+        })
+
+        $.ajax({
+            url: '/Home/changesortid',
+            data: {
+                ID: id,
+
+            },
+            dataType: 'html',
+            success: function () {
+
+                $.ajax({
+                    url: '/Home/gogetproductlist',
+                    aType: 'html',
+                    success: function (data) {
+                        $("#SIBdiv").css("height", "");
+                        $('#productlist').html(data);
+                        window.scrollTo(0, 0);
+                    },
+                    error: function () {
+                        //alert("nashod")
+                    },
+                    complete: function () {
+                        $("#sortholder").css("display", "none")
+                        $("body").css("overflow", "scroll");
+                        $("#textOfSort").text(text);
+
+                    }
+                });
+
+            },
+            error: function () {
+                //alert("nashod")
+            }
+        });
+        //$("#textOfSort").text($(this).text());
+        //$("#sortholder").css("display", "none");
+        //$("#sortholder")
+
+    })
+
+    $("#sortholderBut").click(function () {
+        $("#sortholder").css("display", "flex")
+        $("body").css("overflow", "hidden");
+    })
+    $("#sortholder").click(function () {
+        $('#sortholder').hide();
+        $("body").css("overflow", "scroll");
+    })
+    $("#sortholder #horizontalTab").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $(".fa-th-large").click(function () {
+        $(".showmedetail").css("width", "50%");
+        $(".c-price__discount-oval").hide();
+
+        $(".colorholder").hide();
+        $(this).css("display", "none");
+        $(".fa-list").css("display", "block");
+
+
+
+    })
+    $(".fa-list").click(function () {
+        $(".showmedetail").css("width", "100%");
+        $(".c-price__discount-oval").show();
+
+        $(".colorholder").show();
+        $(this).css("display", "none");
+        $(".fa-th-large").css("display", "block");
+    })
+</script>
+
+<div>
+
+    <div class="row devidfromheader" style="margin:0px; margin-top:25px; border-right:1px solid #eee">
+
+
+        <div id="SIBdiv" class="col-lg-9 col-lg-12 col-sm-12" style="padding-left:10px;width:80%">
+            <div id="contentholder" class="row" style="padding-bottom:10px; margin:2px">
+
+                <div id="sortholdermax" class="row" style="    display: flex; text-align: right;  direction: rtl; align-items: center;margin:5px; border:1px solid #eee; border-right:0px; background-color:white">
+                    <div style=" float:right; display:inline-block; padding:15px">
+                        <img src="~/images/bars.png" style="width:35px" />
+                    </div>
+
+                    <p style=" float:right; display:inline-block; padding:25px 0px; font-size:16px; text-align:right; width:20%; ">مرتب سازی بر اساس :</p>
+                    <div style="display:inline-block; float:right">
+                        <div id="horizontalTab" style="margin:0;  padding:15px; display:inline-block; float:right">
+                            <ul class="resp-tabs-list" style="direction:rtl; margin:0px">
+                                <li class="resp-tab-item selected" id="1sort" role="tab"><span>جدید ترین</span></li>
+                                <li class="resp-tab-item" id="5sort" role="tab"><span>قیمت از کم به زیاد </span></li>
+                                <li class="resp-tab-item" id="4sort" role="tab"><span>قیمت از زیاد به کم</span></li>
+                                <li class="resp-tab-item" id="3sort" role="tab"><span>پیشنهاد ویژه</span></li>
+                                <li class="resp-tab-item" id="2sort" role="tab"><span>پرفروش ترین</span></li>
+
+
+
+                            </ul>
+
+                        </div>
+                        <script>
+                            $(".resp-tab-item").click(function () {
+                                $(".resp-tab-item").removeClass('selected')
+                                $(this).addClass('selected');
+                                $("#loading").css("display", "block");
+                                var id = $(this).prop("id");
+                                $.ajax({
+                                    url: '/Home/changesortid',
+                                    data: {
+                                        ID: id,
+
+                                    },
+                                    dataType: 'html',
+                                    success: function () {
+                                        //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+
+                                        $.ajax({
+                                            url: '/Home/gogetproductlist',
+                                            aType: 'html',
+                                            success: function (data) {
+                                                $("#SIBdiv").css("height", "");
+                                                $('#productlist').html(data);
+                                                window.scrollTo(0, 0);
+                                            },
+                                            error: function () {
+                                                //alert("nashod")
+                                            },
+                                            complete: function () {
+                                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                $('#spaceholder').css("height", '');
+                                                $("#loading").fadeOut();
+
+                                            }
+                                        });
+
+                                    },
+                                    error: function () {
+                                        //alert("nashod")
+                                    }
+                                });
+
+
+                            });
+
+                        </script>
+                    </div>
+                    @if (System.Configuration.ConfigurationManager.AppSettings["serverName"] == "santasho")
+                    {
+                        <div id="startpresentModel" style="color:yellow; font-size:46px; float:left; cursor:pointer"><span><i class="fa fa-star"></i></span></div>
+
+                    }
+                    <div class="modal fade" id="addToWishListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">جهت اضافه کردن لیست حاضر به موارد دلخواه خود یک نام برای لیست خود انتخاب کنید</h5>
+
+                                </div>
+                                <div class="modal-body">
+                                    <input id="listname" class="form-control" placeholder="نام مورد نظر خود را بنویسید" />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                                    <div class="btn btn-primary" id="listVerify">تایید</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; padding-top:10px" id="productlist">
+                    <div>
+                        <div style="padding:15px 35px; background-color:white;position:relative;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
+
+                            <img style="max-width:80px; display:block; margin:auto" src="~/images/logo.png" />
+                            <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+        <style>
+            .containner {
+                display: block;
+                position: relative;
+                padding-right: 35px;
+                margin-bottom: 12px;
+                cursor: pointer;
+                font-size: 14px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+                /* Hide the browser's default checkbox */
+                .containner input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+
+            /* Create a custom checkbox */
+            .checkmark {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 20px;
+                width: 20px;
+                background-color: #fff;
+                border: 2px solid green;
+                border-radius: 1px;
+            }
+
+            /* On mouse-over, add a grey background color */
+            .containner:hover input ~ .checkmark {
+                background-color: white;
+            }
+
+            /* When the checkbox is checked, add a blue background */
+            .containner input:checked ~ .checkmark {
+                background-color: green;
+            }
+
+            /* Create the checkmark/indicator (hidden when not checked) */
+            .checkmark:after {
+                content: "";
+                position: absolute;
+                display: none;
+            }
+
+            /* Show the checkmark when checked */
+            .containner input:checked ~ .checkmark:after {
+                display: block;
+            }
+
+            /* Style the checkmark/indicator */
+            .containner .checkmark:after {
+                left: 7px;
+                top: 2px;
+                width: 5px;
+                height: 10px;
+                border: solid white;
+                border-width: 0 3px 3px 0;
+                -webkit-transform: rotate(45deg);
+                -ms-transform: rotate(45deg);
+                transform: rotate(45deg);
+            }
+        </style>
+        @{
+            int w = Request.Browser.ScreenPixelsWidth;
+            int h = Request.Browser.ScreenPixelsHeight;
+            if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+            {
+                <div id="FLTholderForApp" style="display:none; height: 100%;display:none; position: fixed;top: 0;z-index: 999991;background-color:white;width: 100%;right: 0">
+
+                    <div class="returnbutt">
+                        <div>
+                            <i class="fal fa-times" style="font-size: 20px;vertical-align: middle;"></i>
+                            <span style=" margin-right: 15px;font-size:15px">فیلتر کردن محصول</span>
+                        </div>
+
+                    </div>
+
+                    <div class="filtername" style="height:80%">
+                        @{
+                            if (Model.filtergroup.filters != null)
+                            {
+                                foreach (var filter in Model.filtergroup.filters)
+                                {
+                                    if (filter.filterdetailes != null)
+                                    {
+                                        int index = Model.filtergroup.filters.IndexOf(filter);
+                                        string classnam = "";
+                                        string filterID = "F" + filter.ID;
+                                        if (index == 0)
+                                        {
+                                            classnam = "filteractive";
+                                        }
+                                        <div class="filteritem filterclass @classnam" id=@filterID style="">
+                                            <p style="display:inline-block">@filter.filtername</p>
+                                            <span></span>
+                                        </div>
+                                    }
+
+
+                                }
+                            }
+                            if (Model.filtergroup.colors != null)
+                            {
+
+                                int index = Model.filtergroup.filters != null ? 1 : 0;
+                                string classnam = "";
+                                if (index == 0)
+                                {
+                                    classnam = "filteractive";
+                                }
+                                <div class="filteritem @classnam" id="C0">
+                                    <p style="display:inline-block ">رنگ</p>
+                                    <span>
+                                        <i class="fal fa-check" style=""></i>
+                                    </span>
+                                </div>
+                            }
+                            if (Model.filtergroup.ranges != null)
+                            {
+                                foreach (var ranges in Model.filtergroup.ranges)
+                                {
+                                    int index = Model.filtergroup.filters != null || Model.filtergroup.colors != null ? 1 : 0;
+                                    string classnam = "";
+                                    string RangID = "R" + ranges.ID;
+                                    if (index == 0)
+                                    {
+                                        classnam = "filteractive";
+                                    }
+                                    <div class="filteritem rangeclass @classnam" id="@RangID">
+                                        <p style="display:inline-block">@ranges.title</p>
+                                        <span>
+                                            <i class="fal fa-check" style=""></i>
+                                        </span>
+
+                                    </div>
+                                }
+                            }
+
+                        }
+
+
+                    </div>
+                    <div class="filterdetail" style="height:80%">
+                        @{
+                            if (Model.filtergroup.filters != null)
+                            {
+
+
+                                foreach (var item in Model.filtergroup.filters)
+                                {
+                                    if (item.filterdetailes != null)
+                                    {
+                                        string FID = "filterF" + item.ID;
+                                        int index = Model.filtergroup.filters.IndexOf(item);
+                                        string display = "none";
+                                        if (index == 0)
+                                        {
+                                            display = "inline-block";
+                                        }
+                                        <div class="detail" id=@FID style="display: @display">
+                                            @{
+
+                                                foreach (var detail in item.filterdetailes)
+                                                {
+                                                    var typid = detail.ID;
+                                                    var classname = "filtercheckbox " + item.ID;
+
+                                                    <div class="detailitem">
+
+
+                                                        <label class="containner CHcontainer" style="direction:ltr; margin:0px">
+                                                            @detail.detailname
+                                                            <input type="checkbox" class="@classname" id="@typid">
+                                                            <span class="checkmark" style=" "></span>
+                                                        </label>
+                                                    </div>
+                                                }
+
+
+                                            }
+                                        </div>
+                                    }
+
+
+
+
+                                }
+
+                            }
+                            if (Model.filtergroup.colors != null)
+                            {
+                                int index = Model.filtergroup.filters != null ? 1 : 0;
+                                string display = "none";
+                                if (index == 0)
+                                {
+                                    display = "inline-block";
+                                }
+                                <div class="detail" id="colorC0" style="display: @display">
+                                    @foreach (var color in Model.filtergroup.colors)
+                                    {
+                                        var typid = color.ID;
+                                        var classname = "colorbox " + typid;
+                                        var colorcode = color.title;
+                                        <div class="detailitem" style="margin:0px 10px">
+
+
+                                            <label class="containner CHcontainer colorchosen" style=" margin:0px">
+                                                @color.imagetitle
+                                                <input type="checkbox" class="colorcheckbox" id="@typid">
+                                                <span class="checkmark"></span>
+                                                <span class="dot" style="display:inline-block ; width:15px; height:15px; background-color:@colorcode; border-radius:100%; border: 1px solid @colorcode; float:left"></span>
+
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                            }
+                            if (Model.filtergroup.ranges != null)
+                            {
+                                foreach (var ranges in Model.filtergroup.ranges)
+                                {
+                                    List<SelectListItem> list = new List<SelectListItem>();
+                                    int space = ranges.max / 10;
+                                    list.Add(new SelectListItem
+                                    {
+                                        Text = ranges.min.ToString(),
+                                        Value = ranges.min.ToString()
+
+                                    });
+                                    for (int i = 1; i < 10; i++)
+                                    {
+                                        list.Add(new SelectListItem
+                                        {
+                                            Text = (i * space).ToString(),
+                                            Value = (i * space).ToString(),
+
+                                        });
+                                    }
+                                    list.Add(new SelectListItem
+                                    {
+                                        Text = ranges.max.ToString(),
+                                        Value = ranges.max.ToString()
+
+                                    });
+                                    string FID = "rangeR" + ranges.ID;
+                                    int index = Model.filtergroup.filters != null || Model.filtergroup.colors != null ? 1 : 0;
+                                    string display = "none";
+                                    if (index == 0)
+                                    {
+                                        display = "inline-block";
+                                    };
+                                    string R1a = "Appa" + ranges.ID;
+                                    string R1b = "Appb" + ranges.ID;
+
+
+                                    <div class="detail" id=@FID style="display: @display">
+                                        <div class="row" style="direction: rtl;padding: 10px;">
+                                            <p style="display: inline-block; margin-right:5px">از</p>
+                                            @Html.DropDownList(R1a, list, "مهم نیست", new { id = R1a, @class = "form-control fromclass tofrom", style = "width: 60%;display: inline-block;margin-right: 5px;" })
+                                            <p style="display: inline-block;">@ranges.vahed</p>
+                                        </div>
+                                        <div class="row" style="direction: rtl;padding: 10px;">
+                                            <p style="display: inline-block; margin-right:5px">از</p>
+                                            @Html.DropDownList(R1b, list, "مهم نیست", new { id = R1b, @class = "form-control toclass tofrom", style = "width: 60%;display: inline-block;margin-right: 5px;" })
+                                            <p style="display: inline-block;">@ranges.vahed</p>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <div id="butholder" style="display:none; height:10%" class="accholder">
+                        <div id="okbutt">
+                            <p style="margin:auto">فیلتر کن</p>
+                        </div>
+
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            var filterid = "";
+                            $("#okbutt").click(function () {
+
+
+                                $.ajax({
+                                    url: '/Home/changefilterides',
+                                    data: {
+                                        ID: filterid,
+
+                                    },
+                                    dataType: 'html',
+                                    success: function () {
+
+                                        var colorides = "";
+                                        $(".colorcheckbox").each(function () {
+
+                                            var id = $(this).prop("id");
+                                            if ($(this).prop("checked") == true) {
+
+                                                colorides = colorides + id + ",";
+
+                                            }
+                                        })
+                                        $.ajax({
+                                            url: '/Home/changecolorides',
+                                            data: {
+                                                ID: colorides,
+
+                                            },
+                                            dataType: 'html',
+                                            success: function () {
+                                                min = "";
+                                                max = "";
+                                                $(".fromclass").each(function () {
+                                                    var ID = $(this).attr('id');
+                                                    var Value = $(this).children('option:selected').val();
+                                                    min = min + ID + "-" + Value + ",";
+                                                })
+                                                $(".toclass").each(function () {
+                                                    var ID = $(this).attr('id');
+                                                    var Value = $(this).children('option:selected').val();
+                                                    max = max + ID + "-" + Value + ",";
+                                                })
+
+
+                                                $.ajax({
+                                                    url: '/Home/changeRangeIDes',
+                                                    data: {
+                                                        min: min,
+                                                        max: max
+
+                                                    },
+                                                    dataType: 'html',
+                                                    success: function () {
+
+                                                        $.ajax({
+                                                            url: '/Home/gogetproductlist',
+                                                            aType: 'html',
+                                                            success: function (data) {
+                                                                $("#SIBdiv").css("height", "");
+                                                                $('#productlist').html(data);
+                                                                window.scrollTo(0, 50);
+                                                            },
+                                                            error: function () {
+                                                                //alert("nashod")
+                                                            },
+                                                            complete: function () {
+                                                                $(".returnbutt").click();
+
+
+                                                            }
+                                                        });
+                                                    },
+                                                    error: function () {
+                                                        alert("nashod")
+                                                    }
+                                                });
+                                            },
+                                            error: function () {
+                                                alert("nashod")
+                                            }
+                                        });
+
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            })
+
+                            var width = screen.width;
+                            var number = "-" + width + "px";
+                            $("#FLTholderForApp").css("margin-right", number);
+
+                            $("#filterBut").click(function () {
+
+                                $("#FLTholderForApp").css("display", "block");
+                                $("#FLTholderForApp").animate({
+                                    'margin-right': '0px'
+                                }, function () {
+
+                                    $("body").css("overflow", "hidden");
+                                });
+
+
+
+
+                            })
+
+                            $(".returnbutt").click(function () {
+                                var parent = $(this).parent();
+                                parent.animate({
+                                    'margin-right': number
+                                }, function () {
+                                    parent.css("display", "block");
+                                    $("body").css("overflow", "scroll")
+                                });
+
+                            })
+
+
+
+
+
+                            $(".filtercheckbox").click(function () {
+
+                                if (this.checked) {
+                                    var id = this.id;
+                                    filterid = filterid + id + ",";
+
+                                }
+                                else {
+                                    var id = this.id;
+                                    filterid = filterid.replace(id + ',', "");
+                                }
+
+                                var id = $(this).parent().parent().parent('').attr('id');
+                                id = id.replace("filter", "");
+                                var span = $("#" + id).children('span');
+
+                                if (span.text() === "") {
+
+                                    span.css("display", "inline-block");
+                                    span.text("1");
+
+                                }
+                                else {
+
+                                    var count = parseInt(span.text());
+
+                                    if (this.checked) {
+                                        span.text(count + 1);
+                                    }
+                                    else {
+                                        if (count - 1 === 0) {
+                                            span.text("");
+                                            span.css("display", "none")
+                                        }
+                                        else {
+                                            span.text(count - 1);
+                                        }
+
+                                    }
+
+                                }
+
+                            })
+                            $(".colorcheckbox").click(function () {
+                                var mey = "0";
+                                $(".colorcheckbox").each(function () {
+                                    if (this.checked) {
+                                        mey = "1";
+                                    }
+                                })
+                                if (mey === "0") {
+                                    $("#C0 span").css("display", "none");
+                                }
+                                else {
+                                    $("#C0 span").css("display", "inline-block");
+                                }
+                            })
+                            $(".tofrom").change(function () {
+                                var value = $(this).children("option:selected").val();
+                                var id = $(this).parent().parent().attr('id');
+                                id = id.replace("range", "");
+
+                                if (value !== "") {
+                                    var FID = id + " span";
+                                    $("#" + FID).css("display", "inline");
+
+                                }
+                                else {
+
+                                    var val = "0";
+                                    $(".tofrom").each(function () {
+
+                                        if ($(this).children("option:selected").val() !== "") {
+                                            val = "1";
+                                        }
+                                    })
+
+                                    if (val === "0") {
+                                        var FID = id + " span";
+                                        $("#" + FID).css("display", "none");
+                                    }
+                                }
+
+                            })
+                        })
+
+                        // switch between filteritems
+                        $(".filterclass").click(function () {
+                            var id = "filter" + $(this).attr("id");
+                            $(".filteritem").removeClass("filteractive");
+                            $(this).addClass("filteractive");
+                            $(".detail").css("display", "none");
+                            $("#" + id).css("display", "inline-block");
+                        })
+                        $(".rangeclass").click(function () {
+                            var id = "range" + $(this).attr("id");
+                            $(".filteritem").removeClass("filteractive");
+                            $(this).addClass("filteractive");
+                            $(".detail").css("display", "none");
+                            $("#" + id).css("display", "inline-block");
+                        })
+                        $("#C0").click(function () {
+                            $(".filteritem").removeClass("filteractive");
+                            $(this).addClass("filteractive");
+                            $(".detail").css("display", "none");
+                            $("#colorC0").css("display", "inline-block");
+
+                        })
+                        //add to span count
+
+                    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div>
+            }
+            else
+            {
+                <div class="maxwidth">
+
+
+                    <div id="FLTholder" class="col-lg-3 col-md-12 col-sm-12" style="padding:0px 10px 0px 0px; width:20%">
+
+                        <div id="spaceholder"></div>
+
+                        <div id="exitholder" style="display:none;padding:8px;min-height:30px; background-color:#eee" class="accholder">
+                            <p style="float:right; display:inline-block"></p>
+                            <i id="filterback" class="fa fa-arrow-left" style="cursor:pointer; float:left; display:inline-block"></i>
+                        </div>
+                        <script>
+                            $("#filterback").click(function () {
+                                $("#FLTholder").css("display", "none");
+                                $("#SIBdiv").css("display", "block");
+                            })
+                        </script>
+                        @{
+
+
+                            <div class="accholder" style="padding:10px">
+                                <div class="row" style="margin:0px; padding-right:10px">
+                                    <label id="lableToggle" style="display:inline-block" class="switch">
+                                        <input type="checkbox">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <p id="availableTiggle">فقط کالاهای موجود</p>
+                                </div>
+
+
+                                <script>
+                                    $("#lableToggle input").click(function () {
+                                        $("#loading").css("display", "block");
+                                        let value = "0";
+                                        if ($(this).is(':checked')) {
+                                            value = "1"
+                                        }
+                                        $.ajax({
+                                            url: '/Home/changeAvailableStatus',
+                                            data: {
+                                                status: value,
+
+                                            },
+                                            dataType: 'html',
+                                            success: function () {
+                                                //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                //if ($(window).width() > 960) {
+
+                                                //}
+                                                if ($(window).width() > 960) {
+                                                    $.ajax({
+                                                        url: '/Home/gogetproductlist',
+                                                        aType: 'html',
+                                                        success: function (data) {
+                                                            $("#SIBdiv").css("height", "");
+                                                            $('#productlist').html(data);
+                                                            window.scrollTo(0, 0);
+                                                        },
+                                                        error: function () {
+                                                            //alert("nashod")
+                                                        },
+                                                        complete: function () {
+                                                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                            $('#spaceholder').css("height", '');
+                                                            $("#loading").fadeOut();
+                                                        }
+                                                    });
+                                                }
+
+
+                                            },
+                                            error: function () {
+
+                                            }
+                                        });
+
+                                    })
+                                </script>
+
+                            </div>
+
+
+
+                            if (Model.filtergroup.filters != null)
+                            {
+                                foreach (var item in Model.filtergroup.filters)
+                                {
+
+                                    if (item.filterdetailes != null)
+                                    {
+                                        string classspecific = item.ID;
+                                        string detailpanel = "detail" + item.ID;
+                                        string countid = "count" + item.ID;
+                                        <div class="accholder filterholder" id=@classspecific>
+                                            <div class="accordion">@item.filtername</div>
+                                            <div class="panell" id="@detailpanel">
+
+
+
+                                                @if (item.filterdetailes != null)
+                                                {
+                                                    <p style="display:none" id=@countid>@item.filterdetailes.Count()</p>
+                                                    foreach (var detail in item.filterdetailes)
+                                                    {
+                                                        var typid = detail.ID;
+                                                        var classname = "filtercheckbox " + classspecific;
+
+
+                                                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-right: 3%;">
+                                                            <label class="containner CHcontainer">
+                                                                @detail.detailname
+                                                                <input type="checkbox" class="@classname" id="@typid">
+                                                                <span class="checkmark"></span>
+                                                            </label>
+                                                            @*<label class="CHcontainer">
+
+                                                                <input type="checkbox">
+
+                                                            </label>*@
+
+
+                                                        </div>
+                                                    }
+                                                }
+
+                                                <script>
+                                    var detail = "detail" + "@item.ID";
+                                    var countid = "count" + "@item.ID";
+                                    var count = $("#" + countid).text();
+
+                                    if (count > 6) {
+                                        $("#" + detail).css("overflow", "scroll");
+                                        $("#" + detail).css("height", "450px");
+                                        $("#" + detail).css("direction", "rtl");
+                                    }
+
+
+
+                                                </script>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+                                    }
+
+
+
+
+
+                                }
+                                <script>
+                                    $(document).ready(function () {
+                                        $('.filtercheckbox').change(function () {
+                                            $("#loading").css("display", "block");
+                                            var filterid = "";
+                                            $(".filtercheckbox").each(function () {
+
+                                                if (this.checked) {
+                                                    var id = this.id;
+                                                    filterid = filterid + id + ",";
+
+                                                }
+
+                                            })
+
+                                            $.ajax({
+                                                url: '/Home/changefilterides',
+                                                data: {
+                                                    ID: filterid,
+
+                                                },
+                                                dataType: 'html',
+                                                success: function () {
+                                                    //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                    //if ($(window).width() > 960) {
+
+                                                    //}
+                                                    if ($(window).width() > 960) {
+                                                        $.ajax({
+                                                            url: '/Home/gogetproductlist',
+                                                            aType: 'html',
+                                                            success: function (data) {
+                                                                $("#SIBdiv").css("height", "");
+                                                                $('#productlist').html(data);
+                                                                window.scrollTo(0, 0);
+                                                            },
+                                                            error: function () {
+                                                                //alert("nashod")
+                                                            },
+                                                            complete: function () {
+                                                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                                $('#spaceholder').css("height", '');
+                                                                $("#loading").fadeOut();
+                                                            }
+                                                        });
+                                                    }
+
+
+                                                },
+                                                error: function () {
+
+                                                }
+                                            });
+
+
+                                        });
+                                    })
+
+
+                                </script>
+
+                            }
+                            if (Model.filtergroup.colors != null)
+                            {
+
+                                <div class="accholder">
+                                    <div class="accordion">رنگ</div>
+                                    <div class="panell" id="panelofcolor">
+                                        <p style="display:none" id="colorcount">@Model.filtergroup.colors.Count()</p>
+                                        @foreach (var detail in Model.filtergroup.colors)
+                                        {
+                                            var typid = detail.ID;
+                                            var classname = "colorbox " + typid;
+                                            var colorcode = detail.title;
+
+                                            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-right: 3%;background-color:white">
+                                                <label class="containner CHcontainer colorchosen">
+                                                    @detail.imagetitle
+                                                    <input type="checkbox" class="colorcheckbox" id="@typid">
+                                                    <span class="checkmark"></span>
+                                                    <span class="dot" style="display:inline-block ; width:15px; height:15px; background-color:@colorcode; border-radius:100%; border: 1px solid @colorcode; float:left"></span>
+
+                                                </label>
+
+
+
+                                            </div>
+
+                                        }
+                                        <script>
+                                            var count = $("#colorcount").text();
+                                            if (count > 6) {
+                                                $("#panelofcolor").css("overflow", "scroll");
+                                                $("#panelofcolor").css("height", "450px");
+                                                $("#panelofcolor").css("direction", "rtl");
+
+                                            }
+                                        </script>
+                                        <script>
+                                            $(document).ready(function () {
+
+                                                $(".colorcheckbox").change(function () {
+                                                    $("#loading").css("display", "block");
+                                                    var colorides = "";
+                                                    $(".colorcheckbox").each(function () {
+
+                                                        var id = $(this).prop("id");
+                                                        if ($(this).prop("checked") == true) {
+
+                                                            colorides = colorides + id + ",";
+
+                                                        }
+                                                    })
+                                                    $.ajax({
+                                                        url: '/Home/changecolorides',
+                                                        data: {
+                                                            ID: colorides,
+
+                                                        },
+                                                        dataType: 'html',
+                                                        success: function () {
+                                                            if ($(window).width() > 960) {
+                                                                $.ajax({
+                                                                    url: '/Home/gogetproductlist',
+                                                                    aType: 'html',
+                                                                    success: function (data) {
+                                                                        $("#SIBdiv").css("height", "");
+                                                                        $('#productlist').html(data);
+                                                                        window.scrollTo(0, 50);
+                                                                    },
+                                                                    error: function () {
+                                                                        //alert("nashod")
+                                                                    },
+                                                                    complete: function () {
+                                                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                                        $('#spaceholder').css("height", '');
+
+                                                                        $("#loading").fadeOut();
+                                                                    }
+                                                                });
+                                                            }
+
+                                                        },
+                                                        error: function () {
+                                                            alert("nashod")
+                                                        }
+                                                    });
+
+                                                })
+                                            })
+
+
+                                        </script>
+
+                                    </div>
+
+                                </div>
+                            }
+                            if (Model.filtergroup.ranges != null)
+                            {
+
+                                foreach (var range in Model.filtergroup.ranges)
+                                {
+
+                                    string range1a = "a" + range.ID;
+                                    string range1b = "b" + range.ID;
+                                    string rangeslider = "rangeslider" + range.ID;
+                                    string rangesliderCH = "rangesliderCH" + range.ID;
+                                    string rangesliderbtn = "btn" + range.ID;
+
+                                    <div class="accholder">
+                                        <div class="accordion">@range.title</div>
+
+                                        <div class="panell" style="">
+
+
+
+
+
+                                            <div class="selector">
+                                                <div id="@rangeslider" class="price-slider">
+                                                    <div id=@rangesliderCH class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
+
+                                                    </div>
+                                                    <div class="row" style="width:100%; margin:0px">
+                                                        <div class="col-lg-6" style="border:1px solid #eee; border-right:0; padding:10px; display:inline-block">
+                                                            <p id="@range1a" class="slider-price">@range.min</p>
+                                                            <p class="slider-price">@range.vahed</p>
+                                                        </div>
+                                                        <div class="col-lg-6" style="border:1px solid #eee; padding:10px; display:inline-block">
+                                                            <p id="@range1b" data-max=@range.max class="slider-price">@range.max</p>
+                                                            <p class="slider-price">@range.vahed</p>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+
+
+                                            <script>
+                                        var range1a = "a" + '@range.ID';
+                                        var range1b = "b" + '@range.ID';
+
+                                        $("#" + "rangesliderCH" + '@range.ID' ).slider({
+                                        range: true,
+                                        min: parseInt('@range.min'),
+                                        max: parseInt('@range.max'),
+                                        values:[ parseInt('@range.min'),parseInt('@range.max')],
+                                        step: 1,
+                                        slide: function (event, ui) {
+                                            $("#" + "a" + '@range.ID').html(ui.values[0]);
+                                            $("#" + "b" + '@range.ID').html(ui.values[1]);
+                                        }
+                                    })
+                                            </script>
+
+                                            <div id="@rangesliderbtn" class="btn btn-success" style="padding:10px ;width:90%; margin-left:6%;background-color:#64c4ef; border:0"> اعمال بازه</div>
+                                            <script>
+                                    var rangeslider = "rangeslider" + '@range.ID';
+                                    var rangesliderbtn = "btn" + '@range.ID';
+                                    var range1a = "a" + '@range.ID';
+                                    var range1b = "b" + '@range.ID';
+                                    var min = $("#" + range1a).text();
+
+                                            $("#" + "btn" + '@range.ID').click(function () {
+                                                $("#loading").css("display", "block");
+                                            var ID = '@range.ID';
+
+                                            if ('@range.title' === "قیمت") {
+                                                ID = "price";
+                                            }
+
+
+                                        min = ID + "-"+  $("#" + "a2" + '@range.ID').text() + ",";
+                                        max = ID + "-" + $("#" + "b2" + '@range.ID').text() + ",";
+
+                                            $.ajax({
+                                            url: '/Home/changeRangeIDes',
+                                            data: {
+                                                min: min,
+                                                max: max
+
+                                            },
+                                            dataType: 'html',
+                                            success: function () {
+                                              //   فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                $.ajax({
+                                                    url: '/Home/gogetproductlist',
+                                                    aType: 'html',
+                                                    success: function (data) {
+                                                        $("#SIBdiv").css("height", "");
+                                                        $('#productlist').html(data);
+                                                        window.scrollTo(0, 50);
+                                                    },
+                                                    error: function () {
+                                                        //alert("nashod")
+                                                    },
+                                                    complete: function () {
+                                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                        $('#spaceholder').css("height", '');
+
+                                                        $("#loading").fadeOut();
+                                                    }
+                                                });
+                                            },
+                                            error: function () {
+                                                alert("nashod")
+                                            }
+                                        });
+                                    })
+
+                                            </script>
+
+                                        </div>
+
+
+
+
+                                    </div>
+
+
+                                }
+
+
+
+                                @*
+                                <script>
+                                                $(document).ready(function () {
+
+                                                    $("div#range-slider").rangeslider();
+                                                    $('.min').each(function () {
+
+                                                        $(this).change(function (e) {
+                                                            var val = $(this).val();
+                                                            var id = e.target.id;
+                                                            setTimeout(function () {
+                                                                var val2 = document.getElementById(id).value;
+                                                                if (val === val2) {
+
+                                                                    var mins = "";
+                                                                    var maxes = "";
+                                                                    $('.min').each(function (a) {
+                                                                        var vle = $(this).val();
+                                                                        var tlt = this.id;
+                                                                        tlt = tlt.substr(1, tlt.length);
+                                                                        mins = mins + tlt + "-" + vle + ",";
+
+                                                                    })
+                                                                    $('.max').each(function (a) {
+                                                                        var vle = $(this).val();
+                                                                        var tlt = this.id;
+                                                                        tlt = tlt.substr(1, tlt.length);
+                                                                        maxes = maxes + tlt + "-" + vle + ",";
+
+                                                                    })
+                                                                    $.ajax({
+                                                                        url: '/Home/changeRangeIDes',
+                                                                        data: {
+                                                                            min: mins,
+                                                                            max: maxes
+
+                                                                        },
+                                                                        dataType: 'html',
+                                                                        success: function () {
+                                                                            // فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                                            //$.ajax({
+                                                                            //    url: '/Home/gogetproductlist',
+                                                                            //    aType: 'html',
+                                                                            //    success: function (data) {
+                                                                            //        $("#SIBdiv").css("height", "");
+                                                                            //        $('#productlist').html(data);
+                                                                            //        window.scrollTo(0, 50);
+                                                                            //    },
+                                                                            //    error: function () {
+                                                                            //        //alert("nashod")
+                                                                            //    },
+                                                                            //    complete: function () {
+                                                                            //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                                            //        $('#spaceholder').css("height", '');
+
+
+                                                                            //    }
+                                                                            //});
+                                                                        },
+                                                                        error: function () {
+                                                                            alert("nashod")
+                                                                        }
+                                                                    });
+
+
+                                                                }
+                                                            }, 1000);
+                                                        })
+                                                    })
+                                                    $('.max').each(function () {
+
+                                                        $(this).change(function (e) {
+                                                            var val = $(this).val();
+                                                            var id = e.target.id;
+                                                            setTimeout(function () {
+                                                                var val2 = document.getElementById(id).value;
+                                                                if (val === val2) {
+
+                                                                    var mins = "";
+                                                                    var maxes = "";
+                                                                    $('.min').each(function (a) {
+                                                                        var vle = $(this).val();
+                                                                        var tlt = this.id;
+                                                                        tlt = tlt.substr(1, tlt.length);
+                                                                        mins = mins + tlt + "-" + vle + ",";
+
+                                                                    })
+                                                                    $('.max').each(function (a) {
+                                                                        var vle = $(this).val();
+                                                                        var tlt = this.id;
+                                                                        tlt = tlt.substr(1, tlt.length);
+                                                                        maxes = maxes + tlt + "-" + vle + ",";
+
+                                                                    })
+                                                                    $.ajax({
+                                                                        url: '/Home/changeRangeIDes',
+                                                                        data: {
+                                                                            min: mins,
+                                                                            max: maxes
+
+                                                                        },
+                                                                        dataType: 'html',
+                                                                        success: function () {
+                                                                            //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+
+                                                                            if ($(window).width() > 960) {
+                                                                                $.ajax({
+                                                                                    url: '/Home/gogetproductlist',
+                                                                                    aType: 'html',
+                                                                                    success: function (data) {
+                                                                                        $("#SIBdiv").css("height", "");
+                                                                                        $('#productlist').html(data);
+                                                                                        window.scrollTo(0, 50);
+                                                                                    },
+                                                                                    error: function () {
+                                                                                        //alert("nashod")
+                                                                                    },
+                                                                                    complete: function () {
+                                                                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                                                        $('#spaceholder').css("height", '');
+
+
+                                                                                    }
+                                                                                });
+                                                                            }
+                                                                        },
+                                                                        error: function () {
+                                                                            alert("nashod")
+                                                                        }
+                                                                    });
+
+
+                                                                }
+                                                            }, 1000);
+                                                        })
+                                                    })
+
+                                                })
+
+                                </script>*@
+                            }
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            }
+        }
+
+
+
+        <script>
+            $.ajax({
+                url: '/Home/gogetproductlist',
+                dataType: 'html',
+                data: {
+                    id: "1"
+
+                },
+                success: function (data) {
+                    $("#SIBdiv").css("height", "");
+                    $('#productlist').html(data);
+
+                },
+                error: function () {
+                    alert("*****")
+                },
+                complete: function () {
+
+                    var sibdiv = $("#SIBdiv");
+                    var sibdivheight = sibdiv.height();
+                    var pardiv = $("#FLTholder");
+                    var pardivheight = pardiv.height();
+
+                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                    $('#spaceholder').css("height", '');
+                    var stickyHeaderTop = $('#FLTholder').offset().top;
+                    var stickyHeaderTop2 = $('#SIBdiv').offset().top;
+                    var screen = $(window).width();
+                    var bottomline = $('.footer').offset().top;
+                    var lastScroll = 0;
+                    var palaceholder = 0;
+
+                    $(window).scroll(function () {
+
+                        if ($(window).width() > 960) {
+                            var sibdiv = $("#SIBdiv");
+                            var sibdivheight = sibdiv.height();
+                            var pardiv = $("#FLTholder");
+                            var filterdiv = $("#FLT");
+
+
+
+                            var pardivheight = pardiv.height();
+
+
+
+                            if (sibdivheight >= pardivheight - 10) {
+                                //alert("sssss");
+                                var st = $(this).scrollTop();
+
+                                if (st > lastScroll) {
+
+
+
+                                    if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
+                                        $('#FLTholder').css("height", '');
+                                        $('#spaceholder').css("height", '');
+                                        $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                    }
+                                    else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
+                                        var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
+                                        palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
+                                        if (palaceholder == 0) {
+
+                                        }
+                                        else {
+                                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                            $('#spaceholder').css("height", palaceholder + 'px')
+                                        }
+                                        //alert($("#SIBdiv")[0].scrollHeight);
+                                        //alert($("#FLTholder")[0].scrollHeight);
+
+                                    }
+                                    else {
+
+                                    }
+
+
+                                }
+                                else {
+
+
+                                    //alert($(window).scrollTop() );
+                                    //alert(bottomline)
+                                    //alert(pardivheight)
+
+
+
+
+                                    // alert($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2);
+
+                                    // if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() + $(window).height() < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2)) {
+                                    if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() < bottomline - (pardivheight - $("#spaceholder").height()))) {
+                                        $('#FLTholder').css("height", '');
+                                        $('#spaceholder').css("height", '');
+                                        $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                    }
+                                    else {
+                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                    }
+                                    //else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
+                                    //    var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
+                                    //    palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
+                                    //    if (palaceholder == 0) {
+
+                                    //    }
+                                    //    else {
+                                    //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                    //        $('#spaceholder').css("height", palaceholder + 'px')
+                                    //    }
+                                    //    //alert($("#SIBdiv")[0].scrollHeight);
+                                    //    //alert($("#FLTholder")[0].scrollHeight);
+
+                                    //}
+                                    //var myspot = $("#spaceholder").height();
+                                    //if (($(window).scrollTop() < myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
+
+
+                                    //    $('#FLTholder').css("height", '');
+                                    //    $('#spaceholder').css("height", '')
+                                    //    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                    //}
+                                    //else if ($(window).scrollTop() < stickyHeaderTop2) {
+
+
+                                    //    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+
+                                    //}
+                                    //Replace this with your function call for upward-scrolling
+                                    //alert("UP");
+                                }
+                                //Updates scroll position
+                                lastScroll = st;
+
+                            }
+                        }
+
+
+
+
+
+                    });
+
+                }
+            });
+        </script>
+        <script>
+
+            var stickyHeaderTop2 = $('#SIBdiv').offset().top;
+            var acc = document.getElementsByClassName("accordion");
+            var i;
+
+            for (i = 0; i < acc.length; i++) {
+                var sibdiv = $("#SIBdiv");
+                var sibdivheight = sibdiv.height();
+
+
+                var addamount = 0;
+                var addtosibdivamount = 0;
+                var minusamount = 0;
+                acc[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var panel = this.nextElementSibling;
+                    if (panel.style.maxHeight) {
+                        panel.style.maxHeight = null;
+
+
+                    } else {
+                        panel.style.maxHeight = panel.scrollHeight + "px";
+                        if ($(window).width() > 960) {
+                            var pardiv = $("#FLTholder").height();
+                            var sibdivheight = $("#SIBdiv").height();
+                            var panelheight = panel.scrollHeight
+                            var spacediv = $("#spaceholder").height();
+
+                            if (pardiv + panelheight > sibdivheight + stickyHeaderTop2) {
+                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+
+                            }
+                        }
+
+
+
+                    }
+
+                });
+            }
+        </script>
+        <script>
+            if ('@Model.filtergroup.filters' === "" && '@Model.filtergroup.colors' === "" && '@Model.filtergroup.ranges' === "") {
+                $("#SIBdiv").css("width", "100%");
+            }
+
+        </script>
+
+
+        <script src="~/Scripts/easyResponsiveTabs.js" type="text/javascript"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#horizontalTab').easyResponsiveTabs({
+                    type: 'default', //Types: default, vertical, accordion
+                    width: 'auto', //auto or any width like 600px
+                    fit: true   // 100% fit in a container
+                });
+            });
+
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $("#startpresentModel").click(function () {
+                  
+                    var user = '@Session["logedInUser"]'
+                    if (user.length > 0) {
+                       
+                        $("#addToWishListModal").modal("toggle");
+
+                       
+                    }
+                    else {
+                        var url = "/Home/login";
+                        window.location.href = url;
+                        
+                    }
+                })
+                $("#listVerify").click(function () {
+
+                   
+
+                    var myname = $("#listname").val();
+                    if (myname !== "") {
+                        $.ajax({
+                            url: '/Home/presentListWish',
+                            dataType: 'html',
+                            data: {
+                                name: myname
+
+                            },
+                            success: function (data) {
+                                $("#addToWishListModal").modal('toggle')
+                                if (data == "OK") {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.success('لیست مورد نظر با موفقیت اضافه شد')
+                                }
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.error(data)
+                                }
+                               
+
+                            },
+                            error: function () {
+
+                            },
+
+                        });
+
+                    } else {
+                        alert("یک نام برای لیست انتخاب کنید")
+                    }
+                   
+                })
+            })
+
+
+
+        </script>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+<!-- //Electronics -->
+<!-- //product-nav -->
+@*
+    <script>
+            $(document).ready(function () {
+
+
+
+
+                $('.gotodetail').click(function () {
+
+                    var ID = this.id;
+                    var url = "/Home/ProductDetail?id=" + ID;
+                    window.location.href = url;
+                })
+                $('.addtocart').click(function () {
+
+                    var pricetotal = document.getElementById("spanfortotal").textContent;
+                    var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+                    var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                    var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+                    var finalcount = parseInt(counttotal, 10) + 1;
+                    $('#spanfortotal').text(final);
+                    $('#simpleCart_quantityy').text(finalcount)
+                    alert(tobeadded);
+
+                    var ID = this.id;
+
+
+                    $.ajax({
+                        url: '/Home/addtocart',
+                        dataType: 'html',
+                        data: {
+                            id: ID,
+                            price: tobeadded
+
+                        },
+                        success: function (data) {
+
+
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.success('محصول مورد نظر به سبد اضافه شد')
+
+                        },
+                        error: function () {
+
+                        }
+                    });
+
+
+                })
+
+            })
+
+    </script>*@
+
+
+

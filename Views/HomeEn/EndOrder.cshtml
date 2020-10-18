@@ -1,0 +1,182 @@
+﻿
+
+
+@{
+    ViewBag.Title = "نهایی سازی سفارش";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<style>
+    .accordion {
+        background-color: #007d80;
+        color: #fff;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+        transition: 0.4s;
+    }
+
+        .active, .accordion:hover {
+           
+        }
+
+    .panel {
+        padding: 0 18px;
+        display: none;
+        background-color: white;
+    }
+    .finalhodler a {
+        font-size: 12px;
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+        display: block;
+        text-align: center;
+        box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
+        border: 1px solid #c8c8c8;
+        background-color: #0a4b4f;
+        height: 60px;
+        color: #fff;
+        vertical-align: middle;
+        padding-top: 15px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+        .finalhodler a:hover {
+            background-color: #007d80;
+        }
+</style>
+
+
+@{
+   
+    
+        <div style="margin:30px 0px 30px 0px"></div>
+   <div style="width:50%; margin:auto">
+      
+       <button class="accordion" style="text-align:right; font-size:22px">اطلاعات تکمیلی<span style="float:left" class="glyphicon glyphicon-circle-arrow-down "></span></button>
+
+       <div class="panel" id="userdatapanel">
+          
+       </div>
+       <div class=" finalhodler" style="width:100%; margin-left:0px; margin-right:0px ; position:relative">
+           <a id="finalconfirm" class="finalconfirm"  style="display:inline-block">تایید</a>
+       </div>
+
+       @*<button class="accordion" style="text-align:right; font-size:22px">خلاصه سفارش<span style="float:left" class="glyphicon glyphicon-circle-arrow-down "></span></button>
+       
+       <div class="panel" id="shopsummery">
+
+       </div>*@
+
+   </div>
+
+    <div style="margin:30px 0px 30px 0px"></div>
+  
+}
+    
+    <script>
+        $(".panel").css("display","block")
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+
+        for (i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var panel = this.nextElementSibling;
+                if (panel.style.display === "block") {
+                    panel.style.display = "none";
+                } else {
+                    panel.style.display = "block";
+                }
+            });
+        }
+    </script>
+
+
+
+    
+
+    <script>
+      
+        $(document).ready(function () {
+
+            var panel = this.nextElementSibling;
+
+            $.ajax({
+                url: '/Home/userdatapanel',
+                dataType: 'html',
+                success: function (data) {
+
+                    $('#userdatapanel').html(data);
+
+                },
+                error: function () {
+                    alert("nashod")
+                }
+            });
+
+            //$.ajax({
+            //    url: '/Home/shopsummery',
+            //    dataType: 'html',
+            //    success: function (data) {
+
+            //        $('#shopsummery').html(data);
+
+            //    },
+            //    error: function () {
+            //        alert("nashod")
+            //    }
+            //});
+
+                
+
+            })
+       
+    </script>
+<script>
+    $("#finalconfirm").click(function () {
+        var address = $("#addressholder").text();
+        var phone = $("#phoneholder").text();
+        if (address == "" | phone == "") {
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error('ابتدا بخش اطلاعات تکمیلی را کامل بفرمایید')
+        }
+        else {
+
+            var URL = "/Connection/ReqestForPayment";
+            window.location.href = URL;
+
+
+            //toastr.options = {
+            //    "debug": false,
+            //    "positionClass": "toast-top-center",
+            //    "onclick": null,
+            //    "fadeIn": 300,
+            //    "fadeOut": 1000,
+            //    "timeOut": 5000,
+            //    "extendedTimeOut": 1000
+            //}
+            //toastr.success('باتشکر فراوان ، در اسرع وقت جهت هماهنگی با شما تماس میگیریم')
+            //var URL = "/Home/Index";
+            //window.location.href = URL;
+        }
+    })
+</script>
+

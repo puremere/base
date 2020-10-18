@@ -1,0 +1,253 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- Mirrored from www.urbanui.com/hiliteui/template/demo/horizontal-default-light/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 22 Jun 2019 09:40:24 GMT -->
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title - GDP</title>
+
+    <!-- base:css -->
+    <link rel="stylesheet" href="~/assets-admin/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="~/assets-admin/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="~/assets-admin/vendors/flag-icon-css/css/flag-icon.min.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    @RenderSection("header", required: false)
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="~/assets-admin/css/vertical-layout-light/style.css">
+    <!-- endinject -->
+
+
+    <link rel="shortcut icon" href="~/assets-admin/images/favicon.png" />
+
+
+</head>
+<body class="sidebar-fixed">
+    <div id="loading" style="display:none">
+        <img style="position:absolute; top:50%; left:50%; width:70px; height:70px" src="/images/loader.gif" />
+    </div>
+    <div class="container-scroller">
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+                <div class="text-left navbar-brand-wrapper d-flex align-items-center justify-content-between">
+                    <a class="navbar-brand brand-logo" href="index.html"><img src="/images/logo2.png" alt="logo"></a>
+                    <a class="navbar-brand brand-logo-mini" href="index.html"><img src="/images/logo2.png" alt="logo"></a>
+                    <button class="navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                </div>
+
+                <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                    <ul class="navbar-nav">
+                        <li class="nav-item  dropdown d-none align-items-center d-lg-flex d-none">
+
+                            <a class="dropdown-item">
+                                <i class="mdi mdi-logout text-primary"></i>
+                                Logout
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-menu"></span>
+                    </button>
+                </div>
+
+            </nav>
+            <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                <ul class="navbar-nav">
+                    <li class="nav-item  dropdown d-none align-items-center d-lg-flex d-none">
+
+                        <a class="dropdown-item">
+                            <i class="mdi mdi-logout text-primary"></i>
+                            Logout
+                        </a>
+                    </li>
+
+                </ul>
+                @*<ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item nav-search d-none d-lg-flex">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="search">
+                                        <i class="mdi mdi-magnify"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Type to search..." aria-label="search" aria-describedby="search">
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
+                                <i class="mdi mdi-bell-outline mx-0"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-success">
+                                            <i class="mdi mdi-information mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <h6 class="preview-subject font-weight-normal">Application Error</h6>
+                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                            Just now
+                                        </p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-warning">
+                                            <i class="mdi mdi-settings mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <h6 class="preview-subject font-weight-normal">Settings</h6>
+                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                            Private message
+                                        </p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <div class="preview-icon bg-info">
+                                            <i class="mdi mdi-account-box mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="preview-item-content">
+                                        <h6 class="preview-subject font-weight-normal">New user registration</h6>
+                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                            2 days ago
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
+                                <i class="mdi mdi-email-outline mx-0"></i>
+                                <p class="notification-ripple notification-ripple-bg">
+                                    <span class="ripple notification-ripple-bg"></span>
+                                    <span class="ripple notification-ripple-bg"></span>
+                                    <span class="ripple notification-ripple-bg"></span>
+                                </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <img src="~/assets-admin/images/faces/face4.jpg" alt="image" class="profile-pic">
+                                    </div>
+                                    <div class="preview-item-content flex-grow">
+                                        <h6 class="preview-subject ellipsis font-weight-normal">
+                                            David Grey
+                                        </h6>
+                                        <p class="font-weight-light small-text text-muted mb-0">
+                                            The meeting is cancelled
+                                        </p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <img src="~/assets-admin/images/faces/face2.jpg" alt="image" class="profile-pic">
+                                    </div>
+                                    <div class="preview-item-content flex-grow">
+                                        <h6 class="preview-subject ellipsis font-weight-normal">
+                                            Tim Cook
+                                        </h6>
+                                        <p class="font-weight-light small-text text-muted mb-0">
+                                            New product launch
+                                        </p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item preview-item">
+                                    <div class="preview-thumbnail">
+                                        <img src="~/assets-admin/images/faces/face3.jpg" alt="image" class="profile-pic">
+                                    </div>
+                                    <div class="preview-item-content flex-grow">
+                                        <h6 class="preview-subject ellipsis font-weight-normal">
+                                            Johnson
+                                        </h6>
+                                        <p class="font-weight-light small-text text-muted mb-0">
+                                            Upcoming board meeting
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-user-icon">
+                            <a class="nav-link" href="#">
+                                <img src="~/assets-admin/images/faces/face28.jpg" alt="profile" />
+                            </a>
+                        </li>
+                        <li class="nav-item nav-settings d-none d-lg-flex">
+                            <a class="nav-link" href="#">
+                                <i class="mdi mdi-dots-horizontal"></i>
+                            </a>
+                        </li>
+                    </ul>*@
+                @*<button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="mdi mdi-menu"></span>
+                    </button>*@
+            </div>
+        </nav>
+
+        <div class="container-fluid page-body-wrapper">
+
+            @*
+                // TODO: Remove ...
+                include HOME_PATH .'/_partials/settings.php';
+            *@
+
+            @*
+                include HOME_PATH .'/_partials/right-sidebar.php';
+            *@
+
+            @Html.Partial("_MenuSidePanelAdmin")
+
+            <!-- partial -->
+            <div class="main-panel">
+                <!-- content-wrapper start -->
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <!-- content-wrapper end -->
+                <div class="footer-wrapper">
+                    <footer class="footer">
+                        <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                            <span class="text-center text-sm-left d-block d-sm-inline-block">Copyright &copy; 2019. All rights reserved. </span>
+                            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Designed by: <a href="https://www.urbanui.com/" target="_blank">UrbanUI</a>. </span>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- container-scroller -->
+    <!-- base:js -->
+    <script src="~/assets-admin/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
+    <!-- inject:js -->
+    <script src="~/assets-admin/js/off-canvas.js"></script>
+    <script src="~/assets-admin/js/hoverable-collapse.js"></script>
+    <script src="~/assets-admin/js/template.js"></script>
+    <script src="~/assets-admin/js/settings.js"></script>
+    <script src="~/assets-admin/js/todolist.js"></script>
+    <!-- endinject -->
+    <!-- Plugin js for this page-->
+    @RenderSection("scripts", required: false)
+    <!-- End custom js for this page-->
+
+
+</body>
+</html>

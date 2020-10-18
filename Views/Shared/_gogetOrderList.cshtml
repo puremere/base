@@ -1,0 +1,171 @@
+﻿@model banimo.ViewModelPost.OrderList
+
+
+<style>
+</style>
+<div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+
+    <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+    <span style=" margin-right: 15px;font-size:15px">  سفارشات</span>
+</div>
+<div class="o-headline o-headline--profile"><span>سفارشات</span>   </div>
+
+    <script>
+        $(".back").click(function () {
+            $("#SECTIONOFIBdiv").animate({
+                'margin-right': number
+            }, function () {
+                $('#productlistHoLDER').html("");
+                $("#SECTIONOFIBdiv").css("display", "none");
+
+            });
+        })
+    </script>
+
+
+    @if (Model.myOrder != null)
+    {
+
+        <div class="c-table-orders mustbehide">
+            <div class="c-table-orders__head c-table-orders__head--highlighted"><div class="c-table-orders__row"><div class="c-table-orders__cell c-table-orders__cell--hash">#</div><div class="c-table-orders__cell c-table-orders__cell--id">شماره سفارش</div><div class="c-table-orders__cell c-table-orders__cell--date">تاریخ ثبت سفارش</div><div class="c-table-orders__cell c-table-orders__cell--receive-at">زمان تحویل سفارش</div><div class="c-table-orders__cell c-table-orders__cell--price">مبلغ قابل پرداخت </div><div class="c-table-orders__cell c-table-orders__cell--price">مبلغ کل</div><div class="c-table-orders__cell c-table-orders__cell--payment">وضعیت پرداخت</div><div class="c-table-orders__cell c-table-orders__cell--detail"> جزییات</div></div></div><div class="c-table-orders__body">
+                @{
+
+                    foreach (var item in Model.myOrder)
+                    {
+                        int index = Model.myOrder.IndexOf(item) + 1;
+                        string data = item.address + "," + item.fullname + "," + item.phone + "," + item.Rdate + "," + item.day + "," + item.price;
+
+                        <div class="c-table-orders__row">
+                            <div class="c-table-orders__cell c-table-orders__cell--hash">
+                                @index
+                            </div><div class="c-table-orders__cell c-table-orders__cell--id">@item.orderNumber</div><div class="c-table-orders__cell c-table-orders__cell--date">@item.date</div><div class="c-table-orders__cell c-table-orders__cell--receive-at">
+                                @item.date
+                            </div>
+                            <div class="c-table-orders__cell c-table-orders__cell--price">
+                                <div>0</div>
+                            </div>
+                            <div class="c-table-orders__cell c-table-orders__cell--price">
+                                @item.price
+                            </div><div class="c-table-orders__cell c-table-orders__cell--payment">پرداخت شده</div>
+                            <div class="c-table-orders__cell c-table-orders__cell--detail"><i id="@item.ID" class="fas fa-chevron-left" style="font-size:42px; cursor:pointer"></i></div>
+                        </div>
+                        <div id="data" style="display:none">@data</div>
+                    }
+                }
+                <script>
+                    $(".fa-chevron-left").click(function () {
+                        var data = $("#data").text();
+                        var id = $(this).attr("id");
+                        $.ajax({
+                            url: '/Home/goGetOrderDetail',
+                            dataType: 'html',
+                            data: {
+                                id: id,
+                                data: data
+                            },
+                            success: function (data) {
+
+
+                                if (window.innerWidth < 950) {
+                                    $("#SECTIONOFIBdiv").css("display", "block");
+                                    $("#FILTERholder").css("display", "none");
+                                }
+
+
+                                $("#SECTIONOFIBdiv").css("height", "");
+                                $('#productlistHoLDER').html(data);
+
+
+
+                            }
+                        });
+                    })
+                </script>
+
+
+            </div>
+        </div>
+
+        <div class="mustbeshow">
+            @{
+
+                foreach (var item in Model.myOrder)
+                {
+                    int index = Model.myOrder.IndexOf(item) + 1;
+                    string data = item.address + "," + item.fullname + "," + item.phone + "," + item.Rdate + "," + item.day + "," + item.price;
+
+                    <div class="Itemholder" id="@item.ID">
+                        <div class="Item">
+                            <p class="itemtitle">شماره سفارش</p>
+                            <p class="itemvalue">@item.orderNumber</p>
+
+                        </div>
+                        <div class="Item">
+                            <p class="itemtitle">تاریخ سفارش</p>
+                            <p class="itemvalue">@item.date</p>
+                        </div>
+                        <div class="Item">
+                            <p class="itemtitle">مبلغ سفارش</p>
+                            <p class="itemvalue" style="color:green">تومان @string.Format("{0:n0}", Convert.ToInt32(@item.price)) </p>
+                        </div>
+
+                        <div class="Item">
+                            <p class="itemtitle">وضعیت پرداخت</p>
+                            <p class="itemvalue">پرداخت شده</p>
+                        </div>
+
+                    </div>
+                    <div id="data" style="display:none">@data</div>
+
+                }
+
+
+            }
+        </div>
+
+        <script>
+            $(".Itemholder").click(function () {
+                var data = $("#data").text();
+                var id = $(this).attr("id");
+                $.ajax({
+                    url: '/Home/goGetOrderDetail',
+                    dataType: 'html',
+                    data: {
+                        id: id,
+                        data: data
+                    },
+                    success: function (data) {
+
+
+                        if (window.innerWidth < 950) {
+                            $("#SECTIONOFIBdiv").css("display", "block");
+                            $("#FILTERholder").css("display", "none");
+                        }
+
+
+                        $("#SECTIONOFIBdiv").css("height", "");
+                        $('#productlistHoLDER').html(data);
+
+
+
+                    }
+                });
+            })
+        </script>
+
+
+    }
+    else
+    {
+        <div class="emptyholder" style="padding:10px;">
+            <div class="c-profile-empty" style="">
+                موردی برای نمایش وجود ندارد!
+            </div>
+        </div>
+
+    }
+
+
+
+
+

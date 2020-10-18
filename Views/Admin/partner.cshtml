@@ -1,0 +1,796 @@
+﻿@model AdminPanel.ViewModel.partnerVM
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "مدیریت تامین کنندگان";
+
+}
+<link href="~/Content/autocomplete.css" rel="stylesheet" />
+<script src="~/Scripts/autocomplete.js"></script>
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">الصاق محصول </a></li>
+        <li><a data-toggle="tab" href="#Cat" style=" color: #8d8d8d; ">الصاق طبقه بندی </a></li>
+        <li><a data-toggle="tab" href="#partner" style=" color: #8d8d8d; ">سفارش همکاران </a></li>
+        <li><a data-toggle="tab" href="#addpartner" style=" color: #8d8d8d; ">افزودن همکار جدید </a></li>
+        <li><a data-toggle="tab" href="#PList" style=" color: #8d8d8d; ">لیست همکاران</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+            <div style="padding:10px 0">
+
+                <div class="row" style=" margin: 20px; padding: 35px; ">
+                    <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                        <label>نام محصول :</label>
+                        <input id="myInput" type="text" name="typeTitle">
+                    </div>
+                    <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                        <label>تامین کننده :</label>
+                        @{
+                            List<SelectListItem> partnerList = new List<SelectListItem>();
+                            if (Model.filtersModel != null && Model.partnerList != null)
+                            {
+
+                                foreach (var item in Model.partnerList)
+                                {
+
+                                    partnerList.Add(new SelectListItem
+                                    {
+                                        Text = item.title,
+                                        Value = item.ID
+                                    });
+                                }
+
+
+                            }
+                            <div class=" " style="width:100%">
+                                @Html.DropDownList("partnerList", partnerList, "-- انتخاب کنید --", new { id = "partnerList", style = "width:100%; min-height:43px", @class = "form-control" })
+                            </div>
+                        }
+                    </div>
+                    <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                        <label>طبقه بندی :</label>
+                        @{
+                            List<SelectListItem> catList = new List<SelectListItem>();
+                            if (Model.filtersModel != null)
+                            {
+
+                                foreach (var item in Model.filtersModel)
+                                {
+
+
+                                    if (item.filtersubcat != null)
+                                    {
+                                        catList.Add(new SelectListItem
+                                        {
+                                            Text = item.title,
+                                            Value = "1" + item.ID
+                                        });
+                                        foreach (var subcat in item.filtersubcat)
+                                        {
+                                            if (subcat.filtersubcat2 != null)
+                                            {
+                                                catList.Add(new SelectListItem
+                                                {
+                                                    Text = "-----" + subcat.title,
+                                                    Value = "2" + subcat.ID
+                                                });
+                                                foreach (var subcat2 in subcat.filtersubcat2)
+                                                {
+                                                    catList.Add(new SelectListItem
+                                                    {
+                                                        Text = "------------" + subcat2.title,
+                                                        Value = "3" + subcat2.ID
+                                                    });
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                catList.Add(new SelectListItem
+                                                {
+                                                    Text = "-----" + subcat.title,
+                                                    Value = "2" + subcat.ID
+                                                });
+
+                                            }
+
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        catList.Add(new SelectListItem
+                                        {
+                                            Text = item.title,
+                                            Value = "1" + item.ID
+                                        });
+
+                                    }
+
+
+
+                                }
+                            }
+                            <div class=" " style="width:100%">
+                                @Html.DropDownList("catList", catList, "-- انتخاب کنید --", new { id = "catList", style = "width:100%; min-height:43px", @class = "form-control" })
+                            </div>
+                        }
+                    </div>
+                    <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                        <label>قیمت :</label>
+                        <input id="price" type="text" name="prcie">
+                    </div>
+                    <div id="verify" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+
+                </div>
+                <script>
+                    $("#verify").click(function () {
+                        var product = $("#myInput").val();
+                        var cat = $("#catList").val();
+                        var partner = $("#partnerList").val();
+                        var price = $("#price").val();
+
+                        if (partner != "") {
+                            $.ajax({
+                                url: '/admin/UpdatePartner',
+                                dataType: 'html',
+                                data:
+                                {
+                                    product: product,
+                                    partner: partner,
+                                    price: price,
+                                    cat: cat
+                                },
+                                success: function (data) {
+
+                                    if (data === "200") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('انجام شد')
+                                    }
+                                    else if (data === "500") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('خطا! لطفاً مجددا تلاش کنید')
+                                    }
+
+                                },
+                                error: function () {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+
+                                    toastr.error('خطا')
+                                }
+                            });
+                        }
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000
+                            }
+
+                            toastr.error('لطفاً تمامی موارد را کامل کنید')
+                        }
+
+
+                    })
+                </script>
+
+
+            </div>
+
+
+            <script>
+            var types = @Html.Raw(Json.Encode(Model.productName));
+            autocomplete(document.getElementById("myInput"), types);
+            </script>
+
+        </div>
+        <div id="Cat" class="tab-pane fade " style="padding-top:20px">
+            <div style="padding:10px 0">
+
+                <div class="row" style=" margin: 20px; padding: 35px; ">
+                  
+                    <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                        <label>تامین کننده :</label>
+                        @{
+                            
+                          
+                            <div class=" " style="width:100%">
+                                @Html.DropDownList("partnerListForPartner", partnerList, "-- انتخاب کنید --", new { id = "partnerListForPartner", style = "width:100%; min-height:43px", @class = "form-control" })
+                            </div>
+                        }
+                    </div>
+                    <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                        <label>طبقه بندی :</label>
+                        @{
+                          
+                            
+                            <div class=" " style="width:100%">
+                                @Html.DropDownList("catListforPartner", catList, "-- انتخاب کنید --", new { id = "catListforPartner", style = "width:100%; min-height:250px", @class = "form-control", @multiple = "" })
+                            </div>
+                        }
+                    </div>
+                    
+                    <div id="verifyCat" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+
+                </div>
+                <script>
+                    $("#verifyCat").click(function () {
+                     
+                        var catP = $("#catListforPartner").val();
+                        var partnerP = $("#partnerListForPartner").val();
+                       
+                        
+                       
+                        if (catP != "" && partnerP != "") {
+                            $.ajax({
+                                url: '/admin/UpdatePartnerForCat',
+                                dataType: 'html',
+                                data:
+                                {
+                                    catP: catP.toString(),
+                                    partner: partnerP,
+                                    
+                                },
+                                success: function (data) {
+
+                                    if (data === "200") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('انجام شد')
+                                    }
+                                    else if (data === "500") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('خطا! لطفاً مجددا تلاش کنید')
+                                    }
+
+                                },
+                                error: function () {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+
+                                    toastr.error('خطا')
+                                }
+                            });
+                        }
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000
+                            }
+
+                            toastr.error('لطفاً تمامی موارد را کامل کنید')
+                        }
+
+
+                    })
+                </script>
+
+
+            </div>
+
+
+            <script>
+            var types = @Html.Raw(Json.Encode(Model.productName));
+            autocomplete(document.getElementById("myInput"), types);
+            </script>
+
+        </div>
+        <div id="partner" class="tab-pane fade" style="padding-top:20px">
+
+
+            <div class="row">
+                <div style="overflow-x:auto;padding:10px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                            <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> لیست همکاران </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-area-chart">
+                                <div style="overflow:auto">
+
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>نام و نام خانوادگی</th>
+                                                <th>شماره موبایل</th>
+
+                                                <th></th>
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                if (Model.partnerList != null)
+                                                {
+                                                    foreach (var item in Model.partnerList)
+                                                    {
+
+                                                        int i = Model.partnerList.IndexOf(item) + 1;
+
+                                                        <tr style=" ">
+                                                            <td>@i</td>
+                                                            <td>@item.title</td>
+                                                            <td>@item.phone</td>
+
+                                                            <td><div class="btn btn-default partnerDetail" id="@item.ID">مشاهده سفارشات</div></td>
+
+
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+
+
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <script>
+
+                $(".partnerDetail").click(function () {
+
+                    var ID = $(this).attr('id');
+                    //alert("aaa");
+                    //alert(ID);
+                    $.ajax({
+                        url: '/Admin/GetListOfPartner',
+                        dataType: 'html',
+                        data: {
+                            id: ID,
+
+                        },
+
+                        success: function (data) {
+                            // alert(data);
+                            // alert("ssss");
+                            $(".PartnerHolder").html(data);
+
+                        }
+
+
+
+                    });
+                })
+
+            </script>
+            <div class="PartnerHolder">
+
+            </div>
+
+
+        </div>
+        <div id="addpartner" class="tab-pane fade" style="padding-top:20px">
+            @using (Html.BeginForm("setNewPartner", "Admin", FormMethod.Post,
+new { enctype = "multipart/form-data", id = "addPartner" }))
+            {
+
+
+                <div class="row">
+
+
+
+                    <div class=" fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                        <label style="text-align: right">
+                            عنوان :
+                        </label>
+                        <div>
+                            <span class="star" style="color:red; display:none">*</span>
+
+                            <input value="" type="text" id="title" name="title" required="required" class="form-control  REM3">
+                        </div>
+
+
+
+
+
+
+                    </div>
+                    <div class=" fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                        <label style="text-align: right">
+                            شماره تلفن :
+                        </label>
+                        <div>
+                            <span class="star" style="color:red; display:none">*</span>
+
+                            <input value="" type="text" id="phone" name="phone" required="required" class="form-control  REM3">
+                        </div>
+
+
+
+
+
+
+                    </div>
+
+
+
+                    <div class="row fieldholder" style="margin-top:35px; width:25%;padding: 0 10px;display: inline-block;">
+                        <a id="setPartner" class="lgnsubmitt btn btn-primary">تایید</a>
+                    </div>
+
+
+                </div>
+                <script>
+
+
+
+
+                    $("#setPartner").click(function () {
+
+                        $(".star").hide();
+                        var int = 0;
+                        $(".REM3").each(function () {
+
+                            if ($(this).val() === "") {
+                                $(this).siblings("span").css("display", "inline-block");
+                                int = 1;
+                            }
+
+
+
+
+                        })
+                        if (int === 0) {
+
+                            $("#addPartner").submit();
+                        }
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000
+                            }
+                            toastr.error('لطفاً تمامی موارد را کامل کنید')
+
+                        }
+
+
+                    })
+                </script>
+
+
+            }
+
+
+
+
+        </div>
+        <div id="PList" class="tab-pane fade" style="padding-top:20px">
+            <div>
+                <div id="Listholder">
+                    <div class="row" style="padding:20px">
+                        <div style="overflow-x:auto;padding:10px">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                    <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست همکاران  </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="morris-area-chart">
+                                        <div style="overflow:auto">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            ID
+                                                        </th>
+                                                        <th>
+                                                            عنوان
+                                                        </th>
+
+
+                                                        <th>
+
+                                                        </th>
+
+                                                        <th>
+
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+
+                                                        if (Model.partnerList != null)
+                                                        {
+                                                            foreach (var item in Model.partnerList)
+                                                            {
+
+                                                                <tr>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.title)
+                                                                    </td>
+
+
+                                                                    <td style="text-align: center;">
+
+                                                                        @{
+                                                                            var ID = @item.ID;
+                                                                            <a id=@ID class="btn btn-primary CPbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
+
+                                                                        }
+
+                                                                    </td>
+                                                                    <td style="text-align: center;">
+
+                                                                        @{
+
+                                                                            <a id=@ID class="btn btn-primary CDbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                                        }
+
+                                                                    </td>
+                                                                </tr>
+                                                            }
+
+                                                        }
+                                                    }
+
+
+                                                </tbody>
+                                            </table>
+                                            <script>
+
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="catDetailHolder" style="padding:0 20px ; display:none; width:100%">
+
+
+
+                @using (Html.BeginForm("updatePartnerInfo", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "updatePartnerInfo" }))
+                {
+
+                    <div style="padding: 15px 5px; border: 1px solid #d8d8d8; border-radius: 5px;">
+                        <div class="row" style="margin:15px; display:flex; align-items:center">
+
+                            <div class="fieldholder col-lg-3">
+                                <label style="text-align: right">
+                                    عنوان :
+                                </label>
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+                                    <input value="" type="text" id="Ctitleupdate" name="Ctitleupdate" required="required" class="form-control REM4">
+                                </div>
+
+
+                            </div>
+
+                            <div class="fieldholder col-lg-3">
+                                <label style="text-align: right">
+                                    موبایل :
+                                </label>
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+                                    <input value="" type="text" id="CPhoneupdate" name="CPhoneupdate" required="required" class="form-control REM4">
+                                </div>
+
+
+                            </div>
+                            <div class=" fieldholder" style="width:25%;padding: 0 10px;margin-top:15px">
+                                <a id="UpdateCButt" class="lgnsubmitt btn btn-primary">تایید</a>
+
+                            </div>
+                            <input id="CIDupdate" name="CIDupdate" hidden />
+
+
+                        </div>
+
+
+                    </div>
+
+                }
+
+
+
+
+            </div>
+            <div class="modal fade" id="delCArticle" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <p>آیا از حذف نظر اطمینان دارید؟</p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="modalDelPartner">تایید</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+              var id = "";
+                $(".CDbutton").click(function () {
+                    $("#delCArticle").modal('toggle');
+                    id = $(this).attr("id");
+                });
+                $(".CPbutton").click(function () {
+                    var rowid = $(this).attr("id");
+                    var articles = @Html.Raw(Json.Encode(Model.partnerList));
+                    $("#catDetailHolder").css("display", "inline-block");
+
+                    $.each(articles, function (index, item) {
+                        if (item.ID.toString() === rowid) {
+
+
+
+
+
+                            $("#Ctitleupdate").val(item.title);
+                            $("#CPhoneupdate").val(item.phone);
+                            $("#CIDupdate").val(item.ID);
+
+
+
+
+                        }
+
+
+                    });
+
+                });
+
+                $("#modalDelPartner").click(function () {
+
+
+
+
+                    $.ajax({
+                        url: '/Admin/DeletePartner',
+                        dataType: 'html',
+                        data: {
+                            ID: id,
+                        },
+                        success: function (data) {
+
+                            window.location.reload();
+                        },
+                        error: function () {
+
+                        }
+                    });
+                });
+
+                $("#UpdateCButt").click(function () {
+
+                    var int = 0;
+                    $(".REM4").each(function () {
+
+                        if ($(this).val() === "") {
+                            $(this).siblings("span").css("display", "inline-block");
+                            int = 1;
+                        }
+                    })
+                    if (int === 0) {
+
+                        $("#updatePartnerInfo").submit();
+                    }
+                    else {
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-top-center",
+                            "onclick": null,
+                            "fadeIn": 300,
+                            "fadeOut": 1000,
+                            "timeOut": 5000,
+                            "extendedTimeOut": 1000
+                        }
+                        toastr.error('لطفاً تمامی موارد را کامل کنید')
+
+                    }
+
+
+                });
+
+            </script>
+
+
+        </div>
+    </div>
+</div>
+
+

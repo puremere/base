@@ -1,0 +1,1035 @@
+﻿@model banimo.ViewModel.productlistclass
+@{
+    ViewBag.Title = "لیست محصولات";
+    Layout = "~/Views/Shared/_LayoutEn.cshtml";
+}
+
+
+
+<link href="~/Content/jquery.mobile-1.4.5.css" rel="stylesheet" />
+
+
+<style>
+    .accordion-blocks .card {
+        margin-bottom: 1.2rem;
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+    }
+
+        .accordion-blocks .card .card-body {
+            border-top: 1px solid #eee;
+        }
+</style>
+<style>
+    .accordion {
+        background-color: #fff;
+        color: #444;
+        cursor: pointer;
+        padding: 10px 20px 0px 20px;
+        width: 100%;
+        border: none;
+        text-align: right;
+        outline: none;
+        font-size: 12px;
+        transition: 0.4s;
+        font-weight: bold;
+    }
+
+        .active, .accordion:hover {
+            /*background-color: #ccc;*/
+        }
+
+    .active {
+        /*background-color: #ccc;*/
+        border-bottom: 1px solid #eee;
+    }
+
+    .accordion:after {
+        content: '\002B';
+        color: #777;
+        font-weight: bold;
+        float: left;
+        margin-left: 5px;
+    }
+
+    .active:after {
+        content: "\2212";
+        margin-bottom: 15px;
+    }
+
+    .panell {
+        margin: 5px;
+        background-color: white;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.2s ease-out;
+    }
+
+    .accholder {
+        border: 1px solid #eee;
+        background-color: #fff;
+        margin-bottom: 10px;
+    }
+</style>
+
+
+
+<div>
+
+    <div class="row" style="margin:0px; margin-top:25px; border-right:1px solid #eee">
+        <div id="SIBdiv" class="col-lg-9" style="padding-left:10px">
+            <div id="contentholder" class="row" style="background-color:#fff;margin:2px">
+                <script>
+
+                    $.ajax({
+                        url: '/Home/gogetproductlist',
+                        dataType: 'html',
+                        data: {
+                            id: "1"
+
+                        },
+                        success: function (data) {
+                            $("#SIBdiv").css("height", "");
+                            $('#productlist').html(data);
+
+                        },
+                        error: function () {
+                            alert("*****")
+                        },
+                        complete: function () {
+
+                            var sibdiv = $("#SIBdiv");
+                            var sibdivheight = sibdiv.height();
+                            var pardiv = $("#FLTholder");
+                            var pardivheight = pardiv.height();
+
+                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                            $('#spaceholder').css("height", '');
+                            var stickyHeaderTop = $('#FLTholder').offset().top;
+                            var stickyHeaderTop2 = $('#SIBdiv').offset().top;
+
+                            var bottomline = $('.footer').offset().top;
+                            var lastScroll = 0;
+                            var palaceholder = 0;
+
+
+
+
+                            $(window).scroll(function () {
+
+
+
+                                var sibdiv = $("#SIBdiv");
+                                var sibdivheight = sibdiv.height();
+                                var pardiv = $("#FLTholder");
+                                var filterdiv = $("#FLT");
+
+
+
+                                var pardivheight = pardiv.height();
+
+
+
+                                if (sibdivheight >= pardivheight - 10) {
+                                    //alert("sssss");
+                                    var st = $(this).scrollTop();
+
+                                    if (st > lastScroll) {
+
+
+
+                                        if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
+                                            $('#FLTholder').css("height", '');
+                                            $('#spaceholder').css("height", '');
+                                            $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                        }
+                                        else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
+                                            var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
+                                            palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
+                                            if (palaceholder == 0) {
+
+                                            }
+                                            else {
+                                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                $('#spaceholder').css("height", palaceholder + 'px')
+                                            }
+                                            //alert($("#SIBdiv")[0].scrollHeight);
+                                            //alert($("#FLTholder")[0].scrollHeight);
+
+                                        }
+                                        else {
+
+                                        }
+
+
+                                    }
+                                    else {
+
+                                        // alert(palaceholder);
+                                        //  alert($(window).scrollTop());
+                                        //  && $(window).scrollTop() > stickyHeaderTop2
+
+                                        var myspot = $("#spaceholder").height();
+                                        if (($(window).scrollTop() < myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
+
+
+                                            $('#FLTholder').css("height", '');
+                                            $('#spaceholder').css("height", '')
+                                            $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                        }
+                                        else if ($(window).scrollTop() < stickyHeaderTop2) {
+
+
+                                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+
+                                        }
+                                        //Replace this with your function call for upward-scrolling
+                                        //alert("UP");
+                                    }
+                                    //Updates scroll position
+                                    lastScroll = st;
+
+                                }
+
+
+
+                            });
+
+                        }
+                    });
+                </script>
+
+
+                <script src="~/Scripts/easyResponsiveTabs.js" type="text/javascript"></script>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#horizontalTab').easyResponsiveTabs({
+                            type: 'default', //Types: default, vertical, accordion
+                            width: 'auto', //auto or any width like 600px
+                            fit: true   // 100% fit in a container
+                        });
+                    });
+
+                </script>
+                <div class="row" style="margin:0px; border:1px solid #eee; border-right:0px">
+                    <div style=" float:right; display:inline-block; padding:15px">
+                        <img src="~/images/bars.png" style="width:35px" />
+                    </div>
+
+                    <p style=" float:right; display:inline-block; padding:25px 0px">:مرتب سازی بر اساس</p>
+                    <div style="display:inline-block; float:right">
+                        <div id="horizontalTab" style="margin:0;  padding:15px; display:inline-block; float:right">
+                            <ul class="resp-tabs-list" style="direction:rtl; margin:0px">
+                                <li class="resp-tab-item" aria-controls="tab_item-0" role="tab"><span>جدید ترین</span></li>
+                                <li class="resp-tab-item" aria-controls="tab_item-1" role="tab"><span>قیمت از کم به زیاد </span></li>
+                                <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>قیمت از زیاد به کم</span></li>
+                                <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>پیشنهاد ویژه</span></li>
+                                <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>پرفروش ترین</span></li>
+                                <li class="resp-tab-item" aria-controls="tab_item-2" role="tab"><span>پربازدید ترین</span></li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div style="text-align:center" id="productlist">
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <div id="FLTholder" class="col-lg-3 " style="padding:0px 10px 0px 0px">
+
+            <div id="spaceholder"></div>
+
+
+
+            @{
+
+                @*<div id="chosenholder" class="accholder">
+                        <button class="accordion active">انتخاب شما</button>
+                        <div id="filteritemholder" class="panell" style="max-height: 138px;">
+                            <script>
+                                $.ajax({
+                                    url: '/Home/getfilteritems',
+
+                                    dataType: 'html',
+                                    success: function (data) {
+
+                                        $('#filteritemholder').html(data);
+
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            </script>
+                            <div style="width:100px ; height:30px; background-color:green ; padding: 3px 10px">
+                                <p style="float:right;color:#fff; font-size:12px">قرمز</p>
+                                <a style="cursor:pointer"><i style=" margin:5px;float: left; color: #fff; font-size: 14px" class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </div>
+                    </div>*@
+
+
+                if (Model.filtergroup.filters != null)
+                {
+                    foreach (var item in Model.filtergroup.filters)
+                    {
+                        string classspecific = item.ID;
+                        <div class="accholder filterholder" id=@classspecific>
+                            <div class="accordion">@item.filtername</div>
+                            <div class="panell">
+                                @if (item.filterdetailes != null)
+                                {
+                                    foreach (var detail in item.filterdetailes)
+                                    {
+                                        var typid = detail.ID;
+                                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-right : 10%">
+                                            @Html.CheckBox(detail.detailname, false, new { id = @typid, @class = "filtercheckbox " + @classspecific }) <i style="float:right">: @detail.detailname</i>
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+
+
+
+
+                        </div>
+                    }
+                    <script>
+                        $(document).ready(function () {
+                            $('.filtercheckbox').change(function () {
+                                var filterid = "";
+                                $(".filtercheckbox").each(function () {
+
+                                    if (this.checked) {
+                                        var id = this.id;
+                                        filterid = filterid + id + ",";
+
+                                    }
+
+                                })
+
+                                $.ajax({
+                                    url: '/Home/changefilterides',
+                                    data: {
+                                        ID: filterid,
+
+                                    },
+                                    dataType: 'html',
+                                    success: function () {
+                                        //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+
+                                        //$.ajax({
+                                        //    url: '/Home/gogetproductlist',
+                                        //    aType: 'html',
+                                        //    success: function (data) {
+                                        //        $("#SIBdiv").css("height", "");
+                                        //        $('#productlist').html(data);
+                                        //        window.scrollTo(0, 0);
+                                        //    },
+                                        //    error: function () {
+                                        //        //alert("nashod")
+                                        //    },
+                                        //    complete: function () {
+                                        //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                        //        $('#spaceholder').css("height", '');
+
+                                        //    }
+                                        //});
+
+                                    },
+                                    error: function () {
+                                        //alert("nashod")
+                                    }
+                                });
+
+
+                            });
+                        })
+
+
+                    </script>
+
+                }
+                if (Model.filtergroup.colors != null)
+                {
+                    <div class="accholder">
+                        <div class="accordion">رنگ</div>
+                        <div class="panell">
+                            @foreach (var color in Model.filtergroup.colors)
+                            {
+                                string colorchosen = "C" + color.ID;
+                                string colorcode = color.title;
+                                string colorcodeclone = "C" + color.title;
+                                string colorchosenclone = "C" + colorchosen;
+                                <span class="colsel dot colorchosen @colorchosen" id=@colorchosen style="margin:5px;display:inline-block ; width:40px; height:40px; background-color:@colorcode; border-radius:50%"></span>
+                                <span class="colsel colorchosenclone" id=@colorchosenclone style="border:3px solid #000;display:none ; width:45px; height:45px; background-color:@colorcode; border-radius:50%"></span>
+                            }
+                        </div>
+                        <script>
+                            $(document).ready(function () {
+                                $(".colorchosen").click(function () {
+                                    var id = this.id;
+                                    //var cloneid = id.substr(1, id.length - 1);
+                                    var cloneid = "C" + id;
+                                    $(this).hide();
+                                    $("#" + cloneid).css("display", "inline-block");
+                                    var colorides = "";
+                                    $(".colorchosenclone[style*='display: inline-block']").each(function () {
+                                        var id = this.id;
+                                        var cloneid = id.substr(2, id.length - 1);
+                                        colorides = colorides + cloneid + ",";
+
+
+                                    })
+                                    $.ajax({
+                                        url: '/Home/changecolorides',
+                                        data: {
+                                            ID: colorides,
+
+                                        },
+                                        dataType: 'html',
+                                        success: function () {
+                                            $.ajax({
+                                                url: '/Home/gogetproductlist',
+                                                aType: 'html',
+                                                success: function (data) {
+
+                                                    $("#SIBdiv").css("height", "");
+                                                    $('#productlist').html(data);
+                                                    window.scrollTo(0, 0);
+                                                },
+                                                error: function () {
+                                                    //alert("nashod")
+                                                },
+                                                complete: function () {
+                                                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                    $('#spaceholder').css("height", '');
+
+
+                                                }
+                                            });
+                                        },
+                                        error: function () {
+                                            alert("nashod")
+                                        }
+                                    });
+                                })
+
+
+                            })
+
+                        </script>
+                        <script>
+                            $(document).ready(function () {
+                                $(".colorchosenclone").click(function () {
+                                    var id = this.id;
+                                    var cloneid = id.substr(1, id.length - 1);
+                                    //var cloneid = "C" + id;
+                                    $(this).hide();
+                                    $("#" + cloneid).css("display", "inline-block");
+                                    var colorides = "";
+                                    $(".colorchosenclone[style*='display: inline-block']").each(function () {
+                                        var id = this.id;
+                                        var cloneid = id.substr(2, id.length - 1);
+                                        colorides = colorides + cloneid + ",";
+
+                                    })
+                                    $.ajax({
+                                        url: '/Home/changecolorides',
+                                        data: {
+                                            ID: colorides,
+
+                                        },
+                                        dataType: 'html',
+                                        success: function () {
+                                            $.ajax({
+                                                url: '/Home/gogetproductlist',
+                                                aType: 'html',
+                                                success: function (data) {
+                                                    $("#SIBdiv").css("height", "");
+                                                    $('#productlist').html(data);
+                                                    window.scrollTo(0, 50);
+                                                },
+                                                error: function () {
+                                                    //alert("nashod")
+                                                },
+                                                complete: function () {
+                                                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                    $('#spaceholder').css("height", '');
+
+
+                                                }
+                                            });
+                                        },
+                                        error: function () {
+                                            alert("nashod")
+                                        }
+                                    });
+                                })
+                            })
+
+                        </script>
+
+                    </div>
+                }
+                if (Model.filtergroup.ranges != null)
+                {
+                    <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
+                    foreach (var range in Model.filtergroup.ranges)
+                    {
+                        string name = "";
+                        switch (range.title)
+                        {
+                            case "PriceNow":
+                                name = "قیمت";
+                                break;
+                            case "discount":
+                                name = "تخفیف";
+                                break;
+                            case "metraj":
+                                name = "متراژ";
+                                break;
+
+                        }
+                        string range1a = "a" + range.title;
+                        string range1b = "b" + range.title;
+                        string rangeslider = "rangeslider" + range.ID;
+
+                        <div class="accholder">
+                            <div class="accordion">@name</div>
+
+                            <div class="panell" style="">
+                                <div data-role="rangeslider">
+                                    @*<label for=@range1a style="margin-left: 80%;">:@name</label>*@
+                                    <input class="min" name=@range1a id=@range1a min=@range.min max=@range.max value=@range.min type="range" />
+
+                                    @*<label for=@range1b style="margin-left: 80%;">:@name</label>*@
+                                    <input class="max" name=@range1b id=@range1b min=@range.min max=@range.max value=@range.max type="range" />
+
+                                </div>
+
+                                <p style="display:block; float:right">@range.vahed</p>
+                                <p style="display:block; float:left">@range.vahed</p>
+                            </div>
+
+
+
+                        </div>
+
+                    }
+                    <script>
+                        $(document).ready(function () {
+
+                            $("div#range-slider").rangeslider();
+                            $('.min').each(function () {
+
+                                $(this).change(function (e) {
+                                    var val = $(this).val();
+                                    var id = e.target.id;
+                                    setTimeout(function () {
+                                        var val2 = document.getElementById(id).value;
+                                        if (val === val2) {
+
+                                            var mins = "";
+                                            var maxes = "";
+                                            $('.min').each(function (a) {
+                                                var vle = $(this).val();
+                                                var tlt = this.id;
+                                                tlt = tlt.substr(1, tlt.length);
+                                                mins = mins + tlt + "-" + vle + ",";
+
+                                            })
+                                            $('.max').each(function (a) {
+                                                var vle = $(this).val();
+                                                var tlt = this.id;
+                                                tlt = tlt.substr(1, tlt.length);
+                                                maxes = maxes + tlt + "-" + vle + ",";
+
+                                            })
+                                            $.ajax({
+                                                url: '/Home/changeRangeIDes',
+                                                data: {
+                                                    min: mins,
+                                                    max: maxes
+
+                                                },
+                                                dataType: 'html',
+                                                success: function () {
+                                                    // فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                    //$.ajax({
+                                                    //    url: '/Home/gogetproductlist',
+                                                    //    aType: 'html',
+                                                    //    success: function (data) {
+                                                    //        $("#SIBdiv").css("height", "");
+                                                    //        $('#productlist').html(data);
+                                                    //        window.scrollTo(0, 50);
+                                                    //    },
+                                                    //    error: function () {
+                                                    //        //alert("nashod")
+                                                    //    },
+                                                    //    complete: function () {
+                                                    //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                    //        $('#spaceholder').css("height", '');
+
+
+                                                    //    }
+                                                    //});
+                                                },
+                                                error: function () {
+                                                    alert("nashod")
+                                                }
+                                            });
+
+
+                                        }
+                                    }, 1000);
+                                })
+                            })
+                            $('.max').each(function () {
+
+                                $(this).change(function (e) {
+                                    var val = $(this).val();
+                                    var id = e.target.id;
+                                    setTimeout(function () {
+                                        var val2 = document.getElementById(id).value;
+                                        if (val === val2) {
+
+                                            var mins = "";
+                                            var maxes = "";
+                                            $('.min').each(function (a) {
+                                                var vle = $(this).val();
+                                                var tlt = this.id;
+                                                tlt = tlt.substr(1, tlt.length);
+                                                mins = mins + tlt + "-" + vle + ",";
+
+                                            })
+                                            $('.max').each(function (a) {
+                                                var vle = $(this).val();
+                                                var tlt = this.id;
+                                                tlt = tlt.substr(1, tlt.length);
+                                                maxes = maxes + tlt + "-" + vle + ",";
+
+                                            })
+                                            $.ajax({
+                                                url: '/Home/changeRangeIDes',
+                                                data: {
+                                                    min: mins,
+                                                    max: maxes
+
+                                                },
+                                                dataType: 'html',
+                                                success: function () {
+                                                    //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                    //$.ajax({
+                                                    //    url: '/Home/gogetproductlist',
+                                                    //    aType: 'html',
+                                                    //    success: function (data) {
+                                                    //        $("#SIBdiv").css("height", "");
+                                                    //        $('#productlist').html(data);
+                                                    //        window.scrollTo(0, 50);
+                                                    //    },
+                                                    //    error: function () {
+                                                    //        //alert("nashod")
+                                                    //    },
+                                                    //    complete: function () {
+                                                    //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                    //        $('#spaceholder').css("height", '');
+
+
+                                                    //    }
+                                                    //});
+                                                },
+                                                error: function () {
+                                                    alert("nashod")
+                                                }
+                                            });
+
+
+                                        }
+                                    }, 1000);
+                                })
+                            })
+
+                        })
+
+                    </script>
+                }
+            }
+            @*این قسمت فقط برای پروژه مسکن است که آپدیت لحظه ای نمی خوایم*@
+            <div class="accholder">
+                <div id="okbutt" class="btn btn-success" style=" width:100% ; padding:10px; text-align:center; ">تایید</div>
+         <script>
+             $(document).ready(function () {
+                 $("#okbutt").click(function () {
+                     $.ajax({
+                         url: '/Home/gogetproductlist',
+                         aType: 'html',
+                         success: function (data) {
+                             $("#SIBdiv").css("height", "");
+                             $('#productlist').html(data);
+                             window.scrollTo(0, 50);
+                         },
+                         error: function () {
+                             //alert("nashod")
+                         },
+                         complete: function () {
+                             $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                             $('#spaceholder').css("height", '');
+
+
+                         }
+                     });
+                 })
+             })
+         </script>
+               </div>
+
+
+
+
+
+            <script>
+                //var sibdiv = $("#SIBdiv").height();
+
+                //var pardiv = $("#FLTholder").height();
+                //if (sibdiv < pardiv) {
+                //    $("#SIBdiv").height($("#FLTholder").height());
+                //}
+
+                var stickyHeaderTop2 = $('#SIBdiv').offset().top;
+                var acc = document.getElementsByClassName("accordion");
+                var i;
+
+                for (i = 0; i < acc.length; i++) {
+                    var sibdiv = $("#SIBdiv");
+                    var sibdivheight = sibdiv.height();
+
+
+                    var addamount = 0;
+                    var addtosibdivamount = 0;
+                    var minusamount = 0;
+                    acc[i].addEventListener("click", function () {
+                        this.classList.toggle("active");
+                        var panel = this.nextElementSibling;
+                        if (panel.style.maxHeight) {
+                            var sapce = $('#spaceholder').height();
+                            if (sapce > 0) {
+                                $('#spaceholder').height(sapce + panel.scrollHeight);
+                                panel.style.maxHeight = null;
+                            }
+                            else {
+                                panel.style.maxHeight = null;
+                                sibdiv = $("#SIBdiv");
+                                sibdivheight = sibdiv.height();
+                                var pardiv = $("#FLTholder").height();
+                                contentholder = $("#contentholder").height();
+
+                                if (sibdivheight > pardiv) {
+                                    var ekhtelaf = sibdivheight - contentholder;
+                                    if (panel.scrollHeight > ekhtelaf) {
+                                        sibdiv.height(sibdivheight - ekhtelaf);
+                                    }
+                                    else {
+                                        sibdiv.height(sibdivheight - panel.scrollHeight);
+                                    }
+
+                                    // addtosibdivamount = 0;
+                                }
+                                else {
+                                    sibdiv.height(sibdivheight - height);
+                                    addtosibdivamount = addtosibdivamount - height;
+                                }
+
+                                //alert(sibdivheight + stickyHeaderTop2 - $(window).scrollTop());
+                                //alert(pardiv);
+                                if (sibdivheight + stickyHeaderTop2 - $(window).scrollTop() > pardiv && $(window).scrollTop() > stickyHeaderTop2) {
+                                    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                }
+                                else {
+
+                                }
+
+
+
+                                //if ($(window).scrollTop() < stickyHeaderTop2) {
+                                //    alert ("منفی زده شده اسکرول بالای صفحه")
+                                //}
+
+                                //else {
+                                //    alert("منفی زده شده اسکرول بالای صفحه نیست")
+                                //    var sapce = $('#spaceholder').height();
+                                //    if (sapce > 0) {
+                                //        alert("اسپیس بیشتر از صفر")
+                                //        $('#spaceholder').height(sapce + panel.scrollHeight);
+
+
+                                //        var pardiv = $("#FLTholder").height();
+                                //        $("#FLTholder").height(pardiv - panel.scrollHeight);
+                                //        // alert(pardiv);
+                                //        //var height = pardiv - panel.scrollHeight;
+                                //        //$("#FLTholder").height(height);
+                                //        pardiv = $("#FLTholder").height();
+                                //        sibdiv = $("#SIBdiv");
+                                //        sibdivheight = sibdiv.height();
+                                //        contentholder = $("#contentholder").height();
+
+                                //        if (sibdivheight > pardiv) {
+                                //            if (contentholder > sibdivheight - panel.scrollHeight) {
+                                //                sibdiv.height(contentholder);
+                                //            }
+                                //            else {
+                                //                sibdiv.height(sibdivheight - panel.scrollHeight);
+                                //            }
+
+                                //            // addtosibdivamount = 0;
+                                //        }
+                                //        //else {
+                                //        //    sibdiv.height(sibdivheight - height);
+                                //        //    addtosibdivamount = addtosibdivamount - height;
+                                //        //}
+                                //        panel.style.maxHeight = null;
+                                //    }
+                                //    else {
+
+                                //    }
+
+
+
+                            }
+
+
+                        } else {
+
+
+
+
+                            var spacediv = $("#spaceholder").height();
+
+
+                            if (spacediv > 0) {
+
+
+                                var pardiv = $("#FLTholder").height();
+                                if (panel.scrollHeight > spacediv) {
+
+                                    $("#spaceholder").height(0);
+                                }
+                                else {
+                                    var sp = spacediv - panel.scrollHeight;
+                                    $("#spaceholder").height(sp);
+                                }
+
+                                pardiv = $("#FLTholder").height();
+                                //else {
+                                //    $("#spaceholder").height(spacediv - panel.scrollHeight);
+                                //    var nh = pardiv - panel.scrollHeight;
+                                //    $("#FLTholder").height(nh);
+                                //    pardiv = $("#FLTholder").height();
+                                //}
+                                panel.style.maxHeight = panel.scrollHeight + "px";
+                                var height = panel.scrollHeight + pardiv;
+                                var sibdiv = $("#SIBdiv");
+                                var sibdivheight = sibdiv.height();
+                                //alert(height);
+                                //alert(sibdivheight);
+
+
+                                //if (height > sibdivheight) {
+
+                                //    sibdiv.height(height);
+                                //    addtosibdivamount = addtosibdivamount + (height - sibdivheight);
+
+
+                                //}
+                            }
+                                // else if (($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) - ($(window).scrollTop() + pardiv) < panel.scrollHeight) {
+
+                                //    var pardiv = $("#FLTholder").height();
+                                //    pardiv = $('#FLTholder').height();
+                                //    var toboadded = panel.scrollHeight;
+                                //    var addon = toboadded + pardiv;
+                                //    var newheight = $("#FLTholder").height() + toboadded;
+                                //    $("#FLTholder").height(newheight);
+
+                                //    panel.style.maxHeight = panel.scrollHeight + "px";
+                                //    palaceholder = $("#SIBdiv")[0].scrollHeight - ($("#FLTholder").height());
+                                //    $('#spaceholder').css("height", palaceholder + 'px')
+                                //    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                //    pardiv = $("#FLTholder").height();
+
+                                //    var height =  pardiv;
+                                //    var sibdiv = $("#SIBdiv");
+                                //    var sibdivheight = sibdiv.height();
+
+                                //    if (height > sibdivheight) {
+
+                                //        sibdiv.height(height);
+                                //        addtosibdivamount = addtosibdivamount + (height - sibdivheight);
+
+
+                                //    }
+                                //}
+                            else {
+                                var pardiv = $("#FLTholder").height();
+
+                                var sibdiv = $("#SIBdiv");
+                                var sibdivheight = sibdiv.height();
+                                panel.style.maxHeight = panel.scrollHeight + "px";
+                                pardiv = $("#FLTholder").height();
+
+
+                                var meyar = sibdivheight + stickyHeaderTop2 - $(window).scrollTop() - pardiv
+                                if (panel.scrollHeight > meyar) {
+
+                                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+
+                                    if (sibdivheight > pardiv) {
+                                        space = sibdivheight - pardiv - panel.scrollHeight;
+                                        $('#spaceholder').css("height", space)
+
+
+                                    }
+
+                                }
+                                else {
+                                    //alert("isnotbigger");
+                                }
+
+
+
+                                var height = panel.scrollHeight + pardiv;
+
+
+
+                                if (height > sibdivheight) {
+
+                                    sibdiv.height(height);
+                                    addtosibdivamount = addtosibdivamount + (height - sibdivheight);
+
+
+                                }
+
+                                //alert(sibdiv.height());
+                                //alert(pardiv);
+                            }
+
+                        }
+
+
+                        //var pardiv = $("#FLTholder").height();
+
+                        //if (pardiv > sibdiv) {
+                        //    $("SIBdiv").css("height", pardiv);
+                        //}
+
+
+
+                    });
+                }
+            </script>
+
+
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<script>
+
+
+
+
+
+
+    $(function () {
+        // Check the initial Position of the fixed_nav_container
+
+
+
+
+
+
+    });
+</script>
+
+<!-- //Electronics -->
+<!-- //product-nav -->
+@*<script>
+        $(document).ready(function () {
+
+
+
+
+            $('.gotodetail').click(function () {
+
+                var ID = this.id;
+                var url = "/Home/ProductDetail?id=" + ID;
+                window.location.href = url;
+            })
+            $('.addtocart').click(function () {
+
+                var pricetotal = document.getElementById("spanfortotal").textContent;
+                var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+                var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+                var finalcount = parseInt(counttotal, 10) + 1;
+                $('#spanfortotal').text(final);
+                $('#simpleCart_quantityy').text(finalcount)
+                alert(tobeadded);
+
+                var ID = this.id;
+
+
+                $.ajax({
+                    url: '/Home/addtocart',
+                    dataType: 'html',
+                    data: {
+                        id: ID,
+                        price: tobeadded
+
+                    },
+                    success: function (data) {
+
+
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-top-center",
+                            "onclick": null,
+                            "fadeIn": 300,
+                            "fadeOut": 1000,
+                            "timeOut": 5000,
+                            "extendedTimeOut": 1000,
+
+
+                        }
+                        toastr.success('محصول مورد نظر به سبد اضافه شد')
+
+                    },
+                    error: function () {
+
+                    }
+                });
+
+
+            })
+
+        })
+
+    </script>*@
+
+
+

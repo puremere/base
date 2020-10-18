@@ -1,0 +1,10 @@
+﻿@model banimo.ViewModel.aboutVM
+@{
+    ViewBag.Title = "aboutus";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="direction:rtl; text-align:right;width:100%; background-color:white; padding:50px ; line-height:3">
+    @Html.Raw(Model.content);
+</div>

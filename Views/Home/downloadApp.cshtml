@@ -1,0 +1,133 @@
+﻿@model banimo.ViewModel.contactSectionVM
+
+<!DOCTYPE html>
+<!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
+
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8" />
+    <title>@System.Configuration.ConfigurationManager.AppSettings["siteName"]</title>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="../downloadApp/css/base.css" />
+    <link rel="stylesheet" href="../downloadApp/css/vendor.css" />
+    <link rel="stylesheet" href="../downloadApp/css/main.css" />
+
+    <!-- script
+    ================================================== -->
+    <script src="../downloadApp/js/modernizr.js"></script>
+    <script src="../downloadApp/js/pace.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+ 
+
+</head>
+
+<body id="top">
+
+
+    <!-- home
+    ================================================== -->
+    <section id="home" data-parallax="scroll" data-image-src="/images/appBackground.jpg" data-natural-width=3000 data-natural-height=2000>
+
+        <div class="overlay"></div>
+        <div class="home-content">
+
+            <div class="row contents">
+                <div class="home-content-left">
+
+                    <h3 data-aos="fade-up" style="text-align:center"> از توجه شما سپاسگزاریم </h3>
+
+                    <h1 data-aos="fade-up" style="text-align:center">
+                        @System.Configuration.ConfigurationManager.AppSettings["siteName"] <br />
+
+                        را اینجا دانلود کنید  <br />
+
+
+                    </h1>
+
+                    <div class="buttons" data-aos="fade-up" style="text-align:center">
+                        <a id="@Model.googlePlayLink" href="@Model.googlePlayLink" class=" button stroke googleplay">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود از گوگل پلی
+                        </a>
+                        <a id="@Model.cafeBazarLink" href="@Model.cafeBazarLink" class=" button stroke cafebazar">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود از کافه بازار
+                        </a>
+                        <a href="@Model.directLink" class=" button stroke">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود مستقیم
+                        </a>
+                        <a href='@Model.sibappLink' class=" button stroke">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود از سیب اپ
+                        </a>
+                        @*<a href="http://player.vimeo.com/video/14592941?title=0&amp;byline=0&amp;portrait=0&amp;color=39b54a" data-lity=data-lity class="button stroke">
+                            <span class="icon-play" aria-hidden="true"></span>
+                            Watch Video
+                        </a>*@
+                    </div>
+                    <script>
+                        $(".cafebazar").click(function () {
+                            alert("aaa");
+                            //var id = $(this).attr('id');
+                            //window.location.href = id;
+                        })
+                    </script>
+
+                </div>
+
+                <div class="home-image-right">
+                    <img src="/images/app.png"
+                         srcset="/images/app.png 1x, /images/app.png 2x"
+                         data-aos="fade-up" />
+                </div>
+            </div>
+
+        </div> <!-- end home-content -->
+
+        <ul class="home-social-list">
+            <li>
+                <a href="#"><i class="fa fa-facebook-square"></i></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+            </li>
+            <li>
+                <a href="@Model.instaLink"><i class="fa fa-instagram"></i></a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-youtube-play"></i></a>
+            </li>
+        </ul>
+
+
+    </section> <!-- end home -->
+
+
+    <div id="preloader">
+        <div id="loader"></div>
+    </div>
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="../downloadApp/js/jquery-2.1.3.min.js"></script>
+    <script src="../downloadApp/js/plugins.js"></script>
+    <script src="../downloadApp/js/main.js"></script>
+
+</body>
+
+</html>

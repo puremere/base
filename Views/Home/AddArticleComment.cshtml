@@ -1,0 +1,108 @@
+﻿@model banimo.ViewModel.commentModel
+@{
+    ViewBag.Title = "لیست محصولات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/addCommentStyle.css" rel="stylesheet" />
+<script>
+    if ('@ViewBag.mess' === "200") {
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.success('نظر شما با موفقیت ثبت شد')
+    }
+    else if ('@ViewBag.mess' === "500") {
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('شما قادر به ثبت نظر برای این محصول نیستید')
+    }
+</script>
+@{
+    //string data = @ViewBag.data;
+    //string imageAddress = data.Split(',')[1];
+    //string id = data.Split(',')[0];
+
+    <div class="addcommentmain">
+        <div class="row content">
+
+            <div class="col-lg-4 content mustbeshow" id="imageholder" style="display:none">
+                <img class=" img" src="~/images/panelimages/@Model.img" />
+            </div>
+            <div class="col-lg-8 content" id="formholder">
+                <form id="commentForm" method="post" action="AddArticleCommentPost">
+                    <div class="FormRow">
+                        <p class="titleheader">عنوان نظر شما (اجباری)</p>
+                        @Html.TextBoxFor(x => x.title, new { @class = "field commentTitle", placeholder = "نظر خود را بنویسید" })
+
+                    </div>
+                    <div class="FormRow">
+                        <p class="titleheader">متن نظر شما (اجباری)</p>
+                        @*<textarea class="" rows="10" placeholder=""></textarea>*@
+                        @Html.TextAreaFor(x => x.desc, new { @class = "field commentDesc", row = "10", placeholder = "متن نظر خود را بنویسید" })
+                    </div>
+                    <div class="FormRow buttHolder">
+                        <div class="content" id="verify">
+                            <p>تایید</p>
+                            <i id="verifyflag" style="display:none"></i>
+                        </div>
+                        <script>
+                            $(".field").on('input',function () {
+
+                                var thisval = $(this).val();
+
+                                if (thisval.length > 1) {
+                                    $(this).css("border-color", "#b5afaf");
+
+                                }
+                                else {
+                                    $(this).css("border-color", "red");
+                                }
+
+                            })
+                            $("#verify").click(function () {
+                                //alert("aa");
+                                var counter = 0;
+                                $(".field").each(function () {
+                                    var val = $(this).val();
+                                   // alert(val)
+                                    if (val === "") {
+                                        $(this).css("border-color", "red");
+                                        $("#verifyflag").text("1");
+                                        counter = counter + 1;
+                                    }
+
+                                })
+
+                                if (counter === 0)
+                                {
+                                    //alert("aa");
+                                    $("form#commentForm").submit();
+                                }
+
+                            })
+                        </script>
+                    </div>
+
+                </form>
+
+            </div>
+            <div class="col-lg-4 content mustbehide" id="imageholder">
+                <img class=" img" src="~/images/panelimages/@Model.img" />
+            </div>
+        </div>
+    </div>
+}

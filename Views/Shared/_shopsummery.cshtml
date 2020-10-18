@@ -1,0 +1,75 @@
+﻿@model IEnumerable<string>
+<div class="modal-body modal-spa">
+    <div class="login-grids ">
+        <div class="login" style="direction:rtl">
+            <div id="submitdivagain" class="login-right" style="float:right; width:100%">
+
+               
+                    
+                        <div class=" row" style="margin-bottom:15px">
+                            @{
+                                foreach (var item in Model)
+                                {
+                                    <div style="display:inline-block ; " ><img style="width: 100px" src=@item /></div>
+                                }
+                            }
+                           
+
+                        </div>
+                   
+
+                    <div class="sign-up" style="float:left">
+                        <a id="finalconfirm" class="sub" style="display:inline-block">تایید</a> 
+                     </div>
+             
+
+
+
+
+
+               
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $("#finalconfirm").click(function () {
+        var address = $("#addressholder").text();
+        var phone = $("#phoneholder").text();
+        if (address == "" | phone == "") {
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error('ابتدا بخش اطلاعات تکمیلی را کامل بفرمایید')
+        }
+        else {
+
+            var URL = "/Connection/ReqestForPayment";
+            window.location.href = URL;
+
+
+            //toastr.options = {
+            //    "debug": false,
+            //    "positionClass": "toast-top-center",
+            //    "onclick": null,
+            //    "fadeIn": 300,
+            //    "fadeOut": 1000,
+            //    "timeOut": 5000,
+            //    "extendedTimeOut": 1000
+            //}
+            //toastr.success('باتشکر فراوان ، در اسرع وقت جهت هماهنگی با شما تماس میگیریم')
+            //var URL = "/Home/Index";
+            //window.location.href = URL;
+        }
+    })
+</script>

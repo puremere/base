@@ -1,0 +1,376 @@
+﻿@model AdminPanel.ViewModel.productDetailPageViewModel
+
+@*<style>
+        . {
+            width: 100%;
+            margin: 0px;
+            display: inline-block
+        }
+    </style>*@
+@{
+    if (Model.filterlist != null && Model.filterlist.Count() > 0)
+    {
+
+        <div style=" border:1px solid #ddd; padding:0px ; margin:0px;margin-bottom:10px; padding:10px;box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);">
+            <p style="margin:5px">فیلتر های گزینه ای:</p>
+            @foreach (var myitem in Model.filterlist)
+            {
+                if (myitem.filterdetailes != null)
+                {
+                    string ID = myitem.ID;
+
+                    string filterdetaillist = "DF" + ID;
+                    if (myitem.filterkinde == "1")
+                    {
+                        <div id="filtersholder" class="form-group  selectedfilterServer" style="">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
+                                @myitem.filtername :
+                            </label>
+
+                            <div class="col-md-4 col-sm-4 col-xs-12">
+                                <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselectServer">
+                                    @if (myitem.filterdetailes != null)
+                                    {
+                                        foreach (var detail in myitem.filterdetailes)
+                                        {
+
+                                            <option value=@detail.ID> @detail.detailname</option>
+                                        }
+                                    }
+
+
+
+                                </select>
+
+                                @*<script>
+                                        $(document).ready(function () {
+                                            var ID = "@myitem.ID";
+                                            var filterdetaillist = "DEFfilterdetaillist" + ID;
+                                            var filterVALUE = $("#" + filterdetaillist + " option:selected").val();
+                                            //$("#allfilterid").append(ID + "-" + filterVALUE + ",");
+                                            $('select#' + filterdetaillist).on('change', function () {
+                                                //alert($(this).val());
+                                                $("#allfilterid").append(ID + "-" + $(this).val() + ";");
+
+                                            });
+
+
+                                        })
+                                    </script>*@
+                            </div>
+
+
+
+
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="filtersholder" class="form-group " style="">
+                            <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
+                                @myitem.filtername :
+                            </label>
+
+                            <div class="">
+                                <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselectServer" multiple>
+                                    @if (myitem.filterdetailes != null)
+                                    {
+                                        foreach (var detail in myitem.filterdetailes)
+                                        {
+
+                                            <option value=@detail.ID> @detail.detailname</option>
+                                        }
+                                    }
+
+
+
+                                </select>
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+                    }
+
+
+
+
+                }
+
+            }
+        </div>
+
+
+        if (Model.Range != null)
+        {
+
+            <div class="row" id="rangHolder" style="box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);border:1px solid #ddd; padding:10px ; margin:0px;margin-bottom:10px;padding-bottom:10px ">
+                <p style="margin:5px"> فیلتر های بازه ای:</p>
+                @foreach (var range in Model.Range)
+                {
+                    string id = "R" + range.ID;
+                    <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                        @range.title :
+                    </label>
+                    <input id=@id class="rangeInputServer form-control col-md-2 col-sm-2 col-xs-12" />
+
+                }
+            </div>
+
+        }
+
+
+        if (Model.Colores != null)
+        {
+            <div id="colorholder" class="form-group " style="border:1px solid #ddd; padding:10px;box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);">
+                <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                    رنگ :
+                </label>
+
+                <div>
+                    @{
+                        <select id=productcolorServer name=productcolorServer onchange="Getcolorlist(this)" style="width:100%" class="" multiple>
+                            @foreach (var color in Model.Colores)
+                            {
+                                <option value=@color.Value> @color.Text    </option>
+                            }
+                        </select>
+                    }
+
+                    @*@Html.DropDownListFor(m => m.SelectedColor, Model.Colores, "--", new { id = "productcolorServer", name = "productcolorServer", onchange = "Getcolorlist(this)", style = "width:100%", @class = "DRPd" })*@
+                </div>
+
+
+                <script>
+
+                    //function Getcolorlist(productcolorServer) {
+                    //    var selectedValue = productcolorServer.value;
+                    //    $("#colorholder").css("background-color", selectedValue);
+
+                    //}
+                    $(document).ready(function () {
+
+                        $('input.rangeInputServer').each(function () {
+                            let id = $(this).attr("id");
+
+                            let ID = (id + "").replace("R", "");
+                            if ($(this).val() !== null) {
+                                let value = "";
+                                value = value + (ID + "-" + $(this).val() + ";");
+
+                                $("#inputallrangeidServer").val(value)
+                            }
+                        })
+                        $("#productcolorServer option").each(function () {
+                            if ($(this).val() != '') {
+                                $(this).css('background-color', $(this).val());
+
+                            }
+                        });
+                    });
+
+
+                </script>
+
+
+
+            </div>
+            <div class="form-group ">
+                <a id="FilterConfirmServer" class="btn btn-primary">تایید</a>
+                <script>
+                    $(document).ready(function () {
+
+                        let filter = "";
+                        $("#FilterConfirmServer").click(function () {
+
+                            $('input.rangeInputServer').each(function () {
+                                let id = $(this).attr("id");
+
+                                let ID = (id + "").replace("R", "");
+                                if ($(this).val() !== null) {
+                                    let value = "";
+                                    value = value + (ID + "-" + $(this).val() + ";");
+
+                                    $("#inputallrangeidServer").val(value)
+                                }
+                            })
+                            $('.filterselectServer').each(function () {
+                                var id = $(this).attr("id");
+                                var ID = (id + "").replace("DF", "");
+
+                                if ($(this).val() !== null) {
+                                    var value = $("#inputallfilteridServer").val();
+                                    value = value + (ID + "-" + $(this).val() + ";");
+                                    $("#inputallfilteridServer").val(value)
+                                }
+
+
+
+                            });
+
+                            var colval = "";
+                            $("#productcolorServer option:selected").each(function () {
+                                colval = colval + $(this).val() + ",";
+
+
+                            });
+                            if (colval == "") {
+                                toastr.options = {
+                                    "debug": false,
+                                    "positionClass": "toast-top-center",
+                                    "onclick": null,
+                                    "fadeIn": 300,
+                                    "fadeOut": 1000,
+                                    "timeOut": 5000,
+                                    "extendedTimeOut": 1000
+                                }
+                                toastr.error('رنگ محصول از قسمت فیلتر انتخاب نشده است')
+                            }
+                            else {
+                                $("#inputallcolidServer").val(colval);
+                                $("#SelectedfiltersServer").val($(".selectedfilter option:selected").text());
+                                $('#filterModalServer').modal('toggle');
+                            }
+
+
+
+
+
+
+                        })
+
+
+
+
+                    })
+                </script>
+            </div>
+        }
+        else
+        {
+            <div class="form-group ">
+                <a id="FilterConfirmServer" class="btn btn-primary">تایید</a>
+                <script>
+                    $(document).ready(function () {
+                       
+                        //$('input.rangeInputServer').each(function () {
+                            
+                        //    let id = $(this).attr("id");
+                        //    let ID = (id + "").replace("R", "");
+                        //    range = range + (ID + "-" + $(this).val() + ";");
+
+                        //    $("#inputallrangeidServer").val(value)
+                        //})
+                        var filter = "";
+                        let range = "";
+                        var selectedfilter = "";
+                        var productID = "";
+                        var banimoCat = "";
+
+                        $("#FilterConfirmServer").click(function () {
+
+                         
+                            $('input.rangeInputServer').each(function () {
+
+                                let id = $(this).attr("id");
+                                let ID = (id + "").replace("R", "");
+                                range = range + (ID + "-" + $(this).val() + ";");
+
+                               
+                            })
+                           
+                            $('.filterselectServer').each(function () {
+                                var id = $(this).attr("id");
+                                var ID = (id + "").replace("DF", "");
+
+                                if ($(this).val() !== null) {
+                                    var value = $("#inputallfilteridServer").val();
+                                    filter = filter + (ID + "-" + $(this).val() + ";");
+                                   
+                                }
+
+
+
+                            });
+
+                             productID = $("#selectedForServer").text();
+                             selectedfilter = $(".selectedfilterServer option:selected").text();
+                             banimoCat = $("#serverCates").val();
+
+                                 $.ajax({
+                                     url: '/Admin/addToServer',
+                                    dataType: 'html',
+                                    data: {
+                                        productID: productID,
+                                        selectedfilter: selectedfilter,
+                                        filter: filter,
+                                        range: range,
+                                        banimoCat: banimoCat
+                                    },
+                                    success: function (data) {
+                                        $('#filterModalServer').modal('toggle');
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.success('با موفقیت انجام شد')
+                                        $("#serverModal").modal('toggle');
+                                        var value = $("#listofproduct").val();
+                                        var partner = $("#partnerList").val();
+                                        $.ajax({
+                                            url: '/Admin/GetTheListOfItems',
+                                            dataType: 'html',
+                                            data: {
+                                                value: value,
+                                                partner: partner
+                                            },
+                                            success: function (data) {
+
+                                                $('#listholder').html(data);
+                                                $('#listholder').css("display", "block");
+                                            },
+                                            error: function () {
+                                                alert("nashod")
+                                            }
+                                        });
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                             
+                             
+                             
+                             
+                            //
+
+
+
+
+
+                        })
+
+
+
+
+                    })
+                </script>
+            </div>
+        }
+        
+
+    }
+
+}
+
+

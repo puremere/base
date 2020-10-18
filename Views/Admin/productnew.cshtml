@@ -1,0 +1,206 @@
+﻿
+@model  AdminPanel.ViewModel.RootObjectFilter
+@{
+    ViewBag.Title = "مدیریت مطالب";
+    Layout = "~/Views/Shared/_LayoutPanelAdmin.cshtml";
+}
+
+
+
+@section scripts{
+    <script>
+        $("#getfeature").click(function () {
+           
+            var value = $("#maincat").val();
+
+            if (value != "" && value != "0") {
+               
+                $.ajax({
+                    url: '/Admin/GetTheListOfItemsNew',
+                    data: {
+                        value: value
+                    },
+                    success: function (data) {
+                        $("#featureholder").html(data);
+                    },
+                    error: function () {
+                        alert("خطا")
+                    }
+                });
+            }
+            else {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
+                }
+
+                toastr.error(' دسترسی جهت دسته بندی مورد نظر وجود ندارد ')
+            }
+
+        })
+
+    </script>
+}
+
+@{
+    if (@ViewBag.msg == 1)
+    {
+        <script>
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.success('محصول مورد نظر با موفقیت اضافه شد')
+                     @ViewBag.msg == 4
+        </script>
+    }
+    if (@ViewBag.msg == 2)
+    {
+        <script>
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error('خطا لطفاً مجدداً تلاش کنید')
+                     @ViewBag.msg == 4
+        </script>
+    }
+    if (@ViewBag.msg == 3)
+    {
+        <script>
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error('محصول با همین مشخصات وجود دارد')
+                     @ViewBag.msg == 4
+        </script>
+    }
+}
+
+
+
+<div class="row">
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+
+
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+                    <div class="holderofformgroup" style="direction: rtl;text-align: right;padding: 20px;border: 1px solid #ddd;background-color: white;border-radius: 10px;">
+                        <div class="form-group rowholder">
+                            @{
+                                List<SelectListItem> listItems = new List<SelectListItem>();
+                                if (Model.filtersModel != null)
+                                {
+                                    foreach (var item in Model.filtersModel)
+                                    {
+                                        listItems.Add(new SelectListItem
+                                        {
+                                            Text = item.title,
+                                            Value = "1" + item.ID
+                                        });
+                                        if (item.filtersubcat != null)
+                                        {
+                                            foreach (var subcat in item.filtersubcat)
+                                            {
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = "---" + subcat.title,
+                                                    Value = "2" + subcat.ID
+                                                });
+                                                if (subcat.filtersubcat2 != null)
+                                                {
+                                                    foreach (var subcat2 in subcat.filtersubcat2)
+                                                    {
+                                                        listItems.Add(new SelectListItem
+                                                        {
+                                                            Text = "------" + subcat2.title,
+                                                            Value = "3" + subcat2.ID
+                                                        });
+                                                    }
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+                                }
+
+
+                            }
+
+                            <label style="width:100%; margin-bottom:15px; font:bold; margin-left:20px; display:inline-block" class="control-label component" for="first-name">
+                                انتخاب دسته بندی -
+                            </label>
+                            @{
+
+                                <div class="component " style="display:inline-block; margin-left:15px">
+                                    @Html.DropDownList("maincat", listItems, "-- Select Status --", new { id = "maincat", style = " display:inline-block", @class = "DRPd form-control" })
+                                </div>
+                            }
+
+
+
+
+
+                            <div class="component " style="direction:rtl; display:inline-block">
+
+                                @* <button id="DEFcatok" class="btn btn-success" onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                                <button id="getfeature" class="btn btn-success">تایید</button>
+
+
+
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+                    <div class="ln_solid"></div>
+                </div>
+
+                <div id="featureholder">
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+
+</div>

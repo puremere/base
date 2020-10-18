@@ -1,0 +1,168 @@
+﻿@model banimo.ViewModel.productviewmodel
+
+
+<style>
+    .LBL {
+        display: inline-block;
+        float: right;
+        text-align: right;
+        font-size:12px;
+        margin-top:4px
+    } 
+</style>
+
+                <div class="row">
+                    @using (Html.BeginForm("Profile", "Home", FormMethod.Post,
+    new { enctype = "multipart/form-data", id = "signupform" }))
+                    {
+
+                        if (Model.name != null)
+                        {
+                            var name = Model.name;
+                            var price = Model.price;
+                            var desc = Model.description;
+                            var setid = Model.setid;
+                            var discount = Model.discount;
+                            var color = Model.color; 
+
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL">نام محصول</label>
+                                <input class="input" value=@name  id="productname" type="text" name="productname">
+                            </div>
+
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL" >:قیمت محصول</label>
+                                <input class="input" value=@price  id="productprice" type="text" name="productprice">
+                            </div>
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL">:تخفیف</label>
+                                <input class="input" value=@discount id="productdiscount" type="text" name="productdiscount">
+                            </div>
+
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL" >:شماره گروه محصول</label>
+                                <input class="input" value=@setid  id="productsetid" type="text" name="productsetid">
+                            </div>
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL" >:رنگ محصول</label>
+                                <input class="input" value=@color id="productcolor" type="text" name="productcolor">
+                            </div>
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL" >:توضیحات محصول</label>
+                                <textarea cols="40" rows="5" id="productdesc" name="productdesc" style="float:right; text-align:right; font-size:12px">@desc</textarea>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL">:نام محصول</label>
+                                <input  class="input"  id="productname" type="text" name="productname">
+                            </div>
+
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL">:قیمت محصول</label>
+                                <input class="input"  id="productprice" type="text" name="productprice">
+                            </div>
+                           <div class="row" style="direction:ltr; margin: 15px">
+                               <label class="col-lg-4 LBL">:تخفیف</label>
+                               <input class="input" id="productdiscount" type="text" name="productdiscount">
+                            </div>
+
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL">:شماره گروه محصول</label>
+                                <input class="input"  id="productsetid" type="text" name="productsetid">
+                            </div>
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL" >:رنگ محصول</label>
+                                <input class="input" id="productcolor" type="text" name="productcolor">
+                            </div>
+                            <div class="row" style="direction:ltr; margin: 15px">
+                                <label class="col-lg-4 LBL">:توضیحات محصول</label>
+                                <textarea cols="8" rows="5" id="productdesc" name="productdesc" style="float:right; text-align:right; font-size:12px"></textarea>
+                               
+                            </div>
+                        }
+
+
+                        <div class="row" style="direction:ltr; margin: 15px">
+                            <label class="col-lg-4 LBL">:عکس های محصول مورد نظر را انتخاب کنید</label>
+                            <input class="sub" style="display: inline-block; float: right" id="fileupload" type="file" name="files[]" multiple="multiple" accept="image/*">
+                        </div>
+
+
+
+                        <div class="row" style="margin: 15px">
+                            <p id="ttt" class=" sub" style="width:100px; text-align:center">تایید</p>
+                        </div>
+                        <script>
+                            
+                            $("#ttt").click(function () {
+
+                                var name = $("#productname").val();
+                                var price = $("#productprice").val();
+                                var setid = $("#productsetid").val();
+                                var desc = $("#productdesc").val();
+                                var file = $("#fileupload").val();
+                                if (name != "" & price != "" & setid != "" & file != "" & desc != "") {
+                                    $("#signupform").submit();
+                                }
+
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+                                    toastr.error('تمامی موارد را کامل کنید')
+                                }
+
+                            })
+                        </script>
+
+                    }
+                </div>
+
+                
+
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        
+
+        //$('#fileupload').fileupload({
+
+        //    dataType: 'json',
+        //    url: '/Home/Photos',
+        //    autoUpload: true,
+
+        //    done: function (e, data) {
+
+
+        //        $('#finaldata').css('display', 'block');
+        //        $('.file_name').css('display', 'block');
+        //        $('.file_name').html("آپلود با موفقیت انجام شد")
+        //        // $('.file_name').html("تعداد فایل های انتخابی: "+data.result.ordercount+"</br>"+"  مجموع کلمات: " +data.result.wordcount+"</br>" );
+        //        //$('.file_type').html("تعداد فایل ها: "+data.result.type);
+        //        //$('.file_size').html(""+ data.result.size);
+        //        //  $('.progress .progress-bar').css('display','none');
+        //        //$('.progress').css('display', 'none');
+        //        $('#upbtn').css('display', 'none');
+        //    }
+        //}).on('fileuploadprogressall', function (e, data) {
+        //    $('#orderfileprogress').css('display', 'block');
+        //    var progress = parseInt(data.loaded / data.total * 100, 10);
+        //    $('#orderfileprogress').css('width', progress + '%');
+
+        //});
+    })
+</script>

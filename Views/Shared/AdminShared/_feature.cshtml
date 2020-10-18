@@ -1,0 +1,211 @@
+﻿@model AdminPanel.ViewModel.FeatureModel
+
+<ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home2" style=" color: #8d8d8d; ">تعریف سرگروه یا زیرگروه </a></li>
+        <li><a data-toggle="tab" href="#menu12" style=" color: #8d8d8d; ">حذف سرگروه یا زیر گروه</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="home2" class="tab-pane fade in active" style="padding-top:20px">
+            @{
+
+                List<SelectListItem> listofmainF = new List<SelectListItem>();
+                if (Model.featureData[0].mainFeatures != null)
+                {
+                    foreach (var item in Model.featureData[0].mainFeatures)
+
+                    {
+                        listofmainF.Add(new SelectListItem
+                        {
+                            Text = item.title,
+                            Value = item.ID
+                        });
+
+
+                    }
+                }
+
+
+            }
+
+
+            <div class="component ">
+                @Html.DropDownList("mainF", listofmainF, "--انتخاب سرگروه--", new { id = "mainF", style = "width:100%", @class = "form-control" })
+            </div>
+
+
+            <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                با عنوان
+            </label>
+            <div class="component ">
+                <input type="text" id="level1title" placeholder="عنوان سرگروه یا زیرگروه" />
+            </div>
+
+
+
+
+
+
+            <div class="component " style="direction:rtl">
+
+                @* <button id="DEFcatok" class="btn btn-primary" onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                <button id="createfeature" class="btn btn-primary">تایید</button>
+                <script>
+                    $("#createfeature").click(function () {
+
+                        var level1title = $("#level1title").val();
+                        var catID = $("#maincat").val();
+                        var mainF = $("#mainF").val();
+
+
+
+                        if (level1title != "" & catID != "") {
+
+                            $.ajax({
+                                url: '/Admin/createFeature',
+                                dataType: 'html',
+                                data: {
+                                    level1title: level1title,
+                                    catID: catID,
+                                    mainF: mainF
+
+                                },
+                                success: function (data) {
+
+                                    $.ajax({
+                                        url: '/Admin/getfeature',
+                                        dataType: 'html',
+                                        data: {
+                                            catID: catID,
+
+                                        },
+                                        success: function (data) {
+                                            $("#featureholder").html(data);
+                                        },
+                                        error: function () {
+                                            alert("خطا")
+                                        }
+                                    });
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+
+                        }
+
+                    })
+
+                </script>
+
+
+            </div>
+
+        </div>
+        <div id="menu12" class="tab-pane fade" style="padding-top:20px">
+            <div class="component ">
+                @Html.DropDownList("mainf", listofmainF, "--انتخاب سرگروه--", new { id = "mainf", style = "width:100%", @class = "form-control" })
+            </div>
+
+            @{
+                List<SelectListItem> listofsubF = new List<SelectListItem>();
+                if (Model.featureData[0].subFeatures != null)
+                {
+
+                    foreach (var item in Model.featureData[0].subFeatures)
+                    {
+                        listofsubF.Add(new SelectListItem
+                        {
+                            Text = item.title,
+                            Value = item.ID
+                        });
+
+
+                    }
+                }
+
+
+            }
+            <div class="component ">
+                @Html.DropDownList("subf", listofsubF, "--انتخاب زیر گروه--", new { id = "subf", style = "width:100%", @class = "form-control" })
+            </div>
+
+
+
+
+
+            <div class="component " style="direction:rtl">
+
+                @* <button id="DEFcatok" class="btn btn-primary" onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                <button id="deletefeature" class="btn btn-primary">تایید</button>
+                <script>
+                    $("#deletefeature").click(function () {
+
+                        var subf = $("#subf").val();
+                        var mainf = $("#mainf").val();
+                        var maincatdel = $("#maincat").val();
+
+
+                        if (level1title != "" && (mainf != "" || subf != "")) {
+
+                            $.ajax({
+                                url: '/Admin/deleteFeature',
+                                dataType: 'html',
+                                data: {
+
+                                    subf: subf,
+                                    mainf: mainf
+
+                                },
+                                success: function (data) {
+
+                                    if (data === "subexist") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error(' سرگروه مورد نظر دارای زیر گروه بوده و حذف نمی شود')
+                                    }
+                                    else {
+                                        $.ajax({
+                                            url: '/Admin/getfeature',
+                                            dataType: 'html',
+                                            data: {
+                                                catID: maincatdel,
+
+                                            },
+                                            success: function (data) {
+                                                $("#featureholder").html(data);
+                                            },
+                                            error: function () {
+                                                alert("خطا")
+                                            }
+                                        });
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+
+                        }
+
+                    })
+
+                </script>
+
+
+            </div>
+        </div>
+
+    </div>

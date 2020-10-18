@@ -1,0 +1,84 @@
+﻿
+@model IEnumerable<banimo.ViewModel.earlydatum>
+
+<h3><span>Latest </span>Collections</h3>
+<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium</p>
+@{
+    foreach (var item in Model)
+    {
+        string ID = item.ID.ToString();
+        string addtocartid = "addtocart" + ID;
+        <div class="col-md-3 product-men">
+            <div class="men-pro-item simpleCart_shelfItem">
+                <div class="men-thumb-item">
+                    <img src="~/images/ph1.png" alt="" class="pro-image-front">
+                    <img src="~/images/ph1.png" alt="" class="pro-image-back">
+                    <div class="men-cart-pro">
+                        <div class="inner-men-cart-pro">
+                            <a id=@ID class="link-product-add-cart gotodetail">Quick View</a>
+                        </div>
+                    </div>
+                    <span class="product-new-top">New</span>
+
+                </div>
+                <div class="item-info-product ">
+                    <h4><a href="single.html">@item.title</a></h4>
+                    <div class="info-product-price">
+                        <span class="item_price">@item.productprice</span>
+                        <del>$700.71</del>
+                    </div>
+                    <a id=@addtocartid class="item_add single-item hvr-outline-out button2 addtocart">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<script>
+    $(document).ready(function () {
+        $('.gotodetail').click(function () {
+
+            var ID = this.id;
+            var url = "/Home/ProductDetail?id=" + ID;
+            window.location.href = url;
+        })
+        $('.addtocart').click(function () {
+
+            var pricetotal = document.getElementById("spanfortotal").textContent;
+            var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+            var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+            var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+            var finalcount = parseInt(counttotal, 10) + 1;
+            $('#spanfortotal').text(final);
+            $('#simpleCart_quantityy').text(final)
+            alert(tobeadded);
+
+            var ID = this.id;
+
+
+            $.ajax({
+                url: '/Home/addtocart',
+                dataType: 'html',
+                data: {
+                    id: ID,
+                    price: tobeadded
+
+                },
+                success: function (data) {
+
+
+
+
+                },
+                error: function () {
+
+                }
+            });
+
+
+        })
+
+       
+    })
+
+</script>

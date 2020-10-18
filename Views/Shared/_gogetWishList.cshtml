@@ -1,0 +1,107 @@
+﻿@model banimo.ViewModelPost.WishListList
+
+
+<style>
+</style>
+<div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+
+    <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+    <span style=" margin-right: 15px;font-size:15px">علاقه مندی ها</span>
+</div>
+ <div class="o-headline o-headline--profile"><span>علاقه مندی ها</span> </div>
+  
+    <div class="c-profile-stats"></div>
+    <script>
+        $(".back").click(function () {
+            $("#SECTIONOFIBdiv").animate({
+                'margin-right': number
+            }, function () {
+                $('#productlistHoLDER').html("");
+                $("#SECTIONOFIBdiv").css("display", "none");
+
+            });
+        })
+    </script>
+
+
+    @if (Model.wishList != null)
+    {
+        <ul class="c-profile-wishlist__listing">
+
+
+            @foreach (var item in Model.wishList)
+            {
+                string imagefile = "placeholder.jpg";
+                if (item.title != null)
+                {
+                    imagefile = item.image;
+                }
+                string id = "wishon" + item.ID;
+                string link = "/Home/ProductDetail?id=N" + item.ID;
+                string src = "/images/panelimages/" + imagefile;
+                <li class="c-profile-wishlist__list-item js-favorite-container ">
+                    <div class="imageHOlderofWish" >
+                        <div class="c-profile-wishlist__list-item-thumb">
+                            <a href="@link" class="c-profile-wishlist__list-item-img">
+                                <img alt="@item.title" src="@src" style="max-width:150px">
+                            </a><button id="@id" class="c-profile-wishlist__list-item-remove js-remove-favorite-btn" data-product-id="680108"></button>
+                        </div>
+                    </div>
+
+                    <div class="otherDataWish">
+                        <div class="c-profile-wishlist__list-item-content">
+                            <div class="c-profile-wishlist__list-item-content-container" style="margin-top:4%">
+                                <a href="@link">
+                                    <h5>@item.title</h5>
+                                </a>
+
+                            </div>
+                            <div class="c-profile-wishlist__list-item-content-container" style="margin-bottom:4%">
+                                <div class="c-profile-wishlist__list-item-price">
+                                    <span>@item.price</span>
+                                    <span>تومان</span>
+                                </div>
+                                <a href="@link" target="_blank" class="c-profile-wishlist__list-item-button">مشاهده محصول</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </li>
+            }
+        </ul>
+        <script>
+
+            $(".c-profile-wishlist__list-item-remove").click(function () {
+                $(this).parents(".c-profile-wishlist__list-item").css("display", "none");
+                var id = $(this).attr("id");
+
+                $.ajax({
+                    url: '/Home/addToWishList',
+                    dataType: 'html',
+                    data: {
+                        ProductID: id,
+                        isWishList: "1"
+
+                    },
+                    success: function (data) {
+
+                    },
+                    error: function (request, status, error) {
+
+                    }
+                });
+            })
+        </script>
+    }
+    else
+    {
+        <div class="c-profile-empty" style="text-align: center;direction: rtl;font-size: 25px;margin-bottom: 25px;background: white;border: 1px solid #ddd;padding-bottom: 40px;">
+
+            موردی برای نمایش وجود ندارد!
+        </div>
+    }
+
+
+
+
+

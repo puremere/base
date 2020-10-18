@@ -1,0 +1,166 @@
+﻿.master {
+    width: 85%;
+    height: 100%;
+    float: left;
+    position: absolute;
+    padding-right:2px
+}
+.slave {
+    width: 100%;
+     right:0px;
+    float: right;
+    margin-bottom:2px
+    
+}
+.slave video{
+    width:15%;
+    float:right;
+  
+}
+
+
+.mineholderAfter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 20000;
+    width: 0%
+}
+
+.mineholder {
+    padding:10px;
+  
+    position: relative;
+    margin: 0 auto;
+    z-index: 20000;
+    display: inline-block;
+    width: 50%;
+}
+
+.mineholderScreen {
+    padding: 10px;
+    
+    position: relative;
+    margin: 0 auto;
+    z-index: 20000;
+    display: inline-block;
+    width: 50%;
+}
+.mineholderScreenAfter {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20000;
+    width: 200px
+}
+
+#vidoeHolder{
+    width:100%;
+    display:inline-block; position:relative; overflow:hidden
+}
+#chatHolder {
+    width: 0%;
+    display: inline-block;
+}
+#BothContainer {
+   
+    display: flex;
+}
+.partnerholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0;
+}
+.partnerholder2 {
+    display: block;
+    width: 50%;
+    height: 100%;
+    position: absolute;
+    right: 0px;
+    top: 0;
+}
+.navbar-fixed-top{
+    z-index:99999
+}
+@media only screen and (max-width: 800px) {
+
+    .master {
+        width: 101%;
+        height: 100%;
+        float: left;
+        position: relative;
+    }
+
+    .slave {
+        width: 30%;
+        height: auto;
+        object-fit:cover;
+        margin-bottom: 0px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        float:left;
+    }
+
+        .slave video {
+            object-fit: contain; /* This is the mainly problematic line*/
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+        }
+
+    .master video {
+        object-fit: contain; /* This is the mainly problematic line*/
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+    }
+  
+
+    .content{
+        display:none;
+    }
+    .mineholderAfter {
+     
+        width:120px
+    }
+    /*#BothContainer {
+        margin-top: 50px;
+        display: block;
+    }
+    .partnerholder {
+        height: auto;
+        position: relative;
+        display: inline-block;
+        float: right;
+        width:100%
+    }
+    .partnerholder2 {
+        height: auto;
+        position: relative;
+        display: inline-block;
+        float: left;
+        width: 100%
+    }
+    #vidoeHolder {
+        width: 100%
+    }
+    #chatHolder {
+        width: 100%;
+
+    }
+    .mineholderAfter {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 20000;
+        width: 70px
+    }
+    .video partner{
+        
+    }*/
+}
+

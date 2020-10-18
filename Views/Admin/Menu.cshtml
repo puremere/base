@@ -1,0 +1,1174 @@
+﻿@model banimo.ViewModel.adminMenuVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "مدیریت مطالب";
+}
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">لایه اول </a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">لایه دوم</a></li>
+        <li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">لایه سوم</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#layer1def" style=" color: #8d8d8d; ">تعریف </a></li>
+                <li><a data-toggle="tab" href="#layer1del" style=" color: #8d8d8d; ">حذف </a></li>
+                <li><a data-toggle="tab" href="#layer1edit" style=" color: #8d8d8d; ">ویرایش </a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="layer1def" class="tab-pane fade in active" style="padding-top:20px">
+                    <div class="component">
+                        <input type="text" id="DEDcatid" required="required" class="form-control INP">
+                    </div>
+                    <div class="component">
+                        <div class="form-group " style="display:inline-block">
+
+
+                            @{
+                                List<SelectListItem> serverListItem = new List<SelectListItem>();
+                                List<SelectListItem> serverListItem2 = new List<SelectListItem>();
+                                List<SelectListItem> serverListItem3= new List<SelectListItem>();
+                                if (Model.basecat.filtersModel != null)
+                                {
+                                    foreach (var item in Model.basecat.filtersModel)
+                                    {
+
+                                        serverListItem.Add(new SelectListItem
+                                        {
+                                            Text = item.title,
+                                            Value = "1" + item.ID
+                                        });
+                                        if (item.filtersubcat != null)
+                                        {
+                                            foreach (var subcat in item.filtersubcat)
+                                            {
+                                                serverListItem.Add(new SelectListItem
+                                                {
+                                                    Text = "---" + subcat.title,
+                                                    Value = "0"
+
+                                                });
+                                                if (subcat.filtersubcat2 != null)
+                                                {
+                                                    foreach (var subcat2 in subcat.filtersubcat2)
+                                                    {
+                                                        serverListItem.Add(new SelectListItem
+                                                        {
+                                                            Text = "------" + subcat2.title,
+                                                            Value = "0"
+                                                        });
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                        serverListItem2.Add(new SelectListItem
+                                        {
+                                            Text = item.title,
+                                            Value = "0"
+                                        });
+                                        if (item.filtersubcat != null)
+                                        {
+                                            foreach (var subcat in item.filtersubcat)
+                                            {
+                                                serverListItem2.Add(new SelectListItem
+                                                {
+                                                    Text = "---" + subcat.title,
+                                                    Value = "2" + subcat.ID
+
+                                                });
+                                                if (subcat.filtersubcat2 != null)
+                                                {
+                                                    foreach (var subcat2 in subcat.filtersubcat2)
+                                                    {
+                                                        serverListItem2.Add(new SelectListItem
+                                                        {
+                                                            Text = "------" + subcat2.title,
+                                                            Value = "0"
+                                                        });
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                        serverListItem3.Add(new SelectListItem
+                                        {
+                                            Text = item.title,
+                                            Value = "0"
+                                        });
+                                        if (item.filtersubcat != null)
+                                        {
+                                            foreach (var subcat in item.filtersubcat)
+                                            {
+                                                serverListItem3.Add(new SelectListItem
+                                                {
+                                                    Text = "---" + subcat.title,
+                                                    Value = "0"
+
+                                                });
+                                                if (subcat.filtersubcat2 != null)
+                                                {
+                                                    foreach (var subcat2 in subcat.filtersubcat2)
+                                                    {
+                                                        serverListItem3.Add(new SelectListItem
+                                                        {
+                                                            Text = "------" + subcat2.title,
+                                                            Value = "3" + subcat2.ID
+                                                        });
+                                                    }
+                                                }
+
+                                            }
+                                        }
+
+                                    }
+                                }
+
+
+                            }
+                            <div class="component ">
+                                @Html.DropDownListFor(m => m.SelectedaddProductServer, serverListItem, "-- Select Status --", new { id = "serverCates1", style = "width:150px", @class = "form-control serverCates" })
+                            </div>
+
+                           
+
+                        </div>
+                    </div>
+
+                    <div class="component " style="direction:rtl">
+
+                        @* <button id="DEFcatok" class="btn btn-primary" onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                        <button id="DEFcatok" class="btn btn-primary">تایید</button>
+                        <script>
+                            $("#DEFcatok").click(function () {
+                                var VALUE = DEDcatid.value;
+                                var catmenu = $("#serverCates1").val();
+                                var banimo = "0";
+                                if (catmenu.length > 0) {
+                                    banimo = "1";
+                                    VALUE = catmenu;
+                                }
+                                $.ajax({
+                                    url: '/Admin/setnewcat',
+                                    dataType: 'html',
+                                    data: {
+                                        cattitle: VALUE,
+                                        banimo: banimo
+                                    },
+                                    success: function (data) {
+
+                                        if (data === "1") {
+                                            toastr.options = {
+                                                "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                            }
+
+                                            toastr.success('دسته اصلی مورد نظر اضافه شد')
+
+                                            setTimeout(
+                                                function () {
+                                                    location.reload();
+                                                }, 1500);
+
+
+                                        }
+                                        else if (data === "0") {
+                                            toastr.options = {
+                                                "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                            }
+
+                                            toastr.error('دسته اصلی مورد نظر وجود دارد')
+
+                                        }
+                                        else {
+                                            toastr.options = {
+                                                "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                            }
+
+                                            toastr.error('خطا')
+                                        }
+
+
+                                    },
+                                    error: function () {
+                                        alert("خطا")
+                                    }
+                                });
+                            })
+                            function DEFcatokclicked(DEFcatok) {
+
+                            }
+                        </script>
+                    </div>
+
+                </div>
+                <div id="layer1del" class="tab-pane fade" style="padding-top:20px">
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "catslist03", style = "width:100%", @class = "form-control" })
+                    </div>
+
+
+                    <div class="component " style="direction:rtl">
+
+                        <button data-toggle="modal" data-target="#myModal01" class="btn btn-primary">تایید</button>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="myModal01">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                @*<div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                                <div class="modal-body">
+                                    <p>آیا از حذف مورد انتخاب شده اطمینان دارید؟</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="DELcat" type="button" class="btn btn-primary">تایید</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $("#DELcat").click(function () {
+
+                            var catVALUE = catslist03.value;
+                            $.ajax({
+                                url: '/Admin/delnewcat',
+                                dataType: 'html',
+                                data: {
+                                    catid: catVALUE,
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('دسته اصلی  مورد نظر حذف شد')
+
+                                        setTimeout(
+                                            function () {
+                                                location.reload();
+                                            }, 1500);
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error(data)
+                                        $("#myModal01").modal("toggle");
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        })
+
+                    </script>
+                </div>
+                <div id="layer1edit" class="tab-pane fade" style="padding-top:20px">
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "changecatname", style = "width:100%", @class = "form-control" })
+                    </div>
+
+                    <label class="control-label component" for="first-name">
+                        نام جدید :
+                    </label>
+                    <div class="component" style="width:135px">
+                        <input type="text" id="newcatidname" required="required" class="form-control INP">
+                    </div>
+
+                    <div class="component " style="direction:rtl">
+
+                        <button id="changecat" class="btn btn-primary">تایید</button>
+                    </div>
+
+
+
+                    <script>
+                        $("#changecat").click(function () {
+
+                            var ID = changecatname.value;
+
+                            var newname = $("#newcatidname").val();
+
+                            $.ajax({
+                                url: '/Admin/changecatname',
+                                dataType: 'html',
+                                data: {
+                                    ID: ID,
+                                    newname: newname,
+                                    level: "`mbd_cats`"
+
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('تغییر نام انجام شد')
+
+                                        setTimeout(
+                                            function () {
+                                                location.reload();
+                                            }, 1500);
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('خطا')
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        })
+
+                    </script>
+                </div>
+            </div>
+
+        </div>
+        <div id="menu1" class="tab-pane fade" style="padding-top:20px">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#layer2def" style=" color: #8d8d8d; ">تعریف </a></li>
+                <li><a data-toggle="tab" href="#layer2del" style=" color: #8d8d8d; ">حذف </a></li>
+                <li><a data-toggle="tab" href="#layer2edit" style=" color: #8d8d8d; ">ویرایش </a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="layer2def" class="tab-pane fade in active" style="padding-top:20px">
+                    <label class="control-label component" for="first-name">
+                        منو 1 :
+                    </label>
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "catslist01", style = "width:100%", @class = "form-control" })
+                    </div>
+                    <label class="control-label component" for="first-name">
+                        منو 2 :
+                    </label>
+                    <div class="component">
+                        <input type="text" id="SubCatName" name="last-name" required="required" class="form-control" style="width: 100%">
+                    </div>
+                    <div class="component">
+                        <div class="form-group " style="display:inline-block">
+
+                            <div class="component ">
+                                @Html.DropDownListFor(m => m.SelectedaddProductServer, serverListItem2, "-- Select Status --", new { id = "serverCates2", style = "width:150px", @class = "form-control serverCates" })
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="component " style="direction:rtl">
+
+                        <button id="DEFsubcatok" class="btn btn-primary" onclick="DEFsubcatokclick(DEFsubcatok)">تایید</button>
+                    </div>
+                    <script>
+                        function DEFsubcatokclick(DEFsubcatok) {
+
+                            var catVALUE = catslist01.value;
+                            var subcatname = SubCatName.value;
+                            var subcatmenuDROP = $("#serverCates2").val();
+                            var banimo = "0";
+                            if (subcatmenuDROP.length > 0) {
+                                banimo = "1";
+                                subcatname = subcatmenuDROP;
+                            }
+
+                            $.ajax({
+                                url: '/Admin/setnewsubcat',
+                                dataType: 'html',
+                                data: {
+                                    catid: catVALUE,
+                                    subcattitle: subcatname,
+                                    banimo: banimo
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('دسته فرعی مورد نظر اضافه شد')
+
+
+                                    }
+                                    else if (data === "0") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('دسته فرعی مورد نظر وجود دارد')
+
+                                    }
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('خطا')
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        }
+                    </script>
+
+
+                </div>
+                <div id="layer2del" class="tab-pane fade" style="padding-top:20px">
+                    <label for="first-name">
+                        منو 1 :
+                    </label>
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "menue1fordeletesubcat2", onchange = "getsubcatfordelete(this)", style = "width:100%", @class = "form-control" })
+                    </div>
+
+
+                    <script>
+
+                        $("#menue1fordeletesubcat2").change(function () {
+                            var selectedValue = menue1fordeletesubcat2.value;
+
+
+                            $.ajax({
+                                url: '/Admin/getsubcatlist',
+                                dataType: 'html',
+                                data: {
+                                    catid: selectedValue,
+                                    levelfinder: "del",
+                                    layer: "2"
+                                },
+                                success: function (data) {
+
+                                    $('#SB2fordeleteSB2holder').html(data);
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        })
+
+
+
+                    </script>
+
+                    <div id="SB2fordeleteSB2holder" class="component">
+
+                    </div>
+                    <div class="component sub2 " style="direction:rtl">
+
+                        <button data-toggle="modal" data-target="#myModal02" class="btn btn-primary">تایید</button>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="myModal02">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                @*<div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                                <div class="modal-body">
+                                    <p>آیا از حذف مورد انتخاب شده اطمینان دارید؟</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="DELsubcat" type="button" class="btn btn-primary">تایید</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $("#DELsubcat").click(function () {
+
+
+                            var subcatid = subcatslistfordeletelevel2.value;
+                            //alert(subcatid);
+                            $.ajax({
+                                url: '/Admin/deletsubcat',
+                                dataType: 'html',
+                                data: {
+
+                                    ID: subcatid
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        var mod = $('#myModal01');
+                                        $('.modal').modal('hide');
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('دسته فرعی مورد نظر حذف شد');
+
+                                        setTimeout(
+                                            function () {
+                                                GetSelectedTextValue(catslist3);
+                                            }, 1500);
+
+
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error(data)
+                                        $("#myModal02").modal("toggle");
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        })
+
+                    </script>
+
+                </div>
+                <div id="layer2edit" class="tab-pane fade" style="padding-top:20px">
+                    <label for="first-name">
+                        منو 1 :
+                    </label>
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "changecatforsubcat", onchange = "GetSelectedTextValue2(this)", style = "width:100%", @class = "form-control" })
+                    </div>
+
+
+                    <script>
+
+                        function GetSelectedTextValue2(changecatforsubcat) {
+
+
+                            var selectedValue = changecatforsubcat.value;
+
+                            $.ajax({
+                                url: '/Admin/getsubcatlist',
+                                dataType: 'html',
+                                data: {
+                                    catid: selectedValue,
+                                    levelfinder: "chg",
+                                    layer: "2"
+                                },
+                                success: function (data) {
+
+                                    $('#sub2chang').html(data);
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        }
+
+
+                    </script>
+
+                    <div id="sub2chang" class="component">
+
+                    </div>
+
+                    <label class="control-label component" for="first-name">
+                        نام جدید :
+                    </label>
+                    <div class="component" style="width:135px">
+                        <input type="text" id="newsubcatname" required="required" class="form-control INP">
+                    </div>
+
+                    <div class="component " style="direction:rtl">
+
+                        <button id="changesubcat" class="btn btn-primary">تایید</button>
+                    </div>
+
+                    <script>
+                        $("#changesubcat").click(function () {
+
+                            var ID = subcatslistforchangelevel2.value;
+
+                            var newname = $("#newsubcatname").val();
+
+                            $.ajax({
+                                url: '/Admin/changecatname',
+                                dataType: 'html',
+                                data: {
+                                    ID: ID,
+                                    newname: newname,
+                                    level: "`mbd_subcats`"
+
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('تغییر نام انجام شد')
+
+                                        setTimeout(
+                                            function () {
+                                                location.reload();
+                                            }, 1500);
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('خطا')
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        })
+
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div id="menu2" class="tab-pane fade" style="padding-top:20px">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#layer3def" style=" color: #8d8d8d; ">تعریف </a></li>
+                <li><a data-toggle="tab" href="#layer3del" style=" color: #8d8d8d; ">حذف </a></li>
+                <li><a data-toggle="tab" href="#layer3edit" style=" color: #8d8d8d; ">ویرایش </a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="layer3def" class="tab-pane fade in active" style="padding-top:20px">
+                    <label class="control-label component" for="first-name">
+                        منو 1 :
+                    </label>
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "catslist02", onchange = "Gsubcat02(this)", style = "width:100%", @class = "form-control" })
+                    </div>
+                    <script>
+
+                        function Gsubcat02(catslist02) {
+
+
+                            var selectedValue = catslist02.value;
+
+
+                            $.ajax({
+                                url: '/Admin/getsubcatlist',
+                                dataType: 'html',
+                                data: {
+                                    catid: selectedValue,
+                                    levelfinder: "def",
+                                },
+                                success: function (data) {
+
+                                    $('#subcatholder02').html(data);
+
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        }
+
+                        $("#catslist02").change(function () {
+                            $(".sub2").css("display", "inline-block")
+                        })
+
+
+                    </script>
+                    <div id="subcatholder02" class="component">
+
+                    </div>
+                    <label id="sub2" class="control-label component sub2" style="display:none">
+                        منو 3 :
+                    </label>
+                    <div class="component sub2" style="display:none">
+                        <input type="text" id="SubCat2Name" name="SubCat2Name" required="required" class="form-control" style="width: 100%">
+                    </div>
+                    <div class="component">
+                        <div class="form-group " style="display:inline-block">
+
+                            <div class="component ">
+                                @Html.DropDownListFor(m => m.SelectedaddProductServer, serverListItem3, "-- Select Status --", new { id = "serverCates3", style = "width:150px", @class = "form-control serverCates" })
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <div class="component sub2 " style="direction:rtl; display:none">
+                        <button id="CRMENU3" class="btn btn-primary">تایید</button>
+                    </div>
+                    <script>
+                        $("#CRMENU3").click(function () {
+                            var catid = catslist02.value;
+                            var subcatid = subcatslistlevel2.value;
+                            var subcat2 = SubCat2Name.value;
+                            var subcat2menuDROP = $("#serverCates3").val();
+
+
+                            var banimo = "0";
+                            if (subcat2menuDROP.length > 0) {
+                                banimo = "1";
+                                subcat2 = subcat2menuDROP;
+                            }
+
+
+
+
+
+                            $.ajax({
+                                url: '/Admin/setnewsubcat2',
+                                dataType: 'html',
+                                data: {
+
+                                    catid: catid,
+                                    subcatid: subcatid,
+                                    subcat2: subcat2,
+                                    banimo : banimo
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('منوی 3 با موفقیت اضافه شد');
+                                        setTimeout(
+                                            function () {
+                                                GetSelectedTextValue(catslist02);
+                                            }, 1500);
+
+
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('خطا')
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        })
+
+                    </script>
+
+                </div>
+                <div id="layer3del" class="tab-pane fade" style="padding-top:20px">
+                    <label for="first-name">
+                        منو 1 :
+                    </label>
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "catslist05", style = "width:100%", @class = "form-control" })
+                    </div>
+
+                    <script>
+
+                        $("#catslist05").change(function () {
+                            var selectedValue = catslist05.value;
+
+
+                            $.ajax({
+                                url: '/Admin/getsubcatlist',
+                                dataType: 'html',
+                                data: {
+                                    catid: selectedValue,
+                                    levelfinder: "del",
+                                    layer: "3"
+                                },
+                                success: function (data) {
+
+                                    $('#subcatholder5').html(data);
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        })
+
+
+
+
+                    </script>
+
+                    <div id="subcatholder5" class="component">
+
+                    </div>
+
+                    <div class="component sub2 " style="direction:rtl">
+
+                        <button data-toggle="modal" data-target="#myModal03" class="btn btn-primary">تایید</button>
+                    </div>
+                    <div class="modal" tabindex="-1" role="dialog" id="myModal03">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                @*<div class="modal-header">
+                        <h5 class="modal-title">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>*@
+                                <div class="modal-body">
+                                    <p>آیا از حذف مورد انتخاب شده اطمینان داری؟</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button id="SUOK2" type="button" class="btn btn-primary">تایید</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        $("#SUOK2").click(function () {
+
+                            var subcatid2 = subcatslist2fordel.value;
+
+                            $.ajax({
+                                url: '/Admin/deletsubcat2',
+                                dataType: 'html',
+                                data: {
+
+                                    ID: subcatid2
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        var mod = $('#myModal03');
+                                        $('.modal').modal('hide');
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('دسته فرعی مورد نظر حذف شد');
+                                        setTimeout(
+                                            function () {
+                                                GetSelectedTextValue(catslist3);
+                                            }, 1500);
+
+
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error(data)
+                                        $("#myModal02").modal("toggle");
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        })
+                        function DELSC2ok(SUOK2) {
+
+
+
+                        }
+                    </script>
+
+                </div>
+                <div id="layer3edit" class="tab-pane fade" style="padding-top:20px">
+                    <label for="first-name">
+                        منو 1 :
+                    </label>
+                    <div class="component">
+                        @Html.DropDownListFor(m => m.menuFilter.SelectedCat, Model.menuFilter.Cats, "--", new { id = "subcat2nameforchange", onchange = "catslist05clicked(subcat2namechange)", style = "width:100%", @class = "form-control" })
+                    </div>
+
+                    <script>
+
+                        $("#subcat2nameforchange").change(function () {
+                            var selectedValue = subcat2nameforchange.value;
+
+                            $.ajax({
+                                url: '/Admin/getsubcatlist',
+                                dataType: 'html',
+                                data: {
+                                    catid: selectedValue,
+                                    levelfinder: "chg",
+                                    layer: "3",
+                                },
+                                success: function (data) {
+
+                                    $('#subcatholder5change').html(data);
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        })
+
+
+                    </script>
+
+                    <div id="subcatholder5change" class="component">
+
+                    </div>
+                    <label class="control-label component" for="first-name">
+                        نام جدید :
+                    </label>
+                    <div class="component" style="width:135px">
+                        <input type="text" id="newsubcat2name" required="required" class="form-control INP">
+                    </div>
+
+                    <div class="component " style="direction:rtl">
+
+                        <button id="changesubcat2" class="btn btn-primary">تایید</button>
+                    </div>
+
+                    <script>
+                        $("#changesubcat2").click(function () {
+
+                            var ID = subcatslist2forchange.value;
+                            var newname = $("#newsubcat2name").val();
+
+                            $.ajax({
+                                url: '/Admin/changecatname',
+                                dataType: 'html',
+                                data: {
+                                    ID: ID,
+                                    newname: newname,
+                                    level: "`mbd_subcats2`"
+
+                                },
+                                success: function (data) {
+
+                                    if (data === "1") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.success('تغییر نام انجام شد')
+
+                                        setTimeout(
+                                            function () {
+                                                location.reload();
+                                            }, 1500);
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+
+                                        toastr.error('خطا')
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("خطا")
+                                }
+                            });
+                        })
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(".serverCates").change(function () {
+        var val = $(this).val();
+        if (val == "0") {
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+
+            toastr.error('دسته بندی مورد امکان انتخاب ندارد')
+        }
+    })
+</script>
+
+
+
+

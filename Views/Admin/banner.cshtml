@@ -1,0 +1,378 @@
+﻿@model banimo.ViewModel.BannerListAdmin
+@{
+    ViewBag.Title = "banner";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+<link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+
+    .fieldholder {
+        /*width: 30%;
+            display: inline-block;*/
+        margin: 10px;
+    }
+</style>
+<script>
+    var prosuctstr = '@Model.products';
+   
+     var products = {
+         data: prosuctstr.split("-"),
+         
+         };
+     var filterstr = '@Model.filters';
+       var filters = {
+           data: filterstr.split("-"),
+           list: {
+               maxNumberOfElements: 10,
+               match: {
+                   enabled: true
+               }
+           }
+            };
+    var catstr = '@Model.cats';
+        var cats = {
+            data: catstr.split("-"),
+            list: {
+                maxNumberOfElements: 10,
+                match: {
+                    enabled: true
+                }
+            }
+    };
+     var subcatstr = '@Model.subcats';
+        var subcats = {
+            data: subcatstr.split("-"),
+            list: {
+                maxNumberOfElements: 10,
+                match: {
+                    enabled: true
+                }
+            }
+    };
+     var subcat2str = '@Model.subcats2';
+        var subcats2 = {
+            data: subcat2str.split("-"),
+            list: {
+                maxNumberOfElements: 10,
+                match: {
+                    enabled: true
+                }
+            }
+                   };
+
+
+</script>
+@using (Html.BeginForm("editbanner", "Admin", FormMethod.Post,
+new { enctype = "multipart/form-data", id = "editbanner" }))
+{
+    <input id="content" name="content" type="hidden" />
+    <input id="type" name="type" type="hidden" />
+    <input id="image" name="image" type="hidden" />
+    <input id="title" name="title" type="hidden" />
+
+
+    <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:25px">
+        <ul class="nav nav-tabs">
+            @{
+                if (Model.banners != null)
+                {
+                    foreach (var item in Model.banners)
+                    {
+                        int index = Model.banners.IndexOf(item);
+                        string href = "#" + item.ID;
+                        if (index == 0)
+                        {
+                            <li class="active"><a data-toggle="tab" href=@href style=" color: #8d8d8d; "> @item.Ptitle</a></li>
+
+                        }
+                        else
+                        {
+                            <li><a data-toggle="tab" href=@href style=" color: #8d8d8d; "> @item.Ptitle</a></li>
+
+                        }
+                    }
+                }
+
+            }
+
+
+
+        </ul>
+        @{
+            List<SelectListItem> listItems = new List<SelectListItem>();
+            listItems.Add(new SelectListItem
+            {
+                Text = "عکس",
+                Value = "image"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "لینک",
+                Value = "link"
+            });
+            listItems.Add(new SelectListItem
+            {
+                Text = "هشتگ",
+                Value = "tag"
+            });
+            if (Model.filters != "")
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = "فیلتر",
+                    Value = "filter"
+                });
+            }
+            if (Model.products != "")
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = "محصولات",
+                    Value = "product"
+                });
+            }
+            if (Model.cats != "")
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = "دسته بندی اول",
+                    Value = "cat"
+                });
+            }
+            if (Model.subcats != "")
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = "دسته بندی دوم",
+                    Value = "subcat"
+                });
+            }
+            if (Model.subcats2 != "")
+            {
+                listItems.Add(new SelectListItem
+                {
+                    Text = "دسته بندی سوم",
+                    Value = "subcat2"
+                });
+            }
+
+
+
+
+
+
+
+        }
+        <div class="tab-content">
+            @{
+                if (Model.banners != null)
+                {
+                    foreach (var item in Model.banners)
+                    {
+                        int index = Model.banners.IndexOf(item);
+                        string ID = item.ID + "";
+                        string bannerList = "bannerList" + ID;
+                        string content = "content" + ID;
+                        string image = "image" + ID;
+                        string button = "butt" + ID;
+                        string classname = "REM" + ID;
+                        <div id=@ID class="tab-pane fade in " style="padding-top:20px">
+                            <div class="row">
+
+
+                                <div class="row fieldholder col-lg-3">
+                                    <label> دسته بندی</label>
+
+
+                                    <div class=" ">
+                                        <span style="color:red; display:none">*</span>
+                                        @Html.DropDownList(@bannerList, listItems, "-- انتخاب سرگروه --", new { id = @bannerList, name = @bannerList, style = "", @class = @classname + " form-control" })
+                                    </div>
+
+
+                                </div>
+                                <div class="row fieldholder col-lg-3">
+                                    <div>
+                                        <label style="text-align: right">
+                                            محتوا :
+                                        </label>
+
+                                        <div>
+                                            <span style="color:red; display:none">*</span>
+
+                                            <div id="contentHolder">
+                                                @{
+                                                    if ((item.type == "tag") || (item.type == "link"))
+                                                    {
+                                                        <input value="@item.catIDOrLink" type="text" id=@content name=@content required="required" class="form-control  @classname ">
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <input value="" type="text" id=@content name=@content required="required" class="form-control  @classname ">
+
+                                                    }
+                                                }
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                                <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+
+                                    <label style="text-align: right">
+                                        عکس:
+                                        @{
+                                            switch (index)
+                                            {
+                                                case 0:
+                                                    <span> (1300*1500)</span>;
+                                                    break;
+                                                case 1:
+                                                    <span> (1300*1500)</span>;
+                                                    break;
+                                                case 2:
+                                                    <span> (مسطتیل)</span>;
+                                                    break;
+
+                                            }
+                                        }
+                                    </label>
+
+                                    <div>
+
+                                        <input type="file" id=@image name=@image required="required" class="form-control  ">
+                                    </div>
+                                    <img src='/images/panelimages/@item.image' style="max-width:150px" />
+
+                                </div>
+
+                                <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                                    <a id=@button class="lgnsubmitt btn btn-primary">تایید</a>
+
+                                </div>
+
+
+                            </div>
+
+                            <script>
+
+                                    var cat = '@item.type'
+                                    var bannerList = "bannerList" + @item.ID;
+                                        var content = "content" + @item.ID;
+                                        var image = "image"+ @item.ID;
+                                        var button = "butt" + @item.ID;
+                                        var classname = "REM" + @item.ID;
+                                //change type value based on item
+
+                                $("#" + "bannerList" + @item.ID+" option").each(function () {
+                                            if ($(this).val() === cat) {
+                                        $(this).attr("selected", "selected");
+                                            }
+                                        })
+                                //change autocomplete source based on selected type
+                                $("#"+"bannerList" + '@item.ID').change(function () {
+
+                                            var val = $("#" + "bannerList" + '@item.ID' + " option:selected").val();
+
+                                    if (val === "filter") {
+
+
+                                        $("#" + "content" + @item.ID).easyAutocomplete(filters);
+                                            }
+                                            else if (val === "product") {
+                                        $("#" + "content" + @item.ID).easyAutocomplete(products);
+                                            }
+                                    else if (val == "cat") {
+
+                                        $("#" + "content" + @item.ID).easyAutocomplete(cats);
+                                            }
+                                    else if (val == "subcat") {
+
+                                        $("#" + "content" + @item.ID).easyAutocomplete(subcats);
+                                            }
+                                    else if (val == "subcat2") {
+
+                                        $("#" + "content" + @item.ID).easyAutocomplete(subcats2);
+                                            }
+
+                                        })
+                                 // verify button
+                                    $("#" + "butt" + @item.ID).click(function () {
+
+                                            var int = 0;
+                                        $("." + "REM" + @item.ID).each(function () {
+
+                                                if ($(this).val() === "") {
+                                                $(this).siblings("span").css("display", "inline-block");
+                                                    int = 1;
+                                                }
+
+
+
+
+                                            })
+                                        if (int === 0) {
+
+
+                                            $("#content").val($("#" + "content" +'@item.ID').val());
+                                            $("#type").val($("#" + "bannerList" +'@item.ID' +" option:selected").val());
+                                            $("#image").val($("#" +"image"+ '@item.ID').val());
+                                            $("#title").val('@item.title');
+                                            $("form#editbanner").submit();
+                                            }
+                                            else {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('لطفاً تمامی موارد را کامل کنید')
+
+                                        }
+
+
+                            })
+                            </script>
+                        </div>
+                    }
+
+                }
+
+
+            }
+            <script>
+                if (@Model.banners !== null) {
+                    var id = '@Model.banners[0].ID';
+                    $("#" + id).addClass("active");
+                }
+                    
+            </script>
+
+
+
+        </div>
+    </div>
+
+
+
+
+}

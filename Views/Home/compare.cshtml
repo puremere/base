@@ -1,0 +1,176 @@
+﻿@model banimo.ViewModelPost.viewProductViewModel
+@{
+    ViewBag.Title = "compare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/CompareStyle.css" rel="stylesheet" />
+<div class="compareHeader">
+    <p class="compareTilte">  @ViewBag.cat  <span style="font-weight:500"> @ViewBag.last</span></p>
+    <p class="compareTilte2">  لیست مقایسه موارد   <span style=""> @ViewBag.last </span></p>
+</div>
+
+<script>
+
+        $.ajax({
+            url: '/Home/getComparedataH',
+            dataType: 'html',
+            data: {
+                id: '@ViewBag.id',
+            },
+            success: function (data) {
+               
+               // $("#loading").fadeOut()
+                $("#resultholder").html(data);
+               
+            },
+            error: function (request, status, error) {
+
+            }
+    });
+     @*$.ajax({
+            url: '/Home/getComparedataB',
+            dataType: 'html',
+            data: {
+                id: '@ViewBag.id',
+            },
+            success: function (data) {
+
+                $("#FeatureHolder").html(data);
+            },
+            error: function (request, status, error) {
+
+            }
+        });*@
+</script>
+<div id="resultholder">
+    <div>
+        <div style="padding:15px 35px; background-color:white;position:relative;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
+
+            <img style="max-width:80px; display:block; margin:auto" src="~/images/logo.png" />
+            <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
+
+        </div>
+    </div>
+</div>
+
+<div id="mymodalApp" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#eee;border-bottom: 1px #ddd solid;direction: rtl;">
+                <p style="display:inline-block; font-size: 14px;font-weight: 400;margin-left: 25px;">جستجو</p>
+                <label class="c-ui-input c-ui-input--search"><input class="c-ui-input__field js-product-title" type="text" id="compareSearchInput" placeholder="کالای مورد نظر خود را جستجو کنید..."></label>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float:left">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height:450px ; overflow:scroll;direction:rtl">
+                <div class="row" style="direction:rtl">
+                    @{
+                        foreach (var item in Model.similarProduct)
+                        {
+                            <div class="col-lg-4" style="padding:10px">
+                                <div id="@item.ID" class="compareItem " style="cursor:pointer; padding: 15px;border: 1px solid #ddd;border-radius: 5px;">
+                                    <img style="max-width:100%; max-height:150px;display: block;margin: auto;margin-bottom: 20px;" src="~/Images/panelimages/@item.image" />
+                                    <div style=" text-align:center; max-height:38px; min-height:38px " class="title"> @item.title</div>
+
+                                </div>
+                            </div>
+                            
+                        }
+
+                    }
+                </div>
+                <script>
+                    $(".compareItem").click(function () {
+                        $("#loading").css("display", "block");
+                        var id = $(this).attr("id");
+                        $(this).parent(".col-lg-4").remove();
+                        $("#mymodalApp").modal("toggle");
+
+                        $.ajax({
+                            url: '/Home/getComparedataH',
+                            dataType: 'html',
+                            data: {
+                                type: "1",
+                                id: id,
+                            },
+                            success: function (data) {
+
+                                $("#resultholder").html(data);
+                                $("#loading").fadeOut()
+                            },
+                            error: function (request, status, error) {
+
+                            }
+                        });
+                        //$.ajax({
+                        //    url: '/Home/getComparedataB',
+                        //    dataType: 'html',
+                        //    data: {
+                        //        type: "1",
+                        //        id: id,
+                        //    },
+                        //    success: function (data) {
+                        //        alert(data)
+                        //        $("#FeatureHolder").html(data);
+                        //    },
+                        //    error: function (request, status, error) {
+
+                        //    }
+                        //});
+                        $(this).remove();
+                    })
+                </script>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    $("#compareSearchInput").on('input', function () {
+
+        var VALUE = $(this).val();
+        if (VALUE.length > 1) {
+
+            $.ajax({
+                url: '/Home/getCompareList',
+                dataType: 'html',
+                data: {
+                    myval: VALUE
+                },
+                success: function (data) {
+                   
+                    $(".modal-body").html(data);
+                },
+                error: function (request, status, error) {
+
+                }
+            });
+        }
+        $('html').keyup(function (e) {
+            if (e.keyCode == 8)
+            {
+                if (VALUE.length == 0) {
+
+                    $.ajax({
+                        url: '/Home/getCompareList',
+                        dataType: 'html',
+                        data: {
+                            myval: ""
+                        },
+                        success: function (data) {
+
+                            $(".modal-body").html(data);
+                        },
+                        error: function (request, status, error) {
+
+                        }
+                    });
+                }
+            }
+        })  
+               
+    })
+  
+</script>

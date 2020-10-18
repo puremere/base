@@ -1,0 +1,395 @@
+﻿@model banimo.Classes.news
+
+
+
+@{
+    Layout = "~/Views/Shared/_armyadminlayout.cshtml";
+    ViewBag.Title = "Edit";
+}
+
+<div class="row">
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style="display: inline-block;"> جزئیات </h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+
+
+                    <div id="sec1">
+                        <div class="form-group rowholder">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                عنوان :
+                            </label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <p style="margin-top:15px" class=" col-md-7 col-xs-12">@Model.title</p>
+                            </div>
+
+
+
+
+                        </div>
+
+
+                        <div class="form-group rowholder">
+                            <div >
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                    توضیحات:
+                                </label>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                    <p class=" col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">@Model.desc</p>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="form-group rowholder">
+                            <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                تاریخ :
+                            </label>
+                            <div class="col-md-5 col-sm-5 col-xs-12">
+                                <p class=" col-md-7 col-xs-12">@Model.date</p>
+                            </div>
+
+
+                        </div>
+                    
+
+                        <div class="form-group rowholder">
+                            <div class="col-md-12 col-sm-12 col-xs-12 control-label">
+                                عکس :
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+                                <div class="imagelistholder">
+
+                                    <div class="con">
+                                        @{
+                                            string url = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+                                            <img src=@url data-imagezoom="true" class=" back">
+
+                                        }
+                                    </div>
+
+
+
+
+                                </div>
+
+                                <div style="display:none" id="orderidholder">@Model.ID</div>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="form-group">
+
+                            <a id="editbutt" class="lgnsubmitt">ویرایش</a>
+                            <script>
+                                $("#editbutt").click(function () {
+
+                                    $("#sec1").css("display", "none");
+                                    $("#sec2").css("display", "block");
+
+
+
+                                })
+
+                            </script>
+
+                        </div>
+
+                    </div>
+                    <div id="sec2" style="display:none">
+                        @using (Html.BeginForm("newsEdit", "ArmyAdmin", FormMethod.Post,
+                                                        new { enctype = "multipart/form-data", id = "newseditForm" }))
+                        {
+                            @Html.HiddenFor(m => m.ID);
+                          
+                            <div class="form-group rowholder">
+
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                    عنوان :
+                                </label>
+                                @{
+                            if (Model.title   != "")
+                            {
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:15px">
+                                    @Html.TextBoxFor(m => m.title, new { @class = "form-control col-md-7 col-xs-12", id = "title" })
+
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:15px">
+                                    <input type="text" id="title" name="title" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            }
+                                }
+
+
+
+                            </div>
+                              <div class="form-group rowholder">
+
+                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                          متن خبر :
+                                        </label>
+                                             @{
+                                    if (Model.desc != "")
+                                    {
+
+                                         <div class="col-md-12 col-sm-12 col-xs-12" style="">
+                                             @Html.TextAreaFor(m => m.desc, new { @class = "form-control col-md-7 col-xs-12", id = "desc", style = "text-align: justify; margin-top: 15px; line-height: 2; font-size: 12px; height:300" })
+                                         </div>
+
+
+                                    }
+                                    else
+                                    {
+                                         <div class="col-md-12 col-sm-12 col-xs-12">
+                                             <input type="text" id="desc" name="desc" class="form-control col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">
+                                         </div>
+                                    }
+                                             }
+
+
+
+                                    </div>
+                            
+                            <div class="form-group rowholder">
+
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                   تاریخ :
+                                </label>
+                                @{
+                            if (Model.date != "")
+                            {
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    @Html.TextBoxFor(m => m.date, new { @class = "form-control col-md-7 col-xs-12", id = "date" })
+
+                                </div>
+
+                            }
+                            else
+                            {
+                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    <input type="text" id="date" name="date" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            }
+                                }
+
+
+
+                            </div>
+                           
+
+                           
+                            <div class="form-group rowholder">
+
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12 ">آپلود عکس:</label>
+                                @*@Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+
+                                <input class="col-md-4 col-sm-4 col-xs-12 " style="display: inline-block; float: right" id="fileupload" type="file" name="fileupload" multiple="multiple" accept="image/*">
+                                <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+                                </div>
+
+                                <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:5%">
+
+                                    <div class="imagelistholder">
+                                        @{
+
+                                            <div class="con">
+
+                                                @{
+                            string myurll = "http://www.supectco.com/apps/armyhistory/portal/uploads/" + Model.image;
+                            <img src=@myurll data-imagezoom="true" class=" back">
+                                                }
+
+
+                                            </div>
+
+                                            <style>
+                                                .imagelistholder {
+                                                    display: inline-block;
+                                                    width: 200px;
+                                                    padding: 5px;
+                                                    border: 1px solid #eee;
+                                                    box-shadow: 3px 3px #eee;
+                                                    border-radius: 25px;
+                                                }
+
+                                                .con {
+                                                    position: relative;
+                                                    width: 100%;
+                                                }
+
+                                                    /* Make the image responsive */
+                                                    .con img {
+                                                        width: 100%;
+                                                        height: auto;
+                                                        border-radius: 25px;
+                                                    }
+
+                                                    /* Style the button and place it in the middle of the container/image */
+                                                    .con .btn {
+                                                        position: absolute;
+                                                        top: 50%;
+                                                        left: 50%;
+                                                        transform: translate(-50%, -50%);
+                                                        -ms-transform: translate(-50%, -50%);
+                                                        background-color: #555;
+                                                        color: white;
+                                                        font-size: 16px;
+                                                        padding: 12px 24px;
+                                                        border: none;
+                                                        cursor: pointer;
+                                                        border-radius: 5px;
+                                                    }
+
+                                                        .con .btn:hover {
+                                                            background-color: black;
+                                                        }
+                                            </style>
+                                        }
+
+
+
+                                    </div>
+
+                                    <div style="display:none" id="orderidholder">@Model.ID</div>
+                                    <script>
+
+
+                                        $(".deleteimage").click(function () {
+
+                                            var id = @Model.ID
+
+
+
+
+                                              $.ajax({
+                                                  url: '/ArmyAdmin/Deleteimage',
+                                                  dataType: 'html',
+                                                  data: {
+                                                      id: id,
+                                                  },
+                                                  success: function (data) {
+                                                      window.location.href = "/ArmyAdmin/Edit?id =" + orderid;
+                                                      window.location.reload();
+                                                  },
+                                                  error: function () {
+
+                                                  }
+                                              });
+                                        })
+                                    </script>
+
+                                </div>
+
+
+
+                            </div>
+                        }
+
+
+
+
+                        <div class="form-group">
+
+                            <a id="editnews" class="lgnsubmitt">تایید</a>
+                            <script>
+                                $("#editnews").click(function () {
+                                    
+                                    var title = $("#title").val();
+                                    var desc = $("#desc").val();
+                                    var date = $("#date").val();
+                                   
+
+                                    if (title != null ) {
+                                        $("#newseditForm").submit();
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('تمامی موارد را کامل کنید')
+                                    }
+
+
+                                })
+
+                            </script>
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+
+
+
+
+                </div>
+
+
+
+                <div class=" ln_solid"></div>
+
+
+
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+</div>

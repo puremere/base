@@ -1,0 +1,2749 @@
+﻿@model string
+
+
+@{
+     if (Model == "1")
+    {
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                   ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 3162],
+                   ['خیر', 431],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 339],
+                    ['خیر', 29],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1830],
+                    ['خیر', 226],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 554],
+                    ['خیر', 90],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 45],
+                    ['خیر', 7],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 358],
+                    ['خیر', 68],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 36],
+                    ['خیر', 11],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+
+
+    }
+    else if (Model == "2")
+    {
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+              // Load google charts
+              google.charts.load('current', { 'packages': ['corechart'] });
+              google.charts.setOnLoadCallback(drawChart);
+              google.charts.setOnLoadCallback(drawChartsex);
+              google.charts.setOnLoadCallback(drawChartresult);
+              google.charts.setOnLoadCallback(drawChartone);
+              google.charts.setOnLoadCallback(drawChart2);
+              google.charts.setOnLoadCallback(drawChart3);
+              google.charts.setOnLoadCallback(drawChart4);
+              google.charts.setOnLoadCallback(drawChart5);
+              google.charts.setOnLoadCallback(drawChart6);
+
+              // Draw the chart and set the chart values
+              function drawChart() {
+                  var data = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                   ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                  chart.draw(data, options);
+              }
+              function drawChartsex() {
+                  var sexdata = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  ['مرد', 3069],
+                  ['زن', 584],
+
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                  sexchart.draw(sexdata, sexoptions);
+              }
+              function drawChartresult() {
+                  var sexdata = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  ['هرروز', 146],
+                  ['یکبار در هفته', 196],
+                  ['یکبار در ماه', 340],
+                  ['به ندرت', 2910],
+
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                  sexchart.draw(sexdata, sexoptions);
+              }
+              function drawChartone() {
+                  var dataone = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                   ['هرروز', 22],
+                  ['یکبار در هفته', 29],
+                  ['یکبار در ماه', 44],
+                  ['به ندرت', 272],
+
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                  sexchart.draw(dataone, optionsone);
+              }
+              function drawChart2() {
+                  var data2 = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  ['هرروز', 103],
+                  ['یکبار در هفته', 123],
+                  ['یکبار در ماه', 226],
+                  ['به ندرت', 1604],
+
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                  sexchart.draw(data2, options2);
+              }
+              function drawChart3() {
+                  var data2 = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                 ['هرروز', 13],
+                  ['یکبار در هفته', 26],
+                  ['یکبار در ماه', 32],
+                  ['به ندرت', 574],
+
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                  sexchart.draw(data2, options2);
+              }
+              function drawChart4() {
+                  var data2 = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  ['هرروز', 2],
+                  ['یکبار در هفته', 3],
+                  ['یکبار در ماه', 6],
+                  ['به ندرت', 42],
+
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                  sexchart.draw(data2, options2);
+              }
+              function drawChart5() {
+                  var data2 = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  ['هرروز', 9],
+                  ['یکبار در هفته', 13],
+                  ['یکبار در ماه', 30],
+                  ['به ندرت', 375],
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                  sexchart.draw(data2, options2);
+              }
+              function drawChart6() {
+                  var data2 = google.visualization.arrayToDataTable([
+                  ['Task', 'Hours per Day'],
+                  ['هرروز', 0],
+                  ['یکبار در هفته', 1],
+                  ['یکبار در ماه', 2],
+                  ['به ندرت', 43],
+
+
+                  ]);
+
+                  // Optional; add a title and set the width and height of the chart
+                  var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                  // Display the chart inside the <div> element with id="piechart"
+                  var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                  sexchart.draw(data2, options2);
+              }
+            </script>
+            }
+        </div>
+
+    }
+    else if (Model == "3")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 457],
+                    ['خیر', 3137],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 77],
+                    ['خیر', 291],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 288],
+                    ['خیر', 1768],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 58],
+                    ['خیر', 586],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 7],
+                    ['خیر', 45],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 26],
+                    ['خیر', 401],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1],
+                    ['خیر', 46],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "4")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1048],
+                    ['خیر', 2545],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 59],
+                    ['خیر', 309],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 678],
+                    ['خیر', 1377],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 188],
+                    ['خیر', 458],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 7],
+                    ['خیر', 45],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 107],
+                    ['خیر', 320],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 10],
+                    ['خیر', 36],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "5")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                   ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 295],
+                    ['خیر', 3300],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 59],
+                    ['خیر', 309],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 678],
+                    ['خیر', 1377],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 188],
+                    ['خیر', 458],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 7],
+                    ['خیر', 45],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 107],
+                    ['خیر', 320],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 10],
+                    ['خیر', 36],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "6")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مسیر دوچرخه وجود ندارد و خطرناک است', 2453],
+                    ['هیچ علاقه ای به دوچرخه ندارم', 391],
+                    ['شیب خیابان ها زیاد است', 282],
+                    ['هوا آلوده است', 489],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مسیر دوچرخه وجود ندارد و خطرناک است', 295],
+                    ['هیچ علاقه ای به دوچرخه ندارم', 41],
+                    ['شیب خیابان ها زیاد است', 7],
+                    ['هوا آلوده است', 26],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                     ['مسیر دوچرخه وجود ندارد و خطرناک است', 1480],
+                    ['هیچ علاقه ای به دوچرخه ندارم', 123],
+                    ['شیب خیابان ها زیاد است', 185],
+                    ['هوا آلوده است', 288],
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مسیر دوچرخه وجود ندارد و خطرناک است', 400],
+                    ['هیچ علاقه ای به دوچرخه ندارم', 90],
+                    ['شیب خیابان ها زیاد است', 52],
+                    ['هوا آلوده است', 103],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مسیر دوچرخه وجود ندارد و خطرناک است', 34],
+                    ['هیچ علاقه ای به دوچرخه ندارم', 11],
+                    ['شیب خیابان ها زیاد است', 2],
+                    ['هوا آلوده است', 5],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                   ['مسیر دوچرخه وجود ندارد و خطرناک است', 230],
+                    ['هیچ علاقه ای به دوچرخه ندارم', 102],
+                    ['شیب خیابان ها زیاد است', 34],
+                    ['هوا آلوده است', 60],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مسیر دوچرخه وجود ندارد و خطرناک است', 14],
+                    ['هیچ علاقه ای به دوچرخه ندارم', 24],
+                    ['شیب خیابان ها زیاد است', 2],
+                    ['هوا آلوده است', 7],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "7")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1033],
+                    ['خیر', 2766],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 99],
+                    ['خیر', 269],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 761],
+                    ['خیر', 1501],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 116],
+                    ['خیر', 528],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 8],
+                    ['خیر', 44],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 47],
+                    ['خیر', 380],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 2],
+                    ['خیر', 45],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "8")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 392],
+                    ['خیر', 3204],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 52],
+                    ['خیر', 317],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 247],
+                    ['خیر', 1809],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 58],
+                    ['خیر', 586],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 8],
+                    ['خیر', 45],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 26],
+                    ['خیر', 401],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1],
+                    ['خیر', 46],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "9")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 363],
+                    ['خیر', 3227],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 81],
+                    ['خیر', 287],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 226],
+                    ['خیر', 1830],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 39],
+                    ['خیر', 606],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 4],
+                    ['خیر', 43],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 13],
+                    ['خیر', 414],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 0],
+                    ['خیر', 47],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "10")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 583],
+                    ['خیر', 2926],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 133],
+                    ['خیر', 236],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 370],
+                    ['خیر', 1665],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 52],
+                    ['خیر', 528],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 6],
+                    ['خیر', 46],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 21],
+                    ['خیر', 405],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1],
+                    ['خیر', 46],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "11")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                       ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1331],
+                    ['خیر', 2462],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 140],
+                    ['خیر', 228],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 863],
+                    ['خیر', 1192],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 90],
+                    ['خیر', 554],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 6],
+                    ['خیر', 46],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 30],
+                    ['خیر', 397],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 2],
+                    ['خیر', 45],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "12")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                       ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1095],
+                    ['خیر', 2499],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 125],
+                    ['خیر', 243],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 843],
+                    ['خیر', 1213],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 90],
+                    ['خیر', 554],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 5],
+                    ['خیر', 47],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 30],
+                    ['خیر', 397],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 2],
+                    ['خیر', 45],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "13")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                       ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 518],
+                    ['خیر', 3077],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 88],
+                    ['خیر', 280],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 370],
+                    ['خیر', 1686],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 39],
+                    ['خیر', 606],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله',4 ],
+                    ['خیر', 49],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 17],
+                    ['خیر', 410],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 0],
+                    ['خیر', 46],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "14")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                      ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1862],
+                    ['خیر', 1731],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 339],
+                    ['خیر', 29],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 1192],
+                    ['خیر', 863],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 135],
+                    ['خیر', 509],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله',45 ],
+                    ['خیر', 7],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 145],
+                    ['خیر', 282],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['بله', 4],
+                    ['خیر', 41],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+    else if (Model == "15")
+    {
+
+        <div>
+            <div id="piechart" style="display:inline-block"></div>
+            <div id="sexpiechart" style="display: inline-block"></div>
+            <div id="resultpiechart" style="display: inline-block"></div>
+            <div id="piechartone" style="display: inline-block"></div>
+            <div id="piechart2" style="display: inline-block"></div>
+            <div id="piechart3" style="display: inline-block"></div>
+            <div id="piechart4" style="display: inline-block"></div>
+            <div id="piechart5" style="display: inline-block"></div>
+            <div id="piechart6" style="display: inline-block"></div>
+
+            <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+            <script type="text/javascript">
+                // Load google charts
+                google.charts.load('current', { 'packages': ['corechart'] });
+                google.charts.setOnLoadCallback(drawChart);
+                google.charts.setOnLoadCallback(drawChartsex);
+                google.charts.setOnLoadCallback(drawChartresult);
+                google.charts.setOnLoadCallback(drawChartone);
+                google.charts.setOnLoadCallback(drawChart2);
+                google.charts.setOnLoadCallback(drawChart3);
+                google.charts.setOnLoadCallback(drawChart4);
+                google.charts.setOnLoadCallback(drawChart5);
+                google.charts.setOnLoadCallback(drawChart6);
+
+                // Draw the chart and set the chart values
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                     ['مرد زیر بیست سال', 368],
+                   [' مرد بین 20 تا 40 سال', 2056],
+                   ['مرد بالای 40 سال', 644],
+                   ['زن زیر بیست سال', 53],
+                   ['زن بین 20 تا 40 سال', 427],
+                   ['زن بین بالای 40 سال', 47]
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options = { 'title': 'پراکندگی سن بر اساس جنس -3653 نفر', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                    chart.draw(data, options);
+                }
+                function drawChartsex() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['مرد', 3069],
+                    ['زن', 584],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پراکندگی جنسیتی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('sexpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartresult() {
+                    var sexdata = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['سلامتی، کاهش وزن، تفریح', 2127],
+                    ['کاهش ترافیک و آلودگی هوای شهر', 539],
+                    ['کمک به اقتصاد خانواده', 557],
+                    ['نبود جای پارک و ورود به محدوده طرح', 370],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var sexoptions = { 'title': 'پاسخ نهایی', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('resultpiechart'));
+                    sexchart.draw(sexdata, sexoptions);
+                }
+                function drawChartone() {
+                    var dataone = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['سلامتی، کاهش وزن، تفریح', 309],
+                    ['کاهش ترافیک و آلودگی هوای شهر', 41],
+                    ['کمک به اقتصاد خانواده', 18],
+                    ['نبود جای پارک و ورود به محدوده طرح', 0],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var optionsone = { 'title': 'مرد زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechartone'));
+                    sexchart.draw(dataone, optionsone);
+                }
+                function drawChart2() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                     ['سلامتی، کاهش وزن، تفریح', 1172],
+                    ['کاهش ترافیک و آلودگی هوای شهر', 247],
+                    ['کمک به اقتصاد خانواده', 411],
+                    ['نبود جای پارک و ورود به محدوده طرح', 226],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بین 20 تا 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart2'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart3() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                     ['سلامتی، کاهش وزن، تفریح', 277],
+                    ['کاهش ترافیک و آلودگی هوای شهر', 155],
+                    ['کمک به اقتصاد خانواده', 90],
+                    ['نبود جای پارک و ورود به محدوده طرح', 122],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'مرد بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart3'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart4() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                   ['سلامتی، کاهش وزن، تفریح', 46],
+                    ['کاهش ترافیک و آلودگی هوای شهر', 5],
+                    ['کمک به اقتصاد خانواده', 2],
+                    ['نبود جای پارک و ورود به محدوده طرح', 0],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن زیر بیست سال', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart4'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart5() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                    ['سلامتی، کاهش وزن، تفریح', 294],
+                    ['کاهش ترافیک و آلودگی هوای شهر', 77],
+                    ['کمک به اقتصاد خانواده', 34],
+                    ['نبود جای پارک و ورود به محدوده طرح', 21],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بین 20 تا 30 ', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart5'));
+                    sexchart.draw(data2, options2);
+                }
+                function drawChart6() {
+                    var data2 = google.visualization.arrayToDataTable([
+                    ['Task', 'Hours per Day'],
+                  ['سلامتی، کاهش وزن، تفریح', 29],
+                    ['کاهش ترافیک و آلودگی هوای شهر', 14],
+                    ['کمک به اقتصاد خانواده', 2],
+                    ['نبود جای پارک و ورود به محدوده طرح', 1],
+
+
+                    ]);
+
+                    // Optional; add a title and set the width and height of the chart
+                    var options2 = { 'title': 'زن بالای 40', 'width': 400, 'height': 300 };
+
+                    // Display the chart inside the <div> element with id="piechart"
+                    var sexchart = new google.visualization.PieChart(document.getElementById('piechart6'));
+                    sexchart.draw(data2, options2);
+                }
+            </script>
+        </div>
+    }
+
+}
+   
+

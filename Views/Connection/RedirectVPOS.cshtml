@@ -1,0 +1,51 @@
+﻿
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>پرداخت آنلاین</title>
+
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="ContentWrapper">
+        <div class="header">
+        </div>
+        <form id="formmellat" name="input" action="https://bpm.shaparak.ir/pgwchannel/startpay.mellat" method="post" >
+            <input style="display:none" type="text" id="RefId" name="RefId" value='@ViewBag.id' />
+            <div style="width:60%; margin:50px auto; border :1px solid #ddd">
+                <p style="text-align:center; margin : 20px 0">اگر به صورت خودکار به صفحه پرداخت منتقل نشدید ازلینک زیر استفاده نمایید</p>
+                <input id="submitButt" type="submit" value="انتقال" class="btn btn-default" style="margin:10px auto; text-align:center; margin-left:45%" />
+            </div>
+           
+        </form>
+
+        @*<form method="post" name="formBank" id="formBank" action='https://bpm.shaparak.ir/pgwchannel/startpay.mellat'>
+
+                <input type="hidden" value='@ViewBag.id' id="RefId" name="RefId">
+                <div class="TextDescription">
+                    در صورتی که اطلاعات ثبت شده را مورد تایید است جهت تکمیل فرایند خرید بر روی گزینه
+                    پرداخت کلیک نمایید
+
+                </div>
+                <input type="submit" value="پرداخت" />
+
+            </form>*@
+
+    </div>
+    <script>
+        
+        $("#submitButt").click();
+       
+
+        $("#submitButt").click(function () {
+            $(this).close();
+            alert("aa");
+        })
+    </script>
+</body>
+</html>

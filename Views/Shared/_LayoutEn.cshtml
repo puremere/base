@@ -1,0 +1,766 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+
+    <title>@ViewBag.Title </title>
+
+    @*<title>WNUPAEZ</title>*@
+    <meta name="description" content=" برگزارکننده سمینارها، مجالس، جشن ها و همایش ها " />
+    <meta name="keywords" content="تجهیزات مراسم،نور، صدا، کرایه ظروف" />
+    <meta http-equiv="content-language" content="fa" />
+
+    <!-- Mobile Specific Metas
+          ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+               function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+   
+    <!-- pignose css -->
+    <link href="/Content/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
+    @*<link href="~/Content/flexslider.css" rel="stylesheet" />*@
+    <link href="~/Content/flexslider2.css" rel="stylesheet" />
+    <!-- //pignose css -->
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- //menu css -->
+    @*<link href="~/Content/menu/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/menu/menu.css" rel="stylesheet" />*@
+    <link href="~/Content/sm-core-css.css" rel="stylesheet" />
+    <link href="~/Content/sm-mint.css" rel="stylesheet" />
+
+    <link href="~/Content/slick.css" rel="stylesheet" />
+    <link href="~/Content/slick-theme.css" rel="stylesheet" />
+
+    <link href="~/Content/resCarousel.css" rel="stylesheet" />
+
+
+    <link href="~/Content/resCarousel.css" rel="stylesheet" />
+   @* <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong:300,400,400i,500,600,700" />*@
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />-->
+    <style>
+        body {
+            font-family: 'Trirong', serif;
+            background: #f5f5f5;
+        }
+
+        .p0 {
+            padding: 0;
+        }
+
+        .resCarousel-inner .item {
+            /*border: 4px solid #eee;*/
+            /*vertical-align: top;*/
+            text-align: center;
+        }
+
+            .resCarousel-inner .item .tile div,
+            .banner .item div {
+                display: table;
+                width: 100%;
+                min-height: 250px;
+                text-align: center;
+                /*box-shadow: 0 1px 1px rgba(0, 0, 0, .1);*/
+            }
+
+            .resCarousel-inner .item h1 {
+                display: table-cell;
+                vertical-align: middle;
+                color: white;
+            }
+
+        .banner .item div {
+            background: url('demoImg.jpg') center top no-repeat;
+            background-size: cover;
+            min-height: 550px;
+        }
+
+        .item .tile div {
+            background: url('demoImg.jpg') center center no-repeat;
+            background-size: cover;
+            height: 200px;
+            color: white;
+        }
+
+        .item div h1 {
+            background: rgba(0, 0, 0, .4);
+        }
+    </style>
+
+
+    <!-- js -->
+    <script type="text/javascript" src="/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+   
+    
+    <script src="~/Scripts/jquery.flexslider2.js"></script>
+
+    <!-- cart -->
+    <script src="/Scripts/simpleCart.min.js"></script>
+    <!-- cart -->
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    @*<link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,900,900italic,700italic' rel='stylesheet' type='text/css'>*@
+    <script src="/Scripts/jquery.easing.min.js"></script>
+    <script src="~/Scripts/imagezoom.js"></script>
+
+    <script src="~/Scripts/toastr.js"></script>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <!-- //carousel -->
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="~/Scripts/slick.js"></script>
+
+    @*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmfV8Yj0ud9oNpIArj3cv5N2gosYEhu_s"></script>*@
+  
+    <script>
+        $(document).ready(function () {
+
+            $('.showmedetail').click(function () {
+                var ID = this.id;
+                var url = "/Home/ProductDetail?id=" + ID;
+                window.location.href = url;
+            })
+
+            $('.tracotdda').click(function () {
+                var ID = this.id;
+
+                //var pricetotal = document.getElementById("spanfortotal").textContent;
+                var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+                //var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                //var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+                //var finalcount = parseInt(counttotal, 10) + 1;
+                //$('#spanfortotal').text(final);
+                //$('#simpleCart_quantityy').text(finalcount)
+
+
+                $.ajax({
+                    url: '/Home/addtocart',
+                    dataType: 'html',
+                    data: {
+                        id: ID,
+                        price: tobeadded
+
+                    },
+                    success: function (data) {
+                        $.ajax({
+                            url: '/Home/gogetfinalprice',
+
+
+                            success: function (data) {
+                                $("#spanfortotal").text(data).toString("###,###")
+                                $("#spanfortotal2").text(data)
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+                        $.ajax({
+                            url: '/Home/gogetfinalquantity',
+
+
+                            success: function (data) {
+                                $("#simpleCart_quantityy").text(data)
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-top-center",
+                            "onclick": null,
+                            "fadeIn": 300,
+                            "fadeOut": 1000,
+                            "timeOut": 5000,
+                            "extendedTimeOut": 1000,
+
+
+                        }
+                        toastr.success('محصول مورد نظر به سبد اضافه شد')
+
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+
+
+            })
+
+
+
+        })
+
+    </script>
+    <!-- SmartMenus jQuery plugin -->
+
+    <script src="~/Scripts/jquery.smartmenus.js"></script>
+
+    <!-- SmartMenus jQuery init -->
+    <script type="text/javascript">
+        $(function () {
+            $('#main-menu').smartmenus({
+                subMenusSubOffsetX: 6,
+                subMenusSubOffsetY: -8
+            });
+        });
+    </script>
+    
+   
+   
+   
+
+</head>
+    <body>
+        
+        <div id="loading" style="display:none">
+            <img style="position:absolute; top:50%; left:50%; width:70px; height:70px" src="/images/loading.gif" />
+        </div>
+
+        <script>
+            $(document).ajaxStart(function () {
+                $("#loading").css("display", "block");
+            });
+            $(document).ajaxComplete(function () {
+                $("#loading").css("display", "none");
+            });
+
+        </script>
+
+
+       
+
+        <!-- header-bot -->
+        <div class="header-bot">
+            <div class="container" style="direction:rtl; width:100%">
+               
+               <style>
+                   .cartdiv {
+                       border-radius: 10px;
+                       margin-right: 25px;
+                       background-color: #64c4ef;
+                       float: right;
+                       display: inline-block;
+                   }
+                   .cartimage {
+                       width: 20% !important;
+                       float: right;
+                   }
+                   .carttext {
+                       font-size: 12px;
+                       color: white;
+                       display: inline-block;
+                       float: right;
+                       padding: 7px;
+                       width: 45%;
+                       text-align:right;
+                   }
+                   .cartnumber {
+                       display: inline-block;
+                       float: right;
+                       margin: 8px 0px 0px 0px;
+                       color: #64c4ef;
+                       border-radius: 50%;
+                       background-color: white;
+                       width: 14%;
+                       padding-left: 8px;
+                   }
+                   .arrowdown {
+                       width: 10px !important;
+                       margin-top: 15px;
+                       float: left;
+                       display: inline-block;
+                       cursor:pointer;
+                   }
+                   .enterdiv {
+                       float: right;
+                       margin: 0px;
+                       padding: 10px 0px 0px 0px;
+                       display: inline-block;
+                   }
+                   .entertext {
+                       color: #696464;
+                   }
+               </style>
+                <div id="cartholder" class="col-md-4 header-left" style="margin:15px 0px 10px 0px ; ">
+                   <div class="col-lg-5 enterdiv" ><a class="entertext" data-toggle="modal" data-target="#myModal4" style="cursor:pointer">ورود</a> / <a class="entertext" >ثبت نام</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a><img style="width:10px; " src="~/images/arrow.png" /></a></div>
+                   
+                    <div class="col-lg-6 cartdiv"  >
+                     <img src="~/images/cart.png" class="cartimage" />
+                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<p class="carttext" >سبد خرید</p>
+                     <span class="cartnumber"  id="simpleCart_quantityy"></span>
+
+
+                     <img id="arrowcart" class="arrowdown"  src="~/images/arrowdown.png" />
+                    </div>
+                    <script>
+                        
+                        $("#arrowcart").click(function () {
+                            var x = document.getElementById("cartsummery");
+                            if (x.style.display === "none") {
+                                $("#cartsummery").show(150);
+
+                            } else {
+                                $("#cartsummery").hide(150);
+                            }
+
+                        });
+                        $(document).mouseup(function (e) {
+                            var container = $("#cartsummery");
+                            var arrow = $("arrowcart");
+                            // if the target of the click isn't the container nor a descendant of the container
+                            if (!container.is(e.target) && container.has(e.target).length === 0 ) {
+                                container.hide();
+                            }
+                        });
+                        $(document).scroll(function () {
+                            var container = $("#cartsummery");
+                            container.hide();
+                        })
+                    </script>
+                   
+                
+                </div>
+                <div class="col-md-5 header-middle" style="border:solid white 0px ; margin-bottom:10px">
+                   @* <input type="text" style="width:75%; height:45px;float:right; display:inline-block; padding:8px;border:1px solid #ddd;background-color:#eee; border-radius:0px 10px 10px 0px" placeholder="نام کالا، برند یا دسته مورد نظر را جستجو کنید.." />*@
+                   <input type="text"  style="width:75%; height:45px;float:right; display:inline-block; padding:8px;border:1px solid #ddd;background-color:#eee; border-radius:0px 10px 10px 0px; text-align:right" placeholder="نام کالا، برند یا دسته مورد نظر را جستجو کنید.."/>
+                   <div style="display: inline-block; background-color: #64c4ef; border-radius: 10px 0px 0px 10px"> <img src="~/images/search.png"  style="width:45px;  "/></div>
+                </div>
+                <div class="col-md-3 header-left" style="">
+                    <h1 style="float:right">
+                        <a href="index.html"><img src="~/images/logo3.jpg"></a>
+                    </h1>
+                </div>
+                <div id="cartsummery" style="border: 1px #ddd solid; background-color: #fff; position: fixed; top: 65px; left: 40px; z-index: 99000; display: none ; border-radius:0px 0px 10px 10px">
+                    <div style="width:100% ; background-color:#eee; padding:15px">
+                        <p style="color:#696464; display:inline-block" > مبلغ کل خرید:</p>
+                        <span style="color: red; margin-right:10px; display:inline-block" id="spanfortotal" class="simpleCart_totall"></span>
+                        <p style="color: red; margin-right:5px; display:inline-block">تومان</p>
+                        <p id="gotocheckout" style="cursor:pointer;color: #696464; float:left; display: inline-block; font-size:13px; margin-top:5px">مشاهده سبد خرید</p>
+                        
+                    </div>
+                    <div style="" id="summerydetailholder"></div>
+                    <div style="height:50px; background-color:#64c4ef; padding-top:2%; border-radius:0px 0px 10px 10px">
+                        <p style="text-align:center; color:#fff; ">ثبت سفارش و ارسال</p>
+                    </div>
+                </div>
+               
+                <script>
+                    $.ajax({
+                        url: '/Home/checkoutsummery',
+                        dataType: 'html',
+                        success: function (data) {
+                          
+                            $('#summerydetailholder').html(data);
+
+                        },
+                        error: function () {
+
+                        }
+                    });
+                    var WI = $("#cartholder").width() - 55;
+                    $("#cartsummery").width(WI);
+                </script>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+        <!-- //header-bot -->
+        <!-- banner -->
+        <div class="row" style=" margin-right:0px">
+            
+            <nav id="main-nav" class="col-lg-12 col-md-10 col-sm-12" style="font-size:13px; color:#f6f5f5; background-color:#656565">
+
+
+                <!-- Sample menu definition -->
+                <script>
+                    $.ajax({
+                        url: '/Home/getmenue',
+                        dataType: 'html',
+
+                        success: function (data) {
+
+                            $('#main-nav').html(data);
+
+                        },
+                        error: function () {
+                            alert("error")
+                        }
+                    });
+                </script>
+
+
+            </nav>
+        </div>
+      
+
+        @*<div class="ban-top">
+            <div class="container row" style="direction:rtl; width:100% " >
+                <div class="top_nav_right col-lg-6" style="display:inline-block">
+                    <div class="cart box_1">
+                        <a id="gotocheckout" style="cursor:pointer">
+                            <h3>
+                                <div style="color:#fff" class="total">
+                                    <i style="color:#fff" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></i>
+                                    <span style="color:#fff" id="spanfortotal" class="simpleCart_totall"></span> تومان (
+                                    <span style="color:#fff" id="simpleCart_quantityy"></span> مورد)
+                                </div>
+
+                            </h3>
+                        </a>
+                        <p id="emptycart"><a href="javascript:;" class="simpleCart_empty"> تخلیه سبد</a></p>
+
+                    </div>
+                </div>
+                <div class="top_nav_left col-lg-6" style="display:inline-block; float:right">
+                    <nav class="navbar navbar-default" style="float:right">
+                        <div class="container-fluid">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse menu--shylock" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav menu__list">
+                                    <li class="active menu__item menu__item--current">
+                                    <li class=" menu__item">
+                                        <a class="menu__link" href="/Home/Index">خانه</a>
+                                    </li>
+                                      
+                                    
+                                   
+                                    <li class="active menu__item ">
+                                        @Html.ActionLink("شال", "shargh", "Home", new { catid = "2", subcatid = "1" }, new { style = "color:#fff", @class = "menu__link" })
+                                    </li>
+                                    <li class="active menu__item ">
+                                        @Html.ActionLink("روسری", "shargh", "Home", new { catid = "1", subcatid = "1" }, new { style = "color:#fff", @class = "menu__link" })
+                                    </li>
+
+
+                                    <li class="dropdown menu__item">
+                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">شال <span class="caret"></span></a>
+                                        <ul class="dropdown-menu multi-column columns-3">
+                                            
+                                                <div class="col-sm-6 multi-gd-img1 multi-gd-text ">
+                                                    <a href="mens.html"><img src="~/images/woo1.jpg" alt=" " /></a>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li><a href="mens.html">Clothing</a></li>
+                                                        <li><a href="mens.html">Wallets</a></li>
+                                                        <li><a href="mens.html">Footwear</a></li>
+                                                        <li><a href="mens.html">Watches</a></li>
+                                                        <li><a href="mens.html">Accessories</a></li>
+                                                        <li><a href="mens.html">Bags</a></li>
+                                                        <li><a href="mens.html">Caps & Hats</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li><a href="mens.html">Jewellery</a></li>
+                                                        <li><a href="mens.html">Sunglasses</a></li>
+                                                        <li><a href="mens.html">Perfumes</a></li>
+                                                        <li><a href="mens.html">Beauty</a></li>
+                                                        <li><a href="mens.html">Shirts</a></li>
+                                                        <li><a href="mens.html">Sunglasses</a></li>
+                                                        <li><a href="mens.html">Swimwear</a></li>
+                                                    </ul>
+                                                </div>
+                                               
+                                            
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown menu__item">
+                                        <a href="#" class="dropdown-toggle menu__link" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">روسری <span class="caret"></span></a>
+                                        <ul class="dropdown-menu multi-column columns-3">
+                                            <div class="row">
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+
+                                                        <li><a href="womens.html">Wallets</a></li>
+                                                        <li><a href="womens.html">Footwear</a></li>
+                                                        <li><a href="womens.html">Watches</a></li>
+                                                        <li><a href="womens.html">Accessories</a></li>
+                                                        <li><a href="womens.html">Bags</a></li>
+                                                        <li><a href="womens.html">Caps & Hats</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-3 multi-gd-img">
+                                                    <ul class="multi-column-dropdown">
+                                                        <li><a href="womens.html">Jewellery</a></li>
+                                                        <li><a href="womens.html">Sunglasses</a></li>
+                                                        <li><a href="womens.html">Perfumes</a></li>
+                                                        <li><a href="womens.html">Beauty</a></li>
+                                                        <li><a href="womens.html">Shirts</a></li>
+                                                        <li><a href="womens.html">Sunglasses</a></li>
+                                                        <li><a href="womens.html">Swimwear</a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-sm-6 multi-gd-img multi-gd-text ">
+                                                    <a href="womens.html"><img src="~/images/woo.jpg" alt=" " /></a>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </ul>
+                                    </li>
+                                   
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                
+            </div>
+        </div>*@
+        <!-- //banner-top -->
+        <div id="body">
+            @*@RenderSection("featured", required: false)*@
+            <section class="content-wrapper main-content clear-fix" >
+                @RenderBody()
+            </section>
+        </div>
+     
+
+     
+       
+        <!-- footer -->
+        
+        <div class="footer" style="width:100% ; background-color:#e9e9e9;  padding-top:50px ">
+            <div style="width:90% ; margin:auto; padding-bottom:15px; border-bottom:1px #696464 solid">
+                <div class="row" style="margin: 0px; width: 25%; display: inline-block">
+
+                    <img style="width:100px; height:100px; display:block; margin:auto" src="~/images/delivery.png" />
+                    <p style="color:#000; text-align:center; margin-top:20px">تحویل اکسپرس</p>
+                </div>
+                <div class="row" style="margin: 0px; width: 24%; display: inline-block">
+
+                    <img style="width:100px; height:100px; display:block; margin:auto" src="~/images/support.png" />
+                    <p style="color:#000; text-align:center; margin-top:20px">پشتیبانی 24 ساعته</p>
+                </div>
+                <div class="row" style="margin: 0px; width: 25%; display: inline-block">
+
+                    <img style="width:100px; height:100px; display:block; margin:auto" src="~/images/cash.png" />
+
+                    <p style="color:#000; text-align:center; margin-top:20px">پرداخت در محل</p>
+                </div>
+                <div class="row" style="margin: 0px; width: 24%; display: inline-block">
+
+                    <img style="width:100px; height:100px; display:block; margin:auto" src="~/images/granttee.png" />
+                    <p style="color:#000; text-align:center; margin-top:20px">تضمین اصالت کالا</p>
+                </div>
+
+            </div>
+            <div style="width:90% ; margin:auto; padding-bottom:15px; border-bottom:1px #696464 solid">
+                <div style="width:30%; display:inline-block">
+                    <div class="row" style="margin-top:25px">
+                        <p style="text-align:right">از تخفیف های و جدیدترین کالاها باخبر شوید</p>
+                        <div style="float:right; width:100%">
+                            <input type="text" style="float:right; margin-top: 25px;width:75%; height: 45px; display: inline-block; padding: 8px; border: 1px solid #ddd; background-color: #eee; border-radius: 0px 10px 10px 0px; text-align: right" placeholder="آدرس ایمیل خود را وارد کنید" />
+
+                            <div style="float:right; margin-top:25px ; display: inline-block; background-color: #64c4ef; border-radius: 10px 0px 0px 10px; height:45px"> <p style="width:45px; color:white; margin-top:10px; text-align:center ">ارسال</p></div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p style="margin-top: 25px;text-align:right">ما را در شبکه های اجتماعی دنبال کنید</p>
+                        <style>
+                            .instagram {
+                                background: #f09433;
+                                background: -moz-linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+                                background: -webkit-linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+                                background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);
+                                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+                            }
+                        </style>
+                        <div class="instagram" style="margin-top: 25px;float:right; padding:10px; border-radius:8px">
+                            <p style="color:white; display:inline-block; font-size:13px">اینستاگرام چارقد</p>
+
+                            <img src="~/images/insta.png" style="width:30px; display:inline-block" />
+
+                        </div>
+                    </div>
+
+
+                </div>
+                <div style="width:32%; float:right; margin-top:25px">
+                    <p style=" font-weight:bold;  text-align:right; margin-bottom:35px">راهنمای خرید</p>
+                    <p style=" text-align: right; margin-bottom: 25px; ">نحوه ثبت سفارش</p>
+                    <p style="  text-align: right; margin-bottom: 25px; ">رویه ارسال</p>
+                    <p style=" text-align: right; margin-bottom: 25px; ">شیوه  پرداخت</p>
+
+                </div>
+                <div style="width: 31%; float: right; margin-top: 25px">
+                    <p style=" font-weight:bold;  text-align:right; margin-bottom:35px">خدمات مشتریان</p>
+                    <p style="   text-align: right; margin-bottom: 25px; ">پاسخ به پرسش های متداول</p>
+                    <p style="   text-align: right; margin-bottom: 25px; ">شرایط استفاده</p>
+                    <p style="   text-align: right; margin-bottom: 25px; ">خریم خصوصی</p>
+
+                </div>
+
+            </div>
+
+            <div style="width:90% ; margin:auto; padding-bottom:15px; ">
+                <p style="  text-align:right; margin-top:25px ">شماره تماس :02122931806    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;   |     &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;    آدرس: میدان هروی پاساژ گلستان طبقه همکف پلاک 71</p>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+       
+
+
+
+
+        <!-- login -->
+        <div >
+            <div class="modal fade" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document" style="width:750px">
+                    <div class="modal-content modal-info">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <div class="modal-body modal-spa">
+                            <script>
+                                
+                            </script>
+                            <div id="logingrids" class="login-grids">
+                                
+                            </div>
+                            <script>
+                                $.ajax({
+                                    url: '/Home/gogetloginpart',
+                                    dataType: 'html',
+                                    success: function (data) {
+
+                                        $('#logingrids').html(data);
+
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                               
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+     
+        <!-- //login -->
+       
+        <script>
+            $(document).ready(function () {
+
+
+
+                
+        $.ajax({
+            url: '/Home/gogetfinalprice',
+
+
+            success: function (data) {
+                $("#spanfortotal").text(data).toString("###,###")
+                $("#spanfortotal2").text(data)
+               
+            },
+            error: function () {
+
+            }
+        });
+        $.ajax({
+            url: '/Home/gogetfinalquantity',
+
+
+            success: function (data) {
+                $("#simpleCart_quantityy").text(data)
+
+            },
+            error: function () {
+
+            }
+        });
+        
+        $('.simpleCart_empty').click(function () {
+
+            var ID = this.id;
+            $.ajax({
+                url: '/Home/emptycart',
+                dataType: 'html',
+
+                success: function (data) {
+                   
+                    $('#spanfortotal').text("0")
+                    $('#simpleCart_quantityy').text("0")
+                    
+                    
+                    $(".timetable_sub").find("tr:gt(0)").fadeOut('slow', function (c) {
+                        $(".timetable_sub").find("tr:gt(0)").remove();
+                    });
+                    $(".breifing").find('li').fadeOut('slow', function (c) {
+                        $(".breifing li").find('li').remove();
+                    });
+
+                        },
+                        error: function () {
+
+                        }
+                    });
+
+
+        })
+       
+        $('#gotocheckout').click(function () {
+
+                    var url = "/Home/checkout";
+                    window.location.href = url;
+
+
+                })
+
+            })
+
+
+
+        </script>
+
+       
+        <style>
+            #loading {
+                align-content: center;
+                background: #e9e9e9;
+                width: 100%;
+                height: 100%;
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 999999;
+                opacity: 0.5;
+                margin: 0 auto;
+            }
+        </style>
+      
+    </body>
+
+</html>

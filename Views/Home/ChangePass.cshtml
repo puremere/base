@@ -1,0 +1,234 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="direction:rtl">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/Content/changePassStyle.css" rel="stylesheet" />
+    <!-- js -->
+    <script type="text/javascript" src="/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <script>
+        $(document).ready(function () {
+            function isValidPhonenumber(phonenumber) {
+                var pattern = /^09[0-9]{9}$/;
+                return pattern.test(phonenumber);
+            };
+            function isNotNull(str) {
+                var pattern = /^[A-Za-z0-9]{1,20}$/;
+                return pattern.test(str);
+            };
+            $('#changetxtPassword').on('input', function (e) {
+
+                var val = $(this).val();
+                if (val.length >= 8) {
+
+                    $("#txtPassword-error").css("display", "none");
+                    $("#changetxtPassword").css("color", "#777");
+                    $("#changetxtPassword").css("border", "1px solid #c8c8c8");
+                    $("#changepassmain").removeClass("error");
+                }
+                else {
+
+
+                    $("#txtPassword-error").css("display", "block");
+                    $("#changetxtPassword").css("color", "#ef5662");
+                    $("#changetxtPassword").css("border", "1px solid #ef5662");
+                    $("#changepassmain").addClass("error");
+                }
+
+            });
+            $('#changetxtPassword2').on('input', function (e) {
+
+                var val = $("#changetxtPassword").val();
+                var val2 = $(this).val();
+                if (val === val2) {
+
+                    $("#txtPassword-error2").css("display", "none");
+                    $("#changetxtPassword2").css("color", "#777");
+                    $("#changetxtPassword2").css("border", "1px solid #c8c8c8");
+                    $("#changepassmain2").removeClass("error");
+                }
+                else {
+
+
+                    $("#txtPassword-error2").css("display", "block");
+                    $("#changetxtPassword2").css("color", "#ef5662");
+                    $("#changetxtPassword2").css("border", "1px solid #ef5662");
+                    $("#changepassmain2").addClass("error");
+                }
+
+            });
+
+
+        })
+    </script>
+
+    <script src="~/Scripts/toastr.js"></script>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+    <link href="~/Content/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+        <main id="main">
+            <div class="semi-modal-layout">
+                <section class="o-page o-page--account-box">
+                    <div class="c-account-box">
+                        <a href="#" class="c-account-box__logo">Digikala.com</a>
+                        <div class="c-account-box__headline">تغییر رمز عبور</div>
+                        <div class="c-account-box__content">
+                            <form class="c-form-account" id="changepasswordForm" method="post" data-name="changepassword" novalidate="novalidate">
+                                <input type="hidden" name="rc" value="RWZRd0RqUGVkTnBzMFlhaDFhQU5SUT09"><input type="hidden" name="rd" value="UzJ5akNsaXlLbjB6cnFTbzBvcEVLSlVrdzhvdWs2dkFiV0RPR1dKY3FHOFowYjdlcllvY2VaV0FYVGxHK2ExS25yUit0KzgzWldLZWNYenpvajJiTlE9PQ~~">
+                                <div class="c-form-account__fieldset">
+                                    <div class="c-form-account__title">رمز عبور جدید</div>
+                                    <div class="c-form-account__row">
+                                        <div class="c-form-account__col">
+                                            <label id="changepassmain" class="c-ui-input c-ui-input--account-password has-error">
+                                                <input class="c-ui-input__field" name="changepassword[password]" id="changetxtPassword" type="password" placeholder=" رمز عبور جدید خود را وارد نمایید" aria-describedby="txtPassword-error" aria-invalid="true">
+                                                <div id="txtPassword-error" class="error c-ui-feedback-hint">رمز عبور را وارد نمایید</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="c-form-account__title">تکرار رمز عبور جدید</div>
+                                    <div class="c-form-account__row">
+                                        <div class="c-form-account__col">
+                                            <label id="changepassmain2" class="c-ui-input c-ui-input--account-password has-error">
+                                                <input class="c-ui-input__field" name="changepassword[password2]" id="changetxtPassword2" type="password" placeholder=" رمز عبور جدید خود را مجددا وارد کنید." aria-describedby="changepassword[password2]-error">
+                                                <div id="txtPassword-error2" class="error c-ui-feedback-hint">تکرار رمز عبور را وارد نمایید</div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="changepassconfirm" class="mybtn addtocart" style="">
+                                    <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
+                                        <i style="font-size:25px;color:white;margin-right:20px" class="fas fa-lock"></i>
+
+                                    </div>
+                                    <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">تغییر رمز عبور</p>
+                                    <script>
+                                        $("#changepassconfirm").click(function () {
+
+                                            var val = $("#changetxtPassword").val();
+                                            var val2 = $("#changetxtPassword2").val();
+
+                                            
+                                            if (val.length === 0) {
+
+                                                $("#txtPassword-error").css("display", "block");
+                                                $("#changetxtPassword").css("color", "#ef5662");
+                                                $("#changetxtPassword").css("border", "1px solid #ef5662");
+                                                $("#changepassmain").addClass("error");
+
+                                            }
+
+                                            if (val2.length === 0) {
+
+                                                $("#txtPassword-error2").css("display", "block");
+                                                $("#changetxtPassword2").css("color", "#ef5662");
+                                                $("#changetxtPassword2").css("border", "1px solid #ef5662");
+                                                $("#changepassmain2").addClass("error");
+
+                                            }
+                                           
+                                            if (val.length > 7 && val2.length > 7 && val === val2 ) {
+                                                $.ajax({
+                                                    url: '/CustomerLogin/ChangePassForLogedInUser',
+                                                    dataType: 'html',
+                                                    data: {
+
+                                                        pass: val
+                                                    },
+                                                    success: function (srt) {
+
+                                                        if (srt === "400") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 8000,
+                                                                "extendedTimeOut": 1000,
+
+
+                                                            }
+                                                            toastr.error('رمز عبور باید بیش از 7 کارکتر باشد ')
+                                                        }
+
+                                                       else if (srt === "500") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 8000,
+                                                                "extendedTimeOut": 1000,
+
+
+                                                            }
+                                                            toastr.error('رمز عبور شما با موفقیت تغییر یافت ')
+                                                        }
+                                                        else if (srt === "200") {
+                                                           
+                                                            var url = '@Url.Action("Index", "Home")';
+                                                            window.location.href = url;
+
+
+
+                                                        }
+
+
+
+
+
+
+
+
+                                                    },
+                                                    error: function () {
+                                                        $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                                                    }
+                                                });
+                                            }
+
+                                        })
+                                    </script>
+
+                                    @*<p > افزودن به سبد خرید</p>*@
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </section>
+                <footer class="c-footer-light">
+                    <div class="container">
+                        <ul class="c-footer-light__links">
+                            <li><a href="/page/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                            <li><a href="" title="تماس با ما">تماس با ما</a></li>
+                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                        </ul>
+                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت آتی روناک (فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]) می‌باشد.</p>
+                        <p class="c-footer-light__copyright">Copyright © 2006 - 2019 sup-ect.com</p>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

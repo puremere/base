@@ -1,0 +1,403 @@
+﻿@{
+   if(ViewBag.message != null & ViewBag.message != ""){
+       string srt = ViewBag.message;
+        <script>alert("از مشارکت شما سپاسگزاریم، به امید شهری زیبا")</script>
+      
+   }
+    
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Contact V3</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/mydemo/question/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/mydemo/question/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/mydemo/question/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/mydemo/question/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/mydemo/question/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/mydemo/question/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/mydemo/question/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/mydemo/question/css/main.css">
+    <!--===============================================================================================-->
+</head>
+<body>
+    
+    
+          
+      
+    
+    <div class="bg-contact3" style="background-image: url('/mydemo/question/images/bg-01.jpg');">
+        <div class="container-contact3">
+            <div class="wrap-contact3">
+                <form class="contact3-form validate-form" action="info855888" method="post">
+                    <span class="contact3-form-title">
+                       فرم نظر سنجی
+                    </span>
+
+                    @*<div class="wrap-contact3-form-radio">
+                        <div class="contact3-form-radio m-r-42">
+                            <input class="input-radio3" id="radio1" type="radio" name="choice" value="say-hi" checked="checked">
+                            <label class="label-radio3" for="radio1">
+                                Say Hi
+                            </label>
+                        </div>
+
+                        <div class="contact3-form-radio">
+                            <input class="input-radio3" id="radio2" type="radio" name="choice" value="get-quote">
+                            <label class="label-radio3" for="radio2">
+                                Get a Quote
+                            </label>
+                        </div>
+                    </div>*@
+
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="phone" placeholder="شماره تلفن جهت شرکت در قرعه کشی">
+                        <span class="focus-input3"></span>
+                    </div>
+
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="age" placeholder="سن">
+                        <span class="focus-input3"></span>
+                    </div>
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="education" placeholder="تحصیلات">
+                        <span class="focus-input3"></span>
+                    </div>
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="job" placeholder="شغل">
+                        <span class="focus-input3"></span>
+                    </div>
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="jobsite" placeholder="محل کار">
+                        <span class="focus-input3"></span>
+                    </div>
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="height" placeholder="قد">
+                        <span class="focus-input3"></span>
+                    </div>
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="wieght" placeholder="وزن">
+                        <span class="focus-input3"></span>
+                    </div>
+                    <div class="wrap-input3 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input3" type="text" name="ResidencyArea" placeholder="منطقه محل سکونت">
+                        <span class="focus-input3"></span>
+                    </div>
+                 
+                    <p style="direction:rtl; color:#fff;" >جنسیت: </p>
+                    <div class="wrap-input3" style="">
+                        <div>
+                            <select class="selection-2" name="sex"  >
+                              
+                                <option>مرد</option>
+                                <option>زن</option>
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">آیا دوچرخه سواری بلد هستید؟ </p>
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question1">
+                                
+                                <option>بله</option>
+                                <option>خیر</option>
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">آیا دوچرخه سواری انجام میدهید؟ </p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question2">
+
+                                <option>هر روز</option>
+                                <option>هفتگی یکبار</option>
+                                <option>ماهی یکبار</option>
+                                <option>به ندرت</option>
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">آیا دوچرخه دارید؟ </p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question3">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">از طرح دوچرخه شهری خبر دارید؟ </p>
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question4">
+                               
+                                <option>بله</option>
+                                <option>خیر</option>
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">آیا اگر دوچرخه به راحتی در دسترس شما قرار گیرد حاضر به استفاده از آن هستید؟ </p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question5">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">اگر خیر چرا؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question6">
+
+                                <option>خطرناک است</option>
+                                <option>مسیر دوچرخه وجود ندارد</option>
+                                <option>هیچ علاقه ای به دوچرخه ندارم</option>
+                                <option>شیب خیابان ها زیاد است</option>
+                                <option>هوا آلوده است</option>
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">اگر مسیر دوچرخه وجود داشته باشد حاضر به استفاده از دوچرخه هستید؟</p>
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question7">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">در فصل زمستان در صورت عدم بارندگی حاضر به استفاده از دوچرخه هستید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question8">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">در هوای آلوده حاضر به استفاده از دوچرخه هستید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question9">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">اگر از نظر علمی بدانید دوچرخه سواری در هوای آلوده مفید است آیا حاضر به استفاده از دوچرخه هستید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question10">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">برای نیم ساعت استفاده از دوچرخه دنده ای حاضرید چه مبلغی را هزینه کنید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question11">
+
+                                <option>حاضر به هزینه نیستم</option>
+                                <option>500 تومان</option>
+                                <option>1000 تومان</option>
+                                <option>بیش از 1000 تومان</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">برای ثبت نام در طرح دوچرخه شهری حاضرید 50000 هزار تومان بپردازید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question12">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">اگر خیر حاضر به پرداخت چه مبلغی هستید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question13">
+
+                                <option>حاضر به پرداخت هیچ مبلغی نیستم</option>
+                                <option>کمتر از 20 هزار تومان</option>
+                                <option>کمتر از 30 هزار تومان</option>
+                                <option>کمتر از 40 هزار تومان</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+
+                    <p style="direction:rtl; color:#fff;">اگر کنار ایستگاه مترو ایستگاه دوچرخه وجود داشته باشد و هوا مساعد باشد حاضرید از دوچرخه استفاده کنید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question14">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">اگر کنار ایستگاه اتوبوس ایستگاه دوچرخه وجود داشته باشد و هوا مساعد باشد حاضرید از دوچرخه استفاده کنید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question15">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">با وجود سربالایی حاضر به استفاده از دوچرخه هستید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question16">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">در مسیر های کوتاه با سراشیبی اسکوتر را ترجیح میدهید؟</p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question17">
+
+                                <option>بله</option>
+                                <option>خیر</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">بابت خدمات تحویل و دریافت دوچرخه در مبدا و مقصد مورد نظر شما حاضر به پرداخت چه مبلغی هستید؟ </p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question18">
+
+                                <option>تا 3000 تومان</option>
+                                <option>تا 5000 تومان</option>
+                                <option>تا 7000 تومان</option>
+                                <option>تا 9000 تومان</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <p style="direction:rtl; color:#fff;">به نظر شما کدام یک از موارد زیر میتواند انگیزه بیشتری جهت استفاده از دوچرخه باشد؟ </p>
+
+                    <div class="wrap-input3">
+                        <div>
+                            <select class="selection-2" name="question19">
+
+                                <option>سلامتی و کاهش وزن</option>
+                                <option>کاهش ترافیک و آلودگی هوای شهر</option>
+                                <option>کمک به اقتصاد خانواده</option>
+                                <option>نبود جای پارک</option>
+                                <option>رفتن به داخل محدوده طرح</option>
+                                <option>ترافیک شهری</option>
+
+                            </select>
+                        </div>
+                        <span class="focus-input3"></span>
+                    </div>
+                    <div class="container-contact3-form-btn">
+                        <button class="contact3-form-btn">
+                            تایید
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+  
+    <div id="dropDownSelect1"></div>
+
+    <!--===============================================================================================-->
+    <script src="~/mydemo/question/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/mydemo/question/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/mydemo/question/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/mydemo/question/vendor/select2/select2.min.js"></script>
+    <script>
+        $(".selection-2").select2({
+            minimumResultsForSearch: 20,
+            dropdownParent: $('#dropDownSelect1')
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="~/mydemo/question/js/main.js"></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+
+</body>
+</html>
+}
+

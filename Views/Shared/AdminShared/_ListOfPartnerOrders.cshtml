@@ -1,0 +1,247 @@
+﻿
+@model banimo.ViewModel.PartnerOrders
+
+
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+
+    <ul class="nav nav-tabs">
+        @{
+            List<banimo.ViewModel.PartnerOrder> lst = (from p in Model.partnerOrders
+                                                       group p by p.Rdate
+                                                       into groups
+                                                       select groups.OrderBy(p => p.Rdate).First()).ToList();
+            foreach (var item in lst)
+            {
+                int index = Model.partnerOrders.IndexOf(item);
+                string id = "index" + index;
+                if (index == 0)
+                {
+                    <li class="active"><a data-toggle="tab" href="#@id" style=" color: #8d8d8d; ">@item.Rdate </a></li>
+
+                }
+                else
+                {
+                    <li><a data-toggle="tab" href="#@id" style=" color: #8d8d8d; ">@item.Rdate </a></li>
+                }
+            }
+        }
+
+
+    </ul>
+
+    <div class="tab-content">
+
+        @foreach (var item in lst)
+        {
+            List<banimo.ViewModel.PartnerOrder> mylist0 = Model.partnerOrders.Where(x => x.Rdate == item.Rdate).ToList();
+            List<banimo.ViewModel.PartnerOrder> mylist =  (from p in mylist0//Model.partnerOrders.Where(x => x.Rdate == item.Rdate).ToList();
+                                                           group p by p.title into g
+                                                           select new banimo.ViewModel.PartnerOrder
+                                                           {
+                                                               quantity = g.Sum(x=>x.quantity),
+                                                               title = g.First().title,
+                                                               Price = g.First().Price,
+                                                               ProductId = g.First().ProductId,
+                                                               Rdate = g.First().Rdate
+
+                                                           }
+
+                                                               ).ToList();
+            int index = Model.partnerOrders.IndexOf(item);
+            string idtab = "index" + index;
+            string butt = "butt" + index;
+            if (index == 0)
+            {
+                <div id="@idtab" class="tab-pane fade in active" style="padding-top:20px">
+
+
+                    <div class="row">
+                        <div style="overflow-x:auto;padding:10px">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;  background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important; background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important; background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                    <form method="post" id="getPDF" action="/Admin/createUserReport">
+                                        <input name="data" hidden />
+                                        <input name="id" hidden />
+                                        <input name="date" hidden />
+                                        <input name="type" value="partner" hidden />
+                                        <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> شرح سفارش    <i  id="@item.Rdate" style="cursor:pointer; float:left" class="fa fa-print @item.Rdate.Replace("/","")"></i></h3>
+
+                                    </form>
+
+                                    <script>
+                                       
+                                        $("."+@item.Rdate.Replace("/", "") ).click(function () {
+                                           
+                                            var obj = @Html.Raw(@Json.Encode(Model.partnerOrders.Where(x => x.Rdate == item.Rdate).ToList()));
+                                            $("input[name=data]").val(JSON.stringify(obj));
+                                            $("input[name=id]").val(@Model.partnerID);
+                                            $("input[name=date]").val($(this).attr('id'));
+                                        
+                                            $("#getPDF").submit();
+                                        });
+                                    </script>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="morris-area-chart">
+                                        <div style="overflow:auto">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ردیف</th>
+                                                        <th>نام کالا</th>
+                                                        <th>قیمت </th>
+                                                        <th>تعداد</th>
+
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var prod in mylist)
+                                                    {
+
+                                                        int i = mylist.IndexOf(prod) + 1;
+
+                                                        <tr style=" ">
+                                                            <td>@i</td>
+                                                            <td>@prod.title</td>
+                                                            <td>@prod.Price</td>
+                                                            <td>@prod.quantity</td>
+
+
+
+                                                        </tr>
+                                                    }
+
+                                                    @{
+                                                        int s = @mylist.Count() + 1;
+                                                        <tr>
+                                                        <tr>
+                                                            <td> @s</td>
+                                                            <td>جمع کل موارد</td>
+                                                            <td>@mylist.Sum(x => x.quantity * x.Price)</td>
+                                                            <td>@mylist.Sum(x => x.quantity)</td>
+                                                        </tr>
+                                                        </tr>
+                                                    }
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            }
+            else
+            {
+                <div id="@idtab" class="tab-pane fade" style="padding-top:20px">
+
+
+                    <div class="row">
+                        <div style="overflow-x:auto;padding:10px">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                    <form method="post" id="getPDF" action="/Admin/createUserReport">
+                                        <input name="data" hidden />
+                                        <input name="id" hidden />
+                                        <input name="date" hidden />
+                                        <input name="type" value="partner" hidden />
+                                        <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> شرح سفارش    <i id="@item.Rdate" style="cursor:pointer; float:left" class="fa fa-print @item.Rdate.Replace("/","")"></i></h3>
+
+                                    </form>
+
+                                    <script>
+                                        $("."+@item.Rdate.Replace("/", "")).click(function () {
+
+                                            var obj = @Html.Raw(@Json.Encode(mylist));
+                                            $("input[name=data]").val(JSON.stringify(obj));
+                                            $("input[name=id]").val(@Model.partnerID);
+                                            $("input[name=date]").val($(this).attr('id'));
+                                            //alert($(this).attr('id'))
+                                            $("#getPDF").submit();
+
+
+                                        });
+                                    </script>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="morris-area-chart">
+                                        <div style="overflow:auto">
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ردیف</th>
+                                                        <th>نام کالا</th>
+                                                        <th>قیمت </th>
+                                                        <th>تعداد</th>
+
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var prod in mylist)
+                                                    {
+
+                                                        int i = mylist.IndexOf(prod) + 1;
+
+                                                        <tr style=" ">
+                                                            <td>@i</td>
+                                                            <td>@prod.title</td>
+                                                            <td>@prod.Price</td>
+                                                            <td>@prod.quantity</td>
+
+
+                                                        </tr>
+                                                    }
+                                                    @{ 
+                                                        int s = @mylist.Count() + 1;
+                                                        <tr>
+                                                            <td> @s</td>
+                                                            <td >جمع کل موارد</td>
+                                                            <td>@mylist.Sum(x=> x.quantity * x.Price)</td>
+                                                            <td>@mylist.Sum(x => x.quantity)</td>
+                                                        </tr>
+                                                    }
+                                                    
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+        }
+
+
+
+
+
+    </div>
+</div>

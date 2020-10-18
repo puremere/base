@@ -1,0 +1,348 @@
+﻿
+
+
+@{
+    Layout = "~/Views/Shared/_armyadminlayout.cshtml";
+    ViewBag.Title = "مدیریت مطالب";
+
+}
+
+
+
+@{
+    if (@ViewBag.msg == 1)
+    {
+        <script>
+    toastr.options = {
+        "debug": false,
+        "positionClass": "toast-top-center",
+        "onclick": null,
+        "fadeIn": 300,
+        "fadeOut": 1000,
+        "timeOut": 5000,
+        "extendedTimeOut": 1000
+    }
+    toastr.success('محصول مورد نظر با موفقیت اضافه شد')
+             @ViewBag.msg == 4
+        </script>
+    }
+    if (@ViewBag.msg == 2)
+    {
+        <script>
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('خطا لطفاً مجدداً تلاش کنید')
+                 @ViewBag.msg == 4
+        </script>
+    }
+    if (@ViewBag.msg == 3)
+    {
+        <script>
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('محصول با همین مشخصات وجود دارد')
+                 @ViewBag.msg == 4
+        </script>
+    }
+}
+
+
+
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style=" display: inline-block;">مشاهده لیست نتایج</h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+                    <div class="">
+                        <div class="form-group rowholder ">
+                            <label class="control-label component" for="first-name">
+                                متن عنوان :
+                            </label>
+                            <div class="component">
+                                @Html.TextBox("titleSearch", "", new { id = "titleSearch" })
+                            </div>
+                           
+
+
+
+
+
+
+                        </div>
+
+                        <div class="form-group ">
+                            <a id="Verify" class="lgnsubmitt">تایید</a>
+                            <script>
+                                $("#Verify").click(function () {
+                                    var title = $("#titleSearch").val();
+                                    $.ajax({
+                                        data : {
+                                            title: title,
+                                        },
+                                        url: '/ArmyAdmin/GetTheListOfNews',
+                                        dataType: 'html',
+                                        success: function (data) {
+
+                                            $('#listnewsholder').html(data);
+                                            $('#listnewsholder').css("display", "block");
+                                        },
+                                        error: function () {
+                                            alert("nashod")
+                                        }
+                                    });
+                                })
+
+                            </script>
+                        </div>
+
+                        <div class="form-group rowholder" id="listnewsholder" style="display:none">
+
+                        </div>
+                    </div>
+
+
+
+
+
+
+                    <div class="ln_solid"></div>
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@if (ViewBag.page != null)
+{
+    <script>
+        var item = @ViewBag.page
+
+    $.ajax({
+        url: '/ArmyAdmin/GetTheListOfNews',
+        dataType: 'html',
+        data: {
+            page: item
+        },
+        success: function (data) {
+
+            $('#listnewsholder').html(data);
+            $('#listnewsholder').css("display", "block");
+
+        },
+        error: function () {
+            alert("nashod")
+        }
+    });
+    </script>
+}
+
+<div class="row">
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style="display:inline-block">تعریف خبر جدید</h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <div id="createsectoin">
+                        <div id="sec2" >
+                            @using (Html.BeginForm("newsAdd", "ArmyAdmin", FormMethod.Post,
+                                                        new { enctype = "multipart/form-data", id = "newsaddForm" }))
+                            {
+                              
+                                
+                                <div class="form-group rowholder">
+
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        عنوان :
+                                    </label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12" style="margin-top:15px">
+                                        <input type="text" id="addtitle" name="addtitle" class="form-control col-md-7 col-xs-12">
+                                    </div>
+
+
+
+                                </div>
+                                <div class="form-group rowholder">
+
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        متن خبر :
+                                    </label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input type="text" id="adddesc" name="adddesc" class="form-control col-md-12 col-xs-12" style="text-align: justify; margin-top: 15px; line-height: 2; font-size: 14px">
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="form-group rowholder">
+
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                        تاریخ :
+                                    </label>
+                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <input type="text" id="adddate" name="adddate" class="form-control col-md-7 col-xs-12">
+                                    </div>
+
+
+
+                                </div>
+
+
+
+                                <div class="form-group rowholder">
+
+                                    <label class="control-label col-md-2 col-sm-2 col-xs-12 ">آپلود عکس:</label>
+                                    @*@Html.EditorFor(model => model.image, new { htmlAttributes = new { @class = "form-control", @type = "file" } })*@
+
+                                    <input class="col-md-4 col-sm-4 col-xs-12 " style="display: inline-block; float: right" id="addfileupload" type="file" name="addfileupload" multiple="multiple" accept="image/*">
+                                    <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+                                    </div>
+
+                                 
+
+                                </div>
+                            }
+
+
+
+
+                            <div class="form-group">
+
+                                <a id="addnews" class="lgnsubmitt">تایید</a>
+                                <script>
+                                    $("#addnews").click(function () {
+
+                                        var addtitle = $("#addtitle").val();
+                                      
+
+                                        if (addtitle != null ) {
+                                            $("#newsaddForm").submit();
+                                        }
+
+                                        else {
+                                            toastr.options = {
+                                                "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                            }
+                                            toastr.error('تمامی موارد را کامل کنید')
+                                        }
+
+
+                                    })
+
+                                </script>
+
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

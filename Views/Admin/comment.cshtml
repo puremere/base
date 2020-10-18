@@ -1,0 +1,414 @@
+﻿@model banimo.ViewModel.Comments
+
+@{
+    ViewBag.Title = "comment";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "لیست محصولات";
+}
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+
+    .fieldholder {
+        /*width: 30%;
+            display: inline-block;*/
+        margin: 10px;
+    }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; "> محصولات</a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">بلاگ</a></li>
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+            <div class="row">
+                <div style="overflow-x:auto;padding:10px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                            <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> نظرات کاربران  </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-area-chart">
+                                <div style="overflow:auto">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    ID
+                                                </th>
+                                                <th>
+                                                    نام
+                                                </th>
+                                                <th>
+                                                    تاریخ
+                                                </th>
+                                                <th>
+                                                    عنوان
+                                                </th>
+                                                <th>
+                                                    متن نظر
+                                                </th>
+                                                <th>
+                                                    پاسخ ادمین
+                                                </th>
+
+                                                <th>
+                                                    تایید
+                                                </th>
+
+                                                <th>
+                                                    ثبت نظر ادمین
+                                                </th>
+                                                <th>
+                                                    حذف نظر
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                if (Model.comment != null)
+                                                {
+                                                    foreach (var item in Model.comment)
+                                                    {
+
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ID)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.name)
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                @Html.DisplayFor(modelItem => item.time)
+                                                            </td>
+
+                                                            <td style=" text-align:right">
+                                                                @Html.DisplayFor(modelItem => item.title)
+                                                            </td>
+                                                            <td style="text-align: right;">
+                                                                @Html.DisplayFor(modelItem => item.comment)
+
+                                                            </td>
+                                                            <td style="text-align: right;">
+                                                                @Html.DisplayFor(modelItem => item.Answer)
+
+                                                            </td>
+
+
+                                                            <td style="text-align: center;">
+
+
+
+                                                                @if (item.ispublish == "1")
+                                                                {
+                                                                    var ID = "P" + @item.ID;
+                                                                    <input type="checkbox" id=@ID class="Pbutton" checked />
+                                                                }
+                                                                else
+                                                                {
+                                                                    var ID = "P" + @item.ID;
+                                                                    <input type="checkbox" id=@ID class="Pbutton" />
+
+                                                                }
+
+                                                            </td>
+                                                            <td style="text-align: right;">
+                                                                @{
+                                                                    var aID = "P" + @item.ID; // admincomment
+                                                                    <a id=@aID class="btn btn-primary abutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ثبت نظر</a>
+
+                                                                }
+
+                                                            </td>
+                                                            <td style="text-align: center;">
+
+
+                                                                @{
+                                                                    var DID = "P" + @item.ID;
+                                                                    <a id=@DID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                                }
+
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade" style="padding-top:20px">
+            <div class="row">
+                <div style="overflow-x:auto;padding:10px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                            <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> نظرات کاربران  </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="morris-area-chart">
+                                <div style="overflow:auto">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    ID
+                                                </th>
+                                                <th>
+                                                    نام
+                                                </th>
+                                                <th>
+                                                    تاریخ
+                                                </th>
+                                                <th>
+                                                    عنوان
+                                                </th>
+                                                <th>
+                                                    متن نظر
+                                                </th>
+                                                <th>
+                                                    پاسخ ادمین
+                                                </th>
+
+                                                <th>
+                                                    تایید
+                                                </th>
+
+                                                <th>
+                                                    ثبت نظر ادمین
+                                                </th>
+                                                <th>
+                                                    حذف نظر
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                if (Model.Articlecomment != null)
+                                                {
+                                                    foreach (var item in Model.Articlecomment)
+                                                    {
+
+                                                        <tr>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.ID)
+                                                            </td>
+                                                            <td>
+                                                                @Html.DisplayFor(modelItem => item.name)
+                                                            </td>
+                                                            <td style=" text-align:right">
+                                                                @Html.DisplayFor(modelItem => item.time)
+                                                            </td>
+
+                                                            <td style=" text-align:right">
+                                                                @Html.DisplayFor(modelItem => item.title)
+                                                            </td>
+                                                            <td style="text-align: right;">
+                                                                @Html.DisplayFor(modelItem => item.comment)
+
+                                                            </td>
+                                                            <td style="text-align: right;">
+                                                                @Html.DisplayFor(modelItem => item.Answer)
+
+                                                            </td>
+
+
+                                                            <td style="text-align: center;">
+
+
+
+                                                                @if (item.ispublish == "1")
+                                                                {
+                                                                    var ID = "A" + @item.ID;
+                                                                    <input type="checkbox" id=@ID class="Pbutton" checked />
+                                                                }
+                                                                else
+                                                                {
+                                                                    var ID = "A" + @item.ID;
+                                                                    <input type="checkbox" id=@ID class="Pbutton" />
+
+                                                                }
+
+                                                            </td>
+                                                            <td style="text-align: right;">
+                                                                @{
+                                                                    var aID = "A" + @item.ID; // admincomment
+                                                                    <a id=@aID class="btn btn-primary abutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ثبت نظر</a>
+
+                                                                }
+
+                                                            </td>
+                                                            <td style="text-align: center;">
+
+
+                                                                @{
+                                                                    var DID = "A" + @item.ID;
+                                                                    <a id=@DID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                                }
+
+
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            }
+
+
+
+                                        </tbody>
+                                    </table>
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <div class="modal fade" id="addCommentProduct" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <p>نظر ادمین</p>
+                        <textarea id="adminComment" cols="5" style="width:100%; margin:15px 0"></textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="modalAddComment">تایید</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="delCommentProduct" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <p>آیا از حذف نظر اطمینان دارید؟</p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="modalDelComment">تایید</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+        var id = "";
+
+        $(".Pbutton").click(function () {
+            var value = $(this).prop('checked');
+            id = $(this).attr("id");
+            $.ajax({
+                url: '/Admin/changeCommnetActive',
+                dataType: 'html',
+                data: {
+                    id: id,
+                    value: value
+                },
+                success: function (data) {
+
+                    //window.location.reload();
+                },
+                error: function () {
+
+                }
+            });
+        })
+
+        $(".abutton").click(function () {
+            $("#addCommentProduct").modal('toggle');
+            id = $(this).attr("id");
+        });
+        $(".Dbutton").click(function () {
+
+            $("#delCommentProduct").modal('toggle');
+            id = $(this).attr("id");
+        })
+        $("#modalAddComment").click(function () {
+            var comment = $("#adminComment").val();
+            $.ajax({
+                url: '/Admin/setAdminComment',
+                dataType: 'html',
+                data: {
+                    id: id,
+                    comment : comment,
+                },
+                success: function (data) {
+                    window.location.reload();
+                    
+                },
+                error: function () {
+
+                }
+            });
+        })
+        $("#modalDelComment").click(function () {
+
+           
+            $.ajax({
+                url: '/Admin/delCommnet',
+                dataType: 'html',
+                data: {
+                    id: id,
+                },
+                success: function (data) {
+
+                    window.location.reload();
+                   
+                },
+                error: function () {
+
+                }
+            });
+        })
+
+
+    </script>
+</div>
+
+
+
+
+
+<!-- Modal -->

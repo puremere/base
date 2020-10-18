@@ -1,0 +1,169 @@
+﻿@model banimo.ViewModel.UserListOfAdmin
+
+<div class="row" style="padding:20px">
+    <div style="overflow-x:auto;padding:10px">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> کاربران  </h3>
+            </div>
+            <div class="panel-body">
+                <div id="morris-area-chart">
+                    <div style="overflow:auto">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        ID
+                                    </th>
+                                    <th>
+                                        نام و نام خانوادگی
+                                    </th>
+                                    <th>
+                                        ایمیل
+                                    </th>
+                                    <th>
+                                        موبایل
+                                    </th>
+                                    <th>
+                                        آدرس
+                                    </th>
+
+                                    <th>
+
+                                    </th>
+
+                                    <th>
+
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.Users != null)
+                                    {
+                                        foreach (var item in Model.Users)
+                                        {
+
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.fullname)
+                                                </td>
+                                                <td style=" text-align:right">
+                                                    @Html.DisplayFor(modelItem => item.email)
+                                                </td>
+
+                                                <td style=" text-align:right">
+                                                    @Html.DisplayFor(modelItem => item.mobile)
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    @Html.DisplayFor(modelItem => item.address)
+
+                                                </td>
+
+                                                <td style="text-align: center;">
+
+                                                    @{
+                                                        var ID = @item.ID;
+                                                        <a id=@ID class="btn btn-primary Pbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
+
+                                                    }
+
+                                                </td>
+                                                <td style="text-align: center;">
+
+                                                    @{
+
+                                                        <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                    }
+
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+
+
+
+                            </tbody>
+                        </table>
+                        <script>
+
+                                            $(".Dbutton").click(function () {
+
+                                                var id = $(this).attr("id");
+
+                                                $.ajax({
+                                                    url: '/Admin/DeleteUser',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        id: id,
+                                                    },
+                                                    success: function (data) {
+
+                                                        var search = $("#searchinput").val();
+
+                                                        $.ajax({
+                                                            url: '/Admin/getNewListUser',
+                                                            dataType: 'html',
+                                                            data: {
+                                                                search: search,
+
+                                                            },
+                                                            success: function (data) {
+
+                                                                $("#Listholder").html(data);
+                                                            },
+                                                            error: function () {
+
+                                                            }
+                                                        });
+
+                                                    },
+                                                    error: function () {
+
+                                                    }
+                                                });
+                                            })
+                                            $(".Pbutton").click(function () {
+                                                        var rowid = $(this).attr("id");
+                                                       var articles = @Html.Raw(Json.Encode(Model.Users));
+                                                     $("#detailholder").css("display", "inline-block");
+
+                                                       $.each(articles, function (index, item) {
+                                                           if (item.ID.toString() === rowid) {
+
+                                                               $("#catListupdate option").each(function () {
+                                                                   if ($(this).text() === item.catName) {
+                                                                       $(this).attr("selected", "selected");
+                                                                     }
+                                                               })
+
+                                                               var imagaddress = "/images/panelimages/" + item.image;
+                                                               $("#fullnameUpdate").val(item.fullname);
+                                                               $("#phoneupdate").val(item.email);
+                                                               $("#emailupdate").val(item.mobile);
+                                                               $("#addressupdate").val(item.address);
+
+
+
+
+                                                           }
+
+
+                                                         });
+
+                                                    })
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

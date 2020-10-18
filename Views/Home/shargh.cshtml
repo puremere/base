@@ -1,0 +1,183 @@
+﻿@model banimo.ViewModel.productlistclass
+@{
+    ViewBag.Title = "لیست محصولات";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="page-head">
+    <div class="container">
+       
+    </div>
+</div>
+
+<div class="electronics">
+     <div class="container" id="Container">
+       
+        <div class="clearfix"></div>
+     
+        <div  class="ele-bottom-grid">
+           
+            <script>
+               $.ajax({
+                   url: '/Home/gogetproductlist',
+                   dataType: 'html',
+                   success: function (data) {
+                      
+                       $('#productlist').html(data);
+
+                   },
+                   error: function () {
+                       alert("*****")
+                   }
+               });
+           </script> 
+
+
+            
+           
+           
+            <div class="row" style="padding:20px 10px 20px 20px; border:1px solid #eee; margin:10px 0px 30px 0px">
+                <div class="col-lg-7"></div>
+
+                <div class="col-lg-5">
+                    <div class="row">
+                        <div style="display:inline-block; padding:10px; float:right">
+                            <h4>:نمایش بر اساس</h4>
+                        </div>
+                        <div  style="display: inline-block; float:right">
+
+                            @Html.DropDownListFor(m => m.dropdownlist.selectedId, Model.dropdownlist.modes, new { id = "ItemList", style = "width:150px;height:40px; text-align: center" })
+                        </div>
+                        <script>
+                            $("#ItemList").change(function () {
+                                
+                                var selectedlistofmode = $("#ItemList").val()
+
+                                $.ajax({
+                                    url: '/Home/changeordermodel',
+                                    dataType: 'html',
+                                    data: {
+                                        id: selectedlistofmode,
+                                    },
+                                    success: function (data) {
+                                        if (data === "1") {
+                                            $.ajax({
+                                                url: '/Home/gogetproductlist',
+                                                dataType: 'html',
+                                                success: function (data) {
+
+                                                    $('#productlist').html(data);
+                                                    window.scrollTo(0, 500);
+                                                },
+                                                error: function () {
+                                                    alert("nashod")
+                                                }
+                                            });
+
+                                        }
+                                       
+                                    },
+                                    error: function () {
+
+                                    }
+                                })
+                            })
+                        </script>
+                      
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="text-align:center" id="productlist"></div>
+            <div class="row" style="text-align:center" id="productlist2"></div>
+
+            @*<script>
+
+                $.ajax({
+                    url: '/Home/gogetpagination',
+                    dataType: 'html',
+
+                    success: function (data) {
+
+                        $('#productlist2').html(data);
+
+                    },
+                    error: function () {
+                        alert(".....")
+                    }
+                });
+            </script>*@
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!-- //Electronics -->
+<!-- //product-nav -->
+
+
+@*<script>
+    $(document).ready(function () {
+
+
+
+
+        $('.gotodetail').click(function () {
+
+            var ID = this.id;
+            var url = "/Home/ProductDetail?id=" + ID;
+            window.location.href = url;
+        })
+        $('.addtocart').click(function () {
+
+            var pricetotal = document.getElementById("spanfortotal").textContent;
+            var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+            var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+            var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+            var finalcount = parseInt(counttotal, 10) + 1;
+            $('#spanfortotal').text(final);
+            $('#simpleCart_quantityy').text(finalcount)
+            alert(tobeadded);
+
+            var ID = this.id;
+
+
+            $.ajax({
+                url: '/Home/addtocart',
+                dataType: 'html',
+                data: {
+                    id: ID,
+                    price: tobeadded
+
+                },
+                success: function (data) {
+
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000,
+
+
+                    }
+                    toastr.success('محصول مورد نظر به سبد اضافه شد')
+
+                },
+                error: function () {
+
+                }
+            });
+
+
+        })
+
+    })
+
+</script>*@
+
+
+

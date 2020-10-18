@@ -1,0 +1,98 @@
+﻿@model IEnumerable<banimo.Classes.person>
+
+
+
+@if (Model.Count() > 0)
+{
+    <style>
+        #customers {
+            border-collapse: collapse;
+            width: 100%;
+            direction: rtl;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+            #customers td, #customers th {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: center;
+            }
+
+            #customers tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #customers tr:hover {
+                background-color: #ddd;
+            }
+
+            #customers th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: center;
+                background-color: #fff;
+                color: black;
+                margin-top: 25px;
+            }
+    </style>
+
+
+
+    <table id="customers">
+        <tr>
+            <th>ردیف</th>
+            <th>نام</th>
+            <th>نام خانوادگی</th>
+            <th>نام پدر</th>
+            <th></th>
+        </tr>
+
+        @{
+    int i = 1;
+
+
+    foreach (var item in Model)
+    {
+        string j = item.ID;
+        string aclickid = "Home/orderdetail/id= " + j;
+
+        <tr>
+            <td>@i</td>
+            <td>@item.firstname</td>
+            <td>@item.lastname</td>
+            <td>@item.fathersname</td>
+            <td style="cursor:pointer">
+
+                @Html.ActionLink("مشاهده", "OrderListDetail", new { id = @item.ID }, new { style = "cursor: pointer" })
+
+            </td>
+        </tr>
+        i += 1;
+    }
+        }
+    </table>
+
+    <script>
+        $(".aclick").click(function () {
+            var id = this.id;
+            $.ajax({
+                url: '/Home/userdatapanel',
+                dataType: 'html',
+                success: function (data) {
+
+                    $('#userdatapanel').html(data);
+
+                },
+                error: function () {
+
+                }
+            });
+        })
+
+    </script>
+}
+else
+{
+        <div style="text-align:center;margin-top:15px" class="row"> <p>موردی وجود ندارد</p></div>
+}

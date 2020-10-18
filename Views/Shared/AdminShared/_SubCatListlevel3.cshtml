@@ -1,0 +1,151 @@
+﻿@model AdminPanel.ViewModel.CatPageViewModel
+
+@{
+    if (Model.levelfinder == "def")
+    {
+        <label class="control-label component ">
+            منو 3 :
+        </label>
+        <div class="component">
+            @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslistlevel3", style = "width:100%; min-width:185px", onchange = "setglobalsubcatid(subcatslist)" })
+        </div>
+        <script>
+
+            function setglobalsubcatid(subcatslist) {
+                var selectedValue = subcatslist.value;
+
+                $.ajax({
+                    url: '/Admin/setglobalsubcatid2',
+                    dataType: 'html',
+                    data: {
+                        catid: selectedValue,
+                        levelfinder: "def"
+                    },
+                    success: function (data) {
+
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+
+
+        </script>
+    }
+    else if (Model.levelfinder == "chg")
+    {
+        <label class="control-label component ">
+            منو 3 :
+        </label>
+        <div class="component">
+            @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslistforchangelevel3", style = "width:100%; min-width:135px" })
+        </div>
+         <script>
+
+            function setglobalsubcatid(subcatslist) {
+                var selectedValue = subcatslist.value;
+
+                $.ajax({
+                    url: '/Admin/setglobalsubcatid2',
+                    dataType: 'html',
+                    data: {
+                        catid: selectedValue,
+                        levelfinder: "chg"
+                    },
+                    success: function (data) {
+
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+
+
+        </script>
+
+    }
+    else if (Model.levelfinder == "del")
+    {
+
+        <label class="control-label component ">
+            منو 3 :
+        </label>
+        <div class="component">
+            @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslistfordeletelevel3", style = "width:100%; min-width:135px" })
+        </div>
+        <script>
+
+            function setglobalsubcatid(subcatslist) {
+                var selectedValue = subcatslist.value;
+
+                $.ajax({
+                    url: '/Admin/setglobalsubcatid2',
+                    dataType: 'html',
+                    data: {
+                        catid: selectedValue,
+                        levelfinder: "del"
+                    },
+                    success: function (data) {
+
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+
+
+        </script>
+    }
+     else if (Model.levelfinder == "list")
+    {
+
+        <label class="control-label component ">
+            منو 3 :
+        </label>
+        <div class="component">
+            @Html.DropDownListFor(m => m.SelectedCat, Model.Cats, "--", new { id = "subcatslistfordeletelevel3", style = "width:100%; min-width:135px" })
+        </div>
+        <script>
+
+            function setglobalsubcatid(subcatslist) {
+                var selectedValue = subcatslist.value;
+
+                $.ajax({
+                    url: '/Admin/setglobalsubcatid2',
+                    dataType: 'html',
+                    data: {
+                        catid: selectedValue,
+                        levelfinder: "list"
+                    },
+                    success: function (data) {
+
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+
+
+        </script>
+    }
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,93 @@
+﻿@using BotDetect.Web.Mvc;
+@using banimo.Classes;
+@{
+    ViewBag.Title = "sueSegment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{ if (@ViewBag.message != "")
+    {
+        <script>
+
+            if ('@ViewBag.message' == "1") {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
+                };
+                toastr.error('عبارت امنیتی نادرست است');
+            }
+            else if ('@ViewBag.message' == "2") {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
+                };
+                toastr.success('شکایت شما با موفقیت ثبت شد');
+            }
+
+        </script>
+    }
+}
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+
+<div style="width:100%; background-color:white; padding:50px; direction:rtl">
+
+
+
+    @using (Html.BeginForm("contactVerification", "Home", FormMethod.Post,
+                            new { enctype = "multipart/form-data", id = "registreForm", @class = "c-form-account" }))
+    {
+        @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-lg-3" style="float:right">
+            <label style=" width: 100%;  MARGIN: 20px;">عنوان :</label>
+            <input style="width:100%" class="form-control" type="text" />
+        </div>
+        <div class="col-lg-5" style="float:right">
+            <label style=" width: 100%;  MARGIN: 20px;">متن :</label>
+            <textarea class="form-control" id="content" name="content" style="width: 100%;min-height:200px;display:inline-block; padding:20px"></textarea>
+        </div>
+        <div class="col-lg-4" style="padding-top:40px">
+            <div class="" style="margin:20px 0; max-width:300px">
+
+                @{MvcCaptcha registrationCaptcha = CaptchaHelper.GetRegistrationCaptcha(); }
+                @if (!registrationCaptcha.IsSolved)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.Captcha(registrationCaptcha)
+                        </div>
+                        <div class="col-lg-12" style="margin-top:10px">
+
+                            @Html.Label("کد را وارد نمایید", new { @class = "col-md-6 control-label",
+                             @for = "CaptchaCode" , style = "float:right; margin-top:15px"})
+
+                            <div class="col-md-6" style="float:right">
+                                @Html.TextBox("CaptchaCode", null, new { @class = "form-control captchaVal" })
+                            </div>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+       
+
+
+
+        <button class="btn btn-primary" style="display:inline-block;width: 150px;margin-top: 25px;">تایید</button>
+
+    }
+
+
+</div>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewBag.Title = "test";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .p {
+        width: 70%;
+        margin: auto;
+        align-content: center;
+        margin-top: 5%;
+        margin-bottom: 5%;
+    }
+
+    .childofp {
+        margin: 3%;
+    }
+
+  .childofp p {
+           text-align:right
+    }
+</style>
+
+<div class="p">
+    <div class=" childofp"><p>وضعیت تراکنش: @ViewBag.message</p> </div>
+    <div class=" childofp"><p>شماره پیگیری: @ViewBag.message2</p> </div>
+
+</div>

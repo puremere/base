@@ -1,0 +1,398 @@
+﻿@using BotDetect.Web.Mvc;
+@using banimo.Classes;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="direction:rtl">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ورود</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link href="~/Content/loginStyle.css" rel="stylesheet" />
+    <link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+    <link href="~/Content/all.css" rel="stylesheet" />
+    <script>
+
+        $(document).ready(function () {
+
+
+            document.getElementById("forgetclickevent").onclick = function () {
+
+
+                $("#submitdiv").css("display", "none");
+                $("#logindiv").css("display", "none");
+                $("#forgetdiv").css("display", "block");
+
+            }
+            document.getElementById("gobacktologin").onclick = function () {
+
+
+                $("#submitdiv").css("display", "block");
+                $("#logindiv").css("display", "block");
+                $("#forgetdiv").css("display", "none");
+
+            }
+
+            function isValidEmailAddress(emailAddress) {
+                var pattern = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                return pattern.test(emailAddress);
+            };
+            function isValidPhonenumber(phonenumber) {
+                var pattern = /^09[0-9]{9}$/;
+                return pattern.test(phonenumber);
+            };
+            function isNotNull(str) {
+                if (str != "") {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+
+            };
+
+
+
+        })
+    </script>
+    <!-- js -->
+    <script type="text/javascript" src="/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <script>
+        $(document).ready(function () {
+            function isValidPhonenumber(phonenumber) {
+                var pattern = /^09[0-9]{9}$/;
+                return pattern.test(phonenumber);
+            };
+            function isNotNull(str) {
+                var pattern = /^[A-Za-z0-9]{1,20}$/;
+                return pattern.test(str);
+            };
+            $('#registertext').on('input', function (e) {
+
+                var val = $(this).val();
+                if (val.length > 0) {
+
+                    if (!isValidPhonenumber(val)) {
+
+                        $("#registererror").css("display", "block");
+                        $("#registertext").css("color", "#ef5662");
+                        $("#registertext").css("border", "1px solid #ef5662");
+                        $("#mainlabla").addClass("error");
+
+
+                    }
+                    else {
+                        $("#registererror").css("display", "none");
+                        $("#registertext").css("color", "#777");
+                        $("#registertext").css("border", "1px solid #c8c8c8");
+                        $("#mainlabla").removeClass("error");
+                    }
+
+                }
+                else {
+
+                    $("#registererror").css("display", "none");
+                    $("#registertext").css("color", "#777");
+                    $("#registertext").css("border", "1px solid #c8c8c8");
+                    $("#mainlabla").removeClass("error");
+                }
+
+            });
+            $('#registerpassword').on('input', function (e) {
+
+                var val = $(this).val();
+
+                if ($(this).val().length === 0) {
+                    $("#registerpassword-error").css("display", "block");
+                    $("#registertext").css("color", "#ef5662");
+                    $("#registerpassword").css("border", "1px solid #ef5662");
+                    $("#mainlabla2").addClass("error");
+                }
+                else {
+                    $("#registerpassword-error").css("display", "none");
+                    $("#registertext").css("color", "#777");
+                    $("#registerpassword").css("border", "1px solid #c8c8c8");
+                    $("#mainlabla2").removeClass("error");
+                }
+
+            });
+
+        })
+    </script>
+    <script>
+        $("#verify").click(function () {
+
+            alert("ssss");
+
+            //
+        })
+
+    </script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>
+    @Scripts.Render("~/Scripts/captcha.validate.js")
+
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div>
+
+        <main id="main" style="color:#4d5475">
+
+            <div class="semi-modal-layout">
+                <section class="o-page o-page--account-box">
+                    <div class="c-account-box">
+                        <a href="/" class="c-account-box__logo">sup-ect.com</a>
+                        <div class="c-account-box__headline">ورود</div>
+                        <div class="c-account-box__content">
+                            @using (Html.BeginForm("CustomerLoginWC", "CustomerLogIn", FormMethod.Post,
+new { @class = "c-form-account", enctype = "multipart/form-data", id = "registerForm" }))
+                            {
+
+
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="rc" value="ZURUU1UzMVowaHFXNFFGZEdCb01pdz09"><input type="hidden" name="rd" value="a3RYVkxNOER0Q0IvaFpnQlVZMVNpdXV2bGxSSWJvRDEvbU8wN0VvdjFFakowc1NVQU9wdW9JOFF5QXhldEx0cg~~">
+
+                                <div class="c-form-account__title">شماره موبایل</div>
+                                <div class="c-form-account__row js-valid-row">
+                                    <div class="c-form-account__col">
+                                        <label id="mainlabla" class="c-ui-input c-ui-input--account-login">
+                                            <input id="registertext" class="c-ui-input__field c-ui-input__field--right-placeholder" type="text" name="registertext" placeholder="شماره موبایل خود را وارد نمایید" value="">
+
+                                            <div id="registererror" class="hase-error c-ui-feedback-hint">  شماره موبایل را وارد نمایید</div>
+
+                                        </label>
+
+                                    </div>
+                                </div>
+                                <div class="c-form-account__title">
+                                    کلمه عبور
+                                    <a href="/Home/forgetpass" style="float:left" class="btn-link-spoiler c-form-account__link c-form-account__link--inline">رمز عبور خود را فراموش کرده ام</a>
+                                </div>
+                                <div class="c-form-account__row js-valid-row">
+                                    <div class="c-form-account__col">
+                                        <label id="mainlabla2" class="c-ui-input c-ui-input--account-password">
+                                            <input id="registerpassword" class="c-ui-input__field c-ui-input__field--right-placeholder" type="password" name="registerpassword" placeholder="کلمه عبور خود را وارد نمایید">
+                                            <div id="registerpassword-error" class="error c-ui-feedback-hint">رمز عبور را وارد نمایید</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                if (Convert.ToInt32(Session["LoginTime"]) > 2)
+                                {
+                                    <div class="c-form-account__row js-valid-row">
+                                        <div class="c-form-account__col">
+
+                                            @{MvcCaptcha registrationCaptcha = CaptchaHelper.GetRegistrationCaptcha(); }
+                                            @if (!registrationCaptcha.IsSolved)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        @Html.Captcha(registrationCaptcha)
+                                                    </div>
+                                                    <div class="col-lg-12" style="margin-top:10px">
+                                                        @Html.Label("کد را وارد نمایید", new { @class = "col-md-4 control-label",
+                                                         @for = "CaptchaCode" , style = "float:right; margin-top:15px"})
+
+                                                        <div class="col-md-6"  style = "float:right">
+                                                            @Html.TextBox("CaptchaCode", null, new { @class = "form-control captchaVal" })
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+                                }
+
+                                <div id="verifyyy">
+                                    <div class="mybtn addtocart" style="">
+                                        <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
+                                            <i style="font-size: 30px; color: white; margin-right: 15px;" class="fas fa-sign-in-alt"></i>
+
+                                        </div>
+                                        <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">ورود به  @System.Configuration.ConfigurationManager.AppSettings["siteName"]</p>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="c-form-account__agree js-valid-row">
+                                    <label class="c-ui-checkbox c-ui-checkbox--primary">
+                                        <input type="checkbox" value="1" name="register" id="accountAutoLogin" checked="checked">
+                                        <span id="span" class="c-ui-checkbox__check"></span>
+
+                                    </label>
+
+                                    <label for="accountAutoLogin">
+                                        مرا به خاطر بسپار
+                                    </label>
+                                </div>
+
+
+
+
+
+
+                            }
+                        </div>
+                        <div class="c-account-box__footer">
+                            <span>کاربر جدید هستید؟</span>
+                            <a data-snt-event="dkLoginClick" data-snt-params="{&quot;type&quot;:&quot;login&quot;,&quot;site&quot;:&quot;registration-page&quot;}" href="/Home/Register" class="btn-link-spoiler">ثبت نام در @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a>
+                        </div>
+                    </div>
+                </section>
+                <footer class="c-footer-light">
+                    <div class="container">
+                        <ul class="c-footer-light__links">
+                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                            <li><a href="/Home/contactus" title="تماس با ما">تماس با ما</a></li>
+                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                        </ul>
+                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت آتی روناک (فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]) می‌باشد.</p>
+                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                    </div>
+                </footer>
+            </div>
+            <script>
+        $("#verifyyy").click(function () {
+            function isValidPhonenumber(phonenumber) {
+                var pattern = /^09[0-9]{9}$/;
+                return pattern.test(phonenumber);
+            };
+            var n = $("#accountAutoLogin:checked").length;
+            var pass = $("#registerpassword").val();
+            var val = $("#registertext").val();
+
+
+
+            if (pass.length === 0) {
+                $("#registerpassword-error").css("display", "block");
+                $("#registertext").css("color", "#ef5662");
+                $("#registerpassword").css("border", "1px solid #ef5662");
+                $("#mainlabla2").addClass("error");
+
+            }
+            if (!isValidPhonenumber(val)) {
+
+                $("#registererror").css("display", "block");
+                $("#registertext").css("color", "#ef5662");
+                $("#registertext").css("border", "1px solid #ef5662");
+                $("#mainlabla").addClass("error");
+
+
+            }
+
+            if (isValidPhonenumber(val) && (pass.length !== 0)) {
+
+
+                $("#registerForm").submit();
+                @*$.ajax({
+                    url: '/CustomerLogin/CustomerLogIn',
+                    dataType: 'html',
+                    data: {
+
+                        pass: pass,
+                        phone: val,
+                        register: n
+
+                    },
+                    success: function (data) {
+                        if (data === "200") {
+
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 8000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.success('با موفقیت وارد شدید');
+                            var rul = '@Url.Action("Index","Home")';
+                            window.location.href = rul;
+                        }
+                        else if (data === "300") {
+                            var url = '@Url.Action("confirm", "Home")';
+
+                            window.location.href = url;
+
+
+                            // $('#lblsubscribeSubmit').text("");
+                        }
+
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 8000,
+                                "extendedTimeOut": 1000,
+
+
+                            }
+                            toastr.error('نام کاربری یا رمز عبور نادرست است');
+                        }
+
+
+
+                    },
+                    error: function () {
+                        $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                    }
+                });*@
+            }
+
+        });
+            </script>
+        </main>
+
+    </div>
+
+    @{
+        if (ViewBag.message != null&& ViewBag.message != "")
+        {
+            <script>
+          
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 8000,
+                "extendedTimeOut": 1000,
+
+
+            }
+            toastr.error('@ViewBag.message');
+            </script>
+        }
+
+    }
+</body>
+</html>

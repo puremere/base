@@ -1,0 +1,1490 @@
+﻿@model AdminPanel.ViewModel.productDetailPageViewModel
+
+
+
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:15px">
+    <ul class="nav nav-tabs" style="padding:0px">
+        <li class="active" style="float:right"><a data-toggle="tab" href="#filterone" style=" color: #8d8d8d; ">فیلتر نوع یک </a></li>
+        <li style="float:right"><a data-toggle="tab" href="#filtertwo" style=" color: #8d8d8d; ">فیلتر نوع دو (بازه)</a></li>
+        <li style="float:right"><a data-toggle="tab" href="#filterthree" style=" color: #8d8d8d; ">فیلتر نوع  سه (رنگ)</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="filterone" class="tab-pane fade in active" style="padding-top:20px">
+           
+            <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:5px">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#addordel" style=" color: #8d8d8d; ">عنوان فیلتر </a></li>
+                    <li><a data-toggle="tab" href="#definition" style=" color: #8d8d8d; "> جزئیات فیلتر</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="addordel" class="tab-pane fade in active" style="padding-top:20px">
+                        <div class="">
+                            <div class="form-group " id="newfilterholder" style=" ">
+                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                    تعریف فیلتر جدید -
+                                </label>
+                                <label class="control-label component" for="first-name">
+                                    عنوان :
+                                </label>
+                                <input type="text" id="newFilteName" />
+                                <div class="component " style="direction: rtl; ">
+                                    <button id="addfilterbut" class="btn btn-primary">تایید</button>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#addfilterbut").click(function () {
+
+                                                var newFilterName = $("#newFilteName").val();
+                                                var VALUE = $("#selectedCatForEdit").val();
+                                                if (newFilterName.length > 0) {
+                                                    $.ajax({
+                                                        url: '/Admin/addNewFilter',
+                                                        dataType: 'html',
+                                                        data: {
+                                                            name: newFilterName,
+                                                            catid: VALUE
+                                                        },
+                                                        success: function (data) {
+
+                                                            if (data === "error") {
+                                                                toastr.options = {
+                                                                    "debug": false,
+                                                                    "positionClass": "toast-top-center",
+                                                                    "onclick": null,
+                                                                    "fadeIn": 300,
+                                                                    "fadeOut": 1000,
+                                                                    "timeOut": 5000,
+                                                                    "extendedTimeOut": 1000
+                                                                }
+
+                                                                toastr.success('خطا');
+                                                                location.reload();
+                                                            }
+                                                            if (data === "success") {
+
+
+                                                                $.ajax({
+                                                                    url: '/Admin/getfilters',
+                                                                    dataType: 'html',
+                                                                    data: {
+                                                                        catID: VALUE,
+                                                                    },
+                                                                    success: function (data) {
+
+                                                                        $("#mainDetailHolder").html(data)
+                                                                        $("#questioncolorholder").css("display", "inline")
+                                                                        toastr.options = {
+                                                                            "debug": false,
+                                                                            "positionClass": "toast-top-center",
+                                                                            "onclick": null,
+                                                                            "fadeIn": 300,
+                                                                            "fadeOut": 1000,
+                                                                            "timeOut": 5000,
+                                                                            "extendedTimeOut": 1000
+                                                                        }
+
+                                                                        toastr.success('دسته مورد نظر اضافه شد');
+
+                                                                    },
+                                                                    error: function () {
+                                                                        alert("خطا")
+                                                                    }
+                                                                });
+                                                                //location.reload();
+                                                            }
+
+
+                                                        },
+                                                        error: function () {
+                                                            alert("خطا")
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    alert("نام مورد نظر را وارد کنید")
+
+                                                }
+
+                                            })
+                                        })
+
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="form-group " id="delfilterholder" style=" ">
+                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                    حذف  فیلتر  -
+                                </label>
+                                <label class="control-label component" for="first-name">
+                                    عنوان :
+                                </label>
+                                <div class="component" id="filterfordelholder">
+
+                                    @{
+
+                                        List<SelectListItem> listItems = new List<SelectListItem>();
+                                        if (Model.filterlist != null)
+                                        {
+                                            foreach (var item in Model.filterlist)
+                                            {
+                                                listItems.Add(new SelectListItem
+                                                {
+                                                    Text = item.filtername,
+                                                    Value = item.ID
+                                                });
+                                            }
+                                        }
+
+                                        @Html.DropDownList("selectedFilter", listItems, "-- Select Status --", new { id = "selectedFilter", style = "width:100%", @class = "form-control" })
+
+
+                                    }
+                                </div>
+                                <div class="component " style="direction: rtl; ">
+                                    <button id="Delfilterbutton" class="btn btn-primary">تایید</button>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#Delfilterbutton").click(function () {
+
+                                                var strUser = $("#selectedFilter").val();
+                                                var VALUE = $("#selectedCatForEdit").val();
+
+                                                if (strUser.length !== 0) {
+
+                                                    $.ajax({
+                                                        url: '/Admin/delFilter',
+                                                        dataType: 'html',
+                                                        data: {
+                                                            name: strUser,
+                                                        },
+                                                        success: function (data) {
+
+
+
+
+                                                            $.ajax({
+                                                                url: '/Admin/getfilters',
+                                                                dataType: 'html',
+                                                                data: {
+                                                                    catID: VALUE,
+                                                                },
+                                                                success: function (data) {
+
+                                                                    $("#mainDetailHolder").html(data)
+                                                                    $("#questioncolorholder").css("display", "inline")
+                                                                    toastr.options = {
+                                                                        "debug": false,
+                                                                        "positionClass": "toast-top-center",
+                                                                        "onclick": null,
+                                                                        "fadeIn": 300,
+                                                                        "fadeOut": 1000,
+                                                                        "timeOut": 5000,
+                                                                        "extendedTimeOut": 1000
+                                                                    }
+
+                                                                    toastr.success('دسته مورد نظر حذف شد');
+
+                                                                },
+                                                                error: function () {
+                                                                    alert("خطا")
+                                                                }
+                                                            });
+                                                            //location.reload();
+
+                                                        },
+                                                        error: function () {
+                                                            alert("خطا")
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    alert("نام دسته را انتخاب کنید");
+                                                }
+
+                                            })
+                                        })
+
+                                    </script>
+                                </div>
+                            </div>
+                            <div class="form-group " id="editfilterholder" style=" ">
+                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                    ویرایش   فیلتر  -
+                                </label>
+                                <label class="control-label component" for="first-name">
+                                    عنوان :
+                                </label>
+                                <div class="component" id="filterfordelholder">
+                                    @Html.DropDownList("selectedFilter", listItems, "-- Select Status --", new { id = "selectedFilterEdit", style = "width:100%", @class = "form-control" })
+
+                                </div>
+                                <label class="control-label component" for="first-name">
+                                    عنوان جدید :
+                                </label>
+                                <input type="text" id="newFileNameEdit" />
+                                <div class="component " style="direction: rtl; ">
+                                    <button id="EditFilter" class="btn btn-primary">تایید</button>
+                                    <script>
+                                        $(document).ready(function () {
+                                            $("#EditFilter").click(function () {
+
+                                                var strUser = $("#selectedFilterEdit").val();
+                                                var NewVALUE = $("#newFileNameEdit").val();
+                                                var VALUE = $("selectedCatForEdit").val();
+                                                if (strUser.length !== 0) {
+
+                                                    $.ajax({
+                                                        url: '/Admin/editFilter',
+                                                        dataType: 'html',
+                                                        data: {
+                                                            name: strUser,
+                                                            newvalue: NewVALUE,
+                                                        },
+                                                        success: function (data) {
+
+
+                                                            if (data === "success") {
+                                                                $.ajax({
+                                                                    url: '/Admin/getfilters',
+                                                                    dataType: 'html',
+                                                                    data: {
+                                                                        catID: VALUE,
+                                                                    },
+                                                                    success: function (data) {
+
+                                                                        $("#mainDetailHolder").html(data)
+                                                                        $("#questioncolorholder").css("display", "inline")
+                                                                        toastr.options = {
+                                                                            "debug": false,
+                                                                            "positionClass": "toast-top-center",
+                                                                            "onclick": null,
+                                                                            "fadeIn": 300,
+                                                                            "fadeOut": 1000,
+                                                                            "timeOut": 5000,
+                                                                            "extendedTimeOut": 1000
+                                                                        }
+
+                                                                        toastr.success('ویرایش انجام شد');
+
+                                                                    },
+                                                                    error: function () {
+                                                                        alert("خطا")
+                                                                    }
+                                                                });
+                                                            }
+
+                                                            else {
+                                                                toastr.options = {
+                                                                    "debug": false,
+                                                                    "positionClass": "toast-top-center",
+                                                                    "onclick": null,
+                                                                    "fadeIn": 300,
+                                                                    "fadeOut": 1000,
+                                                                    "timeOut": 5000,
+                                                                    "extendedTimeOut": 1000
+                                                                }
+
+                                                                toastr.error('خطا در ارتباط با سرور');
+
+                                                            }
+                                                           
+                                                            //location.reload();
+
+                                                        },
+                                                        error: function () {
+                                                            alert("خطا")
+                                                        }
+                                                    });
+                                                }
+                                                else {
+                                                    alert("نام دسته را انتخاب کنید");
+                                                }
+
+                                            })
+                                        })
+
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="definition" class="tab-pane fade" style="padding-top:20px">
+                        @{
+                            if (@Model.filterlist != null && @Model.filterlist != null)
+                            {
+                                foreach (var myitem in Model.filterlist)
+                                {
+
+                                    string ID = myitem.ID;
+                                    string createbutt = "createbutt" + ID;
+                                    string delbutt = "delbutt" + ID;
+                                    string editbutt = "editbutt" + ID;
+                                    string filterdetailtitle = "filterdetailtitle" + ID;
+                                    string filterdetaillist = "filterdetaillist" + ID;
+                                    string filterdetaillistEdit = "filterdetaillistEdit" + ID;
+                                    string filterdetailNewtitle = "filterdetailNewtitle" + ID;
+                                    <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                                        <div class="form-group ">
+                                            <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align:right">
+                                                @myitem.filtername :
+                                            </label>
+                                        </div>
+
+                                        <div class="holderofformgroup">
+                                            <div class="form-group ">
+                                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                                    تعریف جزئیات @myitem.filtername -
+                                                </label>
+                                                <label class="control-label component" for="first-name">
+                                                    عنوان :
+                                                </label>
+                                                <div class="component">
+                                                    <input type="text" id=@filterdetailtitle required="required" class="form-control INP">
+                                                </div>
+
+
+                                                <div class="component " style="direction:rtl">
+
+                                                    @* <button id="DEFcatok" class="btn btn-primary" onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                                                    <button id=@createbutt class="btn btn-primary butt">تایید</button>
+
+                                                </div>
+                                                <script>
+                                            $(document).ready(function () {
+                                                var index = "@myitem.ID";
+                                                var classname = "createbutt" + index;
+                                                var filterdetailtitle = "filterdetailtitle" + index;
+
+                                                $("#" + classname).click(function () {
+
+                                                    var VALUE = $("#" + filterdetailtitle).val();
+
+
+                                                    $.ajax({
+                                                        url: '/Admin/setnewfilter',
+                                                        dataType: 'html',
+                                                        data: {
+                                                            filterid: index,
+                                                            detailtitle: VALUE,
+                                                        },
+                                                        success: function (data) {
+
+                                                            if (data === "1") {
+                                                                var newvluew = $("#selectedCatForEdit").val();
+                                                                $.ajax({
+                                                                    url: '/Admin/getfilters',
+                                                                    dataType: 'html',
+                                                                    data: {
+                                                                        catID: newvluew,
+                                                                    },
+                                                                    success: function (data) {
+
+                                                                        $("#mainDetailHolder").html(data)
+                                                                        $("#questioncolorholder").css("display", "inline")
+
+
+                                                                    },
+                                                                    error: function () {
+                                                                        alert("خطا")
+                                                                    }
+                                                                });
+                                                                toastr.options = {
+                                                                    "debug": false,
+                                                                    "positionClass": "toast-top-center",
+                                                                    "onclick": null,
+                                                                    "fadeIn": 300,
+                                                                    "fadeOut": 1000,
+                                                                    "timeOut": 5000,
+                                                                    "extendedTimeOut": 1000
+                                                                }
+
+                                                                toastr.success('جزئیات مورد نظر اضافه شد')
+
+
+                                                                //  setTimeout(
+                                                                //function () {
+                                                                //    location.reload();
+                                                                //}, 1500);
+
+
+                                                            }
+                                                            else if (data === "0") {
+                                                                toastr.options = {
+                                                                    "debug": false,
+                                                                    "positionClass": "toast-top-center",
+                                                                    "onclick": null,
+                                                                    "fadeIn": 300,
+                                                                    "fadeOut": 1000,
+                                                                    "timeOut": 5000,
+                                                                    "extendedTimeOut": 1000
+                                                                }
+
+                                                                toastr.error('فیلتر مورد نظر وجود دارد')
+
+                                                            }
+                                                            else {
+                                                                toastr.options = {
+                                                                    "debug": false,
+                                                                    "positionClass": "toast-top-center",
+                                                                    "onclick": null,
+                                                                    "fadeIn": 300,
+                                                                    "fadeOut": 1000,
+                                                                    "timeOut": 5000,
+                                                                    "extendedTimeOut": 1000
+                                                                }
+
+                                                                toastr.error('خطا')
+                                                            }
+
+
+                                                        },
+                                                        error: function () {
+                                                            alert("خطا")
+                                                        }
+                                                    });
+                                                })
+                                            })
+
+                                                </script>
+
+
+                                            </div>
+                                            <div class="form-group ">
+                                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                                    حذف جزئیات @myitem.filtername -
+                                                </label>
+                                                <label class="control-label component" for="first-name">
+                                                    عنوان :
+                                                </label>
+                                                <div class="component">
+
+                                                    <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="form-control">
+                                                        @if (myitem.filterdetailes != null)
+                                                        {
+                                                            foreach (var detail in myitem.filterdetailes)
+                                                            {
+
+                                                                <option value=@detail.ID> @detail.detailname</option>
+                                                            }
+                                                        }
+
+
+
+                                                    </select>
+                                                </div>
+
+                                                <div class="component " style="direction:rtl">
+
+                                                    <button id=@delbutt class="btn btn-primary">تایید</button>
+                                                </div>
+
+                                            </div>
+                                            <script>
+                                        $(document).ready(function () {
+
+                                            var index = "@myitem.ID";
+                                            var delclassname = "delbutt" + index;
+                                            var filterdetaillist = "filterdetaillist" + index;
+
+                                            $("#" + delclassname).click(function () {
+
+                                                var filterVALUE = $("#" + filterdetaillist + " option:selected").val();
+
+                                                $.ajax({
+                                                    url: '/Admin/delfilterdetail',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        detailid: filterVALUE,
+                                                    },
+                                                    success: function (data) {
+
+                                                        if (data === "1") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.success('  آیتم مورد نظر حذف شد')
+
+                                                             var newvluew = $("#selectedCatForEdit").val();
+                                                            $.ajax({
+                                                                url: '/Admin/getfilters',
+                                                                dataType: 'html',
+                                                                data: {
+                                                                    catID: newvluew,
+                                                                },
+                                                                success: function (data) {
+
+                                                                    $("#mainDetailHolder").html(data)
+                                                                    $("#questioncolorholder").css("display", "inline")
+
+
+                                                                },
+                                                                error: function () {
+                                                                    alert("خطا")
+                                                                }
+                                                            });
+                                                        }
+
+                                                        else {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.error('خطا')
+                                                        }
+
+
+                                                    },
+                                                    error: function () {
+                                                        alert("خطا")
+                                                    }
+                                                });
+                                            })
+                                        })
+
+
+                                            </script>
+
+                                            <div class="form-group ">
+                                                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                                                    ویرایش جزئیات @myitem.filtername -
+                                                </label>
+                                                <label class="control-label component" for="first-name">
+                                                    عنوان :
+                                                </label>
+                                                <div class="component">
+
+                                                    <select id=@filterdetaillistEdit name=@filterdetaillistEdit style="width:100%" class="form-control">
+                                                        @if (myitem.filterdetailes != null)
+                                                        {
+                                                            foreach (var detail in myitem.filterdetailes)
+                                                            {
+
+                                                                <option value=@detail.ID> @detail.detailname</option>
+                                                            }
+                                                        }
+
+
+
+                                                    </select>
+                                                </div>
+                                                <label class="control-label component" for="first-name">
+                                                    عنوان جدید :
+                                                </label>
+                                                <div class="component">
+                                                    <input type="text" id=@filterdetailNewtitle required="required" class="form-control INP">
+                                                </div>
+                                                <div class="component " style="direction:rtl">
+
+                                                    <button id=@editbutt class="btn btn-primary">تایید</button>
+                                                </div>
+
+                                            </div>
+                                            <script>
+                                        $(document).ready(function () {
+
+                                            var index = "@myitem.ID";
+                                            var editclassname = "editbutt" + index;
+                                            var filterdetaillistEdit = "filterdetaillistEdit" + index;
+                                            var filterdetailNewtitle = "filterdetailNewtitle" + index;
+                                            $("#" + editclassname).click(function () {
+                                              
+                                                var filterVALUE = $("#" + filterdetaillistEdit + " option:selected").val();
+                                               
+                                                var newVALUE = $("#" + filterdetailNewtitle).val();
+                                              
+                                                $.ajax({
+                                                    url: '/Admin/editfilterdetail',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        detailid: filterVALUE,
+                                                        newvalue: newVALUE
+                                                    },
+                                                    success: function (data) {
+
+                                                        if (data === "1") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.success('ویرایش انجام شد')
+
+                                                             var newvluew = $("#selectedCatForEdit").val();
+                                                            $.ajax({
+                                                                url: '/Admin/getfilters',
+                                                                dataType: 'html',
+                                                                data: {
+                                                                    catID: newvluew,
+                                                                },
+                                                                success: function (data) {
+
+                                                                    $("#mainDetailHolder").html(data)
+                                                                    $("#questioncolorholder").css("display", "inline")
+
+
+                                                                },
+                                                                error: function () {
+                                                                    alert("خطا")
+                                                                }
+                                                            });
+                                                        }
+
+                                                        else {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.error('خطا')
+                                                        }
+
+
+                                                    },
+                                                    error: function () {
+                                                        alert("خطا")
+                                                    }
+                                                });
+                                            })
+                                        })
+
+
+                                            </script>
+
+
+
+
+
+                                        </div>
+
+                                        <div class="ln_solid"></div>
+
+
+
+
+
+                                    </div>
+                                }
+                            }
+
+                        }
+                    </div>
+                  
+                </div>
+            </div>
+            
+           
+         
+
+
+
+
+
+          
+        </div>
+        <div id="filtertwo" class="tab-pane fade" style="padding-top:20px">
+
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#addordel2" style=" color: #8d8d8d; "> اضافه کردن فیلتر </a></li>
+                <li><a data-toggle="tab" href="#definition2" style=" color: #8d8d8d; ">حذف فیلتر</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div id="addordel2" class="tab-pane fade in active" style="padding-top:20px">
+                    <div class="form-group " id="newfilterholder" style=" ">
+                        <div class="row">
+                            <div class="col-lg-1 col-md-4 col-sm-12">
+                                <label class="control-label component" for="first-name">
+                                    عنوان :
+                                </label>
+                            </div>
+                            <div class="col-lg-3 col-md-6  col-sm-12">
+
+                                <input id="rangeFieldSelected" style="display:inline-block; max-width:200px" class="form-control" />
+                            </div>
+                            <div class="col-lg-1 col-md-4 col-sm-12">
+                                <label class="control-label component" for="first-name">
+                                    واحد :
+                                </label>
+                            </div>
+                            <div class="col-lg-3 col-md-6  col-sm-12">
+
+                                <input id="rangeFieldSelectedVahed" style="display:inline-block; max-width:200px" class="form-control" />
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-1 col-md-4 col-sm-12">
+                                <label class="control-label component" for="first-name">
+                                    بازه از  :
+                                </label>
+                            </div>
+                            <div class="col-lg-3 col-md-6  col-sm-12">
+
+                                <input id="FromSelected" style="display:inline-block; max-width:200px" class="form-control" />
+                            </div>
+                            <div class="col-lg-1 col-md-4 col-sm-12">
+                                <label class="control-label component" for="first-name">
+                                    بازه تا  :
+                                </label>
+                            </div>
+                            <div class="col-lg-3 col-md-6  col-sm-12">
+
+                                <input id="ToSelected" style="display:inline-block; max-width:200px" class="form-control" />
+                            </div>
+
+                        </div>
+
+
+
+
+                       
+
+                        <div class="component " style="direction: rtl; ">
+                            <button id="addRangeFilter" class="btn btn-primary">تایید</button>
+                            <script>
+                                $(document).ready(function () {
+                                    $("#addRangeFilter").click(function () {
+                                     
+                                        var rangeFieldSelected = $("#rangeFieldSelected").val();
+                                        var rangeFieldSelectedVahed = $("#rangeFieldSelectedVahed").val();
+                                        var FromSelected = $("#FromSelected").val();
+                                        var ToSelected = $("#ToSelected").val();
+                                        var catID = $("#selectedCatForEdit").val();
+
+                                        if (rangeFieldSelected != "" && FromSelected != "" && ToSelected != "") {
+                                            $.ajax({
+                                                url: '/Admin/addNewRangFilter',
+                                                dataType: 'html',
+                                                data: {
+                                                    rangeFieldSelected: rangeFieldSelected,
+                                                    Vahed: rangeFieldSelectedVahed,
+                                                    FromSelected: FromSelected,
+                                                    ToSelected: ToSelected,
+                                                    catID: catID
+                                                },
+                                                success: function (data) {
+
+                                                    if (data === "error") {
+                                                        toastr.options = {
+                                                            "debug": false,
+                                                            "positionClass": "toast-top-center",
+                                                            "onclick": null,
+                                                            "fadeIn": 300,
+                                                            "fadeOut": 1000,
+                                                            "timeOut": 5000,
+                                                            "extendedTimeOut": 1000
+                                                        }
+
+                                                        toastr.error('خطا');
+                                                       // location.reload();
+                                                    }
+                                                    if (data === "success") {
+
+                                                        var newvluew = $("#selectedCatForEdit").val();
+                                                        toastr.options = {
+                                                            "debug": false,
+                                                            "positionClass": "toast-top-center",
+                                                            "onclick": null,
+                                                            "fadeIn": 300,
+                                                            "fadeOut": 1000,
+                                                            "timeOut": 5000,
+                                                            "extendedTimeOut": 1000
+                                                        }
+
+                                                        toastr.success('با موفقیت افزوده شد');
+                                                        $.ajax({
+                                                            url: '/Admin/getfilters',
+                                                            dataType: 'html',
+                                                            data: {
+                                                                catID: newvluew,
+                                                            },
+                                                            success: function (data) {
+
+                                                                $("#mainDetailHolder").html(data)
+                                                                $("#questioncolorholder").css("display", "inline")
+
+
+                                                            },
+                                                            error: function () {
+                                                                alert("خطا")
+                                                            }
+                                                        });
+                                                    }
+
+                                                },
+                                                error: function () {
+                                                    alert("خطا")
+                                                }
+                                            });
+                                        }
+                                        else {
+                                            alert("نام مورد نظر را وارد کنید")
+
+                                        }
+
+                                    })
+                                })
+
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div id="definition2" class="tab-pane fade" style="padding-top:20px">
+                    <div class="form-group " id="delfilterholder" style=" ">
+                       
+                        <label class="control-label component" for="first-name">
+                            عنوان :
+                        </label>
+                        @{
+
+                            List<SelectListItem> rangeActive = new List<SelectListItem>();
+                            if (Model.Range != null)
+                            {
+                                if (Model.Range != null)
+                                {
+                                    foreach (var item in Model.Range)
+                                    {
+                                        rangeActive.Add(new SelectListItem
+                                        {
+                                            Text = item.title,
+                                            Value = item.ID
+                                        });
+                                    }
+                                }
+
+                            }
+
+                            @Html.DropDownList("rangeFieldActiveSelected", rangeActive, "-- Select Status --", new { id = "rangeFieldActiveSelected", style = "max-width:200px; display:inline-block", @class = "form-control" })
+
+
+                        }
+
+                        <div class="component " style="direction: rtl; ">
+                            <a data-toggle="modal" data-target="#rangeModal" id="delRangeFilter" class="btn btn-primary">تایید</a>
+
+                            <div id="rangeModal" class="modal fade" role="dialog">
+                                <div class="modal-dialog">
+
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                 
+                                        <div class="modal-body">
+                                            <p>جهت حذف فیلتر هیچ محصولی نباید از این فیلتر استفاده کرده باشد </p>
+                                            <p>آیا از حذف آیتم اطمینان دارید</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" style="margin:7px;">خیر</button>
+                                            <button id="Rangedelete" type="button" class="btn btn-default" data-dismiss="modal" style="margin: 7px;">بله</button>
+                                            <script>
+                                                $("#Rangedelete").click(function () {
+                                                    var rangeFieldSelected = $("#rangeFieldActiveSelected").val();
+                                               
+                                                   
+                                                   
+                                                    if (rangeFieldSelected != "") {
+                                                        $.ajax({
+                                                            url: '/Admin/delNewRangFilter',
+                                                            dataType: 'html',
+                                                            data: {
+                                                                id: rangeFieldSelected,
+
+                                                            },
+                                                            success: function (data) {
+
+                                                                if (data === "error") {
+                                                                    toastr.options = {
+                                                                        "debug": false,
+                                                                        "positionClass": "toast-top-center",
+                                                                        "onclick": null,
+                                                                        "fadeIn": 300,
+                                                                        "fadeOut": 1000,
+                                                                        "timeOut": 5000,
+                                                                        "extendedTimeOut": 1000
+                                                                    }
+
+                                                                    toastr.success('خطا');
+                                                                   // location.reload();
+                                                                }
+                                                                else if (data === "success") {
+
+
+                                                                    var newvluew = $("#selectedCatForEdit").val();
+                                                                    $.ajax({
+                                                                        url: '/Admin/getfilters',
+                                                                        dataType: 'html',
+                                                                        data: {
+                                                                            catID: newvluew,
+                                                                        },
+                                                                        success: function (data) {
+
+                                                                            $("#mainDetailHolder").html(data)
+                                                                            $("#questioncolorholder").css("display", "inline")
+
+
+                                                                        },
+                                                                        error: function () {
+                                                                            alert("خطا")
+                                                                        }
+                                                                    });
+                                                                }
+                                                                else if (data === "exist") {
+                                                                 
+                                                                    toastr.options = {
+                                                                        "debug": false,
+                                                                        "positionClass": "toast-top-center",
+                                                                        "onclick": null,
+                                                                        "fadeIn": 300,
+                                                                        "fadeOut": 1000,
+                                                                        "timeOut": 5000,
+                                                                        "extendedTimeOut": 1000
+                                                                    }
+
+                                                                    toastr.error('فیلتر مورد نظر دارای محصول است');
+
+                                                                }
+
+
+                                                            },
+                                                            error: function () {
+                                                                alert("خطا")
+                                                            }
+                                                        });
+                                                    }
+                                                    else {
+                                                        alert("نام مورد نظر را وارد کنید")
+
+                                                    }
+                                                    $("#rangeModal").modal('hide');
+                                                })
+
+                                            </script>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                          
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+          
+        </div>
+        <div id="filterthree" class="tab-pane fade" style="padding-top:20px">
+
+
+            <div id="addcolor" class="btn btn-primary" style="display:inline-block">افزودن فیلتر رنگ</div>
+            <button id="delcolor" type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">حذف فیلتر رنگ</button>
+            <button id="addcolorall" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">افزودن رنگ های پیش فرض به دسته بندی</button>
+
+            <div class="x_content" id="colorholder">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#addordel3" style=" color: #8d8d8d; ">تعریف رنگ </a></li>
+                        <li><a data-toggle="tab" href="#definition3" style=" color: #8d8d8d; ">حذف رنگ</a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <div id="addordel3" class="tab-pane fade in active" style="padding-top:20px">
+                            <label class="control-label component" for="first-name">
+                                عنوان :
+                            </label>
+                            <div class="component">
+                                <input type="text" id="colortitle" required="required" class="form-control INP">
+                            </div>
+                            <label class="control-label component" for="first-name">
+                                انتخاب رنگ :
+                            </label>
+                            <div class="component">
+                                <input type="text" id="colorcode" name="colorcode" required="required" class="form-control ">
+                            </div>
+
+
+                            <script src="~/Scripts/bootstrap-colorpicker.js"></script>
+                            <script>
+                                $(function () {
+                                    $('#colorcode').colorpicker();
+                                });
+                            </script>
+
+                            <div class="component " style="direction:rtl">
+
+                                @* <button id="DEFcatok" class="btn btn-primary" onclick="DEFcatokclicked(DEFcatok)">تایید</button>*@
+                                <button id="DEFcolortitle" class="btn btn-primary">تایید</button>
+                                <script>
+                                        $("#DEFcolortitle").click(function () {
+                                            var VALUE = colortitle.value;
+                                            var CODE = colorcode.value;
+                                            var catID = JSON.stringify(@Model.catID);
+                                            if (VALUE != "" & CODE != "") {
+                                                $.ajax({
+                                                    url: '/Admin/setnewcolor',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        colortitle: VALUE,
+                                                        colorcode: CODE,
+                                                        catID: catID
+                                                    },
+                                                    success: function (data) {
+
+                                                        if (data === "success") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.success('رنگ مورد نظر اضافه شد')
+
+                                                           // var VALUE = @Model.catID
+                                                            $.ajax({
+                                                                url: '/Admin/getfilters',
+                                                                dataType: 'html',
+                                                                data: {
+                                                                    catID: catID,
+                                                                },
+                                                                success: function (data) {
+
+                                                                    $("#mainDetailHolder").html(data)
+                                                                    $("#questioncolorholder").css("display", "inline")
+
+
+                                                                },
+                                                                error: function () {
+                                                                    alert("خطا")
+                                                                }
+                                                            });
+
+
+                                                        }
+                                                        else if (data === "exist") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.error('رنگ مورد نظر وجود دارد')
+
+                                                        }
+                                                        else {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.error('خطا')
+                                                        }
+
+
+                                                    },
+                                                    error: function () {
+                                                        alert("خطا")
+                                                    }
+                                                });
+                                            }
+
+                                        })
+                                        function DEFcatokclicked(DEFcatok) {
+
+                                        }
+                                </script>
+                            </div>
+                        </div>
+                        <div id="definition3" class="tab-pane fade" style="padding-top:20px">
+                            @{
+                                if (Model.Colores != null)
+                                {
+                                    <div class="form-group ">
+
+                                        <label class="control-label component" for="first-name">
+                                            عنوان :
+                                        </label>
+                                        <div class="component">
+                                            @Html.DropDownListFor(m => m.SelectedColor, Model.Colores, "--", new { id = "colorlist", style = "width:100%", @class = "form-control" })
+                                        </div>
+                                        <script>
+                                            $(document).ready(function () {
+                                                $("#colorlist option").each(function () {
+                                                    if ($(this).val() != '') {
+                                                        $(this).css('background-color', $(this).val());
+                                                    }
+                                                });
+                                            });
+                                        </script>
+
+                                        <div class="component " style="direction:rtl">
+
+                                            <button id="DELcolor" class="btn btn-primary">تایید</button>
+                                        </div>
+                                        <script>
+                                            $("#DELcolor").click(function () {
+
+                                                var colorVALUE = colorlist.value;
+                                                var catID = @Model.catID;
+                                                $.ajax({
+                                                    url: '/Admin/delnewcolor',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        colorcode: colorVALUE,
+                                                        catID: catID
+                                                    },
+                                                    success: function (data) {
+
+                                                        if (data === "1") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.success('رنگ  مورد نظر حذف شد')
+                                                             var newvluew = $("#selectedCatForEdit").val();
+                                                            $.ajax({
+                                                                url: '/Admin/getfilters',
+                                                                dataType: 'html',
+                                                                data: {
+                                                                    catID: newvluew,
+                                                                },
+                                                                success: function (data) {
+
+                                                                    $("#mainDetailHolder").html(data)
+                                                                    $("#questioncolorholder").css("display", "inline")
+
+
+                                                                },
+                                                                error: function () {
+                                                                    alert("خطا")
+                                                                }
+                                                            });
+                                                        }
+
+                                                        else {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+
+                                                            toastr.error('خطا')
+                                                        }
+
+
+                                                    },
+                                                    error: function () {
+                                                        alert("خطا")
+                                                    }
+                                                });
+                                            })
+
+                                        </script>
+
+                                    </div>
+                                }
+                            }
+
+
+                        </div>
+
+                    </div>
+
+
+                    
+
+                    <div class="ln_solid"></div>
+
+
+
+
+
+                </div>
+            </div>
+            @{
+                if (Model.Colores != null)
+                {
+                    <script>
+                        $("#addcolor").hide();
+                        $("#colorholder").show();
+                        $("#delcolor").css("display", "inline-block");
+
+                    </script>
+                }
+                else
+                {
+                    <script>
+                        $("#addcolor").show();
+                        $("#colorholder").hide();
+                        $("#delcolor").css("display", "none");
+
+                    </script>
+                }
+            }
+            <script>
+                $(document).ready(function () {
+                    $("#addcolorall").click(function () {
+                        $("#addsection").css("display", "inline-block");
+                        $("#delsection").css("display", "none");
+
+
+                        //$("#addcolor").hide();
+                        //$("#colorholder").show();
+                        //$("#delcolor").css("display", "inline-block");
+                    })
+                    $("#addcolor").click(function () {
+
+                        //$("#delsection").css("display", "none");
+                        //$("#addsection").css("display", "inline-block");
+
+                        $("#addcolor").hide();
+                        $("#colorholder").show();
+                        $("#delcolor").css("display", "inline-block");
+                    })
+                    $("#delcolor").click(function () {
+                        $("#delsection").css("display", "inline-block");
+                        $("#addsection").css("display", "none");
+                        //$('#myModal').modal('show');
+                    });
+                })
+            </script>
+
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+                            <div id="delsection" style="display:none">
+                                <p>آیا از حذف تمامی رنگ ها برای این دسته اطمینان دارید</p>
+                                <div data-dismiss="modal" class="btn btn-primary" id="delallcolor">بله</div>
+                                <div data-dismiss="modal" class="btn btn-danger">خیر</div>
+                                <script>
+                                        $("#delallcolor").click(function () {
+                                           // $("#myModal").modal('toggle');
+                                             var VALUE = '@Model.catID';
+
+                                            $.ajax({
+                                                url: '/Admin/delallcolor',
+                                                     dataType: 'html',
+                                                data: {
+                                                               catID: VALUE,
+                                                           },
+                                                success: function (data) {
+
+                                                    if (data === "1") {
+                                                        toastr.options = {
+                                                            "debug": false,
+                                                            "positionClass": "toast-top-center",
+                                                            "onclick": null,
+                                                            "fadeIn": 300,
+                                                            "fadeOut": 1000,
+                                                            "timeOut": 5000,
+                                                            "extendedTimeOut": 1000
+                                                        }
+
+                                                        toastr.success('فیلتر رنگ برای این دسته حذف شد')
+
+
+                                                        var newvluew = $("#selectedCatForEdit").val();
+                                                        $.ajax({
+                                                            url: '/Admin/getfilters',
+                                                            dataType: 'html',
+                                                            data: {
+                                                                catID: newvluew,
+                                                            },
+                                                            success: function (data) {
+
+                                                                $("#mainDetailHolder").html(data)
+                                                                $("#questioncolorholder").css("display", "inline")
+
+
+                                                            },
+                                                            error: function () {
+                                                                alert("خطا")
+                                                            }
+                                                        });
+                                                    }
+
+                                                    else {
+                                                        toastr.options = {
+                                                            "debug": false,
+                                                            "positionClass": "toast-top-center",
+                                                            "onclick": null,
+                                                            "fadeIn": 300,
+                                                            "fadeOut": 1000,
+                                                            "timeOut": 5000,
+                                                            "extendedTimeOut": 1000
+                                                        }
+
+                                                        toastr.error('خطا')
+                                                    }
+
+
+                                                },
+                                                error: function () {
+                                                    alert("خطا")
+                                                }
+                                            });
+                                        });
+                                </script>
+                            </div>
+                            <div id="addsection" style="display:none">
+                                <p>آیا از افزودن همه رنگ های پیش فرض  برای این دسته اطمینان دارید</p>
+                                <div data-dismiss="modal" class="btn btn-primary" id="addallcolor">بله</div>
+                                <div data-dismiss="modal" class="btn btn-danger">خیر</div>
+                                <script>
+                                    $(document).ready(function () {
+                                        $("#addallcolor").click(function () {
+
+                                            var VALUE = @Model.catID
+                                            $.ajax({
+                                                url: '/Admin/addallcolor',
+                                                dataType: 'html',
+                                                data: {
+                                                    catID: VALUE
+                                                },
+
+                                                success: function (data) {
+
+                                                    if (data === "1") {
+
+                                                        //$('#myModal2').modal('toggle');
+
+                                                        toastr.options = {
+                                                            "debug": false,
+                                                            "positionClass": "toast-top-center",
+                                                            "onclick": null,
+                                                            "fadeIn": 300,
+                                                            "fadeOut": 1000,
+                                                            "timeOut": 5000,
+                                                            "extendedTimeOut": 1000
+                                                        }
+
+                                                        toastr.success('رنگ های پیش فرض برای این دسته تنظیم شد')
+                                                        var newvluew = $("#selectedCatForEdit").val();
+                                                        $.ajax({
+                                                            url: '/Admin/getfilters',
+                                                            dataType: 'html',
+                                                            data: {
+                                                                catID: newvluew,
+                                                            },
+                                                            success: function (data) {
+
+                                                                $("#mainDetailHolder").html(data)
+                                                                $("#questioncolorholder").css("display", "inline")
+
+
+                                                            },
+                                                            error: function () {
+                                                                alert("خطا")
+                                                            }
+                                                            });
+
+                                                    }
+
+                                                    else {
+                                                        toastr.options = {
+                                                            "debug": false,
+                                                            "positionClass": "toast-top-center",
+                                                            "onclick": null,
+                                                            "fadeIn": 300,
+                                                            "fadeOut": 1000,
+                                                            "timeOut": 5000,
+                                                            "extendedTimeOut": 1000
+                                                        }
+
+                                                        toastr.error('خطا')
+                                                    }
+
+
+                                                },
+                                                error: function () {
+                                                    alert("خطا")
+                                                }
+                                            });
+                                        });
+                                    })
+                                </script>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

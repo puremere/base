@@ -1,0 +1,134 @@
+﻿@model banimo.ViewModel.userdata
+
+
+<div id="addressholder" style="display:none">@Model.address</div>
+<div id="phoneholder" style="display:none">@Model.phone</div>
+
+
+<div id="phoneholder" style="display:none">@Model.phone</div>
+<div class="modal-body modal-spa">
+    <div class="login-grids ">
+        <div class="login" style="direction:rtl">
+            <div id="submitdivagain" class="login-right" style="float:right; width:70%">
+
+                @{
+
+                    if (Model.phone == "")
+                    {
+                        <div  >
+                            <h4 style="display: inline-block">:شماره موبایل</h4>
+                            <input class="input" id="userphone-final" type="password" value="" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'رمز عبور';}" required="">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class=" row" style="margin-bottom:15px" >
+                            <p style="display: inline-block ; font-size:18px">تلفن:</p>
+                            <p style="display: inline-block; font-size: 18px" >@Model.phone</p>
+                           
+                            
+                        </div>
+                    }
+                   
+                    <div id="notaddresswrapper" style="display:none">
+                        
+                        <div class=" row" style="direction:ltr; margin: 15px">
+                            <h4 class="col-lg-3" style="display :inline-block; float:right; text-align:right; margin-top:15px">:آدرس</h4>
+                            <input class="input" id="useraddress-final">
+                           
+
+                        </div>
+                        <div class="sign-up" style="margin-top: 20px">
+                            <a id="PAconfirmfinal" class="sub" style="display:inline-block">تایید</a>
+                        </div>
+                    </div>
+                    <div id="addresswrapper" style="display:none">
+                        <div class=" row" style="margin-bottom:15px">
+                            <p style="display: inline-block ; font-size:18px">آدرس:</p>
+                            <p style="display: inline-block; font-size: 18px">@Model.address</p>
+                            <a id="changeaddress" class="sub" style="display:inline-block; margin-top:15px ">تغییر آدرس</a>
+
+                        </div>
+                    </div>
+                   
+
+   
+
+
+}
+
+
+
+
+
+                <p id="lblsetnewpassSubmitagain" class="alertmess"></p>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var address = $("#addressholder").text();
+    if (address == "") {
+        $("#addresswrapper").css("display", "none")
+        $("#notaddresswrapper").css("display", "block")
+    }
+    else {
+        $("#notaddresswrapper").css("display", "none")
+        $("#addresswrapper").css("display", "block")
+    }
+
+
+</script>
+<script>
+    $("#changeaddress").click(function () {
+        
+        $("#addresswrapper").css("display", "none")
+        $("#notaddresswrapper").css("display", "block")
+    })
+</script>
+
+<script>
+    
+
+
+
+
+        $("#PAconfirmfinal").click(function () {
+            
+            var address = $("#useraddress-final").val()
+
+            $.ajax({
+                url: '/CustomerLogin/SetOrChangeAddress',
+                dataType: 'html',
+                data: {
+                    address: address,
+                },
+                success: function (data) {
+                    if (data === "1")
+                    {
+                        $.ajax({
+                            url: '/Home/userdatapanel',
+                            dataType: 'html',
+                            success: function (data) {
+
+                                $('#userdatapanel').html(data);
+
+                            },
+                            error: function () {
+                               
+                            }
+                        });
+                    }
+                   
+                },
+                error: function () {
+
+                }
+            })
+        })
+       
+
+</script>

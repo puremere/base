@@ -1,0 +1,64 @@
+﻿@model banimo.ViewModel.articlesListAdmin
+@{
+    ViewBag.Title = "portfolio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section scripts{
+<link href="~/Content/main.css" rel="stylesheet" />
+}
+
+<section id="blog" class="section">
+    <!-- Container Starts -->
+    <div class="container">
+        <!-- Start Row -->
+        <!-- End Row -->
+        <!-- Start Row -->
+        <div id="team">
+            <div class="row" style="direction:rtl; text-align:right">
+                @{
+                    /**/
+
+                    if (Model.articles != null)
+                    {
+                        foreach (var item in Model.articles)
+                        {
+
+                            <div style="margin-bottom:25px;     " class="col-lg-3 col-md-6 col-xs-12" data-aos="fade-right" data-aos-offset="300"
+                                 data-aos-easing="ease-in-sine" data-aos-once="true">
+                                <div class="single-team">
+                                    <div class="team-thumb">
+                                        <a href="http://@item.link">
+                                            <img src="~/images/panelimages/@item.image" class="img-fluid" alt="">
+
+                                        </a>
+                                    </div>
+
+                                    <div class="team-details">
+                                        <div class="team-social-icons">
+                                            @*<ul class="social-list">
+                                                    <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
+                                                    <li><a href="#"><i class="lni-twitter-filled"></i></a></li>
+                                                    <li><a href="#"><i class="lni-google-plus"></i></a></li>
+                                                </ul>*@
+                                        </div>
+                                        <div class="team-inner text-center" style="">
+                                            <h5 style="margin-bottom:10px" class="team-title">@item.title</h5>
+                                            <p>@item.content</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        }
+                    }
+                }
+
+
+
+            </div>
+        </div>
+
+        <!-- End Row -->
+    </div>
+</section>

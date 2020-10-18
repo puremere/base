@@ -1,0 +1,111 @@
+﻿@model PagedList.IPagedList<banimo.ViewModel.Comment>
+
+@if (Model != null)
+{
+    
+
+<div class="row" style="padding:10px; border-bottom:1px solid #ddd ">
+    @if (Model.Count() > 0)
+    {
+    <p style="float:right; ">مفیدترین نظرات کاربران</p>
+    }
+    else
+    {
+    <p style="float:right; margin-bottom:10px">اولین نفری باشید که نظر خود را ثبت میکنید</p>
+    }
+
+    <div id="" style="cursor: pointer; " class="commentmoreandmore">
+        <i class="fa fa-plus " style="float: left; font-size: 18px; padding-top: 1px; padding-right: 15px; color: #00BFD6;"></i><p style="color: #00BFD6">
+            افزودن نظر
+        </p>
+    </div>
+</div>
+    
+
+
+
+
+
+
+
+    <div id="commentholdersmall" style="width:100% ; overflow:hidden; text-align:justify;direction:rtl;line-height:2; margin-top:10px ; ">
+
+        @{
+            foreach (var item in Model)
+            {
+        <div style="margin-top:15px; background-color:#eee; width:100%; padding:10px; border-radius:5px">
+            <div>
+                <p style="font-weight:bold">@item.title</p>
+                <p>@item.name  در تاریخ @item.time</p>
+                <p style="direction:rtl; text-align:justify">@item.comment</p>
+            </div>
+            @if(item.Answer != "")
+            {
+            <div style="border-top:1px solid #000; padding-top:15px">
+               
+                <p> فروشنده در تاریخ @item.rtime</p>
+                <p style="direction:rtl; text-align:justify">@item.Answer</p>
+            </div>
+            }
+          
+            
+        </div>
+
+
+            }
+
+
+        }
+    </div>
+}
+else
+{
+    <div style="text-align:center; width:100%">
+        <i class="fal fa-info-circle" style="font-size:46px; margin-bottom:10px"></i>
+        <p style="">هنوز هیچ دیدگاهی در مورد این محصول درج نشده است</p>
+    </div>
+
+    <div id="commentmore" class="commentmoreandmore" style="display:inline-block; background-color:red; border-radius:50%;position:absolute; bottom:25px ; left :25px; padding:10px">
+        <i class="fal fa-pencil addcommnet" style="color:white;font-size:18px; display:table-cell;vertical-align:middle;text-align:center;text-decoration:none">
+
+        </i>
+
+    </div>
+
+}
+
+<script>
+    $(".commentmoreandmore").click(function () {
+
+
+        if ('@Session["token"]' !== "") {
+            var id = $("#detailid").text();
+            var address = $("#detailimage").text();
+
+            var url = "@Url.Action("AddComment", "Home", new { id = "__id__", imageAddress = "__imageAddress__" })";
+            var url2 = url.replace("__id__", id);
+            var url3 = url2.replace("__imageAddress__", address)
+            window.location.href = url3
+        }
+        else {
+            var url = '@Url.Action("login", "Home")';
+            window.location.href = url;
+        }
+
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

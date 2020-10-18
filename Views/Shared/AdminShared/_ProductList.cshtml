@@ -1,0 +1,550 @@
+﻿@model AdminPanel.ViewModel.oderdetaillist
+@*@model PagedList.IPagedList<AdminPanel.ViewModel.orderdetail>*@
+
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "لیست محصولات";
+}
+
+
+
+
+@*@using (Html.BeginForm("Index", "Student", FormMethod.Get))
+    {
+        <p>
+            Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+            <input type="submit" value="Search" />
+        </p>
+    }*@
+
+@{
+
+
+    <!-- Modal -->
+    <p style="display:none" id="modalValue"></p>
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                @*<div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Modal Header</h4>
+                    </div>*@
+                <div class="modal-body">
+                    <p id="modalmessage">آیا از حذف محصول اطمینان دارید</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin:7px;">خیر</button>
+                    <button id="confirmdelete" type="button" class="btn btn-default" data-dismiss="modal" style="margin: 7px;">بله</button>
+                    <script>
+                        $("#confirmdelete").click(function () {
+                            $("#myModal").modal('hide');
+                            var id = $("#modalValue").text();
+                            $.ajax({
+                                url: '/Admin/Delete',
+                                dataType: 'html',
+                                data: {
+                                    id: id,
+                                },
+                                success: function (data) {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+                                    toastr.success('محصول مورد نظر حذف شد')
+                                    var value = $("#listofproduct").val();
+                                    var partner = $("#partnerList").val();
+                                    $.ajax({
+                                        url: '/Admin/GetTheListOfItems',
+                                        dataType: 'html',
+                                        data: {
+                                            value: value,
+                                            partner: partner
+                                        },
+                                        success: function (data) {
+
+                                            $('#listholder').html(data);
+                                            $('#listholder').css("display", "block");
+                                        },
+                                        error: function () {
+                                            alert("nashod")
+                                        }
+                                    });
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        })
+
+                    </script>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    if (Model.data == null)
+    {
+        <p style="text-align:center">موردی وجود ندارد</p>
+    }
+    else
+    {
+
+        <div class="row">
+            <div style="overflow-x:auto;padding:10px">
+                <div class="panel panel-default">
+                    <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                        <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> لیست محصولات </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div id="morris-area-chart">
+                            <div style="overflow:auto">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                ID
+                                                @*@Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })*@
+                                            </th>
+                                            <th>
+                                                عنوان
+                                            </th>
+                                            <th>
+                                                رنگ
+                                            </th>
+
+                                            <th>
+                                                تعداد
+                                            </th>
+                                            <th>
+                                                غیر فعال
+                                            </th>
+                                            <th>
+                                                پرفروش
+                                            </th>
+                                            <th>
+                                                پیشنهاد ویژه
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                            <th>
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.data)
+                                        {
+                                            string color = item.color;
+                                            <tr>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                </td>
+                                                <td>
+                                                    @Html.DisplayFor(modelItem => item.title)
+                                                </td>
+                                                <td>
+                                                    <div style="width:20px; height:20px ; border-radius:50%; background-color:@color; border:1px solid #ddd"></div>
+                                                </td>
+
+                                                <td style="text-align: center;">
+                                                    @{
+
+                                                        if (item.count == "-1")
+                                                        {
+                                                            <p style="color : green">موجود</p>
+                                                        }
+                                                        else if (item.count == "0")
+                                                        {
+                                                            <p style="color : red">نا موجود</p>
+                                                        }
+                                                        else
+                                                        {
+                                                            @Html.DisplayFor(modelItem => item.count)
+
+                                                        }
+
+                                                    }
+
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @if (item.isActive == "1")
+                                                    {
+                                                        <input id=@item.ID type="checkbox" class=Active checked />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input id=@item.ID type="checkbox" class=Active />
+
+                                                    }
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @{
+
+                                                        if (item.isOffer == "1")
+                                                        {
+                                                            <input id=@item.ID type="checkbox" class=Offer checked />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input id=@item.ID type="checkbox" class=Offer />
+
+                                                        }
+
+                                                    }
+
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    @{
+
+                                                        if (item.specialOffer == "1")
+                                                        {
+                                                            <input id=@item.ID type="checkbox" class="specialOffer" checked />
+                                                        }
+                                                        else
+                                                        {
+                                                            <input id=@item.ID type="checkbox" class="specialOffer" />
+
+                                                        }
+
+                                                    }
+
+                                                </td>
+                                                <td>
+
+                                                    @* @Html.ActionLink("ویرایش", "Edit", new { id = item.ID }, new { style = "background-color: #246388;padding: 5px;color: #fff;border-radius: 5px;" }) |*@
+                                                    @{
+                                                        var editclassname = "editproduct" + item.ID;
+                                                        <a id=@item.ID class="btn btn-primary @editclassname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
+                                                        <script>
+                                var editclassname = "editproduct" + "@item.ID";
+                                var selectedCatID = $("#listofproduct").val();
+
+                                $("." + editclassname).click(function () {
+
+                                    var url = "@Url.Action("Edit", "Admin", new { id = "__id__", catID = "__catID__" })";
+                                    var url2 = url.replace("__id__", this.id);
+                                    var url3 = url2.replace("__catID__", selectedCatID);
+                                    window.location.href = url3;
+
+                                })
+                                                        </script>
+                                                    }
+
+
+
+                                                </td>
+                                                <td>
+                                                    @{
+                                                        var classname = "deleteproduct" + item.ID;
+                                                        <a data-toggle="modal" data-target="#myModal" id=@item.ID class="btn btn-primary @classname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
+                                                        <script>
+                                                        var classname = "deleteproduct" + @item.ID
+
+                                                            $("." + classname).click(function () {
+                                                                $("#modalValue").text(this.id);
+
+
+                                                            });
+                                                        </script>
+                                                    }
+                                                </td>
+
+                                                <td>
+                                                    @{
+                                                        if (item.serverRowID != null)
+                                                        {
+                                                            string removeID = item.ID + "-" + item.serverRowID;
+                                                            <button type="button" class="btn btn-danger removeFromserver" data-toggle="modal" data-target="#myModal" id="@removeID">حذف از سرور </button>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <button type="button" class="btn btn-info addtoserver" data-toggle="modal" data-target="#serverModal" id="@item.ID">افزودن به سرور</button>
+
+                                                        }
+                                                    }
+                                                    <script>
+                                                        $(".removeFromserver").click(function () {
+                                                            var id = $(this).attr('id');
+                                                            $("#modalValue").text("banimo" + id);
+                                                            $("#modalmessage").text("  آیا از حذف محصول از سررور اطمینان دارید؟ ")
+
+                                                        })
+                                                    </script>
+                                                </td>
+                                            </tr>
+                                        }
+
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <br />
+        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+        <p id="selectedForServer"></p>
+        <script>
+            $(".addtoserver").click(function () {
+
+                $("#selectedForServer").text($(this).attr('id'));
+
+            })
+            $(".specialOffer").click(function () {
+                if ($(this).is(':checked')) {
+                    var productValue = "1";
+                }
+                else {
+                    var productValue = "0";
+                }
+                var Prodcutid = $(this).attr("id");
+
+                $.ajax({
+                    url: '/Admin/ChangeProductSpecialOffer',
+                    dataType: 'html',
+                    data: {
+                        id: Prodcutid,
+                        value: productValue
+                    },
+                    success: function (data) {
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            })
+            $(".Offer").click(function () {
+                if ($(this).is(':checked')) {
+                    var productValue = "1";
+                }
+                else {
+                    var productValue = "0";
+                }
+                var Prodcutid = $(this).attr("id");
+
+                $.ajax({
+                    url: '/Admin/ChangeProductOffer',
+                    dataType: 'html',
+                    data: {
+                        id: Prodcutid,
+                        value: productValue
+                    },
+                    success: function (data) {
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            })
+            $(".Active").click(function () {
+                if ($(this).is(':checked')) {
+                    var productValue = "1";
+                }
+                else {
+                    var productValue = "0";
+                }
+                var Prodcutid = $(this).attr("id");
+
+                $.ajax({
+                    url: '/Admin/ChangeProductAvailable',
+                    dataType: 'html',
+                    data: {
+                        id: Prodcutid,
+                        value: productValue
+                    },
+                    success: function (data) {
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            })
+            $(".Available").click(function () {
+                if ($(this).is(':checked')) {
+                    var productValue = "1";
+                }
+                else {
+                    var productValue = "0";
+                }
+                var Prodcutid = $(this).attr("id");
+
+                $.ajax({
+                    url: '/Admin/ChangeProductAvailable',
+                    dataType: 'html',
+                    data: {
+                        id: Prodcutid,
+                        value: productValue
+                    },
+                    success: function (data) {
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            })
+        </script>
+
+
+        <div class="row">
+            @{
+                var total = (Convert.ToInt32(Model.count) / 12);
+                var remain = (Convert.ToInt32(Model.count) % 12);
+                if (remain != 0)
+                {
+                    total = total + 1;
+                }
+                var activ = Convert.ToInt32(Model.current);
+                var activminus2 = activ - 2;
+                var activminus1 = activ - 1;
+                var activplus1 = activ + 1;
+                var activplus2 = activ + 2;
+
+
+
+                if ((total - activ) > 3 & activ > 3)
+                {
+                    <ul class="pagination">
+
+                        <li><a>«</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                        @if (activminus2 > 2)
+                        {
+                            <li><a>...</a></li>
+                        }
+
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                        <li class="active"><a>@activ</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                        <li><a> ...</a></li>
+                        <li><a>@total</a></li>
+                        <li><a>»</a></li>
+                    </ul>
+                }
+                else if ((total - activ > 3) && !(activ > 3))
+                {
+                    <ul class="pagination">
+
+                        @for (int i = 1; i < activ; i++)
+                        {
+                            <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                        }
+                        <li class="active"><a>@activ </a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                        <li><a href="#">...</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@total</a></li>
+                        <li><a href="#">»</a></li>
+                    </ul>
+
+                }
+                else if (!(total - activ > 3) && activ > 3)
+                {
+                    <ul class="pagination">
+
+                        <li><a>«</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                        <li><a>...</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                        <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                        <li style="cursor:pointer" class="active"><a>@activ </a></li>
+                        @for (int i = activ + 1; i <= total; i++)
+                        {
+                            <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                        }
+                        <li><a>»</a></li>
+                    </ul>
+
+                }
+                else if (total > 1 && !((total - activ) > 3) && !(activ > 3))
+                {
+
+                    <ul class="pagination">
+
+                        @for (int i = 1; i < activ; i++)
+                        {
+                            <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                        }
+                        <li class="active"><a href="#">@activ</a></li>
+                        @for (int i = activ + 1; i <= total; i++)
+                        {
+                            <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                        }
+
+                    </ul>
+
+                }
+
+            }
+
+            <script>
+                $(".pagingnumberforall").click(function () {
+
+                    var num = this.textContent;
+                    var value = $("#listofproduct").val();
+                    var partner = $("#partnerList").val();
+                    $.ajax({
+                        url: '/admin/GetTheListOfItems',
+                        data: {
+                            page: num,
+                            value: value,
+                            partner: partner
+
+                        },
+                        dataType: 'html',
+                        success: function (data) {
+
+                            $('#listholder').html(data);
+                            $('#listholder').css("display", "block");
+                        },
+                        error: function () {
+                            alert("nashod")
+                        },
+                    });
+                })
+
+            </script>
+
+
+        </div>
+
+        @*@Html.PagedListPager(Model, page => Url.Action("product", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listholder" }))*@
+
+
+    }
+}
+
+

@@ -1,0 +1,60 @@
+﻿@model AdminPanel.ViewModel.CatPageViewModel
+
+<label class="control-label component ">
+    منو 2 :
+</label>
+<div class="component">
+   
+
+    @Html.DropDownList("subcatlist", new SelectList(Model., "ID", "title"), "--", new { id = "subcatslist", style = "width:100%; min-width:135px", onchange = "setglobalsubcatid(subcatslist2)" })
+</div>
+<script>
+
+   $("#subcatslist2").change(function() {
+        var selectedValue = subcatslist2.value;
+        alert(selectedValue)
+        //$.ajax({
+        //    url: '/Admin/setglobalsubcatid',
+        //    dataType: 'html',
+        //    data: {
+        //        subcatid: selectedValue
+        //    },
+        //    success: function (data) {
+
+
+
+        //    },
+        //    error: function () {
+
+        //    }
+        //});
+       
+        $.ajax({
+            url: '/Admin/getsubcatlist2',
+            dataType: 'html',
+            data: {
+                catid: selectedValue,
+                levelfinder: "def"
+            },
+            success: function (data) {
+
+                $('#subcat2holder').html(data);
+
+
+            },
+            error: function () {
+                alert("nashod")
+            }
+        });
+    })
+
+
+</script>
+<div id="subcat2holder" class="component">
+   
+</div>
+
+
+
+
+

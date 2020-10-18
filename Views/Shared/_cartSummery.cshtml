@@ -1,0 +1,147 @@
+﻿<table>
+
+    @{
+
+
+
+
+        foreach (var item in Model)
+        {
+
+            string imagefile = "placeholder.jpg";
+            if (item.imageaddress != null)
+            {
+                imagefile = item.imageaddress;
+            }
+            
+            
+            int i = item.productid;
+            string classremname = "rem" + i;
+            string classclosename = "close" + i;
+            string classminusname = "minus" + i;
+            string classaddname = "add" + i;
+            string finaltotal = "total" + i;
+            string imagesrc = "/images/panelimages/" + imagefile;
+            string quantity = item.quantity.ToString();
+            string price = item.price.ToString();
+            string baseprice = item.baseprice.ToString();
+            string discount = item.discount.ToString();
+            decimal total = item.quantity * item.price;
+            string name = item.productname;
+            <tr class=@classremname>
+                <td class="invert-closeb">
+                    <div class="rem" style=" margin-right: 10px; background-color: #808080; border-radius: 50%; width: 25px; height: 25px;">
+                        <div id=@classremname class=@classclosename style="width:25px; height:25px; cursor:pointer">
+                            <img style="width:25px; padding:5px" src="~/images/del.png" />
+                        </div>
+                    </div>
+                    <script>
+                        $(document).ready(function (c) {
+                            $('.@classclosename').on('click', function (c) {
+
+
+                                //var tobeminus = $(this).closest('tr').find('td:nth-child(4)').text();
+                                //var divUpd = $(this).closest('tr').find('td:nth-child(5)').text();
+
+                                //newVal = parseInt(divUpd.text(), 10) * parseInt(tobeminus, 10);
+                                //var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                                //var pricetotal = document.getElementById("spanfortotal").textContent;
+                                //alert(counttotal);
+                                //alert(pricetotal);
+                                //var final = parseInt(pricetotal, 10) - parseInt(newVal, 10)
+                                //var finalcount = parseInt(counttotal, 10) - parseInt(divUpd.text(), 10);
+
+                                //alert(final);
+                                //alert(finalcount);
+
+                                //$('#simpleCart_quantityy').text(finalcount);
+                                //$('#spanfortotal').text(final).toString("###,###");
+                                //$('#spanfortotal2').text(final).toString("###,###")
+
+
+                                var ID = this.id
+
+                                $.ajax({
+                                    url: '/Home/deletefromcart',
+                                    dataType: 'html',
+                                    data: {
+                                        id: ID
+
+                                    },
+                                    success: function (data) {
+                                        $.ajax({
+                                            url: '/Home/gogetfinalprice',
+
+
+                                            success: function (data) {
+                                                var array = data.split(',');
+                                                $("#basepriceholder").text(addCommas(array[1]))
+                                                $("#spanfortotal").text(addCommas(array[0]))
+                                                $("#spanfortotal2").text(addCommas(array[0]))
+                                                $(".simpleCart_quantityy").text(array[2])
+                                                $(".discountfinal").text(addCommas(array[3]))
+                                                $(".discountpercent").text(array[4])
+
+                                            },
+                                            error: function () {
+
+                                            }
+                                        });
+
+                                        $('.@classremname').fadeOut('fast', function (c) {
+                                            $('.@classremname').remove();
+                                        });
+
+
+                                    },
+                                    error: function () {
+
+                                    }
+
+
+                                });
+
+
+
+
+
+                            })
+                        });
+                    </script>
+                </td>
+                <td style="width: 35%; padding:15px; " class="invert-image">
+                    <img src="@imagesrc" alt=" " class="img-responsive" />
+                </td>
+                <td class="invert">
+                    <p style="font-weight:bold; font-size:12px">@name</p>
+                    <div style="margin-top:15px" class="quantity">
+                        <div class="quantity-select ">
+                            @*<div id=@classminusname class="entry value-minus">&nbsp;</div>*@
+                            <div class="entry "><span>@quantity</span> عدد&nbsp;</div>
+                            @*<div id=@classaddname class="entry value-plus active">&nbsp;</div>*@
+                        </div>
+                    </div>
+                </td>
+                <td style="display:none">@price</td>
+                <td style="display:none">@quantity</td>
+                @*<td  class="invert ">@baseprice</td>
+                    <td class="invert ">@discount</td>*@
+
+
+
+
+            </tr>
+
+
+
+        }
+
+
+    }
+
+
+
+
+
+
+</table>

@@ -1,0 +1,73 @@
+﻿
+@model PagedList.IPagedList<banimo.ViewModel.Comment>
+
+
+@{
+    /**/
+
+    if (Model != null)
+    {
+        foreach (var item in Model)
+         {
+<li>
+    @if (item.IsOwner == "1")
+    {
+        <div class="c-message-light c-message-light--purchased" style="float: left;width: 40%;direction: ltr;"><span>خریدار این محصول</span>  <i class="fa fa-cart-plus"></i></div>
+
+    }
+    <section>
+        @*<div class="aside">
+                <div class="c-message-light c-message-light--purchased">خریدار این محصول</div>
+                <ul class="c-comments__user-shopping">
+                    <li>
+                        <div class="cell">رنگ خریداری شده:</div>
+                        <div class="cell color-cell">
+                            <span class="shopping-color-value" style="background-color: #392622; border: 1px solid rgba(0, 0, 0, 0.25)"></span>قهوه ای تیره
+                        </div>
+                    </li>
+                    <li>
+                        <div class="cell">خریداری شده از:</div>
+                        <div class="cell seller-cell">
+                            <span class="o-text-blue">دیجی‌کالا</span>
+                        </div>
+                    </li>
+                </ul>
+                <div class="c-message-light c-message-light--opinion-positive">خرید این محصول را توصیه می‌کنم</div>
+            </div>*@
+        <div class="article">
+            <div class="header">
+                <div>
+                    <p style="margin-bottom:5px ">@item.title</p>
+                    <span>توسط @item.name در تاریخ  @item.time  </span>
+                </div>
+            </div>
+            <p>@item.comment</p>
+
+            <div class="header" style="margin-bottom:10px">
+                <div>
+
+                    <span>توسط فروشنده در تاریخ  @item.rtime  </span>
+                </div>
+            </div>
+            <p>@item.Answer</p>
+
+        </div>
+
+    </section>
+</li>
+        }
+    }
+    else
+    {
+        <li style="">
+            <p style="float:right;margin-left: 20px;font-size: 14px;">اولین نظر را شما ثبت کنید</p>
+            <div id="commentmore" style=" cursor: pointer ;margin-bottom:15px;font-size: 14px;" class="commentmoreandmore">
+                <i class="fa fa-plus addcommnet" style=" font-size: 18px; padding-top: 6px;  padding-right: 15px; color: #00BFD6; font-size: 14px;"></i><p style="color: #00BFD6;float: right;">افزودن نظر </p>
+            </div>
+        </li>
+
+    }
+
+}
+
+

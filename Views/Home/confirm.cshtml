@@ -1,0 +1,317 @@
+﻿@model banimo.ViewModel.confrimVM
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html style="direction:rtl">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+
+    <link href="~/Content/confirmStyle.css" rel="stylesheet" />
+    <script>
+        function addMinutes(date, minutes) {
+            return new Date(date.getTime() + minutes * 60000);
+        }
+        var deadline = addMinutes(new Date(), 1);
+        var x = setInterval(function () {
+            var now = new Date().getTime();
+            //  var deadline = addMinutes(now, 2);
+            var t = deadline - now;
+            var days = Math.floor(t / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((t % (1000 * 60)) / 1000);
+            document.getElementById("demo").innerHTML = seconds + "s ";
+            if (t < 0) {
+                clearInterval(x);
+                $("#counterholder").css("visibility", "hidden");
+                $("#resendButt").css("visibility", "inherit");
+            }
+        }, 1000);
+    </script>
+
+
+    <!-- js -->
+    <script type="text/javascript" src="/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //js -->
+    <!-- for bootstrap working -->
+    <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
+    <!-- //for bootstrap working -->
+    <script src="~/Scripts/toastr.js"></script>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+
+    <link href="~/Content/all.css" rel="stylesheet" />
+</head>
+<body>
+    <div>
+
+        <main id="main">
+            <div class="semi-modal-layout">
+                <section class="o-page o-page--account-box">
+                    <div class="c-account-box ">
+                        <a href="/" class="c-account-box__logo">sup-ect.ir</a>
+                        <div class="c-account-box__headline">تایید شماره تلفن همراه</div>
+                        <div class="c-account-box__content">
+                            <form class="c-form-account" method="post" id="confirmForm" data-name="confirm" novalidate="novalidate">
+                                <input type="hidden" name="rc" value="UURCRFdLdE1hN3FwMlAzRDdCZEJUUT09"><input type="hidden" name="rd" value="MURYd3dWZ3VEWDM0RmE4L1lSWFh2elpVUlFPNWNXWHJNZ3JxNjI0MHduQTUxL0NzcU5nbmwxaGRMKzVPRzNqMjd0M2Vta01wL1k4aENHRDRSWndiNkE9PQ~~">
+                                <div class="c-message-light c-message-light--success">
+                                    <span>برای شماره همراه @Model.id  کد تایید ارسال گردید</span>
+                                    <a href="/Home/Register" class="btn-link-spoiler">ویرایش شماره</a>
+                                </div>
+                                <div class="c-form-account__title">کد تایید را وارد نمایید.</div>
+                                <div class="c-form-account__row">
+                                    <div class="c-form-account__col">
+                                        <label class="c-ui-input c-ui-input--account-sms">
+                                            <input id="verificationcode" class="c-ui-input__field" type="text" placeholder="_ _ _ _ _" maxlength="5" name="confirm[code]">
+                                        </label>
+                                        <div class="c-ui-feedback-hint c-message c-message-light c-message-light--error">نام کاربری را به شکل صحیح وارد کنید</div>
+                                    </div>
+                                </div>
+                                <div class="c-form-account__link">
+                                    <div id="counterholder" class="js-phone-code-container u-hidden">
+                                        <span>دریافت مجدد کد تایید</span>
+                                        (<span id="demo" class="js-phone-code-counter" data-countdownseconds="180">۰۰:۰۰</span>)
+                                    </div>
+                                    <a style="visibility:hidden;margin-bottom:20px" id="resendButt"  class="btn-link-spoiler js-send-confirm-code" >دریافت مجدد کد تایید</a>
+                                    <script>
+                                          $("#resendButt").click(function () {
+                                              $("#resendButt").css("visibility", "hidden");
+                                              $("#counterholder").css("visibility", "inherit");
+
+                                              function addMinutes(date, minutes) {
+                                                  return new Date(date.getTime() + minutes * 60000);
+                                              }
+                                              var deadline = addMinutes(new Date(), 1);
+                                              var x = setInterval(function () {
+                                                  var now = new Date().getTime();
+                                                  //  var deadline = addMinutes(now, 2);
+                                                  var t = deadline - now;
+                                                  var days = Math.floor(t / (1000 * 60 * 60 * 24));
+                                                  var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                                                  var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+                                                  var seconds = Math.floor((t % (1000 * 60)) / 1000);
+                                                  document.getElementById("demo").innerHTML =  seconds + "s ";
+
+                                                  if (t < 0) {
+                                                      clearInterval(x);
+                                                      $("#counterholder").css("visibility", "hidden");
+                                                      $("#resendButt").css("visibility", "inherit");
+                                                  }
+                                              }, 1000);
+                                              $.ajax({
+                                                  url: '/CustomerLogin/ResendCode',
+                                                  dataType: 'html',
+                                                  data: {
+                                                      phone: "@Model.id",
+                                                  },
+                                                  success: function (data) {
+
+
+
+
+                                                      if (data === "300") {
+                                                          toastr.options = {
+                                                              "debug": false,
+                                                              "positionClass": "toast-top-center",
+                                                              "onclick": null,
+                                                              "fadeIn": 300,
+                                                              "fadeOut": 1000,
+                                                              "timeOut": 8000,
+                                                              "extendedTimeOut": 1000,
+
+
+                                                          }
+                                                          toastr.error('خطا مجددا تلاش کنید!')
+                                                          $("#verificationcode").val("");
+
+                                                          // $('#lblsubscribeSubmit').text("");
+                                                      }
+                                                      if (data === "200") {
+
+                                                          toastr.options = {
+                                                              "debug": false,
+                                                              "positionClass": "toast-top-center",
+                                                              "onclick": null,
+                                                              "fadeIn": 300,
+                                                              "fadeOut": 1000,
+                                                              "timeOut": 8000,
+                                                              "extendedTimeOut": 1000,
+
+
+                                                          }
+                                                          toastr.success('ارسال مجدد پیام با موفقیت انجام شد')
+                                                          //window.location.href = URL;
+                                                      }
+
+
+
+
+                                                  },
+                                                  error: function () {
+                                                      $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                                                  }
+                                              });
+                                          })
+                                    </script>
+                                 </div>
+                                <p id="demo"></p>
+                         
+                                <div id="verify" class="mybtn addtocart" style="">
+                                    <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
+                                        <i class="glyphicon glyphicon-plus" style="display: inline-block; color: white; "></i> <i style="font-size:25px;color:white" class="fas fa-user"></i>
+
+                                    </div>
+                                    <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">تایید کد</p>
+                                    <script>
+                                        $("#verify").click(function () {
+
+                                            $('#lblsubscribeSubmit').text("");
+
+
+                                            var verificationcode = $("#verificationcode").val();
+                                            if ("@Model.pass" === "") {
+                                                $.ajax({
+                                                    url: '/CustomerLogin/checkConfirmCode',
+                                                    dataType: 'html',
+                                                    data: {
+
+                                                        phone: "@Model.id",
+                                                        register: verificationcode
+                                                    },
+                                                    success: function (data) {
+
+
+                                                        if (data === "300") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 8000,
+                                                                "extendedTimeOut": 1000,
+
+
+                                                            }
+                                                            toastr.error('کد تایید صحیح نیست!')
+                                                            $("#verificationcode").val("");
+
+                                                            // $('#lblsubscribeSubmit').text("");
+                                                        }
+                                                        if (data === "200") {
+
+                                                            var url = '@Url.Action("ChangePass", "Home")';
+                                                            window.location.href = url;
+                                                        }
+
+
+
+
+                                                    },
+                                                    error: function () {
+                                                        $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                $.ajax({
+                                                    url: '/CustomerLogin/CustomerRegister',
+                                                    dataType: 'html',
+                                                    data: {
+
+                                                        pass: "@Model.pass",
+                                                        phone: "@Model.id",
+                                                        val: verificationcode
+                                                    },
+                                                    success: function (data) {
+
+                                                        var srt = data.substring(0, data.indexOf("*"));;
+                                                        var URL = data.substring(data.indexOf("*") + 1)
+
+
+                                                        if (srt === "300") {
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 8000,
+                                                                "extendedTimeOut": 1000,
+
+
+                                                            }
+                                                            toastr.error('کد تایید صحیح نیست!')
+                                                            $("#verificationcode").val("");
+
+                                                            // $('#lblsubscribeSubmit').text("");
+                                                        }
+                                                        if (srt === "200") {
+
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 8000,
+                                                                "extendedTimeOut": 1000,
+
+
+                                                            }
+                                                            toastr.success('با موفقیت وارد شدید')
+
+                                                            window.location.href = URL;
+                                                        }
+
+
+
+
+                                                    },
+                                                    error: function () {
+                                                        $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
+                                                    }
+                                                });
+                                            }
+
+                                        })
+
+
+                                    </script>
+                                    @*<p > افزودن به سبد خرید</p>*@
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="c-account-box__footer">
+                            <span>قبلا در @System.Configuration.ConfigurationManager.AppSettings["siteName"] ثبت‌نام کرده‌اید؟</span>
+                            <a href="/home/login" class="btn-link-spoiler">وارد شویــد</a>
+                        </div>
+                    </div>
+                </section>
+                <footer class="c-footer-light">
+                    <div class="container">
+                        <ul class="c-footer-light__links">
+                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                            <li><a href="/Home/contactUs" title="تماس با ما">تماس با ما</a></li>
+                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                        </ul>
+                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت آتی روناک (فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]) می‌باشد.</p>
+                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                    </div>
+                </footer>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

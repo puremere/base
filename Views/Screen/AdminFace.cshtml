@@ -1,0 +1,307 @@
+﻿@{
+    ViewBag.Title = "WebRTC Video Caller";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>WebRTC Video Caller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Styles -->
+    <link href="/Content/Content/icomoon/style.css" rel="stylesheet" />
+    <link href="/Content/Content/Site.css" rel="stylesheet" />
+    <link href="/Content/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Content/alertify/alertify.rtl.css" rel="stylesheet" />
+    <link href="~/Content/Content/alertify/default.rtl.css" rel="stylesheet" />
+    <link href="~/Content/Content/alertify/semantic.rtl.css" rel="stylesheet" />
+    <link href="~/Content/Content/alertify/bootstrap.rtl.css" rel="stylesheet" />
+    
+
+
+    @*<link href="/Content/Content/alertify/alertify.core.css" rel="stylesheet" />
+        <link href="/Content/Content/alertify/alertify.default.css" rel="stylesheet" />*@
+
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+
+    <link href="~/Content/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/Content/chatStyle.css" rel="stylesheet" />
+    <link href="~/Content/Content/userDisplay.css" rel="stylesheet" />
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- Libs -->
+    <script src="/Scripts/Scripts/adapter.js"></script>
+    <script src="/Scripts/Scripts/jquery-1.7.1.js"></script>
+
+
+
+</head>
+
+<body data-bind="attr: { 'data-mode': Mode }" style="text-align:right">
+    <!-- Invalid browser alert, and reminder to enable media things -->
+    @*<div class="container-fluid">
+            <div class="row-fluid instructions">
+                <div class="span12">
+                    <div class="alert"><h4>توجه!</h4> مرورگر مجوز وب کم و میکرفون را لازم دارد  <strong>امکانات سایت تنها با ارائه مجوز از طرف شما قابل ارائه می باشد</strong>.</div>
+                </div>
+            </div>
+            <div class="row-fluid browser-warning">
+                <div class="span12">
+                    <div class="alert alert-error"><h4>شما باید از آخرین نسخه مرورگر کروم یا فایر فاکس استفاده کنید</h4>  <a href="https://nightly.mozilla.org/">آخرین نسخه فایرفاکس</a>، <a href="https://www.google.com/intl/en/chrome/browser/beta.html">آخرین نسخه کروم</a> </div>
+                    <div class="alert alert-error"><h4>شما باید از آخرین نسخه مرورگر کروم یا فایر فاکس استفاده کنید</h4>  <a href="https://nightly.mozilla.org/">آخرین نسخه فایرفاکس</a>، <a href="https://www.google.com/intl/en/chrome/browser/beta.html">آخرین نسخه کروم</a> </div>
+                </div>
+            </div>
+        </div>*@
+    <!-- Top Bar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" style="position:relative">
+        <div class="navbar-inner">
+            <div class="container-fluid" style="display:flex">
+
+                @*<span class="loading-indicator icon-spinner-3" data-bind="css: { on: Loading }"></span>*@
+                <span style="margin:10px auto; ">
+                   
+                    @*<i id="pwd_spn" style="display:none; color:white; margin-top:10px">https://lecture.sup-ect.ir/screen/userface?groupname=<span data-bind="text:  Groupname"></span></i>
+                    <button id="cp_btn" class="btn btn-success">آدرس اتصال</button>*@
+                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success chat">گفتگو </button>
+         
+
+                    @*<script>
+                        document.getElementById("cp_btn").addEventListener("click", copy_password);
+                        function copy_password() {
+                            var copyText = document.getElementById("pwd_spn");
+                            var textArea = document.createElement("textarea");
+                            textArea.value = copyText.textContent;
+                            document.body.appendChild(textArea);
+                            textArea.select();
+                            document.execCommand("Copy");
+                            textArea.remove();
+                            alertify.success("آدرس اتصال کاربر کپی شد");
+                        }
+                    </script>*@
+                </span>
+                <div class="">
+                    <p class="navbar-text pull-right">
+
+                    </p>
+                </div>
+            </div>
+            <div id="cameraSection" class="container-fluid " style="display:none;padding:10px;">
+                <div class="select" style="margin:0px">
+                    <label for="audioSource" style="width:100%; color:white; margin:10px; direction:rtl; float:right;width:100%;">صدا :</label><select id="audioSource" class="form-control" style="width:100%;"></select>
+                </div>
+
+                <div class="select" style="margin:0px">
+                    <label for="videoSource" style="width:100%;color:white; margin:10px; direction:rtl; float:right"> تصویر : </label><select id="videoSource" class="form-control" style="width:100%;"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- App Area -->
+    <div class="" style="text-align:right; width:100%; ">
+        <div class="">
+
+            <div id="BothContainer" class="" style="">
+                <div id="vidoeHolder" class="" style="background-color:black">
+
+                    <div class="mineholderAfter" style="">
+
+
+                        <audio style="display:none" controls autoplay class="audio mine"></audio>
+                    </div>
+                    @*<div class="mineholderScreenAfter">
+                            <video controls style=" width:100%;" id="0" class="video screen cool-background" autoplay="autoplay" muted></video>
+
+                        </div>*@
+                    <div id="videoHolder" class="partnerholder" style=" ">
+                        <div class="master">
+                            <div class="mainholder" style="height:100%; width:100%; display:flex;float:left">
+                                <video  controls id="main0" style="width:auto ; height:100%; margin:auto" class=" cool-background" autoplay="autoplay"></video>
+                            </div>
+                            <div class="mainholder" style="display:none; float:left">
+                                <video  controls id="main1" style="width:100% ; height:auto" class="cool-background" autoplay="autoplay"></video>
+                            </div>
+                            <div class="mainholder" style="display:none;float:left">
+                                <video  controls id="main2" style=" width:100%;height:auto" class="cool-background" autoplay="autoplay"></video>
+                            </div>
+                        </div>
+                        <div class="slave" style=" ">
+                            <video muted  style="max-height:150px" id="1" class="video mine cool-background" autoplay="autoplay" onclick="changeStream(this.id)"></video>
+
+                        </div>
+
+                        <div class="slave">
+                            <video muted controls style=" display:none " class="video partner3 cool-background" autoplay="autoplay"></video>
+
+                        </div>
+                    </div>
+                    @*<div class="partnerholder2">
+                            <video controls class="video partner2 cool-background" autoplay="autoplay"></video>
+
+                        </div>*@
+
+
+
+
+                </div>
+                <div id="chatHolder">
+
+
+
+                    <audio id="song" src="~/Kalimba.mp3"></audio>
+
+
+                    <script>
+
+                    </script>
+                    <div class="well user-list" style="position:relative; display:none">
+                        <i style="position:absolute; top:10px ; left :10px ;" id="refresh" class="fa fa-refresh"></i>
+                        <ul class="nav nav-list">
+                            <li class="nav-header">کاربران آنلاین <small data-bind="text: Users().length"></small></li>
+                            <!-- ko foreach: Users -->
+                            <li class="user">
+                                <div class="row" style="margin-bottom:10px">
+                                    <a data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" href="#" style="width:80%; display:inline-block; padding:10px 0px 5px 10px">
+                                        <!-- only using an a here for bootstrap styling -->
+                                        <div class="username" data-bind="text: Username"></div>
+                                    </a>
+                                    <div class="row">
+                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-danger userHangup" style="display:inline-block; float:right; margin-left:10px">قطع</p>
+                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success oneWay" style="display:inline-block; float:right;margin-left:10px">یک طرفه</p>
+                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success screen" style="display:inline-block; float:right;margin-left:10px">اسکرین</p>
+                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success webcam" style="display:inline-block; float:right;margin-left:10px">وب کم</p>
+
+                                    </div>
+
+                                </div>
+
+                            </li>
+                            <!-- /ko -->
+                        </ul>
+                    </div>
+                    <div id="frame">
+
+                        <div class="content">
+                            <div class="contact-profile">
+                                @*<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />*@
+                                <p id="chatname"></p>
+                                @*<div class="social-media">
+                                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                                    </div>*@
+                            </div>
+                            <div class="messages" style="">
+                                <ul>
+                                    @*<li class="sent">
+                                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                                            <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                                        </li>
+                                        <li class="replies">
+                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                            <p>When you're backed against the wall, break the god damn thing down.</p>
+                                        </li>
+                                        <li class="replies">
+                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                            <p>Excuses don't win championships.</p>
+                                        </li>
+                                        <li class="sent">
+                                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                                            <p>Oh yeah, did Michael Jordan tell you that?</p>
+                                        </li>
+                                        <li class="replies">
+                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                            <p>No, I told him that.</p>
+                                        </li>
+                                        <li class="replies">
+                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                            <p>What are your choices when someone puts a gun to your head?</p>
+                                        </li>
+                                        <li class="sent">
+                                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                                            <p>What are you talking about? You do what they say or they shoot you.</p>
+                                        </li>
+                                        <li class="replies">
+                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                            <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
+                                        </li>*@
+                                </ul>
+                            </div>
+                            <div class="message-input">
+                                <div class="wrap">
+                                    <input id="chatMessage" type="text" placeholder="Write your message..." />
+                                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                                    <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <script src="/Scripts/Scripts/knockout-2.2.1.js"></script>
+    <script src="/Scripts/Scripts/knockout.mapping-latest.js"></script>
+
+    
+
+    @*<script src="/Scripts/Scripts/alertify.min.js"></script>*@
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <script src="/Content/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+
+    <!-- App JS -->
+
+    <script src="/Scripts/Scripts/webrtcdemo/viewModel.js"></script>
+    <script src="/Scripts/Scripts/webrtcdemo/connectionManager.js"></script>
+    <script src="/Scripts/Scripts/webrtcdemo/app.js"></script>
+    <script>
+        WebRtcDemo.App.setName('@Session["name"]');
+    </script>
+    <script>
+        window.onload = function () {
+            var element = document.getElementById('1');
+            element.muted = "muted";
+
+
+
+
+        }
+
+    </script>
+    <script>
+        changeStream = function (Click_id) {
+            $("video").prop('muted', true);
+            $(this).prop('muted', false);
+            WebRtcDemo.App.resetStream(Click_id);
+        };
+    </script>
+
+    <!-- Analytics -->
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-38670464-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+</body>
+</html>

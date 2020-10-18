@@ -1,0 +1,309 @@
+﻿@model IEnumerable<AdminPanel.ViewModel.sliderDT> 
+           @{
+               Layout = "~/Views/Shared/_AdminLayout.cshtml";
+           }
+
+
+<p style="display:none; " id="messholder"> @ViewBag.mess</p>
+<script>
+    var messvalue = $("#messholder").text();
+    if (messvalue === "1") {
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.success('عکس مورد نظر با موفقیت ثبت شد')
+    }
+</script>
+<div class="row">
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style="display: inline-block;">ویرایش اسلایدر</h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+
+
+
+
+
+
+                    @using (Html.BeginForm("Slider", "Admin", FormMethod.Post,
+    new { enctype = "multipart/form-data", id = "signupformforslider" }))
+{
+
+
+                    <div class="form-group ">
+
+                        <label class="control-label col-md-2 col-sm-2 col-xs-12 ">آپلود عکس:</label>
+                        <input class="col-md-4 col-sm-4 col-xs-12 " style="padding-top:8px; display: inline-block; float: right" id="fileupload" type="file" name="file" multiple="multiple" accept="image/*">
+                        <div class=" " style="direction:rtl">
+                            @*<button class="btn btn-primary" type="button">Cancel</button>
+            <button class="btn btn-primary" type="reset">Reset</button>*@
+                            @* <button id="CRprocuct" class="btn btn-success" onclick="CRproductclicked(CRprocuct)">تایید</button>*@
+                            <div id="istrueimage" style="display:none">سلام</div>
+                            <script>
+                                var _URL = window.URL;
+                                $("#fileupload").change(function (e) {
+                                    document.getElementById("istrueimage").innerHTML = "0";
+                                    var file, img;
+                                    for (var i = 0; i < this.files.length; i++) {
+                                        if ((file = this.files[i])) {
+                                            size = this.files[i].size;
+                                            filename = this.files[i].filename;
+
+                                            img = new Image();
+                                            img.onload = function () {
+                                                // if (this.width !== 500 && this.height !== 500 ) {
+                                                if (size > 1000000) {
+
+                                                    document.getElementById("istrueimage").innerHTML = "1";
+                                                    toastr.options = {
+                                                        "debug": false,
+                                                        "positionClass": "toast-top-center",
+                                                        "onclick": null,
+                                                        "fadeIn": 300,
+                                                        "fadeOut": 1000,
+                                                        "timeOut": 5000,
+                                                        "extendedTimeOut": 1000
+                                                    }
+                                                    toastr.error('بیش از 1 مگا بایت است ' + ' سایز عکس')
+                                                }
+                                                if (this.width < 1000) {
+
+                                                    document.getElementById("istrueimage").innerHTML = "1";
+                                                    toastr.options = {
+                                                        "debug": false,
+                                                        "positionClass": "toast-top-center",
+                                                        "onclick": null,
+                                                        "fadeIn": 300,
+                                                        "fadeOut": 1000,
+                                                        "timeOut": 5000,
+                                                        "extendedTimeOut": 1000
+                                                    }
+                                                    toastr.error('عرض اسلاید باید بیش از 1000 پیکسل باشد')
+                                                }
+                                                // alert("Width:" + this.width + "   Height: " + this.height);//this will give you image width and height and you can easily validate here....
+                                            };
+                                            img.src = _URL.createObjectURL(file);
+                                        }
+                                    }
+
+                                });
+
+
+
+
+                            </script>
+
+
+
+                        </div>
+                        <div class="">
+                            <a id="CRslideimag" class="btn btn-primary">تایید</a>
+                            <script>
+                                $("#CRslideimag").click(function () {
+
+                                    var file = fileupload.value;
+                                    var FF = document.getElementById("istrueimage").innerHTML;
+
+
+                                    if (file != "") {
+                                        if (FF == "1") {
+                                            toastr.options = {
+                                                "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                            }
+                                            toastr.error('عکس های آپلود شده باید حجم کمتر از 1 مگا بایت  و عرض بیش از 1000 پیکسل داشته باشند')
+                                            //$("#addproduct00").submit();
+                                        }
+                                        else {
+                                            $("#signupformforslider").submit();
+                                        }
+
+                                    }
+
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('تصویر مورد نظر را انتخاب کنید')
+                                    }
+                                })
+
+                            </script>
+                        </div>
+
+                    </div>
+
+}
+                   
+
+                    <div class="form-group " >
+
+                        @{
+                            
+                           if(Model.Count()> 0)
+                            {
+
+                               foreach (var item in Model)
+                                {
+                                    string ID = item.ID.ToString();
+                                    string deletetid = "addtocart" + ID;
+                                    string title = "titleof" + ID;
+
+                                    <div class="imagelistholder">
+
+                                        <div class="con">
+
+                                            <img src="/images/panelimages/@item.title" data-imagezoom="true" class=" back">
+                                            <button id=@deletetid class="btn deleteimage">حذف</button>
+                                            <div style="display:none" id=@title>@item.title</div>
+                                        </div>
+
+                                        <style>
+                                            .imagelistholder {
+                                                display: inline-block;
+                                                width: 200px;
+                                                padding: 5px;
+                                                border: 1px solid #eee;
+                                                box-shadow: 3px 3px #eee;
+                                                border-radius: 25px;
+                                            }
+
+                                            .con {
+                                                position: relative;
+                                                width: 100%;
+                                            }
+
+                                                /* Make the image responsive */
+                                                .con img {
+                                                    width: 100%;
+                                                    height: auto;
+                                                    border-radius: 25px;
+                                                }
+
+                                                /* Style the button and place it in the middle of the container/image */
+                                                .con .btn {
+                                                    position: absolute;
+                                                    top: 50%;
+                                                    left: 50%;
+                                                    transform: translate(-50%, -50%);
+                                                    -ms-transform: translate(-50%, -50%);
+                                                    background-color: #555;
+                                                    color: white;
+                                                    font-size: 16px;
+                                                    padding: 12px 24px;
+                                                    border: none;
+                                                    cursor: pointer;
+                                                    border-radius: 5px;
+                                                }
+
+                                                    .con .btn:hover {
+                                                        background-color: black;
+                                                    }
+                                        </style>
+
+
+                                    </div>
+
+                                } 
+                            }
+
+
+
+
+                        }
+
+                     
+                        <script>
+
+
+                            $(".deleteimage").click(function () {
+
+                                var orderid = $("#orderidholder").text();
+                                var id = this.id;
+                                var res = id.substring(9, id.length);
+                                var titleid = "titleof" + res;
+                                var name = $('#' + titleid).text();
+
+
+
+
+
+
+                                $.ajax({
+                                    url: '/Admin/Deleteimage',
+                                    dataType: 'html',
+                                    data: {
+                                        id: id,
+                                        title: name
+                                    },
+                                    success: function (data) {
+                                        window.location.href = "/Admin/Slider";
+                                        window.location.reload();
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            })
+                        </script>
+
+                    </div>
+                    <div class="ln_solid"></div>
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

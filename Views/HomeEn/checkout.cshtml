@@ -1,0 +1,401 @@
+﻿@model IEnumerable<banimo.ViewModel.CheckoutViewModel> 
+
+@{
+    ViewBag.Title = "سبد خرید";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    
+    if (Model.Count() > 0)
+    {
+   
+    <!-- //banner -->
+    <!-- check out -->
+    <div >
+        <div class="row" style="margin:25px; padding:0px">
+            <p style="font-size:22px; float:right" >سبد خرید</p>
+        </div>
+        <div class="row"  style="direction:rtl; margin-bottom:100px">
+           
+            <div class="col-lg-8" id="detailpricediv" style=" margin: 0px; float: right; padding: 5px;padding-right:25px; background-color: #f5f5f5;  display: inline-block">
+                <div style="width: 100%; background-color: #fff; border: 1px solid #eee;">
+                    <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
+                        <table class="timetable_sub">
+
+                            @{
+
+
+
+
+        foreach (var item in Model)
+        {
+            int i = item.productid;
+            string classremname = "rem" + i;
+            string classclosename = "close" + i;
+            string classminusname = "minus" + i;
+            string classaddname = "add" + i;
+            string finaltotal = "total" + i;
+            string imagesrc = item.imageaddress;
+            string quantity = item.quantity.ToString();
+            string price = item.price.ToString();
+            string baseprice = item.baseprice.ToString();
+            string discount = item.discount.ToString();
+            decimal total = item.quantity * item.price;
+            string name = item.productname;
+            <tr class=@classremname>
+                <td class="invert-closeb" style="width:5%">
+                    <div class="rem">
+                        <div id=@classremname class=@classclosename style="background-color:#ddd; border-radius:50%; padding:5px; width:30px"><img style="width:15px" src="~/images/del.png"> </div>
+                    </div>
+                    <script>
+                        $(document).ready(function (c) {
+                            $('.@classclosename').on('click', function (c) {
+
+
+                                var tobeminus = $(this).closest('tr').find('td:nth-child(5)').text();
+                                var divUpd = $(this).closest('tr').find('.value'),
+                                newVal = parseInt(divUpd.text(), 10) * parseInt(tobeminus, 10);
+                                var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                                var pricetotal = document.getElementById("spanfortotal").textContent;
+                                var final = parseInt(pricetotal, 10) - parseInt(newVal, 10)
+                                var finalcount = parseInt(counttotal, 10) - parseInt(divUpd.text(), 10);
+                                $('#simpleCart_quantityy').text(finalcount);
+                                $('#spanfortotal').text(final).toString("###,###");
+                                $('#spanfortotal2').text(final).toString("###,###")
+
+
+                                var ID = this.id
+
+                                $.ajax({
+                                    url: '/Home/deletefromcart',
+                                    dataType: 'html',
+                                    data: {
+                                        id: ID
+
+                                    },
+                                    success: function (data) {
+                                        $('.@classremname').fadeOut('slow', function (c) {
+                                            $('.@classremname').remove();
+                                        });
+
+                                    },
+                                    error: function () {
+
+                                    }
+
+
+                                });
+
+
+
+
+
+                            })
+                        });
+                    </script>
+                </td>
+                <td style="width:20%; padding:20px" class="invert-image"><img style="width:110px" src="@Url.Action("Thumbnail", "Home", new {filename = imagesrc })" alt=" " class="img-responsive" /></td>
+                <td style="width:25%" class="invert">@name</td>
+
+                <td style="width:25%" class="invert">
+                    <div class="quantity">
+                        <div class="quantity-select row">
+                            <div id=@classminusname class="entry value-minus" style="background-color: #ddd; border-radius: 50%; border-color:#eee">&nbsp;</div>
+                            <div class="entry value"><span>@quantity</span></div>
+                            <div id=@classaddname class="entry value-plus active" style="background-color: #ddd; border-radius: 50%; border-color: #eee">&nbsp;</div>
+                        </div>
+                    </div>
+                </td>
+
+
+                @if (price == "0")
+                {
+                    <td class="invert  " style="display:none">توافقی</td>
+                    <td style="width: 25%" class=@finaltotal>توافقی</td>
+                }
+
+                else
+                {
+                    <td class="invert " style="display:none">@price</td>
+                    <td style="width: 25%; font-size:20px" class=@finaltotal>@total  <p style="display:inline-block">تومان</p></td>
+                }
+
+
+
+
+            </tr>
+                             
+        }
+
+                            }
+
+
+
+
+
+
+                        </table>
+
+                        <script>
+                            $('.value-plus').on('click', function () {
+
+
+
+                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) + 1;
+                                divUpd.text(newVal);
+
+                                var tobeadded = $(this).closest('tr').find('td:nth-child(5)').text();
+                                var newtd = parseInt(newVal, 10) * parseInt(tobeadded, 10);
+                                var td = $(this).closest('tr').find('td:nth-child(6)');
+                                td.text(newtd);
+                                var srt = td.attr('class');
+                                $('.' + srt).text(newtd)
+
+
+
+                                var ID = this.id
+
+                                $.ajax({
+                                    url: '/Home/addtocart2',
+                                    dataType: 'html',
+                                    data: {
+                                        id: ID
+
+                                    },
+                                    success: function (data) {
+                                        $.ajax({
+                                            url: '/Home/gogetfinalprice',
+
+
+                                            success: function (data) {
+                                                $("#spanfortotal").text(data)
+                                                $("#spanfortotal2").text(data)
+
+
+                                            },
+                                            error: function () {
+
+                                            }
+                                        });
+                                        $.ajax({
+                                            url: '/Home/gogetfinalquantity',
+
+
+                                            success: function (data) {
+                                                $("#simpleCart_quantityy").text(data)
+
+                                            },
+                                            error: function () {
+
+                                            }
+                                        });
+
+                                    },
+                                    error: function () {
+                                        alert("error")
+                                    }
+
+
+                                });
+                                // var pricetotal = document.getElementById("spanfortotal").textContent;
+                                // var tobeadded = $(this).closest('tr').find('td:nth-child(5)').text();
+                                // var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                                //var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+                                // var finalcount = parseInt(counttotal, 10) + 1;
+                                //$('#spanfortotal').text(final)
+                                //$('#simpleCart_quantityy').text(finalcount)
+                                //$(this).closest('tr').find('td:nth-child(6)').text(parseInt(newVal, 10) * parseInt(tobeadded, 10));
+
+
+
+
+                            });
+
+                            $('.value-minus').on('click', function () {
+                                var divUpd = $(this).parent().find('.value'), newVal = parseInt(divUpd.text(), 10) - 1;
+                                var tobeadded = $(this).closest('tr').find('td:nth-child(5)').text();
+                                var newtd2 = parseInt(newVal, 10) * parseInt(tobeadded, 10);
+                                var td2 = $(this).closest('tr').find('td:nth-child(6)');
+                                if (newVal >= 1) {
+                                    divUpd.text(newVal);
+                                    td2.text(newtd2);
+                                    var srt = td2.attr('class');
+                                    $('.' + srt).text(newtd2)
+                                    var ID = this.id
+                                    $.ajax({
+                                        url: '/Home/minusfromcart',
+                                        dataType: 'html',
+                                        data: {
+                                            id: ID
+                                        },
+                                        success: function (data) {
+
+                                            $.ajax({
+                                                url: '/Home/gogetfinalprice',
+
+
+                                                success: function (data) {
+                                                    $("#spanfortotal").text(data)
+                                                    $("#spanfortotal2").text(data)
+
+                                                },
+                                                error: function () {
+
+                                                }
+                                            });
+                                            $.ajax({
+                                                url: '/Home/gogetfinalquantity',
+
+
+                                                success: function (data) {
+                                                    $("#simpleCart_quantityy").text(data)
+
+                                                },
+                                                error: function () {
+
+                                                }
+                                            });
+                                        },
+                                        error: function () {
+                                            alert("error")
+                                        }
+
+
+                                    });
+
+
+                                    //var pricetotal = document.getElementById("spanfortotal").textContent;
+                                    //var tobeadded = $(this).closest('tr').find('td:nth-child(5)').text();
+                                    //var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                                    //var final = parseInt(pricetotal, 10) - parseInt(tobeadded, 10);
+                                    //var finalcount = parseInt(counttotal, 10) - 1;
+                                    //$('#spanfortotal').text(final)
+                                    //$('#simpleCart_quantityy').text(finalcount)
+                                    //$(this).closest('tr').find('td:nth-child(6)').text(parseInt(newVal, 10) * parseInt(tobeadded, 10));
+
+                                }
+
+
+                            });
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4" id="finalpricediv" style="margin: 0px; float: left; padding: 5px; padding-left:25px; background-color: #f5f5f5; display: inline-block; ">
+                <div style="width: 100%; background-color: #fff; padding: 20px; border: 1px solid #eee;">
+                    <p style=" text-align:center; font-size:20px; padding:10px">مبلغ قابل پرداخت</p>
+                    <p style=" font-size: 22px; color: red; text-align: center; padding: 10px"><span id="spanfortotal2"> </span> تومان</p>
+                  
+                    <style>
+                        .mybtn {
+                            background-image: linear-gradient(to right, #00BFD6 50%, #36CDDF 50%);
+                            background-position: left bottom;
+                            background-size: 200% 100%;
+                            transition: all .2s ease-in;
+                            /* background-color: #00BFD6;*/
+                            width: 100%;
+                            cursor: pointer;
+                            margin-bottom: 25px;
+                            border: 1px #0094ff solid;
+                            border-radius: 5px;
+                        }
+
+                            .mybtn:hover {
+                                background-position: right bottom;
+                            }
+                    </style>
+                    <div class="mybtn addtocart" style="">
+                        <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 20%; padding: 20px; display: inline-block">
+                            <img style="display:inline-block;width:40px " src="~/images/arrleft2.png" />
+
+                        </div>
+                        <p id="confirmation" style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:65%; color:white" class=" ">ادامه ثبت سفارش</p>
+
+                    </div>
+
+                  
+                </div>
+
+            </div>
+             
+           
+
+          
+
+            </div>
+
+
+      
+
+    </div>
+   
+   <script>
+    $(document).ready(function () {
+        $('#confirmation').click(function () {
+            var totalquantity = document.getElementById("simpleCart_quantityy").textContent;
+            if (totalquantity === "0") {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
+                }
+
+                toastr.error('موردی در سبد خرید وجود ندارد')
+
+            }
+            else {
+                $.ajax({
+                    url: '/Home/IsLogedIn',
+                    dataType: 'html',
+                    success: function (data) {
+                        if (data === "0") {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000
+                            }
+
+                            toastr.error('ابتدا وارد شوید')
+                        }
+                        else {
+                            var URL = "/Home/EndOrder"
+                            window.location.href = URL;
+                        }
+
+
+
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+
+        })
+
+    })
+</script>
+    }
+    else
+    {
+        <div class="checkout">
+            <div class="container" style="text-align:center">
+                <h4> موردی در سبد خرید شما وجود ندارد</h4>
+            </div>
+        </div>
+    }
+}
+
+
+ 

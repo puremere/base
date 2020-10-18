@@ -1,0 +1,190 @@
+﻿@model IEnumerable<banimo.ViewModel.earlydatumfinal>
+
+
+
+
+                <div class=" row" style="padding-bottom:10px; margin:15px 5px 0px 0px; border-bottom:1px solid #bbb">
+                    @foreach (var item in @Model)
+                        {
+                        var ID = "PRID" + item.ID;
+                        
+                        <div id=@ID class="imageofproduct " style="display:inline-block ; width:100px ; height:130px; float:right"><img style="width:100%; height:100%; border:1px solid #bbb; cursor:pointer" src=@item.imagelist[1] /></div>
+
+
+                         }
+                </div>
+
+                
+                <div>
+                    @foreach (var item in Model)
+                    {
+                                            var DIVID = "PRDDIVID" + item.ID;
+                                            var PRname = "productname" + item.ID;
+                                            var PRprice = "productprice" + item.ID;
+                                            var PRpricenow = "productpricenow" + item.ID;
+                                            var PRcolor = "productcolor" + item.ID;
+                                            var PRsetid = "productsetid" + item.ID;
+                                            var PRdesc = "productdesc" + item.ID;
+                                            var PRfileupload = "PRfileupload" + item.ID;
+                                            var PRsubmit = "PRsubmit" + item.ID;
+                                            var PRform = "PRform" + item.ID;
+                                            var PRdiscount = "discount" + item.ID;
+                                            var titleholder = "titleholder" + item.ID;
+                                            var colorholder = "colorholder" + item.ID;
+                                           
+                                           
+
+
+                      using (Html.BeginForm("updateproductdetail", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = @PRform, @class = "signupform" }))
+                      {
+                      
+                            <div class="row PRDDIVID" id=@DIVID style="display:none">
+                               @*این دو صرفاً برای استفاده در jquery می باشند*@
+                                <p id=@titleholder style="display: none">@item.title</p>
+                                <p id=@colorholder style="display:none">@item.color</p>
+                                @*این دو صرفاً برای استفاده در jquery می باشند*@
+
+
+
+                                <div class="row" style="display:none">
+                                    <input value=@item.ID style="width:200px; display: inline-block; float: right; text-align: right;" type="text" name="productid">
+                                </div>
+
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display :inline-block; float:right; text-align:right; margin-top:15px">:نام محصول</label>
+                                    <input id=@PRname  class="productprice input " type="text" name="productname">
+                                </div>
+                               
+
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display: inline-block; float: right; text-align: right; margin-top: 15px">:قیمت پایه محصول</label>
+                                    <input id=@PRprice value=@item.productprice class=" productprice input"  name="productprice">
+                                </div>
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display: inline-block; float: right; text-align: right; margin-top: 15px">:قیمت نهایی محصول</label>
+                                    <input id=@PRpricenow value=@item.PriceNow class="input" name="productpricenow">
+                                </div>
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display :inline-block; float:right; text-align:right; margin-top:15px">:درصد تخفیف</label>
+                                    <input id=@PRdiscount value=@item.discount class="input" type="text" name="productdiscount">
+                                </div>
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display :inline-block; float:right; text-align:right; margin-top:15px">:رنگ</label>
+                                    <input id=@PRcolor  class="input" type="text" name="productcolor">
+                                </div>
+
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display: inline-block; float: right; text-align: right; margin-top: 15px">:شماره گروه محصول</label>
+                                    <input id=@PRsetid value=@item.SetId class=" productsetid input"  name="productsetid">
+                                </div>
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display: inline-block; float: right; text-align: right; margin-top: 15px">:توضیحات محصول</label>
+                                    <textarea cols="40" rows="5" id=@PRdesc style="float:right; text-align:right" name="productdesc">@item.description</textarea>
+                                </div>
+
+                                <div class="row" style="direction:ltr; margin: 15px">
+                                    <label class="col-lg-4" style="display: inline-block; float: right; text-align: right; margin-top: 15px">:عکس های محصول مورد نظر را انتخاب کنید</label>
+                                    <input id=@PRfileupload class="sub fileupload" style="display: inline-block; float: right" type="file" name="files[]" multiple="multiple" accept="image/*">
+                                </div>
+
+                                <div class="row" style="margin: 15px">
+                                    <p id=@PRsubmit class="sub editproduct" style="width:100px; text-align:center">تایید</p>
+                                </div>
+                                <script>
+                                     var id = @item.ID ;
+                                     var titileH = "titleholder" + id;
+                                     var colorH = "colorholder" + id;
+                                     var titleinput = "productname" + id;
+                                     var colorinput = "productcolor" + id;
+                                     $("#"+ titleinput).val($("#" + titileH).text())
+                                     $("#"+ colorinput).val($("#" + colorH).text())
+
+
+                                </script>
+
+                            </div>
+                    }
+
+}
+
+
+                </div>
+
+         
+
+<script>
+   
+    $(".editproduct").click(function () {
+
+        
+
+
+        var id = this.id.substring(8)
+        var name = "productname" + id
+        var price = "productprice" + id
+        var setid = "productsetid" + id
+        var color = "productcolor" + id
+        var desc = "productdesc" + id
+        var uploadfile = "PRfileupload" + id
+        var submit = "PRsubmit" + id
+        var form = "PRform" + id;
+
+        var PRname = $('#' + name).val()
+        var PRprice = $('#' + price).val()
+        var PRsetid = $('#' + setid).val()
+        var PRdesc = $('#' + desc).val()
+        var PRcolor = $('#' + color).val()
+        var PRupload = $('#' + uploadfile).val()
+
+        $('#' + name).text("ddddd");
+
+        if (PRname != "" & PRprice != "" & PRsetid != "" & PRdesc != "" & PRcolor != "") {
+            
+            $("#" + form).submit();
+        }
+        else {
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error('تمامی موارد را کامل کنید')
+        }
+        
+       
+        
+
+
+        //$.ajax({
+        //    url: '/Home/updateproductdetail',
+        //    dataType: 'html',
+        //    data: {
+        //        name: PRname,
+        //        price: PRprice,
+        //        setid: PRsetid,
+        //        desc: PRdesc,
+        //        ID : id
+
+
+        //    },
+        //    success: function (data) {
+
+                
+
+        //    },
+        //    error: function () {
+        //        alert("nashod")
+        //    }
+        //});
+    })
+    $(".imageofproduct").click(function () {
+        var id = this.id.substring(4)
+        var divid = "PRDDIVID" + id
+        $('.PRDDIVID').css("display", "none")
+        $('#' + divid).css("display", "block")
+    })
+</script>

@@ -1,0 +1,402 @@
+﻿@model  banimo.ViewModel.pagesVM
+@{
+    ViewBag.Title = "Pages";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section scripts{
+    <style>
+        .nav-tabs {
+            padding-right: 0px;
+        }
+
+            .nav-tabs li {
+                float: right !important;
+            }
+
+        .fieldholder {
+            /*width: 30%;
+            display: inline-block;*/
+            padding: 15px;
+        }
+
+        .REM {
+            border-radius: 5px;
+        }
+    </style>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+
+            toolbar: 'undo redo | formatselect | ' +
+                ' bold italic backcolor | alignleft aligncenter ' +
+                ' alignright alignjustify | bullist numlist outdent indent |' +
+                ' removeformat | help | link image',
+            content_css: [
+                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+                '//www.tiny.cloud/css/codepen.min.css'
+            ]
+        });
+        //tinymce.activeEditor.execCommand('mceDirectionRTL');
+    </script>
+    <script>
+        function makeid(length) {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+    </script>
+
+
+}
+
+
+
+
+
+
+
+
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">درباه ما</a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">تماس با ما</a></li>
+
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+
+
+            <div class="row">
+
+                @using (Html.BeginForm("updatePages", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "updateArticle" }))
+                {
+
+                    <div class="row " style="padding: 5px 25px">
+
+                        <div style="width:30%; display:inline-block">
+                            <label style="text-align: right">
+                                عکس:
+                            </label>
+
+                            <div>
+                                <input type="file" id="aboutusImage" name="image" required="required" class="form-control ">
+                            </div>
+                        </div>
+                        <div style="width:20%; display:inline-block">
+                            <p id="click" class="btn btn-default " style="display:inline-block"> بازیابی اطلاعات</p>
+                        </div>
+                    </div>
+                    <input name="name" hidden value="aboutus" />
+                    <div style="padding: 15px ; margin:15px">
+
+                        <div id="thumbholderEdior">
+
+                        </div>
+                        <div class="row">
+                            <div class="row fieldholder col-lg-12">
+
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+
+                                    <textarea id="content" name="content" required="required" class="form-control " style="min-height:150px"></textarea>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                                <a id="UpdateButt" class="lgnsubmitt btn btn-primary">تایید</a>
+
+                            </div>
+                        </div>
+                        <script>
+
+                            $("#UpdateButt").click(function () {
+                                // alert("aa");
+
+                                var int = 0;
+                                $(".REM2").each(function () {
+
+                                    if ($(this).val() === "") {
+                                        $(this).siblings("span").css("display", "inline-block");
+                                        int = 1;
+                                    }
+                                })
+                                if (int === 0) {
+                                    $("#updateArticle").submit();
+                                }
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+                                    toastr.error('لطفاً تمامی موارد را کامل کنید')
+
+                                }
+
+
+                            })
+                        </script>
+                        <script language="javascript" type="text/javascript">
+
+                                    $("#aboutusImage").on('change', function () {
+                                        var input = this;
+                                        if (input.files && input.files[0])
+                                        {
+                                                var formData = new FormData();
+                                                formData.append('blob', input.files[0]);
+                                                formData.append('filename', 'aboutus');
+                                                var MyAppUrlSettings = {
+                                                    MyUsefulUrl: '@Url.Action("GetImageForPages", "admin")'
+                                                }
+                                                var request = new XMLHttpRequest();
+                                                request.open('POST', MyAppUrlSettings.MyUsefulUrl);
+                                                request.send(formData);
+                                                request.onreadystatechange = function() {
+                                                        if (request.readyState == 4 && request.status == 200)
+                                                         {
+                                                             $('#thumbholderEdior').html(request.responseText);
+                                                             $("#main-cropper").css("display", "none");
+                                                             $("#loading").css("display", "none");
+                                                         }
+                                                }
+                                        }
+                                        else
+                                        {
+                                            alert("s");
+                                        };
+
+                                });
+                        </script>
+                        <script>
+                                $("#click").click(function () {
+                                    var items = @Html.Raw(Json.Encode(Model.items));
+            var srt = "";
+            for (var i = 0, l = items.length; i < l; i++) {
+
+                if (items[i].title === "aboutus") {
+                    srt = items[i].content;
+                    html = $.parseHTML(srt);
+                    var $response = $(html);
+                    var $links = $response.find('img');
+                    var value = "";
+                    $links.each(function (index, $link) {
+                        value = value + $(this).attr('src') + ",";
+                    });
+                    $.ajax({
+                        url: '/Admin/GetContentImageForMCEPages',
+                        dataType: 'html',
+                        data: {
+                            srt: value,
+                            type: "aboutus"
+                        },
+                        success: function (data) {
+                            $('#thumbholderEdior').html(data);
+
+                        },
+                        error: function () {
+
+                        }
+                    });
+
+
+                }
+                else {
+
+                }
+            }
+                                    tinymce.get('content').setContent(srt);
+                                })
+                        </script>
+                    </div>
+
+                }
+
+
+
+            </div>
+
+
+
+
+        </div>
+        <div id="menu1" class="tab-pane fade" style="padding-top:20px">
+            <div class="row">
+
+                @using (Html.BeginForm("updatePages", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "updateArticleContactUs" }))
+                {
+
+                    <div class="row " style="padding: 5px 25px">
+
+                        <div style="width:30%; display:inline-block">
+                            <label style="text-align: right">
+                                عکس:
+                            </label>
+
+                            <div>
+                                <input type="file" id="contactusImage" name="image" required="required" class="form-control ">
+                            </div>
+                        </div>
+                        <div style="width:20%; display:inline-block">
+                            <p id="click2" class="btn btn-default " style="display:inline-block"> بازیابی اطلاعات</p>
+                        </div>
+                    </div>
+                    <input name="name" hidden value="contactus" />
+                    <div style="padding: 15px ; margin:15px">
+
+                        <div id="thumbholderContactus">
+
+                        </div>
+                        <div class="row">
+                            <div class="row fieldholder col-lg-12">
+
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+
+                                    <textarea id="contentContactUs" name="contentContactUs" required="required" class="form-control " style="min-height:150px"></textarea>
+
+                                </div>
+
+
+                            </div>
+                            <div class="row fieldholder" style="width:25%;padding: 0 10px;display: inline-block;">
+                                <a id="UpdateButtContact" class="lgnsubmitt btn btn-primary">تایید</a>
+
+                            </div>
+                        </div>
+                        <script>
+
+                            $("#UpdateButtContact").click(function () {
+                                // alert("aa");
+
+                                var int = 0;
+                                $(".REM2").each(function () {
+
+                                    if ($(this).val() === "") {
+                                        $(this).siblings("span").css("display", "inline-block");
+                                        int = 1;
+                                    }
+                                })
+                                if (int === 0) {
+                                    $("#updateArticleContactUs").submit();
+                                }
+                                else {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+                                    toastr.error('لطفاً تمامی موارد را کامل کنید')
+
+                                }
+
+
+                            })
+                        </script>
+                        <script language="javascript" type="text/javascript">
+
+                            $("#contactusImage").on('change', function () {
+                                        var input = this;
+                                        if (input.files && input.files[0])
+                                        {
+                                                var formData = new FormData();
+                                                formData.append('blob', input.files[0]);
+                                                formData.append('filename', 'contactus');
+                                                var MyAppUrlSettings = {
+                                                    MyUsefulUrl: '@Url.Action("GetImageForPages", "admin")'
+                                                }
+                                                var request = new XMLHttpRequest();
+                                                request.open('POST', MyAppUrlSettings.MyUsefulUrl);
+                                                request.send(formData);
+                                                request.onreadystatechange = function() {
+                                                        if (request.readyState == 4 && request.status == 200)
+                                                         {
+                                                            $('#thumbholderContactus').html(request.responseText);
+                                                             $("#main-cropper").css("display", "none");
+                                                             $("#loading").css("display", "none");
+                                                         }
+                                                }
+                                        }
+                                        else
+                                        {
+                                            alert("s");
+                                        };
+
+                                });
+                        </script>
+                        <script>
+                            $("#click2").click(function () {
+                                var items = @Html.Raw(Json.Encode(Model.items));
+                                var srt = "";
+                                for (var i = 0, l = items.length; i < l; i++) {
+
+                                    if (items[i].title === "contactus") {
+                                        srt = items[i].content;
+                                        html = $.parseHTML(srt);
+                                        var $response = $(html);
+                                        var $links = $response.find('img');
+                                        var value = "";
+                                        $links.each(function (index, $link) {
+                                            value = value + $(this).attr('src') + ",";
+                                        });
+                                        $.ajax({
+                                            url: '/Admin/GetContentImageForMCEPages',
+                                            dataType: 'html',
+                                            data: {
+                                                srt: value,
+                                                type: "contactus"
+                                            },
+                                            success: function (data) {
+                                                $('#thumbholderContactus').html(data);
+
+                                            },
+                                            error: function () {
+
+                                            }
+                                        });
+
+
+                                    }
+                                    else {
+
+                                    }
+                                }
+                                tinymce.get('contentContactUs').setContent(srt);
+                            });
+                        </script>
+                    </div>
+
+                }
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

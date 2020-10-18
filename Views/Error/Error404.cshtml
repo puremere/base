@@ -1,0 +1,33 @@
+﻿@{
+    ViewBag.Title = "Error404";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .c-404__action {
+        border-radius: 8px;
+        padding: 10px 20px;
+        color: #fff;
+        border: none;
+        min-width: 161px;
+        margin: 10px 19.5px 46px;
+        text-decoration: none;
+    }
+    .c-404__action--primary {
+        background-color: #6ab946;
+        border: 1px solid #4aa42e;
+    }
+</style>
+
+<div style="background:url(/images/6fb2da6e.png) repeat; padding:40px">
+    <div id="content">
+        <div class="c-404" style="">
+            <div class="c-404__title" style="text-align:center;">
+                <h2 style="font-size: 2.571rem;line-height: 1.222;">صفحه‌ای که دنبال آن بودید پیدا نشد!</h2>
+            </div>
+            <div class="c-404__actions" style="text-align:center;margin:40px">
+                <a href="/" class="c-404__action c-404__action--primary" style="    background-color: #6ab946; border: 1px solid #4aa42e;">صفحه اصلی</a>
+            </div>
+            <div class="c-404__image" style="text-align:center"><img  style="max-width:50%" src="~/images/404.png"></div>
+        </div>
+    </div>
+</div>

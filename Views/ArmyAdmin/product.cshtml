@@ -1,0 +1,354 @@
+﻿@model AdminPanel.ViewModel.CatPageViewModel
+@{
+    Layout = "~/Views/Shared/_armyadminlayout.cshtml";
+    ViewBag.Title = "مدیریت مطالب";
+   
+}
+
+
+
+@{
+    if (@ViewBag.msg == 1)
+    { 
+        <script>
+    toastr.options = {
+        "debug": false,
+        "positionClass": "toast-top-center",
+        "onclick": null,
+        "fadeIn": 300,
+        "fadeOut": 1000,
+        "timeOut": 5000,
+        "extendedTimeOut": 1000
+    }
+    toastr.success('محصول مورد نظر با موفقیت اضافه شد')
+             @ViewBag.msg == 4
+        </script>
+    }
+    if (@ViewBag.msg == 2)
+    { 
+             <script>
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('خطا لطفاً مجدداً تلاش کنید')
+                 @ViewBag.msg == 4
+            </script>
+    }
+     if (@ViewBag.msg == 3)
+    { 
+             <script>
+        toastr.options = {
+            "debug": false,
+            "positionClass": "toast-top-center",
+            "onclick": null,
+            "fadeIn": 300,
+            "fadeOut": 1000,
+            "timeOut": 5000,
+            "extendedTimeOut": 1000
+        }
+        toastr.error('محصول با همین مشخصات وجود دارد')
+                 @ViewBag.msg == 4
+            </script>
+    }
+}
+
+
+<div class="row">
+
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style="display:inline-block">انتخاب گروه</h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    @{
+
+                        List<SelectListItem> listGroup = new List<SelectListItem>();
+                       
+                        listGroup.Add(new SelectListItem
+                        {
+                            Text = "آزادگان",
+                            Value = "1",
+                            
+                        });
+                        listGroup.Add(new SelectListItem
+                        {
+                            Text = "جانبازان",
+                            Value = "2",
+
+                        });
+                        listGroup.Add(new SelectListItem
+                        {
+                            Text = "شهدا",
+                            Value = "3",
+
+
+                        });
+                        listGroup.Add(new SelectListItem
+                        {
+                            Text = "رزمندگان",
+                            Value = "4",
+
+                        });
+                        
+
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            @Html.DropDownList("listGroup", listGroup,"انتخاب کنید", new { id = "listGroup", @class = "form-control col-md-7 col-xs-12" })
+                        </div>
+                        <script>
+                            $("#listGroup").change(function () {
+                                var val =  $('#listGroup :selected').val();
+                                $.ajax({
+                                    data: {
+                                        val: val,
+                                       
+                                    },
+                                    url: '/ArmyAdmin/GetCreateSection',
+                                    dataType: 'html',
+                                    success: function (data) {
+                                        $('#createsectoin').html(data);
+                                    },
+                                    error: function () {
+                                        alert("nashod")
+                                    }
+                                });
+                            })
+                        </script>
+                    }
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style=" display: inline-block;">مشاهده لیست نتایج</h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+
+
+                    <div class="">
+                        <div class="form-group rowholder ">
+                            <label class="control-label component" for="first-name">
+                              نام : 
+                            </label>
+                            <div class="component">
+                                @Html.TextBox("NameSearch", "", new { id = "NameSearch" })
+                            </div>
+                            <label class="control-label component" for="first-name">
+                                نام خانوادگی :
+                            </label>
+                            <div class="component">
+                                @Html.TextBox("FamilySearch", "", new { id = "FamilySearch" })
+                            </div>
+                       
+
+                           
+                          
+                           
+
+                        </div>
+
+                        <div class="form-group ">
+                            <a id="Verify" class="lgnsubmitt">تایید</a>
+                            <script>
+                                $("#Verify").click(function () {
+                                    var name = $("#NameSearch").val();
+                                    var family = $("#FamilySearch").val();
+                                    var val = $('#listGroup :selected').val();
+                                    $.ajax({
+                                        data : {
+                                            name: name,
+                                            family: family,
+                                            type: val
+
+                                        },
+                                        url: '/ArmyAdmin/GetTheListOfItems',
+                                        dataType: 'html',
+                                        success: function (data) {
+
+                                            $('#listholder').html(data);
+                                            $('#listholder').css("display", "block");
+                                        },
+                                        error: function () {
+                                            alert("nashod")
+                                        }
+                                    });
+                                })
+                               
+                            </script>
+                        </div>
+
+                        <div class="form-group rowholder" id="listholder" style="display:none">
+
+                        </div>
+                    </div>
+
+
+                   
+
+
+
+                    <div class="ln_solid"></div>
+
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+@if (ViewBag.page != null)
+{
+    <script>
+        var item = @ViewBag.page
+        
+    $.ajax({
+        url: '/ArmyAdmin/GetTheListOfItems',
+        dataType: 'html',
+        data: {
+            page: item
+        },
+        success: function (data) {
+
+            $('#listholder').html(data);
+            $('#listholder').css("display", "block");
+
+        },
+        error: function () {
+            alert("nashod")
+        }
+    });
+    </script>
+}
+
+<div class="row">
+    
+
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h4 style="display:inline-block">تعریف فرد جدید</h4>
+                <ul class="nav navbar-left panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="#">Settings 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Settings 2</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <br />
+                <div id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                    <div id="createsectoin">
+
+                    </div>
+
+
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

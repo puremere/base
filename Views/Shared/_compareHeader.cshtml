@@ -1,0 +1,262 @@
+﻿
+@model IEnumerable<banimo.ViewModelPost.viewProductViewModel>
+
+
+
+<div id="productHolder" style="">
+
+    <style>
+    </style>
+
+    @{
+        foreach (var item in Model)
+        {
+
+    <div class="itemProdut">
+        @if (item.title != Model.First().title)
+        {
+            <i id="@item.ID" class="glyphicon glyphicon-remove remover" style="color:#717171;font-size: 20px;"></i>
+
+        }
+        else
+        {
+            <i id="@item.ID" class="glyphicon glyphicon-remove remover" style="color:#717171;font-size: 20px;visibility:hidden"></i>
+        }
+        <div class="imageHolder">
+            @if (item.slides != null)
+            {
+                <img style="" src="~/Images/panelimages/@item.slides.First().image" />
+
+            }
+            else
+            {
+                <img style="" src="~/Images/panelimages/placeholder.jpg" />
+
+            }
+        </div>
+
+        <p class="title"> @item.title</p>
+        <p class="price">
+            @string.Format("{0:n0}", Convert.ToInt32(item.price))  <i style="font-size:18px">تومان </i>
+        </p>
+        @{
+            string url = item.link;
+        }
+        <a class="btn btn-primary" href='@url'>مشاهده و خرید محصول</a>
+
+    </div>
+        }
+        <script>
+            $(".remover").click(function () {
+
+                $("#loading").css("display", "block");
+                var id = $(this).attr("id");
+
+
+                $.ajax({
+                    url: '/Home/getComparedataH',
+                    dataType: 'html',
+                    data: {
+                        type: "-1",
+                        id: id,
+                    },
+                    success: function (data) {
+
+                        $("#resultholder").html(data);
+                        $("#loading").fadeOut();
+                    },
+                    error: function (request, status, error) {
+
+                    }
+                });
+            })
+        </script>
+    }
+
+
+    @if (Request.Browser.IsMobileDevice)
+    {
+        if (@Model.Count() < 2)
+        {
+
+            <div id="addcompare" class="itemProdut">
+                <button href="#" class="c-compare__placement addproduct">برای افزودن کالا به لیست مقایسه کلیک کنید</button>
+                <a class="btn btn-primary btn-primary--gray addproduct">افزودن کالا به مقایسه</a>
+            </div>
+
+            <script>
+                $(".addproduct").click(function () {
+                    $("#mymodalApp").modal("toggle");
+                })
+            </script>
+        }
+    }
+    else
+    {
+        if (@Model.Count() < 4)
+        {
+
+            <div id="addcompare" class="itemProdut" style="">
+                <button href="#" class="c-compare__placement addproduct">برای افزودن کالا به لیست مقایسه کلیک کنید</button>
+                <a class="btn btn-primary btn-primary--gray addproduct">افزودن کالا به مقایسه</a>
+            </div>
+
+            <script>
+                $(".addproduct").click(function () {
+                    $("#mymodalApp").modal("toggle");
+                })
+            </script>
+        }
+    }
+
+
+
+
+
+
+</div>
+<div id="FeatureHolder" style="">
+    <style>
+    </style>
+
+    <div class="c-box c-box--tabs p-tabs__content">
+
+        <div class="c-params is-active">
+            <article>
+
+
+                @{
+
+
+                    List<int> lst2 = new List<int>();
+                    foreach (var item in Model.First().feature)
+                    {
+                        if (item.value == "Master")
+                        {
+                            lst2.Add(Model.First().feature.IndexOf(item));
+                        }
+                    }
+                    for (int i = 0; i < lst2.Count(); i++)
+                    {
+
+                        int j = i + 1;
+                        int myindex = lst2[i];
+                        <section>
+                            <h3 class="c-params__title">@Model.First().feature[myindex].title</h3>
+                            <ul class="c-params__list">
+                                @if (j < lst2.Count())
+                                {
+
+                                    foreach (var item in Model.First().feature)
+                                    {
+                                        int index = Model.First().feature.IndexOf(item);
+                                        if (Model.First().feature.IndexOf(item) > lst2[i] && Model.First().feature.IndexOf(item) < lst2[j])
+                                        {
+                                            <li>
+                                                <div class="c-params__list-key">
+                                                    <span class="block">@item.title</span>
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="c-params__list-value">
+                                                    <span class="block " style="">
+                                                        @item.value
+                                                    </span>
+                                                    @if (@Model.Count() > 1)
+                                                    {
+                                                        <span class="block " style="">
+                                                            @Model.Skip(1).First().feature[index].value.ToString();
+                                                        </span>
+                                                    }
+                                                    @if (@Model.Count() > 2)
+                                                    {
+                                                        <span class="block " style="">
+                                                            @Model.Skip(2).First().feature[index].value.ToString();
+                                                        </span>
+                                                    }
+                                                    @if (@Model.Count() > 3)
+                                                    {
+                                                        <span class="block " style="">
+                                                            @Model.Skip(3).First().feature[index].value.ToString();
+                                                        </span>
+                                                    }
+
+
+
+                                                </div>
+                                            </li>
+
+
+                                        }
+                                    }
+                                }
+                                else
+                                {
+
+                                    foreach (var item in Model.First().feature)
+                                    {
+                                        int index = Model.First().feature.IndexOf(item);
+                                        if (Model.First().feature.IndexOf(item) > lst2[i])
+                                        {
+
+
+                                            <li>
+                                                <div class="c-params__list-key">
+                                                    <span class="block">@item.title</span>
+                                                </div>
+                                            </li>
+                                            <li>
+
+                                                <div class="c-params__list-value">
+                                                    <span class="block " style="">
+                                                        @item.value
+                                                    </span>
+                                                    @if (@Model.Count() > 1)
+                                                    {
+                                                        <span class="block " style="">
+                                                            @Model.Skip(1).First().feature[index].value.ToString();
+                                                        </span>
+                                                    }
+                                                    @if (@Model.Count() > 2)
+                                                    {
+                                                        <span class="block " style="">
+                                                            @Model.Skip(2).First().feature[index].value.ToString();
+                                                        </span>
+                                                    }
+                                                    @if (@Model.Count() > 3)
+                                                    {
+                                                        <span class="block " style="">
+                                                            @Model.Skip(3).First().feature[index].value.ToString();
+                                                        </span>
+                                                    }
+
+
+
+                                                </div>
+                                            </li>
+
+                                        }
+                                    }
+                                }
+
+
+                            </ul>
+                        </section>
+                    }
+
+                }
+
+
+            </article>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
