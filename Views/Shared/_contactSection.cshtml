@@ -40,9 +40,9 @@
 
 
         </div>
-    }
-    else
-    {
+                        }
+                        else
+                        {
         <div class="footer maxwidth" style="width:100% ; background-color:#e9e9e9;  padding-top:50px ">
             <div style="width:90% ; margin:auto; padding-bottom:15px; border-bottom:1px #ddd solid">
                 <div class="row holderoffooterfeature" style="margin: 0px; width: 25%; display: inline-block">
@@ -58,8 +58,19 @@
                 <div class="row holderoffooterfeature" style="margin: 0px; width: 25%; display: inline-block">
 
                     <img class="footerimage" style="width:100px; height:100px; display:block; margin:auto" src="~/images/cash.png" />
+                    @{
+                        if (@System.Configuration.ConfigurationManager.AppSettings["siteName"] == "تلکا")
+                        {
+                            <p style="color:#000; text-align:center; margin-top:20px">پرداخت اینترنتی</p>
 
-                    <p style="color:#000; text-align:center; margin-top:20px">پرداخت در محل</p>
+                        }
+                        else
+                        {
+                            <p style="color:#000; text-align:center; margin-top:20px">پرداخت در محل</p>
+
+                        }
+
+                    }
                 </div>
                 <div class="row holderoffooterfeature" style="margin: 0px; width: 24%; display: inline-block">
 
