@@ -133,6 +133,9 @@
                                                 غیر فعال
                                             </th>
                                             <th>
+                                               ناموجود
+                                            </th>
+                                            <th>
                                                 پرفروش
                                             </th>
                                             <th>
@@ -150,87 +153,98 @@
                                         @foreach (var item in Model.data)
                                         {
                                             string color = item.color;
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.ID)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.title)
-                                                </td>
-                                                <td>
-                                                    <div style="width:20px; height:20px ; border-radius:50%; background-color:@color; border:1px solid #ddd"></div>
-                                                </td>
+                                        <tr>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.ID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.title)
+                                            </td>
+                                            <td>
+                                                <div style="width:20px; height:20px ; border-radius:50%; background-color:@color; border:1px solid #ddd"></div>
+                                            </td>
 
-                                                <td style="text-align: center;">
-                                                    @{
+                                            <td style="text-align: center;">
+                                                @{
 
-                                                        if (item.count == "-1")
-                                                        {
-                                                            <p style="color : green">موجود</p>
-                                                        }
-                                                        else if (item.count == "0")
-                                                        {
-                                                            <p style="color : red">نا موجود</p>
-                                                        }
-                                                        else
-                                                        {
-                                                            @Html.DisplayFor(modelItem => item.count)
-
-                                                        }
-
-                                                    }
-
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    @if (item.isActive == "1")
+                                                    if (item.count == "-1")
                                                     {
-                                                        <input id=@item.ID type="checkbox" class=Active checked />
+                                                        <p style="color : green">موجود</p>
+                                                    }
+                                                    else if (item.count == "0")
+                                                    {
+                                                        <p style="color : red">نا موجود</p>
                                                     }
                                                     else
                                                     {
-                                                        <input id=@item.ID type="checkbox" class=Active />
-
-                                                    }
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    @{
-
-                                                        if (item.isOffer == "1")
-                                                        {
-                                                            <input id=@item.ID type="checkbox" class=Offer checked />
-                                                        }
-                                                        else
-                                                        {
-                                                            <input id=@item.ID type="checkbox" class=Offer />
-
-                                                        }
+                                                        @Html.DisplayFor(modelItem => item.count)
 
                                                     }
 
-                                                </td>
-                                                <td style="text-align: center;">
-                                                    @{
+                                                }
 
-                                                        if (item.specialOffer == "1")
-                                                        {
-                                                            <input id=@item.ID type="checkbox" class="specialOffer" checked />
-                                                        }
-                                                        else
-                                                        {
-                                                            <input id=@item.ID type="checkbox" class="specialOffer" />
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @if (item.isActive == "1")
+                                                {
+                                                    <input id=@item.ID type="checkbox" class=Active checked />
+                                                }
+                                                else
+                                                {
+                                                    <input id=@item.ID type="checkbox" class=Active />
 
-                                                        }
+                                                }
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @if (item.IsAvailable == "1")
+                                                {
+                                                    <input id=@item.ID type="checkbox" class=Available checked />
+                                                }
+                                                else
+                                                {
+                                                    <input id=@item.ID type="checkbox" class=Available />
+
+                                                }
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @{
+
+                                                    if (item.isOffer == "1")
+                                                    {
+                                                        <input id=@item.ID type="checkbox" class=Offer checked />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input id=@item.ID type="checkbox" class=Offer />
 
                                                     }
 
-                                                </td>
-                                                <td>
+                                                }
 
-                                                    @* @Html.ActionLink("ویرایش", "Edit", new { id = item.ID }, new { style = "background-color: #246388;padding: 5px;color: #fff;border-radius: 5px;" }) |*@
-                                                    @{
-                                                        var editclassname = "editproduct" + item.ID;
-                                                        <a id=@item.ID class="btn btn-primary @editclassname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
-                                                        <script>
+                                            </td>
+                                            <td style="text-align: center;">
+                                                @{
+
+                                                    if (item.specialOffer == "1")
+                                                    {
+                                                        <input id=@item.ID type="checkbox" class="specialOffer" checked />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input id=@item.ID type="checkbox" class="specialOffer" />
+
+                                                    }
+
+                                                }
+
+                                            </td>
+                                            <td>
+
+                                                @* @Html.ActionLink("ویرایش", "Edit", new { id = item.ID }, new { style = "background-color: #246388;padding: 5px;color: #fff;border-radius: 5px;" }) |*@
+                                                @{
+                                                    var editclassname = "editproduct" + item.ID;
+                                                    <a id=@item.ID class="btn btn-primary @editclassname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
+                                                    <script>
                                 var editclassname = "editproduct" + "@item.ID";
                                 var selectedCatID = $("#listofproduct").val();
 
@@ -242,17 +256,17 @@
                                     window.location.href = url3;
 
                                 })
-                                                        </script>
-                                                    }
+                                                    </script>
+                                                }
 
 
 
-                                                </td>
-                                                <td>
-                                                    @{
-                                                        var classname = "deleteproduct" + item.ID;
-                                                        <a data-toggle="modal" data-target="#myModal" id=@item.ID class="btn btn-primary @classname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
-                                                        <script>
+                                            </td>
+                                            <td>
+                                                @{
+                                                    var classname = "deleteproduct" + item.ID;
+                                                    <a data-toggle="modal" data-target="#myModal" id=@item.ID class="btn btn-primary @classname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
+                                                    <script>
                                                         var classname = "deleteproduct" + @item.ID
 
                                                             $("." + classname).click(function () {
@@ -260,34 +274,34 @@
 
 
                                                             });
-                                                        </script>
-                                                    }
-                                                </td>
-
-                                                <td>
-                                                    @{
-                                                        if (item.serverRowID != null)
-                                                        {
-                                                            string removeID = item.ID + "-" + item.serverRowID;
-                                                            <button type="button" class="btn btn-danger removeFromserver" data-toggle="modal" data-target="#myModal" id="@removeID">حذف از سرور </button>
-
-                                                        }
-                                                        else
-                                                        {
-                                                            <button type="button" class="btn btn-info addtoserver" data-toggle="modal" data-target="#serverModal" id="@item.ID">افزودن به سرور</button>
-
-                                                        }
-                                                    }
-                                                    <script>
-                                                        $(".removeFromserver").click(function () {
-                                                            var id = $(this).attr('id');
-                                                            $("#modalValue").text("banimo" + id);
-                                                            $("#modalmessage").text("  آیا از حذف محصول از سررور اطمینان دارید؟ ")
-
-                                                        })
                                                     </script>
-                                                </td>
-                                            </tr>
+                                                }
+                                            </td>
+
+                                            <td>
+                                                @{
+                                                    if (item.serverRowID != null)
+                                                    {
+                                                        string removeID = item.ID + "-" + item.serverRowID;
+                                                        <button type="button" class="btn btn-danger removeFromserver" data-toggle="modal" data-target="#myModal" id="@removeID">حذف از سرور </button>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <button type="button" class="btn btn-info addtoserver" data-toggle="modal" data-target="#serverModal" id="@item.ID">افزودن به سرور</button>
+
+                                                    }
+                                                }
+                                                <script>
+                                                    $(".removeFromserver").click(function () {
+                                                        var id = $(this).attr('id');
+                                                        $("#modalValue").text("banimo" + id);
+                                                        $("#modalmessage").text("  آیا از حذف محصول از سررور اطمینان دارید؟ ")
+
+                                                    })
+                                                </script>
+                                            </td>
+                                        </tr>
                                         }
 
 
@@ -374,7 +388,7 @@
                 var Prodcutid = $(this).attr("id");
 
                 $.ajax({
-                    url: '/Admin/ChangeProductAvailable',
+                    url: '/Admin/ChangeProductActive',
                     dataType: 'html',
                     data: {
                         id: Prodcutid,
