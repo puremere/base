@@ -13,7 +13,7 @@ $ = $ && $.hasOwnProperty('default') ? $['default'] : $;
 Popper = Popper && Popper.hasOwnProperty('default') ? Popper['default'] : Popper;
 
 function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
+  for (var i = 0; i <props.length; i++) {
     var descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
@@ -30,7 +30,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 
 function _extends() {
   _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
+    for (var i = 1; i <arguments.length; i++) {
       var source = arguments[i];
 
       for (var key in source) {
@@ -122,7 +122,7 @@ var Util = function ($$$1) {
 
   function escapeId(selector) {
     // We escape IDs in case of special selectors (selector = '#myId:something')
-    // $.escapeSelector does not exist in jQuery < 3
+    // $.escapeSelector does not exist in jQuery <3
     selector = typeof $$$1.escapeSelector === 'function' ? $$$1.escapeSelector(selector).substr(1) : selector.replace(/(:|\.|\[|\]|,|=|@)/g, '\\$1');
     return selector;
   }
@@ -686,7 +686,7 @@ var Carousel = function ($$$1) {
 
       var activeIndex = this._getItemIndex(this._activeElement);
 
-      if (index > this._items.length - 1 || index < 0) {
+      if (index > this._items.length - 1 || index <0) {
         return;
       }
 
@@ -1092,7 +1092,7 @@ var Collapse = function ($$$1) {
       this._triggerArray = $$$1.makeArray($$$1("[data-toggle=\"collapse\"][href=\"#" + element.id + "\"]," + ("[data-toggle=\"collapse\"][data-target=\"#" + element.id + "\"]")));
       var tabToggles = $$$1(Selector.DATA_TOGGLE);
 
-      for (var i = 0; i < tabToggles.length; i++) {
+      for (var i = 0; i <tabToggles.length; i++) {
         var elem = tabToggles[i];
         var selector = Util.getSelectorFromElement(elem);
 
@@ -1219,7 +1219,7 @@ var Collapse = function ($$$1) {
       $$$1(this._element).addClass(ClassName.COLLAPSING).removeClass(ClassName.COLLAPSE).removeClass(ClassName.SHOW);
 
       if (this._triggerArray.length > 0) {
-        for (var i = 0; i < this._triggerArray.length; i++) {
+        for (var i = 0; i <this._triggerArray.length; i++) {
           var trigger = this._triggerArray[i];
           var selector = Util.getSelectorFromElement(trigger);
 
@@ -1699,7 +1699,7 @@ var Dropdown = function ($$$1) {
 
       var toggles = $$$1.makeArray($$$1(Selector.DATA_TOGGLE));
 
-      for (var i = 0; i < toggles.length; i++) {
+      for (var i = 0; i <toggles.length; i++) {
         var parent = Dropdown._getParentFromElement(toggles[i]);
 
         var context = $$$1(toggles[i]).data(DATA_KEY);
@@ -1798,12 +1798,12 @@ var Dropdown = function ($$$1) {
         index--;
       }
 
-      if (event.which === ARROW_DOWN_KEYCODE && index < items.length - 1) {
+      if (event.which === ARROW_DOWN_KEYCODE && index <items.length - 1) {
         // Down
         index++;
       }
 
-      if (index < 0) {
+      if (index <0) {
         index = 0;
       }
 
@@ -2274,7 +2274,7 @@ var Modal = function ($$$1) {
 
     _proto._checkScrollbar = function _checkScrollbar() {
       var rect = document.body.getBoundingClientRect();
-      this._isBodyOverflowing = rect.left + rect.right < window.innerWidth;
+      this._isBodyOverflowing = rect.left + rect.right <window.innerWidth;
       this._scrollbarWidth = this._getScrollbarWidth();
     };
 
@@ -3485,7 +3485,7 @@ var ScrollSpy = function ($$$1) {
         return;
       }
 
-      if (this._activeTarget && scrollTop < this._offsets[0] && this._offsets[0] > 0) {
+      if (this._activeTarget && scrollTop <this._offsets[0] && this._offsets[0] > 0) {
         this._activeTarget = null;
 
         this._clear();
@@ -3494,7 +3494,7 @@ var ScrollSpy = function ($$$1) {
       }
 
       for (var i = this._offsets.length; i--;) {
-        var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop < this._offsets[i + 1]);
+        var isActiveTarget = this._activeTarget !== this._targets[i] && scrollTop >= this._offsets[i] && (typeof this._offsets[i + 1] === 'undefined' || scrollTop <this._offsets[i + 1]);
 
         if (isActiveTarget) {
           this._activate(this._targets[i]);
@@ -3871,7 +3871,7 @@ var Tab = function ($$$1) {
   var minPatch = 1;
   var maxMajor = 4;
 
-  if (version[0] < ltMajor && version[1] < minMinor || version[0] === minMajor && version[1] === minMinor && version[2] < minPatch || version[0] >= maxMajor) {
+  if (version[0] <ltMajor && version[1] <minMinor || version[0] === minMajor && version[1] === minMinor && version[2] <minPatch || version[0] >= maxMajor) {
     throw new Error('Bootstrap\'s JavaScript requires at least jQuery v1.9.1 but less than v4.0.0');
   }
 })($);

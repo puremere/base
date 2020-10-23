@@ -355,7 +355,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var that        = this
     var activeIndex = this.getActiveIndex()
 
-    if (pos > (this.$items.length - 1) || pos < 0) return
+    if (pos > (this.$items.length - 1) || pos <0) return
 
     if (this.sliding)       return this.$element.one('slid', function () { that.to(pos) })
     if (activeIndex == pos) return this.pause().cycle()
@@ -770,7 +770,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     var index = $items.index($items.filter(':focus'))
 
     if (e.keyCode == 38 && index > 0)                 index--                        // up
-    if (e.keyCode == 40 && index < $items.length - 1) index++                        // down
+    if (e.keyCode == 40 && index <$items.length - 1) index++                        // down
     if (!~index)                                      index=0
 
     $items.eq(index).focus()
@@ -1263,9 +1263,9 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
         var parentLeft   = this.options.container == 'body' ? 0 : $parent.offset().left
 
         placement = placement == 'bottom' && pos.top   + pos.height  + actualHeight - docScroll > parentHeight  ? 'top'    :
-                    placement == 'top'    && pos.top   - docScroll   - actualHeight < 0                         ? 'bottom' :
+                    placement == 'top'    && pos.top   - docScroll   - actualHeight <0                         ? 'bottom' :
                     placement == 'right'  && pos.right + actualWidth > parentWidth                              ? 'left'   :
-                    placement == 'left'   && pos.left  - actualWidth < parentLeft                               ? 'right'  :
+                    placement == 'left'   && pos.left  - actualWidth <parentLeft                               ? 'right'  :
                     placement
 
         $tip
@@ -1313,7 +1313,7 @@ if (!jQuery) { throw new Error("Bootstrap requires jQuery") }
     if (/bottom|top/.test(placement)) {
       var delta = 0
 
-      if (offset.left < 0) {
+      if (offset.left <0) {
         delta       = offset.left * -2
         offset.left = 0
 

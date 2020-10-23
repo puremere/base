@@ -43,7 +43,7 @@
 
                 // $("#finalprice").text(array[0]);
                 $("#finalprice").text(addCommas(array[0]))
-                if (parseInt(array[0]) < 100000) {
+                if (parseInt(array[0]) <100000) {
                     $("#deliveryprice").text("10,000");
                     $("#totalprice").text(addCommas(parseInt(array[0]) + 10000));
                 }
@@ -506,7 +506,7 @@
     var acc = document.getElementsByClassName("accordion");
     var i;
 
-    for (i = 0; i < acc.length; i++) {
+    for (i = 0; i <acc.length; i++) {
         acc[i].addEventListener("click", function () {
             this.classList.toggle("active");
             var panel = this.nextElementSibling;

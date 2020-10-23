@@ -601,7 +601,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    while(len) {
 	        currentQueue = queue;
 	        queue = [];
-	        while (++queueIndex < len) {
+	        while (++queueIndex <len) {
 	            if (currentQueue) {
 	                currentQueue[queueIndex].run();
 	            }
@@ -617,7 +617,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	process.nextTick = function (fun) {
 	    var args = new Array(arguments.length - 1);
 	    if (arguments.length > 1) {
-	        for (var i = 1; i < arguments.length; i++) {
+	        for (var i = 1; i <arguments.length; i++) {
 	            args[i - 1] = arguments[i];
 	        }
 	    }
@@ -753,7 +753,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    if (null == self.color && self.useColors) self.color = selectColor();
 
 	    var args = new Array(arguments.length);
-	    for (var i = 0; i < args.length; i++) {
+	    for (var i = 0; i <args.length; i++) {
 	      args[i] = arguments[i];
 	    }
 
@@ -811,7 +811,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var split = (namespaces || '').split(/[\s,]+/);
 	  var len = split.length;
 
-	  for (var i = 0; i < len; i++) {
+	  for (var i = 0; i <len; i++) {
 	    if (!split[i]) continue; // ignore empty strings
 	    namespaces = split[i].replace(/[\\^$+?.()|[\]{}]/g, '\\$&').replace(/\*/g, '.*?');
 	    if (namespaces[0] === '-') {
@@ -842,12 +842,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function enabled(name) {
 	  var i, len;
-	  for (i = 0, len = exports.skips.length; i < len; i++) {
+	  for (i = 0, len = exports.skips.length; i <len; i++) {
 	    if (exports.skips[i].test(name)) {
 	      return false;
 	    }
 	  }
-	  for (i = 0, len = exports.names.length; i < len; i++) {
+	  for (i = 0, len = exports.names.length; i <len; i++) {
 	    if (exports.names[i].test(name)) {
 	      return true;
 	    }
@@ -1014,10 +1014,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	function plural(ms, n, name) {
-	  if (ms < n) {
+	  if (ms <n) {
 	    return
 	  }
-	  if (ms < n * 1.5) {
+	  if (ms <n * 1.5) {
 	    return Math.floor(ms / n) + ' ' + name
 	  }
 	  return Math.ceil(ms / n) + ' ' + name + 's'
@@ -1753,7 +1753,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var split = (namespaces || '').split(/[\s,]+/);
 	  var len = split.length;
 
-	  for (var i = 0; i < len; i++) {
+	  for (var i = 0; i <len; i++) {
 	    if (!split[i]) continue; // ignore empty strings
 	    namespaces = split[i].replace(/\*/g, '.*?');
 	    if (namespaces[0] === '-') {
@@ -1784,12 +1784,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function enabled(name) {
 	  var i, len;
-	  for (i = 0, len = exports.skips.length; i < len; i++) {
+	  for (i = 0, len = exports.skips.length; i <len; i++) {
 	    if (exports.skips[i].test(name)) {
 	      return false;
 	    }
 	  }
-	  for (i = 0, len = exports.names.length; i < len; i++) {
+	  for (i = 0, len = exports.names.length; i <len; i++) {
 	    if (exports.names[i].test(name)) {
 	      return true;
 	    }
@@ -1936,8 +1936,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	function plural(ms, n, name) {
-	  if (ms < n) return;
-	  if (ms < n * 1.5) return Math.floor(ms / n) + ' ' + name;
+	  if (ms <n) return;
+	  if (ms <n * 1.5) return Math.floor(ms / n) + ' ' + name;
 	  return Math.ceil(ms / n) + ' ' + name + 's';
 	}
 
@@ -2008,7 +2008,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      // The `getUTCFullYear`, `Month`, and `Date` methods return nonsensical
 	      // results for certain dates in Opera >= 10.53.
 	      isExtended = isExtended.getUTCFullYear() == -109252 && isExtended.getUTCMonth() === 0 && isExtended.getUTCDate() === 1 &&
-	        // Safari < 2.0.2 stores the internal millisecond time value correctly,
+	        // Safari <2.0.2 stores the internal millisecond time value correctly,
 	        // but clips the values returned by the date methods to the range of
 	        // signed 32-bit integers ([-2 ** 31, 2 ** 31 - 1]).
 	        isExtended.getUTCHours() == 10 && isExtended.getUTCMinutes() == 37 && isExtended.getUTCSeconds() == 6 && isExtended.getUTCMilliseconds() == 708;
@@ -2315,7 +2315,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        var quote = function (value) {
 	          var result = '"', index = 0, length = value.length, useCharIndex = !charIndexBuggy || length > 10;
 	          var symbols = useCharIndex && (charIndexBuggy ? value.split("") : value);
-	          for (; index < length; index++) {
+	          for (; index <length; index++) {
 	            var charCode = value.charCodeAt(index);
 	            // If the character is a control character, append its Unicode or
 	            // shorthand escape sequence; otherwise, append the character as-is.
@@ -2324,7 +2324,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                result += Escapes[charCode];
 	                break;
 	              default:
-	                if (charCode < 32) {
+	                if (charCode <32) {
 	                  result += unicodePrefix + toPaddedString(2, charCode.toString(16));
 	                  break;
 	                }
@@ -2345,7 +2345,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (typeof value == "object" && value) {
 	            className = getClass.call(value);
 	            if (className == dateClass && !isProperty.call(value, "toJSON")) {
-	              if (value > -1 / 0 && value < 1 / 0) {
+	              if (value > -1 / 0 && value <1 / 0) {
 	                // Dates are serialized according to the `Date#toJSON` method
 	                // specified in ES 5.1 section 15.9.5.44. See section 15.9.1.15
 	                // for the ISO 8601 date time string format.
@@ -2378,7 +2378,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                  milliseconds = value.getUTCMilliseconds();
 	                }
 	                // Serialize extended years correctly.
-	                value = (year <= 0 || year >= 1e4 ? (year < 0 ? "-" : "+") + toPaddedString(6, year < 0 ? -year : year) : toPaddedString(4, year)) +
+	                value = (year <= 0 || year >= 1e4 ? (year <0 ? "-" : "+") + toPaddedString(6, year <0 ? -year : year) : toPaddedString(4, year)) +
 	                  "-" + toPaddedString(2, month + 1) + "-" + toPaddedString(2, date) +
 	                  // Months, dates, hours, minutes, and seconds should have two
 	                  // digits; milliseconds should have three.
@@ -2411,7 +2411,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          } else if (className == numberClass) {
 	            // JSON numbers must be finite. `Infinity` and `NaN` are serialized as
 	            // `"null"`.
-	            return value > -1 / 0 && value < 1 / 0 ? "" + value : "null";
+	            return value > -1 / 0 && value <1 / 0 ? "" + value : "null";
 	          } else if (className == stringClass) {
 	            // Strings are double-quoted and escaped.
 	            return quote("" + value);
@@ -2434,7 +2434,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            indentation += whitespace;
 	            if (className == arrayClass) {
 	              // Recursively serialize array elements.
-	              for (index = 0, length = value.length; index < length; index++) {
+	              for (index = 0, length = value.length; index <length; index++) {
 	                element = serialize(index, value, callback, properties, whitespace, indentation, stack);
 	                results.push(element === undef ? "null" : element);
 	              }
@@ -2472,7 +2472,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            } else if (className == arrayClass) {
 	              // Convert the property names array into a makeshift set.
 	              properties = {};
-	              for (var index = 0, length = filter.length, value; index < length; value = filter[index++], ((className = getClass.call(value)), className == stringClass || className == numberClass) && (properties[value] = 1));
+	              for (var index = 0, length = filter.length, value; index <length; value = filter[index++], ((className = getClass.call(value)), className == stringClass || className == numberClass) && (properties[value] = 1));
 	            }
 	          }
 	          if (width) {
@@ -2480,7 +2480,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              // Convert the `width` to an integer and create a string containing
 	              // `width` number of space characters.
 	              if ((width -= width % 1) > 0) {
-	                for (whitespace = "", width > 10 && (width = 10); whitespace.length < width; whitespace += " ");
+	                for (whitespace = "", width > 10 && (width = 10); whitespace.length <width; whitespace += " ");
 	              }
 	            } else if (className == stringClass) {
 	              whitespace = width.length <= 10 ? width : width.slice(0, 10);
@@ -2524,7 +2524,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // literal, or Boolean literal.
 	        var lex = function () {
 	          var source = Source, length = source.length, value, begin, position, isSigned, charCode;
-	          while (Index < length) {
+	          while (Index <length) {
 	            charCode = source.charCodeAt(Index);
 	            switch (charCode) {
 	              case 9: case 10: case 13: case 32:
@@ -2543,9 +2543,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // begin parsing the string. String tokens are prefixed with the
 	                // sentinel `@` character to distinguish them from punctuators and
 	                // end-of-string tokens.
-	                for (value = "@", Index++; Index < length;) {
+	                for (value = "@", Index++; Index <length;) {
 	                  charCode = source.charCodeAt(Index);
-	                  if (charCode < 32) {
+	                  if (charCode <32) {
 	                    // Unescaped ASCII control characters (those with a code unit
 	                    // less than the space character) are not permitted.
 	                    abort();
@@ -2565,7 +2565,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                        // Advance to the first character and validate the
 	                        // four-digit code point.
 	                        begin = ++Index;
-	                        for (position = Index + 4; Index < position; Index++) {
+	                        for (position = Index + 4; Index <position; Index++) {
 	                          charCode = source.charCodeAt(Index);
 	                          // A valid sequence comprises four hexdigits (case-
 	                          // insensitive) that form a single hexadecimal value.
@@ -2621,13 +2621,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	                  }
 	                  isSigned = false;
 	                  // Parse the integer component.
-	                  for (; Index < length && ((charCode = source.charCodeAt(Index)), charCode >= 48 && charCode <= 57); Index++);
+	                  for (; Index <length && ((charCode = source.charCodeAt(Index)), charCode >= 48 && charCode <= 57); Index++);
 	                  // Floats cannot contain a leading decimal point; however, this
 	                  // case is already accounted for by the parser.
 	                  if (source.charCodeAt(Index) == 46) {
 	                    position = ++Index;
 	                    // Parse the decimal component.
-	                    for (; position < length && ((charCode = source.charCodeAt(position)), charCode >= 48 && charCode <= 57); position++);
+	                    for (; position <length && ((charCode = source.charCodeAt(position)), charCode >= 48 && charCode <= 57); position++);
 	                    if (position == Index) {
 	                      // Illegal trailing decimal.
 	                      abort();
@@ -2645,7 +2645,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                      Index++;
 	                    }
 	                    // Parse the exponential component.
-	                    for (position = Index; position < length && ((charCode = source.charCodeAt(position)), charCode >= 48 && charCode <= 57); position++);
+	                    for (position = Index; position <length && ((charCode = source.charCodeAt(position)), charCode >= 48 && charCode <= 57); position++);
 	                    if (position == Index) {
 	                      // Illegal empty exponent.
 	                      abort();
@@ -2982,7 +2982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // remove specific handler
 	  var cb;
-	  for (var i = 0; i < callbacks.length; i++) {
+	  for (var i = 0; i <callbacks.length; i++) {
 	    cb = callbacks[i];
 	    if (cb === fn || cb.fn === fn) {
 	      callbacks.splice(i, 1);
@@ -3007,7 +3007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (callbacks) {
 	    callbacks = callbacks.slice(0);
-	    for (var i = 0, len = callbacks.length; i < len; ++i) {
+	    for (var i = 0, len = callbacks.length; i <len; ++i) {
 	      callbacks[i].apply(this, args);
 	    }
 	  }
@@ -3077,7 +3077,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return placeholder;
 	    } else if (isArray(data)) {
 	      var newData = new Array(data.length);
-	      for (var i = 0; i < data.length; i++) {
+	      for (var i = 0; i <data.length; i++) {
 	        newData[i] = _deconstructPacket(data[i]);
 	      }
 	      return newData;
@@ -3114,7 +3114,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var buf = buffers[data.num]; // appropriate buffer (should be natural order anyway)
 	      return buf;
 	    } else if (isArray(data)) {
-	      for (var i = 0; i < data.length; i++) {
+	      for (var i = 0; i <data.length; i++) {
 	        data[i] = _reconstructPacket(data[i]);
 	      }
 	      return data;
@@ -3169,7 +3169,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      fileReader.readAsArrayBuffer(obj); // blob -> arraybuffer
 	    } else if (isArray(obj)) { // handle array
-	      for (var i = 0; i < obj.length; i++) {
+	      for (var i = 0; i <obj.length; i++) {
 	        _removeBlobs(obj[i], i, obj);
 	      }
 	    } else if (obj && 'object' == typeof obj && !isBuf(obj)) { // and object
@@ -3632,7 +3632,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // encode, then write to engine with result
 	    self.encoding = true;
 	    this.encoder.encode(packet, function (encodedPackets) {
-	      for (var i = 0; i < encodedPackets.length; i++) {
+	      for (var i = 0; i <encodedPackets.length; i++) {
 	        self.engine.write(encodedPackets[i], packet.options);
 	      }
 	      self.encoding = false;
@@ -3668,7 +3668,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  debug('cleanup');
 
 	  var subsLength = this.subs.length;
-	  for (var i = 0; i < subsLength; i++) {
+	  for (var i = 0; i <subsLength; i++) {
 	    var sub = this.subs.shift();
 	    sub.destroy();
 	  }
@@ -4224,7 +4224,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // listener already closed the socket
 	  if ('open' === this.readyState && this.upgrade && this.transport.pause) {
 	    debug('starting upgrade probes');
-	    for (var i = 0, l = this.upgrades.length; i < l; i++) {
+	    for (var i = 0, l = this.upgrades.length; i <l; i++) {
 	      this.probe(this.upgrades[i]);
 	    }
 	  }
@@ -4546,7 +4546,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Socket.prototype.filterUpgrades = function (upgrades) {
 	  var filteredUpgrades = [];
-	  for (var i = 0, j = upgrades.length; i < j; i++) {
+	  for (var i = 0, j = upgrades.length; i <j; i++) {
 	    if (~index(this.transports, upgrades[i])) filteredUpgrades.push(upgrades[i]);
 	  }
 	  return filteredUpgrades;
@@ -5049,7 +5049,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        } catch (e) {
 	          var ui8Arr = new Uint8Array(this.xhr.response);
 	          var dataArray = [];
-	          for (var idx = 0, length = ui8Arr.length; idx < length; idx++) {
+	          for (var idx = 0, length = ui8Arr.length; idx <length; idx++) {
 	            dataArray.push(ui8Arr[idx]);
 	          }
 
@@ -5676,7 +5676,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var resultBuffer = new Uint8Array(1 + data.byteLength);
 
 	  resultBuffer[0] = packets[packet.type];
-	  for (var i = 0; i < contentArray.length; i++) {
+	  for (var i = 0; i <contentArray.length; i++) {
 	    resultBuffer[i+1] = contentArray[i];
 	  }
 
@@ -5737,7 +5737,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // iPhone Safari doesn't let you apply with typed arrays
 	    var typed = new Uint8Array(packet.data);
 	    var basic = new Array(typed.length);
-	    for (var i = 0; i < typed.length; i++) {
+	    for (var i = 0; i <typed.length; i++) {
 	      basic[i] = typed[i];
 	    }
 	    b64data = String.fromCharCode.apply(null, basic);
@@ -5888,7 +5888,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    });
 	  };
 
-	  for (var i = 0; i < ary.length; i++) {
+	  for (var i = 0; i <ary.length; i++) {
 	    eachWithIndex(i, ary[i], next);
 	  }
 	}
@@ -5920,7 +5920,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var length = ''
 	    , n, msg;
 
-	  for (var i = 0, l = data.length; i < l; i++) {
+	  for (var i = 0, l = data.length; i <l; i++) {
 	    var chr = data.charAt(i);
 
 	    if (':' != chr) {
@@ -6007,7 +6007,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var ab = p;
 	      if (isString) {
 	        var view = new Uint8Array(p.length);
-	        for (var i = 0; i < p.length; i++) {
+	        for (var i = 0; i <p.length; i++) {
 	          view[i] = p.charCodeAt(i);
 	        }
 	        ab = view.buffer;
@@ -6020,13 +6020,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      }
 
 	      var lenStr = ab.byteLength.toString();
-	      for (var i = 0; i < lenStr.length; i++) {
+	      for (var i = 0; i <lenStr.length; i++) {
 	        resultArray[bufferIndex++] = parseInt(lenStr[i]);
 	      }
 	      resultArray[bufferIndex++] = 255;
 
 	      var view = new Uint8Array(ab);
-	      for (var i = 0; i < view.length; i++) {
+	      for (var i = 0; i <view.length; i++) {
 	        resultArray[bufferIndex++] = view[i];
 	      }
 	    });
@@ -6046,7 +6046,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      binaryIdentifier[0] = 1;
 	      if (typeof encoded === 'string') {
 	        var view = new Uint8Array(encoded.length);
-	        for (var i = 0; i < encoded.length; i++) {
+	        for (var i = 0; i <encoded.length; i++) {
 	          view[i] = encoded.charCodeAt(i);
 	        }
 	        encoded = view.buffer;
@@ -6059,7 +6059,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      var lenStr = len.toString();
 	      var lengthAry = new Uint8Array(lenStr.length + 1);
-	      for (var i = 0; i < lenStr.length; i++) {
+	      for (var i = 0; i <lenStr.length; i++) {
 	        lengthAry[i] = parseInt(lenStr[i]);
 	      }
 	      lengthAry[lenStr.length] = 255;
@@ -6124,7 +6124,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        // iPhone Safari doesn't let you apply to typed arrays
 	        var typed = new Uint8Array(msg);
 	        msg = '';
-	        for (var i = 0; i < typed.length; i++) {
+	        for (var i = 0; i <typed.length; i++) {
 	          msg += String.fromCharCode(typed[i]);
 	        }
 	      }
@@ -6207,7 +6207,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 
 	    if (isArray(obj)) {
-	      for (var i = 0; i < obj.length; i++) {
+	      for (var i = 0; i <obj.length; i++) {
 	          if (_hasBinary(obj[i])) {
 	              return true;
 	          }
@@ -6251,8 +6251,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (arraybuffer.slice) { return arraybuffer.slice(start, end); }
 
-	  if (start < 0) { start += bytes; }
-	  if (end < 0) { end += bytes; }
+	  if (start <0) { start += bytes; }
+	  if (end <0) { end += bytes; }
 	  if (end > bytes) { end = bytes; }
 
 	  if (start >= bytes || start >= end || bytes === 0) {
@@ -6261,7 +6261,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  var abv = new Uint8Array(arraybuffer);
 	  var result = new Uint8Array(end - start);
-	  for (var i = start, ii = 0; i < end; i++, ii++) {
+	  for (var i = start, ii = 0; i <end; i++, ii++) {
 	    result[ii] = abv[i];
 	  }
 	  return result.buffer;
@@ -6334,13 +6334,13 @@ return /******/ (function(modules) { // webpackBootstrap
 			var length = string.length;
 			var value;
 			var extra;
-			while (counter < length) {
+			while (counter <length) {
 				value = string.charCodeAt(counter++);
-				if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				if (value >= 0xD800 && value <= 0xDBFF && counter <length) {
 					// high surrogate, and there is a next character
 					extra = string.charCodeAt(counter++);
 					if ((extra & 0xFC00) == 0xDC00) { // low surrogate
-						output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+						output.push(((value & 0x3FF) <<10) + (extra & 0x3FF) + 0x10000);
 					} else {
 						// unmatched surrogate; only append this code unit, in case the next
 						// code unit is the high surrogate of a surrogate pair
@@ -6360,7 +6360,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			var index = -1;
 			var value;
 			var output = '';
-			while (++index < length) {
+			while (++index <length) {
 				value = array[index];
 				if (value > 0xFFFF) {
 					value -= 0x10000;
@@ -6405,7 +6405,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			var index = -1;
 			var codePoint;
 			var byteString = '';
-			while (++index < length) {
+			while (++index <length) {
 				codePoint = codePoints[index];
 				byteString += encodeCodePoint(codePoint);
 			}
@@ -6457,7 +6457,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			// 2-byte sequence
 			if ((byte1 & 0xE0) == 0xC0) {
 				var byte2 = readContinuationByte();
-				codePoint = ((byte1 & 0x1F) << 6) | byte2;
+				codePoint = ((byte1 & 0x1F) <<6) | byte2;
 				if (codePoint >= 0x80) {
 					return codePoint;
 				} else {
@@ -6469,7 +6469,7 @@ return /******/ (function(modules) { // webpackBootstrap
 			if ((byte1 & 0xF0) == 0xE0) {
 				byte2 = readContinuationByte();
 				byte3 = readContinuationByte();
-				codePoint = ((byte1 & 0x0F) << 12) | (byte2 << 6) | byte3;
+				codePoint = ((byte1 & 0x0F) <<12) | (byte2 <<6) | byte3;
 				if (codePoint >= 0x0800) {
 					return codePoint;
 				} else {
@@ -6482,8 +6482,8 @@ return /******/ (function(modules) { // webpackBootstrap
 				byte2 = readContinuationByte();
 				byte3 = readContinuationByte();
 				byte4 = readContinuationByte();
-				codePoint = ((byte1 & 0x0F) << 0x12) | (byte2 << 0x0C) |
-					(byte3 << 0x06) | byte4;
+				codePoint = ((byte1 & 0x0F) <<0x12) | (byte2 <<0x0C) |
+					(byte3 <<0x06) | byte4;
 				if (codePoint >= 0x010000 && codePoint <= 0x10FFFF) {
 					return codePoint;
 				}
@@ -6559,7 +6559,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // Use a lookup table to find the index.
 	  var lookup = new Uint8Array(256);
-	  for (var i = 0; i < chars.length; i++) {
+	  for (var i = 0; i <chars.length; i++) {
 	    lookup[chars.charCodeAt(i)] = i;
 	  }
 
@@ -6567,10 +6567,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var bytes = new Uint8Array(arraybuffer),
 	    i, len = bytes.length, base64 = "";
 
-	    for (i = 0; i < len; i+=3) {
+	    for (i = 0; i <len; i+=3) {
 	      base64 += chars[bytes[i] >> 2];
-	      base64 += chars[((bytes[i] & 3) << 4) | (bytes[i + 1] >> 4)];
-	      base64 += chars[((bytes[i + 1] & 15) << 2) | (bytes[i + 2] >> 6)];
+	      base64 += chars[((bytes[i] & 3) <<4) | (bytes[i + 1] >> 4)];
+	      base64 += chars[((bytes[i + 1] & 15) <<2) | (bytes[i + 2] >> 6)];
 	      base64 += chars[bytes[i + 2] & 63];
 	    }
 
@@ -6598,15 +6598,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    var arraybuffer = new ArrayBuffer(bufferLength),
 	    bytes = new Uint8Array(arraybuffer);
 
-	    for (i = 0; i < len; i+=4) {
+	    for (i = 0; i <len; i+=4) {
 	      encoded1 = lookup[base64.charCodeAt(i)];
 	      encoded2 = lookup[base64.charCodeAt(i+1)];
 	      encoded3 = lookup[base64.charCodeAt(i+2)];
 	      encoded4 = lookup[base64.charCodeAt(i+3)];
 
-	      bytes[p++] = (encoded1 << 2) | (encoded2 >> 4);
-	      bytes[p++] = ((encoded2 & 15) << 4) | (encoded3 >> 2);
-	      bytes[p++] = ((encoded3 & 3) << 6) | (encoded4 & 63);
+	      bytes[p++] = (encoded1 <<2) | (encoded2 >> 4);
+	      bytes[p++] = ((encoded2 & 15) <<4) | (encoded3 >> 2);
+	      bytes[p++] = ((encoded3 & 3) <<6) | (encoded4 & 63);
 	    }
 
 	    return arraybuffer;
@@ -6669,7 +6669,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 
 	function mapArrayBufferViews(ary) {
-	  for (var i = 0; i < ary.length; i++) {
+	  for (var i = 0; i <ary.length; i++) {
 	    var chunk = ary[i];
 	    if (chunk.buffer instanceof ArrayBuffer) {
 	      var buf = chunk.buffer;
@@ -6693,7 +6693,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var bb = new BlobBuilder();
 	  mapArrayBufferViews(ary);
 
-	  for (var i = 0; i < ary.length; i++) {
+	  for (var i = 0; i <ary.length; i++) {
 	    bb.append(ary[i]);
 	  }
 
@@ -6827,7 +6827,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  // remove specific handler
 	  var cb;
-	  for (var i = 0; i < callbacks.length; i++) {
+	  for (var i = 0; i <callbacks.length; i++) {
 	    cb = callbacks[i];
 	    if (cb === fn || cb.fn === fn) {
 	      callbacks.splice(i, 1);
@@ -6852,7 +6852,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  if (callbacks) {
 	    callbacks = callbacks.slice(0);
-	    for (var i = 0, len = callbacks.length; i < len; ++i) {
+	    for (var i = 0, len = callbacks.length; i <len; ++i) {
 	      callbacks[i].apply(this, args);
 	    }
 	  }
@@ -6921,7 +6921,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.decode = function(qs){
 	  var qry = {};
 	  var pairs = qs.split('&');
-	  for (var i = 0, l = pairs.length; i < l; i++) {
+	  for (var i = 0, l = pairs.length; i <l; i++) {
 	    var pair = pairs[i].split('=');
 	    qry[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]);
 	  }
@@ -6982,7 +6982,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	function decode(str) {
 	  var decoded = 0;
 
-	  for (i = 0; i < str.length; i++) {
+	  for (i = 0; i <str.length; i++) {
 	    decoded = decoded * length + map[str.charAt(i)];
 	  }
 
@@ -7005,7 +7005,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	//
 	// Map each character to its index.
 	//
-	for (; i < length; i++) map[alphabet[i]] = i;
+	for (; i <length; i++) map[alphabet[i]] = i;
 
 	//
 	// Expose the `yeast`, `encode` and `decode` functions.
@@ -7423,7 +7423,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // encodePacket efficient as it uses WS framing
 	  // no need for encodePayload
 	  var total = packets.length;
-	  for (var i = 0, l = total; i < l; i++) {
+	  for (var i = 0, l = total; i <l; i++) {
 	    (function (packet) {
 	      parser.encodePacket(packet, self.supportsBinary, function (data) {
 	        if (!self.usingBrowserWebSocket) {
@@ -7435,7 +7435,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	          if (self.perMessageDeflate) {
 	            var len = 'string' === typeof data ? global.Buffer.byteLength(data) : data.length;
-	            if (len < self.perMessageDeflate.threshold) {
+	            if (len <self.perMessageDeflate.threshold) {
 	              opts.compress = false;
 	            }
 	          }
@@ -7560,7 +7560,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	module.exports = function(arr, obj){
 	  if (indexOf) return arr.indexOf(obj);
-	  for (var i = 0; i < arr.length; ++i) {
+	  for (var i = 0; i <arr.length; ++i) {
 	    if (arr[i] === obj) return i;
 	  }
 	  return -1;
@@ -7945,12 +7945,12 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	Socket.prototype.emitBuffered = function () {
 	  var i;
-	  for (i = 0; i < this.receiveBuffer.length; i++) {
+	  for (i = 0; i <this.receiveBuffer.length; i++) {
 	    emit.apply(this, this.receiveBuffer[i]);
 	  }
 	  this.receiveBuffer = [];
 
-	  for (i = 0; i < this.sendBuffer.length; i++) {
+	  for (i = 0; i <this.sendBuffer.length; i++) {
 	    this.packet(this.sendBuffer[i]);
 	  }
 	  this.sendBuffer = [];
@@ -7979,7 +7979,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Socket.prototype.destroy = function () {
 	  if (this.subs) {
 	    // clean subscriptions to avoid reconnections
-	    for (var i = 0; i < this.subs.length; i++) {
+	    for (var i = 0; i <this.subs.length; i++) {
 	      this.subs[i].destroy();
 	    }
 	    this.subs = null;
@@ -8036,7 +8036,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    index = index || 0
 
-	    for (var i = index || 0; i < list.length; i++) {
+	    for (var i = index || 0; i <list.length; i++) {
 	        array[i - index] = list[i]
 	    }
 

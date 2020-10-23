@@ -191,7 +191,7 @@
               }
               return n[i].exports;
             }
-            for (var u = 'function' == typeof require && require, i = 0; i < t.length; i++)
+            for (var u = 'function' == typeof require && require, i = 0; i <t.length; i++)
               o(t[i]);
             return o;
           }
@@ -496,7 +496,7 @@
                         }
                         var patterns = grammar[token];
                         patterns = Array.isArray(patterns) ? patterns : [patterns];
-                        for (var j = 0; j < patterns.length; ++j) {
+                        for (var j = 0; j <patterns.length; ++j) {
                           if (target && target == token + ',' + j) {
                             return;
                           }
@@ -506,7 +506,7 @@
                             pattern.pattern = RegExp(pattern.pattern.source, flags + 'g');
                           }
                           pattern = pattern.pattern || pattern;
-                          for (var i = index, pos = startPos; i < strarr.length; pos += strarr[i].length, ++i) {
+                          for (var i = index, pos = startPos; i <strarr.length; pos += strarr[i].length, ++i) {
                             var str = strarr[i];
                             if (strarr.length > text.length) {
                               return;
@@ -521,7 +521,7 @@
                                 break;
                               }
                               var from = match.index + (lookbehind && match[1] ? match[1].length : 0), to = match.index + match[0].length, k = i, p = pos;
-                              for (var len = strarr.length; k < len && (p < to || !strarr[k].type && !strarr[k - 1].greedy); ++k) {
+                              for (var len = strarr.length; k <len && (p <to || !strarr[k].type && !strarr[k - 1].greedy); ++k) {
                                 p += strarr[k].length;
                                 if (from >= p) {
                                   ++i;
@@ -1019,7 +1019,7 @@
                       var j = 0;
                       var keys = Object.keys(env.tokenStack);
                       function walkTokens(tokens) {
-                        for (var i = 0; i < tokens.length; i++) {
+                        for (var i = 0; i <tokens.length; i++) {
                           if (j >= keys.length) {
                             break;
                           }

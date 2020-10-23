@@ -134,7 +134,7 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
@@ -142,7 +142,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }

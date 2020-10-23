@@ -11,7 +11,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -24,20 +24,20 @@
     function __rest(s, e) {
       var t = {};
       for (var p in s)
-        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) <0)
           t[p] = s[p];
       if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i <p.length; i++) {
+          if (e.indexOf(p[i]) <0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
             t[p[i]] = s[p[i]];
         }
       return t;
     }
     function __spreadArrays() {
-      for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+      for (var s = 0, i = 0, il = arguments.length; i <il; i++)
         s += arguments[i].length;
-      for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+      for (var r = Array(s), k = 0, i = 0; i <il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j <jl; j++, k++)
           r[k] = a[j];
       return r;
     }
@@ -47,7 +47,7 @@
     var compose = function (fa, fb) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return fa(fb.apply(null, args));
@@ -63,12 +63,12 @@
     };
     function curry(fn) {
       var initialArgs = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
+      for (var _i = 1; _i <arguments.length; _i++) {
         initialArgs[_i - 1] = arguments[_i];
       }
       return function () {
         var restArgs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           restArgs[_i] = arguments[_i];
         }
         var all = initialArgs.concat(restArgs);
@@ -78,7 +78,7 @@
     var not = function (f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return !f.apply(null, args);
@@ -208,7 +208,7 @@
     var hasOwnProperty = Object.hasOwnProperty;
     var each = function (obj, f) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         f(x, i);
@@ -239,7 +239,7 @@
     };
     var find = function (obj, pred) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         if (pred(x, i, obj)) {
@@ -282,7 +282,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;
@@ -472,7 +472,7 @@
       return rawIndexOf(xs, x) > -1;
     };
     var exists = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return true;
@@ -483,14 +483,14 @@
     var map$1 = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each$1 = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
@@ -503,7 +503,7 @@
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -524,7 +524,7 @@
       return acc;
     };
     var find$2 = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -533,7 +533,7 @@
       return Option.none();
     };
     var findIndex = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(i);
@@ -543,7 +543,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -555,7 +555,7 @@
       return flatten(map$1(xs, f));
     };
     var forall = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         var x = xs[i];
         if (pred(x, i) !== true) {
           return false;
@@ -585,7 +585,7 @@
       return nativeSlice.call(x);
     };
     var findMap = function (arr, f) {
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         var r = f(arr[i], i);
         if (r.isSome()) {
           return r;
@@ -627,7 +627,7 @@
       if (substr === '') {
         return true;
       }
-      if (str.length < substr.length) {
+      if (str.length <substr.length) {
         return false;
       }
       var x = str.substr(start, start + substr.length);
@@ -845,7 +845,7 @@
       var r;
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (!called) {
@@ -941,12 +941,12 @@
 
     var Immutable = function () {
       var fields = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         fields[_i] = arguments[_i];
       }
       return function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         if (fields.length !== values.length) {
@@ -982,7 +982,7 @@
     var checkDupes = function (everything) {
       var sorted = sort$1(everything);
       var dupe = find$2(sorted, function (s, i) {
-        return i < sorted.length - 1 && s === sorted[i + 1];
+        return i <sorted.length - 1 && s === sorted[i + 1];
       });
       dupe.each(function (d) {
         throw new Error('The field: ' + d + ' occurs more than once in the combined fields: [' + sorted.join(', ') + '].');
@@ -1409,7 +1409,7 @@
             throw new Error('Wrong number of arguments to case ' + key + '. Expected ' + value.length + ' (' + value + '), got ' + argLength);
           }
           var args = new Array(argLength);
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             args[i] = arguments[i];
           }
           var match = function (branches) {
@@ -1459,14 +1459,14 @@
     var baseMerge = function (merger) {
       return function () {
         var objects = new Array(arguments.length);
-        for (var i = 0; i < objects.length; i++) {
+        for (var i = 0; i <objects.length; i++) {
           objects[i] = arguments[i];
         }
         if (objects.length === 0) {
           throw new Error('Can\'t merge zero objects');
         }
         var ret = {};
-        for (var j = 0; j < objects.length; j++) {
+        for (var j = 0; j <objects.length; j++) {
           var curObject = objects[j];
           for (var key in curObject) {
             if (hasOwnProperty$1.call(curObject, key)) {
@@ -2072,7 +2072,7 @@
     var all$1 = function (handlers, f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return foldl(handlers, function (acc, handler) {
@@ -2083,7 +2083,7 @@
     var any = function (handlers, f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return foldl(handlers, function (acc, handler) {
@@ -2107,7 +2107,7 @@
       });
       var run = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         each$1(handlers, function (handler) {
@@ -2286,7 +2286,7 @@
     var wrapApi = function (bName, apiFunction, apiName) {
       var f = function (component) {
         var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
+        for (var _i = 1; _i <arguments.length; _i++) {
           rest[_i - 1] = arguments[_i];
         }
         var args = [component].concat(rest);
@@ -2561,7 +2561,7 @@
     };
     var descendant = function (scope, predicate) {
       var descend = function (node) {
-        for (var i = 0; i < node.childNodes.length; i++) {
+        for (var i = 0; i <node.childNodes.length; i++) {
           var child_1 = Element.fromDom(node.childNodes[i]);
           if (predicate(child_1)) {
             return Option.some(child_1);
@@ -2850,7 +2850,7 @@
       return field(fieldName, fieldName, presence, valueOf(function (f) {
         return Result.value(function () {
           var args = [];
-          for (var _i = 0; _i < arguments.length; _i++) {
+          for (var _i = 0; _i <arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
           return f.apply(undefined, args);
@@ -3365,14 +3365,14 @@
       var push = function (x) {
         r.push(x);
       };
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         arr[i].each(push);
       }
       return r;
     };
     var sequence = function (arr) {
       var r = [];
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         var x = arr[i];
         if (x.isSome()) {
           r.push(x.getOrDie());
@@ -3388,7 +3388,7 @@
 
     var cycleBy = function (value, delta, min, max) {
       var r = value + delta;
-      return r > max ? min : r < min ? max : r;
+      return r > max ? min : r <min ? max : r;
     };
     var clamp = function (value, min, max) {
       return Math.min(Math.max(value, min), max);
@@ -3904,7 +3904,7 @@
       var oldColumn = index % numCols;
       return f(oldRow, oldColumn).bind(function (address) {
         var newIndex = address.row() * numCols + address.column();
-        return newIndex >= 0 && newIndex < values.length ? Option.some(values[newIndex]) : Option.none();
+        return newIndex >= 0 && newIndex <values.length ? Option.some(values[newIndex]) : Option.none();
       });
     };
     var cycleHorizontal = function (values, index, numRows, numCols, delta) {
@@ -4670,7 +4670,7 @@
     var makeApi = function (f) {
       return markAsSketchApi(function (component) {
         var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
+        for (var _i = 1; _i <arguments.length; _i++) {
           rest[_i - 1] = arguments[_i];
         }
         return f.apply(undefined, [component.getApis()].concat([component].concat(rest)));
@@ -5476,7 +5476,7 @@
     };
 
     var reduceBy = function (value, min, max, step) {
-      if (value < min) {
+      if (value <min) {
         return value;
       } else if (value > max) {
         return max;
@@ -5489,7 +5489,7 @@
     var increaseBy = function (value, min, max, step) {
       if (value > max) {
         return value;
-      } else if (value < min) {
+      } else if (value <min) {
         return min;
       } else if (value === max) {
         return max + 1;
@@ -5522,7 +5522,7 @@
       var min = args.min, max = args.max, range = args.range, value = args.value, step = args.step, snap = args.snap, snapStart = args.snapStart, rounded = args.rounded, hasMinEdge = args.hasMinEdge, hasMaxEdge = args.hasMaxEdge, minBound = args.minBound, maxBound = args.maxBound, screenRange = args.screenRange;
       var capMin = hasMinEdge ? min - 1 : min;
       var capMax = hasMaxEdge ? max + 1 : max;
-      if (value < minBound) {
+      if (value <minBound) {
         return capMin;
       } else if (value > maxBound) {
         return capMax;
@@ -5540,7 +5540,7 @@
     };
     var findOffsetOfValue = function (args) {
       var min = args.min, max = args.max, range = args.range, value = args.value, hasMinEdge = args.hasMinEdge, hasMaxEdge = args.hasMaxEdge, maxBound = args.maxBound, maxOffset = args.maxOffset, centerMinEdge = args.centerMinEdge, centerMaxEdge = args.centerMaxEdge;
-      if (value < min) {
+      if (value <min) {
         return hasMinEdge ? 0 : centerMinEdge;
       } else if (value > max) {
         return hasMaxEdge ? maxBound : centerMaxEdge;
@@ -6128,7 +6128,7 @@
     var BLACK = -1;
     var makeSlider = function (spec$1) {
       var getColor = function (hue) {
-        if (hue < 0) {
+        if (hue <0) {
           return 'black';
         } else if (hue > 360) {
           return 'white';
@@ -6217,7 +6217,7 @@
     var sketch$2 = function (rawSpec) {
       var spec$1 = asRawOrDie('SizeSlider', schema$7, rawSpec);
       var isValidValue = function (valueIndex) {
-        return valueIndex >= 0 && valueIndex < spec$1.sizes.length;
+        return valueIndex >= 0 && valueIndex <spec$1.sizes.length;
       };
       var onChange = function (slider, thumb, valueIndex) {
         var index = valueIndex.x();
@@ -6458,7 +6458,7 @@
         finale.call(this);
       }
       function finale() {
-        for (var _i = 0, _a = this._deferreds; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this._deferreds; _i <_a.length; _i++) {
           var deferred = _a[_i];
           handle.call(this, deferred);
         }
@@ -6505,7 +6505,7 @@
       };
       Promise.all = function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         var args = Array.prototype.slice.call(values.length === 1 && isArray(values[0]) ? values[0] : values);
@@ -6533,7 +6533,7 @@
               reject(ex);
             }
           }
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             res(i, args[i]);
           }
         });
@@ -6553,7 +6553,7 @@
       };
       Promise.race = function (values) {
         return new Promise(function (resolve, reject) {
-          for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
+          for (var _i = 0, values_1 = values; _i <values_1.length; _i++) {
             var value = values_1[_i];
             value.then(resolve, reject);
           }
@@ -7308,7 +7308,7 @@
       var navigate = function (dialog, direction) {
         var screens = descendants(dialog.element(), '.' + Styles.resolve('serialised-dialog-screen'));
         descendant$1(dialog.element(), '.' + Styles.resolve('serialised-dialog-chain')).each(function (parent) {
-          if (spec$1.state.currentScreen.get() + direction >= 0 && spec$1.state.currentScreen.get() + direction < screens.length) {
+          if (spec$1.state.currentScreen.get() + direction >= 0 && spec$1.state.currentScreen.get() + direction <screens.length) {
             getRaw(parent, 'left').each(function (left) {
               var currentLeft = parseInt(left, 10);
               var w = get$7(screens[0]);
@@ -7344,7 +7344,7 @@
                   components: [
                     navigationButton(-1, 'previous', i > 0),
                     parts.field(field.name, field.spec),
-                    navigationButton(+1, 'next', i < spec$1.maxFieldIndex)
+                    navigationButton(+1, 'next', i <spec$1.maxFieldIndex)
                   ]
                 }) : parts.field(field.name, field.spec);
               })
@@ -7733,9 +7733,9 @@
           if (bIndex === -1) {
             throw new Error('The ordering for ' + label + ' does not have an entry for ' + bKey + '.\nOrder specified: ' + JSON.stringify(order, null, 2));
           }
-          if (aIndex < bIndex) {
+          if (aIndex <bIndex) {
             return -1;
-          } else if (bIndex < aIndex) {
+          } else if (bIndex <aIndex) {
             return 1;
           } else {
             return 0;
@@ -7791,7 +7791,7 @@
       var handler = read(rawHandler);
       return function (component, simulatedEvent) {
         var rest = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
+        for (var _i = 2; _i <arguments.length; _i++) {
           rest[_i - 2] = arguments[_i];
         }
         var args = [
@@ -9791,7 +9791,7 @@
       var ref = null;
       var schedule = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         ref = domGlobals.setTimeout(function () {
@@ -10694,7 +10694,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer === null) {
@@ -10719,7 +10719,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer !== null) {
@@ -12201,7 +12201,7 @@
               }
               return n[i].exports;
             }
-            for (var u = 'function' == typeof require && require, i = 0; i < t.length; i++)
+            for (var u = 'function' == typeof require && require, i = 0; i <t.length; i++)
               o(t[i]);
             return o;
           }
@@ -12302,7 +12302,7 @@
                 while (len) {
                   currentQueue = queue;
                   queue = [];
-                  while (++queueIndex < len) {
+                  while (++queueIndex <len) {
                     if (currentQueue) {
                       currentQueue[queueIndex].run();
                     }
@@ -12317,7 +12317,7 @@
               process.nextTick = function (fun) {
                 var args = new Array(arguments.length - 1);
                 if (arguments.length > 1) {
-                  for (var i = 1; i < arguments.length; i++) {
+                  for (var i = 1; i <arguments.length; i++) {
                     args[i - 1] = arguments[i];
                   }
                 }
@@ -12452,7 +12452,7 @@
                         }
                       });
                     }
-                    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+                    for (var i = 0, len = self._deferreds.length; i <len; i++) {
                       handle(self, self._deferreds[i]);
                     }
                     self._deferreds = null;
@@ -12516,7 +12516,7 @@
                           reject(ex);
                         }
                       }
-                      for (var i = 0; i < args.length; i++) {
+                      for (var i = 0; i <args.length; i++) {
                         res(i, args[i]);
                       }
                     });
@@ -12536,7 +12536,7 @@
                   };
                   Promise.race = function (values) {
                     return new Promise(function (resolve, reject) {
-                      for (var i = 0, len = values.length; i < len; i++) {
+                      for (var i = 0, len = values.length; i <len; i++) {
                         values[i].then(resolve, reject);
                       }
                     });
@@ -12613,7 +12613,7 @@
                 };
                 exports.setImmediate = typeof setImmediate === 'function' ? setImmediate : function (fn) {
                   var id = nextImmediateId++;
-                  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+                  var args = arguments.length <2 ? false : slice.call(arguments, 1);
                   immediateIds[id] = true;
                   nextTick(function onNextTick() {
                     if (immediateIds[id]) {
@@ -12777,7 +12777,7 @@
     var adjust = function (value, destination, amount) {
       if (Math.abs(value - destination) <= amount) {
         return Option.none();
-      } else if (value < destination) {
+      } else if (value <destination) {
         return Option.some(value + amount);
       } else {
         return Option.some(value - amount);
@@ -13165,7 +13165,7 @@
       var refreshCursor = curry(CursorRefresh.refresh, cWin);
       if (top > greenzone || bottom > greenzone) {
         IosScrolling.moveOnlyScroll(socket, socket.dom().scrollTop - greenzone + bottom).get(refreshCursor);
-      } else if (top < 0) {
+      } else if (top <0) {
         IosScrolling.moveOnlyScroll(socket, socket.dom().scrollTop + top).get(refreshCursor);
       }
     };
@@ -13235,7 +13235,7 @@
         var rects = Rectangles.getRectangles(cWin);
         return Option.from(rects[0]).bind(function (rect) {
           var viewTop = rect.top() - socket.dom().scrollTop;
-          var outside = viewTop > outerWindow.innerHeight + VIEW_MARGIN || viewTop < -VIEW_MARGIN;
+          var outside = viewTop > outerWindow.innerHeight + VIEW_MARGIN || viewTop <-VIEW_MARGIN;
           return outside ? Option.some({
             top: constant(viewTop),
             bottom: constant(viewTop + rect.height())
@@ -13255,7 +13255,7 @@
         });
       }, 1000);
       var onScroll = bind$3(Element.fromDom(outerWindow), 'scroll', function () {
-        if (outerWindow.pageYOffset < 0) {
+        if (outerWindow.pageYOffset <0) {
           return;
         }
         scrollThrottle.throttle();

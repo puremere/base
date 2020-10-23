@@ -21,7 +21,7 @@
     var not = function (f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return !f.apply(null, args);
@@ -168,21 +168,21 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -197,7 +197,7 @@
         var wasType = f(xs[0]);
         var r = [];
         var group = [];
-        for (var i = 0, len = xs.length; i < len; i++) {
+        for (var i = 0, len = xs.length; i <len; i++) {
           var x = xs[i];
           var type = f(x);
           if (type !== wasType) {
@@ -220,7 +220,7 @@
       return acc;
     };
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -230,7 +230,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -272,7 +272,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -302,7 +302,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;
@@ -731,12 +731,12 @@
 
     var Immutable = function () {
       var fields = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         fields[_i] = arguments[_i];
       }
       return function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         if (fields.length !== values.length) {
@@ -753,7 +753,7 @@
     var keys = Object.keys;
     var each$1 = function (obj, f) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         f(x, i);
@@ -817,7 +817,7 @@
 
     var path = function (parts, scope) {
       var o = scope !== undefined && scope !== null ? scope : Global;
-      for (var i = 0; i < parts.length && o !== undefined && o !== null; ++i) {
+      for (var i = 0; i <parts.length && o !== undefined && o !== null; ++i) {
         o = o[parts[i]];
       }
       return o;
@@ -1145,7 +1145,7 @@
       append(parent.item, child.list);
     };
     var joinSegments = function (segments) {
-      for (var i = 1; i < segments.length; i++) {
+      for (var i = 1; i <segments.length; i++) {
         joinSegment(segments[i - 1], segments[i]);
       }
     };
@@ -1162,13 +1162,13 @@
     };
     var createSegments = function (scope, entry, size) {
       var segments = [];
-      for (var i = 0; i < size; i++) {
+      for (var i = 0; i <size; i++) {
         segments.push(createSegment(scope, entry.listType));
       }
       return segments;
     };
     var populateSegments = function (segments, entry) {
-      for (var i = 0; i < segments.length - 1; i++) {
+      for (var i = 0; i <segments.length - 1; i++) {
         set(segments[i].item, 'list-style-type', 'none');
       }
       last(segments).each(function (segment) {
@@ -1275,7 +1275,7 @@
         if (entries[i].depth === depth) {
           return Option.some(entries[i]);
         }
-        if (entries[i].depth < depth) {
+        if (entries[i].depth <depth) {
           break;
         }
       }
@@ -1858,7 +1858,7 @@
     var findNextCaretContainer = function (editor, rng, isForward, root) {
       var node = rng.startContainer;
       var offset = rng.startOffset;
-      if (NodeType.isTextNode(node) && (isForward ? offset < node.data.length : offset > 0)) {
+      if (NodeType.isTextNode(node) && (isForward ? offset <node.data.length : offset > 0)) {
         return node;
       }
       var nonEmptyBlocks = editor.schema.getNonEmptyElements();
@@ -2120,7 +2120,7 @@
     var Keyboard = { setup: setup$1 };
 
     var findIndex = function (list, predicate) {
-      for (var index = 0; index < list.length; index++) {
+      for (var index = 0; index <list.length; index++) {
         var element = list[index];
         if (predicate(element)) {
           return index;

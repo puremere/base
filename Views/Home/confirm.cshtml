@@ -31,7 +31,7 @@
             var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((t % (1000 * 60)) / 1000);
             document.getElementById("demo").innerHTML = seconds + "s ";
-            if (t < 0) {
+            if (t <0) {
                 clearInterval(x);
                 $("#counterholder").css("visibility", "hidden");
                 $("#resendButt").css("visibility", "inherit");
@@ -101,7 +101,7 @@
                                                   var seconds = Math.floor((t % (1000 * 60)) / 1000);
                                                   document.getElementById("demo").innerHTML =  seconds + "s ";
 
-                                                  if (t < 0) {
+                                                  if (t <0) {
                                                       clearInterval(x);
                                                       $("#counterholder").css("visibility", "hidden");
                                                       $("#resendButt").css("visibility", "inherit");

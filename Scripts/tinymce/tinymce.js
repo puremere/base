@@ -14,7 +14,7 @@
     var compose = function (fa, fb) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return fa(fb.apply(null, args));
@@ -30,12 +30,12 @@
     };
     function curry(fn) {
       var initialArgs = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
+      for (var _i = 1; _i <arguments.length; _i++) {
         initialArgs[_i - 1] = arguments[_i];
       }
       return function () {
         var restArgs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           restArgs[_i] = arguments[_i];
         }
         var all = initialArgs.concat(restArgs);
@@ -45,7 +45,7 @@
     var not = function (f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return !f.apply(null, args);
@@ -208,7 +208,7 @@
       return rawIndexOf(xs, x) > -1;
     };
     var exists = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return true;
@@ -219,14 +219,14 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
@@ -240,7 +240,7 @@
     var partition = function (xs, pred) {
       var pass = [];
       var fail = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         var arr = pred(x, i) ? pass : fail;
         arr.push(x);
@@ -252,7 +252,7 @@
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -273,7 +273,7 @@
       return acc;
     };
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -282,7 +282,7 @@
       return Option.none();
     };
     var findIndex = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(i);
@@ -292,7 +292,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -304,7 +304,7 @@
       return flatten(map(xs, f));
     };
     var forall = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         var x = xs[i];
         if (pred(x, i) !== true) {
           return false;
@@ -324,7 +324,7 @@
     };
     var mapToObject = function (xs, f) {
       var r = {};
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         r[String(x)] = f(x, i);
       }
@@ -349,7 +349,7 @@
     var hasOwnProperty = Object.hasOwnProperty;
     var each$1 = function (obj, f) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         f(x, i);
@@ -401,7 +401,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -414,11 +414,11 @@
     function __rest(s, e) {
       var t = {};
       for (var p in s)
-        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) <0)
           t[p] = s[p];
       if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i <p.length; i++) {
+          if (e.indexOf(p[i]) <0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
             t[p[i]] = s[p[i]];
         }
       return t;
@@ -481,7 +481,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;
@@ -669,7 +669,7 @@
       if (substr === '') {
         return true;
       }
-      if (str.length < substr.length) {
+      if (str.length <substr.length) {
         return false;
       }
       var x = str.substr(start, start + substr.length);
@@ -826,12 +826,12 @@
 
     var Immutable = function () {
       var fields = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         fields[_i] = arguments[_i];
       }
       return function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         if (fields.length !== values.length) {
@@ -1197,7 +1197,7 @@
       return function (node) {
         var i, cssValue;
         if (isElement$1(node)) {
-          for (i = 0; i < items.length; i++) {
+          for (i = 0; i <items.length; i++) {
             var computed = node.ownerDocument.defaultView.getComputedStyle(node, null);
             cssValue = computed ? computed.getPropertyValue(name) : null;
             if (cssValue === items[i]) {
@@ -1435,7 +1435,7 @@
               }
               return n[i].exports;
             }
-            for (var u = 'function' == typeof require && require, i = 0; i < t.length; i++)
+            for (var u = 'function' == typeof require && require, i = 0; i <t.length; i++)
               o(t[i]);
             return o;
           }
@@ -1536,7 +1536,7 @@
                 while (len) {
                   currentQueue = queue;
                   queue = [];
-                  while (++queueIndex < len) {
+                  while (++queueIndex <len) {
                     if (currentQueue) {
                       currentQueue[queueIndex].run();
                     }
@@ -1551,7 +1551,7 @@
               process.nextTick = function (fun) {
                 var args = new Array(arguments.length - 1);
                 if (arguments.length > 1) {
-                  for (var i = 1; i < arguments.length; i++) {
+                  for (var i = 1; i <arguments.length; i++) {
                     args[i - 1] = arguments[i];
                   }
                 }
@@ -1686,7 +1686,7 @@
                         }
                       });
                     }
-                    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+                    for (var i = 0, len = self._deferreds.length; i <len; i++) {
                       handle(self, self._deferreds[i]);
                     }
                     self._deferreds = null;
@@ -1750,7 +1750,7 @@
                           reject(ex);
                         }
                       }
-                      for (var i = 0; i < args.length; i++) {
+                      for (var i = 0; i <args.length; i++) {
                         res(i, args[i]);
                       }
                     });
@@ -1770,7 +1770,7 @@
                   };
                   Promise.race = function (values) {
                     return new Promise(function (resolve, reject) {
-                      for (var i = 0, len = values.length; i < len; i++) {
+                      for (var i = 0, len = values.length; i <len; i++) {
                         values[i].then(resolve, reject);
                       }
                     });
@@ -1847,7 +1847,7 @@
                 };
                 exports.setImmediate = typeof setImmediate === 'function' ? setImmediate : function (fn) {
                   var id = nextImmediateId++;
-                  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+                  var args = arguments.length <2 ? false : slice.call(arguments, 1);
                   immediateIds[id] = true;
                   nextTick(function onNextTick() {
                     if (immediateIds[id]) {
@@ -2214,7 +2214,7 @@
         finale.call(this);
       }
       function finale() {
-        for (var i = 0, len = this._deferreds.length; i < len; i++) {
+        for (var i = 0, len = this._deferreds.length; i <len; i++) {
           handle.call(this, this._deferreds[i]);
         }
         this._deferreds = null;
@@ -2284,7 +2284,7 @@
               reject(ex);
             }
           }
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             res(i, args[i]);
           }
         });
@@ -2304,7 +2304,7 @@
       };
       Promise.race = function (values) {
         return new Promise(function (resolve, reject) {
-          for (var i = 0, len = values.length; i < len; i++) {
+          for (var i = 0, len = values.length; i <len; i++) {
             values[i].then(resolve, reject);
           }
         });
@@ -2324,7 +2324,7 @@
       var featurefill = function (callback) {
         domGlobals.window.setTimeout(callback, 0);
       };
-      for (i = 0; i < vendors.length && !requestAnimationFrameFunc; i++) {
+      for (i = 0; i <vendors.length && !requestAnimationFrameFunc; i++) {
         requestAnimationFrameFunc = domGlobals.window[vendors[i] + 'RequestAnimationFrame'];
       }
       if (!requestAnimationFrameFunc) {
@@ -2354,7 +2354,7 @@
       var timer, func;
       func = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         domGlobals.clearTimeout(timer);
@@ -2473,7 +2473,7 @@
       var array = obj, i, l;
       if (!isArray$1(obj)) {
         array = [];
-        for (i = 0, l = obj.length; i < l; i++) {
+        for (i = 0, l = obj.length; i <l; i++) {
           array[i] = obj[i];
         }
       }
@@ -2486,7 +2486,7 @@
       }
       s = s || o;
       if (o.length !== undefined) {
-        for (n = 0, l = o.length; n < l; n++) {
+        for (n = 0, l = o.length; n <l; n++) {
           if (cb.call(s, o[n], n, o) === false) {
             return 0;
           }
@@ -2521,7 +2521,7 @@
     var indexOf$1 = function (a, v) {
       var i, l;
       if (a) {
-        for (i = 0, l = a.length; i < l; i++) {
+        for (i = 0, l = a.length; i <l; i++) {
           if (a[i] === v) {
             return i;
           }
@@ -2531,17 +2531,17 @@
     };
     var reduce = function (collection, iteratee, accumulator, thisArg) {
       var i = 0;
-      if (arguments.length < 3) {
+      if (arguments.length <3) {
         accumulator = collection[0];
       }
-      for (; i < collection.length; i++) {
+      for (; i <collection.length; i++) {
         accumulator = iteratee.call(thisArg, accumulator, collection[i], i);
       }
       return accumulator;
     };
     var findIndex$1 = function (array, predicate, thisArg) {
       var i, l;
-      for (i = 0, l = array.length; i < l; i++) {
+      for (i = 0, l = array.length; i <l; i++) {
         if (predicate.call(thisArg, array[i], i, array)) {
           return i;
         }
@@ -2661,13 +2661,13 @@
     };
     var extend = function (obj, ext) {
       var x = [];
-      for (var _i = 2; _i < arguments.length; _i++) {
+      for (var _i = 2; _i <arguments.length; _i++) {
         x[_i - 2] = arguments[_i];
       }
       var i, l, name;
       var args = arguments;
       var value;
-      for (i = 1, l = args.length; i < l; i++) {
+      for (i = 1, l = args.length; i <l; i++) {
         ext = args[i];
         for (name in ext) {
           if (ext.hasOwnProperty(name)) {
@@ -2698,7 +2698,7 @@
       var i, v;
       o = o || domGlobals.window;
       n = n.split('.');
-      for (i = 0; i < n.length; i++) {
+      for (i = 0; i <n.length; i++) {
         v = n[i];
         if (!o[v]) {
           o[v] = {};
@@ -2711,7 +2711,7 @@
       var i, l;
       o = o || domGlobals.window;
       n = n.split('.');
-      for (i = 0, l = n.length; i < l; i++) {
+      for (i = 0, l = n.length; i <l; i++) {
         o = o[n[i]];
         if (!o) {
           break;
@@ -2796,11 +2796,11 @@
         };
         var isOldWebKit = function () {
           var webKitChunks = domGlobals.navigator.userAgent.match(/WebKit\/(\d*)/);
-          return !!(webKitChunks && parseInt(webKitChunks[1], 10) < 536);
+          return !!(webKitChunks && parseInt(webKitChunks[1], 10) <536);
         };
         var wait = function (testCallback, waitCallback) {
           if (!testCallback()) {
-            if (new Date().getTime() - startTime < maxLoadTime) {
+            if (new Date().getTime() - startTime <maxLoadTime) {
               Delay.setTimeout(waitCallback);
             } else {
               failed();
@@ -3171,7 +3171,7 @@
       if (items) {
         items = items.split(',');
         radix = radix || 10;
-        for (i = 0; i < items.length; i += 2) {
+        for (i = 0; i <items.length; i += 2) {
           chr = String.fromCharCode(parseInt(items[i], radix));
           if (!baseEntities[chr]) {
             entity = '&' + items[i + 1] + ';';
@@ -3282,7 +3282,7 @@
         var arrayToMap = function (array, obj) {
           var map = {};
           var i, l;
-          for (i = 0, l = array.length; i < l; i++) {
+          for (i = 0, l = array.length; i <l; i++) {
             map[array[i]] = obj || {};
           }
           return map;
@@ -3314,7 +3314,7 @@
         attributes = split(attributes);
         while (ni--) {
           schemaItem = schema[name[ni]];
-          for (i = 0, l = attributes.length; i < l; i++) {
+          for (i = 0, l = attributes.length; i <l; i++) {
             schemaItem.attributes[attributes[i]] = {};
             schemaItem.attributesOrder.push(attributes[i]);
           }
@@ -3578,7 +3578,7 @@
             globalAttributes = elements['@'].attributes;
             globalAttributesOrder = elements['@'].attributesOrder;
           }
-          for (ei = 0, el = validElements.length; ei < el; ei++) {
+          for (ei = 0, el = validElements.length; ei <el; ei++) {
             matches = elementRuleRegExp.exec(validElements[ei]);
             if (matches) {
               prefix = matches[1];
@@ -3608,7 +3608,7 @@
               }
               if (attrData) {
                 attrData = split(attrData, '|');
-                for (ai = 0, al = attrData.length; ai < al; ai++) {
+                for (ai = 0, al = attrData.length; ai <al; ai++) {
                   matches = attrRuleRegExp.exec(attrData[ai]);
                   if (matches) {
                     attr = {};
@@ -3936,7 +3936,7 @@
         invalidStyles = schema.getInvalidStyles();
       }
       encodingItems = ('\\" \\\' \\; \\: ; : ' + invisibleChar).split(' ');
-      for (i = 0; i < encodingItems.length; i++) {
+      for (i = 0; i <encodingItems.length; i++) {
         encodingLookup[encodingItems[i]] = invisibleChar + i;
         encodingLookup[invisibleChar + i] = encodingItems[i];
       }
@@ -4110,7 +4110,7 @@
             var styleList, i, l, value;
             styleList = validStyles[name];
             if (styleList) {
-              for (i = 0, l = styleList.length; i < l; i++) {
+              for (i = 0, l = styleList.length; i <l; i++) {
                 name = styleList[i];
                 value = styles[name];
                 if (value) {
@@ -4481,7 +4481,7 @@
         var container = this.events[id];
         callbackList = container && container[evt.type];
         if (callbackList) {
-          for (i = 0, l = callbackList.length; i < l; i++) {
+          for (i = 0, l = callbackList.length; i <l; i++) {
             callback = callbackList[i];
             if (callback && callback.func.call(callback.scope, evt) === false) {
               evt.preventDefault();
@@ -4501,9 +4501,9 @@
           hasDuplicate = true;
         }
         return 0;
-      }, strundefined = typeof undefined, MAX_NEGATIVE = 1 << 31, hasOwn = {}.hasOwnProperty, arr = [], pop = arr.pop, push_native = arr.push, push = arr.push, slice = arr.slice, indexOf$2 = arr.indexOf || function (elem) {
+      }, strundefined = typeof undefined, MAX_NEGATIVE = 1 <<31, hasOwn = {}.hasOwnProperty, arr = [], pop = arr.pop, push_native = arr.push, push = arr.push, slice = arr.slice, indexOf$2 = arr.indexOf || function (elem) {
         var i = 0, len = this.length;
-        for (; i < len; i++) {
+        for (; i <len; i++) {
           if (this[i] === elem) {
             return i;
           }
@@ -4520,7 +4520,7 @@
         needsContext: new RegExp('^' + whitespace + '*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\(' + whitespace + '*((?:-\\d)?\\d*)' + whitespace + '*\\)|)(?=[^-]|$)', 'i')
       }, rinputs = /^(?:input|select|textarea|button)$/i, rheader = /^h\d$/i, rnative = /^[^{]+\{\s*\[native \w/, rquickExpr = /^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/, rsibling = /[+~]/, rescape = /'|\\/g, runescape = new RegExp('\\\\([\\da-f]{1,6}' + whitespace + '?|(' + whitespace + ')|.)', 'ig'), funescape = function (_, escaped, escapedWhitespace) {
         var high = '0x' + escaped - 65536;
-        return high !== high || escapedWhitespace ? escaped : high < 0 ? String.fromCharCode(high + 65536) : String.fromCharCode(high >> 10 | 55296, high & 1023 | 56320);
+        return high !== high || escapedWhitespace ? escaped : high <0 ? String.fromCharCode(high + 65536) : String.fromCharCode(high >> 10 | 55296, high & 1023 | 56320);
       };
     try {
       push.apply(arr = slice.call(preferredDoc.childNodes), preferredDoc.childNodes);
@@ -5108,7 +5108,7 @@
         },
         empty: function (elem) {
           for (elem = elem.firstChild; elem; elem = elem.nextSibling) {
-            if (elem.nodeType < 6) {
+            if (elem.nodeType <6) {
               return false;
             }
           }
@@ -5138,32 +5138,32 @@
           return [length - 1];
         }),
         eq: createPositionalPseudo(function (matchIndexes, length, argument) {
-          return [argument < 0 ? argument + length : argument];
+          return [argument <0 ? argument + length : argument];
         }),
         even: createPositionalPseudo(function (matchIndexes, length) {
           var i = 0;
-          for (; i < length; i += 2) {
+          for (; i <length; i += 2) {
             matchIndexes.push(i);
           }
           return matchIndexes;
         }),
         odd: createPositionalPseudo(function (matchIndexes, length) {
           var i = 1;
-          for (; i < length; i += 2) {
+          for (; i <length; i += 2) {
             matchIndexes.push(i);
           }
           return matchIndexes;
         }),
         lt: createPositionalPseudo(function (matchIndexes, length, argument) {
-          var i = argument < 0 ? argument + length : argument;
+          var i = argument <0 ? argument + length : argument;
           for (; --i >= 0;) {
             matchIndexes.push(i);
           }
           return matchIndexes;
         }),
         gt: createPositionalPseudo(function (matchIndexes, length, argument) {
-          var i = argument < 0 ? argument + length : argument;
-          for (; ++i < length;) {
+          var i = argument <0 ? argument + length : argument;
+          for (; ++i <length;) {
             matchIndexes.push(i);
           }
           return matchIndexes;
@@ -5235,7 +5235,7 @@
     };
     function toSelector(tokens) {
       var i = 0, len = tokens.length, selector = '';
-      for (; i < len; i++) {
+      for (; i <len; i++) {
         selector += tokens[i].value;
       }
       return selector;
@@ -5291,14 +5291,14 @@
     }
     function multipleContexts(selector, contexts, results) {
       var i = 0, len = contexts.length;
-      for (; i < len; i++) {
+      for (; i <len; i++) {
         Sizzle(selector, contexts[i], results);
       }
       return results;
     }
     function condense(unmatched, map, filter, context, xml) {
       var elem, newUnmatched = [], i = 0, len = unmatched.length, mapped = map != null;
-      for (; i < len; i++) {
+      for (; i <len; i++) {
         if (elem = unmatched[i]) {
           if (!filter || filter(elem, context, xml)) {
             newUnmatched.push(elem);
@@ -5369,19 +5369,19 @@
         }, implicitRelative, true), matchers = [function (elem, context, xml) {
             return !leadingRelative && (xml || context !== outermostContext) || ((checkContext = context).nodeType ? matchContext(elem, context, xml) : matchAnyContext(elem, context, xml));
           }];
-      for (; i < len; i++) {
+      for (; i <len; i++) {
         if (matcher = Expr.relative[tokens[i].type]) {
           matchers = [addCombinator(elementMatcher(matchers), matcher)];
         } else {
           matcher = Expr.filter[tokens[i].type].apply(null, tokens[i].matches);
           if (matcher[expando]) {
             j = ++i;
-            for (; j < len; j++) {
+            for (; j <len; j++) {
               if (Expr.relative[tokens[j].type]) {
                 break;
               }
             }
-            return setMatcher(i > 1 && elementMatcher(matchers), i > 1 && toSelector(tokens.slice(0, i - 1).concat({ value: tokens[i - 2].type === ' ' ? '*' : '' })).replace(rtrim, '$1'), matcher, i < j && matcherFromTokens(tokens.slice(i, j)), j < len && matcherFromTokens(tokens = tokens.slice(j)), j < len && toSelector(tokens));
+            return setMatcher(i > 1 && elementMatcher(matchers), i > 1 && toSelector(tokens.slice(0, i - 1).concat({ value: tokens[i - 2].type === ' ' ? '*' : '' })).replace(rtrim, '$1'), matcher, i <j && matcherFromTokens(tokens.slice(i, j)), j <len && matcherFromTokens(tokens = tokens.slice(j)), j <len && toSelector(tokens));
           }
           matchers.push(matcher);
         }
@@ -5541,7 +5541,7 @@
             domManipulate(targetNodes, sourceItem[i], callback, reverse);
           }
         } else {
-          for (i = 0; i < sourceItem.length; i++) {
+          for (i = 0; i <sourceItem.length; i++) {
             domManipulate(targetNodes, sourceItem[i], callback, reverse);
           }
         }
@@ -5617,7 +5617,7 @@
             }
           }
         } else {
-          for (i = 0; i < length; i++) {
+          for (i = 0; i <length; i++) {
             value = obj[i];
             if (callback.call(value, i, value) === false) {
               break;
@@ -5718,7 +5718,7 @@
         if (sort !== false) {
           nodes = DomQuery.unique(self.toArray().concat(DomQuery.makeArray(items)));
           self.length = nodes.length;
-          for (i = 0; i < nodes.length; i++) {
+          for (i = 0; i <nodes.length; i++) {
             self[i] = nodes[i];
           }
         } else {
@@ -6053,7 +6053,7 @@
       find: function (selector) {
         var i, l;
         var ret = [];
-        for (i = 0, l = this.length; i < l; i++) {
+        for (i = 0, l = this.length; i <l; i++) {
           DomQuery.find(selector, this[i], ret);
         }
         return DomQuery(ret);
@@ -7647,7 +7647,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer === null) {
@@ -7672,7 +7672,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer !== null) {
@@ -8256,7 +8256,7 @@
       return overflowY >= 0 && overflowY <= Math.min(rect1.height, rect2.height) / 2;
     };
     var isAbove = function (rect1, rect2) {
-      if (rect1.bottom - rect1.height / 2 < rect2.top) {
+      if (rect1.bottom - rect1.height / 2 <rect2.top) {
         return true;
       }
       if (rect1.top > rect2.bottom) {
@@ -8268,7 +8268,7 @@
       if (rect1.top > rect2.bottom) {
         return true;
       }
-      if (rect1.bottom < rect2.top) {
+      if (rect1.bottom <rect2.top) {
         return false;
       }
       return isValidOverflow(rect2.bottom - rect1.top, rect1, rect2);
@@ -8312,12 +8312,12 @@
     var slice$2 = [].slice;
     var or = function () {
       var x = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         x[_i] = arguments[_i];
       }
       var args = slice$2.call(arguments);
       return function (x) {
-        for (var i = 0; i < args.length; i++) {
+        for (var i = 0; i <args.length; i++) {
           if (args[i](x)) {
             return true;
           }
@@ -8327,12 +8327,12 @@
     };
     var and = function () {
       var x = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         x[_i] = arguments[_i];
       }
       var args = slice$2.call(arguments);
       return function (x) {
-        for (var i = 0; i < args.length; i++) {
+        for (var i = 0; i <args.length; i++) {
           if (!args[i](x)) {
             return false;
           }
@@ -8443,7 +8443,7 @@
       };
       var addCharacterOffset = function (container, offset) {
         var range = createRange(container.ownerDocument);
-        if (offset < container.data.length) {
+        if (offset <container.data.length) {
           if (isExtendingChar(container.data[offset])) {
             return clientRects;
           }
@@ -8463,7 +8463,7 @@
             addUniqueAndValidRect(collapseAndInflateWidth(getBoundingClientRect(range), false));
           }
         }
-        if (offset < container.data.length) {
+        if (offset <container.data.length) {
           range.setStart(container, offset);
           range.setEnd(container, offset + 1);
           if (!isHiddenWhiteSpaceRange(range)) {
@@ -9087,7 +9087,7 @@
     var removeElementAndReposition = function (caretContainer, pos) {
       var parentNode = pos.container();
       var newPosition = indexOf(from$1(parentNode.childNodes), caretContainer).map(function (index) {
-        return index < pos.offset() ? CaretPosition$1(parentNode, pos.offset() - 1) : pos;
+        return index <pos.offset() ? CaretPosition$1(parentNode, pos.offset() - 1) : pos;
       }).getOr(pos);
       remove$5(caretContainer);
       return newPosition;
@@ -9334,7 +9334,7 @@
     var trimInlineCaretContainers = function (root) {
       var contentEditableFalseNodes, node, sibling, i, data;
       contentEditableFalseNodes = DomQuery('*[contentEditable=false]', root);
-      for (i = 0; i < contentEditableFalseNodes.length; i++) {
+      for (i = 0; i <contentEditableFalseNodes.length; i++) {
         node = contentEditableFalseNodes[i];
         sibling = node.previousSibling;
         if (endsWithCaretContainer(sibling)) {
@@ -9458,7 +9458,7 @@
       return direction > 0;
     };
     var isBackwards = function (direction) {
-      return direction < 0;
+      return direction <0;
     };
     var skipCaretContainers = function (walk, shallow) {
       var node;
@@ -9703,7 +9703,7 @@
       return parents;
     };
     var nodeAtIndex = function (container, offset) {
-      if (container.hasChildNodes() && offset < container.childNodes.length) {
+      if (container.hasChildNodes() && offset <container.childNodes.length) {
         return container.childNodes[offset];
       }
       return null;
@@ -9765,7 +9765,7 @@
         if (isBackwards(direction) && offset > 0) {
           return CaretPosition$1(container, --offset);
         }
-        if (isForwards(direction) && offset < container.length) {
+        if (isForwards(direction) && offset <container.length) {
           return CaretPosition$1(container, ++offset);
         }
         node = container;
@@ -9788,7 +9788,7 @@
             return CaretPosition$1.before(nextNode);
           }
         }
-        if (isForwards(direction) && offset < container.childNodes.length) {
+        if (isForwards(direction) && offset <container.childNodes.length) {
           nextNode = nodeAtIndex(container, offset);
           if (isCaretCandidate$3(nextNode)) {
             if (isBr$4(nextNode)) {
@@ -10179,7 +10179,7 @@
       }
       if (container.nodeType === 1) {
         nodes = container.childNodes;
-        if (offset < nodes.length) {
+        if (offset <nodes.length) {
           container = nodes[offset];
           walker = new TreeWalker(container, dom.getParent(container, dom.isBlock));
         } else {
@@ -10282,7 +10282,7 @@
     };
     var walkText = function (start, node, offset, predicate) {
       var str = node.data;
-      for (var i = offset; start ? i >= 0 : i < str.length; start ? i-- : i++) {
+      for (var i = offset; start ? i >= 0 : i <str.length; start ? i-- : i++) {
         if (predicate(str.charAt(i))) {
           return start ? i + 1 : i;
         }
@@ -10327,8 +10327,8 @@
         container = container[siblingName];
       }
       var parents = getParents$2(dom, container);
-      for (var i = 0; i < parents.length; i++) {
-        for (var y = 0; y < format.length; y++) {
+      for (var i = 0; i <parents.length; i++) {
+        for (var y = 0; y <format.length; y++) {
           var curFormat = format[y];
           if ('collapsed' in curFormat && curFormat.collapsed !== rng.collapsed) {
             continue;
@@ -10373,7 +10373,7 @@
       siblingName = start ? 'previousSibling' : 'nextSibling';
       root = dom.getRoot();
       if (NodeType.isText(container) && !isWhiteSpaceNode$1(container)) {
-        if (start ? startOffset > 0 : endOffset < container.nodeValue.length) {
+        if (start ? startOffset > 0 : endOffset <container.nodeValue.length) {
           return container;
         }
       }
@@ -10496,7 +10496,7 @@
       index--;
       if (index > childNodes.length - 1) {
         index = childNodes.length - 1;
-      } else if (index < 0) {
+      } else if (index <0) {
         index = 0;
       }
       return childNodes[index] || container;
@@ -10870,7 +10870,7 @@
         if (selfAttrs = self.attributes) {
           var cloneAttrs = [];
           cloneAttrs.map = {};
-          for (var i = 0, l = selfAttrs.length; i < l; i++) {
+          for (var i = 0, l = selfAttrs.length; i <l; i++) {
             var selfAttr = selfAttrs[i];
             if (selfAttr.name !== 'id') {
               cloneAttrs[cloneAttrs.length] = {
@@ -11236,7 +11236,7 @@
         processHtml = html + '>';
         while (matches = tokenRegExp.exec(processHtml)) {
           var matchText = matches[0];
-          if (index < matches.index) {
+          if (index <matches.index) {
             text(decode(html.substr(index, matches.index - index)));
           }
           if (value = matches[7]) {
@@ -11412,7 +11412,7 @@
           }
           index = matches.index + matchText.length;
         }
-        if (index < html.length) {
+        if (index <html.length) {
           text(decode(html.substr(index)));
         }
         for (i = stack.length - 1; i >= 0; i--) {
@@ -11522,7 +11522,7 @@
           }
           html.push('<', name);
           if (attrs) {
-            for (i = 0, l = attrs.length; i < l; i++) {
+            for (i = 0, l = attrs.length; i <l; i++) {
               attr = attrs[i];
               html.push(' ', attr.name, '="', encode(attr.value, true), '"');
             }
@@ -11629,7 +11629,7 @@
               sortedAttrs.map = {};
               elementRule = schema.getElementRule(node.name);
               if (elementRule) {
-                for (i = 0, l = elementRule.attributesOrder.length; i < l; i++) {
+                for (i = 0, l = elementRule.attributesOrder.length; i <l; i++) {
                   attrName = elementRule.attributesOrder[i];
                   if (attrName in attrs.map) {
                     attrValue = attrs.map[attrName];
@@ -11640,7 +11640,7 @@
                     });
                   }
                 }
-                for (i = 0, l = attrs.length; i < l; i++) {
+                for (i = 0, l = attrs.length; i <l; i++) {
                   attrName = attrs[i].name;
                   if (!(attrName in sortedAttrs.map)) {
                     attrValue = attrs.map[attrName];
@@ -11783,7 +11783,7 @@
             throw new Error('Wrong number of arguments to case ' + key + '. Expected ' + value.length + ' (' + value + '), got ' + argLength);
           }
           var args = new Array(argLength);
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             args[i] = arguments[i];
           }
           var match = function (branches) {
@@ -11907,7 +11907,7 @@
       var max = isText(element) ? get$7(element).length : children(element).length + 1;
       if (offset > max) {
         return max;
-      } else if (offset < 0) {
+      } else if (offset <0) {
         return 0;
       }
       return offset;
@@ -12436,14 +12436,14 @@
     var baseMerge = function (merger) {
       return function () {
         var objects = new Array(arguments.length);
-        for (var i = 0; i < objects.length; i++) {
+        for (var i = 0; i <objects.length; i++) {
           objects[i] = arguments[i];
         }
         if (objects.length === 0) {
           throw new Error('Can\'t merge zero objects');
         }
         var ret = {};
-        for (var j = 0; j < objects.length; j++) {
+        for (var j = 0; j <objects.length; j++) {
           var curObject = objects[j];
           for (var key in curObject) {
             if (hasOwnProperty$2.call(curObject, key)) {
@@ -12942,7 +12942,7 @@
     };
     var initError = function (message) {
       var x = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
+      for (var _i = 1; _i <arguments.length; _i++) {
         x[_i - 1] = arguments[_i];
       }
       var console = domGlobals.window.console;
@@ -13287,8 +13287,8 @@
         deltaY = e.screenY - startY;
         width = deltaX * selectedHandle[2] + startW;
         height = deltaY * selectedHandle[3] + startH;
-        width = width < 5 ? 5 : width;
-        height = height < 5 ? 5 : height;
+        width = width <5 ? 5 : width;
+        height = height <5 ? 5 : height;
         if (isImage(selectedElm) && Settings.getResizeImgProportional(editor) !== false) {
           proportional = !VK.modifierPressed(e);
         } else {
@@ -13317,10 +13317,10 @@
           display: 'block'
         });
         resizeHelper.innerHTML = width + ' &times; ' + height;
-        if (selectedHandle[2] < 0 && selectedElmGhost.clientWidth <= width) {
+        if (selectedHandle[2] <0 && selectedElmGhost.clientWidth <= width) {
           dom.setStyle(selectedElmGhost, 'left', selectedElmX + (startW - width));
         }
-        if (selectedHandle[3] < 0 && selectedElmGhost.clientHeight <= height) {
+        if (selectedHandle[3] <0 && selectedElmGhost.clientHeight <= height) {
           dom.setStyle(selectedElmGhost, 'top', selectedElmY + (startH - height));
         }
         deltaX = rootElement.scrollWidth - startScrollWidth;
@@ -13681,7 +13681,7 @@
           element: element,
           offset: offset
         };
-      } else if (offset < children$1.length && !excludeFromDescend(children$1[offset])) {
+      } else if (offset <children$1.length && !excludeFromDescend(children$1[offset])) {
         return {
           element: children$1[offset],
           offset: 0
@@ -13789,7 +13789,7 @@
       var markerTop = marker.pos.top();
       var markerBottom = marker.bottom;
       var largerThanViewport = markerBottom - markerTop >= viewHeight;
-      if (markerTop < scrollTop) {
+      if (markerTop <scrollTop) {
         scrollToMarker(marker, viewHeight, alignToTop !== false, doc);
       } else if (markerTop > viewportBottom) {
         var align = largerThanViewport ? alignToTop !== false : alignToTop === true;
@@ -13807,7 +13807,7 @@
       intoWindowIfNeeded(doc, scrollTop, frameViewHeight, marker, alignToTop);
       var op = find$3(marker.element);
       var viewportBounds = getBounds(domGlobals.window);
-      if (op.top() < viewportBounds.y()) {
+      if (op.top() <viewportBounds.y()) {
         intoView(marker.element, alignToTop !== false);
       } else if (op.top() > viewportBounds.bottom()) {
         intoView(marker.element, alignToTop === true);
@@ -14034,11 +14034,11 @@
       var rowspan = getSpan(td, 'rowspan');
       var colspan = getSpan(td, 'colspan');
       var rows = table.rows();
-      for (var y2 = y; y2 < y + rowspan; y2++) {
+      for (var y2 = y; y2 <y + rowspan; y2++) {
         if (!rows[y2]) {
           rows[y2] = tableRow(deep(tr), []);
         }
-        for (var x2 = x; x2 < x + colspan; x2++) {
+        for (var x2 = x; x2 <x + colspan; x2++) {
           var cells = rows[y2].cells();
           cells[x2] = y2 === y && x2 === x ? td : shallow(td);
         }
@@ -14062,9 +14062,9 @@
     };
     var findElementPos = function (table, element) {
       var rows = table.rows();
-      for (var y = 0; y < rows.length; y++) {
+      for (var y = 0; y <rows.length; y++) {
         var cells = rows[y].cells();
-        for (var x = 0; x < cells.length; x++) {
+        for (var x = 0; x <cells.length; x++) {
           if (eq(cells[x], element)) {
             return Option.some(cellPosition(x, y));
           }
@@ -14077,7 +14077,7 @@
       var rows = table.rows();
       for (var y = sy; y <= ey; y++) {
         var cells = rows[y].cells();
-        var slice = sx < ex ? cells.slice(sx, ex + 1) : cells.slice(ex, sx + 1);
+        var slice = sx <ex ? cells.slice(sx, ex + 1) : cells.slice(ex, sx + 1);
         newRows.push(tableRow(rows[y].element(), slice));
       }
       return newRows;
@@ -14085,7 +14085,7 @@
     var subTable = function (table, startPos, endPos) {
       var sx = startPos.x(), sy = startPos.y();
       var ex = endPos.x(), ey = endPos.y();
-      var newRows = sy < ey ? extractRows(table, sx, sy, ex, ey) : extractRows(table, sx, ey, ex, sy);
+      var newRows = sy <ey ? extractRows(table, sx, sy, ex, ey) : extractRows(table, sx, ey, ex, sy);
       return tableModel(table.element(), getWidth(newRows), newRows);
     };
     var createDomTable = function (table, rows) {
@@ -14136,7 +14136,7 @@
     var getRanges = function (selection) {
       var ranges = [];
       if (selection) {
-        for (var i = 0; i < selection.rangeCount; i++) {
+        for (var i = 0; i <selection.rangeCount; i++) {
           ranges.push(selection.getRangeAt(i));
         }
       }
@@ -14598,7 +14598,7 @@
       elm = rng.commonAncestorContainer;
       if (!rng.collapsed) {
         if (startContainer === endContainer) {
-          if (endOffset - startOffset < 2) {
+          if (endOffset - startOffset <2) {
             if (startContainer.hasChildNodes()) {
               elm = startContainer.childNodes[startOffset];
             }
@@ -14890,7 +14890,7 @@
           selectedRange = sel.rangeCount > 0 ? sel.getRangeAt(0) : null;
         }
         if (!rng.collapsed && rng.startContainer === rng.endContainer && sel.setBaseAndExtent && !Env.ie) {
-          if (rng.endOffset - rng.startOffset < 2) {
+          if (rng.endOffset - rng.startOffset <2) {
             if (rng.startContainer.hasChildNodes()) {
               node = rng.startContainer.childNodes[rng.startOffset];
               if (node && node.tagName === 'IMG') {
@@ -15108,7 +15108,7 @@
           var whiteSpaceElements = schema.getNonEmptyElements();
           var elementRule, textNode;
           blockElements.body = 1;
-          for (i = 0; i < l; i++) {
+          for (i = 0; i <l; i++) {
             node = nodes[i];
             parent = node.parent;
             if (blockElements[node.parent.name] && node === parent.lastChild) {
@@ -15226,7 +15226,7 @@
             node = nodes[i];
             classList = node.attr('class').split(' ');
             classValue = '';
-            for (ci = 0; ci < classList.length; ci++) {
+            for (ci = 0; ci <classList.length; ci++) {
               className = classList[ci];
               valid = false;
               validClassesMap = validClasses['*'];
@@ -15273,7 +15273,7 @@
         whitespaceElements = schema.getWhiteSpaceElements();
         textBlockElements = schema.getTextBlockElements();
         specialElements = schema.getSpecialElements();
-        for (ni = 0; ni < nodes.length; ni++) {
+        for (ni = 0; ni <nodes.length; ni++) {
           node = nodes[ni];
           if (!node.parent || node.fixed) {
             continue;
@@ -15300,7 +15300,7 @@
           if (parent && parents.length > 1) {
             parents.reverse();
             newParent = currentNode = filterNode(parents[0].clone());
-            for (i = 0; i < parents.length - 1; i++) {
+            for (i = 0; i <parents.length - 1; i++) {
               if (schema.isValidChild(currentNode.name, parents[i].name)) {
                 tempNode = filterNode(parents[i].clone());
                 currentNode.append(tempNode);
@@ -15400,7 +15400,7 @@
       var addAttributeFilter = function (name, callback) {
         each$8(explode$2(name), function (name) {
           var i;
-          for (i = 0; i < attributeFilters.length; i++) {
+          for (i = 0; i <attributeFilters.length; i++) {
             if (attributeFilters[i].name === name) {
               attributeFilters[i].callbacks.push(callback);
               return;
@@ -15697,11 +15697,11 @@
                 nodes.splice(fi, 1);
               }
             }
-            for (i = 0, l = list.length; i < l; i++) {
+            for (i = 0, l = list.length; i <l; i++) {
               list[i](nodes, name, args);
             }
           }
-          for (i = 0, l = attributeFilters.length; i < l; i++) {
+          for (i = 0, l = attributeFilters.length; i <l; i++) {
             list = attributeFilters[i];
             if (list.name in matchedAttributes) {
               nodes = matchedAttributes[list.name];
@@ -15711,7 +15711,7 @@
                   nodes.splice(fi, 1);
                 }
               }
-              for (fi = 0, fl = list.callbacks.length; fi < fl; fi++) {
+              for (fi = 0, fl = list.callbacks.length; fi <fl; fi++) {
                 list.callbacks[fi](nodes, list.name, args);
               }
             }
@@ -16058,7 +16058,7 @@
           return;
         }
         arr = new Uint8Array(str.length);
-        for (i = 0; i < arr.length; i++) {
+        for (i = 0; i <arr.length; i++) {
           arr[i] = str.charCodeAt(i);
         }
         resolve(new domGlobals.Blob([arr], { type: uriParts.type }));
@@ -16224,7 +16224,7 @@
         };
         xhr.onload = function () {
           var json;
-          if (xhr.status < 200 || xhr.status >= 300) {
+          if (xhr.status <200 || xhr.status >= 300) {
             failure('HTTP Error: ' + xhr.status);
             return;
           }
@@ -16291,7 +16291,7 @@
               resolve(handlerFailure(blobInfo, error));
             };
             progress = function (percent) {
-              if (percent < 0 || percent > 100) {
+              if (percent <0 || percent > 100) {
                 return;
               }
               if (!notification) {
@@ -16720,7 +16720,7 @@
     var matchesUnInheritedFormatSelector = function (ed, node, name) {
       var formatList = ed.formatter.get(name);
       if (formatList) {
-        for (var i = 0; i < formatList.length; i++) {
+        for (var i = 0; i <formatList.length; i++) {
           if (formatList[i].inherit === false && ed.dom.is(node, formatList[i].selector)) {
             return true;
           }
@@ -16777,7 +16777,7 @@
             }
           }
         } else {
-          for (i = 0; i < items.length; i++) {
+          for (i = 0; i <items.length; i++) {
             if (itemName === 'attributes' ? dom.getAttrib(node, items[i]) : getStyle(dom, node, items[i])) {
               return format;
             }
@@ -16791,11 +16791,11 @@
       var format, i, x, classes;
       var dom = ed.dom;
       if (formatList && node) {
-        for (i = 0; i < formatList.length; i++) {
+        for (i = 0; i <formatList.length; i++) {
           format = formatList[i];
           if (matchName(ed.dom, node, format) && matchItems(dom, node, format, 'attributes', similar, vars) && matchItems(dom, node, format, 'styles', similar, vars)) {
             if (classes = format.classes) {
-              for (x = 0; x < classes.length; x++) {
+              for (x = 0; x <classes.length; x++) {
                 if (!ed.dom.hasClass(node, classes[x])) {
                   return;
                 }
@@ -16830,7 +16830,7 @@
       startElement = editor.selection.getStart();
       editor.dom.getParent(startElement, function (node) {
         var i, name;
-        for (i = 0; i < names.length; i++) {
+        for (i = 0; i <names.length; i++) {
           name = names[i];
           if (!checkedMap[name] && matchNode(editor, node, name, vars)) {
             checkedMap[name] = true;
@@ -16868,7 +16868,7 @@
     var split$1 = function (rng) {
       var startContainer = rng.startContainer, startOffset = rng.startOffset, endContainer = rng.endContainer, endOffset = rng.endOffset;
       if (startContainer === endContainer && NodeType.isText(startContainer)) {
-        if (startOffset > 0 && startOffset < startContainer.nodeValue.length) {
+        if (startOffset > 0 && startOffset <startContainer.nodeValue.length) {
           endContainer = splitText(startContainer, startOffset);
           startContainer = endContainer.previousSibling;
           if (endOffset > startOffset) {
@@ -16881,11 +16881,11 @@
           }
         }
       } else {
-        if (NodeType.isText(startContainer) && startOffset > 0 && startOffset < startContainer.nodeValue.length) {
+        if (NodeType.isText(startContainer) && startOffset > 0 && startOffset <startContainer.nodeValue.length) {
           startContainer = splitText(startContainer, startOffset);
           startOffset = 0;
         }
-        if (NodeType.isText(endContainer) && endOffset > 0 && endOffset < endContainer.nodeValue.length) {
+        if (NodeType.isText(endContainer) && endOffset > 0 && endOffset <endContainer.nodeValue.length) {
           endContainer = splitText(endContainer, endOffset).previousSibling;
           endOffset = endContainer.nodeValue.length;
         }
@@ -17273,7 +17273,7 @@
         textNode = findFirstTextNode(caretContainer);
       }
       var wordcharRegex = /[^\s\u00a0\u00ad\u200b\ufeff]/;
-      if (text && offset > 0 && offset < text.length && wordcharRegex.test(text.charAt(offset)) && wordcharRegex.test(text.charAt(offset - 1))) {
+      if (text && offset > 0 && offset <text.length && wordcharRegex.test(text.charAt(offset)) && wordcharRegex.test(text.charAt(offset - 1))) {
         bookmark = selection.getBookmark();
         rng.collapse(true);
         rng = expandRng(editor, rng, editor.formatter.get(name));
@@ -17620,7 +17620,7 @@
           }
         });
         var attrs = dom.getAttribs(elm);
-        for (var i = 0; i < attrs.length; i++) {
+        for (var i = 0; i <attrs.length; i++) {
           var attrName = attrs[i].nodeName;
           if (attrName.indexOf('_') !== 0 && attrName.indexOf('data-') !== 0) {
             return false;
@@ -17652,7 +17652,7 @@
         formatRootParent = formatRoot.parentNode;
         for (parent = container.parentNode; parent && parent !== formatRootParent; parent = parent.parentNode) {
           clone = dom.clone(parent, false);
-          for (i = 0; i < formatList.length; i++) {
+          for (i = 0; i <formatList.length; i++) {
             if (removeFormat(editor, formatList[i], vars, clone, clone)) {
               clone = 0;
               break;
@@ -17699,7 +17699,7 @@
         }
         children = Tools.grep(node.childNodes);
         if (contentEditable && !hasContentEditableState) {
-          for (i = 0, l = formatList.length; i < l; i++) {
+          for (i = 0, l = formatList.length; i <l; i++) {
             if (removeFormat(ed, formatList[i], vars, node, node)) {
               break;
             }
@@ -17707,7 +17707,7 @@
         }
         if (format.deep) {
           if (children.length) {
-            for (i = 0, l = children.length; i < l; i++) {
+            for (i = 0, l = children.length; i <l; i++) {
               process(children[i]);
             }
             if (hasContentEditableState) {
@@ -17822,7 +17822,7 @@
       }
       if (dom.getContentEditable(selection.getNode()) === 'false') {
         node = selection.getNode();
-        for (var i = 0, l = formatList.length; i < l; i++) {
+        for (var i = 0, l = formatList.length; i <l; i++) {
           if (formatList[i].ceFalseOverride) {
             if (removeFormat(ed, formatList[i], vars, node, node)) {
               break;
@@ -18184,7 +18184,7 @@
       };
       if (dom.getContentEditable(selection.getNode()) === 'false') {
         node = selection.getNode();
-        for (var i = 0, l = formatList.length; i < l; i++) {
+        for (var i = 0, l = formatList.length; i <l; i++) {
           if (formatList[i].ceFalseOverride && dom.is(node, formatList[i].selector)) {
             setElementFormat(node, formatList[i]);
             return;
@@ -18917,8 +18917,8 @@
         if (middle === null || middle.start === end1 && middle.diag === end1 - end2 || middle.end === start1 && middle.diag === start1 - start2) {
           var i = start1;
           var j = start2;
-          while (i < end1 || j < end2) {
-            if (i < end1 && j < end2 && left[i] === right[j]) {
+          while (i <end1 || j <end2) {
+            if (i <end1 && j <end2 && left[i] === right[j]) {
               script.push([
                 KEEP,
                 left[i]
@@ -18943,7 +18943,7 @@
           }
         } else {
           buildScript(start1, middle.start, start2, middle.start - middle.diag, script);
-          for (var i2 = middle.start; i2 < middle.end; ++i2) {
+          for (var i2 = middle.start; i2 <middle.end; ++i2) {
             script.push([
               KEEP,
               left[i2]
@@ -18954,7 +18954,7 @@
       };
       var buildSnake = function (start, diag, end1, end2) {
         var end = start;
-        while (end - diag < end2 && end < end1 && left[end] === right[end - diag]) {
+        while (end - diag <end2 && end <end1 && left[end] === right[end - diag]) {
           ++end;
         }
         return snake(start, end, diag);
@@ -18974,14 +18974,14 @@
         for (d = 0; d <= offset; ++d) {
           for (k = -d; k <= d; k += 2) {
             i = k + offset;
-            if (k === -d || k !== d && vDown[i - 1] < vDown[i + 1]) {
+            if (k === -d || k !== d && vDown[i - 1] <vDown[i + 1]) {
               vDown[i] = vDown[i + 1];
             } else {
               vDown[i] = vDown[i - 1] + 1;
             }
             x = vDown[i];
             y = x - start1 + start2 - k;
-            while (x < end1 && y < end2 && left[x] === right[y]) {
+            while (x <end1 && y <end2 && left[x] === right[y]) {
               vDown[i] = ++x;
               ++y;
             }
@@ -19047,7 +19047,7 @@
     };
     var insertAt = function (elm, html, index) {
       var fragment = createFragment$1(html);
-      if (elm.hasChildNodes() && index < elm.childNodes.length) {
+      if (elm.hasChildNodes() && index <elm.childNodes.length) {
         var target = elm.childNodes[index];
         target.parentNode.insertBefore(fragment, target);
       } else {
@@ -19055,7 +19055,7 @@
       }
     };
     var removeAt = function (elm, index) {
-      if (elm.hasChildNodes() && index < elm.childNodes.length) {
+      if (elm.hasChildNodes() && index <elm.childNodes.length) {
         var target = elm.childNodes[index];
         target.parentNode.removeChild(target);
       }
@@ -19220,7 +19220,7 @@
       }
       if (settings.custom_undo_redo_levels) {
         if (undoManager.data.length > settings.custom_undo_redo_levels) {
-          for (var i = 0; i < undoManager.data.length - 1; i++) {
+          for (var i = 0; i <undoManager.data.length - 1; i++) {
             undoManager.data[i] = undoManager.data[i + 1];
           }
           undoManager.data.length--;
@@ -19228,7 +19228,7 @@
         }
       }
       level.bookmark = GetBookmark.getUndoBookmark(editor.selection);
-      if (index.get() < undoManager.data.length - 1) {
+      if (index.get() <undoManager.data.length - 1) {
         undoManager.data.length = index.get() + 1;
       }
       undoManager.data.push(level);
@@ -19263,7 +19263,7 @@
     };
     var redo = function (editor, index, data) {
       var level;
-      if (index.get() < data.length - 1) {
+      if (index.get() <data.length - 1) {
         index.set(index.get() + 1);
         level = data[index.get()];
         Levels.applyToEditor(editor, level, false);
@@ -19296,7 +19296,7 @@
       return index.get() > 0 || undoManager.typing && undoManager.data[0] && !Levels.isEq(Levels.createFromEditor(editor), undoManager.data[0]);
     };
     var hasRedo = function (undoManager, index) {
-      return index.get() < undoManager.data.length - 1 && !undoManager.typing;
+      return index.get() <undoManager.data.length - 1 && !undoManager.typing;
     };
     var transact = function (undoManager, locks, callback) {
       endTyping(undoManager, locks);
@@ -19377,7 +19377,7 @@
           return;
         }
         var modKey = e.ctrlKey && !e.altKey || e.metaKey;
-        if ((keyCode < 16 || keyCode > 20) && keyCode !== 224 && keyCode !== 91 && !undoManager.typing && !modKey) {
+        if ((keyCode <16 || keyCode > 20) && keyCode !== 224 && keyCode !== 91 && !undoManager.typing && !modKey) {
           undoManager.beforeChange();
           setTyping(undoManager, true, locks);
           undoManager.add({}, e);
@@ -19873,7 +19873,7 @@
     };
 
     var evaluateUntil = function (fns, args) {
-      for (var i = 0; i < fns.length; i++) {
+      for (var i = 0; i <fns.length; i++) {
         var result = fns[i].apply(null, args);
         if (result.isSome()) {
           return result;
@@ -20172,7 +20172,7 @@
         if (direction === -1) {
           clientRects = clientRects.reverse();
         }
-        for (i = 0; i < clientRects.length; i++) {
+        for (i = 0; i <clientRects.length; i++) {
           clientRect = clientRects[i];
           if (isBeflowFn(clientRect, targetClientRect)) {
             continue;
@@ -20284,7 +20284,7 @@
         if (newDistance === oldDistance && isContentEditableFalse$7(clientRect.node)) {
           return clientRect;
         }
-        if (newDistance < oldDistance) {
+        if (newDistance <oldDistance) {
           return clientRect;
         }
         return oldClientRect;
@@ -20318,7 +20318,7 @@
     var caretInfo = function (clientRect, clientX) {
       return {
         node: clientRect.node,
-        before: distanceToRectLeft(clientRect, clientX) < distanceToRectRight(clientRect, clientX)
+        before: distanceToRectLeft(clientRect, clientX) <distanceToRectRight(clientRect, clientX)
       };
     };
     var closestCaret = function (root, clientX, clientY) {
@@ -20587,7 +20587,7 @@
         if (isContentEditableFalse$9(closestNextLineRect.node)) {
           dist1 = Math.abs(clientX - closestNextLineRect.left);
           dist2 = Math.abs(clientX - closestNextLineRect.right);
-          return showCaret(direction, editor, closestNextLineRect.node, dist1 < dist2, true);
+          return showCaret(direction, editor, closestNextLineRect.node, dist1 <dist2, true);
         }
       }
       if (contentEditableFalseNode) {
@@ -20742,7 +20742,7 @@
         }, function (oldCorner) {
           var oldDist = Math.sqrt(Math.abs(oldCorner.x - x) + Math.abs(oldCorner.y - y));
           var newDist = Math.sqrt(Math.abs(newCorner.x - x) + Math.abs(newCorner.y - y));
-          return Option.some(newDist < oldDist ? newCorner : oldCorner);
+          return Option.some(newDist <oldDist ? newCorner : oldCorner);
         });
       }, Option.none());
     };
@@ -20764,7 +20764,7 @@
       return rect.top;
     };
     var isAbove$1 = function (corner, y) {
-      return corner.y < y;
+      return corner.y <y;
     };
     var isBelow$1 = function (corner, y) {
       return corner.y > y;
@@ -21006,7 +21006,7 @@
     };
     var action = function (f) {
       var x = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
+      for (var _i = 1; _i <arguments.length; _i++) {
         x[_i - 1] = arguments[_i];
       }
       var args = Array.prototype.slice.call(arguments, 1);
@@ -22517,7 +22517,7 @@
       var isCaretAtStartOrEndOfBlock = function (start) {
         var node, name;
         var normalizedOffset = normalizeZwspOffset(start, container, offset);
-        if (NodeType.isText(container) && (start ? normalizedOffset > 0 : normalizedOffset < container.nodeValue.length)) {
+        if (NodeType.isText(container) && (start ? normalizedOffset > 0 : normalizedOffset <container.nodeValue.length)) {
           return false;
         }
         if (container.parentNode === parentBlock && isAfterLastNodeInContainer && !start) {
@@ -23000,7 +23000,7 @@
     var leanRight = function (pos) {
       var container = pos.container();
       var offset = pos.offset();
-      if (NodeType.isText(container) && offset < container.data.length) {
+      if (NodeType.isText(container) && offset <container.data.length) {
         return CaretPosition(container, offset + 1);
       } else {
         return pos;
@@ -23027,7 +23027,7 @@
     var normalizeNbspMiddle = function (text) {
       var chars = text.split('');
       return map(chars, function (chr, i) {
-        if (isNbsp(chr) && i > 0 && i < chars.length - 1 && isContent(chars[i - 1]) && isContent(chars[i + 1])) {
+        if (isNbsp(chr) && i > 0 && i <chars.length - 1 && isContent(chars[i - 1]) && isContent(chars[i + 1])) {
           return ' ';
         } else {
           return chr;
@@ -25224,7 +25224,7 @@
         } else if (!hasSiblingText('previousSibling')) {
           html = html.replace(/^ /, '&nbsp;');
         }
-        if (offset < container.length) {
+        if (offset <container.length) {
           html = html.replace(/&nbsp;(<br>|)$/, ' ');
         } else if (!hasSiblingText('nextSibling')) {
           html = html.replace(/(&nbsp;| )(<br>|)$/, '&nbsp;');
@@ -26144,7 +26144,7 @@
         }
         handlers = this.bindings[name];
         if (handlers) {
-          for (i = 0, l = handlers.length; i < l; i++) {
+          for (i = 0, l = handlers.length; i <l; i++) {
             callback = handlers[i];
             if (callback.once) {
               this.off(name, callback.func);
@@ -26962,15 +26962,15 @@
         var normalizedBase = base.substring(0, base.lastIndexOf('/')).split('/');
         items = path.split('/');
         if (normalizedBase.length >= items.length) {
-          for (i = 0, l = normalizedBase.length; i < l; i++) {
+          for (i = 0, l = normalizedBase.length; i <l; i++) {
             if (i >= items.length || normalizedBase[i] !== items[i]) {
               breakPoint = i + 1;
               break;
             }
           }
         }
-        if (normalizedBase.length < items.length) {
-          for (i = 0, l = items.length; i < l; i++) {
+        if (normalizedBase.length <items.length) {
+          for (i = 0, l = items.length; i <l; i++) {
             if (i >= normalizedBase.length || normalizedBase[i] !== items[i]) {
               breakPoint = i + 1;
               break;
@@ -26980,10 +26980,10 @@
         if (breakPoint === 1) {
           return path;
         }
-        for (i = 0, l = normalizedBase.length - (breakPoint - 1); i < l; i++) {
+        for (i = 0, l = normalizedBase.length - (breakPoint - 1); i <l; i++) {
           out += '../';
         }
-        for (i = breakPoint - 1, l = items.length; i < l; i++) {
+        for (i = breakPoint - 1, l = items.length; i <l; i++) {
           if (i !== breakPoint - 1) {
             out += '/' + items[i];
           } else {
@@ -27135,7 +27135,7 @@
       };
       Editor.prototype.execCallback = function (name) {
         var x = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
+        for (var _i = 1; _i <arguments.length; _i++) {
           x[_i - 1] = arguments[_i];
         }
         var self = this;
@@ -27481,7 +27481,7 @@
     var removeEditorFromList = function (targetEditor) {
       var oldEditors = editors;
       delete legacyEditors[targetEditor.id];
-      for (var i = 0; i < legacyEditors.length; i++) {
+      for (var i = 0; i <legacyEditors.length; i++) {
         if (legacyEditors[i] === targetEditor) {
           legacyEditors.splice(i, 1);
           break;
@@ -27540,7 +27540,7 @@
           suffix = preInit.suffix;
         } else {
           var scripts = domGlobals.document.getElementsByTagName('script');
-          for (var i = 0; i < scripts.length; i++) {
+          for (var i = 0; i <scripts.length; i++) {
             var src = scripts[i].src || '';
             if (src === '') {
               continue;
@@ -27616,7 +27616,7 @@
         };
         var findTargets = function (settings) {
           var l, targets = [];
-          if (Env.browser.isIE() && Env.browser.version.major < 11) {
+          if (Env.browser.isIE() && Env.browser.version.major <11) {
             ErrorReporter.initError('TinyMCE does not support the browser you are using. For a list of supported' + ' browsers please see: https://www.tinymce.com/docs/get-started/system-requirements/');
             return [];
           } else if (isQuirksMode) {
@@ -27903,7 +27903,7 @@
       var complete = function (completer) {
         return function () {
           var args = [];
-          for (var _i = 0; _i < arguments.length; _i++) {
+          for (var _i = 0; _i <arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
           if (!done) {
@@ -27920,7 +27920,7 @@
       var reject = complete(rejectCb);
       var start = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (!done && timer === null) {
@@ -28009,7 +28009,7 @@
     };
     var findBestRelativePosition = function (rect, targetRect, constrainRect, rels) {
       var pos, i;
-      for (i = 0; i < rels.length; i++) {
+      for (i = 0; i <rels.length; i++) {
         pos = relativePosition(rect, targetRect, rels[i]);
         if (pos.x >= constrainRect.x && pos.x + pos.w <= constrainRect.w + constrainRect.x && pos.y >= constrainRect.y && pos.y + pos.h <= constrainRect.h + constrainRect.y) {
           return rels[i];
@@ -28026,7 +28026,7 @@
       y1 = max(rect.y, cropRect.y);
       x2 = min(rect.x + rect.w, cropRect.x + cropRect.w);
       y2 = min(rect.y + rect.h, cropRect.y + cropRect.h);
-      if (x2 - x1 < 0 || y2 - y1 < 0) {
+      if (x2 - x1 <0 || y2 - y1 <0) {
         return null;
       }
       return create$7(x1, y1, x2 - x1, y2 - y1);
@@ -28300,9 +28300,9 @@
             b = parseInt(matches[3] + matches[3], 16);
           }
         }
-        r = r < 0 ? 0 : r > 255 ? 255 : r;
-        g = g < 0 ? 0 : g > 255 ? 255 : g;
-        b = b < 0 ? 0 : b > 255 ? 255 : b;
+        r = r <0 ? 0 : r > 255 ? 255 : r;
+        g = g <0 ? 0 : g > 255 ? 255 : g;
+        b = b <0 ? 0 : b > 255 ? 255 : b;
         return self;
       };
       if (value) {
@@ -28360,7 +28360,7 @@
         var xhr, count = 0;
         var ready = function () {
           if (!settings.async || xhr.readyState === 4 || count++ > 10000) {
-            if (settings.success && count < 10000 && xhr.status === 200) {
+            if (settings.success && count <10000 && xhr.status === 200) {
               settings.success.call(settings.success_scope, '' + xhr.responseText, xhr, settings);
             } else if (settings.error) {
               settings.error.call(settings.error_scope, count > 10000 ? 'TIMED_OUT' : 'GENERAL', xhr, settings);

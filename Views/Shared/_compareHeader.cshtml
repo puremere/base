@@ -76,7 +76,7 @@
 
     @if (Request.Browser.IsMobileDevice)
     {
-        if (@Model.Count() < 2)
+        if (@Model.Count() <2)
         {
 
             <div id="addcompare" class="itemProdut">
@@ -93,7 +93,7 @@
     }
     else
     {
-        if (@Model.Count() < 4)
+        if (@Model.Count() <4)
         {
 
             <div id="addcompare" class="itemProdut" style="">
@@ -136,7 +136,7 @@
                             lst2.Add(Model.First().feature.IndexOf(item));
                         }
                     }
-                    for (int i = 0; i < lst2.Count(); i++)
+                    for (int i = 0; i <lst2.Count(); i++)
                     {
 
                         int j = i + 1;
@@ -144,13 +144,13 @@
                         <section>
                             <h3 class="c-params__title">@Model.First().feature[myindex].title</h3>
                             <ul class="c-params__list">
-                                @if (j < lst2.Count())
+                                @if (j <lst2.Count())
                                 {
 
                                     foreach (var item in Model.First().feature)
                                     {
                                         int index = Model.First().feature.IndexOf(item);
-                                        if (Model.First().feature.IndexOf(item) > lst2[i] && Model.First().feature.IndexOf(item) < lst2[j])
+                                        if (Model.First().feature.IndexOf(item) > lst2[i] && Model.First().feature.IndexOf(item) <lst2[j])
                                         {
                                             <li>
                                                 <div class="c-params__list-key">

@@ -14,7 +14,7 @@
 
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+    if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
     {
         <head>
             <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
@@ -372,7 +372,7 @@
 
                 $("#searchActButt").click(function () {
                     var search = $("#searchinput").val();
-                    if (search.length < 3) {
+                    if (search.length <3) {
                         toastr.options = {
                             "debug": false,
                             "positionClass": "toast-top-full-width",
@@ -859,7 +859,7 @@
                         <script>
                             $("#searchImageWeb").click(function () {
                                 var search = $("#searchInputWeb").val();
-                                if (search.length < 3) {
+                                if (search.length <3) {
                                     toastr.options = {
                                         "debug": false,
                                         "positionClass": "toast-top-full-width",
@@ -1017,7 +1017,7 @@
 
                 $("#searchActButt").click(function () {
                     var search = $("#searchinput").val();
-                    if (search.length < 3) {
+                    if (search.length <3) {
                         toastr.options = {
                             "debug": false,
                             "positionClass": "toast-top-full-width",

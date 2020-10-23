@@ -25,7 +25,7 @@
                     e.utils.arrayIndexOf(c, m(a))
                 })
             }, b.mappedIndexOf = function (a) { var c = C(b(), m); a = m(a); return e.utils.arrayIndexOf(c, a) }, b.mappedGet = function (a) { return b()[b.mappedIndexOf(a)] }, b.mappedCreate = function (a) { if (-1 !== b.mappedIndexOf(a)) throw Error("There already is an object with the key that you specified."); var c = h() ? x(a) : a; u() && (a = v(c, a), e.isWriteableObservable(c) ? c(a) : c = a); b.push(c); return c }); n = C(e.utils.unwrapObservable(b), m).sort(); g = C(c, m); s && g.sort(); s = e.utils.compareArrays(n, g); n = {}; var J, A = e.utils.unwrapObservable(c),
-            y = {}, z = !0, g = 0; for (J = A.length; g < J; g++) { var r = m(A[g]); if (void 0 === r || r instanceof Object) { z = !1; break } y[r] = A[g] } var A = [], B = 0, g = 0; for (J = s.length; g < J; g++) {
+            y = {}, z = !0, g = 0; for (J = A.length; g <J; g++) { var r = m(A[g]); if (void 0 === r || r instanceof Object) { z = !1; break } y[r] = A[g] } var A = [], B = 0, g = 0; for (J = s.length; g <J; g++) {
                 var r = s[g], q, w = l + "[" + g + "]"; switch (r.status) {
                     case "added": var D = z ? y[r.value] : K(e.utils.unwrapObservable(c), r.value, m); q = F(void 0, D, a, d, b, w, k); h() || (q = e.utils.unwrapObservable(q)); w = O(e.utils.unwrapObservable(c), D, n); q === N ? B++ : A[w - B] = q; n[w] = !0; break; case "retained": D = z ? y[r.value] : K(e.utils.unwrapObservable(c), r.value, m); q = K(b, r.value, m); F(q, D, a, d, b, w,
                     k); w = O(e.utils.unwrapObservable(c), D, n); A[w] = q; n[w] = !0; break; case "deleted": q = K(b, r.value, m)
@@ -34,16 +34,16 @@
         } else if (P(c)) {
             b = e.utils.unwrapObservable(b); if (!b) { if (h()) return s = x(), u() && (s = v(s)), s; if (u()) return v(s); b = {} } u() && (b = v(b)); I.save(c, b); if (u()) return b; Q(c, function (d) {
                 var f = l.length ? l + "." + d : d; if (-1 == e.utils.arrayIndexOf(a.ignore, f)) if (-1 != e.utils.arrayIndexOf(a.copy, f)) b[d] =
-                c[d]; else if ("object" != typeof c[d] && "array" != typeof c[d] && 0 < a.observe.length && -1 == e.utils.arrayIndexOf(a.observe, f)) b[d] = c[d], a.copiedProperties[f] = !0; else { var g = I.get(c[d]), k = F(b[d], c[d], a, d, b, f, b), g = g || k; if (0 < a.observe.length && -1 == e.utils.arrayIndexOf(a.observe, f)) b[d] = g(), a.copiedProperties[f] = !0; else { if (e.isWriteableObservable(b[d])) { if (g = e.utils.unwrapObservable(g), b[d]() !== g) b[d](g) } else g = void 0 === b[d] ? g : e.utils.unwrapObservable(g), b[d] = g; a.mappedProperties[f] = !0 } }
+                c[d]; else if ("object" != typeof c[d] && "array" != typeof c[d] && 0 <a.observe.length && -1 == e.utils.arrayIndexOf(a.observe, f)) b[d] = c[d], a.copiedProperties[f] = !0; else { var g = I.get(c[d]), k = F(b[d], c[d], a, d, b, f, b), g = g || k; if (0 <a.observe.length && -1 == e.utils.arrayIndexOf(a.observe, f)) b[d] = g(), a.copiedProperties[f] = !0; else { if (e.isWriteableObservable(b[d])) { if (g = e.utils.unwrapObservable(g), b[d]() !== g) b[d](g) } else g = void 0 === b[d] ? g : e.utils.unwrapObservable(g), b[d] = g; a.mappedProperties[f] = !0 } }
             })
         } else switch (f.getType(c)) {
             case "function": u() ?
             e.isWriteableObservable(c) ? (c(v(c)), b = c) : b = v(c) : b = c; break; default: if (e.isWriteableObservable(b)) return q = u() ? v(b) : e.utils.unwrapObservable(c), b(q), q; h() || u(); b = h() ? x() : e.observable(e.utils.unwrapObservable(c)); u() && b(v(b))
         } return b
-    } function O(b, c, a) { for (var d = 0, e = b.length; d < e; d++) if (!0 !== a[d] && b[d] === c) return d; return null } function R(b, c) { var a; c && (a = c(b)); "undefined" === f.getType(a) && (a = b); return e.utils.unwrapObservable(a) } function K(b, c, a) {
+    } function O(b, c, a) { for (var d = 0, e = b.length; d <e; d++) if (!0 !== a[d] && b[d] === c) return d; return null } function R(b, c) { var a; c && (a = c(b)); "undefined" === f.getType(a) && (a = b); return e.utils.unwrapObservable(a) } function K(b, c, a) {
         b = e.utils.unwrapObservable(b); for (var d = 0, f = b.length; d <
         f; d++) { var l = b[d]; if (R(l, a) === c) return l } throw Error("When calling ko.update*, the key '" + c + "' was not found!");
-    } function C(b, c) { return e.utils.arrayMap(e.utils.unwrapObservable(b), function (a) { return c ? R(a, c) : a }) } function Q(b, c) { if ("array" === f.getType(b)) for (var a = 0; a < b.length; a++) c(a); else for (a in b) c(a) } function P(b) { var c = f.getType(b); return ("object" === c || "array" === c) && null !== b } function T() {
+    } function C(b, c) { return e.utils.arrayMap(e.utils.unwrapObservable(b), function (a) { return c ? R(a, c) : a }) } function Q(b, c) { if ("array" === f.getType(b)) for (var a = 0; a <b.length; a++) c(a); else for (a in b) c(a) } function P(b) { var c = f.getType(b); return ("object" === c || "array" === c) && null !== b } function T() {
         var b = [], c = []; this.save = function (a, d) { var f = e.utils.arrayIndexOf(b, a); 0 <= f ? c[f] = d : (b.push(a), c.push(d)) };
         this.get = function (a) { a = e.utils.arrayIndexOf(b, a); return 0 <= a ? c[a] : void 0 }
     } function S() { var b = {}, c = function (a) { var c; try { c = a } catch (e) { c = "$$$" } a = b[c]; void 0 === a && (a = new T, b[c] = a); return a }; this.save = function (a, b) { c(a).save(a, b) }; this.get = function (a) { return c(a).get(a) } } var p = "__ko_mapping__", H = e.dependentObservable, B = 0, G, I, L = ["create", "update", "key", "arrayChanged"], N = {}, x = { include: ["_destroy"], ignore: [], copy: [], observe: [] }, j = x; f.isMapped = function (b) { return (b = e.utils.unwrapObservable(b)) && b[p] }; f.fromJS =
@@ -54,7 +54,7 @@
         j || f.resetDefaultOptions(); if (0 == arguments.length) throw Error("When calling ko.mapping.toJS, pass the object you want to convert.");
         if ("array" !== f.getType(j.ignore)) throw Error("ko.mapping.defaultOptions().ignore should be an array."); if ("array" !== f.getType(j.include)) throw Error("ko.mapping.defaultOptions().include should be an array."); if ("array" !== f.getType(j.copy)) throw Error("ko.mapping.defaultOptions().copy should be an array."); c = z(c, b[p]); return f.visitModel(b, function (a) { return e.utils.unwrapObservable(a) }, c)
     }; f.toJSON = function (b, c) { var a = f.toJS(b, c); return e.utils.stringifyJson(a) }; f.defaultOptions = function () {
-        if (0 < arguments.length) j =
+        if (0 <arguments.length) j =
         arguments[0]; else return j
     }; f.resetDefaultOptions = function () { j = { include: x.include.slice(0), ignore: x.ignore.slice(0), copy: x.copy.slice(0) } }; f.getType = function (b) { if (b && "object" === typeof b) { if (b.constructor === Date) return "date"; if (b.constructor === Array) return "array" } return typeof b }; f.visitModel = function (b, c, a) {
         a = a || {}; a.visitedObjects = a.visitedObjects || new S; var d, k = e.utils.unwrapObservable(b); if (P(k)) a = z(a, k[p]), c(b, a.parentName), d = "array" === f.getType(k) ? [] : {}; else return c(b, a.parentName); a.visitedObjects.save(b,

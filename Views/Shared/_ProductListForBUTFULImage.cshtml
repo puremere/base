@@ -211,7 +211,7 @@
 @{
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+    if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
     {
         <div class="minwidth" style="width:100%; display:none">
             <style>
@@ -355,7 +355,7 @@
                                                                     {
 
 
-                                                                        if (i < 5)
+                                                                        if (i <5)
                                                                         {
                                                                             <span class="dot" style="display:inline-block ; width:15px; height:15px; background-color:@color; border-radius:100%; border: 1px solid @color"></span>
                                                                             i += 1;
@@ -511,7 +511,7 @@
                                                         {
 
 
-                                                            if (i < 5)
+                                                            if (i <5)
                                                             {
                                                                 <span class="dot" style="display:inline-block ; width:10px; height:10px; background-color:@color; border-radius:100%; border: 1px solid @color"></span>
                                                                 i += 1;
@@ -649,7 +649,7 @@
         {
             <ul class="pagination">
 
-                @for (int i = 1; i < activ; i++)
+                @for (int i = 1; i <activ; i++)
                 {
                     <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
                 }
@@ -685,7 +685,7 @@
 
             <ul class="pagination">
 
-                @for (int i = 1; i < activ; i++)
+                @for (int i = 1; i <activ; i++)
                 {
                     <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
                 }

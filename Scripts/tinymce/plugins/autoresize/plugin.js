@@ -104,7 +104,7 @@
       var marginTop = parseCssValueToInt(dom, docEle, 'margin-top', true);
       var marginBottom = parseCssValueToInt(dom, docEle, 'margin-bottom', true);
       contentHeight = docEle.offsetHeight + marginTop + marginBottom + resizeBottomMargin;
-      if (contentHeight < 0) {
+      if (contentHeight <0) {
         contentHeight = 0;
       }
       var containerHeight = editor.getContainer().offsetHeight;
@@ -132,7 +132,7 @@
         if (editor.hasFocus()) {
           editor.selection.scrollIntoView(editor.selection.getNode());
         }
-        if (global$1.webkit && deltaSize < 0) {
+        if (global$1.webkit && deltaSize <0) {
           resize(editor, oldSize);
         }
       }

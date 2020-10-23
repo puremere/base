@@ -470,7 +470,7 @@ window.Modernizr = (function( window, document, undefined ) {
     //   1. Leaks memory in IE9: github.com/Modernizr/Modernizr/issues/513
     //   2. Disables page caching in WebKit: webk.it/43956
     //
-    // Meanwhile, in Firefox < 8, an about:config setting could expose
+    // Meanwhile, in Firefox <8, an about:config setting could expose
     // a false positive that would throw an exception: bugzil.la/688158
 
     tests['geolocation'] = function() {
@@ -603,7 +603,7 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-    // Note, Android < 4 will pass this test, but can only animate
+    // Note, Android <4 will pass this test, but can only animate
     //   a single property at a time
     //   goo.gl/v3V4Gp
     tests['cssanimations'] = function() {
@@ -859,7 +859,7 @@ window.Modernizr = (function( window, document, undefined ) {
         // Currently Safari 4 and Opera 11 have support only for the input placeholder
         // Both tests are available in feature-detects/forms-placeholder.js
         Modernizr['input'] = (function( props ) {
-            for ( var i = 0, len = props.length; i < len; i++ ) {
+            for ( var i = 0, len = props.length; i <len; i++ ) {
                 attrs[ props[i] ] = !!(props[i] in inputElem);
             }
             if (attrs.list){
@@ -880,7 +880,7 @@ window.Modernizr = (function( window, document, undefined ) {
         // Big thanks to @miketaylr for the html5 forms expertise. miketaylr.com/
         Modernizr['inputtypes'] = (function(props) {
 
-            for ( var i = 0, bool, inputElemType, defaultView, len = props.length; i < len; i++ ) {
+            for ( var i = 0, bool, inputElemType, defaultView, len = props.length; i <len; i++ ) {
 
                 inputElem.setAttribute('type', inputElemType = props[i]);
                 bool = inputElem.type !== 'text';
@@ -1132,7 +1132,7 @@ window.Modernizr = (function( window, document, undefined ) {
             node = data.createElem(nodeName);
           }
 
-          // Avoid adding some elements to fragments in IE < 9 because
+          // Avoid adding some elements to fragments in IE <9 because
           // * Attributes like `name` or `type` cannot be set/changed once an element
           //   is inserted into a document/fragment
           // * Link elements with `src` attributes that are inaccessible, as with

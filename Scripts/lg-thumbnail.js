@@ -162,7 +162,7 @@
         }
 
         if (_this.core.s.dynamic) {
-            for (var i = 0; i < _this.core.s.dynamicEl.length; i++) {
+            for (var i = 0; i <_this.core.s.dynamicEl.length; i++) {
                 getThumb(_this.core.s.dynamicEl[i].src, _this.core.s.dynamicEl[i].thumb, i);
             }
         } else {
@@ -254,7 +254,7 @@
                 this.left = this.thumbTotalWidth - this.thumbOuterWidth;
             }
 
-            if (this.left < 0) {
+            if (this.left <0) {
                 this.left = 0;
             }
 
@@ -322,7 +322,7 @@
                     tempLeft = _this.thumbTotalWidth - _this.thumbOuterWidth;
                 }
 
-                if (tempLeft < 0) {
+                if (tempLeft <0) {
                     tempLeft = 0;
                 }
 
@@ -339,7 +339,7 @@
 
                 _this.left = tempLeft;
 
-                if (Math.abs(endCoords - startCoords) < _this.core.s.swipeThreshold) {
+                if (Math.abs(endCoords - startCoords) <_this.core.s.swipeThreshold) {
                     _this.thumbClickable = true;
                 }
 
@@ -386,7 +386,7 @@
                     tempLeft = _this.thumbTotalWidth - _this.thumbOuterWidth;
                 }
 
-                if (tempLeft < 0) {
+                if (tempLeft <0) {
                     tempLeft = 0;
                 }
 
@@ -402,7 +402,7 @@
                 if (isMoved) {
                     isMoved = false;
                     _this.$thumbOuter.removeClass('lg-dragging');
-                    if (Math.abs(endCoords - startCoords) < _this.core.s.swipeThreshold) {
+                    if (Math.abs(endCoords - startCoords) <_this.core.s.swipeThreshold) {
                         _this.thumbClickable = true;
                     }
 

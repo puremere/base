@@ -107,7 +107,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -249,14 +249,14 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
@@ -269,7 +269,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -284,7 +284,7 @@
       return nativeSlice.call(x);
     };
     var findMap = function (arr, f) {
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         var r = f(arr[i], i);
         if (r.isSome()) {
           return r;
@@ -469,7 +469,7 @@
       var push = function (x) {
         r.push(x);
       };
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         arr[i].each(push);
       }
       return r;
@@ -654,7 +654,7 @@
               }
               return n[i].exports;
             }
-            for (var u = 'function' == typeof require && require, i = 0; i < t.length; i++)
+            for (var u = 'function' == typeof require && require, i = 0; i <t.length; i++)
               o(t[i]);
             return o;
           }
@@ -755,7 +755,7 @@
                 while (len) {
                   currentQueue = queue;
                   queue = [];
-                  while (++queueIndex < len) {
+                  while (++queueIndex <len) {
                     if (currentQueue) {
                       currentQueue[queueIndex].run();
                     }
@@ -770,7 +770,7 @@
               process.nextTick = function (fun) {
                 var args = new Array(arguments.length - 1);
                 if (arguments.length > 1) {
-                  for (var i = 1; i < arguments.length; i++) {
+                  for (var i = 1; i <arguments.length; i++) {
                     args[i - 1] = arguments[i];
                   }
                 }
@@ -905,7 +905,7 @@
                         }
                       });
                     }
-                    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+                    for (var i = 0, len = self._deferreds.length; i <len; i++) {
                       handle(self, self._deferreds[i]);
                     }
                     self._deferreds = null;
@@ -969,7 +969,7 @@
                           reject(ex);
                         }
                       }
-                      for (var i = 0; i < args.length; i++) {
+                      for (var i = 0; i <args.length; i++) {
                         res(i, args[i]);
                       }
                     });
@@ -989,7 +989,7 @@
                   };
                   Promise.race = function (values) {
                     return new Promise(function (resolve, reject) {
-                      for (var i = 0, len = values.length; i < len; i++) {
+                      for (var i = 0, len = values.length; i <len; i++) {
                         values[i].then(resolve, reject);
                       }
                     });
@@ -1066,7 +1066,7 @@
                 };
                 exports.setImmediate = typeof setImmediate === 'function' ? setImmediate : function (fn) {
                   var id = nextImmediateId++;
-                  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+                  var args = arguments.length <2 ? false : slice.call(arguments, 1);
                   immediateIds[id] = true;
                   nextTick(function onNextTick() {
                     if (immediateIds[id]) {
@@ -1604,7 +1604,7 @@
           sel = editor.selection;
           rng = sel.getRng();
           node = rng.startContainer;
-          if (node.nodeType === 3 && sel.isCollapsed() && rng.startOffset > 0 && rng.startOffset < node.data.length) {
+          if (node.nodeType === 3 && sel.isCollapsed() && rng.startOffset > 0 && rng.startOffset <node.data.length) {
             return true;
           }
         }

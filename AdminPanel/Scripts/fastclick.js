@@ -114,7 +114,7 @@
 
 		var methods = ['onMouse', 'onClick', 'onTouchStart', 'onTouchMove', 'onTouchEnd', 'onTouchCancel'];
 		var context = this;
-		for (var i = 0, l = methods.length; i < l; i++) {
+		for (var i = 0, l = methods.length; i <l; i++) {
 			context[methods[i]] = bind(context[methods[i]], context);
 		}
 
@@ -442,7 +442,7 @@
 		this.touchStartY = touch.pageY;
 
 		// Prevent phantom clicks on fast double-tap (issue #36)
-		if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
+		if ((event.timeStamp - this.lastClickTime) <this.tapDelay) {
 			event.preventDefault();
 		}
 
@@ -526,7 +526,7 @@
 		}
 
 		// Prevent phantom clicks on fast double-tap (issue #36)
-		if ((event.timeStamp - this.lastClickTime) < this.tapDelay) {
+		if ((event.timeStamp - this.lastClickTime) <this.tapDelay) {
 			this.cancelNextClick = true;
 			return true;
 		}

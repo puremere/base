@@ -61,7 +61,7 @@ var setContentHeight = function () {
 	var bodyHeight = $BODY.outerHeight(),
 		footerHeight = $BODY.hasClass('footer_fixed') ? -10 : $FOOTER.height(),
 		leftColHeight = $LEFT_COL.eq(1).height() + $SIDEBAR_FOOTER.height(),
-		contentHeight = bodyHeight < leftColHeight ? leftColHeight : bodyHeight;
+		contentHeight = bodyHeight <leftColHeight ? leftColHeight : bodyHeight;
 
 	// normalize content
 	contentHeight -= $NAV_MENU.height() + footerHeight;
@@ -409,7 +409,7 @@ if (typeof NProgress != 'undefined') {
 		];
 		
 		
-		for (var i = 0; i < 30; i++) {
+		for (var i = 0; i <30; i++) {
 		  chart_plot_02_data.push([new Date(Date.today().add(i).days()).getTime(), randNum() + i + i + 10]);
 		}
 		
@@ -1446,7 +1446,7 @@ if (typeof NProgress != 'undefined') {
 						down = 0;
 					  }
 					} else {
-					  if (v < this.cv) {
+					  if (v <this.cv) {
 						if (down) {
 						  incr();
 						  down = 0;

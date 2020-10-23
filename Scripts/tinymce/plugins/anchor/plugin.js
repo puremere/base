@@ -96,7 +96,7 @@
     };
     var setContentEditable = function (state) {
       return function (nodes) {
-        for (var i = 0; i < nodes.length; i++) {
+        for (var i = 0; i <nodes.length; i++) {
           if (isAnchorNode(nodes[i])) {
             nodes[i].attr('contenteditable', state);
           }

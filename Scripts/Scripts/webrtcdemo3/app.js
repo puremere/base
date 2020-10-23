@@ -113,7 +113,7 @@ function ShowProgressMessage(msg) {
         if (typeof msg == "string") {
             console.log(msg);
         } else {
-            for (var i = 0; i < msg.length; i++) {
+            for (var i = 0; i <msg.length; i++) {
                 console.log(msg[i]);
             }
         }
@@ -209,7 +209,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     const li = document.createElement('li');
                     li.className = 'sent';
                     li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                    // var li = ' <li class="sent"> < img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                    // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
                     ul.append(li);
 
                 }
@@ -218,7 +218,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     const li = document.createElement('li');
                     li.className = 'replies';
                     li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                    // var li = ' <li class="sent"> < img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                    // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
                     ul.append(li);
 
 

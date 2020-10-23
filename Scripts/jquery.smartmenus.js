@@ -171,7 +171,7 @@
 							'touchstart': $.proxy(this.docTouchStart, this),
 							//'touchmove': $.proxy(this.docTouchMove, this),
 							'touchend': $.proxy(this.docTouchEnd, this),
-							// for Opera Mobile < 11.5, webOS browser, etc. we'll check click too
+							// for Opera Mobile <11.5, webOS browser, etc. we'll check click too
 							'click': $.proxy(this.docClick, this)
 						}, eNS));
 					}
@@ -731,21 +731,21 @@
 				if (this.opts.keepInViewport) {
 					var absX = itemX + x,
 						absY = itemY + y;
-					if (rightToLeft && absX < winX) {
+					if (rightToLeft && absX <winX) {
 						x = horizontalParent ? winX - absX + x : itemW - subOffsetX;
 					} else if (!rightToLeft && absX + subW > winX + winW) {
 						x = horizontalParent ? winX + winW - subW - absX + x : subOffsetX - subW;
 					}
 					if (!horizontalParent) {
-						if (subH < winH && absY + subH > winY + winH) {
+						if (subH <winH && absY + subH > winY + winH) {
 							y += winY + winH - subH - absY;
-						} else if (subH >= winH || absY < winY) {
+						} else if (subH >= winH || absY <winY) {
 							y += winY - absY;
 						}
 					}
 					// do we need scrolling?
 					// 0.49 used for better precision when dealing with float values
-					if (horizontalParent && (absY + subH > winY + winH + 0.49 || absY < winY) || !horizontalParent && subH > winH + 0.49) {
+					if (horizontalParent && (absY + subH > winY + winH + 0.49 || absY <winY) || !horizontalParent && subH > winH + 0.49) {
 						var self = this;
 						if (!$sub.dataSM('scroll-arrows')) {
 							$sub.dataSM('scroll-arrows', $([$('<span class="scroll-up"><span class="scroll-up-arrow"></span></span>')[0], $('<span class="scroll-down"><span class="scroll-down-arrow"></span></span>')[0]])
@@ -801,7 +801,7 @@
 				if (!once && data.momentum) {
 					data.momentum *= 0.92;
 					diff = data.momentum;
-					if (diff < 0.5) {
+					if (diff <0.5) {
 						this.menuScrollStop($sub);
 						return;
 					}
@@ -816,7 +816,7 @@
 				data.y = data.up && end <= data.y || !data.up && end >= data.y ? data.y : (Math.abs(end - data.y) > diff ? data.y + (data.up ? diff : -diff) : end);
 				$sub.css(this.cssTransforms3d ? { '-webkit-transform': 'translate3d(0, ' + data.y + 'px, 0)', transform: 'translate3d(0, ' + data.y + 'px, 0)' } : { marginTop: data.y });
 				// show opposite arrow if appropriate
-				if (mouse && (data.up && data.y > data.downEnd || !data.up && data.y < data.upEnd)) {
+				if (mouse && (data.up && data.y > data.downEnd || !data.up && data.y <data.upEnd)) {
 					$arrows.eq(data.up ? 1 : 0).show();
 				}
 				// if we've reached the end
@@ -826,7 +826,7 @@
 					}
 					this.menuScrollStop($sub);
 				} else if (!once) {
-					if (this.opts.scrollAccelerate && data.step < this.opts.scrollStep) {
+					if (this.opts.scrollAccelerate && data.step <this.opts.scrollStep) {
 						data.step += 0.2;
 					}
 					var self = this;
@@ -908,7 +908,7 @@
 							var prevY = data.touchY !== undefined ? data.touchY : data.touchStartY;
 							if (prevY !== undefined && prevY != touchPoint.pageY) {
 								this.$touchScrollingSub = $sub;
-								var up = prevY < touchPoint.pageY;
+								var up = prevY <touchPoint.pageY;
 								// changed direction? reset...
 								if (data.up !== undefined && data.up != up) {
 									$.extend(data, {
@@ -979,7 +979,7 @@
 						this.menuPosition($sub);
 					}
 					var complete = function() {
-						// fix: "overflow: hidden;" is not reset on animation complete in jQuery < 1.9.0 in Chrome when global "box-sizing: border-box;" is used
+						// fix: "overflow: hidden;" is not reset on animation complete in jQuery <1.9.0 in Chrome when global "box-sizing: border-box;" is used
 						$sub.css('overflow', '');
 					};
 					// if sub is collapsible (mobile view)

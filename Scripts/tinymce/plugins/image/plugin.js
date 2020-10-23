@@ -166,14 +166,14 @@
     var nativeSlice = Array.prototype.slice;
     var nativePush = Array.prototype.push;
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -188,7 +188,7 @@
       return nativeSlice.call(x);
     };
     var findMap = function (arr, f) {
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         var r = f(arr[i], i);
         if (r.isSome()) {
           return r;
@@ -199,7 +199,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -252,7 +252,7 @@
               }
               return n[i].exports;
             }
-            for (var u = 'function' == typeof require && require, i = 0; i < t.length; i++)
+            for (var u = 'function' == typeof require && require, i = 0; i <t.length; i++)
               o(t[i]);
             return o;
           }
@@ -353,7 +353,7 @@
                 while (len) {
                   currentQueue = queue;
                   queue = [];
-                  while (++queueIndex < len) {
+                  while (++queueIndex <len) {
                     if (currentQueue) {
                       currentQueue[queueIndex].run();
                     }
@@ -368,7 +368,7 @@
               process.nextTick = function (fun) {
                 var args = new Array(arguments.length - 1);
                 if (arguments.length > 1) {
-                  for (var i = 1; i < arguments.length; i++) {
+                  for (var i = 1; i <arguments.length; i++) {
                     args[i - 1] = arguments[i];
                   }
                 }
@@ -503,7 +503,7 @@
                         }
                       });
                     }
-                    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+                    for (var i = 0, len = self._deferreds.length; i <len; i++) {
                       handle(self, self._deferreds[i]);
                     }
                     self._deferreds = null;
@@ -567,7 +567,7 @@
                           reject(ex);
                         }
                       }
-                      for (var i = 0; i < args.length; i++) {
+                      for (var i = 0; i <args.length; i++) {
                         res(i, args[i]);
                       }
                     });
@@ -587,7 +587,7 @@
                   };
                   Promise.race = function (values) {
                     return new Promise(function (resolve, reject) {
-                      for (var i = 0, len = values.length; i < len; i++) {
+                      for (var i = 0, len = values.length; i <len; i++) {
                         values[i].then(resolve, reject);
                       }
                     });
@@ -664,7 +664,7 @@
                 };
                 exports.setImmediate = typeof setImmediate === 'function' ? setImmediate : function (fn) {
                   var id = nextImmediateId++;
-                  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+                  var args = arguments.length <2 ? false : slice.call(arguments, 1);
                   immediateIds[id] = true;
                   nextTick(function onNextTick() {
                     if (immediateIds[id]) {
@@ -1034,14 +1034,14 @@
     var baseMerge = function (merger) {
       return function () {
         var objects = new Array(arguments.length);
-        for (var i = 0; i < objects.length; i++) {
+        for (var i = 0; i <objects.length; i++) {
           objects[i] = arguments[i];
         }
         if (objects.length === 0) {
           throw new Error('Can\'t merge zero objects');
         }
         var ret = {};
-        for (var j = 0; j < objects.length; j++) {
+        for (var j = 0; j <objects.length; j++) {
           var curObject = objects[j];
           for (var key in curObject) {
             if (hasOwnProperty.call(curObject, key)) {
@@ -1749,7 +1749,7 @@
         };
         xhr.onload = function () {
           var json;
-          if (xhr.status < 200 || xhr.status >= 300) {
+          if (xhr.status <200 || xhr.status >= 300) {
             failure('HTTP Error: ' + xhr.status);
             return;
           }

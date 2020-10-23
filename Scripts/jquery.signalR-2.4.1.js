@@ -199,7 +199,7 @@
         format: function () {
             /// <summary>Usage: format("Hi {0}, you are {1}!", "Foo", 100) </summary>
             var s = arguments[0];
-            for (var i = 0; i < arguments.length - 1; i++) {
+            for (var i = 0; i <arguments.length - 1; i++) {
                 s = s.replace("{" + i + "}", arguments[i + 1]);
             }
             return s;
@@ -208,7 +208,7 @@
         firefoxMajorVersion: function (userAgent) {
             // Firefox user agents: http://useragentstring.com/pages/Firefox/
             var matches = userAgent.match(/Firefox\/(\d+)/);
-            if (!matches || !matches.length || matches.length < 2) {
+            if (!matches || !matches.length || matches.length <2) {
                 return 0;
             }
             return parseInt(matches[1], 10 /* radix */);
@@ -2682,7 +2682,7 @@
         var i,
             length = arr.length,
             result = [];
-        for (i = 0; i < length; i += 1) {
+        for (i = 0; i <length; i += 1) {
             if (arr.hasOwnProperty(i)) {
                 result[i] = fun.call(thisp, arr[i], i, arr);
             }
@@ -2791,7 +2791,7 @@
 
             // Check if there's already a registration
             var registration;
-            for (var i = 0; i < callbackSpace.length; i++) {
+            for (var i = 0; i <callbackSpace.length; i++) {
                 if (callbackSpace[i].guid === callbackIdentity._signalRGuid || (isFromOldGeneratedHubProxy && callbackSpace[i].isFromOldGeneratedHubProxy)) {
                     registration = callbackSpace[i];
                 }
@@ -2841,7 +2841,7 @@
                     // Find the callback registration
                     var callbackRegistration;
                     var callbackIndex;
-                    for (var i = 0; i < callbackSpace.length; i++) {
+                    for (var i = 0; i <callbackSpace.length; i++) {
                         if (callbackSpace[i].guid === callbackIdentity._signalRGuid || (isFromOldGeneratedHubProxy && callbackSpace[i].isFromOldGeneratedHubProxy)) {
                             callbackIndex = i;
                             callbackRegistration = callbackSpace[i];
@@ -2851,7 +2851,7 @@
                     // Only unbind if there's an event bound with eventName and a callback with the specified callback
                     if (callbackRegistration) {
                         // Unbind all event handlers associated with the registration.
-                        for (var j = 0; j < callbackRegistration.eventHandlers.length; j++) {
+                        for (var j = 0; j <callbackRegistration.eventHandlers.length; j++) {
                             $(that).unbind(makeEventName(eventName), callbackRegistration.eventHandlers[j]);
                         }
 

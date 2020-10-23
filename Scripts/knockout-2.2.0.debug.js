@@ -44,7 +44,7 @@ ko.exportSymbol = function(koPath, object) {
 	// At that point, "target" would be set to: (typeof koExports !== "undefined" ? koExports : ko)
 	var target = ko;
 
-	for (var i = 0; i < tokens.length - 1; i++)
+	for (var i = 0; i <tokens.length - 1; i++)
 		target = target[tokens[i]];
 	target[tokens[tokens.length - 1]] = object;
 };
@@ -65,14 +65,14 @@ ko.utils = new (function () {
     for (var eventType in knownEvents) {
         var knownEventsForType = knownEvents[eventType];
         if (knownEventsForType.length) {
-            for (var i = 0, j = knownEventsForType.length; i < j; i++)
+            for (var i = 0, j = knownEventsForType.length; i <j; i++)
                 knownEventTypesByEventName[knownEventsForType[i]] = eventType;
         }
     }
     var eventsThatMustBeRegisteredUsingAttachEvent = { 'propertychange': true }; // Workaround for an IE9 issue - https://github.com/SteveSanderson/knockout/issues/406
 
     // Detect IE versions for bug workarounds (uses IE conditionals, not UA string, for robustness)
-    // Note that, since IE 10 does not support conditional comments, the following logic only detects IE < 10.
+    // Note that, since IE 10 does not support conditional comments, the following logic only detects IE <10.
     // Currently this is by design, since IE 10+ behaves correctly when treated as a standard browser.
     // If there is a future need to detect specific versions of IE10+, we will amend this.
     var ieVersion = (function() {
@@ -99,21 +99,21 @@ ko.utils = new (function () {
         fieldsIncludedWithJsonPost: ['authenticity_token', /^__RequestVerificationToken(_.*)?$/],
 
         arrayForEach: function (array, action) {
-            for (var i = 0, j = array.length; i < j; i++)
+            for (var i = 0, j = array.length; i <j; i++)
                 action(array[i]);
         },
 
         arrayIndexOf: function (array, item) {
             if (typeof Array.prototype.indexOf == "function")
                 return Array.prototype.indexOf.call(array, item);
-            for (var i = 0, j = array.length; i < j; i++)
+            for (var i = 0, j = array.length; i <j; i++)
                 if (array[i] === item)
                     return i;
             return -1;
         },
 
         arrayFirst: function (array, predicate, predicateOwner) {
-            for (var i = 0, j = array.length; i < j; i++)
+            for (var i = 0, j = array.length; i <j; i++)
                 if (predicate.call(predicateOwner, array[i]))
                     return array[i];
             return null;
@@ -128,8 +128,8 @@ ko.utils = new (function () {
         arrayGetDistinctValues: function (array) {
             array = array || [];
             var result = [];
-            for (var i = 0, j = array.length; i < j; i++) {
-                if (ko.utils.arrayIndexOf(result, array[i]) < 0)
+            for (var i = 0, j = array.length; i <j; i++) {
+                if (ko.utils.arrayIndexOf(result, array[i]) <0)
                     result.push(array[i]);
             }
             return result;
@@ -138,7 +138,7 @@ ko.utils = new (function () {
         arrayMap: function (array, mapping) {
             array = array || [];
             var result = [];
-            for (var i = 0, j = array.length; i < j; i++)
+            for (var i = 0, j = array.length; i <j; i++)
                 result.push(mapping(array[i]));
             return result;
         },
@@ -146,7 +146,7 @@ ko.utils = new (function () {
         arrayFilter: function (array, predicate) {
             array = array || [];
             var result = [];
-            for (var i = 0, j = array.length; i < j; i++)
+            for (var i = 0, j = array.length; i <j; i++)
                 if (predicate(array[i]))
                     result.push(array[i]);
             return result;
@@ -156,7 +156,7 @@ ko.utils = new (function () {
             if (valuesToPush instanceof Array)
                 array.push.apply(array, valuesToPush);
             else
-                for (var i = 0, j = valuesToPush.length; i < j; i++)
+                for (var i = 0, j = valuesToPush.length; i <j; i++)
                     array.push(valuesToPush[i]);
             return array;
         },
@@ -184,14 +184,14 @@ ko.utils = new (function () {
             var nodesArray = ko.utils.makeArray(nodes);
 
             var container = document.createElement('div');
-            for (var i = 0, j = nodesArray.length; i < j; i++) {
+            for (var i = 0, j = nodesArray.length; i <j; i++) {
                 container.appendChild(ko.cleanNode(nodesArray[i]));
             }
             return container;
         },
 
         cloneNodes: function (nodesArray, shouldCleanNodes) {
-            for (var i = 0, j = nodesArray.length, newNodesArray = []; i < j; i++) {
+            for (var i = 0, j = nodesArray.length, newNodesArray = []; i <j; i++) {
                 var clonedNode = nodesArray[i].cloneNode(true);
                 newNodesArray.push(shouldCleanNodes ? ko.cleanNode(clonedNode) : clonedNode);
             }
@@ -201,7 +201,7 @@ ko.utils = new (function () {
         setDomNodeChildren: function (domNode, childNodes) {
             ko.utils.emptyDomNode(domNode);
             if (childNodes) {
-                for (var i = 0, j = childNodes.length; i < j; i++)
+                for (var i = 0, j = childNodes.length; i <j; i++)
                     domNode.appendChild(childNodes[i]);
             }
         },
@@ -211,9 +211,9 @@ ko.utils = new (function () {
             if (nodesToReplaceArray.length > 0) {
                 var insertionPoint = nodesToReplaceArray[0];
                 var parent = insertionPoint.parentNode;
-                for (var i = 0, j = newNodesArray.length; i < j; i++)
+                for (var i = 0, j = newNodesArray.length; i <j; i++)
                     parent.insertBefore(newNodesArray[i], insertionPoint);
-                for (var i = 0, j = nodesToReplaceArray.length; i < j; i++) {
+                for (var i = 0, j = nodesToReplaceArray.length; i <j; i++) {
                     ko.removeNode(nodesToReplaceArray[i]);
                 }
             }
@@ -221,7 +221,7 @@ ko.utils = new (function () {
 
         setOptionNodeSelectionState: function (optionNode, isSelected) {
             // IE6 sometimes throws "unknown error" if you try to write to .selected directly, whereas Firefox struggles with setAttribute. Pick one based on browser.
-            if (ieVersion < 7)
+            if (ieVersion <7)
                 optionNode.setAttribute("selected", isSelected);
             else
                 optionNode.selected = isSelected;
@@ -234,7 +234,7 @@ ko.utils = new (function () {
         stringTokenize: function (string, delimiter) {
             var result = [];
             var tokens = (string || "").split(delimiter);
-            for (var i = 0, j = tokens.length; i < j; i++) {
+            for (var i = 0, j = tokens.length; i <j; i++) {
                 var trimmed = ko.utils.stringTrim(tokens[i]);
                 if (trimmed !== "")
                     result.push(trimmed);
@@ -423,7 +423,7 @@ ko.utils = new (function () {
 
         makeArray: function(arrayLikeObject) {
             var result = [];
-            for (var i = 0, j = arrayLikeObject.length; i < j; i++) {
+            for (var i = 0, j = arrayLikeObject.length; i <j; i++) {
                 result.push(arrayLikeObject[i]);
             };
             return result;
@@ -460,7 +460,7 @@ ko.utils = new (function () {
 
         stringifyJson: function (data, replacer, space) {   // replacer and space are optional
             if ((typeof JSON == "undefined") || (typeof JSON.stringify == "undefined"))
-                throw new Error("Cannot find JSON.stringify(). Some browsers (e.g., IE < 8) don't support it natively, but you can overcome this by adding a script reference to json2.js, downloadable from http://www.json.org/json2.js");
+                throw new Error("Cannot find JSON.stringify(). Some browsers (e.g., IE <8) don't support it natively, but you can overcome this by adding a script reference to json2.js, downloadable from http://www.json.org/json2.js");
             return JSON.stringify(ko.utils.unwrapObservable(data), replacer, space);
         },
 
@@ -604,7 +604,7 @@ ko.utils.domNodeDisposal = new (function () {
         var callbacks = getDisposeCallbacksCollection(node, false);
         if (callbacks) {
             callbacks = callbacks.slice(0); // Clone, as the array may be modified during iteration (typically, callbacks will remove themselves)
-            for (var i = 0; i < callbacks.length; i++)
+            for (var i = 0; i <callbacks.length; i++)
                 callbacks[i](node);
         }
 
@@ -658,7 +658,7 @@ ko.utils.domNodeDisposal = new (function () {
                     // Clone the descendants list in case it changes during iteration
                     var descendants = [];
                     ko.utils.arrayPushAll(descendants, node.getElementsByTagName("*"));
-                    for (var i = 0, j = descendants.length; i < j; i++)
+                    for (var i = 0, j = descendants.length; i <j; i++)
                         cleanSingleNode(descendants[i]);
                 }
             }
@@ -686,7 +686,7 @@ ko.exportSymbol('utils.domNodeDisposal.removeDisposeCallback', ko.utils.domNodeD
         // Based on jQuery's "clean" function, but only accounting for table-related elements.
         // If you have referenced jQuery, this won't be used anyway - KO will use jQuery's "clean" function directly
 
-        // Note that there's still an issue in IE < 9 whereby it will discard comment nodes that are the first child of
+        // Note that there's still an issue in IE <9 whereby it will discard comment nodes that are the first child of
         // a descendant node. For example: "<div><!-- mycomment -->abc</div>" will get parsed as "<div>abc</div>"
         // This won't affect anyone who has referenced jQuery, and there's always the workaround of inserting a dummy node
         // (possibly a text node) in front of the comment. So, KO does not attempt to workaround this IE issue automatically at present.
@@ -758,7 +758,7 @@ ko.exportSymbol('utils.domNodeDisposal.removeDisposeCallback', ko.utils.domNodeD
             } else {
                 // ... otherwise, use KO's own parsing logic.
                 var parsedNodes = ko.utils.parseHtmlFragment(html);
-                for (var i = 0; i < parsedNodes.length; i++)
+                for (var i = 0; i <parsedNodes.length; i++)
                     node.appendChild(parsedNodes[i]);
             }
         }
@@ -785,7 +785,7 @@ ko.memoization = (function () {
             if (memoId != null)
                 appendToArray.push({ domNode: rootNode, memoId: memoId });
         } else if (rootNode.nodeType == 1) {
-            for (var i = 0, childNodes = rootNode.childNodes, j = childNodes.length; i < j; i++)
+            for (var i = 0, childNodes = rootNode.childNodes, j = childNodes.length; i <j; i++)
                 findMemoNodes(childNodes[i], appendToArray);
         }
     }
@@ -813,7 +813,7 @@ ko.memoization = (function () {
         unmemoizeDomNodeAndDescendants: function (domNode, extraCallbackParamsArray) {
             var memos = [];
             findMemoNodes(domNode, memos);
-            for (var i = 0, j = memos.length; i < j; i++) {
+            for (var i = 0, j = memos.length; i <j; i++) {
                 var node = memos[i].domNode;
                 var combinedParams = [node];
                 if (extraCallbackParamsArray)
@@ -1077,7 +1077,7 @@ ko.observableArray['fn'] = {
         var underlyingArray = this.peek();
         var removedValues = [];
         var predicate = typeof valueOrPredicate == "function" ? valueOrPredicate : function (value) { return value === valueOrPredicate; };
-        for (var i = 0; i < underlyingArray.length; i++) {
+        for (var i = 0; i <underlyingArray.length; i++) {
             var value = underlyingArray[i];
             if (predicate(value)) {
                 if (removedValues.length === 0) {
@@ -1368,7 +1368,7 @@ ko.exportSymbol('isComputed', ko.isComputed);
         // We just unwrap everything at every level in the object graph
         return mapJsObjectGraph(rootObject, function(valueToMap) {
             // Loop because an observable's value might in turn be another observable wrapper
-            for (var i = 0; ko.isObservable(valueToMap) && (i < maxNestedObservableDepth); i++)
+            for (var i = 0; ko.isObservable(valueToMap) && (i <maxNestedObservableDepth); i++)
                 valueToMap = valueToMap();
             return valueToMap;
         });
@@ -1415,7 +1415,7 @@ ko.exportSymbol('isComputed', ko.isComputed);
 
     function visitPropertiesOrArrayEntries(rootObject, visitorCallback) {
         if (rootObject instanceof Array) {
-            for (var i = 0; i < rootObject.length; i++)
+            for (var i = 0; i <rootObject.length; i++)
                 visitorCallback(i);
 
             // For arrays, also respect toJSON property for custom mappings (fixes #278)
@@ -1557,7 +1557,7 @@ ko.expressionRewriting = (function () {
             // that is sufficient just to split an object literal string into a set of top-level key-value pairs
 
             var str = ko.utils.stringTrim(objectLiteralString);
-            if (str.length < 3)
+            if (str.length <3)
                 return [];
             if (str.charAt(0) === "{")// Ignore any braces surrounding the whole object literal
                 str = str.substring(1, str.length - 1);
@@ -1565,7 +1565,7 @@ ko.expressionRewriting = (function () {
             // Pull out any string literals and regex literals
             var tokens = [];
             var tokenStart = null, tokenEndChar;
-            for (var position = 0; position < str.length; position++) {
+            for (var position = 0; position <str.length; position++) {
                 var c = str.charAt(position);
                 if (tokenStart === null) {
                     switch (c) {
@@ -1590,7 +1590,7 @@ ko.expressionRewriting = (function () {
             tokenStart = null;
             tokenEndChar = null;
             var tokenDepth = 0, tokenStartChar = null;
-            for (var position = 0; position < str.length; position++) {
+            for (var position = 0; position <str.length; position++) {
                 var c = str.charAt(position);
                 if (tokenStart === null) {
                     switch (c) {
@@ -1624,10 +1624,10 @@ ko.expressionRewriting = (function () {
             // Now we can safely split on commas to get the key/value pairs
             var result = [];
             var keyValuePairs = str.split(",");
-            for (var i = 0, j = keyValuePairs.length; i < j; i++) {
+            for (var i = 0, j = keyValuePairs.length; i <j; i++) {
                 var pair = keyValuePairs[i];
                 var colonPos = pair.indexOf(":");
-                if ((colonPos > 0) && (colonPos < pair.length - 1)) {
+                if ((colonPos > 0) && (colonPos <pair.length - 1)) {
                     var key = pair.substring(0, colonPos);
                     var value = pair.substring(colonPos + 1);
                     result.push({ 'key': restoreTokens(key, tokens), 'value': restoreTokens(value, tokens) });
@@ -1675,7 +1675,7 @@ ko.expressionRewriting = (function () {
         },
 
         keyValueArrayContainsKey: function(keyValueArray, key) {
-            for (var i = 0; i < keyValueArray.length; i++)
+            for (var i = 0; i <keyValueArray.length; i++)
                 if (ko.utils.stringTrim(keyValueArray[i]['key']) == key)
                     return true;
             return false;
@@ -1801,7 +1801,7 @@ ko.exportSymbol('jsonExpressionRewriting.insertPropertyAccessorsIntoJson', ko.ex
                 ko.utils.emptyDomNode(node);
             else {
                 var virtualChildren = ko.virtualElements.childNodes(node);
-                for (var i = 0, j = virtualChildren.length; i < j; i++)
+                for (var i = 0, j = virtualChildren.length; i <j; i++)
                     ko.removeNode(virtualChildren[i]);
             }
         },
@@ -1812,7 +1812,7 @@ ko.exportSymbol('jsonExpressionRewriting.insertPropertyAccessorsIntoJson', ko.ex
             else {
                 ko.virtualElements.emptyNode(node);
                 var endCommentNode = node.nextSibling; // Must be the next sibling, as we just emptied the children
-                for (var i = 0, j = childNodes.length; i < j; i++)
+                for (var i = 0, j = childNodes.length; i <j; i++)
                     endCommentNode.parentNode.insertBefore(childNodes[i], endCommentNode);
             }
         },
@@ -1882,7 +1882,7 @@ ko.exportSymbol('jsonExpressionRewriting.insertPropertyAccessorsIntoJson', ko.ex
                         if (unbalancedTags) {
                             // Fix up the DOM by moving the unbalanced tags to where they most likely were intended to be placed - *after* the child
                             var nodeToInsertBefore = childNode.nextSibling;
-                            for (var i = 0; i < unbalancedTags.length; i++) {
+                            for (var i = 0; i <unbalancedTags.length; i++) {
                                 if (nodeToInsertBefore)
                                     elementVerified.insertBefore(unbalancedTags[i], nodeToInsertBefore);
                                 else
@@ -2228,7 +2228,7 @@ ko.bindingHandlers['checked'] = {
                 // For checkboxes bound to an array, we add/remove the checkbox value to that array
                 // This works for both observable and non-observable arrays
                 var existingEntryIndex = ko.utils.arrayIndexOf(unwrappedValue, element.value);
-                if (element.checked && (existingEntryIndex < 0))
+                if (element.checked && (existingEntryIndex <0))
                     modelValue.push(element.value);
                 else if ((!element.checked) && (existingEntryIndex >= 0))
                     modelValue.splice(existingEntryIndex, 1);
@@ -2522,7 +2522,7 @@ ko.bindingHandlers['options'] = {
                 element.appendChild(option);
             }
 
-            for (var i = 0, j = value.length; i < j; i++) {
+            for (var i = 0, j = value.length; i <j; i++) {
                 // Skip destroyed items
                 var arrayEntry = value[i];
                 if (arrayEntry && arrayEntry['_destroy'] && !includeDestroyed)
@@ -2555,7 +2555,7 @@ ko.bindingHandlers['options'] = {
             // That's why we first added them without selection. Now it's time to set the selection.
             var newOptions = element.getElementsByTagName("option");
             var countSelectionsRetained = 0;
-            for (var i = 0, j = newOptions.length; i < j; i++) {
+            for (var i = 0, j = newOptions.length; i <j; i++) {
                 if (ko.utils.arrayIndexOf(previousSelectedValues, ko.selectExtensions.readValue(newOptions[i])) >= 0) {
                     ko.utils.setOptionNodeSelectionState(newOptions[i], true);
                     countSelectionsRetained++;
@@ -2810,7 +2810,7 @@ ko.templateRewriting = (function () {
 
     function validateDataBindValuesForRewriting(keyValueArray) {
         var allValidators = ko.expressionRewriting.bindingRewriteValidators;
-        for (var i = 0; i < keyValueArray.length; i++) {
+        for (var i = 0; i <keyValueArray.length; i++) {
             var key = keyValueArray[i]['key'];
             if (allValidators.hasOwnProperty(key)) {
                 var validator = allValidators[key];
@@ -3266,7 +3266,7 @@ ko.utils.compareArrays = (function () {
             var limitFailedCompares = smlIndexMax * 10, failedCompares,
                 a, d, notInSmlItem, notInBigItem;
             // Go through the items that have been added and deleted and try to find matches between them.
-            for (failedCompares = a = 0; (dontLimitMoves || failedCompares < limitFailedCompares) && (notInSmlItem = notInSml[a]); a++) {
+            for (failedCompares = a = 0; (dontLimitMoves || failedCompares <limitFailedCompares) && (notInSmlItem = notInSml[a]); a++) {
                 for (d = 0; notInBigItem = notInBig[d]; d++) {
                     if (notInSmlItem['value'] === notInBigItem['value']) {
                         notInSmlItem['moved'] = notInBigItem['index'];
@@ -3391,7 +3391,7 @@ ko.exportSymbol('utils.compareArrays', ko.utils.compareArrays);
 
         function callCallback(callback, items) {
             if (callback) {
-                for (var i = 0, n = items.length; i < n; i++) {
+                for (var i = 0, n = items.length; i <n; i++) {
                     if (items[i]) {
                         ko.utils.arrayForEach(items[i].mappedNodes, function(node) {
                             callback(node, i, items[i].arrayEntry);
@@ -3488,7 +3488,7 @@ ko.nativeTemplateEngine = function () {
 
 ko.nativeTemplateEngine.prototype = new ko.templateEngine();
 ko.nativeTemplateEngine.prototype['renderTemplateSource'] = function (templateSource, bindingContext, options) {
-    var useNodesIfAvailable = !(ko.utils.ieVersion < 9), // IE<9 cloneNode doesn't work properly
+    var useNodesIfAvailable = !(ko.utils.ieVersion <9), // IE<9 cloneNode doesn't work properly
         templateNodesFunc = useNodesIfAvailable ? templateSource['nodes'] : null,
         templateNodes = templateNodesFunc ? templateSource['nodes']() : null;
 
@@ -3525,7 +3525,7 @@ ko.exportSymbol('nativeTemplateEngine', ko.nativeTemplateEngine);
         })();
 
         function ensureHasReferencedJQueryTemplates() {
-            if (jQueryTmplVersion < 2)
+            if (jQueryTmplVersion <2)
                 throw new Error("Your version of jQuery.tmpl is too old. Please upgrade to jQuery.tmpl 1.0.0pre or later.");
         }
 

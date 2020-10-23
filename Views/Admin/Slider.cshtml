@@ -78,7 +78,7 @@
                                 $("#fileupload").change(function (e) {
                                     document.getElementById("istrueimage").innerHTML = "0";
                                     var file, img;
-                                    for (var i = 0; i < this.files.length; i++) {
+                                    for (var i = 0; i <this.files.length; i++) {
                                         if ((file = this.files[i])) {
                                             size = this.files[i].size;
                                             filename = this.files[i].filename;
@@ -100,7 +100,7 @@
                                                     }
                                                     toastr.error('بیش از 1 مگا بایت است ' + ' سایز عکس')
                                                 }
-                                                if (this.width < 1000) {
+                                                if (this.width <1000) {
 
                                                     document.getElementById("istrueimage").innerHTML = "1";
                                                     toastr.options = {

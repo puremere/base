@@ -222,7 +222,7 @@
             }
             var el = makeReplacementNode(range.match, matchIndex);
             parentNode.insertBefore(el, node_1);
-            if (range.endNodeIndex < node_1.length) {
+            if (range.endNodeIndex <node_1.length) {
               after = doc.createTextNode(node_1.data.substring(range.endNodeIndex));
               parentNode.insertBefore(after, node_1);
             }
@@ -232,7 +232,7 @@
           before = doc.createTextNode(startNode.data.substring(0, range.startNodeIndex));
           after = doc.createTextNode(endNode.data.substring(range.endNodeIndex));
           var elA = makeReplacementNode(startNode.data.substring(range.startNodeIndex), matchIndex);
-          for (var i = 0, l = range.innerNodes.length; i < l; ++i) {
+          for (var i = 0, l = range.innerNodes.length; i <l; ++i) {
             var innerNode = range.innerNodes[i];
             var innerEl = makeReplacementNode(innerNode.data, matchIndex);
             innerNode.parentNode.replaceChild(innerEl, innerNode);
@@ -262,7 +262,7 @@
       function getWrappersByIndex(index) {
         var elements = node.getElementsByTagName('*'), wrappers = [];
         index = typeof index === 'number' ? '' + index : null;
-        for (var i = 0; i < elements.length; i++) {
+        for (var i = 0; i <elements.length; i++) {
           var element = elements[i], dataIndex = element.getAttribute('data-mce-index');
           if (dataIndex !== null && dataIndex.length && hasClass(element)) {
             if (dataIndex === index || index === null) {
@@ -292,7 +292,7 @@
         return this;
       }
       function each(callback) {
-        for (var i = 0, l = matches.length; i < l; i++) {
+        for (var i = 0, l = matches.length; i <l; i++) {
           if (callback(matches[i], i) === false) {
             break;
           }
@@ -567,7 +567,7 @@
       var spans = [];
       nodes = global$1.toArray(editor.getBody().getElementsByTagName('span'));
       if (nodes.length) {
-        for (var i = 0; i < nodes.length; i++) {
+        for (var i = 0; i <nodes.length; i++) {
           var nodeIndex = getElmIndex(nodes[i]);
           if (nodeIndex === null || !nodeIndex.length) {
             continue;
@@ -652,7 +652,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))

@@ -32,7 +32,7 @@
     var compose = function (fa, fb) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return fa(fb.apply(null, args));
@@ -48,12 +48,12 @@
     };
     function curry(fn) {
       var initialArgs = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
+      for (var _i = 1; _i <arguments.length; _i++) {
         initialArgs[_i - 1] = arguments[_i];
       }
       return function () {
         var restArgs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           restArgs[_i] = arguments[_i];
         }
         var all = initialArgs.concat(restArgs);
@@ -63,7 +63,7 @@
     var not = function (f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return !f.apply(null, args);
@@ -222,7 +222,7 @@
       return rawIndexOf(xs, x) > -1;
     };
     var exists = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return true;
@@ -233,14 +233,14 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
@@ -253,7 +253,7 @@
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -274,7 +274,7 @@
       return acc;
     };
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -283,7 +283,7 @@
       return Option.none();
     };
     var findIndex = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(i);
@@ -293,7 +293,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -305,7 +305,7 @@
       return flatten(map(xs, f));
     };
     var forall = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         var x = xs[i];
         if (pred(x, i) !== true) {
           return false;
@@ -325,7 +325,7 @@
       return nativeSlice.call(x);
     };
     var findMap = function (arr, f) {
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         var r = f(arr[i], i);
         if (r.isSome()) {
           return r;
@@ -338,7 +338,7 @@
     var hasOwnProperty = Object.hasOwnProperty;
     var each$1 = function (obj, f) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         f(x, i);
@@ -369,12 +369,12 @@
 
     var Immutable = function () {
       var fields = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         fields[_i] = arguments[_i];
       }
       return function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         if (fields.length !== values.length) {
@@ -413,7 +413,7 @@
     var checkDupes = function (everything) {
       var sorted = sort(everything);
       var dupe = find(sorted, function (s, i) {
-        return i < sorted.length - 1 && s === sorted[i + 1];
+        return i <sorted.length - 1 && s === sorted[i + 1];
       });
       dupe.each(function (d) {
         throw new Error('The field: ' + d + ' occurs more than once in the combined fields: [' + sorted.join(', ') + '].');
@@ -525,7 +525,7 @@
       if (substr === '') {
         return true;
       }
-      if (str.length < substr.length) {
+      if (str.length <substr.length) {
         return false;
       }
       var x = str.substr(start, start + substr.length);
@@ -553,7 +553,7 @@
       var r;
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (!called) {
@@ -689,7 +689,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -701,7 +701,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;
@@ -1258,7 +1258,7 @@
     };
     var descendant = function (scope, predicate) {
       var descend = function (node) {
-        for (var i = 0; i < node.childNodes.length; i++) {
+        for (var i = 0; i <node.childNodes.length; i++) {
           var child_1 = Element.fromDom(node.childNodes[i]);
           if (predicate(child_1)) {
             return Option.some(child_1);
@@ -1441,8 +1441,8 @@
             start++;
           }
           var current = extended(detail.element(), detail.rowspan(), detail.colspan(), r, start);
-          for (var i = 0; i < detail.colspan(); i++) {
-            for (var j = 0; j < detail.rowspan(); j++) {
+          for (var i = 0; i <detail.colspan(); i++) {
+            for (var j = 0; j <detail.rowspan(); j++) {
               var cr = r + j;
               var cc = start + i;
               var newpos = key(cr, cc);
@@ -1489,12 +1489,12 @@
           var endRow = startRow + detail.rowspan() - 1;
           var startCol = detail.column();
           var endCol = startCol + detail.colspan() - 1;
-          if (startRow < minRow) {
+          if (startRow <minRow) {
             minRow = startRow;
           } else if (endRow > maxRow) {
             maxRow = endRow;
           }
-          if (startCol < minCol) {
+          if (startCol <minCol) {
             minCol = startCol;
           } else if (endCol > maxCol) {
             maxCol = endCol;
@@ -1513,10 +1513,10 @@
     var fillInGaps = function (list, house, stats, isSelected) {
       var totalColumns = house.grid().columns();
       var totalRows = house.grid().rows();
-      for (var i = 0; i < totalRows; i++) {
+      for (var i = 0; i <totalRows; i++) {
         var seenSelected = false;
-        for (var j = 0; j < totalColumns; j++) {
-          if (!(i < stats.minRow() || i > stats.maxRow() || j < stats.minCol() || j > stats.maxCol())) {
+        for (var j = 0; j <totalColumns; j++) {
+          if (!(i <stats.minRow() || i > stats.maxRow() || j <stats.minCol() || j > stats.maxCol())) {
             var needCell = Warehouse.getAt(house, i, j).filter(isSelected).isNone();
             if (needCell) {
               makeCell(list, seenSelected, i);
@@ -2096,7 +2096,7 @@
       var finder = function (ps) {
         var topDown = reverse(ps);
         var index = findIndex(topDown, eq$1(universe, common)).getOr(-1);
-        var item = index < topDown.length - 1 ? topDown[index + 1] : topDown[index];
+        var item = index <topDown.length - 1 ? topDown[index + 1] : topDown[index];
         return findIndex(children, eq$1(universe, item));
       };
       var startIndex = finder(ps1);
@@ -2381,7 +2381,7 @@
             throw new Error('Wrong number of arguments to case ' + key + '. Expected ' + value.length + ' (' + value + '), got ' + argLength);
           }
           var args = new Array(argLength);
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             args[i] = arguments[i];
           }
           var match = function (branches) {
@@ -2940,7 +2940,7 @@
       var push = function (x) {
         r.push(x);
       };
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         arr[i].each(push);
       }
       return r;
@@ -3096,20 +3096,20 @@
 
     var repeat = function (repititions, f) {
       var r = [];
-      for (var i = 0; i < repititions; i++) {
+      for (var i = 0; i <repititions; i++) {
         r.push(f(i));
       }
       return r;
     };
     var range = function (start, end) {
       var r = [];
-      for (var i = start; i < end; i++) {
+      for (var i = start; i <end; i++) {
         r.push(i);
       }
       return r;
     };
     var deduce = function (xs, index) {
-      if (index < 0 || index >= xs.length - 1) {
+      if (index <0 || index >= xs.length - 1) {
         return Option.none();
       }
       var current = xs[index].fold(function () {
@@ -3414,8 +3414,8 @@
         });
       });
       var updateSeen = function (ri, ci, rowspan, colspan) {
-        for (var r = ri; r < ri + rowspan; r++) {
-          for (var c = ci; c < ci + colspan; c++) {
+        for (var r = ri; r <ri + rowspan; r++) {
+          for (var c = ci; c <ci + colspan; c++) {
             seen[r][c] = true;
           }
         }
@@ -3435,9 +3435,9 @@
     };
     var toGrid = function (warehouse, generators, isNew) {
       var grid = [];
-      for (var i = 0; i < warehouse.grid().rows(); i++) {
+      for (var i = 0; i <warehouse.grid().rows(); i++) {
         var rowCells = [];
-        for (var j = 0; j < warehouse.grid().columns(); j++) {
+        for (var j = 0; j <warehouse.grid().columns(); j++) {
           var element = Warehouse.getAt(warehouse, i, j).map(function (item) {
             return elementnew(item.element(), isNew);
           }).getOrThunk(function () {
@@ -3705,8 +3705,8 @@
       });
     };
     var tailor = function (gridA, delta, generator) {
-      var fillCols = delta.colDelta() < 0 ? colFill : identity;
-      var fillRows = delta.rowDelta() < 0 ? rowFill : identity;
+      var fillCols = delta.colDelta() <0 ? colFill : identity;
+      var fillRows = delta.rowDelta() <0 ? rowFill : identity;
       var modifiedCols = fillCols(gridA, Math.abs(delta.colDelta()), generator);
       var tailoredGrid = fillRows(modifiedCols, Math.abs(delta.rowDelta()), generator);
       return tailoredGrid;
@@ -3730,8 +3730,8 @@
     };
     var unmerge = function (grid, target, comparator, substitution) {
       var first = true;
-      for (var i = 0; i < grid.length; i++) {
-        for (var j = 0; j < GridRow.cellLength(grid[0]); j++) {
+      for (var i = 0; i <grid.length; i++) {
+        for (var j = 0; j <GridRow.cellLength(grid[0]); j++) {
           var current = GridRow.getCellElement(grid[i], j);
           var isToReplace = comparator(current, target);
           if (isToReplace === true && first === false) {
@@ -3751,7 +3751,7 @@
       }, []);
     };
     var splitRows = function (grid, index, comparator, substitution) {
-      if (index > 0 && index < grid.length) {
+      if (index > 0 && index <grid.length) {
         var rowPrevCells = grid[index - 1].cells();
         var cells = uniqueCells(rowPrevCells, comparator);
         each(cells, function (cell) {
@@ -3769,11 +3769,11 @@
                 });
               }
             };
-            for (var j = 0; j < GridRow.cellLength(grid[0]); j++) {
+            for (var j = 0; j <GridRow.cellLength(grid[0]); j++) {
               _loop_2(j);
             }
           };
-          for (var i = index; i < grid.length; i++) {
+          for (var i = index; i <grid.length; i++) {
             _loop_1(i);
           }
         });
@@ -3790,7 +3790,7 @@
       var candidate = GridRow.getCell(grid[row], col);
       var matching = curry(comparator, candidate.element());
       var currentRow = grid[row];
-      return grid.length > 1 && GridRow.cellLength(currentRow) > 1 && (col > 0 && matching(GridRow.getCellElement(currentRow, col - 1)) || col < currentRow.cells().length - 1 && matching(GridRow.getCellElement(currentRow, col + 1)) || row > 0 && matching(GridRow.getCellElement(grid[row - 1], col)) || row < grid.length - 1 && matching(GridRow.getCellElement(grid[row + 1], col)));
+      return grid.length > 1 && GridRow.cellLength(currentRow) > 1 && (col > 0 && matching(GridRow.getCellElement(currentRow, col - 1)) || col <currentRow.cells().length - 1 && matching(GridRow.getCellElement(currentRow, col + 1)) || row > 0 && matching(GridRow.getCellElement(grid[row - 1], col)) || row <grid.length - 1 && matching(GridRow.getCellElement(grid[row + 1], col)));
     };
     var mergeTables = function (startAddress, gridA, gridB, generator, comparator) {
       var startRow = startAddress.row();
@@ -3799,8 +3799,8 @@
       var mergeWidth = GridRow.cellLength(gridB[0]);
       var endRow = startRow + mergeHeight;
       var endCol = startCol + mergeWidth;
-      for (var r = startRow; r < endRow; r++) {
-        for (var c = startCol; c < endCol; c++) {
+      for (var r = startRow; r <endRow; r++) {
+        for (var c = startCol; c <endCol; c++) {
           if (isSpanning(gridA, r, c, comparator)) {
             MergingOperations.unmerge(gridA, GridRow.getCellElement(gridA[r], c), comparator, generator.cell);
           }
@@ -3835,7 +3835,7 @@
       var before = grid.slice(0, index);
       var after = grid.slice(index);
       var between = GridRow.mapCells(grid[example], function (ex, c) {
-        var withinSpan = index > 0 && index < grid.length && comparator(GridRow.getCellElement(grid[index - 1], c), GridRow.getCellElement(grid[index], c));
+        var withinSpan = index > 0 && index <grid.length && comparator(GridRow.getCellElement(grid[index - 1], c), GridRow.getCellElement(grid[index], c));
         var ret = withinSpan ? GridRow.getCell(grid[index], c) : elementnew(substitution(ex.element(), comparator), true);
         return ret;
       });
@@ -3843,7 +3843,7 @@
     };
     var insertColumnAt = function (grid, index, example, comparator, substitution) {
       return map(grid, function (row) {
-        var withinSpan = index > 0 && index < GridRow.cellLength(row) && comparator(GridRow.getCellElement(row, index - 1), GridRow.getCellElement(row, index));
+        var withinSpan = index > 0 && index <GridRow.cellLength(row) && comparator(GridRow.getCellElement(row, index - 1), GridRow.getCellElement(row, index));
         var sub = withinSpan ? GridRow.getCell(row, index) : elementnew(substitution(GridRow.getCellElement(row, example), comparator), true);
         return GridRow.addCell(row, index, sub);
       });
@@ -3963,7 +3963,7 @@
       if (index === input.length - 1) {
         return ColumnContext.right(index - 1, index);
       }
-      if (index > 0 && index < input.length - 1) {
+      if (index > 0 && index <input.length - 1) {
         return ColumnContext.middle(index - 1, index, index + 1);
       }
       return ColumnContext.none();
@@ -4115,7 +4115,7 @@
 
     var total = function (start, end, measures) {
       var r = 0;
-      for (var i = start; i < end; i++) {
+      for (var i = start; i <end; i++) {
         r += measures[i] !== undefined ? measures[i] : 0;
       }
       return r;
@@ -5072,7 +5072,7 @@
       var cells = dom.select('td,th', elm);
       var firstChildStyle;
       var checkChildren = function (firstChildStyle, elms) {
-        for (var i = 0; i < elms.length; i++) {
+        for (var i = 0; i <elms.length; i++) {
           var currentStyle = dom.getStyle(elms[i], name);
           if (typeof firstChildStyle === 'undefined') {
             firstChildStyle = currentStyle;
@@ -5788,7 +5788,7 @@
       cellElm = dom.getParent(editor.selection.getStart(), 'td,th');
       global$1.each(tableElm.rows, function (row) {
         global$1.each(row.cells, function (cell) {
-          if ((dom.getAttrib(cell, 'data-mce-selected') || cell === cellElm) && rows.indexOf(row) < 0) {
+          if ((dom.getAttrib(cell, 'data-mce-selected') || cell === cellElm) && rows.indexOf(row) <0) {
             rows.push(row);
             return false;
           }
@@ -5879,14 +5879,14 @@
       var tbody = tableBody();
       append(table, tbody);
       var trs = [];
-      for (var i = 0; i < rows; i++) {
+      for (var i = 0; i <rows; i++) {
         var tr = tableRow();
-        for (var j = 0; j < columns; j++) {
-          var td = i < rowHeaders || j < columnHeaders ? tableHeaderCell() : tableCell();
-          if (j < columnHeaders) {
+        for (var j = 0; j <columns; j++) {
+          var td = i <rowHeaders || j <columnHeaders ? tableHeaderCell() : tableCell();
+          if (j <columnHeaders) {
             set(td, 'scope', 'row');
           }
-          if (i < rowHeaders) {
+          if (i <rowHeaders) {
             set(td, 'scope', 'col');
           }
           append(td, Element.fromTag('br'));
@@ -6058,7 +6058,7 @@
         }
       } else {
         if (elm.children) {
-          for (var i = 0; i < elm.children.length; i++) {
+          for (var i = 0; i <elm.children.length; i++) {
             styleTDTH(dom, elm.children[i], name, value);
           }
         }
@@ -6084,7 +6084,7 @@
         attrs.cellspacing = data.cellspacing;
       }
       if (shouldStyleWithCss(editor) && tableElm.children) {
-        for (var i = 0; i < tableElm.children.length; i++) {
+        for (var i = 0; i <tableElm.children.length; i++) {
           styleTDTH(dom, tableElm.children[i], {
             'border-width': addSizeSuffix(data.border),
             'padding': addSizeSuffix(data.cellpadding)
@@ -6410,7 +6410,7 @@
       };
       var trigger = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         var event = struct.apply(null, args);
@@ -6588,7 +6588,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer !== null) {
@@ -6704,7 +6704,7 @@
       var runIfActive = function (f) {
         return function () {
           var args = [];
-          for (var _i = 0; _i < arguments.length; _i++) {
+          for (var _i = 0; _i <arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
           if (active) {
@@ -7133,7 +7133,7 @@
       return detection.fold(function () {
         return CellLocation.none(current);
       }, function (info) {
-        return info.index() + 1 < info.all().length ? CellLocation.middle(current, info.all()[info.index() + 1]) : CellLocation.last(current);
+        return info.index() + 1 <info.all().length ? CellLocation.middle(current, info.all()[info.index() + 1]) : CellLocation.last(current);
       });
     };
     var prev = function (current, isRoot) {
@@ -7380,11 +7380,11 @@
         return length - 1;
       }
       var xDelta = maxX;
-      for (var i = 1; i < length; i++) {
+      for (var i = 1; i <length; i++) {
         var rect = rectForOffset(i);
         var curDeltaX = Math.abs(x - rect.left);
         if (y <= rect.bottom) {
-          if (y < rect.top || curDeltaX > xDelta) {
+          if (y <rect.top || curDeltaX > xDelta) {
             return i - 1;
           } else {
             xDelta = curDeltaX;
@@ -7447,7 +7447,7 @@
     var COLLAPSE_TO_LEFT = true;
     var COLLAPSE_TO_RIGHT = false;
     var getCollapseDirection = function (rect, x) {
-      return x - rect.left < rect.right - x ? COLLAPSE_TO_LEFT : COLLAPSE_TO_RIGHT;
+      return x - rect.left <rect.right - x ? COLLAPSE_TO_LEFT : COLLAPSE_TO_RIGHT;
     };
     var createCollapsedNode = function (doc, target, collapseDirection) {
       var r = doc.dom().createRange();
@@ -7932,7 +7932,7 @@
     var isOverlapping = function (bridge, before, after) {
       var beforeBounds = bridge.getRect(before);
       var afterBounds = bridge.getRect(after);
-      return afterBounds.right > beforeBounds.left && afterBounds.left < beforeBounds.right;
+      return afterBounds.right > beforeBounds.left && afterBounds.left <beforeBounds.right;
     };
     var isRow = function (elem) {
       return closest$1(elem, 'tr');
@@ -8101,7 +8101,7 @@
     };
 
     var getPartialBox = function (bridge, element, offset) {
-      if (offset >= 0 && offset < getEnd(element)) {
+      if (offset >= 0 && offset <getEnd(element)) {
         return bridge.getRangedRect(element, offset, element, offset + 1);
       } else if (offset > 0) {
         return bridge.getRangedRect(element, offset - 1, element, offset);
@@ -8149,7 +8149,7 @@
       { retry: ['caret'] }
     ]);
     var isOutside = function (caret, box) {
-      return caret.left() < box.left() || Math.abs(box.right() - caret.left()) < 1 || caret.left() > box.right();
+      return caret.left() <box.left() || Math.abs(box.right() - caret.left()) <1 || caret.left() > box.right();
     };
     var inOutsideBlock = function (bridge, element, caret) {
       return closest(element, DomStructure.isBlock).fold(constant(false), function (cell) {
@@ -8160,7 +8160,7 @@
     };
     var adjustDown = function (bridge, element, guessBox, original, caret) {
       var lowerCaret = Carets.moveDown(caret, JUMP_SIZE);
-      if (Math.abs(guessBox.bottom() - original.bottom()) < 1) {
+      if (Math.abs(guessBox.bottom() - original.bottom()) <1) {
         return adt$6.retry(lowerCaret);
       } else if (guessBox.top() > caret.bottom()) {
         return adt$6.retry(lowerCaret);
@@ -8172,9 +8172,9 @@
     };
     var adjustUp = function (bridge, element, guessBox, original, caret) {
       var higherCaret = Carets.moveUp(caret, JUMP_SIZE);
-      if (Math.abs(guessBox.top() - original.top()) < 1) {
+      if (Math.abs(guessBox.top() - original.top()) <1) {
         return adt$6.retry(higherCaret);
-      } else if (guessBox.bottom() < caret.top()) {
+      } else if (guessBox.bottom() <caret.top()) {
         return adt$6.retry(higherCaret);
       } else if (guessBox.bottom() === caret.top()) {
         return adt$6.retry(Carets.moveUp(caret, 1));
@@ -8230,7 +8230,7 @@
     var checkScroll = function (movement, adjusted, bridge) {
       if (movement.point(adjusted) > bridge.getInnerHeight()) {
         return Option.some(movement.point(adjusted) - bridge.getInnerHeight());
-      } else if (movement.point(adjusted) < 0) {
+      } else if (movement.point(adjusted) <0) {
         return Option.some(-movement.point(adjusted));
       } else {
         return Option.none();
@@ -8965,7 +8965,7 @@
             if (name(target) === 'td' || name(target) === 'th') {
               var lT = lastTarget.get();
               var lTS = lastTimeStamp.get();
-              if (eq(lT, target) && t.timeStamp - lTS < 300) {
+              if (eq(lT, target) && t.timeStamp - lTS <300) {
                 t.preventDefault();
                 external(target, target);
               }

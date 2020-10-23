@@ -61,7 +61,7 @@ function ResCarouselSize() {
             var itemsSplit = $(this).attr("data-items").split('-');
             $(this).addClass("ResSlid" + index);
 
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i <4; i++) {
                 if (i == 0) {
                     var styleCollector0 = ".ResSlid" + index + " .item {width: " + 100 / itemsSplit[i] + "%}";
                 } else if (i == 1) {
@@ -119,7 +119,7 @@ function ResCarousel(Btn) {
     //console.log(cond);
     //console.log(typeof + parent.attr("data-slide"))
     itemSpeed = !isNaN(itemSpeed) ? itemSpeed : 400;
-    slide = slide < dataItm ? slide : dataItm;
+    slide = slide <dataItm ? slide : dataItm;
 
     if (cond) {
         currentSlide = divValue - slide;
@@ -180,14 +180,14 @@ function resCarouselAnimator(parent, direction, start, end, speed, length) {
     //console.log(parent + "," + start + "," + end);
     var val = 5;
     if (direction == 0) {
-        for (var i = start - 1; i < end + 1; i++) {
+        for (var i = start - 1; i <end + 1; i++) {
             val = val * 2;
         }
         val = -val;
     }
     //console.log(length);
     //if (direction == 1) {
-    //    for (var i = start - 1; i < end + 1; i++) {
+    //    for (var i = start - 1; i <end + 1; i++) {
     //        length = length / 2
     //        console.log(length);
     //    }
@@ -195,7 +195,7 @@ function resCarouselAnimator(parent, direction, start, end, speed, length) {
     //}
     //val = direction == 1 ? length : -length;
 
-    for (var i = start - 1; i < end; i++) {
+    for (var i = start - 1; i <end; i++) {
         val = direction == 0 ? val / 2 : val * 2;
         //console.log(val);
         //console.log(parent.find(".item").eq(i).find("h1").text());

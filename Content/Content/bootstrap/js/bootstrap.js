@@ -311,7 +311,7 @@
         , activePos = children.index($active)
         , that = this
 
-      if (pos > (children.length - 1) || pos < 0) return
+      if (pos > (children.length - 1) || pos <0) return
 
       if (this.sliding) {
         return this.$element.one('slid', function () {
@@ -701,7 +701,7 @@
       index = $items.index($items.filter(':focus'))
 
       if (e.keyCode == 38 && index > 0) index--                                        // up
-      if (e.keyCode == 40 && index < $items.length - 1) index++                        // down
+      if (e.keyCode == 40 && index <$items.length - 1) index++                        // down
       if (!~index) index = 0
 
       $items
@@ -1802,7 +1802,7 @@
 
       this.query = this.$element.val()
 
-      if (!this.query || this.query.length < this.options.minLength) {
+      if (!this.query || this.query.length <this.options.minLength) {
         return this.shown ? this.hide() : this
       }
 

@@ -52,7 +52,7 @@
             var result = '';
             var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
             var charactersLength = characters.length;
-            for (var i = 0; i < length; i++) {
+            for (var i = 0; i <length; i++) {
                 result += characters.charAt(Math.floor(Math.random() * charactersLength));
             }
             return result;
@@ -192,7 +192,7 @@
                                 $("#click").click(function () {
                                     var items = @Html.Raw(Json.Encode(Model.items));
             var srt = "";
-            for (var i = 0, l = items.length; i < l; i++) {
+            for (var i = 0, l = items.length; i <l; i++) {
 
                 if (items[i].title === "aboutus") {
                     srt = items[i].content;
@@ -352,7 +352,7 @@
                             $("#click2").click(function () {
                                 var items = @Html.Raw(Json.Encode(Model.items));
                                 var srt = "";
-                                for (var i = 0, l = items.length; i < l; i++) {
+                                for (var i = 0, l = items.length; i <l; i++) {
 
                                     if (items[i].title === "contactus") {
                                         srt = items[i].content;

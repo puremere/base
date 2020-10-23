@@ -43,7 +43,7 @@
     var compose = function (fa, fb) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return fa(fb.apply(null, args));
@@ -244,21 +244,21 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -267,7 +267,7 @@
       return r;
     };
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -277,7 +277,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -295,7 +295,7 @@
     var keys = Object.keys;
     var each$1 = function (obj, f) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         f(x, i);
@@ -447,7 +447,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;
@@ -766,12 +766,12 @@
 
     var Immutable = function () {
       var fields = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         fields[_i] = arguments[_i];
       }
       return function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         if (fields.length !== values.length) {

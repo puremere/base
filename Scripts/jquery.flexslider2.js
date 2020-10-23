@@ -111,7 +111,7 @@
         if (slider.vars.mousewheel) {
           slider.bind('mousewheel', function(event, delta, deltaX, deltaY) {
             event.preventDefault();
-            var target = (delta < 0) ? slider.getTarget('next') : slider.getTarget('prev');
+            var target = (delta <0) ? slider.getTarget('next') : slider.getTarget('prev');
             slider.flexAnimate(target, slider.vars.pauseOnAction);
           });
         }
@@ -169,7 +169,7 @@
                 if( posFromLeft <= 0 && $slide.hasClass( namespace + 'active-slide' ) ) {
                   slider.flexAnimate(slider.getTarget("prev"), true);
                 } else if (!$(slider.vars.asNavFor).data('flexslider').animating && !$slide.hasClass(namespace + "active-slide")) {
-                  slider.direction = (slider.currentItem < target) ? "next" : "prev";
+                  slider.direction = (slider.currentItem <target) ? "next" : "prev";
                   slider.flexAnimate(target, slider.vars.pauseOnAction, false, true, true);
                 }
               });
@@ -190,7 +190,7 @@
                       var $slide = $(this),
                           target = $slide.index();
                       if (!$(slider.vars.asNavFor).data('flexslider').animating && !$slide.hasClass('active')) {
-                          slider.direction = (slider.currentItem < target) ? "next" : "prev";
+                          slider.direction = (slider.currentItem <target) ? "next" : "prev";
                           slider.flexAnimate(target, slider.vars.pauseOnAction, false, true, true);
                       }
                   });
@@ -215,7 +215,7 @@
           slider.controlNavScaffold = $('<ol class="'+ namespace + 'control-nav ' + namespace + type + '"></ol>');
 
           if (slider.pagingCount > 1) {
-            for (var i = 0; i < slider.pagingCount; i++) {
+            for (var i = 0; i <slider.pagingCount; i++) {
               slide = slider.slides.eq(i);
               if ( undefined === slide.attr( 'data-thumb-alt' ) ) { slide.attr( 'data-thumb-alt', '' ); }
               var altText = ( '' !== slide.attr( 'data-thumb-alt' ) ) ? altText = ' alt="' + slide.attr( 'data-thumb-alt' ) + '"' : '';
@@ -441,7 +441,7 @@
               localY = e.touches[0].pageY;
 
               dx = (vertical) ? startX - localY : startX - localX;
-              scrolling = (vertical) ? (Math.abs(dx) < Math.abs(localX - startY)) : (Math.abs(dx) < Math.abs(localY - startY));
+              scrolling = (vertical) ? (Math.abs(dx) <Math.abs(localX - startY)) : (Math.abs(dx) <Math.abs(localY - startY));
 
               var fxms = 500;
 
@@ -449,7 +449,7 @@
                 e.preventDefault();
                 if (!fade && slider.transitions) {
                   if (!slider.vars.animationLoop) {
-                    dx = dx/((slider.currentSlide === 0 && dx < 0 || slider.currentSlide === slider.last && dx > 0) ? (Math.abs(dx)/cwidth+2) : 1);
+                    dx = dx/((slider.currentSlide === 0 && dx <0 || slider.currentSlide === slider.last && dx > 0) ? (Math.abs(dx)/cwidth+2) : 1);
                   }
                   slider.setProps(offset + dx, "setTouch");
                 }
@@ -464,7 +464,7 @@
                 var updateDx = (reverse) ? -dx : dx,
                     target = (updateDx > 0) ? slider.getTarget('next') : slider.getTarget('prev');
 
-                if (slider.canAdvance(target) && (Number(new Date()) - startT < 550 && Math.abs(updateDx) > 50 || Math.abs(updateDx) > cwidth/2)) {
+                if (slider.canAdvance(target) && (Number(new Date()) - startT <550 && Math.abs(updateDx) > 50 || Math.abs(updateDx) > cwidth/2)) {
                   slider.flexAnimate(target, slider.vars.pauseOnAction);
                 } else {
                   if (!fade) { slider.flexAnimate(slider.currentSlide, slider.vars.pauseOnAction, true); }
@@ -520,7 +520,7 @@
                 //Accumulate translations.
                 accDx = accDx + ((vertical) ? transY : transX);
                 dx = accDx;
-                scrolling = (vertical) ? (Math.abs(accDx) < Math.abs(-transX)) : (Math.abs(accDx) < Math.abs(-transY));
+                scrolling = (vertical) ? (Math.abs(accDx) <Math.abs(-transX)) : (Math.abs(accDx) <Math.abs(-transY));
 
                 if(e.detail === e.MSGESTURE_FLAG_INERTIA){
                     setImmediate(function (){
@@ -534,7 +534,7 @@
                     e.preventDefault();
                     if (!fade && slider.transitions) {
                         if (!slider.vars.animationLoop) {
-                            dx = accDx / ((slider.currentSlide === 0 && accDx < 0 || slider.currentSlide === slider.last && accDx > 0) ? (Math.abs(accDx) / cwidth + 2) : 1);
+                            dx = accDx / ((slider.currentSlide === 0 && accDx <0 || slider.currentSlide === slider.last && accDx > 0) ? (Math.abs(accDx) / cwidth + 2) : 1);
                         }
                         slider.setProps(offset + dx, "setTouch");
                     }
@@ -551,7 +551,7 @@
                     var updateDx = (reverse) ? -dx : dx,
                         target = (updateDx > 0) ? slider.getTarget('next') : slider.getTarget('prev');
 
-                    if (slider.canAdvance(target) && (Number(new Date()) - startT < 550 && Math.abs(updateDx) > 50 || Math.abs(updateDx) > cwidth/2)) {
+                    if (slider.canAdvance(target) && (Number(new Date()) - startT <550 && Math.abs(updateDx) > 50 || Math.abs(updateDx) > cwidth/2)) {
                         slider.flexAnimate(target, slider.vars.pauseOnAction);
                     } else {
                         if (!fade) { slider.flexAnimate(slider.currentSlide, slider.vars.pauseOnAction, true); }
@@ -655,7 +655,7 @@
             return 'hidden';
           }
           // otherwise loop over all the known prefixes until we find one
-          for ( var i = 0; i < prefixes.length; i++ ) {
+          for ( var i = 0; i <prefixes.length; i++ ) {
               if ((prefixes[i] + 'Hidden') in document) {
                 return prefixes[i] + 'Hidden';
               }
@@ -678,14 +678,14 @@
         slider.direction = (target > slider.currentSlide) ? "next" : "prev";
       }
 
-      if (asNav && slider.pagingCount === 1) slider.direction = (slider.currentItem < target) ? "next" : "prev";
+      if (asNav && slider.pagingCount === 1) slider.direction = (slider.currentItem <target) ? "next" : "prev";
 
       if (!slider.animating && (slider.canAdvance(target, fromNav) || override) && slider.is(":visible")) {
         if (asNav && withSync) {
           var master = $(slider.vars.asNavFor).data('flexslider');
           slider.atEnd = target === 0 || target === slider.count - 1;
           master.flexAnimate(target, true, false, true, fromNav);
-          slider.direction = (slider.currentItem < target) ? "next" : "prev";
+          slider.direction = (slider.currentItem <target) ? "next" : "prev";
           master.direction = slider.direction;
 
           if (Math.ceil((target + 1)/slider.visible) - 1 !== slider.currentSlide && target !== 0) {
@@ -980,11 +980,11 @@
         slider.minW = (minItems) ? minItems * slider.itemT : slider.w;
         slider.maxW = (maxItems) ? (maxItems * slider.itemT) - slideMargin : slider.w;
         slider.itemW = (slider.minW > slider.w) ? (slider.w - (slideMargin * (minItems - 1)))/minItems :
-                       (slider.maxW < slider.w) ? (slider.w - (slideMargin * (maxItems - 1)))/maxItems :
+                       (slider.maxW <slider.w) ? (slider.w - (slideMargin * (maxItems - 1)))/maxItems :
                        (slider.vars.itemWidth > slider.w) ? slider.w : slider.vars.itemWidth;
 
         slider.visible = Math.floor(slider.w/(slider.itemW));
-        slider.move = (slider.vars.move > 0 && slider.vars.move < slider.visible ) ? slider.vars.move : slider.visible;
+        slider.move = (slider.vars.move > 0 && slider.vars.move <slider.visible ) ? slider.vars.move : slider.visible;
         slider.pagingCount = Math.ceil(((slider.count - slider.visible)/slider.move) + 1);
         slider.last =  slider.pagingCount - 1;
         slider.limit = (slider.pagingCount === 1) ? 0 :
@@ -1004,7 +1004,7 @@
 
       // update currentSlide and slider.animatingTo if necessary
       if (!carousel) {
-        if (pos < slider.currentSlide) {
+        if (pos <slider.currentSlide) {
           slider.currentSlide += 1;
         } else if (pos <= slider.currentSlide && pos !== 0) {
           slider.currentSlide -= 1;
@@ -1016,7 +1016,7 @@
       if (slider.vars.controlNav && !slider.manualControls) {
         if ((action === "add" && !carousel) || slider.pagingCount > slider.controlNav.length) {
           methods.controlNav.update("add");
-        } else if ((action === "remove" && !carousel) || slider.pagingCount < slider.controlNav.length) {
+        } else if ((action === "remove" && !carousel) || slider.pagingCount <slider.controlNav.length) {
           if (carousel && slider.currentSlide > slider.last) {
             slider.currentSlide -= 1;
             slider.animatingTo -= 1;

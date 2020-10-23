@@ -410,7 +410,7 @@
         @{
             int w = Request.Browser.ScreenPixelsWidth;
             int h = Request.Browser.ScreenPixelsHeight;
-            if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+            if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
             {
                 <div id="FLTholderForApp" style="display:none; height: 100%;display:none; position: fixed;top: 0;z-index: 999991;background-color:white;width: 100%;right: 0">
 
@@ -574,7 +574,7 @@
                                         Value = ranges.min.ToString()
 
                                     });
-                                    for (int i = 1; i < 10; i++)
+                                    for (int i = 1; i <10; i++)
                                     {
                                         list.Add(new SelectListItem
                                         {
@@ -1534,7 +1534,7 @@
 
 
 
-                                    if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
+                                    if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
                                         $('#FLTholder').css("height", '');
                                         $('#spaceholder').css("height", '');
                                         $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
@@ -1571,8 +1571,8 @@
 
                                     // alert($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2);
 
-                                    // if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() + $(window).height() < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2)) {
-                                    if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() < bottomline - (pardivheight - $("#spaceholder").height()))) {
+                                    // if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() + $(window).height() <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2)) {
+                                    if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() <bottomline - (pardivheight - $("#spaceholder").height()))) {
                                         $('#FLTholder').css("height", '');
                                         $('#spaceholder').css("height", '');
                                         $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
@@ -1595,14 +1595,14 @@
 
                                     //}
                                     //var myspot = $("#spaceholder").height();
-                                    //if (($(window).scrollTop() < myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
+                                    //if (($(window).scrollTop() <myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
 
 
                                     //    $('#FLTholder').css("height", '');
                                     //    $('#spaceholder').css("height", '')
                                     //    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
                                     //}
-                                    //else if ($(window).scrollTop() < stickyHeaderTop2) {
+                                    //else if ($(window).scrollTop() <stickyHeaderTop2) {
 
 
                                     //    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
@@ -1632,7 +1632,7 @@
             var acc = document.getElementsByClassName("accordion");
             var i;
 
-            for (i = 0; i < acc.length; i++) {
+            for (i = 0; i <acc.length; i++) {
                 var sibdiv = $("#SIBdiv");
                 var sibdivheight = sibdiv.height();
 

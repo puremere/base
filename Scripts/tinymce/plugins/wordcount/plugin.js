@@ -26,7 +26,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -159,7 +159,7 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
@@ -174,7 +174,7 @@
     var getType = function (char) {
       var type = OTHER;
       var setsLength = SETS$1.length;
-      for (var j = 0; j < setsLength; ++j) {
+      for (var j = 0; j <setsLength; ++j) {
         var set = SETS$1[j];
         if (set && set.test(char)) {
           type = j;
@@ -205,7 +205,7 @@
       var type = map[index];
       var nextType = map[index + 1];
       var nextNextType;
-      if (index < 0 || index > map.length - 1 && index !== 0) {
+      if (index <0 || index > map.length - 1 && index !== 0) {
         return false;
       }
       if (type === characterIndices.ALETTER && nextType === characterIndices.ALETTER) {
@@ -265,7 +265,7 @@
     };
     var findWordEnd = function (characters, startIndex) {
       var i;
-      for (i = startIndex; i < characters.length; i++) {
+      for (i = startIndex; i <characters.length; i++) {
         if (WHITESPACE$1.test(characters[i])) {
           break;
         }
@@ -280,7 +280,7 @@
     var findWords = function (chars, sChars, characterMap, options) {
       var words = [];
       var word = [];
-      for (var i = 0; i < characterMap.length; ++i) {
+      for (var i = 0; i <characterMap.length; ++i) {
         word.push(chars[i]);
         if (isWordBoundary(characterMap, i)) {
           var ch = sChars[i];
@@ -311,7 +311,7 @@
       options = __assign(__assign({}, getDefaultOptions()), options);
       var filteredChars = [];
       var extractedChars = [];
-      for (var i = 0; i < chars.length; i++) {
+      for (var i = 0; i <chars.length; i++) {
         var ch = extract(chars[i]);
         if (ch !== zeroWidth) {
           filteredChars.push(chars[i]);

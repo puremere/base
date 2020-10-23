@@ -264,7 +264,7 @@
             },
             toHex: function(h, s, b, a) {
                 var rgb = this.toRGB(h, s, b, a);
-                return '#' + ((1 << 24) | (parseInt(rgb.r) << 16) | (parseInt(rgb.g) << 8) | parseInt(rgb.b)).toString(16).substr(1);
+                return '#' + ((1 <<24) | (parseInt(rgb.r) <<16) | (parseInt(rgb.g) <<8) | parseInt(rgb.b)).toString(16).substr(1);
             },
             toHSL: function(h, s, b, a) {
                 h = h || this.value.h;
@@ -323,23 +323,23 @@
                 };
             },
             HueToRGB: function(p, q, h) {
-                if (h < 0) {
+                if (h <0) {
                     h += 1;
                 } else if (h > 1) {
                     h -= 1;
                 }
-                if ((h * 6) < 1) {
+                if ((h * 6) <1) {
                     return p + (q - p) * h * 6;
-                } else if ((h * 2) < 1) {
+                } else if ((h * 2) <1) {
                     return q;
-                } else if ((h * 3) < 2) {
+                } else if ((h * 3) <2) {
                     return p + (q - p) * ((2 / 3) - h) * 6;
                 } else {
                     return p;
                 }
             },
             HSLtoRGB: function(h, s, l, a) {
-                if (s < 0) {
+                if (s <0) {
                     s = 0;
                 }
                 var q;
@@ -903,7 +903,7 @@
             },
             keyup: function(e) {
                 if ((e.keyCode === 38)) {
-                    if (this.color.value.a < 1) {
+                    if (this.color.value.a <1) {
                         this.color.value.a = Math.round((this.color.value.a + 0.01) * 100) / 100;
                     }
                     this.update(true);

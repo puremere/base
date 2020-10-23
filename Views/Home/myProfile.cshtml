@@ -10,7 +10,7 @@
 <link href="~/Content/profileStyle.css" rel="stylesheet" />
 <script>
    
-    if (window.innerWidth < 950) {
+    if (window.innerWidth <950) {
         var number = "-" + width + "px";
         $("#orderDetailHoLDER").css("margin-right", number);
     }
@@ -723,7 +723,7 @@
                                                     },
                                                     success: function (data) {
 
-                                                        if (window.innerWidth < 950) {
+                                                        if (window.innerWidth <950) {
                                                             $('#detaildiv').html(data);
                                                             $(".back2").css("display", "block")
                                                             $("#productlistHoLDER").css("display", "none")
@@ -808,7 +808,7 @@
                                             },
                                             success: function (data) {
                                              
-                                                if (window.innerWidth < 950) {
+                                                if (window.innerWidth <950) {
                                                     $('#detaildiv').html(data);
                                                     $(".back2").css("display","block")
                                                     $("#productlistHoLDER").css("display", "none")
@@ -1012,7 +1012,7 @@
                 <script>
                     $("#profile").click(function () {
                         $("#orderDetailHoLDER").css("display", "none")
-                        if (window.innerWidth < 950) {
+                        if (window.innerWidth <950) {
                             $("#SECTIONOFIBdiv").css("display", "block");
                             $("#productlistHoLDER").children().hide();
                             $("#userdataSectino").css("display", "block");
@@ -1045,7 +1045,7 @@
                             window.location.href = url;
                         }
                         else {
-                            if (window.innerWidth < 950) {
+                            if (window.innerWidth <950) {
                                 $("#SECTIONOFIBdiv").css("display", "block");
                                 $("#productlistHoLDER").children().hide();
                                 $("#wishlistSection").css("display", "block");
@@ -1082,7 +1082,7 @@
                             window.location.href = url;
                         }
                         else {
-                            if (window.innerWidth < 950) {
+                            if (window.innerWidth <950) {
                                 $("#SECTIONOFIBdiv").css("display", "block");
                                 $("#productlistHoLDER").children().hide();
                                 $("#orderlistSection").css("display", "block");

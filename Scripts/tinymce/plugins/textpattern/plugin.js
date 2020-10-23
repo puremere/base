@@ -31,7 +31,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -42,10 +42,10 @@
       return __assign.apply(this, arguments);
     };
     function __spreadArrays() {
-      for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+      for (var s = 0, i = 0, il = arguments.length; i <il; i++)
         s += arguments[i].length;
-      for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+      for (var r = Array(s), k = 0, i = 0; i <il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j <jl; j++, k++)
           r[k] = a[j];
       return r;
     }
@@ -211,14 +211,14 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
@@ -231,7 +231,7 @@
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -252,7 +252,7 @@
       return acc;
     };
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -261,7 +261,7 @@
       return Option.none();
     };
     var forall = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         var x = xs[i];
         if (pred(x, i) !== true) {
           return false;
@@ -320,7 +320,7 @@
             throw new Error('Wrong number of arguments to case ' + key + '. Expected ' + value.length + ' (' + value + '), got ' + argLength);
           }
           var args = new Array(argLength);
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             args[i] = arguments[i];
           }
           var match = function (branches) {
@@ -686,7 +686,7 @@
 
     var error$1 = function () {
       var args = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         args[_i] = arguments[_i];
       }
       var console = Global.console;
@@ -913,14 +913,14 @@
     };
 
     var generatePath = function (root, node, offset) {
-      if (isText(node) && (offset < 0 || offset > node.data.length)) {
+      if (isText(node) && (offset <0 || offset > node.data.length)) {
         return [];
       }
       var p = [offset];
       var current = node;
       while (current !== root && current.parentNode) {
         var parent_1 = current.parentNode;
-        for (var i = 0; i < parent_1.childNodes.length; i++) {
+        for (var i = 0; i <parent_1.childNodes.length; i++) {
           if (parent_1.childNodes[i] === current) {
             p.push(i);
             break;
@@ -1064,7 +1064,7 @@
       if (substr === '') {
         return true;
       }
-      if (str.length < substr.length) {
+      if (str.length <substr.length) {
         return false;
       }
       var x = str.substr(start, start + substr.length);
@@ -1212,7 +1212,7 @@
         rng.setStart(block, 0);
         rng.setEnd(node, offset);
         var text = rng.toString();
-        for (var i = 0; i < patterns.length; i++) {
+        for (var i = 0; i <patterns.length; i++) {
           var pattern = patterns[i];
           if (!endsWith(text, pattern.end)) {
             continue;
@@ -1349,7 +1349,7 @@
       }
     };
     var checkKeyEvent = function (codes, event, predicate) {
-      for (var i = 0; i < codes.length; i++) {
+      for (var i = 0; i <codes.length; i++) {
         if (predicate(codes[i], event)) {
           return true;
         }

@@ -19,7 +19,7 @@
     var compose = function (fa, fb) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return fa(fb.apply(null, args));
@@ -35,12 +35,12 @@
     };
     function curry(fn) {
       var initialArgs = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
+      for (var _i = 1; _i <arguments.length; _i++) {
         initialArgs[_i - 1] = arguments[_i];
       }
       return function () {
         var restArgs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           restArgs[_i] = arguments[_i];
         }
         var all = initialArgs.concat(restArgs);
@@ -50,7 +50,7 @@
     var not = function (f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return !f.apply(null, args);
@@ -68,7 +68,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -81,20 +81,20 @@
     function __rest(s, e) {
       var t = {};
       for (var p in s)
-        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) <0)
           t[p] = s[p];
       if (s != null && typeof Object.getOwnPropertySymbols === 'function')
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-          if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i <p.length; i++) {
+          if (e.indexOf(p[i]) <0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
             t[p[i]] = s[p[i]];
         }
       return t;
     }
     function __spreadArrays() {
-      for (var s = 0, i = 0, il = arguments.length; i < il; i++)
+      for (var s = 0, i = 0, il = arguments.length; i <il; i++)
         s += arguments[i].length;
-      for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+      for (var r = Array(s), k = 0, i = 0; i <il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j <jl; j++, k++)
           r[k] = a[j];
       return r;
     }
@@ -342,7 +342,7 @@
     var isNumber = isType('number');
     var isArrayOf = function (value, pred) {
       if (isArray(value)) {
-        for (var i = 0, len = value.length; i < len; ++i) {
+        for (var i = 0, len = value.length; i <len; ++i) {
           if (pred(value[i]) !== true) {
             return false;
           }
@@ -366,7 +366,7 @@
       return rawIndexOf(xs, x) > -1;
     };
     var exists = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return true;
@@ -376,14 +376,14 @@
     };
     var range = function (num, f) {
       var r = [];
-      for (var i = 0; i < num; i++) {
+      for (var i = 0; i <num; i++) {
         r.push(f(i));
       }
       return r;
     };
     var chunk = function (array, size) {
       var r = [];
-      for (var i = 0; i < array.length; i += size) {
+      for (var i = 0; i <array.length; i += size) {
         var s = nativeSlice.call(array, i, i + size);
         r.push(s);
       }
@@ -392,14 +392,14 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
@@ -413,7 +413,7 @@
     var partition = function (xs, pred) {
       var pass = [];
       var fail = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         var arr = pred(x, i) ? pass : fail;
         arr.push(x);
@@ -425,7 +425,7 @@
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -446,7 +446,7 @@
       return acc;
     };
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -455,7 +455,7 @@
       return Option.none();
     };
     var findIndex = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(i);
@@ -465,7 +465,7 @@
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -477,7 +477,7 @@
       return flatten(map(xs, f));
     };
     var forall = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         var x = xs[i];
         if (pred(x, i) !== true) {
           return false;
@@ -513,7 +513,7 @@
       return nativeSlice.call(x);
     };
     var findMap = function (arr, f) {
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         var r = f(arr[i], i);
         if (r.isSome()) {
           return r;
@@ -526,7 +526,7 @@
     var hasOwnProperty = Object.hasOwnProperty;
     var each$1 = function (obj, f) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         f(x, i);
@@ -557,7 +557,7 @@
     };
     var find$1 = function (obj, pred) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         if (pred(x, i, obj)) {
@@ -611,7 +611,7 @@
             throw new Error('Wrong number of arguments to case ' + key + '. Expected ' + value.length + ' (' + value + '), got ' + argLength);
           }
           var args = new Array(argLength);
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             args[i] = arguments[i];
           }
           var match = function (branches) {
@@ -661,14 +661,14 @@
     var baseMerge = function (merger) {
       return function () {
         var objects = new Array(arguments.length);
-        for (var i = 0; i < objects.length; i++) {
+        for (var i = 0; i <objects.length; i++) {
           objects[i] = arguments[i];
         }
         if (objects.length === 0) {
           throw new Error('Can\'t merge zero objects');
         }
         var ret = {};
-        for (var j = 0; j < objects.length; j++) {
+        for (var j = 0; j <objects.length; j++) {
           var curObject = objects[j];
           for (var key in curObject) {
             if (hasOwnProperty$1.call(curObject, key)) {
@@ -687,7 +687,7 @@
       var r;
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (!called) {
@@ -1126,7 +1126,7 @@
     var oneOf = function (props) {
       var extract = function (path, strength, val) {
         var errors = [];
-        for (var _i = 0, props_1 = props; _i < props_1.length; _i++) {
+        for (var _i = 0, props_1 = props; _i <props_1.length; _i++) {
           var prop = props_1[_i];
           var res = prop.extract(path, strength, val);
           if (res.stype === SimpleResultType.Value) {
@@ -1469,7 +1469,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;
@@ -1657,7 +1657,7 @@
       if (substr === '') {
         return true;
       }
-      if (str.length < substr.length) {
+      if (str.length <substr.length) {
         return false;
       }
       var x = str.substr(start, start + substr.length);
@@ -1905,7 +1905,7 @@
     var all$1 = function (handlers, f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return foldl(handlers, function (acc, handler) {
@@ -1916,7 +1916,7 @@
     var any = function (handlers, f) {
       return function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         return foldl(handlers, function (acc, handler) {
@@ -1940,7 +1940,7 @@
       });
       var run = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         each(handlers, function (handler) {
@@ -2128,12 +2128,12 @@
 
     var Immutable = function () {
       var fields = [];
-      for (var _i = 0; _i < arguments.length; _i++) {
+      for (var _i = 0; _i <arguments.length; _i++) {
         fields[_i] = arguments[_i];
       }
       return function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         if (fields.length !== values.length) {
@@ -2169,7 +2169,7 @@
     var checkDupes = function (everything) {
       var sorted = sort$1(everything);
       var dupe = find(sorted, function (s, i) {
-        return i < sorted.length - 1 && s === sorted[i + 1];
+        return i <sorted.length - 1 && s === sorted[i + 1];
       });
       dupe.each(function (d) {
         throw new Error('The field: ' + d + ' occurs more than once in the combined fields: [' + sorted.join(', ') + '].');
@@ -2532,7 +2532,7 @@
     var makeApi = function (f) {
       return markAsSketchApi(function (component) {
         var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
+        for (var _i = 1; _i <arguments.length; _i++) {
           rest[_i - 1] = arguments[_i];
         }
         return f.apply(undefined, [component.getApis()].concat([component].concat(rest)));
@@ -2653,9 +2653,9 @@
           if (bIndex === -1) {
             throw new Error('The ordering for ' + label + ' does not have an entry for ' + bKey + '.\nOrder specified: ' + JSON.stringify(order, null, 2));
           }
-          if (aIndex < bIndex) {
+          if (aIndex <bIndex) {
             return -1;
-          } else if (bIndex < aIndex) {
+          } else if (bIndex <aIndex) {
             return 1;
           } else {
             return 0;
@@ -2711,7 +2711,7 @@
       var handler = read(rawHandler);
       return function (component, simulatedEvent) {
         var rest = [];
-        for (var _i = 2; _i < arguments.length; _i++) {
+        for (var _i = 2; _i <arguments.length; _i++) {
           rest[_i - 2] = arguments[_i];
         }
         var args = [
@@ -2984,7 +2984,7 @@
       var css = {};
       var dom = element.dom();
       if (isSupported(dom)) {
-        for (var i = 0; i < dom.style.length; i++) {
+        for (var i = 0; i <dom.style.length; i++) {
           var ruleName = dom.style.item(i);
           css[ruleName] = dom.style[ruleName];
         }
@@ -3516,7 +3516,7 @@
     };
     var descendant = function (scope, predicate) {
       var descend = function (node) {
-        for (var i = 0; i < node.childNodes.length; i++) {
+        for (var i = 0; i <node.childNodes.length; i++) {
           var child_1 = Element.fromDom(node.childNodes[i]);
           if (predicate(child_1)) {
             return Option.some(child_1);
@@ -3741,7 +3741,7 @@
       return field(fieldName, fieldName, presence, valueOf(function (f) {
         return Result.value(function () {
           var args = [];
-          for (var _i = 0; _i < arguments.length; _i++) {
+          for (var _i = 0; _i <arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
           return f.apply(undefined, args);
@@ -3934,7 +3934,7 @@
     var wrapApi = function (bName, apiFunction, apiName) {
       var f = function (component) {
         var rest = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
+        for (var _i = 1; _i <arguments.length; _i++) {
           rest[_i - 1] = arguments[_i];
         }
         var args = [component].concat(rest);
@@ -4241,7 +4241,7 @@
 
     var cycleBy = function (value, delta, min, max) {
       var r = value + delta;
-      return r > max ? min : r < min ? max : r;
+      return r > max ? min : r <min ? max : r;
     };
     var clamp = function (value, min, max) {
       return Math.min(Math.max(value, min), max);
@@ -5003,7 +5003,7 @@
       var children$1 = children(element);
       if (children$1.length === 0) {
         return point(element, offset);
-      } else if (offset < children$1.length) {
+      } else if (offset <children$1.length) {
         return point(children$1[offset], 0);
       } else {
         var last = children$1[children$1.length - 1];
@@ -5064,11 +5064,11 @@
 
     var capRect = function (left, top, width, height) {
       var newLeft = left, newTop = top, newWidth = width, newHeight = height;
-      if (left < 0) {
+      if (left <0) {
         newLeft = 0;
         newWidth = width + left;
       }
-      if (top < 0) {
+      if (top <0) {
         newTop = 0;
         newHeight = height + top;
       }
@@ -6287,14 +6287,14 @@
       var push = function (x) {
         r.push(x);
       };
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         arr[i].each(push);
       }
       return r;
     };
     var sequence = function (arr) {
       var r = [];
-      for (var i = 0; i < arr.length; i++) {
+      for (var i = 0; i <arr.length; i++) {
         var x = arr[i];
         if (x.isSome()) {
           r.push(x.getOrDie());
@@ -6914,7 +6914,7 @@
       var oldColumn = index % numCols;
       return f(oldRow, oldColumn).bind(function (address) {
         var newIndex = address.row() * numCols + address.column();
-        return newIndex >= 0 && newIndex < values.length ? Option.some(values[newIndex]) : Option.none();
+        return newIndex >= 0 && newIndex <values.length ? Option.some(values[newIndex]) : Option.none();
       });
     };
     var cycleHorizontal = function (values, index, numRows, numCols, delta) {
@@ -9221,7 +9221,7 @@
         positionNotifications(notifications);
       };
       var open = function (settings, closeCallback) {
-        var hideCloseButton = !settings.closeButton && settings.timeout && (settings.timeout > 0 || settings.timeout < 0);
+        var hideCloseButton = !settings.closeButton && settings.timeout && (settings.timeout > 0 || settings.timeout <0);
         var close = function () {
           closeCallback();
           InlineView.hide(notificationWrapper);
@@ -9324,7 +9324,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer === null) {
@@ -9349,7 +9349,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer !== null) {
@@ -9448,7 +9448,7 @@
         }
         var text = getText(range);
         var triggerCharIndex = text.lastIndexOf(ch);
-        if (triggerCharIndex !== 0 || stripTriggerChar(text, ch).length < minChars) {
+        if (triggerCharIndex !== 0 || stripTriggerChar(text, ch).length <minChars) {
           return Option.none();
         } else {
           return Option.some({
@@ -9553,7 +9553,7 @@
     };
     var toLeaf = function (node, offset) {
       var children = node.childNodes;
-      if (children.length > 0 && offset < children.length) {
+      if (children.length > 0 && offset <children.length) {
         return toLeaf(children[offset], 0);
       } else if (children.length > 0 && isElement$1(node) && children.length === offset) {
         return toLast(children[children.length - 1]);
@@ -10600,9 +10600,9 @@
     };
     var makeCells = function (labelId, numRows, numCols) {
       var cells = [];
-      for (var i = 0; i < numRows; i++) {
+      for (var i = 0; i <numRows; i++) {
         var row = [];
-        for (var j = 0; j < numCols; j++) {
+        for (var j = 0; j <numCols; j++) {
           row.push(makeCell(i, j, labelId));
         }
         cells.push(row);
@@ -10610,8 +10610,8 @@
       return cells;
     };
     var selectCells = function (cells, selectedRow, selectedColumn, numRows, numColumns) {
-      for (var i = 0; i < numRows; i++) {
-        for (var j = 0; j < numColumns; j++) {
+      for (var i = 0; i <numRows; i++) {
+        for (var j = 0; j <numColumns; j++) {
           Toggling.set(cells[i][j], i <= selectedRow && j <= selectedColumn);
         }
       }
@@ -10831,7 +10831,7 @@
       var localstorage = isString(storageString) ? JSON.parse(storageString) : [];
       var prune = function (list) {
         var diff = max - list.length;
-        return diff < 0 ? list.slice(0, max) : list;
+        return diff <0 ? list.slice(0, max) : list;
       };
       var cache = prune(localstorage);
       var add = function (key) {
@@ -10992,7 +10992,7 @@
         var r = rgba[0], g = rgba[1], b = rgba[2], a = rgba[3];
         return '#' + byteAsHex(r, a) + byteAsHex(g, a) + byteAsHex(b, a);
       };
-      for (var i = 0; i < colorMap.length; i += 2) {
+      for (var i = 0; i <colorMap.length; i += 2) {
         colors.push({
           text: colorMap[i + 1],
           value: asHexColor(colorMap[i]),
@@ -12066,7 +12066,7 @@
       var ref = null;
       var schedule = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         ref = domGlobals.setTimeout(function () {
@@ -12970,7 +12970,7 @@
               }
               return n[i].exports;
             }
-            for (var u = 'function' == typeof require && require, i = 0; i < t.length; i++)
+            for (var u = 'function' == typeof require && require, i = 0; i <t.length; i++)
               o(t[i]);
             return o;
           }
@@ -13071,7 +13071,7 @@
                 while (len) {
                   currentQueue = queue;
                   queue = [];
-                  while (++queueIndex < len) {
+                  while (++queueIndex <len) {
                     if (currentQueue) {
                       currentQueue[queueIndex].run();
                     }
@@ -13086,7 +13086,7 @@
               process.nextTick = function (fun) {
                 var args = new Array(arguments.length - 1);
                 if (arguments.length > 1) {
-                  for (var i = 1; i < arguments.length; i++) {
+                  for (var i = 1; i <arguments.length; i++) {
                     args[i - 1] = arguments[i];
                   }
                 }
@@ -13221,7 +13221,7 @@
                         }
                       });
                     }
-                    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+                    for (var i = 0, len = self._deferreds.length; i <len; i++) {
                       handle(self, self._deferreds[i]);
                     }
                     self._deferreds = null;
@@ -13285,7 +13285,7 @@
                           reject(ex);
                         }
                       }
-                      for (var i = 0; i < args.length; i++) {
+                      for (var i = 0; i <args.length; i++) {
                         res(i, args[i]);
                       }
                     });
@@ -13305,7 +13305,7 @@
                   };
                   Promise.race = function (values) {
                     return new Promise(function (resolve, reject) {
-                      for (var i = 0, len = values.length; i < len; i++) {
+                      for (var i = 0, len = values.length; i <len; i++) {
                         values[i].then(resolve, reject);
                       }
                     });
@@ -13382,7 +13382,7 @@
                 };
                 exports.setImmediate = typeof setImmediate === 'function' ? setImmediate : function (fn) {
                   var id = nextImmediateId++;
-                  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+                  var args = arguments.length <2 ? false : slice.call(arguments, 1);
                   immediateIds[id] = true;
                   nextTick(function onNextTick() {
                     if (immediateIds[id]) {
@@ -14631,7 +14631,7 @@
     };
 
     var reduceBy = function (value, min, max, step) {
-      if (value < min) {
+      if (value <min) {
         return value;
       } else if (value > max) {
         return max;
@@ -14644,7 +14644,7 @@
     var increaseBy = function (value, min, max, step) {
       if (value > max) {
         return value;
-      } else if (value < min) {
+      } else if (value <min) {
         return min;
       } else if (value === max) {
         return max + 1;
@@ -14677,7 +14677,7 @@
       var min = args.min, max = args.max, range = args.range, value = args.value, step = args.step, snap = args.snap, snapStart = args.snapStart, rounded = args.rounded, hasMinEdge = args.hasMinEdge, hasMaxEdge = args.hasMaxEdge, minBound = args.minBound, maxBound = args.maxBound, screenRange = args.screenRange;
       var capMin = hasMinEdge ? min - 1 : min;
       var capMax = hasMaxEdge ? max + 1 : max;
-      if (value < minBound) {
+      if (value <minBound) {
         return capMin;
       } else if (value > maxBound) {
         return capMax;
@@ -14695,7 +14695,7 @@
     };
     var findOffsetOfValue = function (args) {
       var min = args.min, max = args.max, range = args.range, value = args.value, hasMinEdge = args.hasMinEdge, hasMaxEdge = args.hasMaxEdge, maxBound = args.maxBound, maxOffset = args.maxOffset, centerMinEdge = args.centerMinEdge, centerMaxEdge = args.centerMaxEdge;
-      if (value < min) {
+      if (value <min) {
         return hasMinEdge ? 0 : centerMinEdge;
       } else if (value > max) {
         return hasMaxEdge ? maxBound : centerMaxEdge;
@@ -16353,7 +16353,7 @@
         finale.call(this);
       }
       function finale() {
-        for (var _i = 0, _a = this._deferreds; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this._deferreds; _i <_a.length; _i++) {
           var deferred = _a[_i];
           handle.call(this, deferred);
         }
@@ -16400,7 +16400,7 @@
       };
       Promise.all = function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         var args = Array.prototype.slice.call(values.length === 1 && isArray(values[0]) ? values[0] : values);
@@ -16428,7 +16428,7 @@
               reject(ex);
             }
           }
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             res(i, args[i]);
           }
         });
@@ -16448,7 +16448,7 @@
       };
       Promise.race = function (values) {
         return new Promise(function (resolve, reject) {
-          for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
+          for (var _i = 0, values_1 = values; _i <values_1.length; _i++) {
             var value = values_1[_i];
             value.then(resolve, reject);
           }
@@ -16495,11 +16495,11 @@
       var bytesLength = byteCharacters.length;
       var slicesCount = Math.ceil(bytesLength / sliceSize);
       var byteArrays = new Array(slicesCount);
-      for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+      for (var sliceIndex = 0; sliceIndex <slicesCount; ++sliceIndex) {
         var begin = sliceIndex * sliceSize;
         var end = Math.min(begin + sliceSize, bytesLength);
         var bytes = new Array(end - begin);
-        for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
+        for (var offset = begin, i = 0; offset <end; ++i, ++offset) {
           bytes[i] = byteCharacters[offset].charCodeAt(0);
         }
         byteArrays[sliceIndex] = new Uint8Array(bytes);
@@ -16615,7 +16615,7 @@
       var parsedValue = typeof value === 'string' ? parseFloat(value) : value;
       if (parsedValue > max) {
         parsedValue = max;
-      } else if (parsedValue < min) {
+      } else if (parsedValue <min) {
         parsedValue = min;
       }
       return parsedValue;
@@ -16756,13 +16756,13 @@
       var col = [];
       var out = new Array(25);
       var val;
-      for (var i = 0; i < 5; i++) {
-        for (var j = 0; j < 5; j++) {
+      for (var i = 0; i <5; i++) {
+        for (var j = 0; j <5; j++) {
           col[j] = matrix2[j + i * 5];
         }
-        for (var j = 0; j < 5; j++) {
+        for (var j = 0; j <5; j++) {
           val = 0;
-          for (var k = 0; k < 5; k++) {
+          for (var k = 0; k <5; k++) {
             val += matrix1[j + k * 5] * col[k];
           }
           out[j + i * 5] = val;
@@ -16774,7 +16774,7 @@
       var x;
       value = clamp$1(value, -1, 1);
       value *= 100;
-      if (value < 0) {
+      if (value <0) {
         x = 127 + value / 100 * 127;
       } else {
         x = value % 1;
@@ -16886,7 +16886,7 @@
       function applyMatrix(pixelsData, m) {
         var r, g, b, a;
         var data = pixelsData.data, m0 = m[0], m1 = m[1], m2 = m[2], m3 = m[3], m4 = m[4], m5 = m[5], m6 = m[6], m7 = m[7], m8 = m[8], m9 = m[9], m10 = m[10], m11 = m[11], m12 = m[12], m13 = m[13], m14 = m[14], m15 = m[15], m16 = m[16], m17 = m[17], m18 = m[18], m19 = m[19];
-        for (var i = 0; i < data.length; i += 4) {
+        for (var i = 0; i <data.length; i += 4) {
           r = data[i];
           g = data[i + 1];
           b = data[i + 2];
@@ -16913,7 +16913,7 @@
         function clamp(value, min, max) {
           if (value > max) {
             value = max;
-          } else if (value < min) {
+          } else if (value <min) {
             value = min;
           }
           return value;
@@ -16924,13 +16924,13 @@
         var drgba = pOut.data;
         var w = pIn.width;
         var h = pIn.height;
-        for (var y = 0; y < h; y++) {
-          for (var x = 0; x < w; x++) {
+        for (var y = 0; y <h; y++) {
+          for (var x = 0; x <w; x++) {
             var r = 0;
             var g = 0;
             var b = 0;
-            for (var cy = 0; cy < side; cy++) {
-              for (var cx = 0; cx < side; cx++) {
+            for (var cy = 0; cy <side; cy++) {
+              for (var cx = 0; cx <side; cx++) {
                 var scx = clamp(x + cx - halfSide, 0, w - 1);
                 var scy = clamp(y + cy - halfSide, 0, h - 1);
                 var innerOffset = (scy * w + scx) * 4;
@@ -16960,14 +16960,14 @@
         var lookup = new Array(256);
         function applyLookup(pixelsData, lookupData) {
           var data = pixelsData.data;
-          for (var i = 0; i < data.length; i += 4) {
+          for (var i = 0; i <data.length; i += 4) {
             data[i] = lookupData[data[i]];
             data[i + 1] = lookupData[data[i + 1]];
             data[i + 2] = lookupData[data[i + 2]];
           }
           return pixelsData;
         }
-        for (var i = 0; i < lookup.length; i++) {
+        for (var i = 0; i <lookup.length; i++) {
           lookup[i] = colorFn(i, value);
         }
         var pixels = applyLookup(context.getImageData(0, 0, canvas.width, canvas.height), lookup);
@@ -17048,12 +17048,12 @@
       var wRatio = dW / sW;
       var hRatio = dH / sH;
       var scaleCapped = false;
-      if (wRatio < 0.5 || wRatio > 2) {
-        wRatio = wRatio < 0.5 ? 0.5 : 2;
+      if (wRatio <0.5 || wRatio > 2) {
+        wRatio = wRatio <0.5 ? 0.5 : 2;
         scaleCapped = true;
       }
-      if (hRatio < 0.5 || hRatio > 2) {
-        hRatio = hRatio < 0.5 ? 0.5 : 2;
+      if (hRatio <0.5 || hRatio > 2) {
+        hRatio = hRatio <0.5 ? 0.5 : 2;
         scaleCapped = true;
       }
       var scaled = _scale(image, wRatio, hRatio);
@@ -17084,7 +17084,7 @@
       var context = get2dContext(canvas);
       var translateX = 0;
       var translateY = 0;
-      angle = angle < 0 ? 360 + angle : angle;
+      angle = angle <0 ? 360 + angle : angle;
       if (angle === 90 || angle === 270) {
         resize(canvas, canvas.height, canvas.width);
       }
@@ -18441,15 +18441,15 @@
       clientHeight = max(documentElement.clientHeight, body.clientHeight);
       offsetHeight = max(documentElement.offsetHeight, body.offsetHeight);
       return {
-        width: scrollWidth < offsetWidth ? clientWidth : scrollWidth,
-        height: scrollHeight < offsetHeight ? clientHeight : scrollHeight
+        width: scrollWidth <offsetWidth ? clientWidth : scrollWidth,
+        height: scrollHeight <offsetHeight ? clientHeight : scrollHeight
       };
     }
     function updateWithTouchData(e) {
       var keys, i;
       if (e.changedTouches) {
         keys = 'screenX screenY pageX pageY clientX clientY'.split(' ');
-        for (i = 0; i < keys.length; i++) {
+        for (i = 0; i <keys.length; i++) {
           e[keys[i]] = e.changedTouches[0][keys[i]];
         }
       }
@@ -18606,10 +18606,10 @@
         y += deltaY * handle.deltaY;
         w += deltaX * handle.deltaW;
         h += deltaY * handle.deltaH;
-        if (w < 20) {
+        if (w <20) {
           w = 20;
         }
-        if (h < 20) {
+        if (h <20) {
           h = 20;
         }
         rect = currentRect = global$c.clamp({
@@ -18697,10 +18697,10 @@
       }
       function repaint(rect) {
         function updateElementRect(name, rect) {
-          if (rect.h < 0) {
+          if (rect.h <0) {
             rect.h = 0;
           }
-          if (rect.w < 0) {
+          if (rect.w <0) {
             rect.w = 0;
           }
           global$b('#' + id + '-' + name, containerElm).css({
@@ -19077,7 +19077,7 @@
         return index > 0;
       }
       function canRedo() {
-        return index !== -1 && index < data.length - 1;
+        return index !== -1 && index <data.length - 1;
       }
       return {
         data: data,
@@ -24991,7 +24991,7 @@
       contextualInfo.onHide(component);
     };
     var isPartiallyVisible = function (box, viewport) {
-      return box.y() < viewport.bottom() && box.bottom() > viewport.y();
+      return box.y() <viewport.bottom() && box.bottom() > viewport.y();
     };
     var isTopCompletelyVisible = function (box, viewport) {
       return box.y() >= viewport.y();
@@ -25287,9 +25287,9 @@
       var editorHeaderHeight = get$6(containerHeader);
       var editorHeaderTop = editorHeaderPos.top();
       var editorHeaderBottom = editorHeaderTop + editorHeaderHeight;
-      var editorHeaderDockedAtTop = Math.abs(editorHeaderTop - scrollPos.top()) < 2;
-      var editorHeaderDockedAtBottom = Math.abs(editorHeaderBottom - (scrollPos.top() + viewHeight)) < 2;
-      if (editorHeaderDockedAtTop && markerTop < editorHeaderBottom) {
+      var editorHeaderDockedAtTop = Math.abs(editorHeaderTop - scrollPos.top()) <2;
+      var editorHeaderDockedAtBottom = Math.abs(editorHeaderBottom - (scrollPos.top() + viewHeight)) <2;
+      if (editorHeaderDockedAtTop && markerTop <editorHeaderBottom) {
         to(scrollPos.left(), markerTop - editorHeaderHeight, doc);
       } else if (editorHeaderDockedAtBottom && markerBottom > editorHeaderTop) {
         var y = markerTop - viewHeight + markerHeight + editorHeaderHeight;
@@ -26487,7 +26487,7 @@
     };
     var calcCappedSize = function (size, minSize, maxSize) {
       var minOverride = minSize.filter(function (min) {
-        return size < min;
+        return size <min;
       });
       var maxOverride = maxSize.filter(function (max) {
         return size > max;
@@ -27212,7 +27212,7 @@
     };
     var isTouchWithinSelection = function (editor, e) {
       var selection = editor.selection;
-      if (selection.isCollapsed() || e.touches.length < 1) {
+      if (selection.isCollapsed() || e.touches.length <1) {
         return false;
       } else {
         var touch_1 = e.touches[0];
@@ -28177,7 +28177,7 @@
         var snap = getSnapConfig(cell);
         Dragging.snapTo(selector, snap);
         var isAbove = function (rect) {
-          return rect[pos] < 0;
+          return rect[pos] <0;
         };
         var isBelow = function (rect, viewportHeight) {
           return rect[pos] > viewportHeight;
@@ -29741,7 +29741,7 @@
       return head(sort(heights, function (a, b) {
         if (a > b) {
           return -1;
-        } else if (a < b) {
+        } else if (a <b) {
           return +1;
         } else {
           return 0;

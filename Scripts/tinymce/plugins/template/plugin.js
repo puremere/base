@@ -20,12 +20,12 @@
     };
     function curry(fn) {
       var initialArgs = [];
-      for (var _i = 1; _i < arguments.length; _i++) {
+      for (var _i = 1; _i <arguments.length; _i++) {
         initialArgs[_i - 1] = arguments[_i];
       }
       return function () {
         var restArgs = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           restArgs[_i] = arguments[_i];
         }
         var all = initialArgs.concat(restArgs);
@@ -76,8 +76,8 @@
 
     var addZeros = function (value, len) {
       value = '' + value;
-      if (value.length < len) {
-        for (var i = 0; i < len - value.length; i++) {
+      if (value.length <len) {
+        for (var i = 0; i <len - value.length; i++) {
           value = '0' + value;
         }
       }
@@ -99,7 +99,7 @@
       fmt = fmt.replace('%M', '' + addZeros(date.getMinutes(), 2));
       fmt = fmt.replace('%S', '' + addZeros(date.getSeconds(), 2));
       fmt = fmt.replace('%I', '' + ((date.getHours() + 11) % 12 + 1));
-      fmt = fmt.replace('%p', '' + (date.getHours() < 12 ? 'AM' : 'PM'));
+      fmt = fmt.replace('%p', '' + (date.getHours() <12 ? 'AM' : 'PM'));
       fmt = fmt.replace('%B', '' + editor.translate(monthsLong[date.getMonth()]));
       fmt = fmt.replace('%b', '' + editor.translate(monthsShort[date.getMonth()]));
       fmt = fmt.replace('%A', '' + editor.translate(daysLong[date.getDay()]));
@@ -341,14 +341,14 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);

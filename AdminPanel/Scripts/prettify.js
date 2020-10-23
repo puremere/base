@@ -252,7 +252,7 @@ var prettyPrint;
   
     var needToFoldCase = false;
     var ignoreCase = false;
-    for (var i = 0, n = regexs.length; i < n; ++i) {
+    for (var i = 0, n = regexs.length; i <n; ++i) {
       var regex = regexs[i];
       if (regex.ignoreCase) {
         ignoreCase = true;
@@ -292,8 +292,8 @@ var prettyPrint;
     }
   
     function encodeEscape(charCode) {
-      if (charCode < 0x20) {
-        return (charCode < 0x10 ? '\\x0' : '\\x') + charCode.toString(16);
+      if (charCode <0x20) {
+        return (charCode <0x10 ? '\\x0' : '\\x') + charCode.toString(16);
       }
       var ch = String.fromCharCode(charCode);
       return (ch === '\\' || ch === '-' || ch === ']' || ch === '^')
@@ -317,14 +317,14 @@ var prettyPrint;
       var out = ['['];
       if (inverse) { out.push('^'); }
   
-      for (var i = inverse ? 1 : 0, n = charsetParts.length; i < n; ++i) {
+      for (var i = inverse ? 1 : 0, n = charsetParts.length; i <n; ++i) {
         var p = charsetParts[i];
         if (/\\[bdsw]/i.test(p)) {  // Don't muck with named groups.
           out.push(p);
         } else {
           var start = decodeEscape(p);
           var end;
-          if (i + 2 < n && '-' === charsetParts[i + 1]) {
+          if (i + 2 <n && '-' === charsetParts[i + 1]) {
             end = decodeEscape(charsetParts[i + 2]);
             i += 2;
           } else {
@@ -335,11 +335,11 @@ var prettyPrint;
           // This case handling is too simplistic.
           // It does not deal with non-latin case folding.
           // It works for latin source code identifiers though.
-          if (!(end < 65 || start > 122)) {
-            if (!(end < 65 || start > 90)) {
+          if (!(end <65 || start > 122)) {
+            if (!(end <65 || start > 90)) {
               ranges.push([Math.max(65, start) | 32, Math.min(end, 90) | 32]);
             }
-            if (!(end < 97 || start > 122)) {
+            if (!(end <97 || start > 122)) {
               ranges.push([Math.max(97, start) & ~32, Math.min(end, 122) & ~32]);
             }
           }
@@ -351,7 +351,7 @@ var prettyPrint;
       ranges.sort(function (a, b) { return (a[0] - b[0]) || (b[1]  - a[1]); });
       var consolidatedRanges = [];
       var lastRange = [];
-      for (var i = 0; i < ranges.length; ++i) {
+      for (var i = 0; i <ranges.length; ++i) {
         var range = ranges[i];
         if (range[0] <= lastRange[1] + 1) {
           lastRange[1] = Math.max(lastRange[1], range[1]);
@@ -360,7 +360,7 @@ var prettyPrint;
         }
       }
   
-      for (var i = 0; i < consolidatedRanges.length; ++i) {
+      for (var i = 0; i <consolidatedRanges.length; ++i) {
         var range = consolidatedRanges[i];
         out.push(encodeEscape(range[0]));
         if (range[1] > range[0]) {
@@ -398,7 +398,7 @@ var prettyPrint;
   
       // Walk over and identify back references to build the capturedGroups
       // mapping.
-      for (var i = 0, groupIndex = 0; i < n; ++i) {
+      for (var i = 0, groupIndex = 0; i <n; ++i) {
         var p = parts[i];
         if (p === '(') {
           // groups are 1-indexed, so max group index is count of '('
@@ -420,12 +420,12 @@ var prettyPrint;
   
       // Renumber groups and reduce capturing groups to non-capturing groups
       // where possible.
-      for (var i = 1; i < capturedGroups.length; ++i) {
+      for (var i = 1; i <capturedGroups.length; ++i) {
         if (-1 === capturedGroups[i]) {
           capturedGroups[i] = ++capturedGroupIndex;
         }
       }
-      for (var i = 0, groupIndex = 0; i < n; ++i) {
+      for (var i = 0, groupIndex = 0; i <n; ++i) {
         var p = parts[i];
         if (p === '(') {
           ++groupIndex;
@@ -442,14 +442,14 @@ var prettyPrint;
   
       // Remove any prefix anchors so that the output will match anywhere.
       // ^^ really does mean an anchored match though.
-      for (var i = 0; i < n; ++i) {
+      for (var i = 0; i <n; ++i) {
         if ('^' === parts[i] && '^' !== parts[i + 1]) { parts[i] = ''; }
       }
   
       // Expand letters to groups to handle mixing of case-sensitive and
       // case-insensitive patterns if necessary.
       if (regex.ignoreCase && needToFoldCase) {
-        for (var i = 0; i < n; ++i) {
+        for (var i = 0; i <n; ++i) {
           var p = parts[i];
           var ch0 = p.charAt(0);
           if (p.length >= 2 && ch0 === '[') {
@@ -470,7 +470,7 @@ var prettyPrint;
     }
   
     var rewritten = [];
-    for (var i = 0, n = regexs.length; i < n; ++i) {
+    for (var i = 0, n = regexs.length; i <n; ++i) {
       var regex = regexs[i];
       if (regex.global || regex.multiline) { throw new Error('' + regex); }
       rewritten.push(
@@ -543,8 +543,8 @@ var prettyPrint;
         var nodeName = node.nodeName.toLowerCase();
         if ('br' === nodeName || 'li' === nodeName) {
           chunks[k] = '\n';
-          spans[k << 1] = length++;
-          spans[(k++ << 1) | 1] = node;
+          spans[k <<1] = length++;
+          spans[(k++ <<1) | 1] = node;
         }
       } else if (type == 3 || type == 4) {  // Text
         var text = node.nodeValue;
@@ -556,9 +556,9 @@ var prettyPrint;
           }
           // TODO: handle tabs here?
           chunks[k] = text;
-          spans[k << 1] = length;
+          spans[k <<1] = length;
           length += text.length;
-          spans[(k++ << 1) | 1] = node;
+          spans[(k++ <<1) | 1] = node;
         }
       }
     }
@@ -666,7 +666,7 @@ var prettyPrint;
       var allPatterns = shortcutStylePatterns.concat(fallthroughStylePatterns);
       var allRegexs = [];
       var regexKeys = {};
-      for (var i = 0, n = allPatterns.length; i < n; ++i) {
+      for (var i = 0, n = allPatterns.length; i <n; ++i) {
         var patternParts = allPatterns[i];
         var shortcutChars = patternParts[3];
         if (shortcutChars) {
@@ -710,7 +710,7 @@ var prettyPrint;
       var tokens = sourceCode.match(tokenizer) || [];
       var styleCache = {};
 
-      for (var ti = 0, nTokens = tokens.length; ti < nTokens; ++ti) {
+      for (var ti = 0, nTokens = tokens.length; ti <nTokens; ++ti) {
         var token = tokens[ti];
         var style = styleCache[token];
         var match = void 0;
@@ -724,7 +724,7 @@ var prettyPrint;
             match = token.match(patternParts[1]);
             style = patternParts[0];
           } else {
-            for (var i = 0; i < nPatterns; ++i) {
+            for (var i = 0; i <nPatterns; ++i) {
               patternParts = fallthroughStylePatterns[i];
               match = token.match(patternParts[1]);
               if (match) {
@@ -908,7 +908,7 @@ var prettyPrint;
       // A word is a sequence of characters considered as a single
       // unit by GRUB. Words are separated by metacharacters,
       // which are the following plus space, tab, and newline: { }
-      // | & $ ; < >
+      // | & $ ; <>
       // ...
       
       // A word beginning with # causes that word and all remaining
@@ -1083,7 +1083,7 @@ var prettyPrint;
   
     // Split lines while there are lines left to split.
     for (var i = 0;  // Number of lines that have been split so far.
-         i < listItems.length;  // length updated by breakAfter calls.
+         i <listItems.length;  // length updated by breakAfter calls.
          ++i) {
       walk(listItems[i]);
     }
@@ -1096,7 +1096,7 @@ var prettyPrint;
     var ol = document.createElement('ol');
     ol.className = 'linenums';
     var offset = Math.max(0, ((opt_startLineNum - 1 /* zero index */)) | 0) || 0;
-    for (var i = 0, n = listItems.length; i < n; ++i) {
+    for (var i = 0, n = listItems.length; i <n; ++i) {
       li = listItems[i];
       // Stick a class on the LIs so that stylesheets can
       // color odd/even rows, or any other row pattern that
@@ -1148,7 +1148,7 @@ var prettyPrint;
     // Remove all zero-length decorations.
     decorations[nDecorations] = sourceLength;
     var decPos, i;
-    for (i = decPos = 0; i < nDecorations;) {
+    for (i = decPos = 0; i <nDecorations;) {
       if (decorations[i] !== decorations[i + 2]) {
         decorations[decPos++] = decorations[i++];
         decorations[decPos++] = decorations[i++];
@@ -1159,7 +1159,7 @@ var prettyPrint;
     nDecorations = decPos;
   
     // Simplify decorations.
-    for (i = decPos = 0; i < nDecorations;) {
+    for (i = decPos = 0; i <nDecorations;) {
       var startPos = decorations[i];
       // Conflate all adjacent decorations that use the same style.
       var startDec = decorations[i + 1];
@@ -1182,7 +1182,7 @@ var prettyPrint;
     }
     try {
       var decoration = null;
-      while (spanIndex < nSpans) {
+      while (spanIndex <nSpans) {
         var spanStart = spans[spanIndex];
         var spanEnd = spans[spanIndex + 2] || sourceLength;
   
@@ -1210,7 +1210,7 @@ var prettyPrint;
           var parentNode = textNode.parentNode;
           parentNode.replaceChild(span, textNode);
           span.appendChild(textNode);
-          if (sourceIndex < spanEnd) {  // Split off a text node.
+          if (sourceIndex <spanEnd) {  // Split off a text node.
             spans[spanIndex + 1] = textNode
                 // TODO: Possibly optimize by using '' if there's no flicker.
                 = document.createTextNode(source.substring(end, spanEnd));
@@ -1264,7 +1264,7 @@ var prettyPrint;
   }
   function langHandlerForExtension(extension, source) {
     if (!(extension && langHandlerRegistry.hasOwnProperty(extension))) {
-      // Treat it as markup if the first non whitespace character is a < and
+      // Treat it as markup if the first non whitespace character is a <and
       // the last non-whitespace character is a >.
       extension = /^\s*</.test(source)
           ? 'default-markup'
@@ -1451,8 +1451,8 @@ var prettyPrint;
     // fetch a list of nodes to rewrite
     var codeSegments = [byTagName('pre'), byTagName('code'), byTagName('xmp')];
     var elements = [];
-    for (var i = 0; i < codeSegments.length; ++i) {
-      for (var j = 0, n = codeSegments[i].length; j < n; ++j) {
+    for (var i = 0; i <codeSegments.length; ++i) {
+      for (var j = 0, n = codeSegments[i].length; j <n; ++j) {
         elements.push(codeSegments[i][j]);
       }
     }
@@ -1480,7 +1480,7 @@ var prettyPrint;
       var endTime = (win['PR_SHOULD_USE_CONTINUATION'] ?
                      clock['now']() + 250 /* ms */ :
                      Infinity);
-      for (; k < elements.length && clock['now']() < endTime; k++) {
+      for (; k <elements.length && clock['now']() <endTime; k++) {
         var cs = elements[k];
 
         // Look for a preceding comment like
@@ -1593,7 +1593,7 @@ var prettyPrint;
           }
         }
       }
-      if (k < elements.length) {
+      if (k <elements.length) {
         // finish up in a continuation
         setTimeout(doWork, 250);
       } else if ('function' === typeof opt_whenDone) {

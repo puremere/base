@@ -168,7 +168,7 @@
 
                             // Can also be used with $(document).ready()
                             $(window).load(function () {
-                                if ($(window).width() < 960) {
+                                if ($(window).width() <960) {
                                     $('.flexslider').flexslider({
                                         animation: "slide",
                                         controlNav: false,
@@ -401,7 +401,7 @@
     @{
         int w = Request.Browser.ScreenPixelsWidth;
         int h = Request.Browser.ScreenPixelsHeight;
-        if (!Request.Browser.IsMobileDevice || !(w < 720 && h > 720))
+        if (!Request.Browser.IsMobileDevice || !(w <720 && h > 720))
         {
             <div id="dataholder" class="col-md-8 col-lg-8 col-sm-12 single-right-left simpleCart_shelfItem animated wow slideInRight animated" style="border-right:1px solid #dedede; padding-bottom: 10px; direction: rtl; float: left; background-color: #fdfdfd; visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;" data-wow-delay=".5s">
 
@@ -529,7 +529,7 @@
                                                             foreach (var it in Model.otherColors)
                                                             {
 
-                                                                if (i < 5)
+                                                                if (i <5)
                                                                 {
                                                                     var ID = "o" + @it.ID;
 
@@ -730,7 +730,7 @@
 
 @{
     
-    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+    if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
     {
         <div id="appp">
             <script>
@@ -1067,18 +1067,18 @@
                                                     lst2.Add(Model.feature.IndexOf(item));
                                                 }
                                             }
-                                            for (int i = 0; i < lst2.Count(); i++)
+                                            for (int i = 0; i <lst2.Count(); i++)
                                             {
                                                 int j = i + 1;
                                                 int myindex = lst2[i];
                                                 <section>
                                                     <h3 class="c-params__title">@Model.feature[myindex].title</h3>
                                                     <ul class="c-params__list">
-                                                        @if (j < lst2.Count())
+                                                        @if (j <lst2.Count())
                                                         {
                                                             foreach (var item in Model.feature)
                                                             {
-                                                                if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) < lst2[j])
+                                                                if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) <lst2[j])
                                                                 {
                                                                     <li>
                                                                         <div class="c-params__list-key">
@@ -1496,18 +1496,18 @@
                                                         lst2.Add(Model.feature.IndexOf(item));
                                                     }
                                                 }
-                                                for (int i = 0; i < lst2.Count(); i++)
+                                                for (int i = 0; i <lst2.Count(); i++)
                                                 {
                                                     int j = i + 1;
                                                     int myindex = lst2[i];
                                                     <section>
                                                         <h3 class="c-params__title">@Model.feature[myindex].title</h3>
                                                         <ul class="c-params__list">
-                                                            @if (j < lst2.Count())
+                                                            @if (j <lst2.Count())
                                                             {
                                                                 foreach (var item in Model.feature)
                                                                 {
-                                                                    if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) < lst2[j])
+                                                                    if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) <lst2[j])
                                                                     {
                                                                         <li>
                                                                             <div class="c-params__list-key">
@@ -2061,7 +2061,7 @@
 <script>
     $(document).ready(function () {
 
-        if ($(window).width() < 960) {
+        if ($(window).width() <960) {
 
 
             $(".slidone div").height($(window).height() / 3);

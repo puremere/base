@@ -295,7 +295,7 @@ $.extend( $.ui, {
 				return;
 			}
 	
-			for ( var i = 0; i < set.length; i++ ) {
+			for ( var i = 0; i <set.length; i++ ) {
 				if ( instance.options[ set[ i ][ 0 ] ] ) {
 					set[ i ][ 1 ].apply( instance.element, args );
 				}
@@ -337,7 +337,7 @@ $.extend( $.ui, {
 	// these are odd functions, fix the API or move into individual plugins
 	isOverAxis: function( x, reference, size ) {
 		//Determines when x coordinate is over "b" element axis
-		return ( x > reference ) && ( x < ( reference + size ) );
+		return ( x > reference ) && ( x <( reference + size ) );
 	},
 	isOver: function( y, x, top, left, height, width ) {
 		//Determines when x, y coordinates is over "b" element
@@ -1163,13 +1163,13 @@ $.widget("ui.draggable", $.ui.mouse, {
 				pos.top																	// The absolute mouse position
 				+ this.offset.relative.top * mod										// Only for relative positioned nodes: Relative offset from element to offset parent
 				+ this.offset.parent.top * mod											// The offsetParent's offset without borders (offset + border)
-				- ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ) * mod)
+				- ($.browser.safari && $.browser.version <526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ) * mod)
 			),
 			left: (
 				pos.left																// The absolute mouse position
 				+ this.offset.relative.left * mod										// Only for relative positioned nodes: Relative offset from element to offset parent
 				+ this.offset.parent.left * mod											// The offsetParent's offset without borders (offset + border)
-				- ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ) * mod)
+				- ($.browser.safari && $.browser.version <526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ) * mod)
 			)
 		};
 
@@ -1200,8 +1200,8 @@ $.widget("ui.draggable", $.ui.mouse, {
 				     containment = this.containment;
 				 }
 
-				if(event.pageX - this.offset.click.left < containment[0]) pageX = containment[0] + this.offset.click.left;
-				if(event.pageY - this.offset.click.top < containment[1]) pageY = containment[1] + this.offset.click.top;
+				if(event.pageX - this.offset.click.left <containment[0]) pageX = containment[0] + this.offset.click.left;
+				if(event.pageY - this.offset.click.top <containment[1]) pageY = containment[1] + this.offset.click.top;
 				if(event.pageX - this.offset.click.left > containment[2]) pageX = containment[2] + this.offset.click.left;
 				if(event.pageY - this.offset.click.top > containment[3]) pageY = containment[3] + this.offset.click.top;
 			}
@@ -1209,10 +1209,10 @@ $.widget("ui.draggable", $.ui.mouse, {
 			if(o.grid) {
 				//Check for grid elements set to 0 to prevent divide by 0 error causing invalid argument errors in IE (see ticket #6950)
 				var top = o.grid[1] ? this.originalPageY + Math.round((pageY - this.originalPageY) / o.grid[1]) * o.grid[1] : this.originalPageY;
-				pageY = containment ? (!(top - this.offset.click.top < containment[1] || top - this.offset.click.top > containment[3]) ? top : (!(top - this.offset.click.top < containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
+				pageY = containment ? (!(top - this.offset.click.top <containment[1] || top - this.offset.click.top > containment[3]) ? top : (!(top - this.offset.click.top <containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
 
 				var left = o.grid[0] ? this.originalPageX + Math.round((pageX - this.originalPageX) / o.grid[0]) * o.grid[0] : this.originalPageX;
-				pageX = containment ? (!(left - this.offset.click.left < containment[0] || left - this.offset.click.left > containment[2]) ? left : (!(left - this.offset.click.left < containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
+				pageX = containment ? (!(left - this.offset.click.left <containment[0] || left - this.offset.click.left > containment[2]) ? left : (!(left - this.offset.click.left <containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
 			}
 
 		}
@@ -1223,14 +1223,14 @@ $.widget("ui.draggable", $.ui.mouse, {
 				- this.offset.click.top													// Click offset (relative to the element)
 				- this.offset.relative.top												// Only for relative positioned nodes: Relative offset from element to offset parent
 				- this.offset.parent.top												// The offsetParent's offset without borders (offset + border)
-				+ ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ))
+				+ ($.browser.safari && $.browser.version <526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollTop() : ( scrollIsRootNode ? 0 : scroll.scrollTop() ) ))
 			),
 			left: (
 				pageX																// The absolute mouse position
 				- this.offset.click.left												// Click offset (relative to the element)
 				- this.offset.relative.left												// Only for relative positioned nodes: Relative offset from element to offset parent
 				- this.offset.parent.left												// The offsetParent's offset without borders (offset + border)
-				+ ($.browser.safari && $.browser.version < 526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ))
+				+ ($.browser.safari && $.browser.version <526 && this.cssPosition == 'fixed' ? 0 : ( this.cssPosition == 'fixed' ? -this.scrollParent.scrollLeft() : scrollIsRootNode ? 0 : scroll.scrollLeft() ))
 			)
 		};
 
@@ -1446,32 +1446,32 @@ $.ui.plugin.add("draggable", "scroll", {
 		if(i.scrollParent[0] != document && i.scrollParent[0].tagName != 'HTML') {
 
 			if(!o.axis || o.axis != 'x') {
-				if((i.overflowOffset.top + i.scrollParent[0].offsetHeight) - event.pageY < o.scrollSensitivity)
+				if((i.overflowOffset.top + i.scrollParent[0].offsetHeight) - event.pageY <o.scrollSensitivity)
 					i.scrollParent[0].scrollTop = scrolled = i.scrollParent[0].scrollTop + o.scrollSpeed;
-				else if(event.pageY - i.overflowOffset.top < o.scrollSensitivity)
+				else if(event.pageY - i.overflowOffset.top <o.scrollSensitivity)
 					i.scrollParent[0].scrollTop = scrolled = i.scrollParent[0].scrollTop - o.scrollSpeed;
 			}
 
 			if(!o.axis || o.axis != 'y') {
-				if((i.overflowOffset.left + i.scrollParent[0].offsetWidth) - event.pageX < o.scrollSensitivity)
+				if((i.overflowOffset.left + i.scrollParent[0].offsetWidth) - event.pageX <o.scrollSensitivity)
 					i.scrollParent[0].scrollLeft = scrolled = i.scrollParent[0].scrollLeft + o.scrollSpeed;
-				else if(event.pageX - i.overflowOffset.left < o.scrollSensitivity)
+				else if(event.pageX - i.overflowOffset.left <o.scrollSensitivity)
 					i.scrollParent[0].scrollLeft = scrolled = i.scrollParent[0].scrollLeft - o.scrollSpeed;
 			}
 
 		} else {
 
 			if(!o.axis || o.axis != 'x') {
-				if(event.pageY - $(document).scrollTop() < o.scrollSensitivity)
+				if(event.pageY - $(document).scrollTop() <o.scrollSensitivity)
 					scrolled = $(document).scrollTop($(document).scrollTop() - o.scrollSpeed);
-				else if($(window).height() - (event.pageY - $(document).scrollTop()) < o.scrollSensitivity)
+				else if($(window).height() - (event.pageY - $(document).scrollTop()) <o.scrollSensitivity)
 					scrolled = $(document).scrollTop($(document).scrollTop() + o.scrollSpeed);
 			}
 
 			if(!o.axis || o.axis != 'y') {
-				if(event.pageX - $(document).scrollLeft() < o.scrollSensitivity)
+				if(event.pageX - $(document).scrollLeft() <o.scrollSensitivity)
 					scrolled = $(document).scrollLeft($(document).scrollLeft() - o.scrollSpeed);
-				else if($(window).width() - (event.pageX - $(document).scrollLeft()) < o.scrollSensitivity)
+				else if($(window).width() - (event.pageX - $(document).scrollLeft()) <o.scrollSensitivity)
 					scrolled = $(document).scrollLeft($(document).scrollLeft() + o.scrollSpeed);
 			}
 
@@ -1513,7 +1513,7 @@ $.ui.plugin.add("draggable", "snap", {
 				t = inst.snapElements[i].top, b = t + inst.snapElements[i].height;
 
 			//Yes, I know, this is insane ;)
-			if(!((l-d < x1 && x1 < r+d && t-d < y1 && y1 < b+d) || (l-d < x1 && x1 < r+d && t-d < y2 && y2 < b+d) || (l-d < x2 && x2 < r+d && t-d < y1 && y1 < b+d) || (l-d < x2 && x2 < r+d && t-d < y2 && y2 < b+d))) {
+			if(!((l-d <x1 && x1 <r+d && t-d <y1 && y1 <b+d) || (l-d <x1 && x1 <r+d && t-d <y2 && y2 <b+d) || (l-d <x2 && x2 <r+d && t-d <y1 && y1 <b+d) || (l-d <x2 && x2 <r+d && t-d <y2 && y2 <b+d))) {
 				if(inst.snapElements[i].snapping) (inst.options.snap.release && inst.options.snap.release.call(inst.element, event, $.extend(inst._uiHash(), { snapItem: inst.snapElements[i].item })));
 				inst.snapElements[i].snapping = false;
 				continue;
@@ -1621,7 +1621,7 @@ $.widget("ui.droppable", {
 
 	destroy: function() {
 		var drop = $.ui.ddmanager.droppables[this.options.scope];
-		for ( var i = 0; i < drop.length; i++ )
+		for ( var i = 0; i <drop.length; i++ )
 			if ( drop[i] == this )
 				drop.splice(i, 1);
 
@@ -1738,10 +1738,10 @@ $.ui.intersect = function(draggable, droppable, toleranceMode) {
 				&& t <= y1 && y2 <= b);
 			break;
 		case 'intersect':
-			return (l < x1 + (draggable.helperProportions.width / 2) // Right Half
-				&& x2 - (draggable.helperProportions.width / 2) < r // Left Half
-				&& t < y1 + (draggable.helperProportions.height / 2) // Bottom Half
-				&& y2 - (draggable.helperProportions.height / 2) < b ); // Top Half
+			return (l <x1 + (draggable.helperProportions.width / 2) // Right Half
+				&& x2 - (draggable.helperProportions.width / 2) <r // Left Half
+				&& t <y1 + (draggable.helperProportions.height / 2) // Bottom Half
+				&& y2 - (draggable.helperProportions.height / 2) <b ); // Top Half
 			break;
 		case 'pointer':
 			var draggableLeft = ((draggable.positionAbs || draggable.position.absolute).left + (draggable.clickOffset || draggable.offset.click).left),
@@ -1753,11 +1753,11 @@ $.ui.intersect = function(draggable, droppable, toleranceMode) {
 			return (
 					(y1 >= t && y1 <= b) ||	// Top edge touching
 					(y2 >= t && y2 <= b) ||	// Bottom edge touching
-					(y1 < t && y2 > b)		// Surrounded vertically
+					(y1 <t && y2 > b)		// Surrounded vertically
 				) && (
 					(x1 >= l && x1 <= r) ||	// Left edge touching
 					(x2 >= l && x2 <= r) ||	// Right edge touching
-					(x1 < l && x2 > r)		// Surrounded horizontally
+					(x1 <l && x2 > r)		// Surrounded horizontally
 				);
 			break;
 		default:
@@ -1779,10 +1779,10 @@ $.ui.ddmanager = {
 		var type = event ? event.type : null; // workaround for #2317
 		var list = (t.currentItem || t.element).find(":data(droppable)").andSelf();
 
-		droppablesLoop: for (var i = 0; i < m.length; i++) {
+		droppablesLoop: for (var i = 0; i <m.length; i++) {
 
 			if(m[i].options.disabled || (t && !m[i].accept.call(m[i].element[0],(t.currentItem || t.element)))) continue;	//No disabled and non-accepted
-			for (var j=0; j < list.length; j++) { if(list[j] == m[i].element[0]) { m[i].proportions.height = 0; continue droppablesLoop; } }; //Filter out elements in the current dragged item
+			for (var j=0; j <list.length; j++) { if(list[j] == m[i].element[0]) { m[i].proportions.height = 0; continue droppablesLoop; } }; //Filter out elements in the current dragged item
 			m[i].visible = m[i].element.css("display") != "none"; if(!m[i].visible) continue; 									//If the element is not visible, continue
 
 			if(type == "mousedown") m[i]._activate.call(m[i], event); //Activate the droppable if used directly from draggables
@@ -1954,7 +1954,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 			if(this.handles == 'all') this.handles = 'n,e,s,w,se,sw,ne,nw';
 			var n = this.handles.split(","); this.handles = {};
 
-			for(var i = 0; i < n.length; i++) {
+			for(var i = 0; i <n.length; i++) {
 
 				var handle = $.trim(n[i]), hname = 'ui-resizable-'+handle;
 				var axis = $('<div class="ui-resizable-handle ' + hname + '"></div>');
@@ -2143,7 +2143,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 		if (!trigger) return false;
 
 		// Calculate the attrs that will be change
-		var data = trigger.apply(this, [event, dx, dy]), ie6 = $.browser.msie && $.browser.version < 7, csdif = this.sizeDiff;
+		var data = trigger.apply(this, [event, dx, dy]), ie6 = $.browser.msie && $.browser.version <7, csdif = this.sizeDiff;
 
 		// Put this in the mouseDrag handler since the user can start pressing shift while resizing
 		this._updateVirtualBoundaries(event.shiftKey);
@@ -2225,8 +2225,8 @@ $.widget("ui.resizable", $.ui.mouse, {
 
             if(pMinWidth > b.minWidth) b.minWidth = pMinWidth;
             if(pMinHeight > b.minHeight) b.minHeight = pMinHeight;
-            if(pMaxWidth < b.maxWidth) b.maxWidth = pMaxWidth;
-            if(pMaxHeight < b.maxHeight) b.maxHeight = pMaxHeight;
+            if(pMaxWidth <b.maxWidth) b.maxWidth = pMaxWidth;
+            if(pMaxHeight <b.maxHeight) b.maxHeight = pMaxHeight;
         }
         this._vBoundaries = b;
     },
@@ -2262,7 +2262,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 	_respectSize: function(data, event) {
 
 		var el = this.helper, o = this._vBoundaries, pRatio = this._aspectRatio || event.shiftKey, a = this.axis,
-				ismaxw = isNumber(data.width) && o.maxWidth && (o.maxWidth < data.width), ismaxh = isNumber(data.height) && o.maxHeight && (o.maxHeight < data.height),
+				ismaxw = isNumber(data.width) && o.maxWidth && (o.maxWidth <data.width), ismaxh = isNumber(data.height) && o.maxHeight && (o.maxHeight <data.height),
 					isminw = isNumber(data.width) && o.minWidth && (o.minWidth > data.width), isminh = isNumber(data.height) && o.minHeight && (o.minHeight > data.height);
 
 		if (isminw) data.width = o.minWidth;
@@ -2292,7 +2292,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 		if (!this._proportionallyResizeElements.length) return;
 		var element = this.helper || this.element;
 
-		for (var i=0; i < this._proportionallyResizeElements.length; i++) {
+		for (var i=0; i <this._proportionallyResizeElements.length; i++) {
 
 			var prel = this._proportionallyResizeElements[i];
 
@@ -2328,7 +2328,7 @@ $.widget("ui.resizable", $.ui.mouse, {
 			this.helper = this.helper || $('<div style="overflow:hidden;"></div>');
 
 			// fix ie6 offset TODO: This seems broken
-			var ie6 = $.browser.msie && $.browser.version < 7, ie6offset = (ie6 ? 1 : 0),
+			var ie6 = $.browser.msie && $.browser.version <7, ie6offset = (ie6 ? 1 : 0),
 			pxyoffset = ( ie6 ? 2 : -1 );
 
 			this.helper.addClass(this._helper).css({
@@ -2549,13 +2549,13 @@ $.ui.plugin.add("resizable", "containment", {
 
 		if (ce[0] != document && (/static/).test(ce.css('position'))) cop = co;
 
-		if (cp.left < (self._helper ? co.left : 0)) {
+		if (cp.left <(self._helper ? co.left : 0)) {
 			self.size.width = self.size.width + (self._helper ? (self.position.left - co.left) : (self.position.left - cop.left));
 			if (pRatio) self.size.height = self.size.width / self.aspectRatio;
 			self.position.left = o.helper ? co.left : 0;
 		}
 
-		if (cp.top < (self._helper ? co.top : 0)) {
+		if (cp.top <(self._helper ? co.top : 0)) {
 			self.size.height = self.size.height + (self._helper ? (self.position.top - co.top) : self.position.top);
 			if (pRatio) self.size.width = self.size.height * self.aspectRatio;
 			self.position.top = self._helper ? co.top : 0;
@@ -2817,9 +2817,9 @@ $.widget("ui.selectable", $.ui.mouse, {
 				return;
 			var hit = false;
 			if (options.tolerance == 'touch') {
-				hit = ( !(selectee.left > x2 || selectee.right < x1 || selectee.top > y2 || selectee.bottom < y1) );
+				hit = ( !(selectee.left > x2 || selectee.right <x1 || selectee.top > y2 || selectee.bottom <y1) );
 			} else if (options.tolerance == 'fit') {
-				hit = (selectee.left > x1 && selectee.right < x2 && selectee.top > y1 && selectee.bottom < y2);
+				hit = (selectee.left > x1 && selectee.right <x2 && selectee.top > y1 && selectee.bottom <y2);
 			}
 
 			if (hit) {
@@ -3163,26 +3163,26 @@ $.widget("ui.sortable", $.ui.mouse, {
 			var o = this.options, scrolled = false;
 			if(this.scrollParent[0] != document && this.scrollParent[0].tagName != 'HTML') {
 
-				if((this.overflowOffset.top + this.scrollParent[0].offsetHeight) - event.pageY < o.scrollSensitivity)
+				if((this.overflowOffset.top + this.scrollParent[0].offsetHeight) - event.pageY <o.scrollSensitivity)
 					this.scrollParent[0].scrollTop = scrolled = this.scrollParent[0].scrollTop + o.scrollSpeed;
-				else if(event.pageY - this.overflowOffset.top < o.scrollSensitivity)
+				else if(event.pageY - this.overflowOffset.top <o.scrollSensitivity)
 					this.scrollParent[0].scrollTop = scrolled = this.scrollParent[0].scrollTop - o.scrollSpeed;
 
-				if((this.overflowOffset.left + this.scrollParent[0].offsetWidth) - event.pageX < o.scrollSensitivity)
+				if((this.overflowOffset.left + this.scrollParent[0].offsetWidth) - event.pageX <o.scrollSensitivity)
 					this.scrollParent[0].scrollLeft = scrolled = this.scrollParent[0].scrollLeft + o.scrollSpeed;
-				else if(event.pageX - this.overflowOffset.left < o.scrollSensitivity)
+				else if(event.pageX - this.overflowOffset.left <o.scrollSensitivity)
 					this.scrollParent[0].scrollLeft = scrolled = this.scrollParent[0].scrollLeft - o.scrollSpeed;
 
 			} else {
 
-				if(event.pageY - $(document).scrollTop() < o.scrollSensitivity)
+				if(event.pageY - $(document).scrollTop() <o.scrollSensitivity)
 					scrolled = $(document).scrollTop($(document).scrollTop() - o.scrollSpeed);
-				else if($(window).height() - (event.pageY - $(document).scrollTop()) < o.scrollSensitivity)
+				else if($(window).height() - (event.pageY - $(document).scrollTop()) <o.scrollSensitivity)
 					scrolled = $(document).scrollTop($(document).scrollTop() + o.scrollSpeed);
 
-				if(event.pageX - $(document).scrollLeft() < o.scrollSensitivity)
+				if(event.pageX - $(document).scrollLeft() <o.scrollSensitivity)
 					scrolled = $(document).scrollLeft($(document).scrollLeft() - o.scrollSpeed);
-				else if($(window).width() - (event.pageX - $(document).scrollLeft()) < o.scrollSensitivity)
+				else if($(window).width() - (event.pageX - $(document).scrollLeft()) <o.scrollSensitivity)
 					scrolled = $(document).scrollLeft($(document).scrollLeft() + o.scrollSpeed);
 
 			}
@@ -3367,7 +3367,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		var dyClick = this.offset.click.top,
 			dxClick = this.offset.click.left;
 
-		var isOverElement = (y1 + dyClick) > t && (y1 + dyClick) < b && (x1 + dxClick) > l && (x1 + dxClick) < r;
+		var isOverElement = (y1 + dyClick) > t && (y1 + dyClick) <b && (x1 + dxClick) > l && (x1 + dxClick) <r;
 
 		if(	   this.options.tolerance == "pointer"
 			|| this.options.forcePointerForContainers
@@ -3376,10 +3376,10 @@ $.widget("ui.sortable", $.ui.mouse, {
 			return isOverElement;
 		} else {
 
-			return (l < x1 + (this.helperProportions.width / 2) // Right Half
-				&& x2 - (this.helperProportions.width / 2) < r // Left Half
-				&& t < y1 + (this.helperProportions.height / 2) // Bottom Half
-				&& y2 - (this.helperProportions.height / 2) < b ); // Top Half
+			return (l <x1 + (this.helperProportions.width / 2) // Right Half
+				&& x2 - (this.helperProportions.width / 2) <r // Left Half
+				&& t <y1 + (this.helperProportions.height / 2) // Bottom Half
+				&& y2 - (this.helperProportions.height / 2) <b ); // Top Half
 
 		}
 	},
@@ -3474,9 +3474,9 @@ $.widget("ui.sortable", $.ui.mouse, {
 
 		var list = this.currentItem.find(":data(" + this.widgetName + "-item)");
 
-		for (var i=0; i < this.items.length; i++) {
+		for (var i=0; i <this.items.length; i++) {
 
-			for (var j=0; j < list.length; j++) {
+			for (var j=0; j <list.length; j++) {
 				if(list[j] == this.items[i].item[0])
 					this.items.splice(i,1);
 			};
@@ -3511,7 +3511,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			var targetData = queries[i][1];
 			var _queries = queries[i][0];
 
-			for (var j=0, queriesLength = _queries.length; j < queriesLength; j++) {
+			for (var j=0, queriesLength = _queries.length; j <queriesLength; j++) {
 				var item = $(_queries[j]);
 
 				item.data(this.widgetName + '-item', targetData); // Data for target checking (mouse manager)
@@ -3655,7 +3655,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 			for (var j = this.items.length - 1; j >= 0; j--) {
 				if(!$.ui.contains(this.containers[innermostIndex].element[0], this.items[j].item[0])) continue;
 				var cur = this.containers[innermostIndex].floating ? this.items[j].item.offset().left : this.items[j].item.offset().top;
-				if(Math.abs(cur - base) < dist) {
+				if(Math.abs(cur - base) <dist) {
 					dist = Math.abs(cur - base); itemWithLeastDistance = this.items[j];
 					this.direction = (cur - base > 0) ? 'down' : 'up';
 				}
@@ -3845,18 +3845,18 @@ $.widget("ui.sortable", $.ui.mouse, {
 		if(this.originalPosition) { //If we are not dragging yet, we won't check for options
 
 			if(this.containment) {
-				if(event.pageX - this.offset.click.left < this.containment[0]) pageX = this.containment[0] + this.offset.click.left;
-				if(event.pageY - this.offset.click.top < this.containment[1]) pageY = this.containment[1] + this.offset.click.top;
+				if(event.pageX - this.offset.click.left <this.containment[0]) pageX = this.containment[0] + this.offset.click.left;
+				if(event.pageY - this.offset.click.top <this.containment[1]) pageY = this.containment[1] + this.offset.click.top;
 				if(event.pageX - this.offset.click.left > this.containment[2]) pageX = this.containment[2] + this.offset.click.left;
 				if(event.pageY - this.offset.click.top > this.containment[3]) pageY = this.containment[3] + this.offset.click.top;
 			}
 
 			if(o.grid) {
 				var top = this.originalPageY + Math.round((pageY - this.originalPageY) / o.grid[1]) * o.grid[1];
-				pageY = this.containment ? (!(top - this.offset.click.top < this.containment[1] || top - this.offset.click.top > this.containment[3]) ? top : (!(top - this.offset.click.top < this.containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
+				pageY = this.containment ? (!(top - this.offset.click.top <this.containment[1] || top - this.offset.click.top > this.containment[3]) ? top : (!(top - this.offset.click.top <this.containment[1]) ? top - o.grid[1] : top + o.grid[1])) : top;
 
 				var left = this.originalPageX + Math.round((pageX - this.originalPageX) / o.grid[0]) * o.grid[0];
-				pageX = this.containment ? (!(left - this.offset.click.left < this.containment[0] || left - this.offset.click.left > this.containment[2]) ? left : (!(left - this.offset.click.left < this.containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
+				pageX = this.containment ? (!(left - this.offset.click.left <this.containment[0] || left - this.offset.click.left > this.containment[2]) ? left : (!(left - this.offset.click.left <this.containment[0]) ? left - o.grid[0] : left + o.grid[0])) : left;
 			}
 
 		}
@@ -3950,7 +3950,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		if(this.cancelHelperRemoval) {
 			if(!noPropagation) {
 				this._trigger("beforeStop", event, this._uiHash());
-				for (var i=0; i < delayedTriggers.length; i++) { delayedTriggers[i].call(this, event); }; //Trigger all delayed events
+				for (var i=0; i <delayedTriggers.length; i++) { delayedTriggers[i].call(this, event); }; //Trigger all delayed events
 				this._trigger("stop", event, this._uiHash());
 			}
 
@@ -3966,7 +3966,7 @@ $.widget("ui.sortable", $.ui.mouse, {
 		if(this.helper[0] != this.currentItem[0]) this.helper.remove(); this.helper = null;
 
 		if(!noPropagation) {
-			for (var i=0; i < delayedTriggers.length; i++) { delayedTriggers[i].call(this, event); }; //Trigger all delayed events
+			for (var i=0; i <delayedTriggers.length; i++) { delayedTriggers[i].call(this, event); }; //Trigger all delayed events
 			this._trigger("stop", event, this._uiHash());
 		}
 
@@ -4306,14 +4306,14 @@ $.extend($.effects, {
 
 	// Saves a set of properties in a data storage
 	save: function(element, set) {
-		for(var i=0; i < set.length; i++) {
+		for(var i=0; i <set.length; i++) {
 			if(set[i] !== null) element.data("ec.storage."+set[i], element[0].style[set[i]]);
 		}
 	},
 
 	// Restores a set of previously saved properties from a data storage
 	restore: function(element, set) {
-		for(var i=0; i < set.length; i++) {
+		for(var i=0; i <set.length; i++) {
 			if(set[i] !== null) element.css(set[i], element.data("ec.storage."+set[i]));
 		}
 	},
@@ -4587,7 +4587,7 @@ $.extend( baseEasings, {
 		var pow2,
 			bounce = 4;
 
-		while ( p < ( ( pow2 = Math.pow( 2, --bounce ) ) - 1 ) / 11 ) {}
+		while ( p <( ( pow2 = Math.pow( 2, --bounce ) ) - 1 ) / 11 ) {}
 		return 1 / Math.pow( 4, 3 - bounce ) - 7.5625 * Math.pow( ( pow2 * 3 - 2 ) / 22 - p, 2 );
 	}
 });
@@ -4598,7 +4598,7 @@ $.each( baseEasings, function( name, easeIn ) {
 		return 1 - easeIn( 1 - p );
 	};
 	$.easing[ "easeInOut" + name ] = function( p ) {
-		return p < .5 ?
+		return p <.5 ?
 			easeIn( p * 2 ) / 2 :
 			easeIn( p * -2 + 2 ) / -2 + 1;
 	};
@@ -4679,7 +4679,7 @@ $.effects.bounce = function(o) {
 			distance = distance / 2;
 			times--;
 		};
-		for (var i = 0; i < times; i++) { // Bounces
+		for (var i = 0; i <times; i++) { // Bounces
 			var animation1 = {}, animation2 = {};
 			animation1[ref] = (motion == 'pos' ? '-=' : '+=') + distance;
 			animation2[ref] = (motion == 'pos' ? '+=' : '-=') + distance;
@@ -4986,7 +4986,7 @@ $.effects.pulsate = function(o) {
 			times--;
 		}
 
-		for (var i = 0; i < times; i++) {
+		for (var i = 0; i <times; i++) {
 			elem.animate({ opacity: animateTo }, duration, o.options.easing);
 			animateTo = (animateTo + 1) % 2;
 		}
@@ -5203,7 +5203,7 @@ $.effects.shake = function(o) {
 
 		// Animate
 		el.animate(animation, speed, o.options.easing);
-		for (var i = 1; i < times; i++) { // Shakes
+		for (var i = 1; i <times; i++) { // Shakes
 			el.animate(animation1, speed, o.options.easing).animate(animation2, speed, o.options.easing);
 		};
 		el.animate(animation1, speed, o.options.easing).
@@ -6160,7 +6160,7 @@ $.widget( "ui.autocomplete", {
 		// always save the actual value, not the one passed as an argument
 		this.term = this.element.val();
 
-		if ( value.length < this.options.minLength ) {
+		if ( value.length <this.options.minLength ) {
 			return this.close( event );
 		}
 
@@ -6390,7 +6390,7 @@ $.widget("ui.menu", {
 			var offset = item.offset().top - this.element.offset().top,
 				scroll = this.element.scrollTop(),
 				elementHeight = this.element.height();
-			if (offset < 0) {
+			if (offset <0) {
 				this.element.scrollTop( scroll + offset);
 			} else if (offset >= elementHeight) {
 				this.element.scrollTop( scroll + offset - elementHeight + item.height());
@@ -6456,7 +6456,7 @@ $.widget("ui.menu", {
 				result = this.element.children(".ui-menu-item").filter(function() {
 					var close = $(this).offset().top - base - height + $(this).height();
 					// TODO improve approximation
-					return close < 10 && close > -10;
+					return close <10 && close > -10;
 				});
 
 			// TODO try to catch this earlier when scrollTop indicates the last page anyway
@@ -6484,7 +6484,7 @@ $.widget("ui.menu", {
 				result = this.element.children(".ui-menu-item").filter(function() {
 					var close = $(this).offset().top - base + height - $(this).height();
 					// TODO improve approximation
-					return close < 10 && close > -10;
+					return close <10 && close > -10;
 				});
 
 			// TODO try to catch this earlier when scrollTop indicates the last page anyway
@@ -6499,7 +6499,7 @@ $.widget("ui.menu", {
 	},
 
 	hasScroll: function() {
-		return this.element.height() < this.element[ $.fn.prop ? "prop" : "attr" ]("scrollHeight");
+		return this.element.height() <this.element[ $.fn.prop ? "prop" : "attr" ]("scrollHeight");
 	},
 
 	select: function( event ) {
@@ -6984,7 +6984,7 @@ function Datepicker() {
 		showWeek: false, // True to show week of the year, false to not show it
 		calculateWeek: this.iso8601Week, // How to calculate the week of the year,
 			// takes a Date and returns the number of the week for it
-		shortYearCutoff: '+10', // Short year values < this are in the current century,
+		shortYearCutoff: '+10', // Short year values <this are in the current century,
 			// > this are in the previous century,
 			// string value starting with '+' for current year + value
 		minDate: null, // The earliest selectable date, or null for no limit
@@ -7153,7 +7153,7 @@ $.extend(Datepicker.prototype, {
 				var findMax = function(names) {
 					var max = 0;
 					var maxI = 0;
-					for (var i = 0; i < names.length; i++) {
+					for (var i = 0; i <names.length; i++) {
 						if (names[i].length > max) {
 							max = names[i].length;
 							maxI = i;
@@ -7322,7 +7322,7 @@ $.extend(Datepicker.prototype, {
 		if (!target) {
 			return false;
 		}
-		for (var i = 0; i < this._disabledInputs.length; i++) {
+		for (var i = 0; i <this._disabledInputs.length; i++) {
 			if (this._disabledInputs[i] == target)
 				return true;
 		}
@@ -7503,7 +7503,7 @@ $.extend(Datepicker.prototype, {
 		if ($.datepicker._get(inst, 'constrainInput')) {
 			var chars = $.datepicker._possibleChars($.datepicker._get(inst, 'dateFormat'));
 			var chr = String.fromCharCode(event.charCode == undefined ? event.keyCode : event.charCode);
-			return event.ctrlKey || event.metaKey || (chr < ' ' || !chars || chars.indexOf(chr) > -1);
+			return event.ctrlKey || event.metaKey || (chr <' ' || !chars || chars.indexOf(chr) > -1);
 		}
 	},
 
@@ -7855,7 +7855,7 @@ $.extend(Datepicker.prototype, {
 	   @return [boolean, string] - is this date selectable?, what is its CSS class? */
 	noWeekends: function(date) {
 		var day = date.getDay();
-		return [(day > 0 && day < 6), ''];
+		return [(day > 0 && day <6), ''];
 	},
 
 	/* Set as calculateWeek to determine the week of the year based on the ISO 8601 definition.
@@ -7903,7 +7903,7 @@ $.extend(Datepicker.prototype, {
 		var literal = false;
 		// Check whether a format character is doubled
 		var lookAhead = function(match) {
-			var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) == match);
+			var matches = (iFormat + 1 <format.length && format.charAt(iFormat + 1) == match);
 			if (matches)
 				iFormat++;
 			return matches;
@@ -7948,7 +7948,7 @@ $.extend(Datepicker.prototype, {
 			iValue++;
 		};
 		var iValue = 0;
-		for (var iFormat = 0; iFormat < format.length; iFormat++) {
+		for (var iFormat = 0; iFormat <format.length; iFormat++) {
 			if (literal)
 				if (format.charAt(iFormat) == "'" && !lookAhead("'"))
 					literal = false;
@@ -7996,12 +7996,12 @@ $.extend(Datepicker.prototype, {
 						checkLiteral();
 				}
 		}
-		if (iValue < value.length){
+		if (iValue <value.length){
 			throw "Extra/unparsed characters found in date: " + value.substring(iValue);
 		}
 		if (year == -1)
 			year = new Date().getFullYear();
-		else if (year < 100)
+		else if (year <100)
 			year += new Date().getFullYear() - new Date().getFullYear() % 100 +
 				(year <= shortYearCutoff ? 0 : -100);
 		if (doy > -1) {
@@ -8074,7 +8074,7 @@ $.extend(Datepicker.prototype, {
 		var monthNames = (settings ? settings.monthNames : null) || this._defaults.monthNames;
 		// Check whether a format character is doubled
 		var lookAhead = function(match) {
-			var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) == match);
+			var matches = (iFormat + 1 <format.length && format.charAt(iFormat + 1) == match);
 			if (matches)
 				iFormat++;
 			return matches;
@@ -8083,7 +8083,7 @@ $.extend(Datepicker.prototype, {
 		var formatNumber = function(match, value, len) {
 			var num = '' + value;
 			if (lookAhead(match))
-				while (num.length < len)
+				while (num.length <len)
 					num = '0' + num;
 			return num;
 		};
@@ -8094,7 +8094,7 @@ $.extend(Datepicker.prototype, {
 		var output = '';
 		var literal = false;
 		if (date)
-			for (var iFormat = 0; iFormat < format.length; iFormat++) {
+			for (var iFormat = 0; iFormat <format.length; iFormat++) {
 				if (literal)
 					if (format.charAt(iFormat) == "'" && !lookAhead("'"))
 						literal = false;
@@ -8120,7 +8120,7 @@ $.extend(Datepicker.prototype, {
 							break;
 						case 'y':
 							output += (lookAhead('y') ? date.getFullYear() :
-								(date.getYear() % 100 < 10 ? '0' : '') + date.getYear() % 100);
+								(date.getYear() % 100 <10 ? '0' : '') + date.getYear() % 100);
 							break;
 						case '@':
 							output += date.getTime();
@@ -8147,12 +8147,12 @@ $.extend(Datepicker.prototype, {
 		var literal = false;
 		// Check whether a format character is doubled
 		var lookAhead = function(match) {
-			var matches = (iFormat + 1 < format.length && format.charAt(iFormat + 1) == match);
+			var matches = (iFormat + 1 <format.length && format.charAt(iFormat + 1) == match);
 			if (matches)
 				iFormat++;
 			return matches;
 		};
-		for (var iFormat = 0; iFormat < format.length; iFormat++)
+		for (var iFormat = 0; iFormat <format.length; iFormat++)
 			if (literal)
 				if (format.charAt(iFormat) == "'" && !lookAhead("'"))
 					literal = false;
@@ -8360,17 +8360,17 @@ $.extend(Datepicker.prototype, {
 		var maxDate = this._getMinMaxDate(inst, 'max');
 		var drawMonth = inst.drawMonth - showCurrentAtPos;
 		var drawYear = inst.drawYear;
-		if (drawMonth < 0) {
+		if (drawMonth <0) {
 			drawMonth += 12;
 			drawYear--;
 		}
 		if (maxDate) {
 			var maxDraw = this._daylightSavingAdjust(new Date(maxDate.getFullYear(),
 				maxDate.getMonth() - (numMonths[0] * numMonths[1]) + 1, maxDate.getDate()));
-			maxDraw = (minDate && maxDraw < minDate ? minDate : maxDraw);
+			maxDraw = (minDate && maxDraw <minDate ? minDate : maxDraw);
 			while (this._daylightSavingAdjust(new Date(drawYear, drawMonth, 1)) > maxDraw) {
 				drawMonth--;
-				if (drawMonth < 0) {
+				if (drawMonth <0) {
 					drawMonth = 11;
 					drawYear--;
 				}
@@ -8417,10 +8417,10 @@ $.extend(Datepicker.prototype, {
 		var calculateWeek = this._get(inst, 'calculateWeek') || this.iso8601Week;
 		var defaultDate = this._getDefaultDate(inst);
 		var html = '';
-		for (var row = 0; row < numMonths[0]; row++) {
+		for (var row = 0; row <numMonths[0]; row++) {
 			var group = '';
 			this.maxRows = 4;
-			for (var col = 0; col < numMonths[1]; col++) {
+			for (var col = 0; col <numMonths[1]; col++) {
 				var selectedDate = this._daylightSavingAdjust(new Date(drawYear, drawMonth, inst.selectedDay));
 				var cornerClass = ' ui-corner-all';
 				var calender = '';
@@ -8444,7 +8444,7 @@ $.extend(Datepicker.prototype, {
 					'</div><table class="ui-datepicker-calendar"><thead>' +
 					'<tr>';
 				var thead = (showWeek ? '<th class="ui-datepicker-week-col">' + this._get(inst, 'weekHeader') + '</th>' : '');
-				for (var dow = 0; dow < 7; dow++) { // days of the week
+				for (var dow = 0; dow <7; dow++) { // days of the week
 					var day = (dow + firstDay) % 7;
 					thead += '<th' + ((dow + firstDay + 6) % 7 >= 5 ? ' class="ui-datepicker-week-end"' : '') + '>' +
 						'<span title="' + dayNames[day] + '">' + dayNamesMin[day] + '</span></th>';
@@ -8458,16 +8458,16 @@ $.extend(Datepicker.prototype, {
 				var numRows = (isMultiMonth ? this.maxRows > curRows ? this.maxRows : curRows : curRows); //If multiple months, use the higher number of rows (see #7043)
 				this.maxRows = numRows;
 				var printDate = this._daylightSavingAdjust(new Date(drawYear, drawMonth, 1 - leadDays));
-				for (var dRow = 0; dRow < numRows; dRow++) { // create date picker rows
+				for (var dRow = 0; dRow <numRows; dRow++) { // create date picker rows
 					calender += '<tr>';
 					var tbody = (!showWeek ? '' : '<td class="ui-datepicker-week-col">' +
 						this._get(inst, 'calculateWeek')(printDate) + '</td>');
-					for (var dow = 0; dow < 7; dow++) { // create date picker days
+					for (var dow = 0; dow <7; dow++) { // create date picker days
 						var daySettings = (beforeShowDay ?
 							beforeShowDay.apply((inst.input ? inst.input[0] : null), [printDate]) : [true, '']);
 						var otherMonth = (printDate.getMonth() != drawMonth);
 						var unselectable = (otherMonth && !selectOtherMonths) || !daySettings[0] ||
-							(minDate && printDate < minDate) || (maxDate && printDate > maxDate);
+							(minDate && printDate <minDate) || (maxDate && printDate > maxDate);
 						tbody += '<td class="' +
 							((dow + firstDay + 6) % 7 >= 5 ? ' ui-datepicker-week-end' : '') + // highlight weekends
 							(otherMonth ? ' ui-datepicker-other-month' : '') + // highlight days from other months
@@ -8503,7 +8503,7 @@ $.extend(Datepicker.prototype, {
 			}
 			html += group;
 		}
-		html += buttonPanel + ($.browser.msie && parseInt($.browser.version,10) < 7 && !inst.inline ?
+		html += buttonPanel + ($.browser.msie && parseInt($.browser.version,10) <7 && !inst.inline ?
 			'<iframe src="javascript:false;" class="ui-datepicker-cover" frameborder="0"></iframe>' : '');
 		inst._keyEvent = false;
 		return html;
@@ -8524,7 +8524,7 @@ $.extend(Datepicker.prototype, {
 			var inMinYear = (minDate && minDate.getFullYear() == drawYear);
 			var inMaxYear = (maxDate && maxDate.getFullYear() == drawYear);
 			monthHtml += '<select class="ui-datepicker-month" data-handler="selectMonth" data-event="change">';
-			for (var month = 0; month < 12; month++) {
+			for (var month = 0; month <12; month++) {
 				if ((!inMinYear || month >= minDate.getMonth()) &&
 						(!inMaxYear || month <= maxDate.getMonth()))
 					monthHtml += '<option value="' + month + '"' +
@@ -8592,7 +8592,7 @@ $.extend(Datepicker.prototype, {
 	_restrictMinMax: function(inst, date) {
 		var minDate = this._getMinMaxDate(inst, 'min');
 		var maxDate = this._getMinMaxDate(inst, 'max');
-		var newDate = (minDate && date < minDate ? minDate : date);
+		var newDate = (minDate && date <minDate ? minDate : date);
 		newDate = (maxDate && newDate > maxDate ? maxDate : newDate);
 		return newDate;
 	},
@@ -8630,8 +8630,8 @@ $.extend(Datepicker.prototype, {
 	_canAdjustMonth: function(inst, offset, curYear, curMonth) {
 		var numMonths = this._getNumberOfMonths(inst);
 		var date = this._daylightSavingAdjust(new Date(curYear,
-			curMonth + (offset < 0 ? offset : numMonths[0] * numMonths[1]), 1));
-		if (offset < 0)
+			curMonth + (offset <0 ? offset : numMonths[0] * numMonths[1]), 1));
+		if (offset <0)
 			date.setDate(this._getDaysInMonth(date.getFullYear(), date.getMonth()));
 		return this._isInRange(inst, date);
 	},
@@ -8799,7 +8799,7 @@ $.widget("ui.dialog", {
 			// ensure that the titlebar is never outside the document
 			using: function(pos) {
 				var topOffset = $(this).css(pos).offset().top;
-				if (topOffset < 0) {
+				if (topOffset <0) {
 					$(this).css('top', pos.top - topOffset);
 				}
 			}
@@ -9463,9 +9463,9 @@ $.extend($.ui.dialog.overlay, {
 				// handle $(el).dialog().dialog('close') (see #4065)
 				if ($.ui.dialog.overlay.instances.length) {
 					$(document).bind($.ui.dialog.overlay.events, function(event) {
-						// stop events if the z-index of the target is < the z-index of the overlay
+						// stop events if the z-index of the target is <the z-index of the overlay
 						// we cannot return true when we don't want to cancel the event (#3523)
-						if ($(event.target).zIndex() < $.ui.dialog.overlay.maxZ) {
+						if ($(event.target).zIndex() <$.ui.dialog.overlay.maxZ) {
 							return false;
 						}
 					});
@@ -9525,7 +9525,7 @@ $.extend($.ui.dialog.overlay, {
 		var scrollHeight,
 			offsetHeight;
 		// handle IE 6
-		if ($.browser.msie && $.browser.version < 7) {
+		if ($.browser.msie && $.browser.version <7) {
 			scrollHeight = Math.max(
 				document.documentElement.scrollHeight,
 				document.body.scrollHeight
@@ -9535,7 +9535,7 @@ $.extend($.ui.dialog.overlay, {
 				document.body.offsetHeight
 			);
 
-			if (scrollHeight < offsetHeight) {
+			if (scrollHeight <offsetHeight) {
 				return $(window).height() + 'px';
 			} else {
 				return scrollHeight + 'px';
@@ -9560,7 +9560,7 @@ $.extend($.ui.dialog.overlay, {
 				document.body.offsetWidth
 			);
 
-			if (scrollWidth < offsetWidth) {
+			if (scrollWidth <offsetWidth) {
 				return $(window).width() + 'px';
 			} else {
 				return scrollWidth + 'px';
@@ -9783,7 +9783,7 @@ $.ui.position = {
 					data.targetWidth :
 					-data.targetWidth,
 				offset = -2 * data.offset[ 0 ];
-			position.left += data.collisionPosition.left < 0 ?
+			position.left += data.collisionPosition.left <0 ?
 				myOffset + atOffset + offset :
 				over > 0 ?
 					myOffset + atOffset + offset :
@@ -9804,7 +9804,7 @@ $.ui.position = {
 					data.targetHeight :
 					-data.targetHeight,
 				offset = -2 * data.offset[ 1 ];
-			position.top += data.collisionPosition.top < 0 ?
+			position.top += data.collisionPosition.top <0 ?
 				myOffset + atOffset + offset :
 				over > 0 ?
 					myOffset + atOffset + offset :
@@ -9898,7 +9898,7 @@ if ( !$.curCSS ) {
 	testElementParent.removeChild( testElement );
 
 	offsetTotal = offset.top + offset.left + ( body ? 2000 : 0 );
-	support.fractions = offsetTotal > 21 && offsetTotal < 22;
+	support.fractions = offsetTotal > 21 && offsetTotal <22;
 })();
 
 }( jQuery ));
@@ -10066,7 +10066,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 				( ( o.range === "min" || o.range === "max" ) ? " ui-slider-range-" + o.range : "" ) );
 		}
 
-		for ( var i = existingHandles.length; i < handleCount; i += 1 ) {
+		for ( var i = existingHandles.length; i <handleCount; i += 1 ) {
 			handles.push( handle );
 		}
 
@@ -10332,7 +10332,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 		if ( percentMouse > 1 ) {
 			percentMouse = 1;
 		}
-		if ( percentMouse < 0 ) {
+		if ( percentMouse <0 ) {
 			percentMouse = 0;
 		}
 		if ( this.orientation === "vertical" ) {
@@ -10366,7 +10366,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 			otherVal = this.values( index ? 0 : 1 );
 
 			if ( ( this.options.values.length === 2 && this.options.range === true ) && 
-					( ( index === 0 && newVal > otherVal) || ( index === 1 && newVal < otherVal ) )
+					( ( index === 0 && newVal > otherVal) || ( index === 1 && newVal <otherVal ) )
 				) {
 				newVal = otherVal;
 			}
@@ -10454,7 +10454,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 			if ( $.isArray( arguments[ 0 ] ) ) {
 				vals = this.options.values;
 				newValues = arguments[ 0 ];
-				for ( i = 0; i < vals.length; i += 1 ) {
+				for ( i = 0; i <vals.length; i += 1 ) {
 					vals[ i ] = this._trimAlignValue( newValues[ i ] );
 					this._change( null, i );
 				}
@@ -10509,7 +10509,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 			case "values":
 				this._animateOff = true;
 				this._refreshValue();
-				for ( i = 0; i < valsLength; i += 1 ) {
+				for ( i = 0; i <valsLength; i += 1 ) {
 					this._change( null, i );
 				}
 				this._animateOff = false;
@@ -10543,7 +10543,7 @@ $.widget( "ui.slider", $.ui.mouse, {
 			// .slice() creates a copy of the array
 			// this copy gets trimmed by min and max and then returned
 			vals = this.options.values.slice();
-			for ( i = 0; i < vals.length; i+= 1) {
+			for ( i = 0; i <vals.length; i+= 1) {
 				vals[ i ] = this._trimAlignValue( vals[ i ] );
 			}
 
@@ -10749,7 +10749,7 @@ $.widget( "ui.tabs", {
 
 		this.anchors.each(function( i, a ) {
 			var href = $( a ).attr( "href" );
-			// For dybanimocally created HTML that contains a hash as href IE < 8 expands
+			// For dybanimocally created HTML that contains a hash as href IE <8 expands
 			// such href to the full page url with hash and then misinterprets tab as ajax.
 			// Same consideration applies for an added tab with a fragment identifier
 			// since a[href=#fragment-identifier] does unexpectedly not match.
@@ -10826,7 +10826,7 @@ $.widget( "ui.tabs", {
 			}
 
 			// sanity check - default to first tab...
-			o.selected = ( ( o.selected >= 0 && this.anchors[ o.selected ] ) || o.selected < 0 )
+			o.selected = ( ( o.selected >= 0 && this.anchors[ o.selected ] ) || o.selected <0 )
 				? o.selected
 				: 0;
 
@@ -11180,7 +11180,7 @@ $.widget( "ui.tabs", {
 		// If selected tab was removed focus tab to the right or
 		// in case the last tab was removed the tab to the left.
 		if ( $li.hasClass( "ui-tabs-selected" ) && this.anchors.length > 1) {
-			this.select( index + ( index + 1 < this.anchors.length ? 1 : -1 ) );
+			this.select( index + ( index + 1 <this.anchors.length ? 1 : -1 ) );
 		}
 
 		o.disabled = $.map(
@@ -11356,7 +11356,7 @@ $.extend( $.ui.tabs.prototype, {
 			clearTimeout( self.rotation );
 			self.rotation = setTimeout(function() {
 				var t = o.selected;
-				self.select( ++t < self.anchors.length ? t : 0 );
+				self.select( ++t <self.anchors.length ? t : 0 );
 			}, ms );
 			
 			if ( e ) {

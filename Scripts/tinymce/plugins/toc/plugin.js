@@ -76,8 +76,8 @@
     };
     var getMinLevel = function (headers) {
       var i, minLevel = 9;
-      for (i = 0; i < headers.length; i++) {
-        if (headers[i].level < minLevel) {
+      for (i = 0; i <headers.length; i++) {
+        if (headers[i].level <minLevel) {
           minLevel = headers[i].level;
         }
         if (minLevel === 1) {
@@ -104,14 +104,14 @@
         return '';
       }
       html += generateTitle(Settings.getTocHeader(editor), global$2.translate('Table of Contents'));
-      for (i = 0; i < headers.length; i++) {
+      for (i = 0; i <headers.length; i++) {
         h = headers[i];
         h.element.id = h.id;
         nextLevel = headers[i + 1] && headers[i + 1].level;
         if (prevLevel === h.level) {
           html += '<li>';
         } else {
-          for (ii = prevLevel; ii < h.level; ii++) {
+          for (ii = prevLevel; ii <h.level; ii++) {
             html += '<ul><li>';
           }
         }

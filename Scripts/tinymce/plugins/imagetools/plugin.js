@@ -246,7 +246,7 @@
         finale.call(this);
       }
       function finale() {
-        for (var _i = 0, _a = this._deferreds; _i < _a.length; _i++) {
+        for (var _i = 0, _a = this._deferreds; _i <_a.length; _i++) {
           var deferred = _a[_i];
           handle.call(this, deferred);
         }
@@ -293,7 +293,7 @@
       };
       Promise.all = function () {
         var values = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           values[_i] = arguments[_i];
         }
         var args = Array.prototype.slice.call(values.length === 1 && isArray(values[0]) ? values[0] : values);
@@ -321,7 +321,7 @@
               reject(ex);
             }
           }
-          for (var i = 0; i < args.length; i++) {
+          for (var i = 0; i <args.length; i++) {
             res(i, args[i]);
           }
         });
@@ -341,7 +341,7 @@
       };
       Promise.race = function (values) {
         return new Promise(function (resolve, reject) {
-          for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
+          for (var _i = 0, values_1 = values; _i <values_1.length; _i++) {
             var value = values_1[_i];
             value.then(resolve, reject);
           }
@@ -421,11 +421,11 @@
       var bytesLength = byteCharacters.length;
       var slicesCount = Math.ceil(bytesLength / sliceSize);
       var byteArrays = new Array(slicesCount);
-      for (var sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+      for (var sliceIndex = 0; sliceIndex <slicesCount; ++sliceIndex) {
         var begin = sliceIndex * sliceSize;
         var end = Math.min(begin + sliceSize, bytesLength);
         var bytes = new Array(end - begin);
-        for (var offset = begin, i = 0; offset < end; ++i, ++offset) {
+        for (var offset = begin, i = 0; offset <end; ++i, ++offset) {
           bytes[i] = byteCharacters[offset].charCodeAt(0);
         }
         byteArrays[sliceIndex] = new Uint8Array(bytes);
@@ -550,7 +550,7 @@
       var context = get2dContext(canvas);
       var translateX = 0;
       var translateY = 0;
-      angle = angle < 0 ? 360 + angle : angle;
+      angle = angle <0 ? 360 + angle : angle;
       if (angle === 90 || angle === 270) {
         resize(canvas, canvas.height, canvas.width);
       }
@@ -703,7 +703,7 @@
 
     var nativeSlice = Array.prototype.slice;
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -860,12 +860,12 @@
         'tiny-api-key': apiKey
       };
       return Utils.requestUrlAsBlob(appendApiKey(url, apiKey), headers, false).then(function (result) {
-        return result.status < 200 || result.status >= 300 ? Errors.handleServiceErrorResponse(result.status, result.blob) : global$3.resolve(result.blob);
+        return result.status <200 || result.status >= 300 ? Errors.handleServiceErrorResponse(result.status, result.blob) : global$3.resolve(result.blob);
       });
     };
     function requestBlob(url, withCredentials) {
       return Utils.requestUrlAsBlob(url, {}, withCredentials).then(function (result) {
-        return result.status < 200 || result.status >= 300 ? Errors.handleHttpError(result.status) : global$3.resolve(result.blob);
+        return result.status <200 || result.status >= 300 ? Errors.handleHttpError(result.status) : global$3.resolve(result.blob);
       });
     }
     var getUrl = function (url, apiKey, withCredentials) {
@@ -887,7 +887,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;

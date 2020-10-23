@@ -11,7 +11,7 @@
         // since it will not be usable any more (a failed validation attempt
         // removes the attempted code for necessary Captcha security
         showErrors: function (errorMap, errorList) {
-            for (var i = 0; i < errorList.length; i++) {
+            for (var i = 0; i <errorList.length; i++) {
                 var element = errorList[i].element;
                 var message = errorList[i].message;
                 // check element css class and does the error message match remote

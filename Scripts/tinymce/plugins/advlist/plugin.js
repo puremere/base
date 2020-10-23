@@ -184,7 +184,7 @@
     };
 
     var findIndex = function (list, predicate) {
-      for (var index = 0; index < list.length; index++) {
+      for (var index = 0; index <list.length; index++) {
         var element = list[index];
         if (predicate(element)) {
           return index;

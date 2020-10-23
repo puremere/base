@@ -246,21 +246,21 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
       return r;
     };
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
     };
     var filter = function (xs, pred) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           r.push(x);
@@ -320,7 +320,7 @@
               }
               return n[i].exports;
             }
-            for (var u = 'function' == typeof require && require, i = 0; i < t.length; i++)
+            for (var u = 'function' == typeof require && require, i = 0; i <t.length; i++)
               o(t[i]);
             return o;
           }
@@ -421,7 +421,7 @@
                 while (len) {
                   currentQueue = queue;
                   queue = [];
-                  while (++queueIndex < len) {
+                  while (++queueIndex <len) {
                     if (currentQueue) {
                       currentQueue[queueIndex].run();
                     }
@@ -436,7 +436,7 @@
               process.nextTick = function (fun) {
                 var args = new Array(arguments.length - 1);
                 if (arguments.length > 1) {
-                  for (var i = 1; i < arguments.length; i++) {
+                  for (var i = 1; i <arguments.length; i++) {
                     args[i - 1] = arguments[i];
                   }
                 }
@@ -571,7 +571,7 @@
                         }
                       });
                     }
-                    for (var i = 0, len = self._deferreds.length; i < len; i++) {
+                    for (var i = 0, len = self._deferreds.length; i <len; i++) {
                       handle(self, self._deferreds[i]);
                     }
                     self._deferreds = null;
@@ -635,7 +635,7 @@
                           reject(ex);
                         }
                       }
-                      for (var i = 0; i < args.length; i++) {
+                      for (var i = 0; i <args.length; i++) {
                         res(i, args[i]);
                       }
                     });
@@ -655,7 +655,7 @@
                   };
                   Promise.race = function (values) {
                     return new Promise(function (resolve, reject) {
-                      for (var i = 0, len = values.length; i < len; i++) {
+                      for (var i = 0, len = values.length; i <len; i++) {
                         values[i].then(resolve, reject);
                       }
                     });
@@ -732,7 +732,7 @@
                 };
                 exports.setImmediate = typeof setImmediate === 'function' ? setImmediate : function (fn) {
                   var id = nextImmediateId++;
-                  var args = arguments.length < 2 ? false : slice.call(arguments, 1);
+                  var args = arguments.length <2 ? false : slice.call(arguments, 1);
                   immediateIds[id] = true;
                   nextTick(function onNextTick() {
                     if (immediateIds[id]) {
@@ -1249,7 +1249,7 @@
       function convertParagraphToLi(paragraphNode, listName, start) {
         var level = paragraphNode._listLevel || lastLevel;
         if (level !== lastLevel) {
-          if (level < lastLevel) {
+          if (level <lastLevel) {
             if (currentListNode) {
               currentListNode = currentListNode.parent.parent;
             }
@@ -1289,7 +1289,7 @@
           }
         }
       }
-      for (var i = 0; i < elements.length; i++) {
+      for (var i = 0; i <elements.length; i++) {
         node = elements[i];
         if (node.name === 'p' && node.firstChild) {
           var nodeText = getText(node);
@@ -1602,7 +1602,7 @@
       return c === '\n' || c === '\r';
     };
     var isNewline = function (text, idx) {
-      return idx < text.length && idx >= 0 ? isNewLineChar(text[idx]) : false;
+      return idx <text.length && idx >= 0 ? isNewLineChar(text[idx]) : false;
     };
     var normalizeWhitespace = function (text) {
       var result = foldl(text, function (acc, c) {
@@ -1660,7 +1660,7 @@
           }
         }
         if (dataTransfer.types) {
-          for (var i = 0; i < dataTransfer.types.length; i++) {
+          for (var i = 0; i <dataTransfer.types.length; i++) {
             var contentType = dataTransfer.types[i];
             try {
               items[contentType] = dataTransfer.getData(contentType);
@@ -2306,7 +2306,7 @@
           if (webKitStyles === 'none') {
             return before + after;
           }
-          for (var i = 0; i < webKitStyles.length; i++) {
+          for (var i = 0; i <webKitStyles.length; i++) {
             var inputValue = inputStyles[webKitStyles[i]], currentValue = dom_1.getStyle(node_1, webKitStyles[i], true);
             if (/color/.test(webKitStyles[i])) {
               inputValue = dom_1.toHex(inputValue);

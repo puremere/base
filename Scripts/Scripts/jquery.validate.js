@@ -553,7 +553,7 @@ $.extend($.validator, {
 
 		// return the first defined argument, allowing empty strings
 		findDefined: function() {
-			for(var i = 0; i < arguments.length; i++) {
+			for(var i = 0; i <arguments.length; i++) {
 				if (arguments[i] !== undefined)
 					return arguments[i];
 			}
@@ -734,8 +734,8 @@ $.extend($.validator, {
 
 		stopRequest: function(element, valid) {
 			this.pendingRequest--;
-			// sometimes synchronization fails, make sure pendingRequest is never < 0
-			if (this.pendingRequest < 0)
+			// sometimes synchronization fails, make sure pendingRequest is never <0
+			if (this.pendingRequest <0)
 				this.pendingRequest = 0;
 			delete this.pending[element.name];
 			if ( valid && this.pendingRequest == 0 && this.formSubmitted && this.form() ) {
@@ -913,7 +913,7 @@ $.extend($.validator, {
 	addMethod: function(name, method, message) {
 		$.validator.methods[name] = method;
 		$.validator.messages[name] = message != undefined ? message : $.validator.messages[name];
-		if (method.length < 3) {
+		if (method.length <3) {
 			$.validator.addClassRules(name, $.validator.normalizeRule(name));
 		}
 	},

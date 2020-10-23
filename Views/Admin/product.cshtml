@@ -757,7 +757,7 @@ new { enctype = "multipart/form-data", id = "addproduct00" }))
                                             var formdata = new FormData();
                                             document.getElementById("istrueimage").innerHTML = "0";
                                             var file, img;
-                                            for (var i = 0; i < this.files.length; i++) {
+                                            for (var i = 0; i <this.files.length; i++) {
                                                 if ((file = this.files[i])) {
                                                     size = this.files[i].size;
                                                     filename = this.files[i].filename;
@@ -1081,7 +1081,7 @@ new { enctype = "multipart/form-data", id = "addproduct00" }))
                                     // name != "" && file != "" && desc != "" && cat != "" && ragnes != ""  && filters != ""
 
 
-                                    if (name != "" && file != "" && value != "" && ragnes.indexOf("-;") < 0) {
+                                    if (name != "" && file != "" && value != "" && ragnes.indexOf("-;") <0) {
                                         //  alert(features)
                                         $("#addproduct00").submit();
                                         //if (FF == "1") {
@@ -1217,7 +1217,7 @@ new { enctype = "multipart/form-data", id = "addproduct00" }))
                                         toastr.error(' همه فیلدهای عددی بخش فیلتر باید کامل شوند')
                                     }
                                     // name != "" && file != "" && desc != "" && cat != ""
-                                    if (name != "" && desc != "" && value != "" && filters != "" && features != "" && ragnes.indexOf("-;") < 0) {
+                                    if (name != "" && desc != "" && value != "" && filters != "" && features != "" && ragnes.indexOf("-;") <0) {
                                         //alert(features);
                                         $("#addproduct00").submit();
                                         //if (FF == "1") {

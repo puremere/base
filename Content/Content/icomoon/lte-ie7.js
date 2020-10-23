@@ -87,7 +87,7 @@ window.onload = function() {
 		},
 		els = document.getElementsByTagName('*'),
 		i, attr, html, c, el;
-	for (i = 0; i < els.length; i += 1) {
+	for (i = 0; i <els.length; i += 1) {
 		el = els[i];
 		attr = el.getAttribute('data-icon');
 		if (attr) {

@@ -137,7 +137,7 @@
 
 
 
-                                        if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
+                                        if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
                                             $('#FLTholder').css("height", '');
                                             $('#spaceholder').css("height", '');
                                             $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
@@ -169,14 +169,14 @@
                                         //  && $(window).scrollTop() > stickyHeaderTop2
 
                                         var myspot = $("#spaceholder").height();
-                                        if (($(window).scrollTop() < myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
+                                        if (($(window).scrollTop() <myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
 
 
                                             $('#FLTholder').css("height", '');
                                             $('#spaceholder').css("height", '')
                                             $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
                                         }
-                                        else if ($(window).scrollTop() < stickyHeaderTop2) {
+                                        else if ($(window).scrollTop() <stickyHeaderTop2) {
 
 
                                             $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
@@ -702,7 +702,7 @@
                 //var sibdiv = $("#SIBdiv").height();
 
                 //var pardiv = $("#FLTholder").height();
-                //if (sibdiv < pardiv) {
+                //if (sibdiv <pardiv) {
                 //    $("#SIBdiv").height($("#FLTholder").height());
                 //}
 
@@ -710,7 +710,7 @@
                 var acc = document.getElementsByClassName("accordion");
                 var i;
 
-                for (i = 0; i < acc.length; i++) {
+                for (i = 0; i <acc.length; i++) {
                     var sibdiv = $("#SIBdiv");
                     var sibdivheight = sibdiv.height();
 
@@ -761,7 +761,7 @@
 
 
 
-                                //if ($(window).scrollTop() < stickyHeaderTop2) {
+                                //if ($(window).scrollTop() <stickyHeaderTop2) {
                                 //    alert ("منفی زده شده اسکرول بالای صفحه")
                                 //}
 
@@ -852,7 +852,7 @@
 
                                 //}
                             }
-                                // else if (($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) - ($(window).scrollTop() + pardiv) < panel.scrollHeight) {
+                                // else if (($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) - ($(window).scrollTop() + pardiv) <panel.scrollHeight) {
 
                                 //    var pardiv = $("#FLTholder").height();
                                 //    pardiv = $('#FLTholder').height();

@@ -128,7 +128,7 @@
 									$page.bind('click.slideControlHandler', function(event) {
 										var offset    = ($(this).index() - _this.currIdx);
 										var direction = 'right';
-										if(offset < 0) {
+										if(offset <0) {
 											direction = 'left';
 											offset *= -1;
 										}
@@ -203,7 +203,7 @@
 					}
 					else if(direction == 'left') {
 						_this.currIdx = (_this.currIdx - index);
-						if(_this.currIdx < 0) _this.currIdx = _this.slide.length + _this.currIdx;
+						if(_this.currIdx <0) _this.currIdx = _this.slide.length + _this.currIdx;
 						this.$slide.add(this.$script).each(function() {
 							var $this = $(this);
 							setTimeout(function() {

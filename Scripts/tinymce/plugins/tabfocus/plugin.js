@@ -58,7 +58,7 @@
             }
           });
           if (direction > 0) {
-            for (i = x + 1; i < el.length; i++) {
+            for (i = x + 1; i <el.length; i++) {
               if (canSelect(el[i])) {
                 return el[i];
               }

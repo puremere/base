@@ -29,7 +29,7 @@
 
     var stringRepeat = function (string, repeats) {
       var str = '';
-      for (var index = 0; index < repeats; index++) {
+      for (var index = 0; index <repeats; index++) {
         str += string;
       }
       return str;

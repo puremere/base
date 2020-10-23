@@ -31,7 +31,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -189,7 +189,7 @@
             }
             var el = makeReplacementNode(range.match[0], matchIndex);
             parentNode.insertBefore(el, node_1);
-            if (range.endNodeIndex < node_1.length) {
+            if (range.endNodeIndex <node_1.length) {
               after = doc.createTextNode(node_1.data.substring(range.endNodeIndex));
               parentNode.insertBefore(after, node_1);
             }
@@ -199,7 +199,7 @@
           before = doc.createTextNode(startNode.data.substring(0, range.startNodeIndex));
           after = doc.createTextNode(endNode.data.substring(range.endNodeIndex));
           var elA = makeReplacementNode(startNode.data.substring(range.startNodeIndex), matchIndex);
-          for (var i = 0, l = range.innerNodes.length; i < l; ++i) {
+          for (var i = 0, l = range.innerNodes.length; i <l; ++i) {
             var innerNode = range.innerNodes[i];
             var innerEl = makeReplacementNode(innerNode.data, matchIndex);
             innerNode.parentNode.replaceChild(innerEl, innerNode);
@@ -263,7 +263,7 @@
       var spans = [];
       nodes = global$1.toArray(editor.getBody().getElementsByTagName('span'));
       if (nodes.length) {
-        for (var i = 0; i < nodes.length; i++) {
+        for (var i = 0; i <nodes.length; i++) {
           var nodeIndex = getElmIndex(nodes[i]);
           if (nodeIndex === null || !nodeIndex.length) {
             continue;
@@ -347,7 +347,7 @@
       forward = forward !== false;
       node = editor.getBody();
       nodes = global$1.grep(global$1.toArray(node.getElementsByTagName('span')), isMatchSpan);
-      for (i = 0; i < nodes.length; i++) {
+      for (i = 0; i <nodes.length; i++) {
         var nodeIndex = getElmIndex(nodes[i]);
         matchIndex = currentMatchIndex = parseInt(nodeIndex, 10);
         if (all || matchIndex === searchState.index) {
@@ -388,7 +388,7 @@
       var i, nodes, startContainer, endContainer;
       var searchState = currentSearchState.get();
       nodes = global$1.toArray(editor.getBody().getElementsByTagName('span'));
-      for (i = 0; i < nodes.length; i++) {
+      for (i = 0; i <nodes.length; i++) {
         var nodeIndex = getElmIndex(nodes[i]);
         if (nodeIndex !== null && nodeIndex.length) {
           if (nodeIndex === searchState.index.toString()) {
@@ -589,7 +589,7 @@
 
     var nativeSlice = Array.prototype.slice;
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }

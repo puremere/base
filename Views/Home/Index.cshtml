@@ -111,7 +111,7 @@
 @{
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+    if (Request.Browser.IsMobileDevice || (w <720 && h> 720))
     {
         <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
         <script src="~/Scripts/jquery-ui.js"></script>
@@ -346,7 +346,7 @@
         }
         if (Model.banners != null)
         {
-            if (Model.banners.Count >= 7)
+            if (Model.banners.Count>= 7)
             {
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
                     <div class="imageparent">
@@ -361,7 +361,7 @@
                 <div class="row bannerrow1" style="margin:0px">
 
                     <div>
-                        @if (Model.banners.Count >= 5)
+                        @if (Model.banners.Count>= 5)
                         {
                             if (Model.banners[4].image != "")
                             {
@@ -373,7 +373,7 @@
                             }
 
                         }
-                        @if (Model.banners.Count >= 2)
+                        @if (Model.banners.Count>= 2)
                         {
                             if (Model.banners[1].image != "")
                             {
@@ -386,7 +386,7 @@
 
                         }
 
-                        @if (Model.banners.Count >= 3)
+                        @if (Model.banners.Count>= 3)
                         {
                             if (Model.banners[2].image != "")
                             {
@@ -399,7 +399,7 @@
                             }
 
                         }
-                        @if (Model.banners.Count >= 5)
+                        @if (Model.banners.Count>= 5)
                         {
                             if (Model.banners[5].image != "")
                             {
@@ -414,7 +414,7 @@
                         }
                     </div>
 
-                    @if (Model.banners.Count >= 1)
+                    @if (Model.banners.Count>= 1)
                     {
                         if (Model.banners[0].image != "")
                         {
@@ -427,7 +427,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count >= 4)
+                    @if (Model.banners.Count>= 4)
                     {
                         if (Model.banners[3].image != "")
                         {
@@ -445,14 +445,14 @@
                 <script>
                     $(".banner").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+                        if (($(this).attr('id').indexOf("empty")>= 0)) {
 
                             $(this).css("cursor", "default");
                         }
                     })
                     $(".banner").click(function () {
                         var val = $(this).attr('id');
-                        if (!(val.indexOf("empty") >= 0)) {
+                        if (!(val.indexOf("empty")>= 0)) {
                             window.location.href = "/Home/ManageBanner?val=" + $(this).attr('id');
 
                         }
@@ -461,7 +461,7 @@
 
                     $(".mySlide").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+                        if (($(this).attr('id').indexOf("empty")>= 0)) {
 
                             $(this).css("cursor", "default");
                         }
@@ -602,7 +602,7 @@
         }
         if (Model.banners != null)
         {
-            if (Model.banners.Count >= 8)
+            if (Model.banners.Count>= 8)
             {
                 <div class="row" style="margin:0 5px">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
@@ -821,7 +821,7 @@
             </div>
             <div class="bannerSectionPrent" style="">
                 <div class="bannerSection" style="width:100%; height:100%">
-                    @if (Model.banners.Count >= 1)
+                    @if (Model.banners.Count>= 1)
                     {
                         if (Model.banners[0].image != "")
                         {
@@ -834,7 +834,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count >= 4)
+                    @if (Model.banners.Count>= 4)
                     {
                         if (Model.banners[3].image != "")
                         {
@@ -929,7 +929,7 @@
                                                                         <div class="">
                                                                             @if (item.price != item.oldPrice)
                                                                             {
-                                                                                < p style = "display: inline-block" > تومان </ p > < del > @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </ del >
+                                                                                <p style = "display: inline-block"> تومان </p> <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                             }
                                                                         </div>
@@ -986,7 +986,7 @@
             <div class="row bannerholder" style="">
                 <div class="row bannerrow1" style="margin:5px 45px">
 
-                    @if (Model.banners.Count >= 7)
+                    @if (Model.banners.Count>= 7)
                     {
 
                         <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
@@ -997,7 +997,7 @@
 
                     }
 
-                    @if (Model.banners.Count >= 8)
+                    @if (Model.banners.Count>= 8)
                     {
                         <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
                             <div class="imageparent">
@@ -1014,14 +1014,14 @@
                 <script>
                     $(".banner").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+                        if (($(this).attr('id').indexOf("empty")>= 0)) {
 
                             $(this).css("cursor", "default");
                         }
                     })
                     $(".banner").click(function () {
                         var val = $(this).attr('id');
-                        if (!(val.indexOf("empty") >= 0)) {
+                        if (!(val.indexOf("empty")>= 0)) {
                             window.location.href = "/Home/ManageBanner?val=" + $(this).attr('id');
 
                         }
@@ -1030,7 +1030,7 @@
 
                     $(".mySlide").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+                        if (($(this).attr('id').indexOf("empty")>= 0)) {
 
                             $(this).css("cursor", "default");
                         }
@@ -1122,7 +1122,7 @@
                                                                         <div class="">
                                                                             @if (item.price != item.oldPrice)
                                                                             {
-                                                                                < p style = "display: inline-block" > تومان </ p >< del > @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </ del >
+                                                                                <p style = "display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                             }
                                                                         </div>
@@ -1174,7 +1174,7 @@
         {
             <div class="row bannerholder" style="">
                 <div style="margin:5px 45px">
-                    @if (Model.banners.Count >= 5)
+                    @if (Model.banners.Count>= 5)
                     {
                         if (Model.banners[4].image != "")
                         {
@@ -1186,7 +1186,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count >= 2)
+                    @if (Model.banners.Count>= 2)
                     {
                         if (Model.banners[1].image != "")
                         {
@@ -1199,7 +1199,7 @@
 
                     }
 
-                    @if (Model.banners.Count >= 3)
+                    @if (Model.banners.Count>= 3)
                     {
                         if (Model.banners[2].image != "")
                         {
@@ -1212,7 +1212,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count >= 5)
+                    @if (Model.banners.Count>= 5)
                     {
                         if (Model.banners[5].image != "")
                         {
@@ -1306,7 +1306,7 @@
                                                                         <div class="">
                                                                             @if (item.price != item.oldPrice)
                                                                             {
-                                                                                < p style = "display: inline-block" > تومان </ p >< del > @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </ del >
+                                                                                <p style = "display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                             }
                                                                         </div>
@@ -1510,7 +1510,7 @@
         //console.log(atts);
 
         var dat = "";
-        dat += '<h4 >' + atts + '</h4>'
+        dat += '<h4>' + atts + '</h4>'
         dat += '<div class=\"resCarousel\" ' + atts + '>'
         dat += '<div class="resCarousel-inner">'
         for (var i = 1; i <= 14; i++) {
@@ -1577,7 +1577,7 @@
         <script>
             $(document).ready(function () {
                 var width = window.innerWidth;
-                if (width < 500) {
+                if (width <500) {
                     //var final = width / 2;
                     //$(".imageitself").css("max-width", final + "px")
                     //$(".imageitself").css("max-height", final + "px")

@@ -21,7 +21,7 @@ $(document).ready(function () {
 
 
 
-< !----fadein header---->
+<!----fadein header---->
     $(window).bind("load", function () {
 
         $(".header").show().addClass('animated fadeInDownBig');
@@ -49,7 +49,7 @@ $(document).ready(function () {
 
 
 
-< !----Waypoints(scroll animations)  ---->
+<!----Waypoints(scroll animations)  ---->
             $('.section_one .waypoint').waypoint(function (direction) {
                 $(".section_one .inner_section").show().addClass('animated fadeInLeftBig');
             }, { offset: 0 })

@@ -258,7 +258,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     const li = document.createElement('li');
                     li.className = 'sent';
                     li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                    // var li = ' <li class="sent"> < img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                    // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
                     ul.append(li);
 
                 }
@@ -267,7 +267,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     const li = document.createElement('li');
                     li.className = 'replies';
                     li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                    // var li = ' <li class="sent"> < img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                    // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
                     ul.append(li);
 
                     togglePlay();
@@ -798,7 +798,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 var formdata = new FormData();
 
                 var file, img;
-                for (var i = 0; i < this.files.length; i++) {
+                for (var i = 0; i <this.files.length; i++) {
                     if ((file = this.files[i])) {
                         size = this.files[i].size;
                         filename = this.files[i].filename;
@@ -1126,7 +1126,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
 
 
-                //for (var i = 0; i < ListOfVideo.length; ++i) {
+                //for (var i = 0; i <ListOfVideo.length; ++i) {
                 //    var id = ListOfVideo[i].attr['id'];
                 //    console.log(id);
                 //    attachMediaStream(ListOfVideo[i], STes[id]);
@@ -1145,7 +1145,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 //    // Bind the remote stream to the partner window
                 //    //var i;
-                //    //for (i = 0; i < 2; i++) {
+                //    //for (i = 0; i <2; i++) {
                 //    //    if (event.streams[0].getAudioTracks[1] != null) {
 
                 //    //    }

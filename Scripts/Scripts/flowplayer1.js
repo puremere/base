@@ -4,9 +4,9 @@
 
 */
 /*! (C) WebReflection Mit Style License */
-(function (e) { function g(e, t, n, r) { for (var i, s = n.slice(), o = w(t, e), u = 0, a = s.length; u < a; u++) { handler = s[u], typeof handler == "object" && typeof handler.handleEvent == "function" ? handler.handleEvent(o) : handler.call(e, o); if (o.stoppedImmediatePropagation) break } return i = !o.stoppedPropagation, r && i && e.parentNode ? e.parentNode.dispatchEvent(o) : !o.defaultPrevented } function y(e, t) { return { configurable: !0, get: e, set: t } } function b(e, t, n) { var r = f(t || e, n); u(e, "textContent", y(function () { return r.get.call(this) }, function (e) { r.set.call(this, e) })) } function w(e, t) { return e.currentTarget = t, e.eventPhase = e.target === e.currentTarget ? 2 : 3, e } function E(e, t) { var n = e.length; while (n-- && e[n] !== t); return n } function S() { if (this.tagName === "BR") return "\n"; var e = this.firstChild, t = []; while (e) e.nodeType !== 8 && e.nodeType !== 7 && t.push(e.textContent), e = e.nextSibling; return t.join("") } function x(e) { return e.nodeType !== 9 && document.documentElement.contains(e) } function T(e) { !n && d.test(document.readyState) && (n = !n, document.detachEvent(r, T), e = document.createEvent("Event"), e.initEvent(i, !0, !0), document.dispatchEvent(e)) } function N(e) { var t; while (t = this.lastChild) this.removeChild(t); e != null && this.appendChild(document.createTextNode(e)) } function C(t, n) { return n || (n = e.event), n.target || (n.target = n.srcElement || n.fromElement || document), n.timeStamp || (n.timeStamp = (new Date).getTime()), n } if (document.createEvent) return; var t = !0, n = !1, r = "onreadystatechange", i = "DOMContentLoaded", s = "__IE8__" + Math.random(), o = e.Object, u = o.defineProperty || function (e, t, n) { e[t] = n.value }, a = o.defineProperties || function (t, n) { for (var r in n) if (l.call(n, r)) try { u(t, r, n[r]) } catch (i) { e.console && console.log(r + " failed on object:", t, i.message) } }, f = o.getOwnPropertyDescriptor, l = o.prototype.hasOwnProperty, c = e.Element.prototype, h = e.Text.prototype, p = /^[a-z]+$/, d = /loaded|complete/, v = {}, m = document.createElement("div"); b(e.HTMLCommentElement.prototype, c, "nodeValue"), b(e.HTMLScriptElement.prototype, null, "text"), b(h, null, "nodeValue"), b(e.HTMLTitleElement.prototype, null, "text"), u(e.HTMLStyleElement.prototype, "textContent", function (e) { return y(function () { return e.get.call(this.styleSheet) }, function (t) { e.set.call(this.styleSheet, t) }) }(f(e.CSSStyleSheet.prototype, "cssText"))), a(c, { textContent: { get: S, set: N }, firstElementChild: { get: function () { for (var e = this.childNodes || [], t = 0, n = e.length; t < n; t++)if (e[t].nodeType == 1) return e[t] } }, lastElementChild: { get: function () { for (var e = this.childNodes || [], t = e.length; t--;)if (e[t].nodeType == 1) return e[t] } }, previousElementSibling: { get: function () { var e = this.previousSibling; while (e && e.nodeType != 1) e = e.previousSibling; return e } }, nextElementSibling: { get: function () { var e = this.nextSibling; while (e && e.nodeType != 1) e = e.nextSibling; return e } }, childElementCount: { get: function () { for (var e = 0, t = this.childNodes || [], n = t.length; n--; e += t[n].nodeType == 1); return e } }, addEventListener: { value: function (e, t, n) { var r = this, i = "on" + e, o = r[s] || u(r, s, { value: {} })[s], a = o[i] || (o[i] = {}), f = a.h || (a.h = []), c; if (!l.call(a, "w")) { a.w = function (e) { return e[s] || g(r, C(r, e), f, !1) }; if (!l.call(v, i)) if (p.test(e)) try { c = document.createEventObject(), c[s] = !0, r.nodeType != 9 && r.parentNode == null && m.appendChild(r), r.fireEvent(i, c), v[i] = !0 } catch (c) { v[i] = !1; while (m.hasChildNodes()) m.removeChild(m.firstChild) } else v[i] = !1; (a.n = v[i]) && r.attachEvent(i, a.w) } E(f, t) < 0 && f[n ? "unshift" : "push"](t) } }, dispatchEvent: { value: function (e) { var t = this, n = "on" + e.type, r = t[s], i = r && r[n], o = !!i, u; return e.target || (e.target = t), o ? i.n ? t.fireEvent(n, e) : g(t, e, i.h, !0) : (u = t.parentNode) ? u.dispatchEvent(e) : !0, !e.defaultPrevented } }, removeEventListener: { value: function (e, t, n) { var r = this, i = "on" + e, o = r[s], u = o && o[i], a = u && u.h, f = a ? E(a, t) : -1; -1 < f && a.splice(f, 1) } } }), a(h, { addEventListener: { value: c.addEventListener }, dispatchEvent: { value: c.dispatchEvent }, removeEventListener: { value: c.removeEventListener } }), a(e.XMLHttpRequest.prototype, { addEventListener: { value: function (e, t, n) { var r = this, i = "on" + e, o = r[s] || u(r, s, { value: {} })[s], a = o[i] || (o[i] = {}), f = a.h || (a.h = []); E(f, t) < 0 && (r[i] || (r[i] = function () { var t = document.createEvent("Event"); t.initEvent(e, !0, !0), r.dispatchEvent(t) }), f[n ? "unshift" : "push"](t)) } }, dispatchEvent: { value: function (e) { var t = this, n = "on" + e.type, r = t[s], i = r && r[n], o = !!i; return o && (i.n ? t.fireEvent(n, e) : g(t, e, i.h, !0)) } }, removeEventListener: { value: c.removeEventListener } }), a(e.Event.prototype, { bubbles: { value: !0, writable: !0 }, cancelable: { value: !0, writable: !0 }, preventDefault: { value: function () { this.cancelable && (this.defaultPrevented = !0, this.returnValue = !1) } }, stopPropagation: { value: function () { this.stoppedPropagation = !0, this.cancelBubble = !0 } }, stopImmediatePropagation: { value: function () { this.stoppedImmediatePropagation = !0, this.stopPropagation() } }, initEvent: { value: function (e, t, n) { this.type = e, this.bubbles = !!t, this.cancelable = !!n, this.bubbles || this.stopPropagation() } } }), a(e.HTMLDocument.prototype, { textContent: { get: function () { return this.nodeType === 11 ? S.call(this) : null }, set: function (e) { this.nodeType === 11 && N.call(this, e) } }, addEventListener: { value: function (n, s, o) { var u = this; c.addEventListener.call(u, n, s, o), t && n === i && !d.test(u.readyState) && (t = !1, u.attachEvent(r, T), e == top && function a(e) { try { u.documentElement.doScroll("left"), T() } catch (t) { setTimeout(a, 50) } }()) } }, dispatchEvent: { value: c.dispatchEvent }, removeEventListener: { value: c.removeEventListener }, createEvent: { value: function (e) { var t; if (e !== "Event") throw new Error("unsupported " + e); return t = document.createEventObject(), t.timeStamp = (new Date).getTime(), t } } }), a(e.Window.prototype, { getComputedStyle: { value: function () { function i(e) { this._ = e } function s() { } var e = /^(?:[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|))(?!px)[a-z%]+$/, t = /^(top|right|bottom|left)$/, n = /\-([a-z])/g, r = function (e, t) { return t.toUpperCase() }; return i.prototype.getPropertyValue = function (i) { var s = this._, o = s.style, u = s.currentStyle, a = s.runtimeStyle, f, l, c; return i = (i === "float" ? "style-float" : i).replace(n, r), f = u ? u[i] : o[i], e.test(f) && !t.test(i) && (l = o.left, c = a && a.left, c && (a.left = u.left), o.left = i === "fontSize" ? "1em" : f, f = o.pixelLeft + "px", o.left = l, c && (a.left = c)), f == null ? f : f + "" || "auto" }, s.prototype.getPropertyValue = function () { return null }, function (e, t) { return t ? new s(e) : new i(e) } }() }, addEventListener: { value: function (t, n, r) { var i = e, o = "on" + t, u; i[o] || (i[o] = function (e) { return g(i, C(i, e), u, !1) }), u = i[o][s] || (i[o][s] = []), E(u, n) < 0 && u[r ? "unshift" : "push"](n) } }, dispatchEvent: { value: function (t) { var n = e["on" + t.type]; return n ? n.call(e, t) !== !1 && !t.defaultPrevented : !0 } }, removeEventListener: { value: function (t, n, r) { var i = "on" + t, u = (e[i] || o)[s], a = u ? E(u, n) : -1; -1 < a && u.splice(a, 1) } } }) })(this);
+(function (e) { function g(e, t, n, r) { for (var i, s = n.slice(), o = w(t, e), u = 0, a = s.length; u <a; u++) { handler = s[u], typeof handler == "object" && typeof handler.handleEvent == "function" ? handler.handleEvent(o) : handler.call(e, o); if (o.stoppedImmediatePropagation) break } return i = !o.stoppedPropagation, r && i && e.parentNode ? e.parentNode.dispatchEvent(o) : !o.defaultPrevented } function y(e, t) { return { configurable: !0, get: e, set: t } } function b(e, t, n) { var r = f(t || e, n); u(e, "textContent", y(function () { return r.get.call(this) }, function (e) { r.set.call(this, e) })) } function w(e, t) { return e.currentTarget = t, e.eventPhase = e.target === e.currentTarget ? 2 : 3, e } function E(e, t) { var n = e.length; while (n-- && e[n] !== t); return n } function S() { if (this.tagName === "BR") return "\n"; var e = this.firstChild, t = []; while (e) e.nodeType !== 8 && e.nodeType !== 7 && t.push(e.textContent), e = e.nextSibling; return t.join("") } function x(e) { return e.nodeType !== 9 && document.documentElement.contains(e) } function T(e) { !n && d.test(document.readyState) && (n = !n, document.detachEvent(r, T), e = document.createEvent("Event"), e.initEvent(i, !0, !0), document.dispatchEvent(e)) } function N(e) { var t; while (t = this.lastChild) this.removeChild(t); e != null && this.appendChild(document.createTextNode(e)) } function C(t, n) { return n || (n = e.event), n.target || (n.target = n.srcElement || n.fromElement || document), n.timeStamp || (n.timeStamp = (new Date).getTime()), n } if (document.createEvent) return; var t = !0, n = !1, r = "onreadystatechange", i = "DOMContentLoaded", s = "__IE8__" + Math.random(), o = e.Object, u = o.defineProperty || function (e, t, n) { e[t] = n.value }, a = o.defineProperties || function (t, n) { for (var r in n) if (l.call(n, r)) try { u(t, r, n[r]) } catch (i) { e.console && console.log(r + " failed on object:", t, i.message) } }, f = o.getOwnPropertyDescriptor, l = o.prototype.hasOwnProperty, c = e.Element.prototype, h = e.Text.prototype, p = /^[a-z]+$/, d = /loaded|complete/, v = {}, m = document.createElement("div"); b(e.HTMLCommentElement.prototype, c, "nodeValue"), b(e.HTMLScriptElement.prototype, null, "text"), b(h, null, "nodeValue"), b(e.HTMLTitleElement.prototype, null, "text"), u(e.HTMLStyleElement.prototype, "textContent", function (e) { return y(function () { return e.get.call(this.styleSheet) }, function (t) { e.set.call(this.styleSheet, t) }) }(f(e.CSSStyleSheet.prototype, "cssText"))), a(c, { textContent: { get: S, set: N }, firstElementChild: { get: function () { for (var e = this.childNodes || [], t = 0, n = e.length; t <n; t++)if (e[t].nodeType == 1) return e[t] } }, lastElementChild: { get: function () { for (var e = this.childNodes || [], t = e.length; t--;)if (e[t].nodeType == 1) return e[t] } }, previousElementSibling: { get: function () { var e = this.previousSibling; while (e && e.nodeType != 1) e = e.previousSibling; return e } }, nextElementSibling: { get: function () { var e = this.nextSibling; while (e && e.nodeType != 1) e = e.nextSibling; return e } }, childElementCount: { get: function () { for (var e = 0, t = this.childNodes || [], n = t.length; n--; e += t[n].nodeType == 1); return e } }, addEventListener: { value: function (e, t, n) { var r = this, i = "on" + e, o = r[s] || u(r, s, { value: {} })[s], a = o[i] || (o[i] = {}), f = a.h || (a.h = []), c; if (!l.call(a, "w")) { a.w = function (e) { return e[s] || g(r, C(r, e), f, !1) }; if (!l.call(v, i)) if (p.test(e)) try { c = document.createEventObject(), c[s] = !0, r.nodeType != 9 && r.parentNode == null && m.appendChild(r), r.fireEvent(i, c), v[i] = !0 } catch (c) { v[i] = !1; while (m.hasChildNodes()) m.removeChild(m.firstChild) } else v[i] = !1; (a.n = v[i]) && r.attachEvent(i, a.w) } E(f, t) <0 && f[n ? "unshift" : "push"](t) } }, dispatchEvent: { value: function (e) { var t = this, n = "on" + e.type, r = t[s], i = r && r[n], o = !!i, u; return e.target || (e.target = t), o ? i.n ? t.fireEvent(n, e) : g(t, e, i.h, !0) : (u = t.parentNode) ? u.dispatchEvent(e) : !0, !e.defaultPrevented } }, removeEventListener: { value: function (e, t, n) { var r = this, i = "on" + e, o = r[s], u = o && o[i], a = u && u.h, f = a ? E(a, t) : -1; -1 <f && a.splice(f, 1) } } }), a(h, { addEventListener: { value: c.addEventListener }, dispatchEvent: { value: c.dispatchEvent }, removeEventListener: { value: c.removeEventListener } }), a(e.XMLHttpRequest.prototype, { addEventListener: { value: function (e, t, n) { var r = this, i = "on" + e, o = r[s] || u(r, s, { value: {} })[s], a = o[i] || (o[i] = {}), f = a.h || (a.h = []); E(f, t) <0 && (r[i] || (r[i] = function () { var t = document.createEvent("Event"); t.initEvent(e, !0, !0), r.dispatchEvent(t) }), f[n ? "unshift" : "push"](t)) } }, dispatchEvent: { value: function (e) { var t = this, n = "on" + e.type, r = t[s], i = r && r[n], o = !!i; return o && (i.n ? t.fireEvent(n, e) : g(t, e, i.h, !0)) } }, removeEventListener: { value: c.removeEventListener } }), a(e.Event.prototype, { bubbles: { value: !0, writable: !0 }, cancelable: { value: !0, writable: !0 }, preventDefault: { value: function () { this.cancelable && (this.defaultPrevented = !0, this.returnValue = !1) } }, stopPropagation: { value: function () { this.stoppedPropagation = !0, this.cancelBubble = !0 } }, stopImmediatePropagation: { value: function () { this.stoppedImmediatePropagation = !0, this.stopPropagation() } }, initEvent: { value: function (e, t, n) { this.type = e, this.bubbles = !!t, this.cancelable = !!n, this.bubbles || this.stopPropagation() } } }), a(e.HTMLDocument.prototype, { textContent: { get: function () { return this.nodeType === 11 ? S.call(this) : null }, set: function (e) { this.nodeType === 11 && N.call(this, e) } }, addEventListener: { value: function (n, s, o) { var u = this; c.addEventListener.call(u, n, s, o), t && n === i && !d.test(u.readyState) && (t = !1, u.attachEvent(r, T), e == top && function a(e) { try { u.documentElement.doScroll("left"), T() } catch (t) { setTimeout(a, 50) } }()) } }, dispatchEvent: { value: c.dispatchEvent }, removeEventListener: { value: c.removeEventListener }, createEvent: { value: function (e) { var t; if (e !== "Event") throw new Error("unsupported " + e); return t = document.createEventObject(), t.timeStamp = (new Date).getTime(), t } } }), a(e.Window.prototype, { getComputedStyle: { value: function () { function i(e) { this._ = e } function s() { } var e = /^(?:[+-]?(?:\d*\.|)\d+(?:[eE][+-]?\d+|))(?!px)[a-z%]+$/, t = /^(top|right|bottom|left)$/, n = /\-([a-z])/g, r = function (e, t) { return t.toUpperCase() }; return i.prototype.getPropertyValue = function (i) { var s = this._, o = s.style, u = s.currentStyle, a = s.runtimeStyle, f, l, c; return i = (i === "float" ? "style-float" : i).replace(n, r), f = u ? u[i] : o[i], e.test(f) && !t.test(i) && (l = o.left, c = a && a.left, c && (a.left = u.left), o.left = i === "fontSize" ? "1em" : f, f = o.pixelLeft + "px", o.left = l, c && (a.left = c)), f == null ? f : f + "" || "auto" }, s.prototype.getPropertyValue = function () { return null }, function (e, t) { return t ? new s(e) : new i(e) } }() }, addEventListener: { value: function (t, n, r) { var i = e, o = "on" + t, u; i[o] || (i[o] = function (e) { return g(i, C(i, e), u, !1) }), u = i[o][s] || (i[o][s] = []), E(u, n) <0 && u[r ? "unshift" : "push"](n) } }, dispatchEvent: { value: function (t) { var n = e["on" + t.type]; return n ? n.call(e, t) !== !1 && !t.defaultPrevented : !0 } }, removeEventListener: { value: function (t, n, r) { var i = "on" + t, u = (e[i] || o)[s], a = u ? E(u, n) : -1; -1 <a && u.splice(a, 1) } } }) })(this);
 (function (f) { if (typeof exports === "object" && typeof module !== "undefined") { module.exports = f() } else if (typeof define === "function" && define.amd) { define([], f) } else { var g; if (typeof window !== "undefined") { g = window } else if (typeof global !== "undefined") { g = global } else if (typeof self !== "undefined") { g = self } else { g = this } g.flowplayer = f() } })(function () {
-    var define, module, exports; return (function () { function r(e, n, t) { function o(i, f) { if (!n[i]) { if (!e[i]) { var c = "function" == typeof require && require; if (!f && c) return c(i, !0); if (u) return u(i, !0); var a = new Error("Cannot find module '" + i + "'"); throw a.code = "MODULE_NOT_FOUND", a } var p = n[i] = { exports: {} }; e[i][0].call(p.exports, function (r) { var n = e[i][1][r]; return o(n || r) }, p, p.exports, r, e, n, t) } return n[i].exports } for (var u = "function" == typeof require && require, i = 0; i < t.length; i++)o(t[i]); return o } return r })()({
+    var define, module, exports; return (function () { function r(e, n, t) { function o(i, f) { if (!n[i]) { if (!e[i]) { var c = "function" == typeof require && require; if (!f && c) return c(i, !0); if (u) return u(i, !0); var a = new Error("Cannot find module '" + i + "'"); throw a.code = "MODULE_NOT_FOUND", a } var p = n[i] = { exports: {} }; e[i][0].call(p.exports, function (r) { var n = e[i][1][r]; return o(n || r) }, p, p.exports, r, e, n, t) } return n[i].exports } for (var u = "function" == typeof require && require, i = 0; i <t.length; i++)o(t[i]); return o } return r })()({
         1: [function (_dereq_, module, exports) {
             'use strict';
             var common = module.exports = {},
@@ -386,7 +386,7 @@
                         var source = extend({}, (function () {
                             if (flowplayer.support.flashVideo) {
                                 var selectedSource;
-                                for (var i = 0, source; i < sources.length; i++) {
+                                for (var i = 0, source; i <sources.length; i++) {
                                     source = sources[i];
                                     if (/mp4|flv|flash/i.test(source.type)) selectedSource = source;
                                     if (player.conf.swfHls && /mpegurl/i.test(source.type)) selectedSource = source;
@@ -620,7 +620,7 @@
                                     case "status":
                                         player.trigger("progress", [player, arg.time]);
 
-                                        if (arg.buffer < video.bytes && !video.buffered) {
+                                        if (arg.buffer <video.bytes && !video.buffered) {
                                             video.buffer = arg.buffer / video.bytes * video.duration;
                                             player.trigger("buffer", video.buffer);
                                         } else if (!video.buffered) {
@@ -866,7 +866,7 @@
                                 confQualities = [1, 3, 6, 7];
                                 break;
                             default:
-                                if (levels.length < 3 || (levels[0].height && levels[2].height && levels[0].height === levels[2].height)) {
+                                if (levels.length <3 || (levels[0].height && levels[2].height && levels[0].height === levels[2].height)) {
                                     confQualities = [];
                                 } else {
                                     confQualities = [1, 2];
@@ -1279,7 +1279,7 @@
                                     if (player.ready) return player.debug('Player already ready, not sending duplicate ready event');
                                     if ((!api.duration || api.duration === Infinity) && !player.live) return player.debug('No duration and VOD setup, not sending ready event');
                                     arg = extend(video, {
-                                        duration: api.duration < Number.MAX_VALUE ? api.duration : 0,
+                                        duration: api.duration <Number.MAX_VALUE ? api.duration : 0,
                                         width: api.videoWidth,
                                         height: api.videoHeight,
                                         url: api.currentSrc
@@ -1329,7 +1329,7 @@
 
                                 case 'buffer':
                                     arg = [];
-                                    for (var i = 0; i < api.buffered.length; i++) {
+                                    for (var i = 0; i <api.buffered.length; i++) {
                                         arg.push({
                                             start: api.buffered.start(i),
                                             end: api.buffered.end(i)
@@ -1713,7 +1713,7 @@
                 player.on("progress", function (e, api, time) {
                     if (cuepointsDisabled) return;
                     var segment = segmentForCue(time);
-                    while (lastFiredSegment < segment) {
+                    while (lastFiredSegment <segment) {
                         lastFiredSegment += 0.125;
                         if (!segments[lastFiredSegment]) continue;
                         segments[lastFiredSegment].forEach(fire);
@@ -1735,7 +1735,7 @@
                         player.setCuepoints(cues);
                     }).on('finish', function () {
                         var segment = segmentForCue(player.video.duration);
-                        while (lastFiredSegment < segment) {
+                        while (lastFiredSegment <segment) {
                             lastFiredSegment += 0.125;
                             if (!segments[lastFiredSegment]) continue;
                             segments[lastFiredSegment].forEach(fire);
@@ -1781,7 +1781,7 @@
                         common.css(timeline, "overflow", "visible");
 
                         var time = cue.time || cue;
-                        if (time < 0) time = duration + time;
+                        if (time <0) time = duration + time;
 
                         var el = common.createElement('a', { className: 'fp-cuepoint fp-cuepoint' + cue.index });
                         common.css(el, "left", (time / duration * 100) + "%");
@@ -1815,7 +1815,7 @@
 
                 function segmentForCue(cue) {
                     var time = cue && !isNaN(cue.time) ? cue.time : cue;
-                    if (time < 0) time = player.video.duration + time;
+                    if (time <0) time = player.video.duration + time;
                     return Math.round(time / 0.125) * 0.125;
                 }
 
@@ -2097,7 +2097,7 @@
                 var lastClick;
 
                 player.on("mousedown.fs", function () {
-                    if (+new Date() - lastClick < 150 && player.ready) player.fullscreen();
+                    if (+new Date() - lastClick <150 && player.ready) player.fullscreen();
                     lastClick = +new Date();
                 });
 
@@ -2163,7 +2163,7 @@
                     }
 
                     // 1, 2, 3, 4 ..
-                    if (key < 58 && key > 47) {
+                    if (key <58 && key > 47) {
                         e.preventDefault();
                         return el.seekTo(key - 48);
                     }
@@ -2317,7 +2317,7 @@
 
                     // custom load for android
                     if (isAndroid && !isIeMobile) {
-                        if (!/Chrome/.test(UA) && androidVer < 4 || android.samsung && androidVer < 5) {
+                        if (!/Chrome/.test(UA) && androidVer <4 || android.samsung && androidVer <5) {
                             var originalLoad = player.load;
                             player.load = function () {
                                 var ret = originalLoad.apply(player, arguments);
@@ -2549,7 +2549,7 @@
                     if (player.video.loop) return player.seek(0, function () { player.resume(); });
                     // next clip is found or loop
                     var next = player.video.index >= 0 ? player.video.index + 1 : undefined;
-                    if (next < player.conf.playlist.length || conf.loop) {
+                    if (next <player.conf.playlist.length || conf.loop) {
                         next = next === player.conf.playlist.length ? 0 : next;
                         common.removeClass(root, 'is-finished');
                         setTimeout(function () { // Let other finish callbacks fire first
@@ -2726,7 +2726,7 @@
                     removeMenu();
                     if (!video.qualities || video.qualities.filter(function (q) {
                         return typeof q.value !== 'undefined' ? q.value > -1 : true;
-                    }).length < 2) return;
+                    }).length <2) return;
                     createMenu(video.qualities, video.quality);
                     selectQuality(video.quality, video.qualities);
                 });
@@ -3061,7 +3061,7 @@
                 }
 
                 var entries = [];
-                for (var i = 0, lines = txt.split("\n"), len = lines.length, entry = {}, title, timecode, text; i < len; i++) {
+                for (var i = 0, lines = txt.split("\n"), len = lines.length, entry = {}, title, timecode, text; i <len; i++) {
                     timecode = TIMECODE_RE.exec(lines[i]);
 
                     if (timecode) {
@@ -3071,7 +3071,7 @@
 
                         // text
                         text = "<p>" + lines[++i] + "</p><br/>";
-                        while (typeof lines[++i] === 'string' && lines[i].trim() && i < lines.length) text += "<p>" + lines[i] + "</p><br/>";
+                        while (typeof lines[++i] === 'string' && lines[i].trim() && i <lines.length) text += "<p>" + lines[i] + "</p><br/>";
 
                         // entry
                         entry = {
@@ -3117,7 +3117,7 @@
                         /(webkit)[ \/]([\w.]+)/.exec(ua) ||
                         /(opera)(?:.*version|)[ \/]([\w.]+)/.exec(ua) ||
                         /(msie) ([\w.]+)/.exec(ua) ||
-                        ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];
+                        ua.indexOf("compatible") <0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec(ua) || [];
 
                 if (match[1]) {
                     b[match[1]] = true;
@@ -3162,7 +3162,7 @@
                         document.mozFullScreenEnabled ||
                         typeof document.exitFullscreen == 'function' ||
                         typeof document.msExitFullscreen == 'function',
-                    inlineBlock: !(IS_IE && b.version < 8),
+                    inlineBlock: !(IS_IE && b.version <8),
                     touch: ('ontouchstart' in window),
                     dataload: !IS_IPAD && !IS_IPHONE && !IS_WP,
                     flex: ('flexWrap' in d) || ('WebkitFlexWrap' in d) || ('msFlexWrap' in d),
@@ -3170,10 +3170,10 @@
                     zeropreload: !IS_IE && !IS_ANDROID, // IE supports only preload=metadata
                     volume: !IS_IPAD && !IS_IPHONE && !IS_SILK && !IS_IPAD_CHROME,
                     cachedVideoTag: !IS_IPAD && !IS_IPHONE && !IS_IPAD_CHROME && !IS_WP,
-                    // iOS < 10 and Samsung support firstframe but not mutedAutoplay
+                    // iOS <10 and Samsung support firstframe but not mutedAutoplay
                     // pretend lacking firstframe support because so far we treat
                     // support.autoplay as synonym of support.firstframe
-                    firstframe: !IS_SILK && !IS_WP && !IS_ANDROID_FIREFOX && !IS_ANDROID_SAMSUNG && !(IOS_VER && IOS_VER < 10) && !(IS_ANDROID && ANDROID_VER < 4.4),
+                    firstframe: !IS_SILK && !IS_WP && !IS_ANDROID_FIREFOX && !IS_ANDROID_SAMSUNG && !(IOS_VER && IOS_VER <10) && !(IS_ANDROID && ANDROID_VER <4.4),
                     inlineVideo: (!IS_IPHONE || IOS_VER >= 10) && (!IS_WP || (WP_VER >= 8.1 && IE_MOBILE_VER >= 11)) && (!IS_ANDROID || ANDROID_VER >= 3),
                     hlsDuration: !IS_ANDROID && (!b.safari || IS_IPAD || IS_IPHONE || IS_IPAD_CHROME),
                     seekable: !IS_IPAD && !IS_IPAD_CHROME,
@@ -3208,7 +3208,7 @@
                 s.animation = (function () {
                     var vendors = ['', 'Webkit', 'Moz', 'O', 'ms', 'Khtml'], el = document.createElement('p');
 
-                    for (var i = 0; i < vendors.length; i++) {
+                    for (var i = 0; i <vendors.length; i++) {
                         if (typeof el.style[vendors[i] + 'AnimationName'] !== 'undefined') return true;
                     }
                 })();
@@ -3547,7 +3547,7 @@
                         if (!timelineApi.dragging) {
                             timelineApi.slide(percentage, api.seeking ? 0 : 250);
                         }
-                        common.toggleClass(root, 'is-live-position', duration - time < conf.livePositionOffset);
+                        common.toggleClass(root, 'is-live-position', duration - time <conf.livePositionOffset);
 
                         common.html(elapsed, format(time));
                         common.html(remaining, format(duration - time, true));
@@ -3678,10 +3678,10 @@
                             video = api.video,
                             duration = video.duration - (video.seekOffset === undefined ? 0 : video.seekOffset),
                             seconds = (api.rtl ? 1 - percentage : percentage) * duration;
-                        if (percentage < 0) return;
+                        if (percentage <0) return;
                         common.html(timelineTooltip, format(seconds));
                         var left = (delta - common.width(timelineTooltip) / 2);
-                        if (left < 0) left = 0;
+                        if (left <0) left = 0;
                         if (left > common.width(timeline) - common.width(timelineTooltip)) left = false;
                         if (left !== false) common.css(timelineTooltip, {
                             left: left + 'px',
@@ -3796,8 +3796,8 @@
                     if (typeof window.requestAnimationFrame === 'function') {
                         var playerEl = common.find('.fp-player', root)[0] || root;
                         var resize = function () {
-                            common.toggleClass(root, 'is-tiny', playerEl.clientWidth < 400);
-                            common.toggleClass(root, 'is-small', playerEl.clientWidth < 600 && playerEl.clientWidth >= 400);
+                            common.toggleClass(root, 'is-tiny', playerEl.clientWidth <400);
+                            common.toggleClass(root, 'is-small', playerEl.clientWidth <600 && playerEl.clientWidth >= 400);
                             resizeHandle = window.requestAnimationFrame(resize);
                         };
                         resizeHandle = window.requestAnimationFrame(resize);
@@ -3929,7 +3929,7 @@
                     },
 
                     fire = function (value) {
-                        if (!disabled && value != api.value && (!maxValue || value < maxValue)) {
+                        if (!disabled && value != api.value && (!maxValue || value <maxValue)) {
                             bean.fire(root, 'slide', [value]);
                             api.value = value;
                         }
@@ -4198,7 +4198,7 @@
                     ],
                     playlist: [],
 
-                    hlsFix: isSafari && safariVersion < 8,
+                    hlsFix: isSafari && safariVersion <8,
 
                     disableInline: false
 
@@ -4794,7 +4794,7 @@
             _dereq_('./ext/fullscreen');
 
             _dereq_('./ext/mobile');
-            flowplayer(function (e, o) { function a(e) { var o = document.createElement("a"); return o.href = e, t.hostname(o.hostname) } var l = function (e, o) { var a = e.className.split(" "); -1 === a.indexOf(o) && (e.className += " " + o) }, r = function (e) { return "none" !== window.getComputedStyle(e).display }, n = e.conf, t = flowplayer.common, p = t.createElement, i = n.swf.indexOf("flowplayer.org") && n.e && o.getAttribute("data-origin"), f = i ? a(i) : t.hostname(), s = (document, n.key); if ("file:" == location.protocol && (f = "localhost"), e.load.ed = 1, n.hostname = f, n.origin = i || location.href, i && l(o, "is-embedded"), "string" == typeof s && (s = s.split(/,\s*/)), s && "function" == typeof key_check && key_check(s, f)) { if (n.logo) { var d = t.find(".fp-player", o)[0], c = n.logo.href || "", h = n.logo.src || n.logo, m = p("a", { className: "fp-logo", href: c }); i && (m.href = m.href || i), n.embed && n.embed.popup && (m.target = "_blank"); var y = p("img", { src: h }); m.appendChild(y), (d || o).appendChild(m) } } else { var m = p("a", { href: "https://flowplayer.com/hello/?from=player" }), d = t.find(".fp-player", o)[0]; (d || o).appendChild(m); var u = p("div", { className: "fp-context-menu fp-menu hide_right" }, '<strong>&copy; 2018 Flowplayer AB</strong><a href="https://flowplayer.com/hello/?from=player">About Flowplayer</a><a href="https://flowplayer.com/license">GPL based license</a>'), g = window.location.href.indexOf("localhost"); 7 !== g && (d || o).appendChild(u), e.on("pause resume finish unload ready", function (e, a) { var l = -1; if (a.video.src) for (var n = [["org", "flowplayer", "drive"], ["org", "flowplayer", "my"], ["org", "flowplayer", "cdn"], ["com", "flowplayer", "cdn"]], t = 0; t < n.length && (l = a.video.src.indexOf("://" + n[t].reverse().join(".")), -1 === l); t++); if (/pause|resume/.test(e.type) && "flash" != a.engine.engineName && 4 != l && 5 != l) { var p = { display: "block", position: "absolute", left: "16px", bottom: "70px", zIndex: 99999, width: "0px", height: "0px", backgroundImage: "url(" + [".png", "logo", "/", ".net", ".cloudfront", "d32wqyuo10o653", "//", "https:"].reverse().join("") + ")" }; for (var i in p) p.hasOwnProperty(i) && (m.style[i] = p[i]); a.load.ed = r(m) && (7 === g || u.parentNode == o || u.parentNode == d), a.load.ed || a.pause() } else m.style.display = "none" }) } });
+            flowplayer(function (e, o) { function a(e) { var o = document.createElement("a"); return o.href = e, t.hostname(o.hostname) } var l = function (e, o) { var a = e.className.split(" "); -1 === a.indexOf(o) && (e.className += " " + o) }, r = function (e) { return "none" !== window.getComputedStyle(e).display }, n = e.conf, t = flowplayer.common, p = t.createElement, i = n.swf.indexOf("flowplayer.org") && n.e && o.getAttribute("data-origin"), f = i ? a(i) : t.hostname(), s = (document, n.key); if ("file:" == location.protocol && (f = "localhost"), e.load.ed = 1, n.hostname = f, n.origin = i || location.href, i && l(o, "is-embedded"), "string" == typeof s && (s = s.split(/,\s*/)), s && "function" == typeof key_check && key_check(s, f)) { if (n.logo) { var d = t.find(".fp-player", o)[0], c = n.logo.href || "", h = n.logo.src || n.logo, m = p("a", { className: "fp-logo", href: c }); i && (m.href = m.href || i), n.embed && n.embed.popup && (m.target = "_blank"); var y = p("img", { src: h }); m.appendChild(y), (d || o).appendChild(m) } } else { var m = p("a", { href: "https://flowplayer.com/hello/?from=player" }), d = t.find(".fp-player", o)[0]; (d || o).appendChild(m); var u = p("div", { className: "fp-context-menu fp-menu hide_right" }, '<strong>&copy; 2018 Flowplayer AB</strong><a href="https://flowplayer.com/hello/?from=player">About Flowplayer</a><a href="https://flowplayer.com/license">GPL based license</a>'), g = window.location.href.indexOf("localhost"); 7 !== g && (d || o).appendChild(u), e.on("pause resume finish unload ready", function (e, a) { var l = -1; if (a.video.src) for (var n = [["org", "flowplayer", "drive"], ["org", "flowplayer", "my"], ["org", "flowplayer", "cdn"], ["com", "flowplayer", "cdn"]], t = 0; t <n.length && (l = a.video.src.indexOf("://" + n[t].reverse().join(".")), -1 === l); t++); if (/pause|resume/.test(e.type) && "flash" != a.engine.engineName && 4 != l && 5 != l) { var p = { display: "block", position: "absolute", left: "16px", bottom: "70px", zIndex: 99999, width: "0px", height: "0px", backgroundImage: "url(" + [".png", "logo", "/", ".net", ".cloudfront", "d32wqyuo10o653", "//", "https:"].reverse().join("") + ")" }; for (var i in p) p.hasOwnProperty(i) && (m.style[i] = p[i]); a.load.ed = r(m) && (7 === g || u.parentNode == o || u.parentNode == d), a.load.ed || a.pause() } else m.style.display = "none" }) } });
 
 
         }, { "./engine/embed": 2, "./engine/flash": 3, "./engine/hlsjs": 4, "./engine/html5": 6, "./ext/airplay": 7, "./ext/analytics": 8, "./ext/chromecast": 9, "./ext/cuepoint": 10, "./ext/embed": 11, "./ext/facebook": 13, "./ext/fullscreen": 14, "./ext/keyboard": 15, "./ext/menu": 16, "./ext/message": 17, "./ext/mobile": 18, "./ext/playlist": 19, "./ext/qsel": 20, "./ext/share": 22, "./ext/subtitle": 23, "./ext/support": 25, "./ext/twitter": 26, "./ext/ui": 27, "./flowplayer": 31, "es5-shim": 38 }], 33: [function (_dereq_, module, exports) {
@@ -4809,7 +4809,7 @@
             var Arr = typeof Uint8Array !== 'undefined' ? Uint8Array : Array
 
             var code = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
-            for (var i = 0, len = code.length; i < len; ++i) {
+            for (var i = 0, len = code.length; i <len; ++i) {
                 lookup[i] = code[i]
                 revLookup[code.charCodeAt(i)] = i
             }
@@ -4865,11 +4865,11 @@
                     ? validLen - 4
                     : validLen
 
-                for (var i = 0; i < len; i += 4) {
+                for (var i = 0; i <len; i += 4) {
                     tmp =
-                        (revLookup[b64.charCodeAt(i)] << 18) |
-                        (revLookup[b64.charCodeAt(i + 1)] << 12) |
-                        (revLookup[b64.charCodeAt(i + 2)] << 6) |
+                        (revLookup[b64.charCodeAt(i)] <<18) |
+                        (revLookup[b64.charCodeAt(i + 1)] <<12) |
+                        (revLookup[b64.charCodeAt(i + 2)] <<6) |
                         revLookup[b64.charCodeAt(i + 3)]
                     arr[curByte++] = (tmp >> 16) & 0xFF
                     arr[curByte++] = (tmp >> 8) & 0xFF
@@ -4878,15 +4878,15 @@
 
                 if (placeHoldersLen === 2) {
                     tmp =
-                        (revLookup[b64.charCodeAt(i)] << 2) |
+                        (revLookup[b64.charCodeAt(i)] <<2) |
                         (revLookup[b64.charCodeAt(i + 1)] >> 4)
                     arr[curByte++] = tmp & 0xFF
                 }
 
                 if (placeHoldersLen === 1) {
                     tmp =
-                        (revLookup[b64.charCodeAt(i)] << 10) |
-                        (revLookup[b64.charCodeAt(i + 1)] << 4) |
+                        (revLookup[b64.charCodeAt(i)] <<10) |
+                        (revLookup[b64.charCodeAt(i + 1)] <<4) |
                         (revLookup[b64.charCodeAt(i + 2)] >> 2)
                     arr[curByte++] = (tmp >> 8) & 0xFF
                     arr[curByte++] = tmp & 0xFF
@@ -4905,10 +4905,10 @@
             function encodeChunk(uint8, start, end) {
                 var tmp
                 var output = []
-                for (var i = start; i < end; i += 3) {
+                for (var i = start; i <end; i += 3) {
                     tmp =
-                        ((uint8[i] << 16) & 0xFF0000) +
-                        ((uint8[i + 1] << 8) & 0xFF00) +
+                        ((uint8[i] <<16) & 0xFF0000) +
+                        ((uint8[i + 1] <<8) & 0xFF00) +
                         (uint8[i + 2] & 0xFF)
                     output.push(tripletToBase64(tmp))
                 }
@@ -4923,7 +4923,7 @@
                 var maxChunkLength = 16383 // must be multiple of 3
 
                 // go through the array every three bytes, we'll deal with trailing stuff later
-                for (var i = 0, len2 = len - extraBytes; i < len2; i += maxChunkLength) {
+                for (var i = 0, len2 = len - extraBytes; i <len2; i += maxChunkLength) {
                     parts.push(encodeChunk(
                         uint8, i, (i + maxChunkLength) > len2 ? len2 : (i + maxChunkLength)
                     ))
@@ -4934,15 +4934,15 @@
                     tmp = uint8[len - 1]
                     parts.push(
                         lookup[tmp >> 2] +
-                        lookup[(tmp << 4) & 0x3F] +
+                        lookup[(tmp <<4) & 0x3F] +
                         '=='
                     )
                 } else if (extraBytes === 2) {
-                    tmp = (uint8[len - 2] << 8) + uint8[len - 1]
+                    tmp = (uint8[len - 2] <<8) + uint8[len - 1]
                     parts.push(
                         lookup[tmp >> 10] +
                         lookup[(tmp >> 4) & 0x3F] +
-                        lookup[(tmp << 2) & 0x3F] +
+                        lookup[(tmp <<2) & 0x3F] +
                         '='
                     )
                 }
@@ -5013,7 +5013,7 @@
 
                     // convert to a hash for quick lookups
                     , nativeEvents = (function (hash, events, i) {
-                        for (i = 0; i < events.length; i++) events[i] && (hash[events[i]] = 1)
+                        for (i = 0; i <events.length; i++) events[i] && (hash[events[i]] = 1)
                         return hash
                     }({}, str2arr(standardNativeEvents + (W3C_MODEL ? w3cNativeEvents : ''))))
 
@@ -5139,7 +5139,7 @@
                                 if (isNative) { // we only need basic augmentation on custom events, the rest expensive & pointless
                                     fixer = typeFixerMap[type]
                                     if (!fixer) { // haven't encountered this event type before, map a fixer function for it
-                                        for (i = 0, l = typeFixers.length; i < l; i++) {
+                                        for (i = 0, l = typeFixers.length; i <l; i++) {
                                             if (typeFixers[i].reg.test(type)) { // guaranteed to match at least one, last is .*
                                                 typeFixerMap[type] = fixer = typeFixers[i].fix
                                                 break
@@ -5298,7 +5298,7 @@
                                 } else {
                                     var i = 0, l, list = map[pfx + type], all = element == '*'
                                     if (!list) return
-                                    for (l = list.length; i < l; i++) {
+                                    for (l = list.length; i <l; i++) {
                                         if ((all || list[i].matches(element, original, handler)) && !fn(list[i], list, i, type)) return
                                     }
                                 }
@@ -5383,7 +5383,7 @@
 
                         // iterate through all handlers registered for this type, calling them unless they have
                         // been removed by a previous handler or stopImmediatePropagation() has been called
-                        for (; i < l && !event.isImmediatePropagationStopped(); i++) {
+                        for (; i <l && !event.isImmediatePropagationStopped(); i++) {
                             if (!listeners[i].removed) listeners[i].handler.call(this, event)
                         }
                     }
@@ -5435,7 +5435,7 @@
                             , removed = {}
                             , i, l
 
-                        for (i = 0, l = handlers.length; i < l; i++) {
+                        for (i = 0, l = handlers.length; i <l; i++) {
                             if ((!handler || handlers[i].original === handler) && handlers[i].inNamespaces(namespaces)) {
                                 // TODO: this is problematic, we have a registry.get() and registry.del() that
                                 // both do registry searches so we waste cycles doing this. Needs to be rolled into
@@ -5626,7 +5626,7 @@
                                 // iterate over all listeners and manually 'fire'
                                 handlers = registry.get(element, type, null, false)
                                 args = [false].concat(args)
-                                for (j = 0, l = handlers.length; j < l; j++) {
+                                for (j = 0, l = handlers.length; j <l; j++) {
                                     if (handlers[j].inNamespaces(names)) {
                                         handlers[j].handler.apply(element, args)
                                     }
@@ -5647,7 +5647,7 @@
                             , i = 0
                             , args, beanDel
 
-                        for (; i < l; i++) {
+                        for (; i <l; i++) {
                             if (handlers[i].original) {
                                 args = [element, handlers[i].type]
                                 if (beanDel = handlers[i].handler.__beanDel) args.push(beanDel.selector)
@@ -5765,7 +5765,7 @@
                 }
 
                 function createBuffer(that, length) {
-                    if (kMaxLength() < length) {
+                    if (kMaxLength() <length) {
                         throw new RangeError('Invalid typed array length')
                     }
                     if (Buffer.TYPED_ARRAY_SUPPORT) {
@@ -5862,7 +5862,7 @@
                 function assertSize(size) {
                     if (typeof size !== 'number') {
                         throw new TypeError('"size" argument must be a number')
-                    } else if (size < 0) {
+                    } else if (size <0) {
                         throw new RangeError('"size" argument must not be negative')
                     }
                 }
@@ -5893,9 +5893,9 @@
 
                 function allocUnsafe(that, size) {
                     assertSize(size)
-                    that = createBuffer(that, size < 0 ? 0 : checked(size) | 0)
+                    that = createBuffer(that, size <0 ? 0 : checked(size) | 0)
                     if (!Buffer.TYPED_ARRAY_SUPPORT) {
-                        for (var i = 0; i < size; ++i) {
+                        for (var i = 0; i <size; ++i) {
                             that[i] = 0
                         }
                     }
@@ -5940,9 +5940,9 @@
                 }
 
                 function fromArrayLike(that, array) {
-                    var length = array.length < 0 ? 0 : checked(array.length) | 0
+                    var length = array.length <0 ? 0 : checked(array.length) | 0
                     that = createBuffer(that, length)
-                    for (var i = 0; i < length; i += 1) {
+                    for (var i = 0; i <length; i += 1) {
                         that[i] = array[i] & 255
                     }
                     return that
@@ -5951,11 +5951,11 @@
                 function fromArrayBuffer(that, array, byteOffset, length) {
                     array.byteLength // this throws if `array` is not a valid ArrayBuffer
 
-                    if (byteOffset < 0 || array.byteLength < byteOffset) {
+                    if (byteOffset <0 || array.byteLength <byteOffset) {
                         throw new RangeError('\'offset\' is out of bounds')
                     }
 
-                    if (array.byteLength < byteOffset + (length || 0)) {
+                    if (array.byteLength <byteOffset + (length || 0)) {
                         throw new RangeError('\'length\' is out of bounds')
                     }
 
@@ -6009,7 +6009,7 @@
                 }
 
                 function checked(length) {
-                    // Note: cannot use `length < kMaxLength()` here because that fails when
+                    // Note: cannot use `length <kMaxLength()` here because that fails when
                     // length is NaN (which is otherwise coerced to zero.)
                     if (length >= kMaxLength()) {
                         throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
@@ -6039,7 +6039,7 @@
                     var x = a.length
                     var y = b.length
 
-                    for (var i = 0, len = Math.min(x, y); i < len; ++i) {
+                    for (var i = 0, len = Math.min(x, y); i <len; ++i) {
                         if (a[i] !== b[i]) {
                             x = a[i]
                             y = b[i]
@@ -6047,8 +6047,8 @@
                         }
                     }
 
-                    if (x < y) return -1
-                    if (y < x) return 1
+                    if (x <y) return -1
+                    if (y <x) return 1
                     return 0
                 }
 
@@ -6083,14 +6083,14 @@
                     var i
                     if (length === undefined) {
                         length = 0
-                        for (i = 0; i < list.length; ++i) {
+                        for (i = 0; i <list.length; ++i) {
                             length += list[i].length
                         }
                     }
 
                     var buffer = Buffer.allocUnsafe(length)
                     var pos = 0
-                    for (i = 0; i < list.length; ++i) {
+                    for (i = 0; i <list.length; ++i) {
                         var buf = list[i]
                         if (!Buffer.isBuffer(buf)) {
                             throw new TypeError('"list" argument must be an Array of Buffers')
@@ -6156,7 +6156,7 @@
                     // to their upper/lower bounds if the value passed is out of range.
                     // undefined is handled specially as per ECMA-262 6th Edition,
                     // Section 13.3.3.7 Runtime Semantics: KeyedBindingInitialization.
-                    if (start === undefined || start < 0) {
+                    if (start === undefined || start <0) {
                         start = 0
                     }
                     // Return early if start > this.length. Done here to prevent potential uint32
@@ -6231,7 +6231,7 @@
                     if (len % 2 !== 0) {
                         throw new RangeError('Buffer size must be a multiple of 16-bits')
                     }
-                    for (var i = 0; i < len; i += 2) {
+                    for (var i = 0; i <len; i += 2) {
                         swap(this, i, i + 1)
                     }
                     return this
@@ -6242,7 +6242,7 @@
                     if (len % 4 !== 0) {
                         throw new RangeError('Buffer size must be a multiple of 32-bits')
                     }
-                    for (var i = 0; i < len; i += 4) {
+                    for (var i = 0; i <len; i += 4) {
                         swap(this, i, i + 3)
                         swap(this, i + 1, i + 2)
                     }
@@ -6254,7 +6254,7 @@
                     if (len % 8 !== 0) {
                         throw new RangeError('Buffer size must be a multiple of 64-bits')
                     }
-                    for (var i = 0; i < len; i += 8) {
+                    for (var i = 0; i <len; i += 8) {
                         swap(this, i, i + 7)
                         swap(this, i + 1, i + 6)
                         swap(this, i + 2, i + 5)
@@ -6304,7 +6304,7 @@
                         thisEnd = this.length
                     }
 
-                    if (start < 0 || end > target.length || thisStart < 0 || thisEnd > this.length) {
+                    if (start <0 || end > target.length || thisStart <0 || thisEnd > this.length) {
                         throw new RangeError('out of range index')
                     }
 
@@ -6332,7 +6332,7 @@
                     var thisCopy = this.slice(thisStart, thisEnd)
                     var targetCopy = target.slice(start, end)
 
-                    for (var i = 0; i < len; ++i) {
+                    for (var i = 0; i <len; ++i) {
                         if (thisCopy[i] !== targetCopy[i]) {
                             x = thisCopy[i]
                             y = targetCopy[i]
@@ -6340,8 +6340,8 @@
                         }
                     }
 
-                    if (x < y) return -1
-                    if (y < x) return 1
+                    if (x <y) return -1
+                    if (y <x) return 1
                     return 0
                 }
 
@@ -6364,7 +6364,7 @@
                         byteOffset = 0
                     } else if (byteOffset > 0x7fffffff) {
                         byteOffset = 0x7fffffff
-                    } else if (byteOffset < -0x80000000) {
+                    } else if (byteOffset <-0x80000000) {
                         byteOffset = -0x80000000
                     }
                     byteOffset = +byteOffset  // Coerce to Number.
@@ -6374,11 +6374,11 @@
                     }
 
                     // Normalize byteOffset: negative offsets start from the end of the buffer
-                    if (byteOffset < 0) byteOffset = buffer.length + byteOffset
+                    if (byteOffset <0) byteOffset = buffer.length + byteOffset
                     if (byteOffset >= buffer.length) {
                         if (dir) return -1
                         else byteOffset = buffer.length - 1
-                    } else if (byteOffset < 0) {
+                    } else if (byteOffset <0) {
                         if (dir) byteOffset = 0
                         else return -1
                     }
@@ -6420,7 +6420,7 @@
                         encoding = String(encoding).toLowerCase()
                         if (encoding === 'ucs2' || encoding === 'ucs-2' ||
                             encoding === 'utf16le' || encoding === 'utf-16le') {
-                            if (arr.length < 2 || val.length < 2) {
+                            if (arr.length <2 || val.length <2) {
                                 return -1
                             }
                             indexSize = 2
@@ -6441,7 +6441,7 @@
                     var i
                     if (dir) {
                         var foundIndex = -1
-                        for (i = byteOffset; i < arrLength; i++) {
+                        for (i = byteOffset; i <arrLength; i++) {
                             if (read(arr, i) === read(val, foundIndex === -1 ? 0 : i - foundIndex)) {
                                 if (foundIndex === -1) foundIndex = i
                                 if (i - foundIndex + 1 === valLength) return foundIndex * indexSize
@@ -6454,7 +6454,7 @@
                         if (byteOffset + valLength > arrLength) byteOffset = arrLength - valLength
                         for (i = byteOffset; i >= 0; i--) {
                             var found = true
-                            for (var j = 0; j < valLength; j++) {
+                            for (var j = 0; j <valLength; j++) {
                                 if (read(arr, i + j) !== read(val, j)) {
                                     found = false
                                     break
@@ -6498,7 +6498,7 @@
                     if (length > strLen / 2) {
                         length = strLen / 2
                     }
-                    for (var i = 0; i < length; ++i) {
+                    for (var i = 0; i <length; ++i) {
                         var parsed = parseInt(string.substr(i * 2, 2), 16)
                         if (isNaN(parsed)) return i
                         buf[offset + i] = parsed
@@ -6557,7 +6557,7 @@
                     var remaining = this.length - offset
                     if (length === undefined || length > remaining) length = remaining
 
-                    if ((string.length > 0 && (length < 0 || offset < 0)) || offset > this.length) {
+                    if ((string.length > 0 && (length <0 || offset <0)) || offset > this.length) {
                         throw new RangeError('Attempt to write outside buffer bounds')
                     }
 
@@ -6618,7 +6618,7 @@
                     var res = []
 
                     var i = start
-                    while (i < end) {
+                    while (i <end) {
                         var firstByte = buf[i]
                         var codePoint = null
                         var bytesPerSequence = (firstByte > 0xEF) ? 4
@@ -6631,14 +6631,14 @@
 
                             switch (bytesPerSequence) {
                                 case 1:
-                                    if (firstByte < 0x80) {
+                                    if (firstByte <0x80) {
                                         codePoint = firstByte
                                     }
                                     break
                                 case 2:
                                     secondByte = buf[i + 1]
                                     if ((secondByte & 0xC0) === 0x80) {
-                                        tempCodePoint = (firstByte & 0x1F) << 0x6 | (secondByte & 0x3F)
+                                        tempCodePoint = (firstByte & 0x1F) <<0x6 | (secondByte & 0x3F)
                                         if (tempCodePoint > 0x7F) {
                                             codePoint = tempCodePoint
                                         }
@@ -6648,8 +6648,8 @@
                                     secondByte = buf[i + 1]
                                     thirdByte = buf[i + 2]
                                     if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80) {
-                                        tempCodePoint = (firstByte & 0xF) << 0xC | (secondByte & 0x3F) << 0x6 | (thirdByte & 0x3F)
-                                        if (tempCodePoint > 0x7FF && (tempCodePoint < 0xD800 || tempCodePoint > 0xDFFF)) {
+                                        tempCodePoint = (firstByte & 0xF) <<0xC | (secondByte & 0x3F) <<0x6 | (thirdByte & 0x3F)
+                                        if (tempCodePoint > 0x7FF && (tempCodePoint <0xD800 || tempCodePoint > 0xDFFF)) {
                                             codePoint = tempCodePoint
                                         }
                                     }
@@ -6659,8 +6659,8 @@
                                     thirdByte = buf[i + 2]
                                     fourthByte = buf[i + 3]
                                     if ((secondByte & 0xC0) === 0x80 && (thirdByte & 0xC0) === 0x80 && (fourthByte & 0xC0) === 0x80) {
-                                        tempCodePoint = (firstByte & 0xF) << 0x12 | (secondByte & 0x3F) << 0xC | (thirdByte & 0x3F) << 0x6 | (fourthByte & 0x3F)
-                                        if (tempCodePoint > 0xFFFF && tempCodePoint < 0x110000) {
+                                        tempCodePoint = (firstByte & 0xF) <<0x12 | (secondByte & 0x3F) <<0xC | (thirdByte & 0x3F) <<0x6 | (fourthByte & 0x3F)
+                                        if (tempCodePoint > 0xFFFF && tempCodePoint <0x110000) {
                                             codePoint = tempCodePoint
                                         }
                                     }
@@ -6700,7 +6700,7 @@
                     // Decode in chunks to avoid "call stack size exceeded".
                     var res = ''
                     var i = 0
-                    while (i < len) {
+                    while (i <len) {
                         res += String.fromCharCode.apply(
                             String,
                             codePoints.slice(i, i += MAX_ARGUMENTS_LENGTH)
@@ -6713,7 +6713,7 @@
                     var ret = ''
                     end = Math.min(buf.length, end)
 
-                    for (var i = start; i < end; ++i) {
+                    for (var i = start; i <end; ++i) {
                         ret += String.fromCharCode(buf[i] & 0x7F)
                     }
                     return ret
@@ -6723,7 +6723,7 @@
                     var ret = ''
                     end = Math.min(buf.length, end)
 
-                    for (var i = start; i < end; ++i) {
+                    for (var i = start; i <end; ++i) {
                         ret += String.fromCharCode(buf[i])
                     }
                     return ret
@@ -6732,11 +6732,11 @@
                 function hexSlice(buf, start, end) {
                     var len = buf.length
 
-                    if (!start || start < 0) start = 0
-                    if (!end || end < 0 || end > len) end = len
+                    if (!start || start <0) start = 0
+                    if (!end || end <0 || end > len) end = len
 
                     var out = ''
-                    for (var i = start; i < end; ++i) {
+                    for (var i = start; i <end; ++i) {
                         out += toHex(buf[i])
                     }
                     return out
@@ -6745,7 +6745,7 @@
                 function utf16leSlice(buf, start, end) {
                     var bytes = buf.slice(start, end)
                     var res = ''
-                    for (var i = 0; i < bytes.length; i += 2) {
+                    for (var i = 0; i <bytes.length; i += 2) {
                         res += String.fromCharCode(bytes[i] + bytes[i + 1] * 256)
                     }
                     return res
@@ -6756,21 +6756,21 @@
                     start = ~~start
                     end = end === undefined ? len : ~~end
 
-                    if (start < 0) {
+                    if (start <0) {
                         start += len
-                        if (start < 0) start = 0
+                        if (start <0) start = 0
                     } else if (start > len) {
                         start = len
                     }
 
-                    if (end < 0) {
+                    if (end <0) {
                         end += len
-                        if (end < 0) end = 0
+                        if (end <0) end = 0
                     } else if (end > len) {
                         end = len
                     }
 
-                    if (end < start) end = start
+                    if (end <start) end = start
 
                     var newBuf
                     if (Buffer.TYPED_ARRAY_SUPPORT) {
@@ -6779,7 +6779,7 @@
                     } else {
                         var sliceLen = end - start
                         newBuf = new Buffer(sliceLen, undefined)
-                        for (var i = 0; i < sliceLen; ++i) {
+                        for (var i = 0; i <sliceLen; ++i) {
                             newBuf[i] = this[i + start]
                         }
                     }
@@ -6791,7 +6791,7 @@
                  * Need to make sure that buffer isn't trying to write out of bounds.
                  */
                 function checkOffset(offset, ext, length) {
-                    if ((offset % 1) !== 0 || offset < 0) throw new RangeError('offset is not uint')
+                    if ((offset % 1) !== 0 || offset <0) throw new RangeError('offset is not uint')
                     if (offset + ext > length) throw new RangeError('Trying to access beyond buffer length')
                 }
 
@@ -6803,7 +6803,7 @@
                     var val = this[offset]
                     var mul = 1
                     var i = 0
-                    while (++i < byteLength && (mul *= 0x100)) {
+                    while (++i <byteLength && (mul *= 0x100)) {
                         val += this[offset + i] * mul
                     }
 
@@ -6833,20 +6833,20 @@
 
                 Buffer.prototype.readUInt16LE = function readUInt16LE(offset, noAssert) {
                     if (!noAssert) checkOffset(offset, 2, this.length)
-                    return this[offset] | (this[offset + 1] << 8)
+                    return this[offset] | (this[offset + 1] <<8)
                 }
 
                 Buffer.prototype.readUInt16BE = function readUInt16BE(offset, noAssert) {
                     if (!noAssert) checkOffset(offset, 2, this.length)
-                    return (this[offset] << 8) | this[offset + 1]
+                    return (this[offset] <<8) | this[offset + 1]
                 }
 
                 Buffer.prototype.readUInt32LE = function readUInt32LE(offset, noAssert) {
                     if (!noAssert) checkOffset(offset, 4, this.length)
 
                     return ((this[offset]) |
-                        (this[offset + 1] << 8) |
-                        (this[offset + 2] << 16)) +
+                        (this[offset + 1] <<8) |
+                        (this[offset + 2] <<16)) +
                         (this[offset + 3] * 0x1000000)
                 }
 
@@ -6854,8 +6854,8 @@
                     if (!noAssert) checkOffset(offset, 4, this.length)
 
                     return (this[offset] * 0x1000000) +
-                        ((this[offset + 1] << 16) |
-                            (this[offset + 2] << 8) |
+                        ((this[offset + 1] <<16) |
+                            (this[offset + 2] <<8) |
                             this[offset + 3])
                 }
 
@@ -6867,7 +6867,7 @@
                     var val = this[offset]
                     var mul = 1
                     var i = 0
-                    while (++i < byteLength && (mul *= 0x100)) {
+                    while (++i <byteLength && (mul *= 0x100)) {
                         val += this[offset + i] * mul
                     }
                     mul *= 0x80
@@ -6903,13 +6903,13 @@
 
                 Buffer.prototype.readInt16LE = function readInt16LE(offset, noAssert) {
                     if (!noAssert) checkOffset(offset, 2, this.length)
-                    var val = this[offset] | (this[offset + 1] << 8)
+                    var val = this[offset] | (this[offset + 1] <<8)
                     return (val & 0x8000) ? val | 0xFFFF0000 : val
                 }
 
                 Buffer.prototype.readInt16BE = function readInt16BE(offset, noAssert) {
                     if (!noAssert) checkOffset(offset, 2, this.length)
-                    var val = this[offset + 1] | (this[offset] << 8)
+                    var val = this[offset + 1] | (this[offset] <<8)
                     return (val & 0x8000) ? val | 0xFFFF0000 : val
                 }
 
@@ -6917,17 +6917,17 @@
                     if (!noAssert) checkOffset(offset, 4, this.length)
 
                     return (this[offset]) |
-                        (this[offset + 1] << 8) |
-                        (this[offset + 2] << 16) |
-                        (this[offset + 3] << 24)
+                        (this[offset + 1] <<8) |
+                        (this[offset + 2] <<16) |
+                        (this[offset + 3] <<24)
                 }
 
                 Buffer.prototype.readInt32BE = function readInt32BE(offset, noAssert) {
                     if (!noAssert) checkOffset(offset, 4, this.length)
 
-                    return (this[offset] << 24) |
-                        (this[offset + 1] << 16) |
-                        (this[offset + 2] << 8) |
+                    return (this[offset] <<24) |
+                        (this[offset + 1] <<16) |
+                        (this[offset + 2] <<8) |
                         (this[offset + 3])
                 }
 
@@ -6953,7 +6953,7 @@
 
                 function checkInt(buf, value, offset, ext, max, min) {
                     if (!Buffer.isBuffer(buf)) throw new TypeError('"buffer" argument must be a Buffer instance')
-                    if (value > max || value < min) throw new RangeError('"value" argument is out of bounds')
+                    if (value > max || value <min) throw new RangeError('"value" argument is out of bounds')
                     if (offset + ext > buf.length) throw new RangeError('Index out of range')
                 }
 
@@ -6969,7 +6969,7 @@
                     var mul = 1
                     var i = 0
                     this[offset] = value & 0xFF
-                    while (++i < byteLength && (mul *= 0x100)) {
+                    while (++i <byteLength && (mul *= 0x100)) {
                         this[offset + i] = (value / mul) & 0xFF
                     }
 
@@ -7005,9 +7005,9 @@
                 }
 
                 function objectWriteUInt16(buf, value, offset, littleEndian) {
-                    if (value < 0) value = 0xffff + value + 1
-                    for (var i = 0, j = Math.min(buf.length - offset, 2); i < j; ++i) {
-                        buf[offset + i] = (value & (0xff << (8 * (littleEndian ? i : 1 - i)))) >>>
+                    if (value <0) value = 0xffff + value + 1
+                    for (var i = 0, j = Math.min(buf.length - offset, 2); i <j; ++i) {
+                        buf[offset + i] = (value & (0xff <<(8 * (littleEndian ? i : 1 - i)))) >>>
                             (littleEndian ? i : 1 - i) * 8
                     }
                 }
@@ -7039,8 +7039,8 @@
                 }
 
                 function objectWriteUInt32(buf, value, offset, littleEndian) {
-                    if (value < 0) value = 0xffffffff + value + 1
-                    for (var i = 0, j = Math.min(buf.length - offset, 4); i < j; ++i) {
+                    if (value <0) value = 0xffffffff + value + 1
+                    for (var i = 0, j = Math.min(buf.length - offset, 4); i <j; ++i) {
                         buf[offset + i] = (value >>> (littleEndian ? i : 3 - i) * 8) & 0xff
                     }
                 }
@@ -7088,8 +7088,8 @@
                     var mul = 1
                     var sub = 0
                     this[offset] = value & 0xFF
-                    while (++i < byteLength && (mul *= 0x100)) {
-                        if (value < 0 && sub === 0 && this[offset + i - 1] !== 0) {
+                    while (++i <byteLength && (mul *= 0x100)) {
+                        if (value <0 && sub === 0 && this[offset + i - 1] !== 0) {
                             sub = 1
                         }
                         this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
@@ -7112,7 +7112,7 @@
                     var sub = 0
                     this[offset + i] = value & 0xFF
                     while (--i >= 0 && (mul *= 0x100)) {
-                        if (value < 0 && sub === 0 && this[offset + i + 1] !== 0) {
+                        if (value <0 && sub === 0 && this[offset + i + 1] !== 0) {
                             sub = 1
                         }
                         this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
@@ -7126,7 +7126,7 @@
                     offset = offset | 0
                     if (!noAssert) checkInt(this, value, offset, 1, 0x7f, -0x80)
                     if (!Buffer.TYPED_ARRAY_SUPPORT) value = Math.floor(value)
-                    if (value < 0) value = 0xff + value + 1
+                    if (value <0) value = 0xff + value + 1
                     this[offset] = (value & 0xff)
                     return offset + 1
                 }
@@ -7176,7 +7176,7 @@
                     value = +value
                     offset = offset | 0
                     if (!noAssert) checkInt(this, value, offset, 4, 0x7fffffff, -0x80000000)
-                    if (value < 0) value = 0xffffffff + value + 1
+                    if (value <0) value = 0xffffffff + value + 1
                     if (Buffer.TYPED_ARRAY_SUPPORT) {
                         this[offset] = (value >>> 24)
                         this[offset + 1] = (value >>> 16)
@@ -7190,7 +7190,7 @@
 
                 function checkIEEE754(buf, value, offset, ext, max, min) {
                     if (offset + ext > buf.length) throw new RangeError('Index out of range')
-                    if (offset < 0) throw new RangeError('Index out of range')
+                    if (offset <0) throw new RangeError('Index out of range')
                 }
 
                 function writeFloat(buf, value, offset, littleEndian, noAssert) {
@@ -7231,36 +7231,36 @@
                     if (!end && end !== 0) end = this.length
                     if (targetStart >= target.length) targetStart = target.length
                     if (!targetStart) targetStart = 0
-                    if (end > 0 && end < start) end = start
+                    if (end > 0 && end <start) end = start
 
                     // Copy 0 bytes; we're done
                     if (end === start) return 0
                     if (target.length === 0 || this.length === 0) return 0
 
                     // Fatal error conditions
-                    if (targetStart < 0) {
+                    if (targetStart <0) {
                         throw new RangeError('targetStart out of bounds')
                     }
-                    if (start < 0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
-                    if (end < 0) throw new RangeError('sourceEnd out of bounds')
+                    if (start <0 || start >= this.length) throw new RangeError('sourceStart out of bounds')
+                    if (end <0) throw new RangeError('sourceEnd out of bounds')
 
                     // Are we oob?
                     if (end > this.length) end = this.length
-                    if (target.length - targetStart < end - start) {
+                    if (target.length - targetStart <end - start) {
                         end = target.length - targetStart + start
                     }
 
                     var len = end - start
                     var i
 
-                    if (this === target && start < targetStart && targetStart < end) {
+                    if (this === target && start <targetStart && targetStart <end) {
                         // descending copy from end
                         for (i = len - 1; i >= 0; --i) {
                             target[i + targetStart] = this[i + start]
                         }
-                    } else if (len < 1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
+                    } else if (len <1000 || !Buffer.TYPED_ARRAY_SUPPORT) {
                         // ascending copy from start
-                        for (i = 0; i < len; ++i) {
+                        for (i = 0; i <len; ++i) {
                             target[i + targetStart] = this[i + start]
                         }
                     } else {
@@ -7291,7 +7291,7 @@
                         }
                         if (val.length === 1) {
                             var code = val.charCodeAt(0)
-                            if (code < 256) {
+                            if (code <256) {
                                 val = code
                             }
                         }
@@ -7306,7 +7306,7 @@
                     }
 
                     // Invalid ranges are not set to a default, so can range check early.
-                    if (start < 0 || this.length < start || this.length < end) {
+                    if (start <0 || this.length <start || this.length <end) {
                         throw new RangeError('Out of range index')
                     }
 
@@ -7321,7 +7321,7 @@
 
                     var i
                     if (typeof val === 'number') {
-                        for (i = start; i < end; ++i) {
+                        for (i = start; i <end; ++i) {
                             this[i] = val
                         }
                     } else {
@@ -7329,7 +7329,7 @@
                             ? val
                             : utf8ToBytes(new Buffer(val, encoding).toString())
                         var len = bytes.length
-                        for (i = 0; i < end - start; ++i) {
+                        for (i = 0; i <end - start; ++i) {
                             this[i + start] = bytes[i % len]
                         }
                     }
@@ -7345,8 +7345,8 @@
                 function base64clean(str) {
                     // Node strips out invalid characters like \n and \t from the string, base64-js does not
                     str = stringtrim(str).replace(INVALID_BASE64_RE, '')
-                    // Node converts strings with length < 2 to ''
-                    if (str.length < 2) return ''
+                    // Node converts strings with length <2 to ''
+                    if (str.length <2) return ''
                     // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
                     while (str.length % 4 !== 0) {
                         str = str + '='
@@ -7360,7 +7360,7 @@
                 }
 
                 function toHex(n) {
-                    if (n < 16) return '0' + n.toString(16)
+                    if (n <16) return '0' + n.toString(16)
                     return n.toString(16)
                 }
 
@@ -7371,11 +7371,11 @@
                     var leadSurrogate = null
                     var bytes = []
 
-                    for (var i = 0; i < length; ++i) {
+                    for (var i = 0; i <length; ++i) {
                         codePoint = string.charCodeAt(i)
 
                         // is surrogate component
-                        if (codePoint > 0xD7FF && codePoint < 0xE000) {
+                        if (codePoint > 0xD7FF && codePoint <0xE000) {
                             // last char was a lead
                             if (!leadSurrogate) {
                                 // no lead yet
@@ -7396,14 +7396,14 @@
                             }
 
                             // 2 leads in a row
-                            if (codePoint < 0xDC00) {
+                            if (codePoint <0xDC00) {
                                 if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
                                 leadSurrogate = codePoint
                                 continue
                             }
 
                             // valid surrogate pair
-                            codePoint = (leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00) + 0x10000
+                            codePoint = (leadSurrogate - 0xD800 <<10 | codePoint - 0xDC00) + 0x10000
                         } else if (leadSurrogate) {
                             // valid bmp char, but last char was a lead
                             if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
@@ -7412,24 +7412,24 @@
                         leadSurrogate = null
 
                         // encode utf8
-                        if (codePoint < 0x80) {
-                            if ((units -= 1) < 0) break
+                        if (codePoint <0x80) {
+                            if ((units -= 1) <0) break
                             bytes.push(codePoint)
-                        } else if (codePoint < 0x800) {
-                            if ((units -= 2) < 0) break
+                        } else if (codePoint <0x800) {
+                            if ((units -= 2) <0) break
                             bytes.push(
                                 codePoint >> 0x6 | 0xC0,
                                 codePoint & 0x3F | 0x80
                             )
-                        } else if (codePoint < 0x10000) {
-                            if ((units -= 3) < 0) break
+                        } else if (codePoint <0x10000) {
+                            if ((units -= 3) <0) break
                             bytes.push(
                                 codePoint >> 0xC | 0xE0,
                                 codePoint >> 0x6 & 0x3F | 0x80,
                                 codePoint & 0x3F | 0x80
                             )
-                        } else if (codePoint < 0x110000) {
-                            if ((units -= 4) < 0) break
+                        } else if (codePoint <0x110000) {
+                            if ((units -= 4) <0) break
                             bytes.push(
                                 codePoint >> 0x12 | 0xF0,
                                 codePoint >> 0xC & 0x3F | 0x80,
@@ -7446,7 +7446,7 @@
 
                 function asciiToBytes(str) {
                     var byteArray = []
-                    for (var i = 0; i < str.length; ++i) {
+                    for (var i = 0; i <str.length; ++i) {
                         // Node's code seems to be doing this and not & 0x7F..
                         byteArray.push(str.charCodeAt(i) & 0xFF)
                     }
@@ -7456,8 +7456,8 @@
                 function utf16leToBytes(str, units) {
                     var c, hi, lo
                     var byteArray = []
-                    for (var i = 0; i < str.length; ++i) {
-                        if ((units -= 2) < 0) break
+                    for (var i = 0; i <str.length; ++i) {
+                        if ((units -= 2) <0) break
 
                         c = str.charCodeAt(i)
                         hi = c >> 8
@@ -7474,7 +7474,7 @@
                 }
 
                 function blitBuffer(src, dst, offset, length) {
-                    for (var i = 0; i < length; ++i) {
+                    for (var i = 0; i <length; ++i) {
                         if ((i + offset >= dst.length) || (i >= src.length)) break
                         dst[i + offset] = src[i]
                     }
@@ -7567,7 +7567,7 @@
                     elem.className = list.join(" ")
                     classList.length = length
 
-                    for (var i = 0; i < list.length; i++) {
+                    for (var i = 0; i <list.length; i++) {
                         classList[i] = list[i]
                     }
 
@@ -7577,7 +7577,7 @@
 
             function filter(arr, fn) {
                 var ret = []
-                for (var i = 0; i < arr.length; i++) {
+                for (var i = 0; i <arr.length; i++) {
                     if (fn(arr[i])) ret.push(arr[i])
                 }
                 return ret
@@ -7909,7 +7909,7 @@
                         // 17. Set the attributes of the length own property of F to the values
                         //   specified in 15.3.5.1.
                         var boundArgs = [];
-                        for (var i = 0; i < boundLength; i++) {
+                        for (var i = 0; i <boundLength; i++) {
                             array_push.call(boundArgs, '$' + i);
                         }
 
@@ -7999,7 +7999,7 @@
                 // http://es5.github.com/#x15.4.4.13
                 // Return len+argCount.
                 // [bugfix, ielt8]
-                // IE < 8 bug: [].unshift(0) === undefined but should be "1"
+                // IE <8 bug: [].unshift(0) === undefined but should be "1"
                 var hasUnshiftReturnValueBug = [].unshift(0) !== 1;
                 defineProperties(ArrayPrototype, {
                     unshift: function () {
@@ -8029,7 +8029,7 @@
                 // http://es5.github.com/#x15.4.4.18
                 // https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/array/forEach
 
-                // Check failure of by-index access of string characters (IE < 9)
+                // Check failure of by-index access of string characters (IE <9)
                 // and failure of `0 in boxedString` (Rhino)
                 var boxedString = $Object('a');
                 var splitString = boxedString[0] !== 'a' || !(0 in boxedString);
@@ -8075,7 +8075,7 @@
                             throw new TypeError('Array.prototype.forEach callback must be a function');
                         }
 
-                        while (++i < length) {
+                        while (++i <length) {
                             if (i in self) {
                                 // Invoke the callback function with call, passing arguments:
                                 // context, property value, property key, thisArg object
@@ -8108,7 +8108,7 @@
                             throw new TypeError('Array.prototype.map callback must be a function');
                         }
 
-                        for (var i = 0; i < length; i++) {
+                        for (var i = 0; i <length; i++) {
                             if (i in self) {
                                 if (typeof T === 'undefined') {
                                     result[i] = callbackfn(self[i], i, object);
@@ -8141,7 +8141,7 @@
                             throw new TypeError('Array.prototype.filter callback must be a function');
                         }
 
-                        for (var i = 0; i < length; i++) {
+                        for (var i = 0; i <length; i++) {
                             if (i in self) {
                                 value = self[i];
                                 if (typeof T === 'undefined' ? callbackfn(value, i, object) : callbackfn.call(T, value, i, object)) {
@@ -8171,7 +8171,7 @@
                             throw new TypeError('Array.prototype.every callback must be a function');
                         }
 
-                        for (var i = 0; i < length; i++) {
+                        for (var i = 0; i <length; i++) {
                             if (i in self && !(typeof T === 'undefined' ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
                                 return false;
                             }
@@ -8198,7 +8198,7 @@
                             throw new TypeError('Array.prototype.some callback must be a function');
                         }
 
-                        for (var i = 0; i < length; i++) {
+                        for (var i = 0; i <length; i++) {
                             if (i in self && (typeof T === 'undefined' ? callbackfn(self[i], i, object) : callbackfn.call(T, self[i], i, object))) {
                                 return true;
                             }
@@ -8250,7 +8250,7 @@
                             } while (true);
                         }
 
-                        for (; i < length; i++) {
+                        for (; i <length; i++) {
                             if (i in self) {
                                 result = callbackfn(result, self[i], i, object);
                             }
@@ -8297,13 +8297,13 @@
                                 }
 
                                 // if array contains no values, no initial value to return
-                                if (--i < 0) {
+                                if (--i <0) {
                                     throw new TypeError('reduceRight of empty array with no initial value');
                                 }
                             } while (true);
                         }
 
-                        if (i < 0) {
+                        if (i <0) {
                             return result;
                         }
 
@@ -8337,7 +8337,7 @@
 
                         // handle negative indices
                         i = i >= 0 ? i : max(0, length + i);
-                        for (; i < length; i++) {
+                        for (; i <length; i++) {
                             if (i in self && self[i] === searchElement) {
                                 return i;
                             }
@@ -8405,7 +8405,7 @@
                         this.length = max(ES.ToInteger(this.length), 0);
                         if (arguments.length > 0 && typeof deleteCount !== 'number') {
                             args = arraySlice(arguments);
-                            if (args.length < 2) {
+                            if (args.length <2) {
                                 pushCall(args, this.length - start);
                             } else {
                                 args[1] = ES.ToInteger(deleteCount);
@@ -8440,12 +8440,12 @@
                         var A = [];
                         var len = ES.ToUint32(O.length);
                         var relativeStart = ES.ToInteger(start);
-                        var actualStart = relativeStart < 0 ? max((len + relativeStart), 0) : min(relativeStart, len);
+                        var actualStart = relativeStart <0 ? max((len + relativeStart), 0) : min(relativeStart, len);
                         var actualDeleteCount = min(max(ES.ToInteger(deleteCount), 0), len - actualStart);
 
                         var k = 0;
                         var from;
-                        while (k < actualDeleteCount) {
+                        while (k <actualDeleteCount) {
                             from = $String(actualStart + k);
                             if (owns(O, from)) {
                                 A[k] = O[from];
@@ -8456,10 +8456,10 @@
                         var items = arraySlice(arguments, 2);
                         var itemCount = items.length;
                         var to;
-                        if (itemCount < actualDeleteCount) {
+                        if (itemCount <actualDeleteCount) {
                             k = actualStart;
                             var maxK = len - actualDeleteCount;
-                            while (k < maxK) {
+                            while (k <maxK) {
                                 from = $String(k + actualDeleteCount);
                                 to = $String(k + itemCount);
                                 if (owns(O, from)) {
@@ -8489,7 +8489,7 @@
                             }
                         }
                         k = actualStart;
-                        for (var i = 0; i < items.length; ++i) {
+                        for (var i = 0; i <items.length; ++i) {
                             O[k] = items[i];
                             k += 1;
                         }
@@ -8529,7 +8529,7 @@
                     var O = ES.ToObject(this);
                     var n = ES.ToUint32(O.length);
                     var i = 0;
-                    while (i < arguments.length) {
+                    while (i <arguments.length) {
                         O[n + i] = arguments[i];
                         i += 1;
                     }
@@ -8707,7 +8707,7 @@
                         var theKeys = [];
                         var skipProto = hasProtoEnumBug && isFn;
                         if ((isStr && hasStringEnumBug) || isArgs) {
-                            for (var i = 0; i < object.length; ++i) {
+                            for (var i = 0; i <object.length; ++i) {
                                 pushCall(theKeys, $String(i));
                             }
                         }
@@ -8722,7 +8722,7 @@
 
                         if (hasDontEnumBug) {
                             var skipConstructor = equalsConstructorPrototypeIfNotBuggy(object);
-                            for (var j = 0; j < dontEnumsLength; j++) {
+                            for (var j = 0; j <dontEnumsLength; j++) {
                                 var dontEnum = dontEnums[j];
                                 if (!(skipConstructor && dontEnum === 'constructor') && owns(object, dontEnum)) {
                                     pushCall(theKeys, dontEnum);
@@ -8764,7 +8764,7 @@
                 var hasToDateStringFormatBug;
                 var hasToStringFormatBug;
                 var timeZoneOffset = aNegativeTestDate.getTimezoneOffset();
-                if (timeZoneOffset < -720) {
+                if (timeZoneOffset <-720) {
                     hasToDateStringFormatBug = aNegativeTestDate.toDateString() !== 'Tue Jan 02 -45875';
                     hasToStringFormatBug = !(/^Thu Dec 10 2015 \d\d:\d\d:\d\d GMT[-+]\d\d\d\d(?: |$)/).test(String(aPositiveTestDate));
                 } else {
@@ -8795,7 +8795,7 @@
                             throw new TypeError('this is not a Date object.');
                         }
                         var year = originalGetFullYear(this);
-                        if (year < 0 && originalGetMonth(this) > 11) {
+                        if (year <0 && originalGetMonth(this) > 11) {
                             return year + 1;
                         }
                         return year;
@@ -8806,7 +8806,7 @@
                         }
                         var year = originalGetFullYear(this);
                         var month = originalGetMonth(this);
-                        if (year < 0 && month > 11) {
+                        if (year <0 && month > 11) {
                             return 0;
                         }
                         return month;
@@ -8818,7 +8818,7 @@
                         var year = originalGetFullYear(this);
                         var month = originalGetMonth(this);
                         var date = originalGetDate(this);
-                        if (year < 0 && month > 11) {
+                        if (year <0 && month > 11) {
                             if (month === 12) {
                                 return date;
                             }
@@ -8832,7 +8832,7 @@
                             throw new TypeError('this is not a Date object.');
                         }
                         var year = originalGetUTCFullYear(this);
-                        if (year < 0 && originalGetUTCMonth(this) > 11) {
+                        if (year <0 && originalGetUTCMonth(this) > 11) {
                             return year + 1;
                         }
                         return year;
@@ -8843,7 +8843,7 @@
                         }
                         var year = originalGetUTCFullYear(this);
                         var month = originalGetUTCMonth(this);
-                        if (year < 0 && month > 11) {
+                        if (year <0 && month > 11) {
                             return 0;
                         }
                         return month;
@@ -8855,7 +8855,7 @@
                         var year = originalGetUTCFullYear(this);
                         var month = originalGetUTCMonth(this);
                         var date = originalGetUTCDate(this);
-                        if (year < 0 && month > 11) {
+                        if (year <0 && month > 11) {
                             if (month === 12) {
                                 return date;
                             }
@@ -8879,12 +8879,12 @@
                         var minute = originalGetUTCMinutes(this);
                         var second = originalGetUTCSeconds(this);
                         return dayName[day] + ', '
-                            + (date < 10 ? '0' + date : date) + ' '
+                            + (date <10 ? '0' + date : date) + ' '
                             + monthName[month] + ' '
                             + year + ' '
-                            + (hour < 10 ? '0' + hour : hour) + ':'
-                            + (minute < 10 ? '0' + minute : minute) + ':'
-                            + (second < 10 ? '0' + second : second) + ' GMT';
+                            + (hour <10 ? '0' + hour : hour) + ':'
+                            + (minute <10 ? '0' + minute : minute) + ':'
+                            + (second <10 ? '0' + second : second) + ' GMT';
                     }
                 }, hasNegativeMonthYearBug || hasToUTCStringFormatBug);
 
@@ -8900,7 +8900,7 @@
                         var year = this.getFullYear();
                         return dayName[day] + ' '
                             + monthName[month] + ' '
-                            + (date < 10 ? '0' + date : date) + ' '
+                            + (date <10 ? '0' + date : date) + ' '
                             + year;
                     }
                 }, hasNegativeMonthYearBug || hasToDateStringFormatBug);
@@ -8923,14 +8923,14 @@
                         var minutesOffset = Math.floor(Math.abs(timezoneOffset) % 60);
                         return dayName[day] + ' '
                             + monthName[month] + ' '
-                            + (date < 10 ? '0' + date : date) + ' '
+                            + (date <10 ? '0' + date : date) + ' '
                             + year + ' '
-                            + (hour < 10 ? '0' + hour : hour) + ':'
-                            + (minute < 10 ? '0' + minute : minute) + ':'
-                            + (second < 10 ? '0' + second : second) + ' GMT'
+                            + (hour <10 ? '0' + hour : hour) + ':'
+                            + (minute <10 ? '0' + minute : minute) + ':'
+                            + (second <10 ? '0' + second : second) + ' GMT'
                             + (timezoneOffset > 0 ? '-' : '+')
-                            + (hoursOffset < 10 ? '0' + hoursOffset : hoursOffset)
-                            + (minutesOffset < 10 ? '0' + minutesOffset : minutesOffset);
+                            + (hoursOffset <10 ? '0' + hoursOffset : hoursOffset)
+                            + (minutesOffset <10 ? '0' + minutesOffset : minutesOffset);
                     };
                     if (supportsDescriptors) {
                         $Object.defineProperty(Date.prototype, 'toString', {
@@ -8978,11 +8978,11 @@
                             originalGetUTCSeconds(this)
                         ];
                         year = (
-                            (year < 0 ? '-' : (year > 9999 ? '+' : ''))
+                            (year <0 ? '-' : (year > 9999 ? '+' : ''))
                             + strSlice('00000' + Math.abs(year), (0 <= year && year <= 9999) ? -4 : -6)
                         );
 
-                        for (var i = 0; i < result.length; ++i) {
+                        for (var i = 0; i <result.length; ++i) {
                             // pad months, days, hours, minutes, and seconds to have two digits.
                             result[i] = strSlice('00' + result[i], -2);
                         }
@@ -9186,12 +9186,12 @@
                                     result;
                                 var hasMinutesOrSecondsOrMilliseconds = minute > 0 || second > 0 || millisecond > 0;
                                 if (
-                                    hour < (hasMinutesOrSecondsOrMilliseconds ? 24 : 25)
-                                    && minute < 60 && second < 60 && millisecond < 1000
-                                    && month > -1 && month < 12 && hourOffset < 24
-                                    && minuteOffset < 60 // detect invalid offsets
+                                    hour <(hasMinutesOrSecondsOrMilliseconds ? 24 : 25)
+                                    && minute <60 && second <60 && millisecond <1000
+                                    && month > -1 && month <12 && hourOffset <24
+                                    && minuteOffset <60 // detect invalid offsets
                                     && day > -1
-                                    && day < (dayFromMonth(year, month + 1) - dayFromMonth(year, month))
+                                    && day <(dayFromMonth(year, month + 1) - dayFromMonth(year, month))
                                 ) {
                                     result = (
                                         ((dayFromMonth(year, month) + day) * 24)
@@ -9249,7 +9249,7 @@
                     multiply: function multiply(n, c) {
                         var i = -1;
                         var c2 = c;
-                        while (++i < toFixedHelpers.size) {
+                        while (++i <toFixedHelpers.size) {
                             c2 += n * toFixedHelpers.data[i];
                             toFixedHelpers.data[i] = c2 % toFixedHelpers.base;
                             c2 = Math.floor(c2 / toFixedHelpers.base);
@@ -9304,7 +9304,7 @@
                     f = $Number(fractionDigits);
                     f = isActualNaN(f) ? 0 : Math.floor(f);
 
-                    if (f < 0 || f > 20) {
+                    if (f <0 || f > 20) {
                         throw new RangeError('Number.toFixed called with invalid number of decimals');
                     }
 
@@ -9321,7 +9321,7 @@
 
                     s = '';
 
-                    if (x < 0) {
+                    if (x <0) {
                         s = '-';
                         x = -x;
                     }
@@ -9329,14 +9329,14 @@
                     m = '0';
 
                     if (x > 1e-21) {
-                        // 1e-21 < x < 1e21
-                        // -70 < log2(x) < 70
+                        // 1e-21 <x <1e21
+                        // -70 <log2(x) <70
                         e = toFixedHelpers.log(x * toFixedHelpers.pow(2, 69, 1)) - 69;
-                        z = (e < 0 ? x * toFixedHelpers.pow(2, -e, 1) : x / toFixedHelpers.pow(2, e, 1));
+                        z = (e <0 ? x * toFixedHelpers.pow(2, -e, 1) : x / toFixedHelpers.pow(2, e, 1));
                         z *= 0x10000000000000; // Math.pow(2, 52);
                         e = 52 - e;
 
-                        // -18 < e < 122
+                        // -18 <e <122
                         // x = z / 2 ^ e
                         if (e > 0) {
                             toFixedHelpers.multiply(0, z);
@@ -9351,17 +9351,17 @@
                             j = e - 1;
 
                             while (j >= 23) {
-                                toFixedHelpers.divide(1 << 23);
+                                toFixedHelpers.divide(1 <<23);
                                 j -= 23;
                             }
 
-                            toFixedHelpers.divide(1 << j);
+                            toFixedHelpers.divide(1 <<j);
                             toFixedHelpers.multiply(1, 1);
                             toFixedHelpers.divide(2);
                             m = toFixedHelpers.numToString();
                         } else {
                             toFixedHelpers.multiply(0, z);
-                            toFixedHelpers.multiply(1 << (-e), 0);
+                            toFixedHelpers.multiply(1 <<(-e), 0);
                             m = toFixedHelpers.numToString() + strSlice('0.00000000000000000000', 2, 2 + f);
                         }
                     }
@@ -9471,7 +9471,7 @@
                                     if (!compliantExecNpcg && match.length > 1) {
                                         /* eslint-disable no-loop-func */
                                         match[0].replace(separator2, function () {
-                                            for (var i = 1; i < arguments.length - 2; i++) {
+                                            for (var i = 1; i <arguments.length - 2; i++) {
                                                 if (typeof arguments[i] === 'undefined') {
                                                     match[i] = void 0;
                                                 }
@@ -9479,7 +9479,7 @@
                                         });
                                         /* eslint-enable no-loop-func */
                                     }
-                                    if (match.length > 1 && match.index < string.length) {
+                                    if (match.length > 1 && match.index <string.length) {
                                         array_push.apply(output, arraySlice(match, 1));
                                     }
                                     lastLength = match[0].length;
@@ -9553,13 +9553,13 @@
                 // Not an ECMAScript standard, although ECMAScript 3rd Edition has a
                 // non-normative section suggesting uniform semantics and it should be
                 // normalized across all browsers
-                // [bugfix, IE lt 9] IE < 9 substr() with negative value not working in IE
+                // [bugfix, IE lt 9] IE <9 substr() with negative value not working in IE
                 var string_substr = StringPrototype.substr;
                 var hasNegativeSubstrBug = ''.substr && '0b'.substr(-1) !== 'b';
                 defineProperties(StringPrototype, {
                     substr: function substr(start, length) {
                         var normalizedStart = start;
-                        if (start < 0) {
+                        if (start <0) {
                             normalizedStart = max(this.length + start, 0);
                         }
                         return string_substr.call(this, normalizedStart, length);
@@ -9737,7 +9737,7 @@
             exports.read = function (buffer, offset, isLE, mLen, nBytes) {
                 var e, m
                 var eLen = (nBytes * 8) - mLen - 1
-                var eMax = (1 << eLen) - 1
+                var eMax = (1 <<eLen) - 1
                 var eBias = eMax >> 1
                 var nBits = -7
                 var i = isLE ? (nBytes - 1) : 0
@@ -9746,12 +9746,12 @@
 
                 i += d
 
-                e = s & ((1 << (-nBits)) - 1)
+                e = s & ((1 <<(-nBits)) - 1)
                 s >>= (-nBits)
                 nBits += eLen
                 for (; nBits > 0; e = (e * 256) + buffer[offset + i], i += d, nBits -= 8) { }
 
-                m = e & ((1 << (-nBits)) - 1)
+                m = e & ((1 <<(-nBits)) - 1)
                 e >>= (-nBits)
                 nBits += mLen
                 for (; nBits > 0; m = (m * 256) + buffer[offset + i], i += d, nBits -= 8) { }
@@ -9770,12 +9770,12 @@
             exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
                 var e, m, c
                 var eLen = (nBytes * 8) - mLen - 1
-                var eMax = (1 << eLen) - 1
+                var eMax = (1 <<eLen) - 1
                 var eBias = eMax >> 1
                 var rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0)
                 var i = isLE ? 0 : (nBytes - 1)
                 var d = isLE ? 1 : -1
-                var s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
+                var s = value <0 || (value === 0 && 1 / value <0) ? 1 : 0
 
                 value = Math.abs(value)
 
@@ -9784,7 +9784,7 @@
                     e = eMax
                 } else {
                     e = Math.floor(Math.log(value) / Math.LN2)
-                    if (value * (c = Math.pow(2, -e)) < 1) {
+                    if (value * (c = Math.pow(2, -e)) <1) {
                         e--
                         c *= 2
                     }
@@ -9812,7 +9812,7 @@
 
                 for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) { }
 
-                e = (e << mLen) | m
+                e = (e <<mLen) | m
                 eLen += mLen
                 for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) { }
 
@@ -9825,7 +9825,7 @@
 
             module.exports = function (arr, obj) {
                 if (indexOf) return arr.indexOf(obj);
-                for (var i = 0; i < arr.length; ++i) {
+                for (var i = 0; i <arr.length; ++i) {
                     if (arr[i] === obj) return i;
                 }
                 return -1;
@@ -9987,13 +9987,13 @@
                             length = string.length,
                             value,
                             extra;
-                        while (counter < length) {
+                        while (counter <length) {
                             value = string.charCodeAt(counter++);
-                            if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+                            if (value >= 0xD800 && value <= 0xDBFF && counter <length) {
                                 // high surrogate, and there is a next character
                                 extra = string.charCodeAt(counter++);
                                 if ((extra & 0xFC00) == 0xDC00) { // low surrogate
-                                    output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+                                    output.push(((value & 0x3FF) <<10) + (extra & 0x3FF) + 0x10000);
                                 } else {
                                     // unmatched surrogate; only append this code unit, in case the next
                                     // code unit is the high surrogate of a surrogate pair
@@ -10038,13 +10038,13 @@
                      * the code point does not represent a value.
                      */
                     function basicToDigit(codePoint) {
-                        if (codePoint - 48 < 10) {
+                        if (codePoint - 48 <10) {
                             return codePoint - 22;
                         }
-                        if (codePoint - 65 < 26) {
+                        if (codePoint - 65 <26) {
                             return codePoint - 65;
                         }
-                        if (codePoint - 97 < 26) {
+                        if (codePoint - 97 <26) {
                             return codePoint - 97;
                         }
                         return base;
@@ -10064,7 +10064,7 @@
                     function digitToBasic(digit, flag) {
                         //  0..25 map to ASCII a..z or A..Z
                         // 26..35 map to ASCII 0..9
-                        return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+                        return digit + 22 + 75 * (digit <26) - ((flag != 0) <<5);
                     }
 
                     /**
@@ -10113,11 +10113,11 @@
                         // the first basic code points to the output.
 
                         basic = input.lastIndexOf(delimiter);
-                        if (basic < 0) {
+                        if (basic <0) {
                             basic = 0;
                         }
 
-                        for (j = 0; j < basic; ++j) {
+                        for (j = 0; j <basic; ++j) {
                             // if it's not a basic code point
                             if (input.charCodeAt(j) >= 0x80) {
                                 error('not-basic');
@@ -10128,7 +10128,7 @@
                         // Main decoding loop: start just after the last delimiter if any basic code
                         // points were copied; start at the beginning otherwise.
 
-                        for (index = basic > 0 ? basic + 1 : 0; index < inputLength; /* no final expression */) {
+                        for (index = basic > 0 ? basic + 1 : 0; index <inputLength; /* no final expression */) {
 
                             // `index` is the index of the next character to be consumed.
                             // Decode a generalized variable-length integer into `delta`,
@@ -10150,7 +10150,7 @@
                                 i += digit * w;
                                 t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
 
-                                if (digit < t) {
+                                if (digit <t) {
                                     break;
                                 }
 
@@ -10222,9 +10222,9 @@
                         bias = initialBias;
 
                         // Handle the basic code points
-                        for (j = 0; j < inputLength; ++j) {
+                        for (j = 0; j <inputLength; ++j) {
                             currentValue = input[j];
-                            if (currentValue < 0x80) {
+                            if (currentValue <0x80) {
                                 output.push(stringFromCharCode(currentValue));
                             }
                         }
@@ -10240,13 +10240,13 @@
                         }
 
                         // Main encoding loop:
-                        while (handledCPCount < inputLength) {
+                        while (handledCPCount <inputLength) {
 
-                            // All non-basic code points < n have been handled already. Find the next
+                            // All non-basic code points <n have been handled already. Find the next
                             // larger one:
-                            for (m = maxInt, j = 0; j < inputLength; ++j) {
+                            for (m = maxInt, j = 0; j <inputLength; ++j) {
                                 currentValue = input[j];
-                                if (currentValue >= n && currentValue < m) {
+                                if (currentValue >= n && currentValue <m) {
                                     m = currentValue;
                                 }
                             }
@@ -10261,10 +10261,10 @@
                             delta += (m - n) * handledCPCountPlusOne;
                             n = m;
 
-                            for (j = 0; j < inputLength; ++j) {
+                            for (j = 0; j <inputLength; ++j) {
                                 currentValue = input[j];
 
-                                if (currentValue < n && ++delta > maxInt) {
+                                if (currentValue <n && ++delta > maxInt) {
                                     error('overflow');
                                 }
 
@@ -10272,7 +10272,7 @@
                                     // Represent delta as a generalized variable-length integer
                                     for (q = delta, k = base; /* no condition */; k += base) {
                                         t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
-                                        if (q < t) {
+                                        if (q <t) {
                                             break;
                                         }
                                         qMinusT = q - t;
@@ -10418,7 +10418,7 @@
                     , urlArgs
 
                 function every(ar, fn) {
-                    for (var i = 0, j = ar.length; i < j; ++i) if (!fn(ar[i])) return f
+                    for (var i = 0, j = ar.length; i <j; ++i) if (!fn(ar[i])) return f
                     return 1
                 }
                 function each(ar, fn) {

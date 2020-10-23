@@ -221,7 +221,7 @@
       return
     }
     var stack = this.listeners[type]
-    for (var i = 0, l = stack.length; i < l; i++) {
+    for (var i = 0, l = stack.length; i <l; i++) {
       if (stack[i] === callback) {
         stack.splice(i, 1)
         return
@@ -234,7 +234,7 @@
       return
     }
     var stack = this.listeners[event.type]
-    for (var i = 0, l = stack.length; i < l; i++) {
+    for (var i = 0, l = stack.length; i <l; i++) {
       stack[i].call(this, event)
     }
   }

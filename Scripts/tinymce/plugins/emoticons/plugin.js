@@ -152,7 +152,7 @@
 
     var nativeSlice = Array.prototype.slice;
     var exists = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return true;
@@ -163,7 +163,7 @@
     var map = function (xs, f) {
       var len = xs.length;
       var r = new Array(len);
-      for (var i = 0; i < len; i++) {
+      for (var i = 0; i <len; i++) {
         var x = xs[i];
         r[i] = f(x, i);
       }
@@ -192,7 +192,7 @@
           return size >= max;
         };
       });
-      for (var i = 0; i < list.length; i++) {
+      for (var i = 0; i <list.length; i++) {
         if (pattern.length === 0 || emojiMatches(list[i], lowerCasePattern)) {
           matches.push({
             value: list[i].char,
@@ -254,7 +254,7 @@
       };
       var throttle = function () {
         var args = [];
-        for (var _i = 0; _i < arguments.length; _i++) {
+        for (var _i = 0; _i <arguments.length; _i++) {
           args[_i] = arguments[_i];
         }
         if (timer !== null) {
@@ -277,7 +277,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -295,14 +295,14 @@
     var baseMerge = function (merger) {
       return function () {
         var objects = new Array(arguments.length);
-        for (var i = 0; i < objects.length; i++) {
+        for (var i = 0; i <objects.length; i++) {
           objects[i] = arguments[i];
         }
         if (objects.length === 0) {
           throw new Error('Can\'t merge zero objects');
         }
         var ret = {};
-        for (var j = 0; j < objects.length; j++) {
+        for (var j = 0; j <objects.length; j++) {
           var curObject = objects[j];
           for (var key in curObject) {
             if (hasOwnProperty.call(curObject, key)) {
@@ -319,7 +319,7 @@
     var hasOwnProperty$1 = Object.hasOwnProperty;
     var each = function (obj, f) {
       var props = keys(obj);
-      for (var k = 0, len = props.length; k < len; k++) {
+      for (var k = 0, len = props.length; k <len; k++) {
         var i = props[k];
         var x = obj[i];
         f(x, i);
@@ -447,7 +447,7 @@
                 resolve(true);
               } else {
                 numRetries--;
-                if (numRetries < 0) {
+                if (numRetries <0) {
                   domGlobals.console.log('Could not load emojis from url: ' + databaseUrl);
                   global$2.clearInterval(interval);
                   reject(false);

@@ -79,7 +79,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				//vars for loop:
 				sheet, href, media, isCSS;
 
-			for( ; i < sl; i++ ){
+			for( ; i <sl; i++ ){
 				sheet	= sheets[ i ],
 				href	= sheet.href,
 				media	= sheet.media,
@@ -144,7 +144,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 			}
 			
 
-			for( ; i < ql; i++ ){
+			for( ; i <ql; i++ ){
 				j	= 0;
 				
 				//media attr
@@ -161,7 +161,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				eachq	= fullq.split( "," );
 				eql		= eachq.length;
 					
-				for( ; j < eql; j++ ){
+				for( ; j <eql; j++ ){
 					thisq	= eachq[ j ];
 					mediastyles.push( { 
 						media	: thisq.split( "(" )[ 0 ].match( /(only\s+)?([a-zA-Z]+)\s?/ ) && RegExp.$2 || "all",
@@ -226,7 +226,7 @@ window.matchMedia = window.matchMedia || (function(doc, undefined){
 				now 		= (new Date()).getTime();
 
 			//throttle resize calls	
-			if( fromResize && lastCall && now - lastCall < resizeThrottle ){
+			if( fromResize && lastCall && now - lastCall <resizeThrottle ){
 				clearTimeout( resizeDefer );
 				resizeDefer = setTimeout( applyMedia, resizeThrottle );
 				return;

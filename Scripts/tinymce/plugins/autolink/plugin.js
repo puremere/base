@@ -41,7 +41,7 @@
       parseCurrentLine(editor, -1, '');
     };
     var scopeIndex = function (container, index) {
-      if (index < 0) {
+      if (index <0) {
         index = 0;
       }
       if (container.nodeType === 3) {
@@ -74,7 +74,7 @@
         return;
       }
       rng = editor.selection.getRng(true).cloneRange();
-      if (rng.startOffset < 5) {
+      if (rng.startOffset <5) {
         prev = rng.endContainer.previousSibling;
         if (!prev) {
           if (!rng.endContainer.firstChild || !rng.endContainer.firstChild.nextSibling) {
@@ -85,7 +85,7 @@
         len = prev.length;
         setStart(rng, prev, len);
         setEnd(rng, prev, len);
-        if (rng.endOffset < 5) {
+        if (rng.endOffset <5) {
           return;
         }
         end = rng.endOffset;

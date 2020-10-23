@@ -46,8 +46,8 @@
     var monthsLong = 'January February March April May June July August September October November December'.split(' ');
     var addZeros = function (value, len) {
       value = '' + value;
-      if (value.length < len) {
-        for (var i = 0; i < len - value.length; i++) {
+      if (value.length <len) {
+        for (var i = 0; i <len - value.length; i++) {
           value = '0' + value;
         }
       }
@@ -65,7 +65,7 @@
       fmt = fmt.replace('%M', '' + addZeros(date.getMinutes(), 2));
       fmt = fmt.replace('%S', '' + addZeros(date.getSeconds(), 2));
       fmt = fmt.replace('%I', '' + ((date.getHours() + 11) % 12 + 1));
-      fmt = fmt.replace('%p', '' + (date.getHours() < 12 ? 'AM' : 'PM'));
+      fmt = fmt.replace('%p', '' + (date.getHours() <12 ? 'AM' : 'PM'));
       fmt = fmt.replace('%B', '' + editor.translate(monthsLong[date.getMonth()]));
       fmt = fmt.replace('%b', '' + editor.translate(monthsShort[date.getMonth()]));
       fmt = fmt.replace('%A', '' + editor.translate(daysLong[date.getDay()]));
@@ -154,7 +154,7 @@
         },
         onAction: function () {
           var args = [];
-          for (var _i = 0; _i < arguments.length; _i++) {
+          for (var _i = 0; _i <arguments.length; _i++) {
             args[_i] = arguments[_i];
           }
           Actions.insertDateTime(editor, defaultFormat.get());

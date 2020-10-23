@@ -310,7 +310,7 @@ $.ui.plugin = {
 			return;
 		}
 
-		for ( i = 0; i < set.length; i++ ) {
+		for ( i = 0; i <set.length; i++ ) {
 			if ( instance.options[ set[ i ][ 0 ] ] ) {
 				set[ i ][ 1 ].apply( instance.element, args );
 			}
@@ -465,7 +465,7 @@ $.ui.plugin = {
 				e, $element, excluded,
 				i, c;
 
-			for ( i = 0; i < count; i++ ) {
+			for ( i = 0; i <count; i++ ) {
 				$element = elements.eq( i );
 				excluded = false;
 				e = elements[ i ];
@@ -508,7 +508,7 @@ $.ui.plugin = {
 			page.css( "min-height", "" );
 
 			// Set the minimum height only if the height as determined by CSS is insufficient
-			if ( page.height() < height ) {
+			if ( page.height() <height ) {
 				page.css( "min-height", height - ( pageOuterHeight - pageHeight ) );
 			}
 		},
@@ -874,7 +874,7 @@ $.widget.extend = function( target ) {
 		inputLength = input.length,
 		key,
 		value;
-	for ( ; inputIndex < inputLength; inputIndex++ ) {
+	for ( ; inputIndex <inputLength; inputIndex++ ) {
 		for ( key in input[ inputIndex ] ) {
 			value = input[ inputIndex ][ key ];
 			if ( input[ inputIndex ].hasOwnProperty( key ) && value !== undefined ) {
@@ -1043,7 +1043,7 @@ $.Widget.prototype = {
 			key = parts.shift();
 			if ( parts.length ) {
 				curOption = options[ key ] = $.widget.extend( {}, this.options[ key ] );
-				for ( i = 0; i < parts.length - 1; i++ ) {
+				for ( i = 0; i <parts.length - 1; i++ ) {
 					curOption[ parts[ i ] ] = curOption[ parts[ i ] ] || {};
 					curOption = curOption[ parts[ i ] ];
 				}
@@ -1325,7 +1325,7 @@ $.each( { show: "fadeIn", hide: "fadeOut" }, function( method, defaultEffect ) {
 
 			// undefined is permitted as an explicit input for the second param
 			// in this case it returns the value and does not set it to undefined
-			if ( arguments.length < 2 || value === undefined ) {
+			if ( arguments.length <2 || value === undefined ) {
 				result = this.data( prop );
 			} else {
 				result = this.data( prop, value );
@@ -1437,7 +1437,7 @@ $.mobile.widget = $.Widget;
 				scrollTop = this.window.scrollTop(),
 				screenHeight = $.mobile.getScreenHeight();
 
-			if ( offset.top < scrollTop || ( offset.top - scrollTop ) > screenHeight ) {
+			if ( offset.top <scrollTop || ( offset.top - scrollTop ) > screenHeight ) {
 				this.element.addClass( "ui-loader-fakefix" );
 				this.fakeFixLoader();
 				this.window
@@ -2128,16 +2128,16 @@ function fixedPosition() {
 
 	if (
 		// iOS 4.3 and older : Platform is iPhone/Pad/Touch and Webkit version is less than 534 (ios5)
-		( ( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ) && wkversion && wkversion < 534 ) ||
+		( ( platform.indexOf( "iPhone" ) > -1 || platform.indexOf( "iPad" ) > -1  || platform.indexOf( "iPod" ) > -1 ) && wkversion && wkversion <534 ) ||
 		// Opera Mini
 		( w.operamini && ({}).toString.call( w.operamini ) === "[object OperaMini]" ) ||
-		( operammobilematch && omversion < 7458 )	||
+		( operammobilematch && omversion <7458 )	||
 		//Android lte 2.1: Platform is Android and Webkit version is less than 533 (Android 2.2)
-		( ua.indexOf( "Android" ) > -1 && wkversion && wkversion < 533 ) ||
+		( ua.indexOf( "Android" ) > -1 && wkversion && wkversion <533 ) ||
 		// Firefox Mobile before 6.0 -
-		( ffversion && ffversion < 6 ) ||
+		( ffversion && ffversion <6 ) ||
 		// WebOS less than 3
-		( "palmGetResource" in window && wkversion && wkversion < 534 )	||
+		( "palmGetResource" in window && wkversion && wkversion <534 )	||
 		// MeeGo
 		( ua.indexOf( "MeeGo" ) > -1 && ua.indexOf( "NokiaBrowser/8.5.0" ) > -1 ) ) {
 		return false;
@@ -2466,7 +2466,7 @@ if ( !$.support.boxShadow ) {
 				absStack = absPath ? absPath.split( "/" ) : [];
 				relStack = relPath.split( "/" );
 
-				for ( i = 0; i < relStack.length; i++ ) {
+				for ( i = 0; i <relStack.length; i++ ) {
 					d = relStack[ i ];
 					switch ( d ) {
 						case ".":
@@ -2835,7 +2835,7 @@ if ( !$.support.boxShadow ) {
 
 			var entry, i, length = stack.length, index;
 
-			for ( i = 0; i < length; i++ ) {
+			for ( i = 0; i <length; i++ ) {
 				entry = stack[i];
 
 				if ( decodeURIComponent(url) === decodeURIComponent(entry.url) ||
@@ -2889,7 +2889,7 @@ if ( !$.support.boxShadow ) {
 			// invoke callbacks where appropriate
 			//
 			// TODO this is also convoluted and confusing
-			if ( newActiveIndex < a ) {
+			if ( newActiveIndex <a ) {
 				( opts.present || opts.back || $.noop )( this.getActive(), "back" );
 			} else if ( newActiveIndex > a ) {
 				( opts.present || opts.forward || $.noop )( this.getActive(), "forward" );
@@ -3391,7 +3391,7 @@ function createVirtualEvent( event, eventType ) {
 		touch = ( t && t.length ) ? t[0] : ( ( ct && ct.length ) ? ct[ 0 ] : undefined );
 
 		if ( touch ) {
-			for ( j = 0, len = touchEventProps.length; j < len; j++) {
+			for ( j = 0, len = touchEventProps.length; j <len; j++) {
 				prop = touchEventProps[ j ];
 				event[ prop ] = touch[ prop ];
 			}
@@ -3735,7 +3735,7 @@ function getSpecialEventObject( eventType ) {
 
 // Expose our custom events to the jQuery bind/unbind mechanism.
 
-for ( i = 0; i < virtualEventNames.length; i++ ) {
+for ( i = 0; i <virtualEventNames.length; i++ ) {
 	$.event.special[ virtualEventNames[ i ] ] = getSpecialEventObject( virtualEventNames[ i ] );
 }
 
@@ -3783,11 +3783,11 @@ if ( eventCaptureSupported ) {
 			ele = target;
 
 			while ( ele ) {
-				for ( i = 0; i < cnt; i++ ) {
+				for ( i = 0; i <cnt; i++ ) {
 					o = clickBlockList[ i ];
 					touchID = 0;
 
-					if ( ( ele === target && Math.abs( o.x - x ) < threshold && Math.abs( o.y - y ) < threshold ) ||
+					if ( ( ele === target && Math.abs( o.x - x ) <threshold && Math.abs( o.y - y ) <threshold ) ||
 								$.data( ele, touchTargetPropertyName ) === o.touchID ) {
 						// XXX: We may want to consider removing matches from the block list
 						//      instead of waiting for the reset timer to fire.
@@ -3822,7 +3822,7 @@ if ( eventCaptureSupported ) {
 			return fn ? this.bind( name, fn ) : this.trigger( name );
 		};
 
-		// jQuery < 1.8
+		// jQuery <1.8
 		if ( $.attrFn ) {
 			$.attrFn[ name ] = true;
 		}
@@ -3965,7 +3965,7 @@ if ( eventCaptureSupported ) {
 				// in pageX/pageY. While pageX/page/ have the value 0
 				x = x - winPageX;
 				y = y - winPageY;
-			} else if ( y < ( event.pageY - winPageY) || x < ( event.pageX - winPageX ) ) {
+			} else if ( y <( event.pageY - winPageY) || x <( event.pageX - winPageX ) ) {
 
 				// Some Android browsers have totally bogus values for clientX/Y
 				// when scrolling/zooming a page. Detectable since clientX/clientY
@@ -4002,9 +4002,9 @@ if ( eventCaptureSupported ) {
 		},
 
 		handleSwipe: function( start, stop, thisObject, origTarget ) {
-			if ( stop.time - start.time < $.event.special.swipe.durationThreshold &&
+			if ( stop.time - start.time <$.event.special.swipe.durationThreshold &&
 				Math.abs( start.coords[ 0 ] - stop.coords[ 0 ] ) > $.event.special.swipe.horizontalDistanceThreshold &&
-				Math.abs( start.coords[ 1 ] - stop.coords[ 1 ] ) < $.event.special.swipe.verticalDistanceThreshold ) {
+				Math.abs( start.coords[ 1 ] - stop.coords[ 1 ] ) <$.event.special.swipe.verticalDistanceThreshold ) {
 				var direction = start.coords[0] > stop.coords[ 0 ] ? "swipeleft" : "swiperight";
 
 				triggerCustomEvent( thisObject, "swipe", $.Event( "swipe", { target: origTarget, swipestart: start, swipestop: stop }), true );
@@ -4290,7 +4290,7 @@ if ( eventCaptureSupported ) {
 			// portrait, otherwise landscape
 			isPortrait = portrait_map[ window.orientation ];
 		} else {
-			isPortrait = elem && elem.clientWidth / elem.clientHeight < 1.1;
+			isPortrait = elem && elem.clientWidth / elem.clientHeight <1.1;
 		}
 
 		return isPortrait ? "portrait" : "landscape";
@@ -4300,7 +4300,7 @@ if ( eventCaptureSupported ) {
 		return fn ? this.bind( event_name, fn ) : this.trigger( event_name );
 	};
 
-	// jQuery < 1.8
+	// jQuery <1.8
 	if ( $.attrFn ) {
 		$.attrFn[ event_name ] = true;
 	}
@@ -4633,7 +4633,7 @@ $.widget( "mobile.page", {
 
 				// Set active page's lastScroll prop. If the location we're
 				// scrolling to is less than minScrollBack, let it go.
-				active.lastScroll = currentScroll < minScroll ? defaultScroll : currentScroll;
+				active.lastScroll = currentScroll <minScroll ? defaultScroll : currentScroll;
 			}
 		},
 
@@ -5641,7 +5641,7 @@ $.widget( "mobile.page", {
 
 				// rebuilding the hash here since we loose it earlier on
 				// TODO preserve the originally passed in path
-				if ( !$.mobile.path.isPath( url ) && url.indexOf( "#" ) < 0 ) {
+				if ( !$.mobile.path.isPath( url ) && url.indexOf( "#" ) <0 ) {
 					url = "#" + url;
 				}
 
@@ -5670,7 +5670,7 @@ $.widget( "mobile.page", {
 			this.activePage = toPage;
 
 			// If we're navigating back in the URL history, set reverse accordingly.
-			settings.reverse = settings.reverse || historyDir < 0;
+			settings.reverse = settings.reverse || historyDir <0;
 
 			cssTransitionDeferred = $.Deferred();
 
@@ -7166,7 +7166,7 @@ function noHiddenClass( elements ) {
 		length = elements.length,
 		result = [];
 
-	for ( index = 0; index < length; index++ ) {
+	for ( index = 0; index <length; index++ ) {
 		if ( !elements[ index ].className.match( uiScreenHiddenRegex ) ) {
 			result.push( elements[ index ] );
 		}
@@ -7490,7 +7490,7 @@ $.widget( "mobile.listview", $.extend( {
 	// TODO: Remove in 1.5
 	_addThumbClasses: function( containers ) {
 		var i, img, len = containers.length;
-		for ( i = 0; i < len; i++ ) {
+		for ( i = 0; i <len; i++ ) {
 			img = $( this._findFirstElementByTagName( containers[ i ].firstChild, "nextSibling", "img", "IMG" ) );
 			if ( img.length ) {
 				$( this._findFirstElementByTagName( img[ 0 ].parentNode, "parentNode", "li", "LI" ) ).addClass( img.hasClass( "ui-li-icon" ) ? "ui-li-has-icon" : "ui-li-has-thumb" );
@@ -7542,17 +7542,17 @@ $.widget( "mobile.listview", $.extend( {
 
 		li = this._getChildrenByTagName( $list[ 0 ], "li", "LI" );
 
-		for ( pos = 0, numli = li.length; pos < numli; pos++ ) {
+		for ( pos = 0, numli = li.length; pos <numli; pos++ ) {
 			item = li.eq( pos );
 			itemClass = "";
 
-			if ( create || item[ 0 ].className.search( /\bui-li-static\b|\bui-li-divider\b/ ) < 0 ) {
+			if ( create || item[ 0 ].className.search( /\bui-li-static\b|\bui-li-divider\b/ ) <0 ) {
 				a = this._getChildrenByTagName( item[ 0 ], "a", "A" );
 				isDivider = ( getAttr( item[ 0 ], "role" ) === "list-divider" );
 				value = item.attr( "value" );
 				itemTheme = getAttr( item[ 0 ], "theme" );
 
-				if ( a.length && a[ 0 ].className.search( /\bui-btn\b/ ) < 0 && !isDivider ) {
+				if ( a.length && a[ 0 ].className.search( /\bui-btn\b/ ) <0 && !isDivider ) {
 					itemIcon = getAttr( item[ 0 ], "icon" );
 					icon = ( itemIcon === false ) ? false : ( itemIcon || o.icon );
 
@@ -7683,7 +7683,7 @@ $.widget( "mobile.listview", $.mobile.listview, {
 
 		lis = list.children( "li" );
 
-		for ( i = 0; i < lis.length ; i++ ) {
+		for ( i = 0; i <lis.length ; i++ ) {
 			li = lis[ i ];
 			dividerText = this.options.autodividersSelector( $( li ) );
 
@@ -8576,7 +8576,7 @@ $.widget( "mobile.slider", $.extend( {
 			wrapper = document.createElement( "div" );
 			wrapper.className = "ui-slider-inneroffset";
 
-			for ( j = 0, length = domSlider.childNodes.length; j < length; j++ ) {
+			for ( j = 0, length = domSlider.childNodes.length; j <length; j++ ) {
 				wrapper.appendChild( domSlider.childNodes[j] );
 			}
 
@@ -8589,7 +8589,7 @@ $.widget( "mobile.slider", $.extend( {
 
 			options = control.find( "option" );
 
-			for ( i = 0, optionsCount = options.length; i < optionsCount; i++ ) {
+			for ( i = 0, optionsCount = options.length; i <optionsCount; i++ ) {
 				side = !i ? "b" : "a";
 				activeClass = !i ? "" : " " + $.mobile.activeBtnClass;
 				sliderImg = document.createElement( "span" );
@@ -8894,7 +8894,7 @@ $.widget( "mobile.slider", $.extend( {
 			width = this.slider.width();
 			pxStep = width/((max-min)/step);
 			if ( !this.dragging ||
-					data.pageX < left - tol ||
+					data.pageX <left - tol ||
 					data.pageX > left + width + tol ) {
 				return;
 			}
@@ -8935,7 +8935,7 @@ $.widget( "mobile.slider", $.extend( {
 		if ( pxStep > 1 && isInput ) {
 			percent = ( newval - min ) * percentPerStep * ( 1 / step );
 		}
-		if ( percent < 0 ) {
+		if ( percent <0 ) {
 			percent = 0;
 		}
 
@@ -8943,7 +8943,7 @@ $.widget( "mobile.slider", $.extend( {
 			percent = 100;
 		}
 
-		if ( newval < min ) {
+		if ( newval <min ) {
 			newval = min;
 		}
 
@@ -10269,7 +10269,7 @@ $.mobile.links = function( target ) {
 function fitSegmentInsideSegment( windowSize, segmentSize, offset, desired ) {
 	var returnValue = desired;
 
-	if ( windowSize < segmentSize ) {
+	if ( windowSize <segmentSize ) {
 		// Center segment if it's bigger than the window
 		returnValue = offset + ( windowSize - segmentSize ) / 2;
 	} else {
@@ -10437,7 +10437,7 @@ $.widget( "mobile.popup", {
 			// the browser hangs if the screen covers the entire document :/
 			documentHeight = this.document.height() - 1;
 
-		if ( screenHeight < documentHeight ) {
+		if ( screenHeight <documentHeight ) {
 			screen.height( documentHeight );
 		} else if ( popupHeight > screenHeight ) {
 			screen.height( popupHeight );
@@ -11660,7 +11660,7 @@ $.widget( "mobile.selectmenu", $.mobile.selectmenu, {
 		numOptions = $options.length;
 		select = this.select[ 0 ];
 
-		for ( i = 0; i < numOptions;i++, isPlaceholderItem = false) {
+		for ( i = 0; i <numOptions;i++, isPlaceholderItem = false) {
 			option = $options[i];
 			$option = $( option );
 
@@ -11905,7 +11905,7 @@ function classNameToOptions( classes ) {
 	classes = classes.split( " " );
 
 	// Loop over the classes
-	for ( idx = 0 ; idx < classes.length ; idx++ ) {
+	for ( idx = 0 ; idx <classes.length ; idx++ ) {
 
 		// Assume it's an unrecognized class
 		unknownClass = true;
@@ -11979,7 +11979,7 @@ $.fn.buttonMarkup = function( options, overwriteClasses ) {
 	var idx, data, el, retrievedOptions, optionKey,
 		defaults = $.fn.buttonMarkup.defaults;
 
-	for ( idx = 0 ; idx < this.length ; idx++ ) {
+	for ( idx = 0 ; idx <this.length ; idx++ ) {
 		el = this[ idx ];
 		data = overwriteClasses ?
 
@@ -12586,7 +12586,7 @@ $.widget( "mobile.controlgroup", $.extend( {
 				( this.options.transition && this.options.transition !== "none" &&
 				(
 					( this.role === "header" && !this.options.fullscreen && scroll > elHeight ) ||
-					( this.role === "footer" && !this.options.fullscreen && scroll + viewportHeight < pHeight - elHeight )
+					( this.role === "footer" && !this.options.fullscreen && scroll + viewportHeight <pHeight - elHeight )
 				) || this.options.fullscreen
 				);
 		},
@@ -12653,7 +12653,7 @@ $.widget( "mobile.controlgroup", $.extend( {
 					//bottom of the screen addresses issues #4410 Footer navbar moves up when clicking on a textbox in an Android environment
 					//and issue #4113 Header and footer change their position after keyboard popup - iOS
 					//and issue #4410 Footer navbar moves up when clicking on a textbox in an Android environment
-					if ( screen.width < 1025 && $( e.target ).is( o.hideDuringFocus ) && !$( e.target ).closest( ".ui-header-fixed, .ui-footer-fixed" ).length ) {
+					if ( screen.width <1025 && $( e.target ).is( o.hideDuringFocus ) && !$( e.target ).closest( ".ui-header-fixed, .ui-footer-fixed" ).length ) {
 						//Fix for issue #4724 Moving through form in Mobile Safari with "Next" and "Previous" system
 						//controls causes fixed position, tap-toggle false Header to reveal itself
 						// isVisible instead of self._visible because the focusin and focusout events fire twice at the same time
@@ -12743,7 +12743,7 @@ $.widget( "mobile.controlgroup", $.extend( {
 			if ( os === "ios" ) {
 				//iOS  workarounds
 				self._bindScrollWorkaround();
-			} else if ( os === "android" && wkversion && wkversion < 534 ) {
+			} else if ( os === "android" && wkversion && wkversion <534 ) {
 				//Android 2.3 run all Android 2.3 workaround
 				self._bindScrollWorkaround();
 				self._bindListThumbWorkaround();
@@ -12894,7 +12894,7 @@ $.widget( "mobile.popup", $.mobile.popup, {
 				desired[ p.snd ] ) );
 
 		diff = Math.abs( desired.x - tip.x ) + Math.abs( desired.y - tip.y );
-		if ( !best || diff < best.diff ) {
+		if ( !best || diff <best.diff ) {
 			// Convert tip offset to coordinates inside the popup
 			tip[ p.snd ] -= s.arHalf[ p.dimKey ] + result[ p.prop ] + s.contentBox[ p.snd ];
 			best = { dir: dir, diff: diff, result: result, posProp: p.prop, posVal: tip[ p.snd ] };
@@ -13596,7 +13596,7 @@ $.widget( "mobile.table", {
 				this.setAttribute( "data-" + $.mobile.ns + "colstart", columnCount + 1 );
 
 				if ( span ) {
-					for( j = 0; j < span - 1; j++ ) {
+					for( j = 0; j <span - 1; j++ ) {
 						columnCount++;
 						selector += ", :nth-child(" + ( columnCount + 1 ) + ")";
 					}
@@ -14020,7 +14020,7 @@ $.widget( "mobile.filterable", {
 			length = filterItems.length;
 
 			// Partition the items into those to be hidden and those to be shown
-			for ( idx = 0 ; idx < length ; idx++ ) {
+			for ( idx = 0 ; idx <length ; idx++ ) {
 				dst = ( callback.call( filterItems[ idx ], idx, val ) ) ? hide : show;
 				dst.push( filterItems[ idx ] );
 			}
@@ -14622,7 +14622,7 @@ $.widget( "ui.tabs", {
 			if ( index > lastTabIndex ) {
 				index = 0;
 			}
-			if ( index < 0 ) {
+			if ( index <0 ) {
 				index = lastTabIndex;
 			}
 			return index;
@@ -15253,7 +15253,7 @@ $.widget( "ui.tabs", {
 		z = Math.abs( aig.z );
 
 		// If portrait orientation and in one of the danger zones
-		if ( !window.orientation && ( x > 7 || ( ( z > 6 && y < 8 || z < 8 && y > 6 ) && x > 5 ) ) ) {
+		if ( !window.orientation && ( x > 7 || ( ( z > 6 && y <8 || z <8 && y > 6 ) && x > 5 ) ) ) {
 				if ( zoom.enabled ) {
 					zoom.disable();
 				}

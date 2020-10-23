@@ -320,7 +320,7 @@
 
 
         <br />
-        @*Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
+        @*Page @(Model.PageCount <Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount*@
         <p id="selectedForServer"></p>
         <script>
             $(".addtoserver").click(function () {
@@ -472,7 +472,7 @@
                 {
                     <ul class="pagination">
 
-                        @for (int i = 1; i < activ; i++)
+                        @for (int i = 1; i <activ; i++)
                         {
                             <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
                         }
@@ -508,7 +508,7 @@
 
                     <ul class="pagination">
 
-                        @for (int i = 1; i < activ; i++)
+                        @for (int i = 1; i <activ; i++)
                         {
                             <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
                         }

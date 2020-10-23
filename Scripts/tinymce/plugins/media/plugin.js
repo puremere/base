@@ -13,7 +13,7 @@
 
     var __assign = function () {
       __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
+        for (var s, i = 1, n = arguments.length; i <n; i++) {
           s = arguments[i];
           for (var p in s)
             if (Object.prototype.hasOwnProperty.call(s, p))
@@ -169,14 +169,14 @@
     var nativeSlice = Array.prototype.slice;
     var nativePush = Array.prototype.push;
     var each = function (xs, f) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         f(x, i);
       }
     };
     var flatten = function (xs) {
       var r = [];
-      for (var i = 0, len = xs.length; i < len; ++i) {
+      for (var i = 0, len = xs.length; i <len; ++i) {
         if (!isArray(xs[i])) {
           throw new Error('Arr.flatten item ' + i + ' was not an array, input: ' + xs);
         }
@@ -286,7 +286,7 @@
 
     var getVideoScriptMatch = function (prefixes, src) {
       if (prefixes) {
-        for (var i = 0; i < prefixes.length; i++) {
+        for (var i = 0; i <prefixes.length; i++) {
           if (src.indexOf(prefixes[i].filter) !== -1) {
             return prefixes[i];
           }
@@ -469,7 +469,7 @@
               setAttributes(attrs, { src: data.source });
               break;
             case 'source':
-              if (sourceCount < 2) {
+              if (sourceCount <2) {
                 setAttributes(attrs, {
                   src: data[sources[sourceCount]],
                   type: data[sources[sourceCount] + 'mime']
@@ -492,11 +492,11 @@
         },
         end: function (name) {
           if (name === 'video' && updateAll) {
-            for (var index = 0; index < 2; index++) {
+            for (var index = 0; index <2; index++) {
               if (data[sources[index]]) {
                 var attrs = [];
                 attrs.map = {};
-                if (sourceCount < index) {
+                if (sourceCount <index) {
                   setAttributes(attrs, {
                     src: data[sources[index]],
                     type: data[sources[index] + 'mime']
@@ -620,7 +620,7 @@
           return match[i] ? match[i] : '';
         });
       };
-      for (var i = 0; i < match.length; i++) {
+      for (var i = 0; i <match.length; i++) {
         _loop_1(i);
       }
       return newUrl.replace(/\?$/, '');
@@ -878,7 +878,7 @@
     };
     var selectPlaceholder = function (editor, beforeObjects) {
       var afterObjects = editor.dom.select('img[data-mce-object]');
-      for (var i = 0; i < beforeObjects.length; i++) {
+      for (var i = 0; i <beforeObjects.length; i++) {
         for (var y = afterObjects.length - 1; y >= 0; y--) {
           if (beforeObjects[i] === afterObjects[y]) {
             afterObjects.splice(y, 1);
@@ -1078,7 +1078,7 @@
           if (name === 'script' || name === 'noscript') {
             return;
           }
-          for (var i = 0; i < attrs.length; i++) {
+          for (var i = 0; i <attrs.length; i++) {
             if (attrs[i].name.indexOf('on') === 0) {
               return;
             }

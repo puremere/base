@@ -42,7 +42,7 @@
 		},
 		getFromArray: function (arr, countryCode) {
 			var output = [];
-			for (var i=0; i < arr.length; i++){
+			for (var i=0; i <arr.length; i++){
 				if (i in arr) {
 					output[i] = getText.getFromKey(arr[i], countryCode);
 				}
@@ -518,7 +518,7 @@
 		if (isNaN(date1) || isNaN(date2)) {
 			throw new Error(date1 + " - " + date2);
 		} else if (date1 instanceof Date && date2 instanceof Date) {
-			return (date1 < date2) ? -1 : (date1 > date2) ? 1 : 0;
+			return (date1 <date2) ? -1 : (date1 > date2) ? 1 : 0;
 		} else {
 			throw new TypeError(date1 + " - " + date2);
 		}
@@ -550,7 +550,7 @@
 	 */
 	$D.getDayNumberFromName = function (name) {
 		var n = Date.CultureInfo.dayNames, m = Date.CultureInfo.abbreviatedDayNames, o = Date.CultureInfo.shortestDayNames, s = name.toLowerCase();
-		for (var i = 0; i < n.length; i++) {
+		for (var i = 0; i <n.length; i++) {
 			if (n[i].toLowerCase() === s || m[i].toLowerCase() === s || o[i].toLowerCase() === s) {
 				return i;
 			}
@@ -565,7 +565,7 @@
 	 */
 	$D.getMonthNumberFromName = function (name) {
 		var n = Date.CultureInfo.monthNames, m = Date.CultureInfo.abbreviatedMonthNames, s = name.toLowerCase();
-		for (var i = 0; i < n.length; i++) {
+		for (var i = 0; i <n.length; i++) {
 			if (n[i].toLowerCase() === s || m[i].toLowerCase() === s) {
 				return i;
 			}
@@ -624,7 +624,7 @@
 	$D.getTimezoneOffset = function (name, dst) {
 		var i, a =[], z = Date.CultureInfo.timezones;
 		if (!name) { name = (new Date()).getTimezone();}
-		for (i = 0; i < z.length; i++) {
+		for (i = 0; i <z.length; i++) {
 			if (z[i].name === name.toUpperCase()) {
 				a.push(i);
 			}
@@ -635,7 +635,7 @@
 		if (a.length === 1 || !dst) {
 			return z[a[0]].offset;
 		} else {
-			for (i=0; i < a.length; i++) {
+			for (i=0; i <a.length; i++) {
 				if (z[a[i]].dst) {
 					return z[a[i]].offset;
 				}
@@ -663,7 +663,7 @@
 			return false;
 		} else if (typeof n !== "number") {
 			throw new TypeError(n + " is not a Number.");
-		} else if (n < min || n > max) {
+		} else if (n <min || n > max) {
 			// As failing validation is *not* an exceptional circumstance 
 			// lets not throw a RangeError Exception here. 
 			// It's semantically correct but it's not sensible.
@@ -760,7 +760,7 @@
 	};
 	$D.validateTimezoneOffset= function(value) {
 		// timezones go from +14hrs to -12hrs, the +X hours are negative offsets.
-		return (value > -841 && value < 721);
+		return (value > -841 && value <721);
 	};
 
 }());
@@ -960,8 +960,8 @@
 			}
 		}
 
-		if (value < 0) {
-			while (value < 0) {
+		if (value <0) {
+			while (value <0) {
 				this.addDays(-1);
 				day = this.getDay();
 				if (day !== 0 && day !== 6) {
@@ -1160,7 +1160,7 @@
 				if (this.is().weekday()) {
 					occurrence -= 1;
 				}
-			} else if (occurrence < 0) {
+			} else if (occurrence <0) {
 				this.moveToLastDayOfMonth();
 				if (this.is().weekday()) {
 					occurrence += 1;
@@ -1260,7 +1260,7 @@
 	 */
 	$P.getUTCOffset = function (offset) {
 		var n = (offset || this.getTimezoneOffset()) * -10 / 6, r;
-		if (n < 0) {
+		if (n <0) {
 			r = (n - 10000).toString();
 			return r.charAt(0) + r.substr(2);
 		} else {
@@ -1448,9 +1448,9 @@
 			}
 			switch (m) {
 				case "hh":
-					return p(context.getHours() < 13 ? (context.getHours() === 0 ? 12 : context.getHours()) : (context.getHours() - 12));
+					return p(context.getHours() <13 ? (context.getHours() === 0 ? 12 : context.getHours()) : (context.getHours() - 12));
 				case "h":
-					return context.getHours() < 13 ? (context.getHours() === 0 ? 12 : context.getHours()) : (context.getHours() - 12);
+					return context.getHours() <13 ? (context.getHours() === 0 ? 12 : context.getHours()) : (context.getHours() - 12);
 				case "HH":
 					return p(context.getHours());
 				case "H":
@@ -1487,9 +1487,9 @@
 				case "M":
 					return context.getMonth() + 1;
 				case "t":
-					return context.getHours() < 12 ? Date.CultureInfo.amDesignator.substring(0, 1) : Date.CultureInfo.pmDesignator.substring(0, 1);
+					return context.getHours() <12 ? Date.CultureInfo.amDesignator.substring(0, 1) : Date.CultureInfo.pmDesignator.substring(0, 1);
 				case "tt":
-					return context.getHours() < 12 ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator;
+					return context.getHours() <12 ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator;
 				case "S":
 					return ord(context.getDate());
 				case "W":
@@ -1831,7 +1831,7 @@
 	 */
 	$P.toObject = function () {
 		var o = {};
-		for (var i = 0; i < px.length; i++) {
+		for (var i = 0; i <px.length; i++) {
 			if (this["get" + pxf[i]]) {
 				o[px[i].toLowerCase()] = this["get" + pxf[i]]();
 			}
@@ -1929,7 +1929,7 @@
 	};
 	
 	var processTerms = function (names, staticFunc, instanceFunc) {
-		for (var i = 0; i < names.length; i++) {
+		for (var i = 0; i <names.length; i++) {
 			// Create constant static Name variables.
 			$D[names[i].toUpperCase()] = $D[names[i].toUpperCase().substring(0, 3)] = i;
 			// Create Name functions.
@@ -1991,7 +1991,7 @@
 		};
 	};
    
-	for (var k = 0; k < px.length; k++) {
+	for (var k = 0; k <px.length; k++) {
 		de = px[k].toLowerCase();
 		if(de !== "weekday") {
 			// Create date element functions and plural date element functions used with Date (eg. day(), days(), months()).
@@ -2023,7 +2023,7 @@
 		};
 	};
 
-	for (var l = 0; l < nth.length; l++) {
+	for (var l = 0; l <nth.length; l++) {
 		$P[nth[l]] = (l === 0) ? nthfn(-1) : nthfn(l);
 	}
 }());
@@ -2075,7 +2075,7 @@
 				obj = utils.getDayOfYearFromWeek(obj);
 			}
 			for (var i=0;i <= dayOffset.length;i++) {
-				if (obj.dayOfYear < dayOffset[i] || i === dayOffset.length) {
+				if (obj.dayOfYear <dayOffset[i] || i === dayOffset.length) {
 					obj.day = obj.day ? obj.day : (obj.dayOfYear - dayOffset[i-1]);
 					break;
 				} else {
@@ -2202,7 +2202,7 @@
 			keys = keys;
 			data = data;
 			var len = keys.length;
-			for (var i = 0; i < len; i++) {
+			for (var i = 0; i <len; i++) {
 			  hash[keys[i]] = data[i];
 			}
 			return hash;
@@ -2221,7 +2221,7 @@
 		buildRegexData: function (array) {
 			var arr = [];
 			var len = array.length;
-			for (var i=0; i < len; i++) {
+			for (var i=0; i <len; i++) {
 				if (Object.prototype.toString.call(array[i]) === '[object Array]') { // oldIE compat version of Array.isArray
 					arr.push(this.combineRegex(array[i][0], array[i][1]));
 				} else {
@@ -2280,7 +2280,7 @@
 				(s[0] === "+" && s[0] === "-")) {			// It's an arithmatic string (eg +/-1000)
 				return null;
 			}
-			if (s.length < 5 && s.indexOf(".") < 0 && s.indexOf("/") < 0) { // assume it's just a year.
+			if (s.length <5 && s.indexOf(".") <0 && s.indexOf("/") <0) { // assume it's just a year.
 				time.year = s;
 				return $P.processTimeObject(time);
 			}
@@ -2288,7 +2288,7 @@
 			if (!data || !data.length) {
 				return null;
 			}
-			for (i=0; i < order.length; i++) {
+			for (i=0; i <order.length; i++) {
 				switch(order[i]) {
 					case "d":
 						time.day = data[i+1];
@@ -2381,7 +2381,7 @@
 			this.replaceHash = utils.addToHash(this.basicReplaceHash(), this.keys(), this.regexData());
 		},
 		stringReplaceFuncs: function (s) {
-			for (var i=0; i < this.replaceFuncs.length; i++) {
+			for (var i=0; i <this.replaceFuncs.length; i++) {
 				s = s.replace(this.replaceFuncs[i][0], this.replaceFuncs[i][1]);
 			}
 			return s;
@@ -2501,7 +2501,7 @@
 		product: function () {
 			var px = arguments[0],
 			qx = Array.prototype.slice.call(arguments, 1), rx = [];
-			for (var i = 0 ; i < px.length ; i++) {
+			for (var i = 0 ; i <px.length ; i++) {
 				rx.push(_.each(px[i], qx));
 			}
 			return rx;
@@ -2511,7 +2511,7 @@
 			var cacheCheck = function () {
 				if (cache_length === CACHE_MAX) {
 					// kill several keys, don't want to have to do this all the time...
-					for (var i=0; i < 10; i++) {
+					for (var i=0; i <10; i++) {
 						var key = cache_keys.shift();
 						if (key) {
 							delete cache[key];
@@ -2542,7 +2542,7 @@
 			var px = arguments;
 			return function (s) {
 				var r = null;
-				for (var i = 0; i < px.length; i++) {
+				for (var i = 0; i <px.length; i++) {
 					if (px[i] == null) {
 						continue;
 					}
@@ -2562,7 +2562,7 @@
 			var px = arguments;
 			return function (s) {
 				var rx = [], r = null;
-				for (var i = 0; i < px.length ; i++) {
+				for (var i = 0; i <px.length ; i++) {
 					if (px[i] == null) {
 						continue;
 					}
@@ -2593,7 +2593,7 @@
 			return function (s) {
 				var r = null, q = null;
 				var rx = [];
-				for (var i = 0; i < px.length ; i++) {
+				for (var i = 0; i <px.length ; i++) {
 					try {
 						r = px[i].call(this, s);
 					} catch (e) {
@@ -2652,7 +2652,7 @@
 				// which means it parsed the most amount of input
 				var r = null, p = null, q = null, rx = null, best = [[], s], last = false;
 				// go through the rules in the given set
-				for (var i = 0; i < px.length ; i++) {
+				for (var i = 0; i <px.length ; i++) {
 
 					// last is a flag indicating whether this must be the last element
 					// if there is only 1 element, then it MUST be the last one
@@ -2700,7 +2700,7 @@
 						// build a list of the remaining rules we can match against,
 						// i.e., all but the one we just matched against
 						var qx = [];
-						for (var j = 0; j < px.length ; j++) {
+						for (var j = 0; j <px.length ; j++) {
 							if (i !== j) {
 								qx.push(px[j]);
 							}
@@ -2728,7 +2728,7 @@
 
 					// now we just check to see if this variation is better than
 					// our best so far, in terms of how much of the input is parsed
-					if (rx[1].length < best[1].length) {
+					if (rx[1].length <best[1].length) {
 						best = rx;
 					}
 
@@ -2789,7 +2789,7 @@
 		min: function (min, rule) {
 			return function (s) {
 				var rx = rule.call(this, s);
-				if (rx[0].length < min) {
+				if (rx[0].length <min) {
 					throw new $P.Exception(s);
 				}
 				return rx;
@@ -2846,7 +2846,7 @@
 	
 	var gx = "optional not ignore cache".split(/\s/);
 	
-	for (var i = 0 ; i < gx.length ; i++) {
+	for (var i = 0 ; i <gx.length ; i++) {
 		_[gx[i]] = _generator(_[gx[i]]);
 	}
 
@@ -2862,7 +2862,7 @@
 	
 	var vx = "each any all".split(/\s/);
 	
-	for (var j = 0 ; j < vx.length ; j++) {
+	for (var j = 0 ; j <vx.length ; j++) {
 		_[vx[j]] = _vector(_[vx[j]]);
 	}
 	
@@ -2872,7 +2872,7 @@
 
 	var flattenAndCompact = function (ax) {
 		var rx = [];
-		for (var i = 0; i < ax.length; i++) {
+		for (var i = 0; i <ax.length; i++) {
 			if (ax[i] instanceof Array) {
 				rx = rx.concat(flattenAndCompact(ax[i]));
 			} else {
@@ -2888,9 +2888,9 @@
 		if (this.meridian && (this.hour || this.hour === 0)) {
 			if (this.meridian === "a" && this.hour > 11 && Date.Config.strict24hr){
 				throw "Invalid hour and meridian combination";
-			} else if (this.meridian === "p" && this.hour < 12 && Date.Config.strict24hr){
+			} else if (this.meridian === "p" && this.hour <12 && Date.Config.strict24hr){
 				throw "Invalid hour and meridian combination";
-			} else if (this.meridian === "p" && this.hour < 12) {
+			} else if (this.meridian === "p" && this.hour <12) {
 				this.hour = this.hour + 12;
 			} else if (this.meridian === "a" && this.hour === 12) {
 				this.hour = 0;
@@ -3029,7 +3029,7 @@
 			var s = x[0];
 			return function () {
 				this.day = Number(s.match(/\d+/)[0]);
-				if (this.day < 1) {
+				if (this.day <1) {
 					throw "invalid day";
 				}
 			};
@@ -3037,7 +3037,7 @@
 		month: function (s) {
 			return function () {
 				this.month = (s.length === 3) ? "jan feb mar apr may jun jul aug sep oct nov dec".indexOf(s)/4 : Number(s) - 1;
-				if (this.month < 0) {
+				if (this.month <0) {
 					throw "invalid month";
 				}
 			};
@@ -3046,7 +3046,7 @@
 			return function () {
 				var n = Number(s);
 				this.year = ((s.length > 2) ? n :
-					(n + (((n + 2000) < Date.CultureInfo.twoDigitYearMax) ? 2000 : 1900)));
+					(n + (((n + 2000) <Date.CultureInfo.twoDigitYearMax) ? 2000 : 1900)));
 			};
 		},
 		rday: function (s) {
@@ -3072,7 +3072,7 @@
 			var d;
 			x = (x instanceof Array) ? x : [x];
 
-			for (var i = 0 ; i < x.length ; i++) {
+			for (var i = 0 ; i <x.length ; i++) {
 				if (x[i]) {
 					x[i].call(this);
 				}
@@ -3086,7 +3086,7 @@
 			}
 
 			d = new Date(this.year, this.month, this.day, this.hour, this.minute, this.second, this.millisecond);
-			if (this.year < 100) {
+			if (this.year <100) {
 				d.setFullYear(this.year); // means years less that 100 are process correctly. JS will parse it otherwise as 1900-1999.
 			}
 			if (this.timezone) {
@@ -3106,7 +3106,7 @@
 				return null;
 			}
 
-			for (var i = 0 ; i < x.length ; i++) {
+			for (var i = 0 ; i <x.length ; i++) {
 				if (typeof x[i] === "function") {
 					x[i].call(this);
 				}
@@ -3249,7 +3249,7 @@
 		if (! fn) {
 			var c = Date.CultureInfo.regexPatterns;
 			var kx = keys.split(/\s+/), px = [];
-			for (var i = 0; i < kx.length ; i++) {
+			for (var i = 0; i <kx.length ; i++) {
 				px.push(_.replace(_.rtoken(c[kx[i]]), kx[i]));
 			}
 			fn = _C[keys] = _.any.apply(null, px);
@@ -3279,7 +3279,7 @@
 	g.allformats = function (fx) {
 		var rx = [];
 		if (fx instanceof Array) {
-			for (var i = 0; i < fx.length; i++) {
+			for (var i = 0; i <fx.length; i++) {
 				rx.push(_get(fx[i]));
 			}
 		} else {
@@ -3291,7 +3291,7 @@
 	g.formats = function (fx) {
 		if (fx instanceof Array) {
 			var rx = [];
-			for (var i = 0 ; i < fx.length ; i++) {
+			for (var i = 0 ; i <fx.length ; i++) {
 				rx.push(_get(fx[i]));
 			}
 			return _.any.apply(null, rx);
@@ -3343,7 +3343,7 @@
 				t.timezone
 			];
 
-			for (i=0; i < RTokenKeys.length; i++) {
+			for (i=0; i <RTokenKeys.length; i++) {
 				cacheProcessRtoken(RTokenKeys[i], RToken[i], tokens[i]);
 			}
 
@@ -3396,7 +3396,7 @@
 				"ordinalSuffix",
 				"ordinalSuffix"
 			];
-			for (i=0; i < RTokenKeys.length; i++) {
+			for (i=0; i <RTokenKeys.length; i++) {
 				cacheProcessRtoken(RTokenKeys[i], RToken[i], tokens[i], eachToken[i]);
 			}
 
@@ -3704,7 +3704,7 @@
 		var fns = Date.Grammar.allformats(fx);
 		return function (s) {
 			var r = null;
-			for (var i = 0; i < fns.length; i++) {
+			for (var i = 0; i <fns.length; i++) {
 				try {
 					r = fns[i].call({}, s);
 				} catch (e) {
@@ -3842,7 +3842,7 @@
 				case "%U":
 					var d1 = x.clone().set({month: 0, day: 1}).addDays(-1).moveToDayOfWeek(0),
 						d2 = x.clone().addDays(1).moveToDayOfWeek(0, -1);
-					return (d2 < d1) ? "00" : p((d2.getOrdinalNumber() - d1.getOrdinalNumber()) / 7 + 1);
+					return (d2 <d1) ? "00" : p((d2.getOrdinalNumber() - d1.getOrdinalNumber()) / 7 + 1);
 
 				case "%W":
 					return p(x.getWeek());
@@ -4076,7 +4076,7 @@
 	};
 	var attrs = ["years", "months", "days", "hours", "minutes", "seconds", "milliseconds"];
 	var addSetFuncs = function (context, attrs) {
-		for (var i = 0; i < attrs.length ; i++) {
+		for (var i = 0; i <attrs.length ; i++) {
 			var $a = attrs[i], $b = $a.slice(0, 1).toUpperCase() + $a.slice(1);
 			context.prototype[$a] = 0;
 			context.prototype["get" + $b] = gFn($a);
@@ -4090,7 +4090,7 @@
 	 */
 	var TimeSpan = function (days, hours, minutes, seconds, milliseconds) {
 		if (arguments.length === 1 && typeof days === "number") {
-			var orient = (days < 0) ? -1 : +1;
+			var orient = (days <0) ? -1 : +1;
 			var millsLeft = Math.abs(days);
 			this.setDays(Math.floor(millsLeft / 86400000) * orient);
 			millsLeft = millsLeft % 86400000;
@@ -4120,7 +4120,7 @@
 			else {
 				t2 = new Date(1970, 1, 1, time.getHours(), time.getMinutes(), time.getSeconds());
 			}
-			return (t1 < t2) ? -1 : (t1 > t2) ? 1 : 0;
+			return (t1 <t2) ? -1 : (t1 > t2) ? 1 : 0;
 		};
 
 		this.equals = function (time) {
@@ -4160,7 +4160,7 @@
 		};
 
 		this.getDesignator = function () {
-			return (this.getHours() < 12) ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator;
+			return (this.getHours() <12) ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator;
 		};
 
 		this.toString = function (format) {
@@ -4173,7 +4173,7 @@
 			};
 			
 			this.p = function (s) {
-				return (s.toString().length < 2) ? "0" + s : s;
+				return (s.toString().length <2) ? "0" + s : s;
 			};
 			
 			var me = this;
@@ -4202,9 +4202,9 @@
 				case "ss":
 					return me.p(me.getSeconds());
 				case "t":
-					return ((me.getHours() < 12) ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator).substring(0, 1);
+					return ((me.getHours() <12) ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator).substring(0, 1);
 				case "tt":
-					return (me.getHours() < 12) ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator;
+					return (me.getHours() <12) ? Date.CultureInfo.amDesignator : Date.CultureInfo.pmDesignator;
 				}
 			}
 			) : this._toString();
@@ -4252,7 +4252,7 @@
 		};
 	};
 	var addSetFuncs = function (context, attrs) {
-		for (var i = 0; i < attrs.length ; i++) {
+		for (var i = 0; i <attrs.length ; i++) {
 			var $a = attrs[i], $b = $a.slice(0, 1).toUpperCase() + $a.slice(1);
 			context.prototype[$a] = 0;
 			context.prototype["get" + $b] = gFn($a);
@@ -4274,7 +4274,7 @@
 				inc();
 			}
 		} else {
-			while (d1 < d2) {
+			while (d1 <d2) {
 				inc();
 			}
 		}

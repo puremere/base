@@ -281,7 +281,7 @@ button.ui-button::-moz-focus-inner {
 /* Spinner specific style fixes */
 .ui-controlgroup-vertical .ui-spinner-input {
 
-	/* Support: IE8 only, Android < 4.4 only */
+	/* Support: IE8 only, Android <4.4 only */
 	width: 75%;
 	width: calc( 100% - 2.4em );
 }

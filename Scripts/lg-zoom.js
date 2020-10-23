@@ -103,7 +103,7 @@
                 _this.resetZoom();
             }
 
-            if (scale < 1) {
+            if (scale <1) {
                 scale = 1;
             }
 

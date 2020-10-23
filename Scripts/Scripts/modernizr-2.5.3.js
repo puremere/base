@@ -515,7 +515,7 @@ window.Modernizr = (function( window, document, undefined ) {
     // FIXME: Once FF10 is sunsetted, we can drop prefixed MozWebSocket
     // bugzil.la/695635
     tests['websockets'] = function() {
-        for ( var i = -1, len = cssomPrefixes.length; ++i < len; ){
+        for ( var i = -1, len = cssomPrefixes.length; ++i <len; ){
           if ( window[cssomPrefixes[i] + 'WebSocket'] ){
             return true;
           }
@@ -607,7 +607,7 @@ window.Modernizr = (function( window, document, undefined ) {
     };
 
 
-    // Note, Android < 4 will pass this test, but can only animate 
+    // Note, Android <4 will pass this test, but can only animate 
     //   a single property at a time
     //   daneden.me/2011/12/putting-up-with-androids-bullshit/
     tests['cssanimations'] = function() {
@@ -840,7 +840,7 @@ window.Modernizr = (function( window, document, undefined ) {
         // Currently Safari 4 and Opera 11 have support only for the input placeholder
         // Both tests are available in feature-detects/forms-placeholder.js
         Modernizr['input'] = (function( props ) {
-            for ( var i = 0, len = props.length; i < len; i++ ) {
+            for ( var i = 0, len = props.length; i <len; i++ ) {
                 attrs[ props[i] ] = !!(props[i] in inputElem);
             }
             if (attrs.list){
@@ -859,7 +859,7 @@ window.Modernizr = (function( window, document, undefined ) {
         // Big thanks to @miketaylr for the html5 forms expertise. miketaylr.com/
         Modernizr['inputtypes'] = (function(props) {
 
-            for ( var i = 0, bool, inputElemType, defaultView, len = props.length; i < len; i++ ) {
+            for ( var i = 0, bool, inputElemType, defaultView, len = props.length; i <len; i++ ) {
 
                 inputElem.setAttribute('type', inputElemType = props[i]);
                 bool = inputElem.type !== 'text';
@@ -1064,7 +1064,7 @@ window.Modernizr = (function( window, document, undefined ) {
             frag = docCreateFragment();
     
         ownerDocument.createElement = function(nodeName) {
-          // Avoid adding some elements to fragments in IE < 9 because
+          // Avoid adding some elements to fragments in IE <9 because
           // * Attributes like `name` or `type` cannot be set/changed once an element
           //   is inserted into a document/fragment
           // * Link elements with `src` attributes that are inaccessible, as with

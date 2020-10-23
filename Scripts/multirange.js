@@ -78,7 +78,7 @@ var multirange = function(input) {
 		var highDiff = input.valueHigh - clickValue;
 		var lowDiff = Math.abs(input.valueLow - clickValue);
 
-		if (isInverted? highDiff < lowDiff : lowDiff < highDiff) {
+		if (isInverted? highDiff <lowDiff : lowDiff <highDiff) {
 			// The low value is closer to the click point than the high value
 			// We should update the low value input
 			var passEvent = new MouseEvent("mousedown", evt);

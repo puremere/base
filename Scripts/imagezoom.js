@@ -81,19 +81,19 @@
     },
     cursorPos:function(e){
       var posX = e.pageX,posY = e.pageY;
-      if(posY < offset.top || posX < offset.left || posY > (offset.top+imageHeight) || posX > (offset.left+imageWidth)){
+      if(posY <offset.top || posX <offset.left || posY > (offset.top+imageHeight) || posX > (offset.left+imageWidth)){
         $(imagezoomCursor.selector).remove();
         $(imagezoomView.selector).remove();
         return;
       }
 
-      if(posX-(cursorSize[0]/2) < offset.left){
+      if(posX-(cursorSize[0]/2) <offset.left){
         posX = offset.left+(cursorSize[0]/2);
       }else if(posX+(cursorSize[0]/2) > offset.left+imageWidth){
         posX = (offset.left+imageWidth)-(cursorSize[0]/2);
       }
 
-      if(posY-(cursorSize[1]/2) < offset.top){
+      if(posY-(cursorSize[1]/2) <offset.top){
         posY = offset.top+(cursorSize[1]/2);
       }else if(posY+(cursorSize[1]/2) > offset.top+imageHeight){
         posY = (offset.top+imageHeight)-(cursorSize[1]/2);

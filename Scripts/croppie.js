@@ -810,11 +810,11 @@
                 left = transform.x + deltaX;
 
             if (self.options.enforceBoundary) {
-                if (vpRect.top > imgRect.top + deltaY && vpRect.bottom < imgRect.bottom + deltaY) {
+                if (vpRect.top > imgRect.top + deltaY && vpRect.bottom <imgRect.bottom + deltaY) {
                     transform.y = top;
                 }
 
-                if (vpRect.left > imgRect.left + deltaX && vpRect.right < imgRect.right + deltaX) {
+                if (vpRect.left > imgRect.left + deltaX && vpRect.right <imgRect.right + deltaX) {
                     transform.x = left;
                 }
             }
@@ -1087,8 +1087,8 @@
         zoomer.min = fix(minZoom, 4);
         zoomer.max = fix(maxZoom, 4);
 
-        if (!initial && (scale < zoomer.min || scale > zoomer.max)) {
-            _setZoomerVal.call(self, scale < zoomer.min ? zoomer.min : zoomer.max);
+        if (!initial && (scale <zoomer.min || scale > zoomer.max)) {
+            _setZoomerVal.call(self, scale <zoomer.min ? zoomer.min : zoomer.max);
         }
         else if (initial) {
             defaultInitialZoom = Math.max((boundaryData.width / imgData.width), (boundaryData.height / imgData.height));
@@ -1197,7 +1197,7 @@
         //
 
         // The smallest possible source x-position is 0.
-        if (left < 0) {
+        if (left <0) {
             sx = 0;
             dx = (Math.abs(left) / width) * canvasWidth;
         }
@@ -1213,7 +1213,7 @@
         //
 
         // The smallest possible source y-position is 0.
-        if (top < 0) {
+        if (top <0) {
             sy = 0;
             dy = (Math.abs(top) / height) * canvasHeight;
         }

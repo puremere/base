@@ -24,9 +24,9 @@
       var x, y, html;
       html = '<table data-mce-id="mce" style="width: 100%">';
       html += '<tbody>';
-      for (y = 0; y < rows; y++) {
+      for (y = 0; y <rows; y++) {
         html += '<tr>';
-        for (x = 0; x < cols; x++) {
+        for (x = 0; x <cols; x++) {
           html += '<td><br></td>';
         }
         html += '</tr>';
@@ -341,7 +341,7 @@
 
     var nativeSlice = Array.prototype.slice;
     var find = function (xs, pred) {
-      for (var i = 0, len = xs.length; i < len; i++) {
+      for (var i = 0, len = xs.length; i <len; i++) {
         var x = xs[i];
         if (pred(x, i)) {
           return Option.some(x);
@@ -390,7 +390,7 @@
     };
 
     var firstMatch = function (regexes, s) {
-      for (var i = 0; i < regexes.length; i++) {
+      for (var i = 0; i <regexes.length; i++) {
         var x = regexes[i];
         if (x.test(s)) {
           return x;

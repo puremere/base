@@ -2,7 +2,7 @@
      _ _      _       _
  ___| (_) ___| | __  (_)___
 / __| | |/ __| |/ /  | / __|
-\__ \ | | (__|   < _ | \__ \
+\__ \ | | (__|   <_ | \__ \
 |___/_|_|\___|_|\_(_)/ |___/
                    |__/
 
@@ -206,7 +206,7 @@
         if (typeof(index) === 'boolean') {
             addBefore = index;
             index = null;
-        } else if (index < 0 || (index >= _.slideCount)) {
+        } else if (index <0 || (index >= _.slideCount)) {
             return false;
         }
 
@@ -566,11 +566,11 @@
                 originalSlides.length / slidesPerSection
             );
 
-            for(a = 0; a < numOfSlides; a++){
+            for(a = 0; a <numOfSlides; a++){
                 var slide = document.createElement('div');
-                for(b = 0; b < _.options.rows; b++) {
+                for(b = 0; b <_.options.rows; b++) {
                     var row = document.createElement('div');
-                    for(c = 0; c < _.options.slidesPerRow; c++) {
+                    for(c = 0; c <_.options.slidesPerRow; c++) {
                         var target = (a * slidesPerSection + ((b * _.options.slidesPerRow) + c));
                         if (originalSlides.get(target)) {
                             row.appendChild(originalSlides.get(target));
@@ -616,7 +616,7 @@
             for (breakpoint in _.breakpoints) {
                 if (_.breakpoints.hasOwnProperty(breakpoint)) {
                     if (_.originalSettings.mobileFirst === false) {
-                        if (respondToWidth < _.breakpoints[breakpoint]) {
+                        if (respondToWidth <_.breakpoints[breakpoint]) {
                             targetBreakpoint = _.breakpoints[breakpoint];
                         }
                     } else {
@@ -740,7 +740,7 @@
             index = navigables[navigables.length - 1];
         } else {
             for (var n in navigables) {
-                if (index < navigables[n]) {
+                if (index <navigables[n]) {
                     index = prevNavigable;
                     break;
                 }
@@ -1052,7 +1052,7 @@
             if (_.slideCount <= _.options.slidesToShow) {
                  ++pagerQty;
             } else {
-                while (breakPoint < _.slideCount) {
+                while (breakPoint <_.slideCount) {
                     ++pagerQty;
                     breakPoint = counter + _.options.slidesToScroll;
                     counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
@@ -1063,7 +1063,7 @@
         } else if(!_.options.asNavFor) {
             pagerQty = 1 + Math.ceil((_.slideCount - _.options.slidesToShow) / _.options.slidesToScroll);
         }else {
-            while (breakPoint < _.slideCount) {
+            while (breakPoint <_.slideCount) {
                 ++pagerQty;
                 breakPoint = counter + _.options.slidesToScroll;
                 counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
@@ -1205,7 +1205,7 @@
             max = _.slideCount * 2;
         }
 
-        while (breakPoint < max) {
+        while (breakPoint <max) {
             indexes.push(breakPoint);
             breakPoint = counter + _.options.slidesToScroll;
             counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
@@ -1301,7 +1301,7 @@
         var _ = this,
                 numDotGroups = Math.ceil(_.slideCount / _.options.slidesToShow),
                 tabControlIndexes = _.getNavigableIndexes().filter(function(val) {
-                    return (val >= 0) && (val < _.slideCount);
+                    return (val >= 0) && (val <_.slideCount);
                 });
 
         _.$slides.add(_.$slideTrack.find('.slick-cloned')).attr({
@@ -1353,7 +1353,7 @@
             }).end();
         }
 
-        for (var i=_.currentSlide, max=i+_.options.slidesToShow; i < max; i++) {
+        for (var i=_.currentSlide, max=i+_.options.slidesToShow; i <max; i++) {
           if (_.options.focusOnChange) {
             _.$slides.eq(i).attr({'tabindex': '0'});
           } else {
@@ -1595,8 +1595,8 @@
                 nextSlide = rangeEnd,
                 $slides = _.$slider.find('.slick-slide');
 
-            for (var i = 0; i < _.options.slidesToScroll; i++) {
-                if (prevSlide < 0) prevSlide = _.slideCount - 1;
+            for (var i = 0; i <_.options.slidesToScroll; i++) {
+                if (prevSlide <0) prevSlide = _.slideCount - 1;
                 loadRange = loadRange.add($slides.eq(prevSlide));
                 loadRange = loadRange.add($slides.eq(nextSlide));
                 prevSlide--;
@@ -1781,7 +1781,7 @@
 
             imageToLoad.onerror = function() {
 
-                if ( tryCount < 3 ) {
+                if ( tryCount <3 ) {
 
                     /**
                      * try to load the image 3 times,
@@ -1971,7 +1971,7 @@
             index = removeBefore === true ? --index : index;
         }
 
-        if (_.slideCount < 1 || index < 0 || index > _.slideCount - 1) {
+        if (_.slideCount <1 || index <0 || index > _.slideCount - 1) {
             return false;
         }
 
@@ -2246,7 +2246,7 @@
 
         if ( _.options.fade ) {
             if ( typeof _.options.zIndex === 'number' ) {
-                if( _.options.zIndex < 3 ) {
+                if( _.options.zIndex <3 ) {
                     _.options.zIndex = 3;
                 }
             } else {
@@ -2365,7 +2365,7 @@
                 remainder = _.slideCount % _.options.slidesToShow;
                 indexOffset = _.options.infinite === true ? _.options.slidesToShow + index : index;
 
-                if (_.options.slidesToShow == _.options.slidesToScroll && (_.slideCount - index) < _.options.slidesToShow) {
+                if (_.options.slidesToShow == _.options.slidesToScroll && (_.slideCount - index) <_.options.slidesToShow) {
 
                     allSlides
                         .slice(indexOffset - (_.options.slidesToShow - remainder), indexOffset + remainder)
@@ -2418,7 +2418,7 @@
                         .attr('data-slick-index', slideIndex - _.slideCount)
                         .prependTo(_.$slideTrack).addClass('slick-cloned');
                 }
-                for (i = 0; i < infiniteCount  + _.slideCount; i += 1) {
+                for (i = 0; i <infiniteCount  + _.slideCount; i += 1) {
                     slideIndex = i;
                     $(_.$slides[slideIndex]).clone(true).attr('id', '')
                         .attr('data-slick-index', slideIndex + _.slideCount)
@@ -2494,7 +2494,7 @@
 
         _.currentLeft = _.swipeLeft === null ? slideLeft : _.swipeLeft;
 
-        if (_.options.infinite === false && _.options.centerMode === false && (index < 0 || index > _.getDotCount() * _.options.slidesToScroll)) {
+        if (_.options.infinite === false && _.options.centerMode === false && (index <0 || index > _.getDotCount() * _.options.slidesToScroll)) {
             if (_.options.fade === false) {
                 targetSlide = _.currentSlide;
                 if (dontAnimate !== true && _.slideCount > _.options.slidesToShow) {
@@ -2506,7 +2506,7 @@
                 }
             }
             return;
-        } else if (_.options.infinite === false && _.options.centerMode === true && (index < 0 || index > (_.slideCount - _.options.slidesToScroll))) {
+        } else if (_.options.infinite === false && _.options.centerMode === true && (index <0 || index > (_.slideCount - _.options.slidesToScroll))) {
             if (_.options.fade === false) {
                 targetSlide = _.currentSlide;
                 if (dontAnimate !== true && _.slideCount > _.options.slidesToShow) {
@@ -2524,7 +2524,7 @@
             clearInterval(_.autoPlayTimer);
         }
 
-        if (targetSlide < 0) {
+        if (targetSlide <0) {
             if (_.slideCount % _.options.slidesToScroll !== 0) {
                 animSlide = _.slideCount - (_.slideCount % _.options.slidesToScroll);
             } else {
@@ -2619,7 +2619,7 @@
         r = Math.atan2(yDist, xDist);
 
         swipeAngle = Math.round(r * 180 / Math.PI);
-        if (swipeAngle < 0) {
+        if (swipeAngle <0) {
             swipeAngle = 360 - Math.abs(swipeAngle);
         }
 
@@ -2998,7 +2998,7 @@
             l = _.length,
             i,
             ret;
-        for (i = 0; i < l; i++) {
+        for (i = 0; i <l; i++) {
             if (typeof opt == 'object' || typeof opt == 'undefined')
                 _[i].slick = new Slick(_[i], opt);
             else
