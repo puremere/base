@@ -406,22 +406,25 @@
                 <div class="sectionBody">
                     <div class="row " style="direction:rtl;">
                         @*<div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
-                                <div class="halfrow">
-                                    <i class="fa fa-check banky"></i>
+            <div class="halfrow">
+                <i class="fa fa-check banky"></i>
 
-                                    <p>پرداخت درمحل</p>
+                <p>پرداخت درمحل</p>
+            </div>
+
+        </div>*@
+                        @if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("zarin"))
+                        {
+                            <div class="col-lg-6 col-sm-6 " id="internet" style="cursor:pointer; float:right">
+                                <div class="halfrow">
+                                    <i class="fa fa-check banky" style="display:none"></i>
+
+                                    <p>زرین پال</p>
                                 </div>
 
-                            </div>*@
-
-                        <div class="col-lg-6 col-sm-6 " id="internet" style="cursor:pointer; float:right">
-                            <div class="halfrow">
-                                <i class="fa fa-check banky" style="display:none"></i>
-
-                                <p>زرین پال</p>
                             </div>
+                        }
 
-                        </div>
                         @{
                             if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("mellat"))
                             {
@@ -488,7 +491,7 @@
         @{
             var value = "final" + @Model.times[0].hours[0].ID;
             <input hidden id="hourid" name="hourid" value=@value />
-            <input hidden id="payment" name="payment" value="2" />
+            <input hidden id="payment" name="payment" value="" />
         }
 
         <div style="margin:30px 0px 30px 0px"></div>
