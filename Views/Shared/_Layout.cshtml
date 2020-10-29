@@ -1,4 +1,4 @@
-﻿ @*this is test comment*@
+﻿@*this is test comment*@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,27 @@
 
     string logo = TempData["logo"] as string;
     string phone = TempData["phone"] as string;
+    string analyticID =  TempData["analyticID"] as string;
     TempData.Keep("phone");
     TempData.Keep("logo");
+    TempData.Keep("analyticID");
 
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
+    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
     {
         <head>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+
+                gtag('config', '@analyticID');
+            </script>
+
             <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
             <title>@ViewBag.Title </title>
@@ -372,7 +385,7 @@
 
                 $("#searchActButt").click(function () {
                     var search = $("#searchinput").val();
-                    if (search.length <3) {
+                    if (search.length < 3) {
                         toastr.options = {
                             "debug": false,
                             "positionClass": "toast-top-full-width",
@@ -496,7 +509,7 @@
                     return x1 + x2;
                 }
                 $(".ContactPhoneHolder").click(function () {
-                       
+
                         $("#mymodal").modal('toggle');
                         $("#contactPhone").text(@phone);
 
@@ -633,6 +646,21 @@
     else
     {
         <head>
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+
+                gtag('config', '@analyticID');
+            </script>
+
+
+            <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
             <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
             <title>@ViewBag.Title </title>
@@ -643,7 +671,7 @@
             <meta http-equiv="content-language" content="fa" />
 
             <!-- Mobile Specific Metas
-              ================================================== -->
+            ================================================== -->
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 
@@ -859,7 +887,7 @@
                         <script>
                             $("#searchImageWeb").click(function () {
                                 var search = $("#searchInputWeb").val();
-                                if (search.length <3) {
+                                if (search.length < 3) {
                                     toastr.options = {
                                         "debug": false,
                                         "positionClass": "toast-top-full-width",
@@ -1017,7 +1045,7 @@
 
                 $("#searchActButt").click(function () {
                     var search = $("#searchinput").val();
-                    if (search.length <3) {
+                    if (search.length < 3) {
                         toastr.options = {
                             "debug": false,
                             "positionClass": "toast-top-full-width",
