@@ -9,14 +9,14 @@
 
 <link href="~/Content/profileStyle.css" rel="stylesheet" />
 <script>
-   
-    if (window.innerWidth <950) {
+
+    if (window.innerWidth < 950) {
         var number = "-" + width + "px";
         $("#orderDetailHoLDER").css("margin-right", number);
     }
 
-   
-   
+
+
 
 </script>
 
@@ -660,6 +660,297 @@
 
 
                         </div>
+                        <div class="row sectionItem" id="transactionSection" style="display:none; margin:0">
+                            <div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+
+                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span style=" margin-right: 15px;font-size:15px">  کیف پول</span>
+                            </div>
+                            <div class="o-headline o-headline--profile"><span>کیف پول</span>   </div>
+
+                            <script>
+                                $(".back").click(function () {
+                                    $("#SECTIONOFIBdiv").animate({
+                                        'margin-right': number
+                                    }, function () {
+                                        //$('#productlistHoLDER').html("");
+                                        $("#SECTIONOFIBdiv").css("display", "none");
+
+                                    });
+                                })
+                            </script>
+
+                            <div class="emptyholder" style="padding:10px;">
+                                <div style="    text-align: center;  direction: rtl; font-size: 20px;  margin-bottom: 25px;  background: white;  border: 1px solid #ddd; padding-bottom: 40px;  box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
+                                    <div class="row" style="margin:0">
+                                        <p style="padding:25px">واریز به کیف پول</p>
+                                        <div style="width:20%; display:inline-block; padding:20px">
+                                            <p>مبلغ (تومان)</p>
+                                        </div>
+                                        <div style="width:30%; display:inline-block; padding:20px">
+                                            <input id="insertAmount" class="form-control" />
+                                        </div>
+                                        <div style="width:30%; display:inline-block; padding:20px">
+                                            <div class="btn btn-success" id="insertToWallet">نایید</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                $("#insertToWallet").click(function () {
+                                    var price = $("#insertAmount").val();
+                                    if (price != "") {
+                                        $.ajax({
+                                            url: '/Home/addToWallet',
+                                            dataType: 'html',
+                                            data: {
+                                                price: price,
+
+                                            },
+                                            success: function (data) {
+
+                                                location.reload();
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000,
+
+
+                                        }
+                                        toastr.error('مبلغ را وارد نمایید')
+                                    }
+
+                                })
+                            </script>
+                            @if (Model.mytransaction != null)
+                            {
+
+                                <div class="c-table-orders mustbehide">
+                                    <div class="c-table-orders__head c-table-orders__head--highlighted">
+                                        <div class="c-table-orders__row">
+                                            <div class="c-table-orders__cell c-table-orders__cell--hash">#</div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--receive-at">قیمت</div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--price">زمان </div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--price">توضیحات</div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--payment">وضعیت پرداخت</div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--payment"></div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--payment"></div>
+                                        </div>
+                                    </div>
+                                    <div class="c-table-orders__body">
+                                        @{
+
+                                            foreach (var item in Model.mytransaction)
+                                            {
+                                                int index = Model.mytransaction.IndexOf(item) + 1;
+                                        <div class="c-table-orders__row">
+                                            <div class="c-table-orders__cell c-table-orders__cell--hash">
+                                                @index
+                                            </div>
+                                          
+                                            <div class="c-table-orders__cell c-table-orders__cell--price">
+                                                @item.price
+                                            </div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--receive-at">
+                                                @item.date
+                                            </div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--receive-at">
+                                                @item.description
+                                            </div>
+                                            @if (@item.status == "0")
+                                            {
+                                                <div class="c-table-orders__cell c-table-orders__cell--payment">در اتنظار پرداخت</div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><p class="deleteTransaction" id="@item.ID"  style=" cursor:pointer">حذف</p></div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><p class="payTransaction" id="@item.timestamp"   style=" cursor:pointer">پرداخت</p></div>
+                                            }
+                                            else
+                                            {
+                                                <div class="c-table-orders__cell c-table-orders__cell--payment">پرداخت شده</div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><i  class="fas fa-check" style="font-size:42px; cursor:pointer"></i></div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><i class="fas fa-check" style="font-size:42px; cursor:pointer"></i></div>
+                                            }
+
+                                        </div>
+
+                                            }
+                                        }
+                                        <script>
+                                            $(".deleteTransaction").click(function () {
+                                                var id = $(this).attr("id");
+                                                $.ajax({
+                                                    url: '/Home/deleteTransaction',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        id: id,
+
+                                                    },
+                                                    success: function (data) {
+                                                        //alert("success");
+                                                        location.reload();
+                                                    }
+                                                });
+                                            })
+                                            $(".payTransaction").click(function () {
+                                                var id = $(this).attr("id");
+                                                url = "/Connection/ReqestForWallet?id=" + id;
+                                                window.location.href = url;
+                                            })
+                                            $(".fa-chevron-left").click(function () {
+                                                var data = $("#data").text();
+                                                var id = $(this).attr("id");
+                                                $.ajax({
+                                                    url: '/Home/goGetOrderDetail',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        id: id,
+                                                        data: data
+                                                    },
+                                                    success: function (data) {
+
+                                                        if (window.innerWidth < 950) {
+                                                            $('#detaildiv').html(data);
+                                                            $(".back2").css("display", "block")
+                                                            $("#productlistHoLDER").css("display", "none")
+                                                            $("#orderDetailHoLDER").css("display", "block")
+                                                            $("#orderDetailHoLDER").animate({
+                                                                'margin-right': '0px'
+                                                            }, function () {
+
+                                                            });
+
+                                                            $("body").css("overflow", "hidden");
+
+
+                                                            // $("#FILTERholder").css("display", "none");
+                                                        }
+                                                        else {
+                                                            $("#orderDetailHoLDER").css("display", "block")
+                                                            $('#detaildiv').html(data);
+                                                        }
+
+
+
+
+
+                                                    }
+                                                });
+                                            })
+                                        </script>
+
+
+                                    </div>
+                                </div>
+
+                                <div class="mustbeshow">
+                                    @{
+
+                                        foreach (var item in Model.mytransaction)
+                                        {
+                                            int index = Model.mytransaction.IndexOf(item) + 1;
+                                            // string data = item.address + "," + item.fullname + "," + item.phone + "," + item.Rdate + "," + item.day + "," + item.price;
+
+                                            <div class="Itemholder" id="@item.ID">
+                                                <div class="Item">
+                                                    <p class="itemtitle">شماره سفارش</p>
+                                                    <p class="itemvalue">@item.ID</p>
+
+                                                </div>
+                                                <div class="Item">
+                                                    <p class="itemtitle">تاریخ سفارش</p>
+                                                    <p class="itemvalue">@item.date</p>
+                                                </div>
+                                                <div class="Item">
+                                                    <p class="itemtitle">مبلغ سفارش</p>
+                                                    <p class="itemvalue" style="color:green">تومان @string.Format("{0:n0}", Convert.ToInt32(@item.price)) </p>
+                                                </div>
+
+                                                <div class="Item">
+                                                    <p class="itemtitle">وضعیت پرداخت</p>
+                                                    @if (item.status == "0")
+                                                    {
+                                                        <p class="itemvalue">در انتظار پرداخت </p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p class="itemvalue">پرداخت شده</p>
+                                                    }
+
+                                                </div>
+
+                                            </div>
+
+
+                                        }
+
+
+                                    }
+                                </div>
+
+                                <script>
+                                    $(".Itemholder").click(function () {
+                                        var data = $("#data").text();
+                                        var id = $(this).attr("id");
+
+                                        $.ajax({
+                                            url: '/Home/goGetOrderDetail',
+                                            dataType: 'html',
+                                            data: {
+                                                id: id,
+                                                data: data
+                                            },
+                                            success: function (data) {
+
+                                                if (window.innerWidth < 950) {
+                                                    $('#detaildiv').html(data);
+                                                    $(".back2").css("display", "block")
+                                                    $("#productlistHoLDER").css("display", "none")
+                                                    $("#orderDetailHoLDER").css("display", "block")
+                                                    $("#orderDetailHoLDER").animate({
+                                                        'margin-right': '0px'
+                                                    }, function () {
+
+                                                    });
+
+                                                    $("body").css("overflow", "hidden");
+
+
+                                                    // $("#FILTERholder").css("display", "none");
+                                                }
+                                                else {
+                                                    $('#detaildiv').html(data);
+                                                }
+
+
+
+
+                                            }
+                                        });
+                                    })
+                                </script>
+
+
+                            }
+                            else
+                            {
+                                <div class="emptyholder" style="padding:10px;">
+                                    <div class="c-profile-empty" style="">
+                                        موردی برای نمایش وجود ندارد!
+                                    </div>
+                                </div>
+
+                            }
+
+
+                        </div>
+
                         <div class="row sectionItem" id="orderlistSection" style="display:none; margin:0">
                             <div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
@@ -723,7 +1014,7 @@
                                                     },
                                                     success: function (data) {
 
-                                                        if (window.innerWidth <950) {
+                                                        if (window.innerWidth < 950) {
                                                             $('#detaildiv').html(data);
                                                             $(".back2").css("display", "block")
                                                             $("#productlistHoLDER").css("display", "none")
@@ -744,7 +1035,7 @@
                                                             $('#detaildiv').html(data);
                                                         }
 
-                                                      
+
 
 
 
@@ -793,12 +1084,12 @@
 
                                     }
                                 </div>
-                                
+
                                 <script>
                                     $(".Itemholder").click(function () {
                                         var data = $("#data").text();
                                         var id = $(this).attr("id");
-                                       
+
                                         $.ajax({
                                             url: '/Home/goGetOrderDetail',
                                             dataType: 'html',
@@ -807,27 +1098,27 @@
                                                 data: data
                                             },
                                             success: function (data) {
-                                             
-                                                if (window.innerWidth <950) {
+
+                                                if (window.innerWidth < 950) {
                                                     $('#detaildiv').html(data);
-                                                    $(".back2").css("display","block")
+                                                    $(".back2").css("display", "block")
                                                     $("#productlistHoLDER").css("display", "none")
                                                     $("#orderDetailHoLDER").css("display", "block")
                                                     $("#orderDetailHoLDER").animate({
                                                         'margin-right': '0px'
                                                     }, function () {
-                                                     
+
                                                     });
 
                                                     $("body").css("overflow", "hidden");
-                                                   
-                                                    
+
+
                                                     // $("#FILTERholder").css("display", "none");
                                                 }
                                                 else {
                                                     $('#detaildiv').html(data);
                                                 }
-                                                
+
 
 
 
@@ -850,6 +1141,7 @@
 
 
                         </div>
+
                     </div>
                     <div id="orderDetailHoLDER" style="display:none; ">
                         <div class="back2" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
@@ -1012,7 +1304,7 @@
                 <script>
                     $("#profile").click(function () {
                         $("#orderDetailHoLDER").css("display", "none")
-                        if (window.innerWidth <950) {
+                        if (window.innerWidth < 950) {
                             $("#SECTIONOFIBdiv").css("display", "block");
                             $("#productlistHoLDER").children().hide();
                             $("#userdataSectino").css("display", "block");
@@ -1025,15 +1317,14 @@
                             // $("#FILTERholder").css("display", "none");
                         }
                         else {
-                           
-                            $("#productlistHoLDER").children().hide(); 
+
+                            $("#productlistHoLDER").children().hide();
                             $("#userdataSectino").css("display", "block");
                         }
 
                     })
                 </script>
             </div>
-
             <div class="profilemenu" id="wishlist">
                 <div style="display:inline-block; margin-right:15px">لیست علاقه مندی ها</div>
                 <i class="fa fa-star" style="display:inline-block"></i>
@@ -1052,16 +1343,16 @@
                                 $("#SECTIONOFIBdiv").animate({
                                     'margin-right': '0px'
                                 }, function () {
-                                   
-                                   
+
+
                                     $(".black").css("display", "block");
 
                                 });
                                 // $("#FILTERholder").css("display", "none");
                             }
                             else {
-                              
-                                $("#productlistHoLDER").children().hide(); 
+
+                                $("#productlistHoLDER").children().hide();
                                 $("#wishlistSection").css("display", "block");
                             }
 
@@ -1070,6 +1361,39 @@
                     })
                 </script>
 
+            </div>
+            <div class="profilemenu" id="transaction">
+                <div style="display:inline-block; margin-right:15px"> کیف پول</div>
+                <i class="fa fa-shopping-basket" style="display:inline-block"></i>
+                <script>
+                    $("#transaction").click(function () {
+                        $("#orderDetailHoLDER").css("display", "none")
+                        if ('@Session["token"]' === "") {
+                            var url = '@Url.Action("login", "home")';
+                            window.location.href = url;
+                        }
+                        else {
+                            if (window.innerWidth <950) {
+                                $("#SECTIONOFIBdiv").css("display", "block");
+                                $("#productlistHoLDER").children().hide();
+                                $("#orderlistSection").css("display", "block");
+                                $("#SECTIONOFIBdiv").animate({
+                                    'margin-right': '0px'
+                                }, function () {
+                                    $(".black").css("display", "block");
+                                });
+
+                            }
+                            else {
+
+                                $("#productlistHoLDER").children().hide();
+                                $("#transactionSection").css("display", "block");
+                            }
+
+                        }
+
+                    })
+                </script>
             </div>
             <div class="profilemenu" id="orderlist">
                 <div style="display:inline-block; margin-right:15px"> سفارش های من</div>
@@ -1089,17 +1413,13 @@
                                 $("#SECTIONOFIBdiv").animate({
                                     'margin-right': '0px'
                                 }, function () {
-
-                                  
                                     $(".black").css("display", "block");
-                                    
-
                                 });
                                 // $("#FILTERholder").css("display", "none");
                             }
                             else {
-                               
-                                $("#productlistHoLDER").children().hide(); 
+
+                                $("#productlistHoLDER").children().hide();
                                 $("#orderlistSection").css("display", "block");
                             }
 
@@ -1154,6 +1474,10 @@
     else if (@ViewBag.type == "2") {
         $("#productlistHoLDER").children().hide();
         $("#wishlistSection").css("display", "block");
+     }
+          else if (@ViewBag.type == "4") {
+        $("#productlistHoLDER").children().hide();
+         $("#transactionSection").css("display", "block");
     }
     else {
         $("#productlistHoLDER").children().hide();
