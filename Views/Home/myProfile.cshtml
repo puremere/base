@@ -786,6 +786,7 @@
                                         <script>
                                             $(".deleteTransaction").click(function () {
                                                 var id = $(this).attr("id");
+
                                                 $.ajax({
                                                     url: '/Home/deleteTransaction',
                                                     dataType: 'html',
