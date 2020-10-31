@@ -1,4 +1,5 @@
-﻿@using banimo.ViewModel;
+﻿
+@using banimo.ViewModel;
 @model banimo.ViewModel.TimeList
 @{
     /**/
@@ -114,10 +115,10 @@
                             <div class="inputdiv1"><p>شماره تلفن</p></div>
                             <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
                         </div>
-                        @*<div class="col-lg-6 col-sm-6 row1 ">
+                        <div class="col-lg-6 col-sm-6 row1 ">
                                 <div class="inputdiv1"><p>کد پستی</p></div>
                                 <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control field" type="text" /></div>
-                            </div>*@
+                            </div>
 
 
                     </div>
@@ -413,19 +414,32 @@
             </div>
 
         </div>*@
-                        @if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("zarin"))
-                        {
-                            <div class="col-lg-6 col-sm-6 " id="internet" style="cursor:pointer; float:right">
-                                <div class="halfrow">
-                                    <i class="fa fa-check banky" style="display:none"></i>
 
-                                    <p>زرین پال</p>
-                                </div>
-
-                            </div>
-                        }
 
                         @{
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("inplace"))
+                            {
+                                <div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
+                                    <div class="halfrow">
+                                        <i class="fa fa-check banky" style="display:none"></i>
+
+                                        <p>پرداخت در محل</p>
+                                    </div>
+
+                                </div>
+                            }
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("zarin"))
+                            {
+                                <div class="col-lg-6 col-sm-6 " id="internet" style="cursor:pointer; float:right">
+                                    <div class="halfrow">
+                                        <i class="fa fa-check banky" style="display:none"></i>
+
+                                        <p>زرین پال</p>
+                                    </div>
+
+                                </div>
+                            }
+
                             if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("mellat"))
                             {
                                 <div class="col-lg-6 col-sm-6 " id="mellat" style="cursor:pointer; float:right">
@@ -673,11 +687,13 @@
         } else if (err.code == 2) {
             // alert("Error: Position is unavailable!");
         }
+     
+        
 
         var myMap = new L.Map('map', {
             minZoom: 1,
             maxZoom: 20,
-            center: [36.655313, 51.423518],// [35.764435, 51.391507],
+            center: [@Model.latitiude,@Model.longitude],
             zoom: 16
         });
         var greenIcon = new L.Icon({
