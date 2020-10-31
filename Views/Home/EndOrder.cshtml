@@ -437,13 +437,24 @@
 
                                 </div>
                             }
-                            else if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("pasargad"))
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("pasargad"))
                             {
                                 <div class="col-lg-6 col-sm-6 " id="pasargad" style="cursor:pointer; float:right">
                                     <div class="halfrow">
                                         <i class="fa fa-check banky" style="display:none"></i>
                                         <p>بانک پاسارگاد</p>
                                     </div>
+                                </div>
+                            }
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("wallet"))
+                            {
+                                <div class="col-lg-6 col-sm-6 " id="Wallet" style="cursor:pointer; float:right">
+                                    <div class="halfrow">
+                                        <i class="fa fa-check banky" style="display:none"></i>
+
+                                        <p>کیف پول</p>
+                                    </div>
+
                                 </div>
                             }
                         }
@@ -469,6 +480,11 @@
                                 $(".banky").css("display", "none");
                                 $(this).children().children("i").css("display", "inline-block");
                                 $("#payment").val("2");
+                            })
+                            $("#Wallet").click(function () {
+                                $(".banky").css("display", "none");
+                                $(this).children().children("i").css("display", "inline-block");
+                                $("#payment").val("5");
                             })
                         </script>
                     </div>
