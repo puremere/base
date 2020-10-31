@@ -1298,7 +1298,12 @@
                 </div>
                 <div class="c-profile-box__username"></div>
                 @{
-                    int total = Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "1").Sum(x => x.price) - Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "0").Sum(x => x.price);
+                    int total = 0;
+                    if (Model.mytransaction != null)
+                    {
+                        total = Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "1").Sum(x => x.price) - Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "0").Sum(x => x.price);
+                    }
+
                     <p style="text-align:center; padding-bottom:25px">اعتبار :   <span>@total</span> &nbsp; تومان</p>
                 }
                 <div class="c-profile-box__tabs">
