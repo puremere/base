@@ -1290,12 +1290,17 @@
             </style>
             <div class="c-profile-box">
                 <div class="c-profile-box__header"><div class="c-profile-box__avatar js-user-avatar" style="background-image: url(https://www.digikala.com/static/files/fd4840b2.svg)"></div><div style="width:5%; margin:0px; padding:0px" class="c-profile-box__btn-edit "></div></div><div class="c-profile-box__username"></div><div class="c-profile-box__tabs">
-                    <a href="/Home/forgetpass" class="c-profile-box__tab" style="border-right: 1px solid #ebebeb;"><i class="fa fa-lock" style="width:100%"></i><p>تغییر رمز</p></a>
-                    <a href="/CustomerLogin/LogOff" class="c-profile-box__tab ">
-                        <i class="fa fa-sign-out-alt" style="width:100%"></i><p>خروج از حساب </p>
+    @{
+        int total = Model.mytransaction.Where(x => x.status == "1").Sum(x => x.price);
+        <p>اعتبار :   <span></span></p>
+    }
 
-                    </a>
-                </div>
+    <a href="/Home/forgetpass" class="c-profile-box__tab" style="border-right: 1px solid #ebebeb;"><i class="fa fa-lock" style="width:100%"></i><p>تغییر رمز</p></a>
+    <a href="/CustomerLogin/LogOff" class="c-profile-box__tab ">
+        <i class="fa fa-sign-out-alt" style="width:100%"></i><p>خروج از حساب </p>
+
+    </a>
+</div>
             </div>
             <div class="profilemenuhead">
                 <div style="display:inline-block; margin-right:25px;padding:20px 0"> حساب کاربری شما</div> </i>
