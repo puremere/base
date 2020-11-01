@@ -736,14 +736,15 @@
 
                                 <div class="c-table-orders mustbehide">
                                     <div class="c-table-orders__head c-table-orders__head--highlighted">
-                                        <div class="c-table-orders__row">
-                                            <div class="c-table-orders__cell c-table-orders__cell--hash">#</div>
-                                            <div class="c-table-orders__cell c-table-orders__cell--receive-at">قیمت</div>
-                                            <div class="c-table-orders__cell c-table-orders__cell--price">زمان </div>
-                                            <div class="c-table-orders__cell c-table-orders__cell--price">توضیحات</div>
-                                            <div class="c-table-orders__cell c-table-orders__cell--payment">وضعیت پرداخت</div>
-                                            <div class="c-table-orders__cell c-table-orders__cell--payment"></div>
-                                            <div class="c-table-orders__cell c-table-orders__cell--payment"></div>
+                                        <div class="row" style="margin:0;direction:rtl; padding:25px 0; background-color:#85b3be; color:white">
+                                            <div class="col-lg-1" style="float:right">#</div>
+                                         
+                                            <div class="col-lg-2" style="float:right">قیمت</div>
+                                            <div class="col-lg-2" style="float:right">زمان </div>
+                                            <div class="col-lg-2" style="float:right">توضیحات</div>
+                                            <div class="col-lg-2" style="float:right">وضعیت پرداخت</div>
+                                            <div class="col-lg-2" style="float:right">حذف</div>
+                                            <div class="col-lg-1" style="float:right">پرداخت</div>
                                         </div>
                                     </div>
                                     <div class="c-table-orders__body">
@@ -752,34 +753,42 @@
                                             foreach (var item in Model.mytransaction)
                                             {
                                                 int index = Model.mytransaction.IndexOf(item) + 1;
-                                                <div class="c-table-orders__row">
-                                                    <div class="c-table-orders__cell c-table-orders__cell--hash">
-                                                        @index
-                                                    </div>
+                                        <div class="c-table-orders__row">
+                                            <div class="c-table-orders__cell c-table-orders__cell--hash">
+                                                @index
+                                            </div>
 
-                                                    <div class="c-table-orders__cell c-table-orders__cell--price">
-                                                        @item.price
-                                                    </div>
-                                                    <div class="c-table-orders__cell c-table-orders__cell--receive-at">
-                                                        @item.date
-                                                    </div>
-                                                    <div class="c-table-orders__cell c-table-orders__cell--receive-at">
-                                                        @item.description
-                                                    </div>
-                                                    @if (@item.status == "0")
-                                                    {
-                                                        <div class="c-table-orders__cell c-table-orders__cell--payment">در اتنظار پرداخت</div>
-                                                        <div class="c-table-orders__cell c-table-orders__cell--detail"><p class="deleteTransaction" id="@item.ID" style=" cursor:pointer">حذف</p></div>
-                                                        <div class="c-table-orders__cell c-table-orders__cell--detail"><p class="payTransaction" id="@item.timestamp" style=" cursor:pointer">پرداخت</p></div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="c-table-orders__cell c-table-orders__cell--payment">پرداخت شده</div>
-                                                        <div class="c-table-orders__cell c-table-orders__cell--detail"><i class="fas fa-check" style="font-size:42px; cursor:pointer"></i></div>
-                                                        <div class="c-table-orders__cell c-table-orders__cell--detail"><i class="fas fa-check" style="font-size:42px; cursor:pointer"></i></div>
-                                                    }
+                                            <div class="c-table-orders__cell c-table-orders__cell--price">
+                                                @item.price
+                                            </div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--receive-at">
+                                                @item.date
+                                            </div>
+                                            <div class="c-table-orders__cell c-table-orders__cell--receive-at">
+                                                @item.description
+                                            </div>
+                                            @if (@item.status == "0")
+                                            {
+                                                <div class="c-table-orders__cell c-table-orders__cell--payment">در اتنظار پرداخت</div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><p class="deleteTransaction" id="@item.ID" style=" cursor:pointer">حذف</p></div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><p class="payTransaction" id="@item.timestamp" style=" cursor:pointer">پرداخت</p></div>
+                                            }
+                                            else
+                                            {
+                                                if (item.transactionType == "0")
+                                                {
+                                                    <div class="c-table-orders__cell c-table-orders__cell--payment">برداشت</div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="c-table-orders__cell c-table-orders__cell--payment">واریز</div>
+                                                }
 
-                                                </div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><i class="fas fa-check" style="font-size:42px;"></i></div>
+                                                <div class="c-table-orders__cell c-table-orders__cell--detail"><i class="fas fa-check" style="font-size:42px; "></i></div>
+                                            }
+
+                                        </div>
 
                                             }
                                         }

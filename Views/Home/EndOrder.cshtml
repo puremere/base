@@ -44,7 +44,7 @@
 
                 // $("#finalprice").text(array[0]);
                 $("#finalprice").text(addCommas(array[0]))
-                if (parseInt(array[0]) <100000) {
+                if (parseInt(array[0]) < 100000) {
                     $("#deliveryprice").text("10,000");
                     $("#totalprice").text(addCommas(parseInt(array[0]) + 10000));
                 }
@@ -61,6 +61,8 @@
         });
     </script>
 
+
+
     userdata user = @Session["LogedInUser"] as userdata;
     string fullname = user.fullname;
     string phone = user.phone;
@@ -76,7 +78,7 @@
     </div>
 
     <form id="endOrderForm" name="endOrderForm" action="EndOrder" method="post">
-
+        <p id="error" style="color :red; text-align:center; padding:10px"></p>
         <input hidden name="lat" id="lat" value="0" />
         <input hidden name="lon" id="lon" value="0" />
 
@@ -116,9 +118,9 @@
                             <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
                         </div>
                         <div class="col-lg-6 col-sm-6 row1 ">
-                                <div class="inputdiv1"><p>کد پستی</p></div>
-                                <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control field" type="text" /></div>
-                            </div>
+                            <div class="inputdiv1"><p>کد پستی</p></div>
+                            <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control field" type="text" /></div>
+                        </div>
 
 
                     </div>
@@ -283,7 +285,7 @@
                                     //alert(discount);
                                     if (discount == "") {
 
-                                       
+
                                         toastr.options = {
                                             "debug": false,
                                             "positionClass": "toast-top-center",
@@ -341,13 +343,12 @@
                                                         if (parseInt(obj.price) > parseInt(mot)) {
                                                             $("#totalprice").text("0");
                                                         }
-                                                        else
-                                                        {
-                                                            
+                                                        else {
+
                                                             $("#totalprice").text(addCommas(parseInt(mot) - parseInt(obj.price) + parseInt(del)))
-                                                          
+
                                                         }
-                                                       
+
                                                         $("#finalDiscount").text(obj.price);
                                                     }
                                                 }
@@ -407,13 +408,13 @@
                 <div class="sectionBody">
                     <div class="row " style="direction:rtl;">
                         @*<div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
-            <div class="halfrow">
-                <i class="fa fa-check banky"></i>
+                                <div class="halfrow">
+                                    <i class="fa fa-check banky"></i>
 
-                <p>پرداخت درمحل</p>
-            </div>
+                                    <p>پرداخت درمحل</p>
+                                </div>
 
-        </div>*@
+                            </div>*@
 
 
                         @{
@@ -488,7 +489,7 @@
                             $("#internet").click(function () {
                                 $(".banky").css("display", "none");
                                 $(this).children().children("i").css("display", "inline-block");
-                                $("#payment").val("1");
+                                $("#payment").val("5");
                             })
                             $("#inplace").click(function () {
                                 $(".banky").css("display", "none");
@@ -498,7 +499,7 @@
                             $("#Wallet").click(function () {
                                 $(".banky").css("display", "none");
                                 $(this).children().children("i").css("display", "inline-block");
-                                $("#payment").val("5");
+                                $("#payment").val("1");
                             })
                         </script>
                     </div>
@@ -539,7 +540,7 @@
     var acc = document.getElementsByClassName("accordion");
     var i;
 
-    for (i = 0; i <acc.length; i++) {
+    for (i = 0; i < acc.length; i++) {
         acc[i].addEventListener("click", function () {
             this.classList.toggle("active");
             var panel = this.nextElementSibling;
@@ -568,42 +569,42 @@
     $("#finalconfirm").click(function () {
 
 
-
         var address = $("#address");
-        var phone = $("#phonenumber");
-        var postalcode = $("#postalcode");
-        var fullname = $("#fullname");
-        var city = $("#city");
-        var country = $("#country");
-        var hourid = $("#hourid");
-        var counter = 0;
-        var lat = $("#lat").val();
+            var phone = $("#phonenumber");
+            var postalcode = $("#postalcode");
+            var fullname = $("#fullname");
+            var city = $("#city");
+            var country = $("#country");
+            var hourid = $("#hourid");
+            var counter = 0;
+            var lat = $("#lat").val();
 
-        $(".field").each(function () {
-            var val = $(this).val();
+            $(".field").each(function () {
+                var val = $(this).val();
 
-            if (val === "") {
-                $(this).css("border-color", "red");
-                $("#verifyflag").text("1");
-                counter = counter + 1;
+                if (val === "") {
+                    $(this).css("border-color", "red");
+                    $("#verifyflag").text("1");
+                    counter = counter + 1;
+                }
+
+            })
+            if (counter === 0) {
+
+                if (lat.length > 4) {
+                    //  alert(alt.length)
+                    $("form#endOrderForm").submit();
+                }
+                else {
+
+
+                    alert("لطفاً موقعیت خود را انتخاب کنید")
+                }
+
+
+
             }
 
-        })
-        if (counter === 0) {
-
-            if (lat.length > 4) {
-                //  alert(alt.length)
-                $("form#endOrderForm").submit();
-            }
-            else {
-
-
-                alert("لطفاً موقعیت خود را انتخاب کنید")
-            }
-
-
-
-        }
 
     })
 </script>
@@ -687,13 +688,14 @@
         } else if (err.code == 2) {
             // alert("Error: Position is unavailable!");
         }
-     
-        
+
+
 
         var myMap = new L.Map('map', {
             minZoom: 1,
             maxZoom: 20,
-            center: [@Model.latitiude,@Model.longitude],
+
+            center: [@Model.latitiude, Model.longitude],
             zoom: 16
         });
         var greenIcon = new L.Icon({
@@ -789,4 +791,24 @@
 <link href="~/Content/toastr.css" rel="stylesheet" />
 
 
+@if (@ViewBag.error != null)
+{
+    <script>
+            var error = '@ViewBag.error';
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error(error);
+    </script>
+}
+else
+{
+
+}
 
