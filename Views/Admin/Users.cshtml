@@ -70,7 +70,7 @@
 
                     })
                 </script>
-                <div id="Listholder">
+                <div id="Listholder" >
                     <div class="row" style="padding:20px">
                         <div style="overflow-x:auto;padding:10px">
                             <div class="panel panel-default">
@@ -80,7 +80,7 @@
     background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
                                     <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> کاربران  </h3>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body" style="max-height:450px; overflow-y:scroll;">
                                     <div id="morris-area-chart">
                                         <div style="overflow:auto">
                                             <table class="table table-bordered table-hover table-striped">
@@ -160,73 +160,76 @@
                                             </table>
                                             <script>
 
-                                            $(".Dbutton").click(function () {
+                                                $(".Dbutton").click(function () {
 
-                                                var id = $(this).attr("id");
+                                                    var id = $(this).attr("id");
 
-                                                $.ajax({
-                                                    url: '/Admin/DeleteUser',
-                                                    dataType: 'html',
-                                                    data: {
-                                                        id: id,
-                                                    },
-                                                    success: function (data) {
+                                                    $.ajax({
+                                                        url: '/Admin/DeleteUser',
+                                                        dataType: 'html',
+                                                        data: {
+                                                            id: id,
+                                                        },
+                                                        success: function (data) {
 
-                                                        var search = $("#searchinput").val();
+                                                            var search = $("#searchinput").val();
 
-                                                        $.ajax({
-                                                            url: '/Admin/getNewListUser',
-                                                            dataType: 'html',
-                                                            data: {
-                                                                search: search,
+                                                            $.ajax({
+                                                                url: '/Admin/getNewListUser',
 
-                                                            },
-                                                            success: function (data) {
+                                                                dataType: 'html',
+                                                                data: {
+                                                                    search: search,
 
-                                                                $("#Listholder").html(data);
-                                                            },
-                                                            error: function () {
+                                                                },
+                                                                success: function (data) {
 
-                                                            }
-                                                        });
+                                                                    $("#Listholder").html(data);
+                                                                },
+                                                                error: function () {
 
-                                                    },
-                                                    error: function () {
+                                                                }
+                                                            });
 
-                                                    }
+                                                        },
+                                                        error: function () {
+
+                                                        }
+                                                    });
                                                 });
-                                            })
-                                            $(".Pbutton").click(function () {
-                                                        var rowid = $(this).attr("id");
-                                                       var articles = @Html.Raw(Json.Encode(Model.Users));
-                                                      $("#detailholder").css("display", "inline-block");
+                                                $(".Pbutton").click(function () {
+                                                    var rowid = $(this).attr("id");
+                                                    var articles = @Html.Raw(Json.Encode(Model.Users));
+                                                    $("#detailholder").css("display", "inline-block");
 
-                                                       $.each(articles, function (index, item) {
-                                                           if (item.ID.toString() === rowid) {
-                                                               
-                                                               $("#UserListUpdate option").each(function () {
+                                                    $.each(articles, function (index, item) {
+                                                        if (item.ID.toString() === rowid) {
+
+                                                            $("#UserListUpdate option").each(function () {
+                                                                 
+                                                                if ($(this).val() === item.userTypeID) {
                                                                    
-                                                                   if ($(this).val() === item.userTypeID) {
-                                                                     
-                                                                         $(this).attr("selected", "selected");
-                                                                   }
-                                                               })
+                                                                    $("option:selected").removeAttr("selected");
+                                                                    $(this).attr("selected", "selected");
+                                                                }
+                                                            })
 
-                                                               var imagaddress = "/images/panelimages/" + item.image;
-                                                               $("#fullnameUpdate").val(item.fullname);
-                                                               $("#emailupdate").val(item.email);
-                                                               $("#phoneupdate").val(item.mobile);
-                                                               $("#addressupdate").val(item.address);
-                                                               $("#IDupdate").val(item.ID);
-
+                                                            var imagaddress = "/images/panelimages/" + item.image;
+                                                            $("#fullnameUpdate").val(item.fullname);
+                                                            $("#emailupdate").val(item.email);
+                                                            $("#phoneupdate").val(item.mobile);
+                                                            $("#addressupdate").val(item.address);
+                                                            $("#IDupdate").val(item.ID);
 
 
-                                                           }
+
+                                                        }
 
 
-                                                         });
+                                                    });
 
-                                                    })
+                                                });
+                                            
                                             </script>
                                         </div>
                                     </div>
@@ -262,6 +265,12 @@
                                     {
                                         Text = "ادمین",
                                         Value = "1",
+
+                                    });
+                                    UserTypeList.Add(new SelectListItem
+                                    {
+                                        Text = "دلیور",
+                                        Value = "5",
 
                                     });
 
@@ -303,7 +312,7 @@
                             </div>
 
                             
-                            <input id="IDupdate" name="IDupdate" hidden />
+                            <input id="IDupdate" name="IDupdate" value="" hidden />
 
 
                         </div>
