@@ -28,7 +28,11 @@
             <div class="modal-body">
                 <p>لطفا یکی از پیک ها را انتخاب کنید</p>
                 <div style="width:50%; display:inline-block">
-                    @Html.DropDownList("deliverDromdown", new SelectList(Model.myUsers, "ID", "fullname"), new { @class = "form-control",  })
+                    @if (Model.myUsers != null)
+                    {
+                        @Html.DropDownList("deliverDromdown", new SelectList(Model.myUsers, "ID", "fullname"), new { @class = "form-control", })
+
+                    }
 
                 </div>
                
