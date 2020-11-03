@@ -141,7 +141,7 @@
 
                             <div id="barsformenu" class="col-sm-6 col-xs-6" style=" padding: 0px;padding-top: 0px;">
                                 <i class="fa fa-bars toolbarText"></i>
-                                <p class="toolbarText" style="display:inline-block;margin-right: 5px;">@System.Configuration.ConfigurationManager.AppSettings["siteName"]</p>
+                                <p class="toolbarText" style="display:inline-block;margin-right: 5px;">@System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</p>
                             </div>
                             <div class="col-sm-6 col-xs-6" style="padding: 0;">
 
@@ -269,25 +269,25 @@
                             <div style="width:100%; border:1px solid #ddd"></div>
                             <a href="/Home/ProductList?sortID=3">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
-                                    <span>پیشنهاد های ویژه @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span>
+                                    <span>پیشنهاد های ویژه @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
 
                                 </div>
                             </a>
                             <a href="/Home/ProductList?sortID=2">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
-                                    <span>پرفروش ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span>
+                                    <span>پرفروش ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
 
                                 </div>
                             </a>
                             <a href="/Home/ProductList?sortID=7">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
-                                    <span>بیشترین تخفیف ها @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span>
+                                    <span>بیشترین تخفیف ها @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
 
                                 </div>
                             </a>
                             <a href="/Home/ProductList?sortID=1">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
-                                    <span>جدید ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span>
+                                    <span>جدید ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
 
                                 </div>
                             </a>
@@ -320,7 +320,7 @@
                         <form id="searchpanel" action="~/Home/ProductList">
                             <div style="text-align:center; margin:20px 0;font-size: 11px;"><p>لطفا عبارت مورد نظر خود را برای جستجو وارد کنید</p></div>
                             <div class="inputHolder"><i class="fal fa-search" style="margin-left:10px; font-weight:600 "></i><input name="newquery" style="text-align:right; direction:rtl" id="searchinput" type="text" placeholder="جستجو ..." /></div>
-                            <div type="submit" id="searchActButt" style="position:absolute; bottom:0px ; padding:15px; background-color:green; text-align:center; width:100%"> <p style="color:white"> <span>جستجو در @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span></p></div>
+                            <div type="submit" id="searchActButt" style="position:absolute; bottom:0px ; padding:15px; background-color:green; text-align:center; width:100%"> <p style="color:white"> <span>جستجو در @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span></p></div>
                         </form>
 
                     </div>
@@ -342,7 +342,7 @@
                         </div>
                         <div class="ContactPhoneHolder" id="searchpanel" action="~/Home/ProductList" style="display:flex">
 
-                            <div class="contactItem"><i class="fa fa-headphones" style="margin-left: 10px"></i><span style="font-size:4vw">تماس با @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span> </div>
+                            <div class="contactItem"><i class="fa fa-headphones" style="margin-left: 10px"></i><span style="font-size:4vw">تماس با @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span> </div>
 
                         </div>
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
@@ -917,23 +917,23 @@
 
                                 if (user == null)
                                 {
-                                    <a class="c-header__user-dropdown-login" href="../Home/login">
-                                        ورود
-                                        به
-                                        @{
-                                            if (TempData["partnerName"] != null)
-                                            {
-                                                @TempData["partnerName"];
-                                                TempData.Keep("partnerName");
-                                            }
-                                            else
-                                            {
-                                                @System.Configuration.ConfigurationManager.AppSettings["siteName"]
-                                            }
-                                        }
+                            <a class="c-header__user-dropdown-login" href="../Home/login">
+                                ورود
+                                به
+                                @{
+                                    if (TempData["partnerName"] != null)
+                                    {
+                                        @TempData["partnerName"];
+                                        TempData.Keep("partnerName");
+                                    }
+                                    else
+                                    {
+                                        @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]
+                                    }
+                                }
 
 
-                                    </a>
+                            </a>
                                     <div class="c-header__user-dropdown-sign-up">
                                         <span>کاربر جدید هستید؟</span>
                                         <a data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;sign-up&quot;}" href="../Home/Register">ثبت‌نام</a>
