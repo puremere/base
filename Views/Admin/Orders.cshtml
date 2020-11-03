@@ -30,6 +30,7 @@
                 <div style="width:50%; display:inline-block">
                     @if (Model.myUsers != null)
                     {
+
                         @Html.DropDownList("deliverDromdown", new SelectList(Model.myUsers, "ID", "fullname"), new { @class = "form-control", })
 
                     }
