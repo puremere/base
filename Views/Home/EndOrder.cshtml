@@ -119,7 +119,7 @@
                         </div>
                         <div class="col-lg-6 col-sm-6 row1 ">
                             <div class="inputdiv1"><p>کد پستی</p></div>
-                            <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control field" type="text" /></div>
+                            <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
                         </div>
 
                         
@@ -589,21 +589,33 @@
                 }
 
             })
-            if (counter === 0) {
+        if (counter === 0) {
 
-                if (lat.length > 4) {
-                    //  alert(alt.length)
-                    $("form#endOrderForm").submit();
-                }
-                else {
-
-
-                    alert("لطفاً موقعیت خود را انتخاب کنید")
-                }
-
-
-
+            if (lat.length > 4) {
+                //  alert(alt.length)
+                $("form#endOrderForm").submit();
             }
+            else {
+
+
+                alert("لطفاً موقعیت خود را انتخاب کنید")
+            }
+
+
+
+        }
+        else {
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error("لطفا تمامی موارد را کامل کنید");
+        }
 
 
     })

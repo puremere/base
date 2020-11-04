@@ -23,6 +23,9 @@
                         $("input[name=data]").val(JSON.stringify(obj));
                         $("input[name=id]").val('@Model.myProducts.First().id');
                         $("#getPDF").submit();
+                        $("#loading").fadeIn();
+                        setInterval(function () { $("#loading").fadeOut(); }, 3000);
+                       
                         //$.ajax({
                         //    url: '/Admin/createUserReport',
                         //    dataType: 'html',
