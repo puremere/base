@@ -568,8 +568,8 @@
     })
     $("#finalconfirm").click(function () {
 
-
-        var address = $("#address");
+            
+            var address = $("#address");
             var phone = $("#phonenumber");
             var postalcode = $("#postalcode");
             var fullname = $("#fullname");
@@ -577,18 +577,31 @@
             var country = $("#country");
             var hourid = $("#hourid");
             var counter = 0;
-            var lat = $("#lat").val();
+        var lat = $("#lat").val();
+        var payment = $("#payment").val();
 
-            $(".field").each(function () {
-                var val = $(this).val();
+        $(".field").each(function () {
+            var val = $(this).val();
 
-                if (val === "") {
-                    $(this).css("border-color", "red");
-                    $("#verifyflag").text("1");
-                    counter = counter + 1;
-                }
+            if (val === "") {
+                $(this).css("border-color", "red");
+                $("#verifyflag").text("1");
+                counter = counter + 1;
+            }
 
-            })
+        });
+        if (payment == "") {
+            oastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error("لطفا روش پرداخت را انتخاب کنید");
+        }
         if (counter === 0) {
 
             if (lat.length > 4) {
@@ -596,9 +609,18 @@
                 $("form#endOrderForm").submit();
             }
             else {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
+                }
+                toastr.error("لطفاً موقعیت خود را انتخاب کنید");
 
-
-                alert("لطفاً موقعیت خود را انتخاب کنید")
+               
             }
 
 
