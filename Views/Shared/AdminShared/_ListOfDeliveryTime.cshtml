@@ -47,6 +47,10 @@
                                         تا ساعت
                                     </th>
                                     <th>
+                                        فعال
+                                    </th>
+                                  
+                                    <th>
 
                                     </th>
                                 </tr>
@@ -70,62 +74,125 @@
                                                 <td>
                                                     @Html.DisplayFor(modelItem => item.TimeTo)
                                                 </td>
+                                                <td>
+                                                    @if (item.isActive == "1")
+                                                    {
+                                                        <input class="isActive" id="@item.ID" name="isActive" type="checkbox"  checked />
+                                                    }
+                                                    else
+                                                    {
+                                                        <input class="isActive"  id="@item.ID" name="isActive" type="checkbox"  />
+                                                    }
+                                                    
+
+                                                </td>
+                                            
 
                                                 <td>
                                                     @{
-                                                        var classname = "deleteproduct" + item.ID;
-                                                        <a id=@item.ID class=@classname style="  margin:2px ; cursor: pointer; background-color: #246388; padding: 5px; color: #fff; border-radius: 5px;">حذف</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
-                                                        <script>
-                                var classname = "deleteproduct" + @item.ID
-                                $("." + classname).click(function () {
-                                    $.ajax({
-                                        url: '/Admin/DeleteDeliveryTime',
-                                        dataType: 'html',
-                                        data: {
-                                            id: this.id,
-                                        },
-                                        success: function (data) {
-                                            toastr.options = {
-                                                "debug": false,
-                                                "positionClass": "toast-top-center",
-                                                "onclick": null,
-                                                "fadeIn": 300,
-                                                "fadeOut": 1000,
-                                                "timeOut": 5000,
-                                                "extendedTimeOut": 1000
-                                            }
-                                            toastr.success('محصول مورد نظر حذف شد')
-                                            $.ajax({
-                                                url: '/Admin/GetTheListOfDeliveryTime',
-                                                dataType: 'html',
-                                                success: function (data) {
-
-                                                    $('#listholder').html(data);
-                                                    $('#listholder').css("display", "block");
-                                                },
-                                                error: function () {
-                                                    alert("nashod")
-                                                }
-                                            });
-                                        },
-                                        error: function () {
-                                            alert("nashod")
-                                        }
-                                    });
-                                })
-                                                        </script>
+                                                      
+                                                        <a id=@item.ID class="deleteTime" style="  margin:2px ; cursor: pointer; background-color: #246388; padding: 5px; color: #fff; border-radius: 5px;">حذف</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
+                                                       
                                                     }
 
                                                 </td>
                                             </tr>
                                         }
 
+
+
                                     }
                                 }
 
 
+
+
                             </tbody>
+
                         </table>
+                          <script>
+                              $(".isActive").click(function () {
+                                  var id = $(this).attr('id');
+                                  if ($(this).is(':checked')) {
+                                      var itemValue = "1";
+                                  }
+                                  else {
+                                      var itemValue = "0";
+                                  }
+                                  $.ajax({
+                                      url: '/Admin/ActiveDeliveryTime',
+                                      dataType: 'html',
+                                      data: {
+                                          id: id,
+                                          value: itemValue
+                                      },
+                                      success: function (data) {
+                                          toastr.options = {
+                                              "debug": false,
+                                              "positionClass": "toast-top-center",
+                                              "onclick": null,
+                                              "fadeIn": 300,
+                                              "fadeOut": 1000,
+                                              "timeOut": 5000,
+                                              "extendedTimeOut": 1000
+                                          }
+                                          toastr.success('ویرایش با موفقیت انجام شد')
+                                          $.ajax({
+                                              url: '/Admin/GetTheListOfDeliveryTime',
+                                              dataType: 'html',
+                                              success: function (data) {
+
+                                                  $('#listholder').html(data);
+                                                  $('#listholder').css("display", "block");
+                                              },
+                                              error: function () {
+                                                  alert("nashod")
+                                              }
+                                          });
+                                      },
+                                      error: function () {
+                                          alert("nashod")
+                                      }
+                                  });
+                              })
+                              $(".deleteTime").click(function () {
+                                  var id = $(this).attr('id');
+                                  $.ajax({
+                                      url: '/Admin/DeleteDeliveryTime',
+                                      dataType: 'html',
+                                      data: {
+                                          id: id,
+                                      },
+                                      success: function (data) {
+                                          toastr.options = {
+                                              "debug": false,
+                                              "positionClass": "toast-top-center",
+                                              "onclick": null,
+                                              "fadeIn": 300,
+                                              "fadeOut": 1000,
+                                              "timeOut": 5000,
+                                              "extendedTimeOut": 1000
+                                          }
+                                          toastr.success('محصول مورد نظر حذف شد')
+                                          $.ajax({
+                                              url: '/Admin/GetTheListOfDeliveryTime',
+                                              dataType: 'html',
+                                              success: function (data) {
+
+                                                  $('#listholder').html(data);
+                                                  $('#listholder').css("display", "block");
+                                              },
+                                              error: function () {
+                                                  alert("nashod")
+                                              }
+                                          });
+                                      },
+                                      error: function () {
+                                          alert("nashod")
+                                      }
+                                  });
+                              });
+                          </script>
                     </div>
                 </div>
             </div>

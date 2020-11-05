@@ -362,6 +362,10 @@
             <div id="listholder" style="display:none;padding-top:10px">
 
             </div>
+
+          
+
+
         </div>
         <div id="menu2" class="tab-pane fade" style="padding-top:20px">
             <div class="form-group ">
@@ -400,22 +404,27 @@
                         Text = "پنچ شنبه",
                         Value = "6"
                     });
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "جمعه",
+                        Value = "7"
+                    });
 
                 }
                 <div class="component ">
-                    @Html.DropDownList("daysOfWeek", listItems, "-- Select Status --", new { id = "daysOfWeek", style = "width:100%", @class = "DRPd" })
+                    @Html.DropDownList("daysOfWeek", listItems, "-- Select Status --", new { id = "daysOfWeek", style = "width:100%", @class = "DRPd form-control" })
                 </div>
                 <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
                     از ساعت
                 </label>
                 <div class="component ">
-                    <input type="text" id="timefrom" />
+                    <input type="text" id="timefrom" class="form-control" />
                 </div>
                 <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
                     تا ساعت
                 </label>
                 <div class="component ">
-                    <input type="text" id="timeto" />
+                    <input type="text" id="timeto" class="form-control" />
                 </div>
                 <div class="component " style="direction: rtl; ">
                     <button id="addTimeOfDeliver" class="btn btn-success">تایید</button>
@@ -424,7 +433,6 @@
                             $("#addTimeOfDeliver").click(function () {
 
                                 var DayOfWeek = $("#daysOfWeek").val();
-
                                 var TimeFrom = $("#timefrom").val();
                                 var TimeTo = $("#timeto").val();
                                 $.ajax({

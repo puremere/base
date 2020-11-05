@@ -15,9 +15,6 @@
         $("#orderDetailHoLDER").css("margin-right", number);
     }
 
-
-
-
 </script>
 
 
@@ -709,8 +706,12 @@
                                             },
                                             success: function (data) {
 
-                                                var url = "/Home/myprofile?type=4";
+                                             
+                                                url = "/Connection/ReqestForWallet?id=" + data;
                                                 window.location.href = url;
+
+                                                //var url = "/Home/myprofile?type=4";
+                                                //window.location.href = url;
                                             }
                                         });
                                     }
