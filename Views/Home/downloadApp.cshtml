@@ -1,7 +1,32 @@
 ﻿@model banimo.ViewModel.DownloadAppVM
 
+@{
+    ViewBag.Title = "compare";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<html >
+
+<a id="@Model.model.googlePlayLink" href="@Model.model.googlePlayLink" class=" button stroke googleplay">
+        <span class="icon-circle-down" aria-hidden="true"></span>
+        دانلود از گوگل پلی
+    </a>
+    <a id="@Model.model.cafeBazarLink" href="@Model.model.cafeBazarLink" class=" button stroke cafebazar">
+        <span class="icon-circle-down" aria-hidden="true"></span>
+        دانلود از کافه بازار
+    </a>
+    <a href="@Model.model.directLink" class=" button stroke">
+        <span class="icon-circle-down" aria-hidden="true"></span>
+        دانلود مستقیم
+    </a>
+    <a href='@Model.model.sibappLink' class=" button stroke">
+        <span class="icon-circle-down" aria-hidden="true"></span>
+        دانلود از سیب اپ
+    </a>
+
+
+
+
+@*<html>
 <!--<![endif]-->
 
 <head>
@@ -28,7 +53,7 @@
     <script src="../downloadApp/js/modernizr.js"></script>
     <script src="../downloadApp/js/pace.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
- 
+
 
 </head>
 
@@ -49,30 +74,15 @@
 
                     <h1 data-aos="fade-up" style="text-align:center">
                         گرین مارکت <br />
-                        
+
                         را اینجا دانلود کنید  <br />
 
 
                     </h1>
 
                     <div class="buttons" data-aos="fade-up" style="text-align:center">
-                        @*<a id="@Model.model.googlePlayLink" href="@Model.model.googlePlayLink" class=" button stroke googleplay">
-                            <span class="icon-circle-down" aria-hidden="true"></span>
-                            دانلود از گوگل پلی
-                        </a>
-                        <a id="@Model.model.cafeBazarLink" href="@Model.model.cafeBazarLink" class=" button stroke cafebazar">
-                            <span class="icon-circle-down" aria-hidden="true"></span>
-                            دانلود از کافه بازار
-                        </a>
-                        <a href="@Model.model.directLink" class=" button stroke">
-                            <span class="icon-circle-down" aria-hidden="true"></span>
-                            دانلود مستقیم
-                        </a>
-                        <a href='@Model.model.sibappLink' class=" button stroke">
-                            <span class="icon-circle-down" aria-hidden="true"></span>
-                            دانلود از سیب اپ
-                        </a>*@
-                  
+
+
                     </div>
                     <script>
                         $(".cafebazar").click(function () {
@@ -124,4 +134,4 @@
 
 </body>
 
-</html>
+</html>*@
