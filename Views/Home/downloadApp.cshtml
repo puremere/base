@@ -1,32 +1,10 @@
-﻿@model banimo.ViewModel.DownloadAppVM
+﻿@model banimo.ViewModel.
 
-@{
-    ViewBag.Title = "compare";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
-<a id="@Model.model.googlePlayLink" href="@Model.model.googlePlayLink" class=" button stroke googleplay">
-        <span class="icon-circle-down" aria-hidden="true"></span>
-        دانلود از گوگل پلی
-    </a>
-    <a id="@Model.model.cafeBazarLink" href="@Model.model.cafeBazarLink" class=" button stroke cafebazar">
-        <span class="icon-circle-down" aria-hidden="true"></span>
-        دانلود از کافه بازار
-    </a>
-    <a href="@Model.model.directLink" class=" button stroke">
-        <span class="icon-circle-down" aria-hidden="true"></span>
-        دانلود مستقیم
-    </a>
-    <a href='@Model.model.sibappLink' class=" button stroke">
-        <span class="icon-circle-down" aria-hidden="true"></span>
-        دانلود از سیب اپ
-    </a>
-
-
-
-
-@*<html>
+<!DOCTYPE html>
+<!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
+<!--[if IE 9 ]><html class="no-js oldie ie9" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html class="no-js" lang="en">
 <!--<![endif]-->
 
 <head>
@@ -34,7 +12,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8" />
-    <title>title</title>
+    <title>@Model.name</title>
     <meta name="description" content="" />
     <meta name="author" content="" />
 
@@ -53,7 +31,7 @@
     <script src="../downloadApp/js/modernizr.js"></script>
     <script src="../downloadApp/js/pace.min.js"></script>
     <link href="~/Content/bootstrap.css" rel="stylesheet" />
-
+ 
 
 </head>
 
@@ -73,7 +51,7 @@
                     <h3 data-aos="fade-up" style="text-align:center"> از توجه شما سپاسگزاریم </h3>
 
                     <h1 data-aos="fade-up" style="text-align:center">
-                        گرین مارکت <br />
+                         <br />
 
                         را اینجا دانلود کنید  <br />
 
@@ -81,8 +59,26 @@
                     </h1>
 
                     <div class="buttons" data-aos="fade-up" style="text-align:center">
-
-
+                        <a id="@Model.model.googlePlayLink" href="@Model.mod.googlePlayLink" class=" button stroke googleplay">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود از گوگل پلی
+                        </a>
+                        <a id="@Model.name.cafeBazarLink" href="@Model.name.cafeBazarLink" class=" button stroke cafebazar">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود از کافه بازار
+                        </a>
+                        <a href="@Model.name.directLink" class=" button stroke">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود مستقیم
+                        </a>
+                        <a href='@Model.name.sibappLink' class=" button stroke">
+                            <span class="icon-circle-down" aria-hidden="true"></span>
+                            دانلود از سیب اپ
+                        </a>
+                        @*<a href="http://player.vimeo.com/video/14592941?title=0&amp;byline=0&amp;portrait=0&amp;color=39b54a" data-lity=data-lity class="button stroke">
+                            <span class="icon-play" aria-hidden="true"></span>
+                            Watch Video
+                        </a>*@
                     </div>
                     <script>
                         $(".cafebazar").click(function () {
@@ -111,7 +107,7 @@
                 <a href="#"><i class="fa fa-twitter"></i></a>
             </li>
             <li>
-                <a href="@Model.model.instaLink"><i class="fa fa-instagram"></i></a>
+                <a href="@Model.instaLink"><i class="fa fa-instagram"></i></a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-youtube-play"></i></a>
@@ -134,4 +130,4 @@
 
 </body>
 
-</html>*@
+</html>
