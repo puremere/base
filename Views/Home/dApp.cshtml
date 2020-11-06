@@ -4,12 +4,20 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@Model.name
+@{
+    if (Model != null)
+    {
+        string srt = @Model.name;
+        string link = @Model.googlePlayLink;
+        <a id="" href='@link' class=" button stroke googleplay">
+            <span class="icon-circle-down"></span>
+            دانلود از گوگل پلی
+        </a>
+    }
+}
 
-<a id="@Model.googlePlayLink" href="@Model.googlePlayLink" class=" button stroke googleplay">
-    <span class="icon-circle-down" ></span>
-    دانلود از گوگل پلی
-</a>
+
+
 @*<a id="@Model.model.cafeBazarLink" href="@Model.model.cafeBazarLink" class=" button stroke cafebazar">
         <span class="icon-circle-down" aria-hidden="true"></span>
         دانلود از کافه بازار
