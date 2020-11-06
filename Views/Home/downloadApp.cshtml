@@ -1,4 +1,4 @@
-﻿@model banimo.ViewModel.contactSectionVM
+﻿@model banimo.ViewModel.DownloadAppVM
 
 <!DOCTYPE html>
 <!--[if lt IE 9 ]><html class="no-js oldie" lang="en"> <![endif]-->
@@ -12,7 +12,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8" />
-    <title>@System.Configuration.ConfigurationManager.AppSettings["siteName"]</title>
+    <title>@Model.name</title>
     <meta name="description" content="" />
     <meta name="author" content="" />
 
@@ -51,27 +51,27 @@
                     <h3 data-aos="fade-up" style="text-align:center"> از توجه شما سپاسگزاریم </h3>
 
                     <h1 data-aos="fade-up" style="text-align:center">
-                        @System.Configuration.ConfigurationManager.AppSettings["siteName"] <br />
-
+                        @Model.name <br />
+                        
                         را اینجا دانلود کنید  <br />
 
 
                     </h1>
 
                     <div class="buttons" data-aos="fade-up" style="text-align:center">
-                        <a id="@Model.googlePlayLink" href="@Model.googlePlayLink" class=" button stroke googleplay">
+                        <a id="@Model.model.googlePlayLink" href="@Model.model.googlePlayLink" class=" button stroke googleplay">
                             <span class="icon-circle-down" aria-hidden="true"></span>
                             دانلود از گوگل پلی
                         </a>
-                        <a id="@Model.cafeBazarLink" href="@Model.cafeBazarLink" class=" button stroke cafebazar">
+                        <a id="@Model.model.cafeBazarLink" href="@Model.model.cafeBazarLink" class=" button stroke cafebazar">
                             <span class="icon-circle-down" aria-hidden="true"></span>
                             دانلود از کافه بازار
                         </a>
-                        <a href="@Model.directLink" class=" button stroke">
+                        <a href="@Model.model.directLink" class=" button stroke">
                             <span class="icon-circle-down" aria-hidden="true"></span>
                             دانلود مستقیم
                         </a>
-                        <a href='@Model.sibappLink' class=" button stroke">
+                        <a href='@Model.model.sibappLink' class=" button stroke">
                             <span class="icon-circle-down" aria-hidden="true"></span>
                             دانلود از سیب اپ
                         </a>
@@ -107,7 +107,7 @@
                 <a href="#"><i class="fa fa-twitter"></i></a>
             </li>
             <li>
-                <a href="@Model.instaLink"><i class="fa fa-instagram"></i></a>
+                <a href="@Model.model.instaLink"><i class="fa fa-instagram"></i></a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-youtube-play"></i></a>
