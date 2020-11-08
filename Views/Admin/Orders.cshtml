@@ -26,19 +26,28 @@
 
             </div>
             <div class="modal-body">
-                <p>لطفا یکی از پیک ها را انتخاب کنید</p>
-                <div style="width:50%; display:inline-block">
-                    @if (Model.myUsers != null)
-                    {
+                <div class="row" style="margin:0">
+                    <div class="col-lg-6" style="padding:25px">
+                        <p>لطفا یکی از پیک ها را انتخاب کنید</p>
+                        <div style="display:inline-block">
+                            @if (Model.myUsers != null)
+                            {
 
-                        @Html.DropDownList("deliverDromdown", new SelectList(Model.myUsers, "ID", "fullname"), new { @class = "form-control", })
+                                @Html.DropDownList("deliverDromdown", new SelectList(Model.myUsers, "ID", "fullname"), new { @class = "form-control", })
 
-                        @Html.TextBox("textbox", new { @class = "form-control" });
-                    }
 
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="padding:25px">
+                        <p>توضحات ادمین</p>
+                        <textarea id="adminDesc" class="form-control" cols="8"  style="height:150px"></textarea>
+                    </div>
                 </div>
                
-               <div id="setDeliver" style="display:inline-block" class="btn  btn-default">تایید</div>
+
+                <div id="setDeliver" style="display:inline-block" class="btn  btn-default">تایید</div>
                 <div id="rowSelectd"></div>
             </div>
            
@@ -286,14 +295,15 @@
                     $("#setDeliver").click(function () {
                         $("#myModal").modal('toggle');
                         var deliverID = $("#deliverDromdown").val();
-                      
+                        var description = $('textarea#adminDesc').val();
                         $.ajax({
                             url: '/Admin/finalizeOrderAndDeliver',
                             dataType: 'html',
                             data: {
                                 id: idselected,
                                 deliverID: deliverID,
-                                type: "4"
+                                type: "4",
+                                desc: description
                             },
 
                             success: function (data) {
