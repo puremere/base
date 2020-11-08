@@ -13,6 +13,17 @@
         .nav-tabs li {
             float: right !important;
         }
+
+    td {
+        white-space: nowrap;
+        padding: 15px;
+        text-align: center
+    }
+    th {
+        white-space: nowrap;
+        padding:15px;
+        text-align:center
+    }
 </style>
 
 
@@ -105,7 +116,7 @@
                                                 <tr>
                                                     <th style="cursor:pointer" class="orderID">ردیف</th>
                                                     <th>شماره سفارش</th>
-                                                    <th>کاربر</th>
+                                                    <th style="white-space: nowrap; " >کاربر</th>
                                                     <th>موبایل کاربر</th>
                                                     <th>مبلغ (تومان)</th>
                                                     <th>تاریخ سفارش</th>
@@ -114,8 +125,10 @@
                                                     <th>ساعت تحویل</th>
                                                     <th>آدرس</th>
                                                     <th>وضعیت</th>
-                                                    <th></th>
-                                                    <th></th>
+
+                                                    <th>جزئیات</th>
+                                                    <th>اقدامات</th>
+                                                    <th>دلیور</th>
 
                                                 </tr>
                                             </thead>
@@ -131,7 +144,7 @@
                                                 <tr style=" ">
                                                     <td>@i</td>
                                                     <td>@item.orderNumber</td>
-                                                    <td>@item.fullname</td>
+                                                    <td style="white-space: nowrap;">@item.fullname</td>
                                                     <td>@item.phone</td>
                                                     <td>@item.price</td>
                                                     <td>@item.date</td>
@@ -160,6 +173,9 @@
                                                             }
 
                                                         }
+                                                    </td>
+                                                    <td class="deliver" id="@item.ID" style="cursor:pointer">
+                                                        @item.deliver
                                                     </td>
 
                                                 </tr>
@@ -314,6 +330,11 @@
 
 
                         });
+                    })
+
+                    $(".deliver").click(function () {
+                        $("#myModal").modal('toggle');
+                        idselected = $(this).attr('id');
                     })
                     $(".finalorder").click(function () {
                         $("#myModal").modal('toggle');
