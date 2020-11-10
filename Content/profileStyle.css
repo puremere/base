@@ -396,6 +396,10 @@ c-profile-empty {
 }
 
 @media only screen and (max-width: 960px) {
+    #SECTIONOFIBdiv {
+        padding: 5px;
+        width: 100%;
+    }
     .imageHOlderofWish {
         width: 100%
     }

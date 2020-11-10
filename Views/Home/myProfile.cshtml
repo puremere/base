@@ -292,19 +292,7 @@
                                             </div>
                                             <div class="dataSection">
                                                 <div class="o-headline o-headline--profile"><span>اطلاعات شخصی</span> </div><div class="c-profile-stats">
-                                                    <script>
-                                                        $(".back").click(function () {
-                                                            $("#SECTIONOFIBdiv").animate({
-                                                                'margin-right': number
-                                                            }, function () {
-                                                                //$('#productlistHoLDER').html("");
-                                                                $("#SECTIONOFIBdiv").css("display", "none");
 
-                                                            });
-
-                                                            //$("#FILTERholder").css("display", "block");
-                                                        })
-                                                    </script>
                                                     <div class="c-profile-stats__row">
                                                         <div class="c-profile-stats__col">
                                                             <label class="c-ui-input edit" style="display:none">
@@ -565,17 +553,7 @@
                             </div>
                             <div class="o-headline o-headline--profile"><span>علاقه مندی ها</span> </div>
 
-                            <script>
-                                $(".back").click(function () {
-                                    $("#SECTIONOFIBdiv").animate({
-                                        'margin-right': number
-                                    }, function () {
-                                        //$('#productlistHoLDER').html("");
-                                        $("#SECTIONOFIBdiv").css("display", "none");
 
-                                    });
-                                })
-                            </script>
 
 
                             @if (Model.wishList != null)
@@ -665,17 +643,7 @@
                             </div>
                             <div class="o-headline o-headline--profile"><span>کیف پول</span>   </div>
 
-                            <script>
-                                $(".back").click(function () {
-                                    $("#SECTIONOFIBdiv").animate({
-                                        'margin-right': number
-                                    }, function () {
-                                        //$('#productlistHoLDER').html("");
-                                        $("#SECTIONOFIBdiv").css("display", "none");
 
-                                    });
-                                })
-                            </script>
 
                             <div class="emptyholder" style="padding:10px;">
                                 <div style="    text-align: center;  direction: rtl; font-size: 20px;  margin-bottom: 25px;  background: white;  border: 1px solid #ddd; padding-bottom: 40px;  box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
@@ -982,17 +950,7 @@
                             </div>
                             <div class="o-headline o-headline--profile"><span>سفارشات</span>   </div>
 
-                            <script>
-                                $(".back").click(function () {
-                                    $("#SECTIONOFIBdiv").animate({
-                                        'margin-right': number
-                                    }, function () {
-                                        //$('#productlistHoLDER').html("");
-                                        $("#SECTIONOFIBdiv").css("display", "none");
 
-                                    });
-                                })
-                            </script>
 
 
                             @if (Model.myOrder != null)
@@ -1019,7 +977,7 @@
                                                     <div class="c-table-orders__cell c-table-orders__cell--price">
                                                         @item.price
                                                     </div>
-                                                   
+
 
                                                     <div class="c-table-orders__cell c-table-orders__cell--payment">@item.statusTitle</div>
 
@@ -1102,6 +1060,10 @@
                                                     <p class="itemtitle">وضعیت پرداخت</p>
                                                     <p class="itemvalue">پرداخت شده</p>
                                                 </div>
+                                                <div class="Item">
+                                                    <p class="itemtitle">مشاهده جزئیات</p>
+                                                    <p class="itemvalue">  <i id="@item.ID" class="fas fa-chevron-left" style="font-size:24px; cursor:pointer"></i></p>
+                                                </div>
 
                                             </div>
                                             <div id="data" style="display:none">@data</div>
@@ -1110,13 +1072,17 @@
 
 
                                     }
+
                                 </div>
+                                
+                                
 
                                 <script>
-                                    $(".Itemholder").click(function () {
+                                    $(".fa-chevron-left").click(function () {
                                         var data = $("#data").text();
+                                       
                                         var id = $(this).attr("id");
-
+                                      
                                         $.ajax({
                                             url: '/Home/goGetOrderDetail',
                                             dataType: 'html',
@@ -1125,7 +1091,7 @@
                                                 data: data
                                             },
                                             success: function (data) {
-
+                                              
                                                 if (window.innerWidth < 950) {
                                                     $('#detaildiv').html(data);
                                                     $(".back2").css("display", "block")
@@ -1143,8 +1109,10 @@
                                                     // $("#FILTERholder").css("display", "none");
                                                 }
                                                 else {
+                                                    $("#orderDetailHoLDER").css("display", "block")
                                                     $('#detaildiv').html(data);
                                                 }
+
 
 
 
@@ -1153,8 +1121,6 @@
                                         });
                                     })
                                 </script>
-
-
                             }
                             else
                             {
@@ -1171,6 +1137,7 @@
 
                     </div>
                     <div id="orderDetailHoLDER" style="display:none; ">
+                      
                         <div class="back2" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
                             <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
@@ -1184,6 +1151,7 @@
                                     'margin-right': number
                                 }, function () {
                                     $('#productlistHoLDER').css("display", "block");
+                                    $("#orderDetailHoLDER").css("display", "none")
                                 });
                             })
                         </script>
@@ -1473,8 +1441,28 @@
 
                     })
                 </script>
-            </div>
 
+            </div>
+            <div class="profilemenu" id="ticket">
+                <div style="display:inline-block; margin-right:15px"> پشتیبانی</div>
+                <i class="fa fa-shopping-basket" style="display:inline-block"></i>
+
+
+            </div>
+            <script>
+                    $("#ticket").click(function () {
+                        $("#orderDetailHoLDER").css("display", "none")
+                        if ('@Session["token"]' === "") {
+                            var url = '@Url.Action("login", "home")';
+                            window.location.href = url;
+                        }
+                        else {
+
+                           window.location.href = "/ticket/index"
+                        }
+
+                    })
+            </script>
 
 
 
@@ -1493,6 +1481,19 @@
                 });
             });
 
+        </script>
+        <script>
+            $(".back").click(function () {
+                $("#SECTIONOFIBdiv").animate({
+                    'margin-right': number
+                }, function () {
+                    //$('#productlistHoLDER').html("");
+                    $("#SECTIONOFIBdiv").css("display", "none");
+
+                });
+
+                //$("#FILTERholder").css("display", "block");
+            })
         </script>
 
 

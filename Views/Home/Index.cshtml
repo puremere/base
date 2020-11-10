@@ -115,7 +115,12 @@
     {
         <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
         <script src="~/Scripts/jquery-ui.js"></script>
-
+        <script>
+            $("a").click(function () {
+                var link = $(this).attr('href');
+                window.location.href = link;
+            })
+        </script>
         if (Model.slides != null)
         {
 
