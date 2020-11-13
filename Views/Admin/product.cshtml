@@ -162,7 +162,7 @@
 
                     }
 
-                    <form method="post" action="ExportToExcel" style="display:inline-block; margin-left:8px" >
+                    <form method="post" action="ExportToExcel" style="display:inline-block; margin-left:8px">
                         @if (Model.log.isPartner == "0")
                         {
                             <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
@@ -274,7 +274,7 @@
                                     {
                                         SelectedlistProduct: value,
                                         SearchQuery: query,
-                                        partner:partner
+                                        partner: partner
                                     },
                                     dataType: 'html',
                                     success: function (data) {
@@ -291,10 +291,11 @@
                     </form>
                     @using (Html.BeginForm("UploadExcel", "Admin", FormMethod.Post, new { id = "UploadExcelForm", enctype = "multipart/form-data" }))
                     {
-                        <div id="upload" class="btn btn-primary lgnsubmitt" style="margin-top:25px">بارگزاری فایل اکسل</div>
+                        <div id="upload" class="btn btn-primary lgnsubmitt" style="margin-top:25px"> بارگزاری فایل  اکسل (ادیت)</div>
                         <input id="myfile" type="file" name="myfile" style="display: none;" />
                         <script>
                             $('#upload').on('click', function () {
+                             
                                 $('#myfile').trigger('click');
                             });
                             $('#myfile').change(function () {
@@ -302,6 +303,35 @@
                             })
                         </script>
                     }
+                    @*@using (Html.BeginForm("UploadExcelNew", "Admin", FormMethod.Post, new { id = "UploadExcelNew", enctype = "multipart/form-data" }))
+                    {
+                        <div id="uploadNew" class="btn btn-primary lgnsubmitt" style="margin-top:25px">بارگزاری فایل اکسل (جدید)</div>
+                        <input id="myfileNew" type="file" name="myfile" style="display: none;" />
+                        <script>
+                            $('#uploadNew').on('click', function () {
+                                var value = $("#listofproduct").val();
+                                if (value == "") {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000
+                                    }
+                                    toastr.error('دسته بندی مورد نظر را انتخاب کنید')
+                                }
+                                else {
+                                    $('#myfileNew').trigger('click');
+                                }
+                              
+                            });
+                            $('#myfileNew').change(function () {
+                                $("#UploadExcelNew").submit();
+                            })
+                        </script>
+                    }*@
 
 
 

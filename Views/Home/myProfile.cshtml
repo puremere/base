@@ -12,7 +12,7 @@
 
     if (window.innerWidth < 950) {
         var number = "-" + width + "px";
-        $("#orderDetailHoLDER").css("margin-right", number);
+       // $("#orderDetailHoLDER").css("margin-right", number);
     }
 
 </script>
@@ -41,6 +41,7 @@
                     <div id="productlistHoLDER">
                         <div class="row sectionItem" id="userdataSectino" style="margin:0">
                             <style>
+
                                 .c-profile-page .o-page__content {
                                     padding-left: 0;
                                     padding-right: 22px;
@@ -942,7 +943,7 @@
 
                         </div>
 
-                        <div class="row sectionItem" id="orderlistSection" style="display:none; margin:0">
+                        <div class="row sectionItem" id="orderlistSection" style="display:none; margin:0; padding:10px">
                             <div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
                                 <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
@@ -1058,7 +1059,7 @@
 
                                                 <div class="Item">
                                                     <p class="itemtitle">وضعیت پرداخت</p>
-                                                    <p class="itemvalue">پرداخت شده</p>
+                                                    <p class="itemvalue">@item.statusTitle</p>
                                                 </div>
                                                 <div class="Item">
                                                     <p class="itemtitle">مشاهده جزئیات</p>
@@ -1137,28 +1138,32 @@
 
                     </div>
                     <div id="orderDetailHoLDER" style="display:none; ">
-                      
-                        <div class="back2" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+                        <div id="detailparent">
+                            <div class="back2" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
-                            <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
-                            <span style=" margin-right: 15px;font-size:15px">  لیست جزئیات سفارش</span>
+                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span style=" margin-right: 15px;font-size:15px">  لیست جزئیات سفارش</span>
+                            </div>
+                            <div class="o-headline o-headline--profile"><span>لیست جزئیات</span>   </div>
+
+                            <script>
+                                $(".back2").click(function () {
+
+
+                                    $("#orderDetailHoLDER").animate({
+                                        'margin-right': number
+                                    }, function () {
+                                        $('#productlistHoLDER').css("display", "block");
+                                        $("#orderDetailHoLDER").css("display", "none")
+                                    });
+                                })
+                            </script>
+
+                            <div id="detaildiv">
+
+                            </div>
                         </div>
-                        <div class="o-headline o-headline--profile"><span>لیست جزئیات</span>   </div>
-
-                        <script>
-                            $(".back2").click(function () {
-                                $("#orderDetailHoLDER").animate({
-                                    'margin-right': number
-                                }, function () {
-                                    $('#productlistHoLDER').css("display", "block");
-                                    $("#orderDetailHoLDER").css("display", "none")
-                                });
-                            })
-                        </script>
-
-                        <div id="detaildiv">
-
-                        </div>
+                       
                     </div>
 
                 </div>

@@ -1,6 +1,37 @@
 ﻿@model  banimo.ViewModelPost.ListOfProductOrder
 
 
+<style>
+    .Itemholderr {
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 25px;
+        cursor: pointer;
+    }
+
+        .Itemholderr .itemtitle {
+            font-weight: 700;
+        }
+
+        .Itemholderr .itemvalue {
+            margin-right: 10px;
+        }
+
+        .Itemholderr .Item {
+            padding: 10px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+            .Itemholderr .Item p {
+                display: inline-block;
+                text-align: right;
+                direction: rtl
+            }
+</style>
+
 <div class="row">
     <div style="overflow-x:auto;padding:10px">
         <div class="panel panel-default">
@@ -26,64 +57,98 @@
                         $("#loading").fadeIn();
                         setInterval(function () { $("#loading").fadeOut(); }, 3000);
                        
-                        //$.ajax({
-                        //    url: '/Admin/createUserReport',
-                        //    dataType: 'html',
-                        //    type : 'POST',
-                        //    data: {
-
-                        //        data: JSON.stringify(obj)
-                        //    },
-
-                        //    success: function (data) {
-
-                               
-                        //    }
-
-
-
-                        //});
+                        
 
                     });
                 </script>
             </div>
             <div class="panel-body">
                 <div id="morris-area-chart">
-                    <div style="overflow:auto">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                                <tr>
-                                    <th>ردیف</th>
-                                    <th>نام کالا</th>
-                                    <th>قیمت </th>
-                                    <th>تعداد</th>
-                                    <th></th>
-
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model.myProducts)
+                    @{
+                        int w = Request.Browser.ScreenPixelsWidth;
+                        int h = Request.Browser.ScreenPixelsHeight;
+                        if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                        {
+                            if (Model.myProducts != null)
+                            {
+                                foreach (var item in Model.myProducts)
                                 {
-                                    string image = "/images/panelimages/" + item.image;
+
                                     int i = Model.myProducts.IndexOf(item) + 1;
+                                    string image = "/images/panelimages/" + item.image;
 
-                                    <tr style=" ">
-                                        <td>@i</td>
-                                        <td>@item.title</td>
-                                        <td>@item.price</td>
-                                        <td>@item.nums</td>
-                                        <td><img src=@image style="max-width:100px" /> </td>
+                                    <div class="Itemholderr" id="@item.orderID">
 
-                                    </tr>
+                                        <div class="Item">
+                                            <p class="itemtitle">ردیف :</p>
+                                            <p class="itemvalue">@i</p>
+
+                                        </div>
+                                        <div class="Item">
+                                            <p class="itemtitle">نام کالا : </p>
+                                            <p class="itemvalue">@item.title</p>
+
+                                        </div>
+                                        <div class="Item">
+                                            <p class="itemtitle">قیمت :</p>
+                                            <p class="itemvalue">@item.price</p>
+
+                                        </div>
+                                        <div class="Item">
+                                            <p class="itemtitle">تعداد :</p>
+                                            <p class="itemvalue">@item.nums</p>
+
+                                        </div>
+                                        <div class="Item" style="text-align:center">
+                                            <img src=@image style="max-width:100px" />
+                                        </div>
+                                       
+
+
+                                    </div>
                                 }
+                            }
+                        }
+                        else
+                        {
+                            <div style="overflow:auto">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>نام کالا</th>
+                                            <th>قیمت </th>
+                                            <th>تعداد</th>
+                                            <th></th>
+
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.myProducts)
+                                        {
+                                            string image = "/images/panelimages/" + item.image;
+                                            int i = Model.myProducts.IndexOf(item) + 1;
+
+                                            <tr style=" ">
+                                                <td>@i</td>
+                                                <td>@item.title</td>
+                                                <td>@item.price</td>
+                                                <td>@item.nums</td>
+                                                <td><img src=@image style="max-width:100px" /> </td>
+
+                                            </tr>
+                                        }
 
 
 
-                            </tbody>
-                        </table>
+                                    </tbody>
+                                </table>
 
-                    </div>
+                            </div>
+                        }
+                    }
+
                 </div>
             </div>
         </div>

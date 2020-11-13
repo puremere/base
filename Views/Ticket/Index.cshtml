@@ -4,7 +4,42 @@
     ViewBag.Title = " لیست تیکت ها";
 
 }
+<style>
+    .Itemholder {
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 25px;
+        cursor: pointer;
 
+    }
+
+    .itemtitle {
+       font-weight :700;
+
+
+    }
+        
+        .itemvalue {
+           
+            margin-right:10px;
+           
+        }
+
+    .Item {
+        padding: 10px;
+        text-align: right;
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 10px;
+    }
+        .Item p {
+           display:inline-block;
+            text-align:right;
+            direction:rtl
+            
+        }
+
+</style>
 
 <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
 
@@ -12,8 +47,8 @@
 
 
 
-       
-       
+
+
         <div id="OrderTableHolder">
             <div class="row">
                 <div style="overflow-x:auto;padding:10px">
@@ -22,60 +57,125 @@
     background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
     background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
     background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                            <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> آخرین سفارشات  </h3>
+                            <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> لیست تیکت ها  </h3>
                         </div>
                         <div class="panel-body">
                             <div id="morris-area-chart">
-                                <div style="overflow:auto; max-height:400px; overflow-y:scroll">
+                                @{
+                                    int w = Request.Browser.ScreenPixelsWidth;
+                                    int h = Request.Browser.ScreenPixelsHeight;
+                                    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                                    {
+                                        if (Model.TicketList != null)
+                                        {
+                                            foreach (var item in Model.TicketList)
+                                            {
 
-                                    <table class="table table-bordered table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th >ردیف</th>
-                                                <th>شماره تیکت</th>
-                                                <th > بخش مورد نظر</th>
-                                                <th>اهمیت</th>
-                                                <th>عنوان</th>
-                                                <th>تاریخ سفارش</th>
-                                                <th >وضعیت</th>
-                                                <th>جزئیات</th>
-                                         
+                                                int i = Model.TicketList.IndexOf(item) + 1;
 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @{
-                                                if (Model.TicketList != null)
-                                                {
-                                                    foreach (var item in Model.TicketList)
-                                                    {
+                                                <div class="Itemholder" id="@item.ID">
 
-                                                        int i = Model.TicketList.IndexOf(item) + 1;
+                                                    <div class="Item">
+                                                        <p class="itemtitle">شماره تیکت :</p>
+                                                        <p class="itemvalue">@item.ID</p>
 
-                                                        <tr style=" ">
-                                                            <td>@i</td>
-                                                            <td>@item.ID</td>
-                                                            <td >@item.sectionTitle</td>
-                                                            <td>@item.importancTitle</td>
-                                                            <td>@item.title</td>
-                                                            <td>@item.date</td>
-                                                            <td>@item.statusTitle</td>
-                                                            <td>
-                                                            <div class="btn btn-default ticketDetail" id="@item.ID">مشاهده جزئیات</div>
-                                                            </td>
-                                                           
-                                                        </tr>
-                                                    }
-                                                }
+                                                    </div>
+                                                    <div class="Item">
+                                                        <p class="itemtitle">بخش : </p>
+                                                        <p class="itemvalue">@item.sectionTitle</p>
+
+                                                    </div>
+                                                    <div class="Item">
+                                                        <p class="itemtitle">اهمیت :</p>
+                                                        <p class="itemvalue">@item.importancTitle</p>
+
+                                                    </div>
+                                                    <div class="Item">
+                                                        <p class="itemtitle">عنوان :</p>
+                                                        <p class="itemvalue">@item.title</p>
+
+                                                    </div>
+                                                    <div class="Item">
+                                                        <p class="itemtitle">تاریخ سفارش :</p>
+                                                        <p class="itemvalue">@item.date</p>
+
+                                                    </div>
+                                                    <div class="Item">
+                                                        <p class="itemtitle">وضعیت :</p>
+                                                        <p class="itemvalue">@item.statusTitle</p>
+
+                                                    </div>
+                                                    <div class="Item" style="text-align:center">
+                                                        
+                                                        <p style="text-align:center;" id="@item.ID" class="btn btn-default detailbtn">مشاهده جزئیات</p>
+                                                        
+                                                    </div>
+
+
+                                                </div>
                                             }
+                                        }
+
+
+                                    }
+                                    else
+                                    {
+                                        <div style="overflow:auto; max-height:400px; overflow-y:scroll">
+
+                                            <table class="table table-bordered table-hover table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ردیف</th>
+                                                        <th>شماره تیکت</th>
+                                                        <th> بخش مورد نظر</th>
+                                                        <th>اهمیت</th>
+                                                        <th>عنوان</th>
+                                                        <th>تاریخ سفارش</th>
+                                                        <th>وضعیت</th>
+                                                        <th>جزئیات</th>
+
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        /**/
+
+                                                        if (Model.TicketList != null)
+                                                        {
+                                                            foreach (var item in Model.TicketList)
+                                                            {
+
+                                                                int i = Model.TicketList.IndexOf(item) + 1;
+
+                                                                <tr style=" ">
+                                                                    <td>@i</td>
+                                                                    <td>@item.ID</td>
+                                                                    <td>@item.sectionTitle</td>
+                                                                    <td>@item.importancTitle</td>
+                                                                    <td>@item.title</td>
+                                                                    <td>@item.date</td>
+                                                                    <td>@item.statusTitle</td>
+                                                                    <td>
+                                                                        <div class="btn btn-default ticketDetail" id="@item.ID">مشاهده جزئیات</div>
+                                                                    </td>
+
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    }
 
 
 
 
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table>
 
-                                </div>
+                                        </div>
+                                    }
+                                }
+
+
                             </div>
                         </div>
                     </div>
@@ -84,22 +184,22 @@
 
 
             <script>
-               
-          
+
+
                 $(".ticketDetail").click(function () {
 
                     var ID = $(this).attr('id');
                     window.location.href = "/Ticket/ticketDetail?id=" + ID;
                 })
-             
 
-              
+
+
             </script>
             <div class="detailHolder">
 
             </div>
         </div>
-    
+
 
     </div>
 </div>
