@@ -97,101 +97,101 @@ myAudio.onpause = function () {
 };
 
 
-//var height = 240; // parseInt(option_height.value),
-//var width = 240; // parseInt(option_width.value),
-//var framerate = 10; // parseInt(option_framerate.value),
-//var audiobitrate = 22050; // 44100; 11025 parseInt(option_bitrate.value),
-//var videoElement = document.querySelector('.video.mine');
+var height = 240; // parseInt(option_height.value),
+var width = 240; // parseInt(option_width.value),
+var framerate = 10; // parseInt(option_framerate.value),
+var audiobitrate = 22050; // 44100; 11025 parseInt(option_bitrate.value),
+var videoElement = document.querySelector('.video.mine');
 var final = document.querySelector('#main0');
-//var audioSelect = document.querySelector('select#audioSource');
-//var videoSelect = document.querySelector('select#videoSource');
-//var _mediaStream;
-//audioSelect.onchange = getStream;
-//videoSelect.onchange = getStream;
+var audioSelect = document.querySelector('select#audioSource');
+var videoSelect = document.querySelector('select#videoSource');
+var _mediaStream;
+audioSelect.onchange = getStream;
+videoSelect.onchange = getStream;
 
-////getStream().then(getDevices).then(gotDevices);
-////getaudio()
+//getStream().then(getDevices).then(gotDevices);
+//getaudio()
 //getStream();
-//function getDevices() {
-//    // AFAICT in Safari this only gets default devices until gUM is called :/
-//    return navigator.mediaDevices.enumerateDevices();
-//}
+function getDevices() {
+    // AFAICT in Safari this only gets default devices until gUM is called :/
+    return navigator.mediaDevices.enumerateDevices();
+}
 
-//function gotDevices(deviceInfos) {
-//    window.deviceInfos = deviceInfos; // make available to console
-//    console.log('Available input and output devices:', deviceInfos);
-//    for (const deviceInfo of deviceInfos) {
-//        const option = document.createElement('option');
-//        option.value = deviceInfo.deviceId;
-//        if (deviceInfo.kind === 'audioinput') {
-//            option.text = deviceInfo.label || `Microphone ${audioSelect.length + 1}`;
-//            audioSelect.appendChild(option);
-//        } else if (deviceInfo.kind === 'videoinput') {
-//            option.text = deviceInfo.label || `Camera ${videoSelect.length + 1}`;
-//            videoSelect.appendChild(option);
-//        }
-//    }
-//}
+function gotDevices(deviceInfos) {
+    window.deviceInfos = deviceInfos; // make available to console
+    console.log('Available input and output devices:', deviceInfos);
+    for (const deviceInfo of deviceInfos) {
+        const option = document.createElement('option');
+        option.value = deviceInfo.deviceId;
+        if (deviceInfo.kind === 'audioinput') {
+            option.text = deviceInfo.label || `Microphone ${audioSelect.length + 1}`;
+            audioSelect.appendChild(option);
+        } else if (deviceInfo.kind === 'videoinput') {
+            option.text = deviceInfo.label || `Camera ${videoSelect.length + 1}`;
+            videoSelect.appendChild(option);
+        }
+    }
+}
 
-//function getStream() {
-//    alert('version1')
-//    if (window.stream) {
-//        window.stream.getTracks().forEach(track => {
-//            track.stop();
-//        });
-//    }
-//    const audioSource = audioSelect.value;
-//    const videoSource = videoSelect.value;
-//    const constraints = {
-//        audio: {
-//            sampleRate: audiobitrate,
-//            echoCancellation: true,
-//            deviceId: audioSource ? { exact: audioSource } : undefined
-//        },
+function getStream() {
+    alert('version1')
+    if (window.stream) {
+        window.stream.getTracks().forEach(track => {
+            track.stop();
+        });
+    }
+    const audioSource = audioSelect.value;
+    const videoSource = videoSelect.value;
+    const constraints = {
+        audio: {
+            sampleRate: audiobitrate,
+            echoCancellation: true,
+            deviceId: audioSource ? { exact: audioSource } : undefined
+        },
        
-//        video: {
-//            //width: { min: 100, ideal: width, max: 1920 },
-//            //height: { min: 100, ideal: height, max: 1080 },
-//            width: { min: 100, ideal: 240, max: 100 },
-//            height: {  min: 100, ideal: 240, max: 100 },
-//            frameRate: { ideal: framerate },
-//            deviceId: videoSource ? { exact: videoSource } : undefined
-//        }
-//    };
-//    return navigator.mediaDevices.getUserMedia(constraints).
-//        then(gotStream).catch(handleError);
-//}
+        video: {
+            //width: { min: 100, ideal: width, max: 1920 },
+            //height: { min: 100, ideal: height, max: 1080 },
+            width: { min: 100, ideal: 240, max: 100 },
+            height: {  min: 100, ideal: 240, max: 100 },
+            frameRate: { ideal: framerate },
+            deviceId: videoSource ? { exact: videoSource } : undefined
+        }
+    };
+    return navigator.mediaDevices.getUserMedia(constraints).
+        then(gotStream).catch(handleError);
+}
 
-//function getaudio() {
-//    if (window.stream) {
-//        window.stream.getTracks().forEach(track => {
-//            track.stop();
-//        });
-//    }
-//    const audioSource = audioSelect.value;
+function getaudio() {
+    if (window.stream) {
+        window.stream.getTracks().forEach(track => {
+            track.stop();
+        });
+    }
+    const audioSource = audioSelect.value;
 
-//    const constraints = {
-//        audio: true,
-//        video: false
-//    };
-//    return navigator.mediaDevices.getUserMedia(constraints).
-//        then(gotStream).catch(handleError);
-//}
+    const constraints = {
+        audio: true,
+        video: false
+    };
+    return navigator.mediaDevices.getUserMedia(constraints).
+        then(gotStream).catch(handleError);
+}
 
-//function gotStream(stream) {
-//    _mediaStream = stream;
-//    //  window.stream = stream; // make stream available to console
-//    audioSelect.selectedIndex = [...audioSelect.options].
-//        findIndex(option => option.text === stream.getAudioTracks()[0].label);
-//    videoSelect.selectedIndex = [...videoSelect.options].
-//        findIndex(option => option.text === stream.getVideoTracks()[0].label);
-//    videoElement.srcObject = stream;
-//    //final.srcObject = stream;
-//}
+function gotStream(stream) {
+    _mediaStream = stream;
+    //  window.stream = stream; // make stream available to console
+    audioSelect.selectedIndex = [...audioSelect.options].
+        findIndex(option => option.text === stream.getAudioTracks()[0].label);
+    videoSelect.selectedIndex = [...videoSelect.options].
+        findIndex(option => option.text === stream.getVideoTracks()[0].label);
+    videoElement.srcObject = stream;
+    //final.srcObject = stream;
+}
 
-//function handleError(error) {
-//    console.error('Error: ', error);
-//}
+function handleError(error) {
+    console.error('Error: ', error);
+}
 
 let silence = () => {
     let ctx = new AudioContext(), oscillator = ctx.createOscillator();
@@ -228,6 +228,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
         _RequestedStream = 'blank',
         _connectionManager = connectionManager,
         _indexMustBeChange,
+        _requestedType ,
         _noMoreConnection = "",
         _relayProcess,
         mixer,
@@ -309,21 +310,58 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     _noMoreConnection = "true"; // بخش اضافه شدن کانکشن ها این باید
                 }
                 // Callee accepted our call, let's send them an offer with our video stream
-                console.log(_index);
-                SteamToGo[0] = _mediaStream;
+                console.log(_requestedType);
+                var bool;
+                if (_requestedType == 0) {
+                    bool = false;
+                }
+                else {
+                    bool = true;
+                }
+                console.log(bool);
+                getUserMedia(
+                    {
+                        // Permissions to request
+                        video: bool,
+                        audio: true,
+                    },
+                    function (stream) { // succcess callback gives us a media stream
 
-                // send signal moved to onclick
+                        $('.instructions').hide();
 
-                connectionManager.sendSignal(acceptingUser.ConnectionId, _RequestedStream);
-                connectionManager.initiateOffer(acceptingUser.ConnectionId, SteamToGo);
-                //connectionManager.initiateOffer(acceptingUser.ConnectionId, SteamToGo);
+                        _mediaStream = stream;
+                        _finalStream = stream;
+                        var videoElement = document.querySelector('.video.mine');
+                        attachMediaStream(videoElement, stream);
+                        $(".audio.mine").css("display", "none");
 
 
-                //mixer.frameInterval = 1;
-                //mixer.startDrawingFrames();
+                        viewModel.Loading(false);
+                        SteamToGo[0] = _mediaStream;
 
-                // Set UI into call mode
-                viewModel.Mode('incall');
+
+                        // send signal moved to onclick
+
+                        connectionManager.sendSignal(acceptingUser.ConnectionId, _RequestedStream);
+                        connectionManager.initiateOffer(acceptingUser.ConnectionId, SteamToGo);
+                        //connectionManager.initiateOffer(acceptingUser.ConnectionId, SteamToGo);
+
+
+                        //mixer.frameInterval = 1;
+                        //mixer.startDrawingFrames();
+
+                        // Set UI into call mode
+                        viewModel.Mode('incall');
+                    },
+                    function (error) { // error callback
+                        alertify.alert('<h4>Failed to get hardware access!</h4> Do you have another browser type open and using your cam/mic?<br/><br/>You were not connected to the server, because I didn\'t code to make browsers without media access work well. <br/><br/>Actual Error: ' + JSON.stringify(error));
+                        viewModel.Loading(false);
+                    }
+                );
+
+
+
+               
 
             };
 
@@ -355,7 +393,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 // Set the UI back into idle mode
                 viewModel.Mode('idle');
             };
-            hub.client.callEveryOne = function (connectionID) {
+            hub.client.callEveryOne = function (connectionID, callEveryOne) {
                 console.log("i am called");
                 console.log(_noMoreConnection);
 
@@ -377,16 +415,23 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 }
             };
 
-            hub.client.GetStreamRequest = function (connectionId, reason, username) {
+            hub.client.GetStreamRequest = function (connectionId, reason, username,type) {
 
 
                 console.log("calling user");
-
+                _requestedType = type;
                 _RequestedStream = 'blank';
                 togglePlay();
+                var message = '';
+                if (type == 0) {
+                    message = 'شما یک تماس صوتی دارید، آیا میپذیرید؟'
+                }
+                else {
+                    message = 'شما یک تماس تصویری دارید، آیا میپذیرید؟'
 
-                alertify.confirm('', ' تماس ورودی آیا می پذیرید ؟', function () {
-                    _hub.server.callUser(connectionId, "");
+                }
+                alertify.confirm('', message, function () {
+                      _hub.server.callUser(connectionId, "");
                         alertify.success(reason);
                         togglePlay();
                 }
@@ -503,26 +548,34 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             viewModel.Username(username);
             viewModel.Loading(true); // Turn on the loading indicator
 
-            getUserMedia(
-                {
-                    video: true,
-                    audio: true,
-                },
-                function (stream) { // succcess callback gives us a media stream
+            // Ask the user for permissions to access the webcam and mic
+            //var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+            //if (!isMobile) {
+            //    navigator.mediaDevices.getDisplayMedia({
+            //        video: {
+            //            cursor: "always"
+            //        },
+            //        audio: true
+            //    }).then(
+            //        stream => {
+            //            console.log("awesom");
+            //            var videoScreen = document.querySelector('.video.screen');
+            //            _screenStream = stream;
 
-                    let AudioTrack = stream.getAudioTracks()[0];
-                    let videoTrack = stream.getVideoTracks()[0];
-                    _mediaStream = new MediaStream([black(), AudioTrack]);
-                    let videoElement = document.querySelector('.video.mine');
-                    attachMediaStream(videoElement, _mediaStream);
+
+            //            attachMediaStream(videoScreen, _screenStream);
+            //           // videoScreen.css("display", "block");
+            //            _screenStream.addTrack(silence());
+            //            STes["101010"] = _screenStream;
+            //        },
+            //        error => {
+            //            console.log("Unable to acquire screen capture", error);
+            //            viewModel.Loading(false);
+            //        });
+
+            //}
 
 
-                },
-                function (error) { // error callback
-                    alertify.alert('جهت تماس لطفا با درخواست دسترسی موافقت بفرمایید ');
-                    viewModel.Loading(false);
-                }
-            );
 
 
             $('.instructions').hide();
@@ -538,7 +591,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 // Store off the stream reference so we can share it later
                 // _mediaStream = stream;
-                
+                STes["1"] = _mediaStream;
 
                 _index = "1";
                 // Load the stream into a video element so it starts playing in the UI
@@ -555,21 +608,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 viewModel.Loading(false);
             });
 
-            //getUserMedia(
-            //    {
-            //        // Permissions to request
-            //        video: true,
-            //        audio: true
-            //    },
-            //    function (stream) { // succcess callback gives us a media stream
-            //       // var audioTrack = stream.getAudioTracks()[0];
-
-            //    },
-            //    function (error) { // error callback
-            //        alertify.alert('<h4>Failed to get hardware access!</h4> Do you have another browser type open and using your cam/mic?<br/><br/>You were not connected to the server, because I didn\'t code to make browsers without media access work well. <br/><br/>Actual Error: ' + JSON.stringify(error));
-            //        viewModel.Loading(false);
-            //    }
-            //);
+           
         },
 
         _attachUiHandlers = function () {

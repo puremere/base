@@ -203,8 +203,9 @@ WebRtcDemo.ConnectionManager = (function () {
         },
         _changeTrack = function (STES, selectedID) {
             for (var connectionId in _connections) {
-
                 if (connectionId == selectedID) {
+                
+                    
                     connection = _connections[connectionId];
                     var st1 = new MediaStream();
                     var st2 = new MediaStream();
