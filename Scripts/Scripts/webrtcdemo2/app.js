@@ -27,132 +27,6 @@ function waitTenSec() {
     }, 15000);
 }
 
-var height = 240; // parseInt(option_height.value),
-var width = 240; // parseInt(option_width.value),
-var framerate = 10; // parseInt(option_framerate.value),
-var audiobitrate = 22050; // 44100; 11025 parseInt(option_bitrate.value),
-var videoElement = document.querySelector('.video.mine');
-var audioSelect = document.querySelector('select#audioSource');
-var videoSelect = document.querySelector('select#videoSource');
-var _mediaStream;
-audioSelect.onchange = getStream;
-videoSelect.onchange = getStream;
-
-getStream().then(getDevices).then(gotDevices);
-
-function getDevices() {
-    // AFAICT in Safari this only gets default devices until gUM is called :/
-    return navigator.mediaDevices.enumerateDevices();
-}
-
-function gotDevices(deviceInfos) {
-    window.deviceInfos = deviceInfos; // make available to console
-    console.log('Available input and output devices:', deviceInfos);
-    for (const deviceInfo of deviceInfos) {
-        const option = document.createElement('option');
-        option.value = deviceInfo.deviceId;
-        if (deviceInfo.kind === 'audioinput') {
-            option.text = deviceInfo.label || `Microphone ${audioSelect.length + 1}`;
-            audioSelect.appendChild(option);
-        } else if (deviceInfo.kind === 'videoinput') {
-            option.text = deviceInfo.label || `Camera ${videoSelect.length + 1}`;
-            videoSelect.appendChild(option);
-        }
-    }
-}
-
-function getStream() {
-    alert('version1')
-    if (window.stream) {
-        window.stream.getTracks().forEach(track => {
-            track.stop();
-        });
-    }
-    const audioSource = audioSelect.value;
-    const videoSource = videoSelect.value;
-    const constraints = {
-        audio: { deviceId: audioSource ? { exact: audioSource } : undefined },
-
-        video: {
-            //width: { min: 100, ideal: width, max: 1920 },
-            //height: { min: 100, ideal: height, max: 1080 },
-            width: {  min: 100, ideal: 240, max: 100 },
-            height: {  min: 100, ideal: 240, max: 100 },
-            frameRate: { ideal: framerate },
-            deviceId: videoSource ? { exact: videoSource } : undefined
-        }
-    };
-    return navigator.mediaDevices.getUserMedia(constraints).
-        then(gotStream).catch(handleError);
-}
-
-function gotStream(stream) {
-    _mediaStream = stream;
-  //  window.stream = stream; // make stream available to console
-    audioSelect.selectedIndex = [...audioSelect.options].
-        findIndex(option => option.text === stream.getAudioTracks()[0].label);
-    videoSelect.selectedIndex = [...videoSelect.options].
-        findIndex(option => option.text === stream.getVideoTracks()[0].label);
-    videoElement.srcObject = stream;
-}
-
-function handleError(error) {
-    console.error('Error: ', error);
-}
-
-
-//var imageAddr = "https://stream.sup-ect.ir/img/test.jpg";
-//var downloadSize = 3788800; //bytes
-//var Result = 0;
-//function ShowProgressMessage(msg) {
-//    if (console) {
-//        if (typeof msg == "string") {
-//            console.log(msg);
-//        } else {
-//            for (var i = 0; i <msg.length; i++) {
-//                console.log(msg[i]);
-//            }
-//        }
-//    }
-//    var oProgress = document.getElementById("progress");
-//    if (oProgress) {
-//        var actualHTML = (typeof msg == "string") ? msg : msg.join("<br />");
-//        oProgress.innerHTML = actualHTML;
-//    }
-//}
-//function InitiateSpeedDetection() {
-//    ShowProgressMessage("Loading the image, please wait...");
-//    window.setTimeout(MeasureConnectionSpeed, 1);
-//};
-//if (window.addEventListener) {
-//    window.addEventListener('load', InitiateSpeedDetection, false);
-//} else if (window.attachEvent) {
-//    window.attachEvent('onload', InitiateSpeedDetection);
-//}
-//function MeasureConnectionSpeed() {
-//    var startTime, endTime;
-//    var download = new Image();
-//    download.onload = function () {
-//        endTime = (new Date()).getTime();
-//        showResults();
-//    }
-//    download.onerror = function (err, msg) {
-//        ShowProgressMessage("Invalid image, or error downloading");
-//    }
-//    startTime = (new Date()).getTime();
-//    var cacheBuster = "?nnn=" + startTime;
-//    download.src = imageAddr + cacheBuster;
-//    function showResults() {
-//        var duration = (endTime - startTime) / 1000;
-//        var bitsLoaded = downloadSize * 8;
-//        var speedBps = (bitsLoaded / duration).toFixed(2);
-//        var speedKbps = (speedBps / 1024).toFixed(0);
-//        Result = speedKbps; 
-//       // var speedMbps = (speedKbps / 1024).toFixed(2);
-
-//    }
-//}
-
 
 
 
@@ -183,16 +57,11 @@ var WebRtcDemo = WebRtcDemo || {};
 
 WebRtcDemo.App = (function (viewModel, connectionManager) {
     var   _hub,
-        STes = [],
-        _screenStream,
-        _finalStream,
         _geustStream = "0",
         _slaveNumber = 1,
         _streamType = 'blank',
-        _guestConnectionID,
         _IAMDone,
-        _width,_height,
-
+        _partnerID,
         _connect = function (username, onSuccess, onFailure) {
             // Set Up SignalR Signaler
 
@@ -256,13 +125,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             // Hub Callback: Incoming Call
             hub.client.incomingCall = function (callingUser) {
                 console.log('تماس ورودی از طرف: ' + JSON.stringify(callingUser));
-               // alertify.success( "تماس ورودی " + _geustStream)
-                if (callingUser.Username != 'relay') {
-                    _streamType = "video"
-                }
-                else {
-                    _streamType = "blank"
-                }
+                _partnerID = callingUser.ConnectionId;
                 hub.server.answerCall(true, callingUser.ConnectionId);
                 viewModel.Mode('incall');
 
@@ -500,24 +363,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             //        audio: true,
             //    },
             //    function (stream) { // succcess callback gives us a media stream
-
-            //        //var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-            //        //if (!isMobile) {
-            //        //     var audioTrack = stream.getAudioTracks()[0];
-            //        //     _screenStream.addTrack(audioTrack);
-            //        //}
-                   
-            //        $('.instructions').hide();
+                    
+            //        videoElement.srcObject = stream;
             //        _mediaStream = stream;
-            //        _finalStream = stream;
-            //        var videoElement = document.querySelector('.video.mine');
-            //        attachMediaStream(videoElement, stream);
-            //        $(".audio.mine").css("display", "none");
-                 
-
-            //        //blackSilence());//
-
-            //        viewModel.Loading(false);
             //    },
             //    function (error) { // error callback
             //        alertify.alert('<h4>Failed to get hardware access!</h4> Do you have another browser type open and using your cam/mic?<br/><br/>You were not connected to the server, because I didn\'t code to make browsers without media access work well. <br/><br/>Actual Error: ' + JSON.stringify(error));
@@ -526,10 +374,6 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             //);
           
             $('.instructions').hide();
-            _finalStream = _mediaStream;
-           
-            //var videoElement = document.querySelector('.video.mine');
-            //attachMediaStream(videoElement, stream);
             $(".audio.mine").css("display", "none");
             $(".mineholder").css("display", "inline-block");
 
@@ -566,21 +410,6 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 alertify.alert('<h4>Failed SignalR Connection</h4> We were not able to connect you to the signaling server.<br/><br/>Error: ' + JSON.stringify(event));
                 viewModel.Loading(false);
             });
-            // Ask the user for permissions to access the webcam and mic
-            //getUserMedia(
-            //    {
-            //        // Permissions to request
-            //        video: true,
-            //        audio: true,
-            //    },
-            //    function (stream) { // succcess callback gives us a media stream
-
-            //    },
-            //    function (error) { // error callback
-            //        alertify.alert('<h4>Failed to get hardware access!</h4> Do you have another browser type open and using your cam/mic?<br/><br/>You were not connected to the server, because I didn\'t code to make browsers without media access work well. <br/><br/>Actual Error: ' + JSON.stringify(error));
-            //        viewModel.Loading(false);
-            //    }
-            //);
      
 
         },
@@ -753,21 +582,82 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     viewModel.Mode('idle');
                 }
             });
-            $('.requst').click(function () {
-                $(".master").css("height", "100%");
-                //$(".slave").css("width", "30%");
-                //$(".slave").css("height", "30%");
-                //$(".slave").css("position", "absolute");
-                _IAMDone = "";
-                _geustStream = "0";
-                _hub.server.hangUp("");
-                connectionManager.closeAllConnections(viewModel.guestConnectionId());
-                _hub.server.callEveryOne(viewModel.guestConnectionId());
-                $(".callingSection").show();
-                togglePlay();
-                alertify.success("درخواست شما ارسال شد");
-                waitTenSec();
+            $('.requstTasviri').click(function () {
+                _mediaStream = null;
+                getUserMedia(
+                    {
+                        video: true,
+                        audio: true,
+                    },
+                    function (stream) { // succcess callback gives us a media stream
+
+                        let AudioTrack = stream.getAudioTracks()[0];
+                        let videoTrack = stream.getVideoTracks()[0];
+                        _mediaStream = new MediaStream([videoTrack, AudioTrack]);
+                        let videoElement = document.querySelector('.video.mine');
+                        attachMediaStream(videoElement, _mediaStream);
+
+                        $(".master").css("height", "100%");
+                        //$(".slave").css("width", "30%");
+                        //$(".slave").css("height", "30%");
+                        //$(".slave").css("position", "absolute");
+                        _IAMDone = "";
+
+                        _hub.server.hangUp("");
+                        connectionManager.closeAllConnections(viewModel.guestConnectionId());
+                        _hub.server.callEveryOne(viewModel.guestConnectionId());
+                        $(".callingSection").show();
+                        togglePlay();
+                        alertify.success("درخواست شما ارسال شد");
+                        waitTenSec();
+                    },
+                    function (error) { // error callback
+                        alertify.alert('جهت تماس لطفا با درخواست دسترسی موافقت بفرمایید ');
+                        viewModel.Loading(false);
+                    }
+                );
+
               
+            });
+            $('.requstSoti').click(function () {
+                _mediaStream = null;
+                getUserMedia(
+                    {
+                        video: true,
+                        audio: true,
+                    },
+                    function (stream) { // succcess callback gives us a media stream
+
+                        let AudioTrack = stream.getAudioTracks()[0];
+                        let videoTrack = stream.getVideoTracks()[0];
+                        _mediaStream = new MediaStream([black(), AudioTrack]); 
+                        let videoElement = document.querySelector('.video.mine');
+                        attachMediaStream(videoElement, _mediaStream);
+                       
+                        $(".master").css("height", "100%");
+
+                        //$(".slave").css("width", "30%");
+                        //$(".slave").css("height", "30%");
+                        //$(".slave").css("position", "absolute");
+
+                        _IAMDone = "";
+                        _hub.server.hangUp("");
+                        connectionManager.closeAllConnections(viewModel.guestConnectionId());
+                        _hub.server.callEveryOne(viewModel.guestConnectionId());
+                        $(".callingSection").show();
+                        togglePlay();
+                        alertify.success("درخواست شما ارسال شد");
+                        waitTenSec();
+                    },
+                    function (error) { // error callback
+                        alertify.alert('جهت تماس لطفا با درخواست دسترسی موافقت بفرمایید ');
+                        viewModel.Loading(false);
+                    }
+                );
+
+
+               
+
             });
             $(".submit").click(function () {
                 var message = $("#chatMessage").val();
@@ -789,44 +679,10 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             
             onReadyForStream: function (connection) {
               
-                // The connection manager needs our stream
-                // todo: not sure I like this
-
-                //navigator.mediaDevices.getDisplayMedia({
-                //    video: {
-                //        cursor: "always"
-                //    },
-                //    audio: true
-                //}).then(
-                //    stream => {
-                //        console.log("awesom");
-                //        _mediaStream = stream;
-                //        var videoElement = document.querySelector('.video.mine');
-                //        attachMediaStream(videoElement, stream);
-                //        $(".audio.mine").css("display", "none");
-
-                        
-                //    },
-                //    error => {
-                //        console.log("Unable to acquire screen capture", error);
-                //    });
-               
-                //connection.addStream(_mediaStream); 
-
-
+                
                 var st1 = new MediaStream();
                 var st2 = new MediaStream();
 
-               // st2.getAudioTracks[0] = blackSilence().getAudioTracks[0];
-               // st2.getAudioTracks[0] = _mediaStream.getAudioTracks[0];
-
-                //st2.getVideoTracks[0] = blackSilence().getVideoTracks[0];
-               // st2.getVideoTracks[0] = _mediaStream.getVideoTracks[0];
-              
-                //let STES = [_mediaStream, blackSilence()];
-                //for (const stream of STES) {
-                    
-                //};
                 if (_streamType == 'video') {
                     _mediaStream.getTracks().forEach(function (track) {
 
@@ -849,18 +705,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             },
             onStreamAdded: function (connection, event) {
                 console.log('binding remote stream to the partner window');
-                
-                // Bind the remote stream to the partner window
-               
-              
-                //var otherVideo = document.querySelector('.video.partner');
 
-                //attachMediaStream(otherVideo, event.stream); // from adapter.js
 
-                //$(".video.mine").parent().removeClass();
-                //$(".video.mine").parent().addClass('mineholderAfter');
-                //$(".video.screen").parent().removeClass();
-                //$(".video.screen").parent().addClass('mineholderScreenAfter');
                 $(".partnerholder").css("display", "inline-block");
                 $(".requst").css("display", "inline-block");
                 $(".hangup").css("display", "inline-block");
@@ -873,84 +719,25 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                // alertify.success("ontrack   "+_geustStream);
                 togglePlay();
                 $(".callingSection").hide();
-                if (_geustStream == "0") {
-                    _geustStream = "1";
-                    var otherVideo = document.querySelector('.video.partner');
-                    var otherVideo2 = document.querySelector('.video.partner2');
-                    var otherVideo3 = document.querySelector('.video.partner3');
-                  
-                    //_geustStream = event.stream;
-                    //_hasStream = "true";
-                    var st1 = new MediaStream();
-                    if (event.streams[0].getVideoTracks() != null) {
-                        if (event.streams[0].getVideoTracks()[0] != null) {
-                            console.log("1 has video")
-                            st1.addTrack(event.streams[0].getVideoTracks()[0]);
-
-                        }
+                var otherVideo = document.querySelector('.video.partner');
+                var st1 = new MediaStream();
+                if (event.streams[0].getVideoTracks() != null) {
+                    if (event.streams[0].getVideoTracks()[0] != null) {
+                        console.log("1 has video")
+                        st1.addTrack(event.streams[0].getVideoTracks()[0]);
 
                     }
-                    if (event.streams[0].getVideoTracks() != null) {
-                        if (event.streams[0].getAudioTracks()[0] != null) {
-                            console.log("1 has audio")
-                            st1.addTrack(event.streams[0].getAudioTracks()[0]);
-                        }
-                    }
-                   
-
-                    var st2 = new MediaStream();
-                    if (event.streams[0].getVideoTracks() != null) {
-                        if (event.streams[0].getVideoTracks()[1] != null) {
-                            console.log("2 has video")
-                            st2.addTrack(event.streams[0].getVideoTracks()[1]);
-
-                        }
-                    }
-                    if (event.streams[0].getVideoTracks() != null) {
-
-                        if (event.streams[0].getAudioTracks()[1] != null) {
-                            console.log("2 has audio")
-                            st2.addTrack(event.streams[0].getAudioTracks()[1]);
-                        }
-                    }
-
-                    
-
-                    var st3 = new MediaStream();
-                    if (event.streams[0].getVideoTracks() != null) {
-                        if (event.streams[0].getVideoTracks()[2] != null) {
-                            console.log("3 has video")
-                            st3.addTrack(event.streams[0].getVideoTracks()[2]);
-
-                        }
-                    }
-                    if (event.streams[0].getVideoTracks() != null) {
-
-                        if (event.streams[0].getAudioTracks()[2] != null) {
-                            console.log("3 has audio")
-                            st3.addTrack(event.streams[0].getAudioTracks()[2]);
-                        }
-                    }
-                   
-
-                   
-                    
-
-                    attachMediaStream(otherVideo, st1);
-                    //attachMediaStream(otherVideo2, st2);
-                    //attachMediaStream(otherVideo3, st3);
-                 
-                    console.log("ontrack fired!");
-
-                    //if (_guestConnectionID != null) {
-                    //    connectionManager.sendSignal(_guestConnectionID, _RequestedStream);
-                    //    connectionManager.initiateOffer(_guestConnectionID, [_geustStream, _geustStream2], "1");
-                    //}
 
                 }
-                else {
-                    console.log("_getstream in no null");
+                if (event.streams[0].getVideoTracks() != null) {
+                    if (event.streams[0].getAudioTracks()[0] != null) {
+                        console.log("1 has audio")
+                        st1.addTrack(event.streams[0].getAudioTracks()[0]);
+                    }
                 }
+                attachMediaStream(otherVideo, st1);
+                console.log("ontrack fired!");
+
             
                
                 

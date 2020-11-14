@@ -112,9 +112,10 @@
                 <span class="loading-indicator icon-spinner-3" data-bind="css: { on: Loading }"></span>
                 <span style="margin:10px auto; ">
                     <button style=" display:none;border-radius:10px;" class="btn btn-danger hangup">قطع تماس </button>
-                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requst">درخواست اسکرین</button>
+                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstTasviri">تماس تصویری</button>
+                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstSoti">تماس صوتی</button>
                     <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success chat">گفتگو </button>
-                  
+
                 </span>
 
 
@@ -147,7 +148,7 @@
                     <div class="mineholderAfter" style="">
 
 
-                        <audio style="display:none" controls autoplay class="audio mine"></audio>
+                        <audio style="display:none" muted autoplay class="audio mine"></audio>
                     </div>
                     @*<div class="mineholderScreenAfter">
                             <video controls style=" width:100%;" id="0" class="video screen cool-background" autoplay="autoplay" muted></video>
@@ -159,7 +160,7 @@
                           
                         </div>
                         <div class="slave" style=" ">
-                            <video  muted   id="1" class="video mine cool-background" autoplay="autoplay"></video>
+                            <video     id="1" class="video mine cool-background" autoplay="autoplay"></video>
 
                         </div>
                      
