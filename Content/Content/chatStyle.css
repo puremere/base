@@ -15,7 +15,7 @@
 @media screen and (max-width: 360px) {
     #frame {
         width: 100%;
-        height: 100vh;
+        height: 90vh;
         margin-top:10px;
     }
 }
@@ -583,12 +583,20 @@
     overflow: hidden;
     position: relative;
 }
+.master video {
+    height: 100%;
+    width: auto;
+}
 
 @media screen and (max-width: 735px) {
+    
     #frame .content {
         width: calc(100%);
         min-width: 300px !important;
+        
+       
     }
+    
 }
 
 @media screen and (min-width: 900px) {

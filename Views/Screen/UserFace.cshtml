@@ -111,20 +111,20 @@
 
                 <span class="loading-indicator icon-spinner-3" data-bind="css: { on: Loading }"></span>
                 <span style="margin:10px auto; ">
-                    <button style=" display:none;border-radius:10px;" class="btn btn-danger hangup">قطع تماس </button>
-                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstTasviri">تماس تصویری</button>
-                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstSoti">تماس صوتی</button>
-                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success chat">گفتگو </button>
+                    <button style=" display:none;border-radius:10px;" class="btn btn-danger hangup"><i class="fa fa-power-off"></i> </button>
+                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstTasviri"><i class="fa fa-video-camera"></i></button>
+                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstSoti"><i class="fa fa-microphone"></i></button>
+                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success chat"><i class="fa fa-comment"></i> </button>
 
                 </span>
 
 
 
-                <div class="nav-collapse collapse">
+                @*<div class="nav-collapse collapse">
                     <p class="navbar-text pull-right">
                         نام شما:  <span data-bind="text:  Username"></span>
                     </p>
-                </div>
+                </div>*@
             </div>
             <div id="cameraSection" class="container-fluid " style="display:none;padding:10px;">
                 <div class="select" style="margin:10px">
@@ -156,7 +156,7 @@
                         </div>*@
                     <div class="partnerholder" style="background-color:black ">
                         <div class="master" style="display:flex">
-                            <video controls style="height:100%; width:auto; margin:auto" class="video partner cool-background" autoplay="autoplay"></video>
+                            <video controls style=" margin:auto" class="video partner cool-background" autoplay="autoplay"></video>
                           
                         </div>
                         <div class="slave" style=" ">
@@ -175,7 +175,7 @@
 
                 </div>
                 <div id="chatHolder">
-                    <audio id="song" src="~/beep.mp3" ></audio>
+                    <audio id="song" src="~/beep2.mp3" ></audio>
                     <div id="frame">
 
                         <div class="content">
