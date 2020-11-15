@@ -180,7 +180,7 @@
 
                         <div class="content">
                             <div class="contact-profile">
-                                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                                <i class="fa fa-user"   ></i>
                                 <p id="chatname"></p>
                                 @*<div class="social-media">
                                         <i class="fa fa-facebook" aria-hidden="true"></i>
@@ -188,7 +188,8 @@
                                         <i class="fa fa-instagram" aria-hidden="true"></i>
                                     </div>*@
                             </div>
-                            <div class="messages" style="">
+                            <div id="message" class="messages" style="">
+                               
                                 <ul>
                                     @*<li class="sent">
                                             <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
@@ -286,6 +287,7 @@
         WebRtcDemo.App.setName('@Session["name"]');
 
     </script>
+    
     <!-- Analytics -->
     <script type="text/javascript">
         var _gaq = _gaq || [];

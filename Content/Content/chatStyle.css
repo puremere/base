@@ -709,6 +709,17 @@
         line-height: 130%;
     }
 
+        #frame .content .messages ul li p.main {
+            display: inline-block;
+            padding: 10px 15px;
+            border-radius: 2px;
+            max-width: 205px;
+            line-height: 130%;
+            width: 100%;
+            text-align: left;
+            position: relative;
+        }
+
 @media screen and (min-width: 735px) {
     #frame .content .messages ul li p {
         max-width: 300px;

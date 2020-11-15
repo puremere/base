@@ -232,6 +232,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
         _noMoreConnection = "",
         _relayProcess,
         mixer,
+        _chatSelected,
         _connect = function (username, onSuccess, onFailure) {
             // Set Up SignalR Signaler
 
@@ -255,23 +256,121 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             hub.client.setMessage = function (message, connectionID, name) {
 
                 if (connectionID == viewModel.MyConnectionId()) {
-                    var ul = $(".messages ul");
-                    const li = document.createElement('li');
-                    li.className = 'sent';
-                    li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                    // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-                    ul.append(li);
+                    //var ul = $(".messages ul");
+                    //const li = document.createElement('li');
+                    //li.className = 'sent';
+                    //li.innerHTML = `<p>` + name + ": " + message + `</p> `;
+                    //// var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                    //ul.append(li);
 
                 }
                 else {
                     var ul = $(".messages ul");
-                    const li = document.createElement('li');
-                    li.className = 'replies';
-                    li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                    // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-                    ul.append(li);
+                    var specificLi = $("#" + connectionID).text();
+                    if (specificLi != '') {
 
-                    togglePlay();
+                        var bool = $('#backButt').css('display') == 'block';
+                        var bool2 = $('#hiddeninput').val() == connectionID;
+                        if (bool && bool2) {
+                           
+                            display = 'display';
+                            const li = document.createElement('li');
+                            li.className = 'replies ' + connectionID;
+                            li.style.display = display;
+                            li.innerHTML = `<p>` + name + ": " + message + `</p> `;
+                            // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+
+                            ul.append(li);
+                            
+
+                            $('ul li').css("display", "none");
+                            $("." + connectionID).css("display", "block");
+                            $("#backButt").css("display", "block");
+                            $(".num").css("display", "none");
+                            $(this).find(".num").text('');
+                            $(this).find(".num").css("display", "none");
+                            $(".mainli").css("display", "none");
+                            $(".message-input").css("display", "block")
+
+                            var objDiv = document.getElementById("message");
+                            var num = objDiv.scrollHeight;
+                            objDiv.scrollTop = num
+                        }
+                        else {
+                          
+                            display = 'none';
+                            const li = document.createElement('li');
+                            li.className = 'replies ' + connectionID;
+                            li.style.display = display;
+                            li.innerHTML = `<p>` + name + ": " + message + `</p> `;
+                            // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+
+                            ul.append(li);
+
+
+                            var firstnum = $("#" + connectionID).find(".num");
+                            var numtext = firstnum.text();
+                          
+                            if (numtext == '') {
+                                num = 1;
+                            }
+                            else {
+                                num = parseInt(numtext) + 1;
+                            }
+
+                            firstnum.text(num);
+                            firstnum.css("display", "block");
+                        }
+                       
+                       
+                    }
+                    else {
+                        display = 'block';
+
+                        const li = document.createElement('li');
+                        li.className = 'replies mainli ' + connectionID;
+                        li.id = connectionID;
+                    
+                       
+                        li.style.display = display;
+                        li.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"`+`,`+`"`+name+`"`+`)'  class="main" > <span style=" width=:100%; font-weight:600">` + name + `</span><br><span>` + message + `</span>` + `<span class="num" style="position:absolute;margin-right: 10px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
+                        // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+
+                        var ulInnerHtml = ul.html();
+                      
+                        ul.html(li)
+                      
+
+
+
+                        const li2 = document.createElement('li');
+                        li2.className = 'replies ' + connectionID;
+                        li2.style.display = 'none';
+                        li2.innerHTML = `<p>` + name + ": " + message + `</p> `;
+                        // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+
+                        ul.append(li2);
+                        ul.append(ulInnerHtml);
+
+                        var firstnum = $("#" + connectionID).find(".num");
+                        var numtext = firstnum.text();
+                        if (numtext == '') {
+                            num = 1;
+                        }
+                        else {
+                            num = parseInt(num) + 1;
+                        }
+
+                        firstnum.text(num);
+                    }
+                   
+                    var objDiv = document.getElementsByClassName("messages");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+                    
+
+                   
+
+                    //togglePlay();
 
                 }
             };
@@ -761,11 +860,36 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             });
             $(".submit").click(function () {
 
+                var id = $("#hiddeninput").val();
                 var message = $("#chatMessage").val();
                 if (message != "") {
-                    _hub.server.sendMessage(message);
+                    _hub.server.sendMessage(message, id);
 
                 }
+
+               $("#hiddeninput").val('');
+                var ul = $(".messages ul");
+                var name = viewModel.Username();
+
+              
+                const li = document.createElement('li');
+                li.className = 'sent ' + id;
+                li.innerHTML = `<p>` + name + ": " + message + `</p> `;
+                // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                ul.append(li);
+
+              
+                $('ul li').css("display", "none");
+                $("." + id).css("display", "block");
+                $("#backButt").css("display", "block");
+                $(".num").css("display", "none");
+                $(this).find(".num").text('');
+                $(this).find(".num").css("display", "none");
+                $(".mainli").css("display", "none");
+                $(".message-input").css("display", "block")
+
+
+
 
             });
             $(".chat").click(function () {
@@ -917,6 +1041,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
         },
         _setName = function (name) {
             viewModel.Groupname(name);
+        },
+        _chatSelectedfnc = function (name) {
+            _chatSelected = name;
         },
         _resetStream = function (id) {
 
@@ -1266,7 +1393,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             return _mediaStream;
         },
         resetStream: _resetStream,
-        setName: _setName
+        setName: _setName,
+        chatselectedFun : _chatSelectedfnc,
     };
 })(WebRtcDemo.ViewModel, WebRtcDemo.ConnectionManager);
 

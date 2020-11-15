@@ -161,7 +161,7 @@
                     <script>
 
                     </script>
-                    <div class="well user-list" style="position:relative; display:none">
+                    @*<div class="well user-list" style="position:relative; display:none">
                         <i style="position:absolute; top:10px ; left :10px ;" id="refresh" class="fa fa-refresh"></i>
                         <ul class="nav nav-list">
                             <li class="nav-header">کاربران آنلاین <small data-bind="text: Users().length"></small></li>
@@ -185,56 +185,81 @@
                             </li>
                             <!-- /ko -->
                         </ul>
-                    </div>
+                    </div>*@
                     <div id="frame">
 
                         <div class="content">
                             <div class="contact-profile">
-                                @*<img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />*@
+                                <i class="fa fa-user"></i>
                                 <p id="chatname"></p>
+                                <i style="display: none;float: left;position: absolute;top: 15px;left: 25px;font-size: 32px;" id="backButt" class="fa fa-angle-left"></i>
                                 @*<div class="social-media">
-                                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                                    </div>*@
+            <i class="fa fa-facebook" aria-hidden="true"></i>
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+        </div>*@
+                                <script>
+                                    $("#backButt").click(function () {
+                                        var id = $("#hiddeninput").val();
+                                        var item = $("#" + id);
+                                        $("#" + id).remove();
+                                        var ul = $(".messages ul");
+                                        ul.append(item);
+                                        
+                                        $(this).css("display", "none");
+                                        $("ul li").css("display", "none");
+                                        $(".mainli").css("display", "block");
+                                        $(".num").each(function () {
+                                            var text = $(this).text();
+                                            if (text != '') {
+                                                $(this).css("display", "block")
+                                            }
+                                        })
+                                        $(".message-input").css("display", "none")
+                                       
+                                    })
+                                </script>
                             </div>
-                            <div class="messages" style="">
+                            <div id="message" class="messages" style="">
+                                 <input type="hidden" id="hiddeninput"/>
                                 <ul>
                                     @*<li class="sent">
-                                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                                            <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-                                        </li>
-                                        <li class="replies">
-                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                            <p>When you're backed against the wall, break the god damn thing down.</p>
-                                        </li>
-                                        <li class="replies">
-                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                            <p>Excuses don't win championships.</p>
-                                        </li>
-                                        <li class="sent">
-                                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                                            <p>Oh yeah, did Michael Jordan tell you that?</p>
-                                        </li>
-                                        <li class="replies">
-                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                            <p>No, I told him that.</p>
-                                        </li>
-                                        <li class="replies">
-                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                            <p>What are your choices when someone puts a gun to your head?</p>
-                                        </li>
-                                        <li class="sent">
-                                            <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                                            <p>What are you talking about? You do what they say or they shoot you.</p>
-                                        </li>
-                                        <li class="replies">
-                                            <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                                            <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
-                                        </li>*@
+                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+            </li>
+            <li class="replies">
+                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                <p>When you're backed against the wall, break the god damn thing down.</p>
+            </li>
+            <li class="replies">
+                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                <p>Excuses don't win championships.</p>
+            </li>
+            <li class="sent">
+                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                <p>Oh yeah, did Michael Jordan tell you that?</p>
+            </li>
+            <li class="replies">
+                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                <p>No, I told him that.</p>
+            </li>
+            <li class="replies">
+                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                <p>What are your choices when someone puts a gun to your head?</p>
+            </li>
+            <li class="sent">
+                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                <p>What are you talking about? You do what they say or they shoot you.</p>
+            </li>
+            <li class="replies">
+                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
+            </li>*@
                                 </ul>
+
+
                             </div>
-                            <div class="message-input">
+                            <div class="message-input" style="display:none">
                                 <div class="wrap">
                                     <input id="chatMessage" type="text" placeholder="Write your message..." />
                                     <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
@@ -291,6 +316,24 @@
             $(this).prop('muted', false);
             WebRtcDemo.App.resetStream(Click_id);
         };
+        mainliClicked = function (connectionID,name) {
+
+            
+          
+            $('ul li').css("display", "none");
+            $("." + connectionID).css("display", "block");
+            $("#backButt").css("display", "block");
+            $(".num").css("display", "none");
+            $("#" + connectionID).css("display", "none")
+            $("#" + connectionID).find(".num").text('');
+            $("#" + connectionID).find(".num").css("display", "none");
+            
+            $(".message-input").css("display", "block");
+            WebRtcDemo.App.chatselectedFun(name);
+            $("#hiddeninput").val(connectionID);
+        };
+       
+
     </script>
 
     <!-- Analytics -->

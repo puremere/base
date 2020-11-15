@@ -183,15 +183,12 @@ var WebRtcDemo = WebRtcDemo || {};
 
 WebRtcDemo.App = (function (viewModel, connectionManager) {
     var   _hub,
-        STes = [],
-        _screenStream,
-        _finalStream,
+      
         _geustStream = "0",
         _slaveNumber = 1,
         _streamType = 'blank',
-        _requestType = 0,
         _IAMDone,
-        _width,_height,
+     
 
         _connect = function (username, onSuccess, onFailure) {
             // Set Up SignalR Signaler
@@ -201,13 +198,16 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
             };
             hub.client.setMessage = function (message, connectionID, name) {
-                    if (connectionID == viewModel.MyConnectionId()) {
-                        var ul = $(".messages ul");
-                        const li = document.createElement('li');
-                        li.className = 'sent';
-                        li.innerHTML = `<p>` + name +": " + message + `</p> `;
-                        // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-                        ul.append(li);
+
+               
+                  
+                   if (connectionID == viewModel.MyConnectionId()) {
+                        //var ul = $(".messages ul");
+                        //const li = document.createElement('li');
+                        //li.className = 'sent';
+                        //li.innerHTML = `<p>` + name +": " + message + `</p> `;
+                        //// var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                        //ul.append(li);
 
                     }
                     else {
@@ -216,10 +216,14 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         li.className = 'replies';
                         li.innerHTML = `<p>` + name + ": " + message + `</p> `;
                         // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-                        ul.append(li);
-                        togglePlay();
+                       ul.append(li);
+                       var objDiv = document.getElementsByClassName("messages");
+                       objDiv.scrollTop = objDiv.scrollHeight;
+                        //togglePlay();
 
-                    }
+                    } 
+
+               
             };
             hub.client.callEveryOne = function (connectionID) {
                 console.log("i am called");
@@ -859,7 +863,17 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             });
             $(".submit").click(function () {
                 var message = $("#chatMessage").val();
-                _hub.server.sendMessage(message);
+                var Username = $("#chatname").text();
+                _hub.server.sendMessage(message, 'admin');
+                $("#chatMessage").val('');
+                var ul = $(".messages ul");
+                const li = document.createElement('li');
+                li.className = 'sent';
+                li.innerHTML = `<p>` + Username + ": " + message + `</p> `;
+                // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                ul.append(li);
+                //var objDiv = document.getElementsByClassName("messages");
+                //objDiv.scrollTop = objDiv.scrollHeight;
             })
 
         },
