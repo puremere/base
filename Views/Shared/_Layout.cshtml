@@ -515,7 +515,7 @@
 
                     })
                     $.ajax({
-                        url: '/Home/gogetfinalprice',
+                        url: '/Home/gogetfinalprice/',
 
 
                         success: function (data) {
@@ -531,7 +531,7 @@
                             $(".discountfinal").text(addCommas(array[3]))
                             $(".discountpercent").text(array[4])
                             $.ajax({
-                                url: '/Home/getmenue',
+                                url: '/Home/getmenue/',
                                 dataType: 'html',
 
                                 success: function (data) {
@@ -1194,7 +1194,7 @@
 
                     })
                     $.ajax({
-                        url: '/Home/gogetfinalprice',
+                        url: '/Home/gogetfinalprice/',
 
 
                         success: function (data) {
@@ -1210,14 +1210,14 @@
                             $(".discountfinal").text(addCommas(array[3]))
                             $(".discountpercent").text(array[4])
                             $.ajax({
-                                url: '/Home/getmenue',
+                                url: '/Home/getmenue/',
                                 dataType: 'html',
 
                                 success: function (data) {
 
                                     $('#mainmenu').html(data);
                                     $.ajax({
-                                        url: '/Home/checkoutsummery',
+                                        url: '/Home/checkoutsummery/',
                                         dataType: 'html',
                                         success: function (data) {
 
@@ -1261,7 +1261,7 @@
 
 
                         $.ajax({
-                            url: '/Home/addtocart',
+                            url: '/Home/addtocart/',
                             dataType: 'html',
                             data: {
                                 id: ID,
@@ -1270,7 +1270,7 @@
                             },
                             success: function (data) {
                                 $.ajax({
-                                    url: '/Home/gogetfinalprice',
+                                    url: '/Home/gogetfinalprice/',
 
 
                                     success: function (data) {
