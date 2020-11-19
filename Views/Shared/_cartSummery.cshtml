@@ -13,8 +13,8 @@
             {
                 imagefile = item.imageaddress;
             }
-            
-            
+
+
             int i = item.productid;
             string classremname = "rem" + i;
             string classclosename = "close" + i;
@@ -28,6 +28,7 @@
             string discount = item.discount.ToString();
             decimal total = item.quantity * item.price;
             string name = item.productname;
+             
             <tr class=@classremname>
                 <td class="invert-closeb">
                     <div class="rem" style=" margin-right: 10px; background-color: #808080; border-radius: 50%; width: 25px; height: 25px;">
@@ -37,6 +38,7 @@
                     </div>
                     <script>
                         $(document).ready(function (c) {
+                            $(".value" +@item.productid).text(@item.quantity);
                             $('.@classclosename').on('click', function (c) {
 
 
@@ -135,7 +137,7 @@
 
 
         }
-
+       
 
     }
 

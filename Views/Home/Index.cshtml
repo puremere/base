@@ -111,7 +111,7 @@
 @{
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w <720 && h> 720))
+    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
     {
         <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
         <script src="~/Scripts/jquery-ui.js"></script>
@@ -206,12 +206,18 @@
                 });
             </script>
         </div>
-        <div id="AppFooter" class="" style="z-index:99;  padding:5px 15px;background-color: hsla(14, 100%, 53%, 0.8);position:fixed; bottom:0; left:0; width:100%">
-                <i id="removeAppFootr" class="fa fa-times" style="margin-left:10px; float:right; margin-top:5px; border-radius:100%; padding:5px 7px; background-color:#eee "></i>
-                <div class="btn btn-success" style="display:inline-block; float:left"><a href="/Home/downloadApp" style="color:white">دانلود</a></div>
-                <p style="display:inline-block; float:right; margin-top:6px;color:white"> سیستم در اپلکیشن عملکرد مناسبتری دارد </p>
+        @{
+            if (@System.Configuration.ConfigurationManager.AppSettings["hasMobile"] == "1")
+            {
+                <div id="AppFooter" class="" style="z-index:99;  padding:5px 15px;background-color: hsla(14, 100%, 53%, 0.8);position:fixed; bottom:0; left:0; width:100%">
+                    <i id="removeAppFootr" class="fa fa-times" style="margin-left:10px; float:right; margin-top:5px; border-radius:100%; padding:5px 7px; background-color:#eee "></i>
+                    <div class="btn btn-success" style="display:inline-block; float:left"><a href="/Home/downloadApp" style="color:white">دانلود</a></div>
+                    <p style="display:inline-block; float:right; margin-top:6px;color:white"> سیستم در اپلکیشن عملکرد مناسبتری دارد </p>
 
-            </div>
+                </div>
+            }
+        }
+
         <script>
             $("#removeAppFootr").click(function () {
 
@@ -240,7 +246,8 @@
 
                         @foreach (var item in Model.specialOffers)
                         {
-
+                            string addID = "addtocarto" + item.ID;
+                            string minusID = "minus" + item.ID;
                             string imagefile = "placeholder.jpg";
                             if (item.title != null)
                             {
@@ -255,7 +262,7 @@
                             <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
 
-                                <div>
+                                <div class="showmedetailx">
                                     <div style="padding:2px  ">
                                         <div class="imageholderindex" style="width:100%; ">
                                             <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
@@ -275,6 +282,18 @@
 
 
                                         </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            <div class="addholder" style="margin:5px">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                            </div>
+
+                                        }
                                         <div class="priceholder">
 
                                             @{
@@ -351,7 +370,7 @@
         }
         if (Model.banners != null)
         {
-            if (Model.banners.Count>= 7)
+            if (Model.banners.Count >= 7)
             {
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
                     <div class="imageparent">
@@ -366,7 +385,7 @@
                 <div class="row bannerrow1" style="margin:0px">
 
                     <div>
-                        @if (Model.banners.Count>= 5)
+                        @if (Model.banners.Count >= 5)
                         {
                             if (Model.banners[4].image != "")
                             {
@@ -378,7 +397,7 @@
                             }
 
                         }
-                        @if (Model.banners.Count>= 2)
+                        @if (Model.banners.Count >= 2)
                         {
                             if (Model.banners[1].image != "")
                             {
@@ -391,7 +410,7 @@
 
                         }
 
-                        @if (Model.banners.Count>= 3)
+                        @if (Model.banners.Count >= 3)
                         {
                             if (Model.banners[2].image != "")
                             {
@@ -404,7 +423,7 @@
                             }
 
                         }
-                        @if (Model.banners.Count>= 5)
+                        @if (Model.banners.Count >= 5)
                         {
                             if (Model.banners[5].image != "")
                             {
@@ -419,7 +438,7 @@
                         }
                     </div>
 
-                    @if (Model.banners.Count>= 1)
+                    @if (Model.banners.Count >= 1)
                     {
                         if (Model.banners[0].image != "")
                         {
@@ -432,7 +451,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count>= 4)
+                    @if (Model.banners.Count >= 4)
                     {
                         if (Model.banners[3].image != "")
                         {
@@ -450,14 +469,14 @@
                 <script>
                     $(".banner").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty")>= 0)) {
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
 
                             $(this).css("cursor", "default");
                         }
                     })
                     $(".banner").click(function () {
                         var val = $(this).attr('id');
-                        if (!(val.indexOf("empty")>= 0)) {
+                        if (!(val.indexOf("empty") >= 0)) {
                             window.location.href = "/Home/ManageBanner?val=" + $(this).attr('id');
 
                         }
@@ -466,7 +485,7 @@
 
                     $(".mySlide").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty")>= 0)) {
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
 
                             $(this).css("cursor", "default");
                         }
@@ -497,7 +516,8 @@
 
                         @foreach (var item in Model.newest)
                         {
-
+                            string addID = "addtocarto" + item.ID;
+                            string minusID = "minus" + item.ID;
                             string imagefile = "placeholder.jpg";
                             if (item.title != null)
                             {
@@ -512,7 +532,7 @@
                             <div class="item showmedetail" id=@ID style="cursor:pointer;  max-width:34%">
 
 
-                                <div>
+                                <div class="showmedetailx">
                                     <div style="padding:2px  ">
                                         <div class="imageholderindex" style="width:100%;">
                                             <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
@@ -532,6 +552,18 @@
 
 
                                         </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            <div class="addholder" style="margin:5px">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                            </div>
+
+                                        }
                                         <div class="priceholder">
 
                                             @{
@@ -607,7 +639,7 @@
         }
         if (Model.banners != null)
         {
-            if (Model.banners.Count>= 8)
+            if (Model.banners.Count >= 8)
             {
                 <div class="row" style="margin:0 5px">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
@@ -634,7 +666,8 @@
 
                         @foreach (var item in Model.bestseller)
                         {
-
+                            string addID = "addtocarto" + item.ID;
+                            string minusID = "minus" + item.ID;
                             string imagefile = "placeholder.jpg";
                             if (item.title != null)
                             {
@@ -649,7 +682,7 @@
                             <div class="item showmedetail" id=@ID style="cursor:pointer; ; max-width:34%">
 
 
-                                <div>
+                                <div class="showmedetailx">
                                     <div style="padding:2px  ">
                                         <div class="imageholderindex" style="width:100%; ">
                                             <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
@@ -668,6 +701,18 @@
                                             }
 
                                         </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            <div class="addholder" style="margin:5px">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                            </div>
+
+                                        }
                                         <div class="priceholder">
 
                                             @{
@@ -826,7 +871,7 @@
             </div>
             <div class="bannerSectionPrent" style="">
                 <div class="bannerSection" style="width:100%; height:100%">
-                    @if (Model.banners.Count>= 1)
+                    @if (Model.banners.Count >= 1)
                     {
                         if (Model.banners[0].image != "")
                         {
@@ -839,7 +884,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count>= 4)
+                    @if (Model.banners.Count >= 4)
                     {
                         if (Model.banners[3].image != "")
                         {
@@ -876,7 +921,8 @@
 
                                 @foreach (var item in Model.specialOffers)
                                 {
-
+                                    string addID = "addtocarto" + item.ID;
+                                    string minusID = "minus" + item.ID;
                                     string imagefile = "placeholder.jpg";
                                     if (item.title != null)
                                     {
@@ -892,7 +938,7 @@
 
 
 
-                                        <div class="showmedetailFirstDiv">
+                                        <div class="showmedetailFirstDiv showmedetailx">
                                             <div style="padding:15px">
                                                 <div class="imageholderindex">
                                                     <img class="imageitself" src="@src" />
@@ -911,6 +957,19 @@
                                                     }
 
                                                 </div>
+                                                @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                {
+                                                    string valueID = "value" + item.ID;
+                                                    <div class="addholder" style="margin:5px">
+                                                        <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                        <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                        <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                    </div>
+
+                                                }
+
                                                 <div style="margin-top:10px">
 
                                                     @{
@@ -934,7 +993,7 @@
                                                                         <div class="">
                                                                             @if (item.price != item.oldPrice)
                                                                             {
-                                                                                <p style = "display: inline-block"> تومان </p> <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
+                                                                                <p style="display: inline-block"> تومان </p> <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                             }
                                                                         </div>
@@ -991,7 +1050,7 @@
             <div class="row bannerholder" style="">
                 <div class="row bannerrow1" style="margin:5px 45px">
 
-                    @if (Model.banners.Count>= 7)
+                    @if (Model.banners.Count >= 7)
                     {
 
                         <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
@@ -1004,7 +1063,7 @@
 
                     }
 
-                    @if (Model.banners.Count>= 8)
+                    @if (Model.banners.Count >= 8)
                     {
                         <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
                             <div class="imageparent">
@@ -1021,14 +1080,14 @@
                 <script>
                     $(".banner").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty")>= 0)) {
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
 
                             $(this).css("cursor", "default");
                         }
                     })
                     $(".banner").click(function () {
                         var val = $(this).attr('id');
-                        if (!(val.indexOf("empty")>= 0)) {
+                        if (!(val.indexOf("empty") >= 0)) {
                             window.location.href = "/Home/ManageBanner?val=" + $(this).attr('id');
 
                         }
@@ -1037,7 +1096,7 @@
 
                     $(".mySlide").each(function () {
 
-                        if (($(this).attr('id').indexOf("empty")>= 0)) {
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
 
                             $(this).css("cursor", "default");
                         }
@@ -1071,7 +1130,8 @@
 
                                 @foreach (var item in Model.newest)
                                 {
-
+                                    string addID = "addtocarto" + item.ID;
+                                    string minusID = "minus" + item.ID;
                                     string imagefile = "placeholder.jpg";
                                     if (item.title != null)
                                     {
@@ -1087,7 +1147,7 @@
 
 
 
-                                        <div class="showmedetailFirstDiv">
+                                        <div class="showmedetailFirstDiv showmedetailx">
                                             <div style="padding:15px">
                                                 <div class="imageholderindex">
                                                     <img class="imageitself" src="@src" />
@@ -1106,6 +1166,18 @@
                                                     }
 
                                                 </div>
+                                                @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                {
+                                                    string valueID = "value" + item.ID;
+                                                    <div class="addholder" style="margin:5px">
+                                                        <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                        <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                        <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                    </div>
+
+                                                }
                                                 <div style="margin-top:10px">
 
                                                     @{
@@ -1129,7 +1201,7 @@
                                                                         <div class="">
                                                                             @if (item.price != item.oldPrice)
                                                                             {
-                                                                                <p style = "display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
+                                                                                <p style="display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                             }
                                                                         </div>
@@ -1181,7 +1253,7 @@
         {
             <div class="row bannerholder" style="">
                 <div style="margin:5px 45px">
-                    @if (Model.banners.Count>= 5)
+                    @if (Model.banners.Count >= 5)
                     {
                         if (Model.banners[4].image != "")
                         {
@@ -1193,7 +1265,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count>= 2)
+                    @if (Model.banners.Count >= 2)
                     {
                         if (Model.banners[1].image != "")
                         {
@@ -1206,7 +1278,7 @@
 
                     }
 
-                    @if (Model.banners.Count>= 3)
+                    @if (Model.banners.Count >= 3)
                     {
                         if (Model.banners[2].image != "")
                         {
@@ -1219,7 +1291,7 @@
                         }
 
                     }
-                    @if (Model.banners.Count>= 5)
+                    @if (Model.banners.Count >= 5)
                     {
                         if (Model.banners[5].image != "")
                         {
@@ -1255,7 +1327,8 @@
 
                                 @foreach (var item in Model.bestseller)
                                 {
-
+                                    string addID = "addtocarto" + item.ID;
+                                    string minusID = "minus" + item.ID;
                                     string imagefile = "placeholder.jpg";
                                     if (item.title != null)
                                     {
@@ -1271,7 +1344,7 @@
 
 
 
-                                        <div class="showmedetailFirstDiv">
+                                        <div class="showmedetailFirstDiv showmedetailx">
                                             <div style="padding:15px">
                                                 <div class="imageholderindex">
                                                     <img class="imageitself" src="@src" />
@@ -1290,6 +1363,18 @@
                                                     }
 
                                                 </div>
+                                                @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                {
+                                                    string valueID = "value" + item.ID;
+                                                    <div class="addholder" style="margin:5px">
+                                                        <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                        <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                        <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                    </div>
+
+                                                }
                                                 <div style="margin-top:10px">
 
                                                     @{
@@ -1313,7 +1398,7 @@
                                                                         <div class="">
                                                                             @if (item.price != item.oldPrice)
                                                                             {
-                                                                                <p style = "display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
+                                                                                <p style="display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                             }
                                                                         </div>
@@ -1401,87 +1486,132 @@
 
 
 <script>
+    $('.value-plus').on('click', function () {
+        event.stopPropagation();
 
-    $('.showmedetail').click(function () {
+        let newVal = $(this).parent().children(".value").text();
+        let finalVal = parseInt(newVal) + 1;
+        $(this).parent().children(".value").text(finalVal);
+        var ID = $(this).attr('id');
 
+        $.ajax({
+            url: '/Home/addtocart',
+            dataType: 'html',
+            data: {
+                id: ID
 
-        var ID = this.id;
-        var url = "/Home/ProductDetail?id=" + ID;
-        window.location.href = url;
-    })
-    //$('.addtocart').click(function () {
-
-    //    var ID = this.id;
-
-    //    //var pricetotal = document.getElementById("spanfortotal").textContent;
-    //    var tobeadded = $('.item_price', $(this).parent('div:first')).text();
-    //    //var counttotal = document.getElementById("simpleCart_quantityy").textContent;
-    //    //var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
-    //    //var finalcount = parseInt(counttotal, 10) + 1;
-    //    //$('#spanfortotal').text(final);
-    //    //$('#simpleCart_quantityy').text(finalcount)
-
+            },
+            success: function (data) {
+                $.ajax({
+                    url: '/Home/gogetfinalprice',
 
 
-
-    //    $.ajax({
-    //        url: '/Home/addtocart',
-    //        dataType: 'html',
-    //        data: {
-    //            id: ID,
-    //            price: tobeadded
-
-    //        },
-    //        success: function (data) {
-    //            $.ajax({
-    //                url: '/Home/gogetfinalprice',
+                    success: function (data) {
+                        var array = data.split(',');
 
 
-    //                success: function (data) {
-    //                    $("#spanfortotal").text(data).toString("###,###")
-    //                    $("#spanfortotal2").text(data)
+                        if (array[3] === "0") {
+                            $(".discountSection").css("display", "none");
+                        }
+                        $("#basepriceholder").text(addCommas(array[1]))
+                        $("#spanfortotal").text(addCommas(array[0]))
+                        $("#spanfortotal2").text(addCommas(array[0]))
+                        $(".simpleCart_quantityy").text(array[2])
+                        $(".discountfinal").text(addCommas(array[3]))
+                        $(".discountpercent").text(array[4])
+                        $.ajax({
+                            url: '/Home/checkoutsummery/',
+                            dataType: 'html',
+                            success: function (data) {
 
-    //                },
-    //                error: function () {
+                                $('#summerydetailholder').html(data);
+                                $("#loading").fadeOut()
+                            },
+                            error: function () {
 
-    //                }
-    //            });
-    //            $.ajax({
-    //                url: '/Home/gogetfinalquantity',
+                            }
+                        });
+                    },
+                    error: function () {
 
-
-    //                success: function (data) {
-    //                    $("#simpleCart_quantityy").text(data)
-
-    //                },
-    //                error: function () {
-
-    //                }
-    //            });
-
-    //            toastr.options = {
-    //                "debug": false,
-    //                "positionClass": "toast-top-center",
-    //                "onclick": null,
-    //                "fadeIn": 300,
-    //                "fadeOut": 1000,
-    //                "timeOut": 5000,
-    //                "extendedTimeOut": 1000,
+                    }
+                });
 
 
-    //            }
-    //            toastr.success('محصول مورد نظر به سبد اضافه شد')
+            },
+            error: function () {
+                alert("error")
+            }
+
+
+        });
+    });
+    $('.value-minus').on('click', function () {
+        event.stopPropagation();
+        var ID = $(this).attr('id');
+
+        let newVal = $(this).parent().children(".value").text();
+        if (newVal != "0") {
+            let finalVal = parseInt(newVal) - 1;
+            $(this).parent().children(".value").text(finalVal);
+        }
+
+
+        $.ajax({
+            url: '/Home/minusfromcart',
+            dataType: 'html',
+            data: {
+                id: ID
+            },
+            success: function (data) {
+
+                $.ajax({
+                    url: '/Home/gogetfinalprice',
+                    success: function (data) {
+                        var array = data.split(',');
+                        if (array[3] === "0") {
+                            $(".discountSection").css("display", "none");
+                        }
+                        $("#basepriceholder").text(addCommas(array[1]))
+                        $("#spanfortotal").text(addCommas(array[0]))
+                        $("#spanfortotal2").text(addCommas(array[0]))
+                        $(".simpleCart_quantityy").text(array[2])
+                        $(".discountfinal").text(addCommas(array[3]))
+                        $(".discountpercent").text(array[4])
+                        $.ajax({
+                            url: '/Home/checkoutsummery/',
+                            dataType: 'html',
+                            success: function (data) {
+
+                                $('#summerydetailholder').html(data);
+                                $("#loading").fadeOut()
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    },
+                    error: function () {
+
+                    }
+                });
+
+            },
+            error: function () {
+                alert("error")
+            }
+
+
+        });
 
 
 
-    //        },
-    //        error: function () {
-
-    //        }
-    //    });
 
 
-    //})
+    });
+
+
+
 
 </script>
 
@@ -1550,7 +1680,11 @@
         }
     });
 </script>
+<script>
+    $(document).ready(function () {
 
+    })
+</script>
 <script src="~/Scripts/resCarousel.js"></script>
 @{
     if (Model.newest != null)
@@ -1571,9 +1705,10 @@
         <script>
             $(document).ready(function () {
                 var count = @Model.bestseller.Count()
-
-                $("#bestholder").attr("data-value", (2 * count) - 1);
+                    $("#bestholder").attr("data-value", (2 * count) - 1);
             })
+
+
 
 
         </script>
@@ -1583,6 +1718,7 @@
     {
         <script>
             $(document).ready(function () {
+
                 var width = window.innerWidth;
                 if (width <500) {
                     //var final = width / 2;
@@ -1598,8 +1734,8 @@
 
         </script>
     }
-    
-    
+
+
 }
 
 
