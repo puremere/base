@@ -18,103 +18,59 @@
     int h = Request.Browser.ScreenPixelsHeight;
     if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
     {
-        <head>
-            
-            <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
-            <script>
+<head>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+    <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
 
                 gtag('config', '@analyticID');
-            </script>
+    </script>
 
-            <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
-            <title>@ViewBag.Title </title>
-
-
-            <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
-            <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
-            <meta http-equiv="content-language" content="fa" />
-
-            <!-- Mobile Specific Metas
-                  ================================================== -->
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <title>@ViewBag.Title </title>
 
 
-            <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-            <!-- pignose css -->
-            <link href="/Content/pignose.layerslider.css" rel="stylesheet" type="text/css" media="all" />
-            <link href="~/Content/flexslider2.css" rel="stylesheet" />
-            <!-- //pignose css -->
-            <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
-            <!-- //menu css -->
-            <link href="~/Content/sm-core-css.css" rel="stylesheet" />
-            <link href="~/Content/sm-mint.css" rel="stylesheet" />
-            <link href="~/Content/resCarousel.css" rel="stylesheet" />
-            <link href="~/Content/all.css" rel="stylesheet" />
+    <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
+    <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
+    <meta http-equiv="content-language" content="fa" />
+
+    <!-- Mobile Specific Metas
+          ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.jpg" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.jpg" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.jpg" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.jpg" />
+
+    @RenderSection("HeadIncludes", required: false)
+    @Styles.Render("~/Content/css")
 
 
-            <link href="~/Content/toastr.css" rel="stylesheet" />
-            <link href="~/Content/custom.css" rel="stylesheet" />
-            <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-            <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.jpg" />
-            <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.jpg" />
-            <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.jpg" />
-            <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.jpg" />
+    @Scripts.Render("~/script/js")
+    @RenderSection("header", required: false)
+    @RenderSection("scripts", required: false)
 
-            @RenderSection("HeadIncludes", required: false)
-            <!-- js -->
-            @*<script src="~/Scripts/jquery-3.2.1.min.js"></script>*@
-            @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>*@
-
-            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-            @*<script type="text/javascript" src="/Scripts/jquery-2.1.4.min.js"></script>*@
-            <script src="~/Scripts/jquery.flexslider2.js"></script>
-            <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
-            <script src="~/Scripts/imagezoom.js"></script>
-            <script src="~/Scripts/toastr.js"></script>
-            <script src="~/Scripts/jquery-ui.js"></script>
+    <style>
+        #loading {
+            align-content: center;
+            background: #fff;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999999;
+            opacity: 1;
+            margin: 0 auto;
+        }
+    </style>
 
 
-
-
-
-
-            @RenderSection("header", required: false)
-
-
-
-            <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
-
-            @*<script>
-                    $(document).ajaxStart(function () {
-                        $("#loading").fadeIn();
-                    });
-                    $(document).ajaxComplete(function () {
-
-
-                    });
-
-                </script>*@
-            <style>
-                #loading {
-                    align-content: center;
-                    background: #fff;
-                    width: 100%;
-                    height: 100%;
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    z-index: 999999;
-                    opacity: 1;
-                    margin: 0 auto;
-                }
-            </style>
-            <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
-            @RenderSection("scripts", required: false)
-        </head>
+</head>
         <body>
 
             <div id="loading" style="display:none">
