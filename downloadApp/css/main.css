@@ -1804,7 +1804,7 @@ html[data-useragent*='MSIE 10.0'] .home-scrolldown,
     display: none;
   }
   .home-content-left {
-    padding: 12rem 2.5rem 366px;
+    padding: 5rem 2.5rem 366px;
     width: 100%;
   }
   .home-content-left h1 {
