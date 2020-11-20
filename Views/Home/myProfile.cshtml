@@ -650,13 +650,13 @@
                                 <div style="    text-align: center;  direction: rtl; font-size: 20px;  margin-bottom: 25px;  background: white;  border: 1px solid #ddd; padding-bottom: 40px;  box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
                                     <div class="row" style="margin:0">
                                         <p style="padding:25px">واریز به کیف پول</p>
-                                        <div style="width:20%; display:inline-block; padding:20px">
+                                        <div class="col-lg-3 col-md-12 col-sm-12" style=" display:inline-block; padding:20px">
                                             <p>مبلغ (تومان)</p>
                                         </div>
-                                        <div style="width:30%; display:inline-block; padding:20px">
+                                        <div class="col-lg-4 col-md-12 col-sm-12" style=" display:inline-block; padding:20px">
                                             <input id="insertAmount" class="form-control" />
                                         </div>
-                                        <div style="width:10%; display:inline-block; ">
+                                        <div class="col-lg-3 col-md-12 col-sm-12" style=" display:inline-block; ">
                                             <div class="btn btn-default" id="insertToWallet" style="padding:10px;width:100%">تایید</div>
                                         </div>
                                     </div>
@@ -840,44 +840,59 @@
                                             int index = Model.mytransaction.IndexOf(item) + 1;
                                             // string data = item.address + "," + item.fullname + "," + item.phone + "," + item.Rdate + "," + item.day + "," + item.price;
 
-                                            <div class="Itemholder" id="@item.ID">
-                                                <div class="Item">
-                                                    <p class="itemtitle">شماره سفارش</p>
-                                                    <p class="itemvalue">@item.ID</p>
+                                    <div class="Itemholder" id="@item.ID">
+                                        <div class="Item">
+                                            <p class="itemtitle">شماره سفارش</p>
+                                            <p class="itemvalue">@item.ID</p>
 
-                                                </div>
-                                                <div class="Item">
-                                                    <p class="itemtitle">تاریخ سفارش</p>
-                                                    <p class="itemvalue">@item.date</p>
-                                                </div>
-                                                <div class="Item">
-                                                    <p class="itemtitle">مبلغ سفارش</p>
-                                                    <p class="itemvalue" style="color:green">تومان @string.Format("{0:n0}", Convert.ToInt32(@item.price)) </p>
-                                                </div>
-
-                                                <div class="Item">
-                                                    <p class="itemtitle">وضعیت پرداخت</p>
-                                                    @if (item.status == "0")
-                                                    {
-                                                        <p class="itemvalue">در انتظار پرداخت </p>
-                                                    }
-                                                    else if (item.status == "1")
-                                                    {
-                                                        <p class="itemvalue">پرداخت شده</p>
-                                                    }
-                                                    else if (item.status == "2")
-                                                    {
-                                                        <p class="itemvalue">پرداخت در محل</p>
-                                                    }
-
-                                                    else if (item.status == "4")
-                                                    {
-                                                        <p class="itemvalue">ارسال سفارش</p>
-                                                    }
-
-                                                </div>
-
+                                        </div>
+                                        <div class="Item">
+                                            <p class="itemtitle">تاریخ سفارش</p>
+                                            <p class="itemvalue">@item.date</p>
+                                        </div>
+                                        <div class="Item">
+                                            <p class="itemtitle">مبلغ سفارش</p>
+                                            <p class="itemvalue" style="color:green">تومان @string.Format("{0:n0}", Convert.ToInt32(@item.price)) </p>
+                                        </div>
+                                        @if (@item.status == "0")
+                                        {
+                                            <div class="Item">
+                                                <p class="itemtitle">وضعیت پرداخت</p>
+                                                <p class="itemvalue" style="color:green">در اتنظار پرداخت</p>
                                             </div>
+
+                                            <div class="Item">
+                                                <p class="itemtitle">حذف</p>
+                                                <p class="itemvalue" style="color:green"><p class="deleteTransaction" id="@item.ID" style=" cursor:pointer">حذف</p></p>
+                                            </div>
+
+                                            <div class="Item">
+                                                <p class="itemtitle">پرداخت</p>
+                                                <p class="itemvalue" style="color:green"><p class="payTransaction" id="@item.timestamp" style=" cursor:pointer">پرداخت</p></p>
+                                            </div>
+                                         }
+                                        else
+                                        {
+                                            if (item.transactionType == "0")
+                                            {
+                                            <div class="Item">
+                                                <p class="itemtitle">وضعیت پرداخت</p>
+                                                <p class="itemvalue" style="color:green">برداشت</p>
+                                            </div>
+                                            }
+                                            else
+                                            {
+                                            <div class="Item">
+                                                <p class="itemtitle">وضعیت پرداخت</p>
+                                                <p class="itemvalue" style="color:green">واریز</p>
+                                            </div>
+                                            }
+
+                                            
+                                        }
+
+
+                                    </div>
 
 
                                         }
@@ -1395,7 +1410,7 @@
                             if (window.innerWidth <950) {
                                 $("#SECTIONOFIBdiv").css("display", "block");
                                 $("#productlistHoLDER").children().hide();
-                                $("#orderlistSection").css("display", "block");
+                                $("#transactionSection").css("display", "block");
                                 $("#SECTIONOFIBdiv").animate({
                                     'margin-right': '0px'
                                 }, function () {

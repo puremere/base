@@ -732,7 +732,7 @@
     
     if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
     {
-        <div id="appp">
+        <div id="appp" style="margin-bottom:45px">
             <script>
                 try {
                     var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -825,13 +825,13 @@
 
                                     @if (Model.price != Model.oldPrice & Convert.ToInt32(Model.price) > 0)
                                     {
-                                    <span style="direction:rtl; ">
-                                        <del style="color:red"> @string.Format("{0:n0}", Convert.ToInt32(Model.oldPrice))  </del>
-                                        <span style="margin:0 2px; color:red; float:left">
-                                            تومان
+                                        <span style="direction:rtl; ">
+                                            <del style="color:red"> @string.Format("{0:n0}", Convert.ToInt32(Model.oldPrice))  </del>
+                                            <span style="margin:0 2px; color:red; float:left">
+                                                تومان
+                                            </span>
                                         </span>
-                                    </span>
-                                       
+
                                         if (Model.oldPrice != Model.price)
                                         {
                                             <div class="specialBadgHoldr" style="float:right">
@@ -879,11 +879,11 @@
 
 
                 </div>
-                <div class="otherColorAppsection"  style=" box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);margin:5px;background-color: white;padding: 10px;">
-                    @{
-                        if (Model.otherColors != null)
-                        {
-                            <div >
+                @{
+                    if (Model.otherColors != null)
+                    {
+                        <div class="otherColorAppsection" style=" box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);margin:5px;background-color: white;padding: 10px;">
+                            <div>
                                 <p style="width:100%; text-align:right; padding:8px ; font-weight:500;border-bottom:1px solid #eee ">رنگ های دیگر</p>
                                 <div class="resCarousel-inner " style="direction:rtl;padding: 5px 0 5px 0;">
 
@@ -916,13 +916,13 @@
 
                                 </div>
                             </div>
+                        </div>
 
-
-                        }
 
                     }
-                </div>
-                <div class="row topMenu" >
+
+                }
+                <div class="row topMenu">
                     <div id="featurHolder" style="  box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);width:49%; float:right; background-color:white;padding:10px; text-align:center; direction:rtl">
                         <i style="margin-left:5px" class="fal fa-file"></i>
                         <span> مشخصات</span>
@@ -1067,18 +1067,18 @@
                                                     lst2.Add(Model.feature.IndexOf(item));
                                                 }
                                             }
-                                            for (int i = 0; i <lst2.Count(); i++)
+                                            for (int i = 0; i < lst2.Count(); i++)
                                             {
                                                 int j = i + 1;
                                                 int myindex = lst2[i];
                                                 <section>
                                                     <h3 class="c-params__title">@Model.feature[myindex].title</h3>
                                                     <ul class="c-params__list">
-                                                        @if (j <lst2.Count())
+                                                        @if (j < lst2.Count())
                                                         {
                                                             foreach (var item in Model.feature)
                                                             {
-                                                                if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) <lst2[j])
+                                                                if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) < lst2[j])
                                                                 {
                                                                     <li>
                                                                         <div class="c-params__list-key">
@@ -1145,13 +1145,13 @@
 
 
                         @*<p id="detailid" style="display:none">@Model.ID</p>
-                            <p style="display:none">
-                                @{
+                <p style="display:none">
+                    @{
 
-                                    string ig = "/images/panelimages/" + @Model.slides.First().image;
-                                    <i id="detailimage">@ig</i>
-                                }
-                            </p>*@
+                        string ig = "/images/panelimages/" + @Model.slides.First().image;
+                        <i id="detailimage">@ig</i>
+                    }
+                </p>*@
 
 
 
@@ -1184,17 +1184,18 @@
                     <div id="similarProductApp" class="mustbeshown">
                         <div style="padding-bottom:40px">
                             <div class="row" style=" padding: 10px">
-                                <span style="float:right;font-size: 11px;font-weight: 800;"> محصولات مشابه</span>
-                                <a href="/Home/ProductList?sortID=1" style="cursor:pointer; float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+                                <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد مشابه</span>
+                                <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
                             </div>
-                            <div id="" class="resCarousel" data-items="2-3-3-3" data-slide="1" data-speed="500">
+                            <div id="bestholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
 
 
                                 <div class="resCarousel-inner" style="direction:rtl">
 
                                     @foreach (var item in Model.similarProduct)
                                     {
-
+                                        string addID = "addtocarto" + item.ID;
+                                        string minusID = "minus" + item.ID;
                                         string imagefile = "placeholder.jpg";
                                         if (item.title != null)
                                         {
@@ -1204,33 +1205,49 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src = "/images/panelimages/" + imagefile;
+                                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
 
-                                        <div class="item showmedetail" id=@ID style="cursor:pointer; max-width:33%">
+                                        <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
 
-                                            <div class="showmedetailFirstDiv">
+                                            <div class="showmedetailx">
                                                 <div style="padding:2px  ">
-                                                    <div class="imageholderindex" style="width:100%">
-                                                        <img class="" src="@src" style="" />
+                                                    <div class="imageholderindex" style="width:100%; ">
+                                                        <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
                                                     </div>
-                                                    <div class="titleholder">
-                                                        @if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
-                                                        {
-                                                            <h6 class="numEn">@item.title</h6>
-                                                        }
-                                                        else
-                                                        {
-                                                            <h6>@item.title</h6>
+                                                    <div class="titleholder" style=" ">
+                                                        @{
+                                                            if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                            {
+                                                                <h6 class="numEn"> @item.title</h6>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h6>@item.title</h6>
+                                                            }
+
                                                         }
 
 
                                                     </div>
+                                                    @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                    {
+                                                        string valueID = "value" + item.ID;
+                                                        <div class="addholder" style="margin:5px">
+                                                            <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                            <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                            <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                        </div>
+
+                                                    }
                                                     <div class="priceholder">
 
                                                         @{
                                                             if (item.isAvailable == "0")
                                                             {
+                                                                @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
                                                                 <div class="row">
                                                                     <div class="row" style="min-height:17px"></div>
                                                                     <p style="display:inline-block">ناموجود</p>
@@ -1241,8 +1258,6 @@
                                                                 if (item.price == "0")
                                                                 {
                                                                     <div class="row">
-                                                                        <div class="row" style="min-height:17px"></div>
-
                                                                         <p style="display:inline-block">تماس بگیرید</p>
                                                                     </div>
                                                                 }
@@ -1264,7 +1279,7 @@
 
                                                                     <div class="row" style="text-align:left; color:green">
 
-                                                                        <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block">تومان</p>
+                                                                        <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
 
                                                                     </div>
                                                                     <div>
@@ -1429,11 +1444,12 @@
                                 overflow: hidden;
                                 max-height: 250px;
                             }
-                            .c-mask__text img{
-                                width:60%;
-                                margin:auto;
-                                margin-top:15px
-                            }
+
+                                .c-mask__text img {
+                                    width: 60%;
+                                    margin: auto;
+                                    margin-top: 15px
+                                }
                         </style>
                         <section class="c-content-expert__summary">
                             <div class="c-mask js-mask is-masked">
@@ -1496,18 +1512,18 @@
                                                         lst2.Add(Model.feature.IndexOf(item));
                                                     }
                                                 }
-                                                for (int i = 0; i <lst2.Count(); i++)
+                                                for (int i = 0; i < lst2.Count(); i++)
                                                 {
                                                     int j = i + 1;
                                                     int myindex = lst2[i];
                                                     <section>
                                                         <h3 class="c-params__title">@Model.feature[myindex].title</h3>
                                                         <ul class="c-params__list">
-                                                            @if (j <lst2.Count())
+                                                            @if (j < lst2.Count())
                                                             {
                                                                 foreach (var item in Model.feature)
                                                                 {
-                                                                    if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) <lst2[j])
+                                                                    if (Model.feature.IndexOf(item) > lst2[i] && Model.feature.IndexOf(item) < lst2[j])
                                                                     {
                                                                         <li>
                                                                             <div class="c-params__list-key">
@@ -1567,10 +1583,10 @@
                                 نظر کاربران در مورد:   <span style="margin-right:25px;display:inline-block; font-size:19px ; font-weight:500">  @Model.title </span>
                                 <span>
                                     @*<span> |</span>
-                                        <span>۳</span><span> / ۵</span>
-                                        <span>
-                                            (۱۸ نفر)
-                                        </span>*@
+                                <span>۳</span><span> / ۵</span>
+                                <span>
+                                    (۱۸ نفر)
+                                </span>*@
                                 </span>
                             </h2>
 
@@ -1648,18 +1664,19 @@
                     <div style="background-color: #f6f5f5; padding: 2% 0px">
                         <div class="SECTIONHOLDER">
 
-                            <div class="o-headline"><span>@Html.ActionLink("محصولات مشابه", "", new { sortID = 2 }, new { style = " color: #808080;" })  </span></div>
+                            <div class="o-headline"><span>@Html.ActionLink("پیشنهادهای مشابه", "ProductList", new { sortID = 3 }, new { style = " color: #808080;" }) </span></div>
 
 
 
-                            <div id="bestholder" class="resCarousel" data-items="2-4-4-4" data-slide="1" data-speed="500">
+                            <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
 
 
                                 <div class="resCarousel-inner">
 
                                     @foreach (var item in Model.similarProduct)
                                     {
-
+                                        string addID = "addtocarto" + item.ID;
+                                        string minusID = "minus" + item.ID;
                                         string imagefile = "placeholder.jpg";
                                         if (item.title != null)
                                         {
@@ -1669,30 +1686,44 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src = "/images/panelimages/" + imagefile;
-
+                                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer">
 
 
-                                            <div class="showmedetailFirstDiv">
+
+                                            <div class="showmedetailFirstDiv showmedetailx">
                                                 <div style="padding:15px">
                                                     <div class="imageholderindex">
                                                         <img class="imageitself" src="@src" />
                                                     </div>
                                                     <div class="titleholder">
-                                                        @if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
-                                                        {
+                                                        @{
+                                                            if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                            {
+                                                                <h5 class="numEn"> @item.title</h5>
+                                                            }
+                                                            else
+                                                            {
+                                                                <h5>@item.title</h5>
+                                                            }
 
-                                                            <h5 class="numEn" style="padding:2px">@item.title</h5>
                                                         }
-                                                        else
-                                                        {
-                                                            <h5 style="padding:2px">@item.title</h5>
-                                                        }
-
 
                                                     </div>
+                                                    @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                    {
+                                                        string valueID = "value" + item.ID;
+                                                        <div class="addholder" style="margin:5px">
+                                                            <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                            <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                            <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                        </div>
+
+                                                    }
+
                                                     <div style="margin-top:10px">
 
                                                         @{
@@ -1705,7 +1736,7 @@
                                                                 if (item.price == "0")
                                                                 {
                                                                     <div class="row" style="margin:0px 15px">
-                                                                        <p style="display:inline-block">تماس بگیرید</p>
+                                                                        <p style="display:inline-block"> تماس بگیرید</p>
                                                                     </div>
                                                                 }
                                                                 else
@@ -1716,7 +1747,7 @@
                                                                             <div class="">
                                                                                 @if (item.price != item.oldPrice)
                                                                                 {
-                                                                                    <p style="display: inline-block">تومان</p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del>
+                                                                                    <p style="display: inline-block"> تومان </p> <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                                 }
                                                                             </div>
@@ -1726,8 +1757,10 @@
 
                                                                     <div class="row" style="margin:0px 15px">
 
-                                                                        <p style="display: inline-block; color: red">تومان</p>  <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                                        <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
 
+                                                                    </div>
+                                                                    <div>
                                                                     </div>
                                                                 }
                                                             }
@@ -1741,6 +1774,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+
 
 
 
@@ -1765,8 +1799,6 @@
                 </div>
 
 
-
-
             }
 
         </div>
@@ -1783,26 +1815,7 @@
 
 
 
-<style>
-    .imageholderindex {
-        height: 200px;
-    }
 
-        .imageholderindex img {
-            object-fit: scale-down;
-            width: 100%;
-            height: 100%;
-        }
-
-    .titleholder {
-        white-space: nowrap;
-        width: 100%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        margin: 10px auto;
-        text-align: right;
-    }
-</style>
 
 <script>
     $(document).ready(function () {

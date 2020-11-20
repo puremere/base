@@ -251,11 +251,10 @@
 
                         <div class="row" style="width:80%; margin:auto;  color:#2585bd">
                             <div style="display:flex">
-                                <div style="margin:auto" id="showMap" class="btn btn-success">انتخاب</div>
-
+                                <div style="margin:auto; background-color:red; border-color:red" id="showMap" class="btn btn-success">انتخاب</div>
                             </div>
 
-
+                          
                         </div>
 
 
@@ -914,7 +913,10 @@
         var x = document.getElementById("mapHolder");
         x.style.display = "none";
         $("body").css("overflow", "scroll");
-        $("#showMap").text("انتخاب مجدد ")
+        $("#showMap").text("انتخاب شده ")
+        $("#showMap").css("background-color", "#4cae4c") 
+        $("#showMap").css("border-color", "#4cae4c") 
+       
     })
     $("#showMap").click(function () {
         var x = document.getElementById("mapHolder");

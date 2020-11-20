@@ -420,11 +420,12 @@
 .showmedetail {
     max-width: 33% !important;
     padding: 0px;
-    box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);
+   
 }
 
 .showmedetailFirstDiv {
     border: 1px solid #eee;
+    border-radius:5px;
    
 }
 
@@ -502,9 +503,24 @@
         z-index: 1;
     }
 
+.priceholder{
+    padding:5px;
+}
 
+
+.imageholderindex img {
+    object-fit: scale-down;
+    width: 100%;
+    height: 100%;
+}
+.showmedetailFirstDiv:hover {
+    box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
+}
+.showmedetail {
+    max-width: 25% !important;
+    padding: 5px;
+}
 @media only screen and (max-width: 960px) {
-
     .featureAppsection h2 {
         font-size: 17px;
         line-height: 2;
@@ -544,11 +560,10 @@
     }
     .priceholder {
         border-top: 1px solid #eee;
-        min-height  : 25px
+        min-height  : 38px
     }
     .imageitself {
-        width: 40% !important;
-        height: 100% !important;
+       
         object-fit: fill
     }
     .resCarousel-inner {
@@ -709,13 +724,25 @@
         height:180px;
     }
 }
+.titleholder {
+    padding: 3px;
+    white-space: nowrap;
+    width: 90%;
+    overflow: hidden;
+    margin: 20px auto 0px auto;
+    padding-bottom: 10px;
+    text-align: center;
+    direction: var(--titleDirection) !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+}
 @media (max-width: 768px) {
     .imageholderindex {
-        height: 110px;
+        height: 110px !important;
     }
     .imageitself {
-        width: 40% !important;
-        height: 100% !important;
+      
         object-fit: fill
     }
 

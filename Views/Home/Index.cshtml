@@ -115,12 +115,7 @@
     {
         <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
         <script src="~/Scripts/jquery-ui.js"></script>
-        <script>
-            $("a").click(function () {
-                var link = $(this).attr('href');
-                window.location.href = link;
-            })
-        </script>
+
         if (Model.slides != null)
         {
 
@@ -232,139 +227,140 @@
 
         if (Model.specialOffers != null)
         {
-            <div class="minwidth" style="display:none">
-                <div class="row" style=" padding: 10px">
-                    <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
-                    <a href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
-                </div>
-                <div id="bestholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
+           
+        <div class="minwidth" style="display:none">
+            <div class="row" style=" padding: 10px">
+                <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
+                <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+            </div>
+            <div id="bestholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
 
 
-                    <div class="resCarousel-inner" style="direction:rtl">
+                <div class="resCarousel-inner" style="direction:rtl">
 
-                        @foreach (var item in Model.specialOffers)
+                    @foreach (var item in Model.specialOffers)
+                    {
+                        string addID = "addtocarto" + item.ID;
+                        string minusID = "minus" + item.ID;
+                        string imagefile = "placeholder.jpg";
+                        if (item.title != null)
                         {
-                            string addID = "addtocarto" + item.ID;
-                            string minusID = "minus" + item.ID;
-                            string imagefile = "placeholder.jpg";
-                            if (item.title != null)
-                            {
-                                imagefile = item.image;
-                            }
-                            string ID = "N" + item.ID.ToString();
-                            string addtocartid = "addtocart" + ID;
-                            string price = item.price;
+                            imagefile = item.image;
+                        }
+                        string ID = "N" + item.ID.ToString();
+                        string addtocartid = "addtocart" + ID;
+                        string price = item.price;
 
-                            string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
+                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
 
-                            <div class="item showmedetail" id=@ID style="cursor:pointer; ">
+                        <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
 
-                                <div class="showmedetailx">
-                                    <div style="padding:2px  ">
-                                        <div class="imageholderindex" style="width:100%; ">
-                                            <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
-                                        </div>
-                                        <div class="titleholder" style=" ">
-                                            @{
-                                                if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
-                                                {
-                                                    <h6 class="numEn"> @item.title</h6>
-                                                }
-                                                else
-                                                {
-                                                    <h6>@item.title</h6>
-                                                }
-
+                            <div class="showmedetailx">
+                                <div style="padding:2px  ">
+                                    <div class="imageholderindex" style="width:100%; ">
+                                        <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                    </div>
+                                    <div class="titleholder" style=" ">
+                                        @{
+                                            if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                            {
+                                                <h6 class="numEn"> @item.title</h6>
+                                            }
+                                            else
+                                            {
+                                                <h6>@item.title</h6>
                                             }
 
+                                        }
+
+
+                                    </div>
+                                    @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                    {
+                                        string valueID = "value" + item.ID;
+                                        <div class="addholder" style="margin:5px">
+                                            <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                            <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                            <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
 
                                         </div>
-                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
-                                        {
-                                            string valueID = "value" + item.ID;
-                                            <div class="addholder" style="margin:5px">
-                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
 
-                                                <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
-                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+                                    }
+                                    <div class="priceholder">
 
-                                            </div>
-
-                                        }
-                                        <div class="priceholder">
-
-                                            @{
-                                                if (item.isAvailable == "0")
+                                        @{
+                                            if (item.isAvailable == "0")
+                                            {
+                                                @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
+                                                <div class="row">
+                                                    <div class="row" style="min-height:17px"></div>
+                                                    <p style="display:inline-block">ناموجود</p>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                if (item.price == "0")
                                                 {
-                                                    @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
                                                     <div class="row">
-                                                        <div class="row" style="min-height:17px"></div>
-                                                        <p style="display:inline-block">ناموجود</p>
+                                                        <p style="display:inline-block">تماس بگیرید</p>
                                                     </div>
                                                 }
                                                 else
                                                 {
-                                                    if (item.price == "0")
-                                                    {
-                                                        <div class="row">
-                                                            <p style="display:inline-block">تماس بگیرید</p>
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-                                                        <div class="row" style="text-align:left;min-height:17px">
+                                                    <div class="row" style="text-align:left;min-height:17px">
 
-                                                            <div class="">
-                                                                <div class="" style="color:red">
-                                                                    @if (item.price != item.oldPrice)
-                                                                    {
-                                                                        <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del> <p style="display: inline-block">تومان</p>
+                                                        <div class="">
+                                                            <div class="" style="color:red">
+                                                                @if (item.price != item.oldPrice)
+                                                                {
+                                                                    <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del> <p style="display: inline-block">تومان</p>
 
-                                                                    }
-                                                                </div>
-
+                                                                }
                                                             </div>
-                                                        </div>
-
-                                                        <div class="row" style="text-align:left; color:green">
-
-                                                            <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
 
                                                         </div>
-                                                        <div>
-                                                        </div>
-                                                    }
+                                                    </div>
+
+                                                    <div class="row" style="text-align:left; color:green">
+
+                                                        <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
+
+                                                    </div>
+                                                    <div>
+                                                    </div>
                                                 }
-
                                             }
 
+                                        }
 
 
 
 
-                                        </div>
+
                                     </div>
                                 </div>
-
-
-
-
                             </div>
 
-                        }
+
+
+
+                        </div>
+
+                    }
 
 
 
 
 
-
-
-                    </div>
 
 
                 </div>
+
+
             </div>
+        </div>
         }
         if (Model.banners != null)
         {
@@ -794,6 +790,14 @@
             </div>
 
         </div>
+
+        <script>
+            $("a").click(function () {
+
+                var link = $(this).attr('href');
+                window.location.href = link;
+            })
+        </script>
     }
     else
 
@@ -1489,8 +1493,9 @@
 
         let newVal = $(this).parent().children(".value").text();
         let finalVal = parseInt(newVal) + 1;
-        $(this).parent().children(".value").text(finalVal);
+        // $(this).parent().children(".value").text(finalVal);
         var ID = $(this).attr('id');
+        $(".value" + ID).text(finalVal);
 
         $.ajax({
             url: '/Home/addtocart',
@@ -1552,6 +1557,7 @@
         if (newVal != "0") {
             let finalVal = parseInt(newVal) - 1;
             $(this).parent().children(".value").text(finalVal);
+            $(".value" + ID).text(finalVal);
         }
 
 

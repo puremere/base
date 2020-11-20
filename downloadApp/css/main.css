@@ -1779,7 +1779,7 @@ html[data-useragent*='MSIE 10.0'] .home-scrolldown,
 
 @media only screen and (max-width: 600px) {
   .home-content-left {
-    padding: 12rem 6rem 366px;
+    padding: 5rem 6rem 366px;
   }
   .home-content-left h1 {
     font-size: 3.3rem;
