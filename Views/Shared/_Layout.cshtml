@@ -646,10 +646,13 @@
             @Styles.Render("~/Content/css")
 
 
-            @Scripts.Render("~/Scripts/js")
-
-
-
+         
+            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+            <script src="~/Scripts/jquery.flexslider2.js"></script>
+            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+            <script src="~/Scripts/imagezoom.js"></script>
+            <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/jquery-ui.js"></script>
             @RenderSection("header", required: false)
 
 
@@ -670,8 +673,8 @@
 
             @RenderSection("scripts", required: false)
             <link href="~/Content/layoutStyle.css" rel="stylesheet" />
-        
-            
+
+
         </head>
         <body>
 
