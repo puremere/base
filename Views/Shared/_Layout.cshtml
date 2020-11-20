@@ -48,8 +48,8 @@
 
 
     @RenderSection("HeadIncludes", required: false)
-    @Styles.Render("~/Content/css")
-
+    @*@Styles.Render("~/Content/css")*@
+    <link href="~/Content/bundle.css" rel="stylesheet" />
 
     @Scripts.Render("~/Scripts/js")
     @RenderSection("header", required: false)
@@ -643,8 +643,8 @@
 
 
 
-            @Styles.Render("~/Content/css")
-
+            @*@Styles.Render("~/Content/css")*@
+            <link href="~/Content/bundle.css" rel="stylesheet" />
 
             @Scripts.Render("~/Scripts/js")
 
@@ -670,8 +670,8 @@
 
             @RenderSection("scripts", required: false)
             <link href="~/Content/layoutStyle.css" rel="stylesheet" />
-        
-            
+
+
         </head>
         <body>
 
