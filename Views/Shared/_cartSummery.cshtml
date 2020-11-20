@@ -1,4 +1,6 @@
-﻿<table>
+﻿@model IEnumerable<banimo.ViewModel.CheckoutViewModel> 
+
+<table>
 
     @{
 
@@ -37,8 +39,11 @@
                         </div>
                     </div>
                     <script>
+                         $(".value" +@item.productid).text(@item.quantity);
                         $(document).ready(function (c) {
-                            $(".value" +@item.productid).text(@item.quantity);
+                           
+                           
+
                             $('.@classclosename').on('click', function (c) {
 
 

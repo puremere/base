@@ -1495,7 +1495,9 @@
         let finalVal = parseInt(newVal) + 1;
         // $(this).parent().children(".value").text(finalVal);
         var ID = $(this).attr('id');
-        $(".value" + ID).text(finalVal);
+        let myid = "value" + ID.replace("addtocarto","");
+      
+        $("."+myid).text(finalVal);
 
         $.ajax({
             url: '/Home/addtocart',
@@ -1552,12 +1554,12 @@
     $('.value-minus').on('click', function () {
         event.stopPropagation();
         var ID = $(this).attr('id');
-
+        let myid = "value" + ID.replace('minus', '');
+       
         let newVal = $(this).parent().children(".value").text();
         if (newVal != "0") {
             let finalVal = parseInt(newVal) - 1;
-            $(this).parent().children(".value").text(finalVal);
-            $(".value" + ID).text(finalVal);
+            $("."+myid).text(finalVal);
         }
 
 
