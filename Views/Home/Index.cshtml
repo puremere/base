@@ -1490,7 +1490,7 @@
 <script>
     $('.value-plus').on('click', function () {
         event.stopPropagation();
-
+        $("#loading").fadeIn()
         let newVal = $(this).parent().children(".value").text();
         let finalVal = parseInt(newVal) + 1;
         // $(this).parent().children(".value").text(finalVal);
@@ -1553,6 +1553,7 @@
     });
     $('.value-minus').on('click', function () {
         event.stopPropagation();
+        $("#loading").fadeIn()
         var ID = $(this).attr('id');
         let myid = "value" + ID.replace('minus', '');
        
