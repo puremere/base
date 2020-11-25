@@ -1,4 +1,4 @@
-﻿
+﻿ReqestForPaymentZarin
 @using banimo.ViewModel;
 @model banimo.ViewModel.TimeList
 @{
@@ -254,7 +254,7 @@
                                 <div style="margin:auto; background-color:red; border-color:red" id="showMap" class="btn btn-success">انتخاب</div>
                             </div>
 
-                          
+
                         </div>
 
 
@@ -322,7 +322,7 @@
                                                         "extendedTimeOut": 1000
                                                     }
                                                     toastr.error(obj.message);
-                                                   
+
                                                     // let price = parseInt($("#finalprice").val())
 
                                                 }
@@ -914,9 +914,9 @@
         x.style.display = "none";
         $("body").css("overflow", "scroll");
         $("#showMap").text("انتخاب شده ")
-        $("#showMap").css("background-color", "#4cae4c") 
-        $("#showMap").css("border-color", "#4cae4c") 
-       
+        $("#showMap").css("background-color", "#4cae4c")
+        $("#showMap").css("border-color", "#4cae4c")
+
     })
     $("#showMap").click(function () {
         var x = document.getElementById("mapHolder");
