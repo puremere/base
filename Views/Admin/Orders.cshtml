@@ -5,26 +5,34 @@
     ViewBag.Title = "مدیریت سفارشات";
 
 }
-<style>
-    .nav-tabs {
-        padding-right: 0px;
-    }
+@section scripts{
 
-        .nav-tabs li {
-            float: right !important;
+    <style>
+        .nav-tabs {
+            padding-right: 0px;
         }
 
-    td {
-        white-space: nowrap;
-        padding: 15px;
-        text-align: center
-    }
-    th {
-        white-space: nowrap;
-        padding:15px;
-        text-align:center
-    }
-</style>
+            .nav-tabs li {
+                float: right !important;
+            }
+
+        td {
+            white-space: nowrap;
+            padding: 15px;
+            text-align: center
+        }
+
+        th {
+            white-space: nowrap;
+            padding: 15px;
+            text-align: center
+        }
+    </style>
+
+    <link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
+}
+
 
 
 <div id="myModal" class="modal fade" role="dialog">
@@ -53,15 +61,15 @@
                     </div>
                     <div class="col-lg-6" style="padding:25px">
                         <p>توضحات ادمین</p>
-                        <textarea id="adminDesc" class="form-control" cols="8"  style="height:150px"></textarea>
+                        <textarea id="adminDesc" class="form-control" cols="8" style="height:150px"></textarea>
                     </div>
                 </div>
-               
+
 
                 <div id="setDeliver" style="display:inline-block" class="btn  btn-default">تایید</div>
                 <div id="rowSelectd"></div>
             </div>
-           
+
         </div>
 
     </div>
@@ -73,7 +81,7 @@
 
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">آخرین سفارشات </a></li>
-       
+
         <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">لیست زمان مجاز ارسال</a></li>
         <li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">افزودن زمان جدید</a></li>
     </ul>
@@ -109,14 +117,14 @@
                             </div>
                             <div class="panel-body">
                                 <div id="morris-area-chart">
-                                    <div style="overflow:auto; max-height:400px; overflow-y:scroll" >
+                                    <div style="overflow:auto; max-height:400px; overflow-y:scroll">
 
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
                                                     <th style="cursor:pointer" class="orderID">ردیف</th>
                                                     <th>شماره سفارش</th>
-                                                    <th style="white-space: nowrap; " >کاربر</th>
+                                                    <th style="white-space: nowrap; ">کاربر</th>
                                                     <th>موبایل کاربر</th>
                                                     <th>مبلغ (تومان)</th>
                                                     <th>تاریخ سفارش</th>
@@ -141,44 +149,44 @@
 
                                                             int i = Model.myOrder.IndexOf(item) + 1;
 
-                                                <tr style=" ">
-                                                    <td>@i</td>
-                                                    <td>@item.orderNumber</td>
-                                                    <td style="white-space: nowrap;">@item.fullname</td>
-                                                    <td>@item.phone</td>
-                                                    <td>@item.price</td>
-                                                    <td>@item.date</td>
-                                                    <td>@item.Rdate</td>
-                                                    <td>@item.DayText</td>
-                                                    <td>@item.TimeFrom  - @item.TimeTo</td>
-                                                    <td style="min-width:140px" >@item.address</td>
-                                                    <td>@item.statusTitle</td>
-                                                    <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
-                                                    <td>
-                                                        @{
-                                                            if (item.statusTitle == "ارسال شده")
-                                                            {
-                                                                <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
+                                                            <tr style=" ">
+                                                                <td>@i</td>
+                                                                <td>@item.orderNumber</td>
+                                                                <td style="white-space: nowrap;">@item.fullname</td>
+                                                                <td>@item.phone</td>
+                                                                <td>@item.price</td>
+                                                                <td>@item.date</td>
+                                                                <td>@item.Rdate</td>
+                                                                <td>@item.DayText</td>
+                                                                <td>@item.TimeFrom  - @item.TimeTo</td>
+                                                                <td style="min-width:140px">@item.address</td>
+                                                                <td>@item.statusTitle</td>
+                                                                <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
+                                                                <td>
+                                                                    @{
+                                                                        if (item.statusTitle == "ارسال شده")
+                                                                        {
+                                                                            <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
 
 
-                                                            }
-                                                            else if (item.statusTitle == "تحویل شده")
-                                                            {
-                                                                
+                                                                        }
+                                                                        else if (item.statusTitle == "تحویل شده")
+                                                                        {
 
-                                                            }
-                                                            else
-                                                            {
-                                                                <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
-                                                            }
 
-                                                        }
-                                                    </td>
-                                                    <td class="deliver" id="@item.ID" style="cursor:pointer">
-                                                        @item.deliver
-                                                    </td>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
+                                                                        }
 
-                                                </tr>
+                                                                    }
+                                                                </td>
+                                                                <td class="deliver" id="@item.ID" style="cursor:pointer">
+                                                                    @item.deliver
+                                                                </td>
+
+                                                            </tr>
                                                         }
                                                     }
                                                 }
@@ -292,6 +300,7 @@
                         var ID = $(this).attr('id');
 
                         $.ajax({
+
                             url: '/Admin/finalizeOrder',
                             dataType: 'html',
                             data: {
@@ -340,7 +349,7 @@
                     $(".finalorder").click(function () {
                         $("#myModal").modal('toggle');
                         idselected = $(this).attr('id');
-                       
+
                     })
                 </script>
                 <div class="detailHolder">
@@ -375,7 +384,7 @@
             </script>
 
         </div>
-      
+
         <div id="menu1" class="tab-pane fade" style="padding-top:20px">
             <script>
                 $.ajax({
@@ -396,7 +405,7 @@
 
             </div>
 
-          
+
 
 
         </div>

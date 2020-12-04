@@ -1,4 +1,4 @@
-﻿ReqestForPaymentZarin
+﻿
 @using banimo.ViewModel;
 @model banimo.ViewModel.TimeList
 @{
@@ -47,10 +47,15 @@
                 if (parseInt(array[0]) < parseInt('@Model.baseDeliver')) {
                     $("#deliveryprice").text('@Model.priceDeliver');
                     $("#totalprice").text(addCommas(parseInt(array[0]) + parseInt('@Model.priceDeliver')));
+
                 }
                 else {
                     $("#deliveryprice").text("0");
                     $("#totalprice").text(addCommas(parseInt(array[0])));
+
+
+
+
                 }
 
 
@@ -61,8 +66,7 @@
         });
     </script>
 
-
-
+  
     userdata user = @Session["LogedInUser"] as userdata;
     string fullname = user.fullname;
     string phone = user.phone;
@@ -767,7 +771,6 @@
 
 <script type="text/javascript">
 
-    var latitude;
     function showLocation(position) {
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
@@ -827,6 +830,8 @@
         theMarker = L.marker([lat, lon], { icon: greenIcon }).addTo(myMap);
         $("#lat").val(lat);
         $("#lon").val(lon);
+
+
 
 
 
@@ -891,6 +896,7 @@
 
             //Add a marker to show where you clicked.
             theMarker = L.marker([lat, lon], { icon: greenIcon }).addTo(myMap);
+
             $("#lat").val(lat);
             $("#lon").val(lon);
         });
@@ -910,12 +916,73 @@
 
 
     $("#closemap").click(function () {
+
         var x = document.getElementById("mapHolder");
         x.style.display = "none";
         $("body").css("overflow", "scroll");
         $("#showMap").text("انتخاب شده ")
         $("#showMap").css("background-color", "#4cae4c")
         $("#showMap").css("border-color", "#4cae4c")
+
+        if ('@Model.poly' !== '') {
+
+            $("#loading").fadeIn();
+
+                    $.ajax({
+            url: "/Home/inInArea",
+            data: 'html',
+            data: {
+                lat: $("#lat").val(),
+                log: $("#lon").val(),
+            },
+            success: function (data) {
+
+                var deliver = parseInt($("#deliveryprice").text().replace(",", ""));
+                let price = parseInt($("#totalprice").text().replace(",", ""));
+                if (data == "1") {
+
+                    let final = price - deliver;
+                    $("#deliveryprice").text("0");
+                    $("#totalprice").text(addCommas(final));
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+                    toastr.success("برای موقعیت شما ارسال رایگان است");
+                    $("#loading").fadeOut();
+                }
+                else {
+
+                    if (deliver == 0 &&  price < parseInt('@Model.baseDeliver')) {
+                        $("#deliveryprice").text('@Model.priceDeliver');
+                        $("#totalprice").text(addCommas(price + parseInt('@Model.priceDeliver')));
+
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-top-center",
+                            "onclick": null,
+                            "fadeIn": 300,
+                            "fadeOut": 1000,
+                            "timeOut": 5000,
+                            "extendedTimeOut": 1000
+                        }
+                        toastr.error("برای موقعیت شما ارسال رایگان نمی باشد");
+                    }
+                    $("#loading").fadeOut();
+                }
+
+
+            }
+        })
+
+        }
+
 
     })
     $("#showMap").click(function () {
