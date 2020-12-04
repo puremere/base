@@ -325,7 +325,7 @@
         })
     })
     $("#addItemToOrderButton").click(function () {
-
+        $("#addItemToOrderModal").modal('toggle');
         $.ajax({
             url: '/Admin/addNewTtemToOrder',
             dataType: 'html',
@@ -337,11 +337,37 @@
             },
             success: function (data) {
 
-                var products = {
-                    data: data.split("-"),
-                };
-                $("#addItemToOrderInput").easyAutocomplete(products);
-                //$("#addItemToOrderInput").parent.css("width", "100%")
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت ثبت شد');
+
+                    $.ajax({
+                        url: '/Admin/goGetOrderDetail',
+                        dataType: 'html',
+                        data: {
+                            id: '@Model.myProducts.First().orderID',
+                        },
+
+                        success: function (data) {
+
+                            $(".detailHolder").html(data);
+
+                        }
+
+
+
+                    });
+                }
             }
 
         })
