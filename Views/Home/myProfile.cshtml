@@ -286,10 +286,10 @@
                                 <div class="o-grid">
                                     <div class="row">
                                         <div class="col-12">
-                                            <div class="back" style="display:none; text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+                                            <div class="back header-bot" style="display:none; text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
-                                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
-                                                <span style=" margin-right: 15px;font-size:15px">بازگشت</span>
+                                                <i class="toolbarText fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                                <span class="toolbarText" style=" margin-right: 15px;font-size:15px">بازگشت</span>
                                             </div>
                                             <div class="dataSection">
                                                 <div class="o-headline o-headline--profile"><span>اطلاعات شخصی</span> </div><div class="c-profile-stats">
@@ -460,61 +460,84 @@
                                                                 تایید
                                                             </div>
                                                             <script>
-                            $("#confirm").click(function () {
-                                var email = $("#EditEmail").val();
-                                var address = $("#EditAddress").val();
-                                var fullname = $("#Editfullname").val();
-                                var city = $("#EditCity").val();
-                                var province = $("#EditProvice").val();
-                                var mobile = "@Model.userdata.phone"
-                                if (email === "" && address === "" && fullname === "") {
-
-                                    toastr.options = {
-                                        "debug": false,
-                                        "positionClass": "toast-top-center",
-                                        "onclick": null,
-                                        "fadeIn": 300,
-                                        "fadeOut": 1000,
-                                        "timeOut": 8000,
-                                        "extendedTimeOut": 1000,
+                                                                function isValidEmailAddress(emailAddress) {
+                                                                    var pattern = /^([a-zA-Z0-9_.+-])+\@@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                                                                    return pattern.test(emailAddress);
+                                                                };
+                                                                $("#confirm").click(function () {
+                                                                    var email = $("#EditEmail").val();
+                                                                    var address = $("#EditAddress").val();
+                                                                    var fullname = $("#Editfullname").val();
+                                                                    var city = $("#EditCity").val();
+                                                                    var province = $("#EditProvice").val();
+                                                                    var mobile = "@Model.userdata.phone";
 
 
-                                    }
-                                    toastr.error("لطفا تمامی موارد را کامل کنید")
-                                }
-                                else {
+                                                                    if (email === "" && address === "" && fullname === "") {
 
-                                    $.ajax({
-                                        url: '/Home/updataProfile',
-                                        dataType: 'html',
-                                        data: {
-                                            email: email,
-                                            address: address,
-                                            fullname: fullname,
-                                            phone: mobile,
-                                            province: province,
-                                            city : city
-                                        },
-                                        success: function (data) {
-                                            window.location.href = "/Home/myProfile?type=1";
+                                                                        toastr.options = {
+                                                                            "debug": false,
+                                                                            "positionClass": "toast-top-center",
+                                                                            "onclick": null,
+                                                                            "fadeIn": 300,
+                                                                            "fadeOut": 1000,
+                                                                            "timeOut": 8000,
+                                                                            "extendedTimeOut": 1000,
 
 
-                                        },
-                                        error: function () {
+                                                                        }
+                                                                        toastr.error("لطفا تمامی موارد را کامل کنید")
+                                                                    }
 
-                                        }
-                                    });
-                                    //$(".edit").each(function () {
-                                    //    $(this).css("display", "none")
-                                    //    $(".c-profile-stats__row").css("min-height", "90px")
-                                    //})
-                                    //$(".profile").each(function () {
-                                    //    $(this).css("display", "block")
-                                    //})
-                                }
+                                                                    else {
+                                                                        if (isValidEmailAddress(email)) {
+                                                                            $.ajax({
+                                                                                url: '/Home/updataProfile',
+                                                                                dataType: 'html',
+                                                                                data: {
+                                                                                    email: email,
+                                                                                    address: address,
+                                                                                    fullname: fullname,
+                                                                                    phone: mobile,
+                                                                                    province: province,
+                                                                                    city: city
+                                                                                },
+                                                                                success: function (data) {
+                                                                                    window.location.href = "/Home/myProfile?type=1";
 
 
-                            })
+                                                                                },
+                                                                                error: function () {
+
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                        else {
+                                                                            toastr.options = {
+                                                                                "debug": false,
+                                                                                "positionClass": "toast-top-center",
+                                                                                "onclick": null,
+                                                                                "fadeIn": 300,
+                                                                                "fadeOut": 1000,
+                                                                                "timeOut": 5000,
+                                                                                "extendedTimeOut": 1000,
+
+
+                                                                            }
+                                                                            toastr.error("ایمیل صحیح وارد نمایید")
+                                                                        }
+                                                                           
+                                                                        //$(".edit").each(function () {
+                                                                        //    $(this).css("display", "none")
+                                                                        //    $(".c-profile-stats__row").css("min-height", "90px")
+                                                                        //})
+                                                                        //$(".profile").each(function () {
+                                                                        //    $(this).css("display", "block")
+                                                                        //})
+                                                                    }
+
+
+                                                                });
                                                             </script>
                                                         </div>
                                                         <div class="c-profile-stats__action_edit2 edit" style="display:none">
@@ -547,10 +570,10 @@
                             </section>
                         </div>
                         <div class="row sectionItem" id="wishlistSection" style="display:none; margin:0">
-                            <div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+                            <div class="back header-bot" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
-                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
-                                <span style=" margin-right: 15px;font-size:15px">علاقه مندی ها</span>
+                                <i class="toolbarText fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span class="toolbarText" style=" margin-right: 15px;font-size:15px">علاقه مندی ها</span>
                             </div>
                             <div class="o-headline o-headline--profile"><span>علاقه مندی ها</span> </div>
 
@@ -637,10 +660,10 @@
 
                         </div>
                         <div class="row sectionItem" id="transactionSection" style="display:none; margin:0">
-                            <div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+                            <div class="back header-bot" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
-                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
-                                <span style=" margin-right: 15px;font-size:15px">  کیف پول</span>
+                                <i class="toolbarText fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span class="toolbarText" style=" margin-right: 15px;font-size:15px">  کیف پول</span>
                             </div>
                             <div class="o-headline o-headline--profile"><span>کیف پول</span>   </div>
 
@@ -959,11 +982,11 @@
 
                         </div>
 
-                        <div class="row sectionItem" id="orderlistSection" style="display:none; margin:0; padding:10px">
-                            <div class="back" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+                        <div class="row sectionItem" id="orderlistSection" style="display:none; margin:0; padding:0px">
+                            <div class="back header-bot" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
-                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
-                                <span style=" margin-right: 15px;font-size:15px">  سفارشات</span>
+                                <i class="toolbarText fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span class="toolbarText" style=" margin-right: 15px;font-size:15px">  سفارشات</span>
                             </div>
                             <div class="o-headline o-headline--profile"><span>سفارشات</span>   </div>
 
@@ -1155,10 +1178,10 @@
                     </div>
                     <div id="orderDetailHoLDER" style="display:none; ">
                         <div id="detailparent">
-                            <div class="back2" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+                            <div class="back2 header-bot" style="display:none;text-align:right; direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
 
-                                <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
-                                <span style=" margin-right: 15px;font-size:15px">  لیست جزئیات سفارش</span>
+                                <i class="toolbarText fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                                <span class="toolbarText" style=" margin-right: 15px;font-size:15px">  لیست جزئیات سفارش</span>
                             </div>
                             <div class="o-headline o-headline--profile"><span>لیست جزئیات</span>   </div>
 

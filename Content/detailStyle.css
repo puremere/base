@@ -517,10 +517,12 @@
     box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
 }
 .showmedetail {
-    max-width: 25% !important;
+   
     padding: 5px;
 }
 @media only screen and (max-width: 960px) {
+
+   
     .featureAppsection h2 {
         font-size: 17px;
         line-height: 2;

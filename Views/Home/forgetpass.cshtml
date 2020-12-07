@@ -94,7 +94,7 @@
                                 </div>
                                 <div id="fogetconfirm" class="mybtn addtocart" style="">
                                     <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
-                                         <i style="font-size:25px;color:white;margin-right:20px" class="fas fa-lock"></i>
+                                        <i style="font-size:25px;color:white;margin-right:20px" class="fas fa-lock"></i>
 
                                     </div>
                                     <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">تغییر رمز عبور</p>
@@ -127,7 +127,7 @@
                                                     url: '/CustomerLogin/forgetPass',
                                                     dataType: 'html',
                                                     data: {
-                                                       
+
                                                         phone: val
                                                     },
                                                     success: function (srt) {
@@ -140,7 +140,7 @@
                                                             $("#forgettext").css("border", "1px solid #ef5662");
                                                             $("#mainlabla2").addClass("error");
                                                         }
-                                                        
+
 
                                                         if (srt === "200") {
 
@@ -171,23 +171,31 @@
 
                                     @*<p > افزودن به سبد خرید</p>*@
                                 </div>
-                               
+
                             </form>
                         </div>
                     </div>
                 </section>
-                <footer class="c-footer-light">
-                    <div class="container">
-                        <ul class="c-footer-light__links">
-                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
-                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
-                            <li><a href="/Home/contactus" title="تماس با ما">تماس با ما</a></li>
-                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
-                        </ul>
-                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
-                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
-                    </div>
-                </footer>
+                @{
+                    int w = Request.Browser.ScreenPixelsWidth;
+                    int h = Request.Browser.ScreenPixelsHeight;
+                    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                    {
+                    }
+                    else
+                    { <footer class="c-footer-light">
+                            <div class="container">
+                                <ul class="c-footer-light__links">
+                                    <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                                    @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                                    <li><a href="/Home/contactUs" title="تماس با ما">تماس با ما</a></li>
+                                    @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                                </ul>
+                                <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
+                                <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                            </div>
+                        </footer>}
+                }
             </div>
         </main>
     </div>

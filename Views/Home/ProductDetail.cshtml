@@ -168,7 +168,7 @@
 
                             // Can also be used with $(document).ready()
                             $(window).load(function () {
-                                if ($(window).width() <960) {
+                                if ($(window).width() < 960) {
                                     $('.flexslider').flexslider({
                                         animation: "slide",
                                         controlNav: false,
@@ -401,7 +401,7 @@
     @{
         int w = Request.Browser.ScreenPixelsWidth;
         int h = Request.Browser.ScreenPixelsHeight;
-        if (!Request.Browser.IsMobileDevice || !(w <720 && h > 720))
+        if (!Request.Browser.IsMobileDevice || !(w < 720 && h > 720))
         {
             <div id="dataholder" class="col-md-8 col-lg-8 col-sm-12 single-right-left simpleCart_shelfItem animated wow slideInRight animated" style="border-right:1px solid #dedede; padding-bottom: 10px; direction: rtl; float: left; background-color: #fdfdfd; visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;" data-wow-delay=".5s">
 
@@ -411,32 +411,32 @@
 
                         <div>
                             <h5 style="margin-right:15px;font-size: 16px;margin-bottom: 20px;">ویژگی های محصول</h5>
-                           
-                                @if (Model.filter.Count() > 0)
+
+                            @if (Model.filter.Count() > 0)
+                            {
+                                foreach (var item in Model.filter.Select(x => x.filtername).Distinct())
                                 {
-                                    foreach (var item in Model.filter.Select(x => x.filtername).Distinct())
-                                    {
-                                        <div style="margin-top:15px; width:100%">
-                                            <h6 style="display: inline-block; margin-right:15px;line-height:2.5">
+                                    <div style="margin-top:15px; width:100%">
+                                        <h6 style="display: inline-block; margin-right:15px;line-height:2.5">
 
-                                                <i class="fa fa-circle" style="font-size:8px"> </i>
-                                                <span style="font-weight:600">@item:</span>
+                                            <i class="fa fa-circle" style="font-size:8px"> </i>
+                                            <span style="font-weight:600">@item:</span>
 
 
-                                                @foreach (var newitem in Model.filter)
+                                            @foreach (var newitem in Model.filter)
+                                            {
+                                                if (newitem.filtername == item)
                                                 {
-                                                    if (newitem.filtername == item)
-                                                    {
 
-                                                        <span style="">@newitem.detailname</span>
-                                                    }
+                                                    <span style="">@newitem.detailname</span>
                                                 }
-                                            </h6>
-                                        </div>
-                                    }
-
+                                            }
+                                        </h6>
+                                    </div>
                                 }
-                            
+
+                            }
+
                         </div>
 
 
@@ -503,101 +503,101 @@
                     @{
                         if (Model.color != "" && Model.color != null)
                         {
-                                <div style="width:100%; border-bottom: solid 1px #eee; padding:20px 0px; margin:20px 0px">
-                                    <div style=" height:60px">
-                                        <div style="display: inline-block;  position: relative;">
-                                            <h5 style="font-weight: 600;">رنگ محصول:</h5>
-                                        </div>
-                                        <div style="cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
-                                            <span class="dot" style="background-color: @Model.color; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
-                                            <h5 style=" display: inline-block; text-align: center; position: relative; ">@Model.colorTitle</h5>
-
-                                        </div>
+                            <div style="width:100%; border-bottom: solid 1px #eee; padding:20px 0px; margin:20px 0px">
+                                <div style=" height:60px">
+                                    <div style="display: inline-block;  position: relative;">
+                                        <h5 style="font-weight: 600;">رنگ محصول:</h5>
                                     </div>
-                                    @{
-                                        if (Model.otherColors != null)
-                                        {
-                                            <div style="margin-top:25px">
-                                                <h5 style="display:inline-block;font-weight: 600;">رنگبندی:</h5>
-                                                <div style="display:inline-block ">
-                                                    @{
+                                    <div style="cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
+                                        <span class="dot" style="background-color: @Model.color; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
+                                        <h5 style=" display: inline-block; text-align: center; position: relative; ">@Model.colorTitle</h5>
 
-                                                        if (Model.otherColors != null)
+                                    </div>
+                                </div>
+                                @{
+                                    if (Model.otherColors != null)
+                                    {
+                                        <div style="margin-top:25px">
+                                            <h5 style="display:inline-block;font-weight: 600;">رنگبندی:</h5>
+                                            <div style="display:inline-block ">
+                                                @{
+
+                                                    if (Model.otherColors != null)
+                                                    {
+                                                        int i = 1;
+                                                        int count = Convert.ToInt32(Model.otherColors.Count);
+                                                        foreach (var it in Model.otherColors)
                                                         {
-                                                            int i = 1;
-                                                            int count = Convert.ToInt32(Model.otherColors.Count);
-                                                            foreach (var it in Model.otherColors)
+
+                                                            if (i < 5)
                                                             {
+                                                                var ID = "o" + @it.ID;
 
-                                                                if (i <5)
-                                                                {
-                                                                    var ID = "o" + @it.ID;
+                                                                <div id=@ID class="otherColor" style="border:1px solid #eee; cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
+                                                                    <span class="dot" style="background-color: @it.colorCode; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
+                                                                    <h5 style=" display: inline-block; text-align: center; position: relative; ">@it.colorTitle</h5>
 
-                                                                    <div id=@ID class="otherColor" style="border:1px solid #eee; cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
-                                                                        <span class="dot" style="background-color: @it.colorCode; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
-                                                                        <h5 style=" display: inline-block; text-align: center; position: relative; ">@it.colorTitle</h5>
+                                                                </div>
 
-                                                                    </div>
+                                                                i += 1;
+                                                            }
+                                                            else
+                                                            {
+                                                                var ID = "o" + @it.ID;
+                                                                <div id=@ID class="hid otherColor" style="border:1px solid #eee; cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
+                                                                    <span class="dot" style="background-color: @it.colorCode; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
+                                                                    <h5 style=" display: inline-block; text-align: center; position: relative; ">@it.colorTitle</h5>
 
-                                                                    i += 1;
-                                                                }
-                                                                else
-                                                                {
-                                                                    var ID = "o" + @it.ID;
-                                                                    <div id=@ID class="hid otherColor" style="border:1px solid #eee; cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
-                                                                        <span class="dot" style="background-color: @it.colorCode; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
-                                                                        <h5 style=" display: inline-block; text-align: center; position: relative; ">@it.colorTitle</h5>
-
-                                                                    </div>
-
-                                                                }
-
+                                                                </div>
 
                                                             }
-                                                            if (count > 4)
-                                                            {
-                                                                <a style="cursor:pointer; display: inline-block; margin-right:10px;color:blue; " id="hiddengo">بیشتر</a>
-                                                                <a class="hid" style="cursor:pointer; display: none; margin-right:10px;color:blue; " id="hiddencome">کمتر</a>
 
-                                                                <script>
 
-                                                                    $("#hiddengo").click(function () {
-                                                                        $(".hid").css("display", "inline-block");
-                                                                        $("#hiddengo").css("display", "none");
-                                                                        $("#hiddencome").css("display", "inline-block");
-                                                                    })
-                                                                    $("#hiddencome").click(function () {
-                                                                        $(".hid").css("display", "none");
-                                                                        $("#hiddencome").css("display", "none");
-                                                                        $("#hiddengo").css("display", "inline-block");
-                                                                    })
-                                                                </script>
-                                                            }
+                                                        }
+                                                        if (count > 4)
+                                                        {
+                                                            <a style="cursor:pointer; display: inline-block; margin-right:10px;color:blue; " id="hiddengo">بیشتر</a>
+                                                            <a class="hid" style="cursor:pointer; display: none; margin-right:10px;color:blue; " id="hiddencome">کمتر</a>
 
                                                             <script>
-                                                                $('.otherColor').click(function () {
-                                                                    var ID = this.id;
-                                                                    var url = "/Home/ProductDetail?id=" + ID;
-                                                                    window.location.href = url;
+
+                                                                $("#hiddengo").click(function () {
+                                                                    $(".hid").css("display", "inline-block");
+                                                                    $("#hiddengo").css("display", "none");
+                                                                    $("#hiddencome").css("display", "inline-block");
+                                                                })
+                                                                $("#hiddencome").click(function () {
+                                                                    $(".hid").css("display", "none");
+                                                                    $("#hiddencome").css("display", "none");
+                                                                    $("#hiddengo").css("display", "inline-block");
                                                                 })
                                                             </script>
                                                         }
 
+                                                        <script>
+                                                            $('.otherColor').click(function () {
+                                                                var ID = this.id;
+                                                                var url = "/Home/ProductDetail?id=" + ID;
+                                                                window.location.href = url;
+                                                            })
+                                                        </script>
                                                     }
 
+                                                }
 
 
 
-                                                </div>
+
                                             </div>
-                                        }
+                                        </div>
                                     }
+                                }
 
 
-                                </div>
-                         }
+                            </div>
+                        }
 
-                               
+
 
                     }
                     @{
@@ -618,7 +618,7 @@
                                 }
 
                             </div>
-                                    }
+                        }
                     }
 
 
@@ -711,7 +711,7 @@
 
             </div>
         }
-                             
+
 
     }
 
@@ -729,8 +729,8 @@
 </div>
 
 @{
-    
-    if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
+
+    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
     {
         <div id="appp" style="margin-bottom:45px">
             <script>
@@ -1145,13 +1145,13 @@
 
 
                         @*<p id="detailid" style="display:none">@Model.ID</p>
-                <p style="display:none">
-                    @{
+                            <p style="display:none">
+                                @{
 
-                        string ig = "/images/panelimages/" + @Model.slides.First().image;
-                        <i id="detailimage">@ig</i>
-                    }
-                </p>*@
+                                    string ig = "/images/panelimages/" + @Model.slides.First().image;
+                                    <i id="detailimage">@ig</i>
+                                }
+                            </p>*@
 
 
 
@@ -1187,7 +1187,7 @@
                                 <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد مشابه</span>
                                 <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
                             </div>
-                            <div id="bestholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
+                            <div id="bestholder" class="resCarousel" data-items="3-2-2-2" data-slide="3" data-speed="500">
 
 
                                 <div class="resCarousel-inner" style="direction:rtl">
@@ -1583,10 +1583,10 @@
                                 نظر کاربران در مورد:   <span style="margin-right:25px;display:inline-block; font-size:19px ; font-weight:500">  @Model.title </span>
                                 <span>
                                     @*<span> |</span>
-                                <span>۳</span><span> / ۵</span>
-                                <span>
-                                    (۱۸ نفر)
-                                </span>*@
+                                        <span>۳</span><span> / ۵</span>
+                                        <span>
+                                            (۱۸ نفر)
+                                        </span>*@
                                 </span>
                             </h2>
 
@@ -2075,7 +2075,7 @@
 <script>
     $(document).ready(function () {
 
-        if ($(window).width() <960) {
+        if ($(window).width() < 960) {
 
 
             $(".slidone div").height($(window).height() / 3);
@@ -2098,4 +2098,137 @@
         }
     })
 </script>
+<script>
+    $('.value-plus').on('click', function () {
+        event.stopPropagation();
+        $("#loading").fadeIn()
+        let newVal = $(this).parent().children(".value").text();
+        let finalVal = parseInt(newVal) + 1;
+        // $(this).parent().children(".value").text(finalVal);
+        var ID = $(this).attr('id');
+        let myid = "value" + ID.replace("addtocarto", "");
 
+        $("." + myid).text(finalVal);
+
+        $.ajax({
+            url: '/Home/addtocart',
+            dataType: 'html',
+            data: {
+                id: ID
+
+            },
+            success: function (data) {
+                $.ajax({
+                    url: '/Home/gogetfinalprice',
+
+
+                    success: function (data) {
+                        var array = data.split(',');
+
+
+                        if (array[3] === "0") {
+                            $(".discountSection").css("display", "none");
+                        }
+                        $("#basepriceholder").text(addCommas(array[1]))
+                        $("#spanfortotal").text(addCommas(array[0]))
+                        $("#spanfortotal2").text(addCommas(array[0]))
+                        $(".simpleCart_quantityy").text(array[2])
+                        $(".discountfinal").text(addCommas(array[3]))
+                        $(".discountpercent").text(array[4])
+                        $.ajax({
+                            url: '/Home/checkoutsummery/',
+                            dataType: 'html',
+                            success: function (data) {
+
+                                $('#summerydetailholder').html(data);
+                                $("#loading").fadeOut()
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    },
+                    error: function () {
+
+                    }
+                });
+
+
+            },
+            error: function () {
+                alert("error")
+            }
+
+
+        });
+    });
+    $('.value-minus').on('click', function () {
+        event.stopPropagation();
+        $("#loading").fadeIn()
+        var ID = $(this).attr('id');
+        let myid = "value" + ID.replace('minus', '');
+
+        let newVal = $(this).parent().children(".value").text();
+        if (newVal != "0") {
+            let finalVal = parseInt(newVal) - 1;
+            $("." + myid).text(finalVal);
+        }
+
+
+        $.ajax({
+            url: '/Home/minusfromcart',
+            dataType: 'html',
+            data: {
+                id: ID
+            },
+            success: function (data) {
+
+                $.ajax({
+                    url: '/Home/gogetfinalprice',
+                    success: function (data) {
+                        var array = data.split(',');
+                        if (array[3] === "0") {
+                            $(".discountSection").css("display", "none");
+                        }
+                        $("#basepriceholder").text(addCommas(array[1]))
+                        $("#spanfortotal").text(addCommas(array[0]))
+                        $("#spanfortotal2").text(addCommas(array[0]))
+                        $(".simpleCart_quantityy").text(array[2])
+                        $(".discountfinal").text(addCommas(array[3]))
+                        $(".discountpercent").text(array[4])
+                        $.ajax({
+                            url: '/Home/checkoutsummery/',
+                            dataType: 'html',
+                            success: function (data) {
+
+                                $('#summerydetailholder').html(data);
+                                $("#loading").fadeOut()
+                            },
+                            error: function () {
+
+                            }
+                        });
+                    },
+                    error: function () {
+
+                    }
+                });
+
+            },
+            error: function () {
+                alert("error")
+            }
+
+
+        });
+
+
+
+
+
+    });
+
+
+
+
+</script>

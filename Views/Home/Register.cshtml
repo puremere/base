@@ -136,7 +136,7 @@
 
                                     </div>
                                 </div>
-                              
+
 
                                 <div class="c-form-account__title">کلمه عبور</div>
                                 <div class="c-form-account__row js-valid-row">
@@ -269,18 +269,26 @@
                         </div>
                     </div>
                 </section>
-                <footer class="c-footer-light">
-                    <div class="container">
-                        <ul class="c-footer-light__links">
-                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
-                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
-                            <li><a href="/Home/contactus" title="تماس با ما">تماس با ما</a></li>
-                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
-                        </ul>
-                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
-                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
-                    </div>
-                </footer>
+                @{
+                    int w = Request.Browser.ScreenPixelsWidth;
+                    int h = Request.Browser.ScreenPixelsHeight;
+                    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                    {
+                    }
+                    else
+                    { <footer class="c-footer-light">
+                            <div class="container">
+                                <ul class="c-footer-light__links">
+                                    <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                                    @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                                    <li><a href="/Home/contactUs" title="تماس با ما">تماس با ما</a></li>
+                                    @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                                </ul>
+                                <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
+                                <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                            </div>
+                        </footer>}
+                }
             </div>
         </main>
     </div>

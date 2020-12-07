@@ -174,7 +174,7 @@ new { @class = "c-form-account", enctype = "multipart/form-data", id = "register
                                 <div class="c-form-account__row js-valid-row">
                                     <div class="c-form-account__col">
                                         <label id="mainlabla" class="c-ui-input c-ui-input--account-login">
-                                            <input id="registertext" class="c-ui-input__field c-ui-input__field--right-placeholder" type="text" name="registertext" placeholder="شماره موبایل خود را وارد نمایید" value="">
+                                            <input id="registertext" class="c-ui-input__field c-ui-input__field--right-placeholder" type="text" name="registertext" placeholder="شماره موبایل خود را وارد نمایید" value="@ViewBag.username">
 
                                             <div id="registererror" class="hase-error c-ui-feedback-hint">  شماره موبایل را وارد نمایید</div>
 
@@ -189,7 +189,7 @@ new { @class = "c-form-account", enctype = "multipart/form-data", id = "register
                                 <div class="c-form-account__row js-valid-row">
                                     <div class="c-form-account__col">
                                         <label id="mainlabla2" class="c-ui-input c-ui-input--account-password">
-                                            <input id="registerpassword" class="c-ui-input__field c-ui-input__field--right-placeholder" type="password" name="registerpassword" placeholder="کلمه عبور خود را وارد نمایید">
+                                            <input id="registerpassword" class="c-ui-input__field c-ui-input__field--right-placeholder" type="password" name="registerpassword" placeholder="کلمه عبور خود را وارد نمایید" value="@ViewBag.password">
                                             <div id="registerpassword-error" class="error c-ui-feedback-hint">رمز عبور را وارد نمایید</div>
                                         </label>
                                     </div>
@@ -210,7 +210,7 @@ new { @class = "c-form-account", enctype = "multipart/form-data", id = "register
                                                         @Html.Label("کد را وارد نمایید", new { @class = "col-md-4 control-label",
                                                          @for = "CaptchaCode" , style = "float:right; margin-top:15px"})
 
-                                                        <div class="col-md-6"  style = "float:right">
+                                                        <div class="col-md-6" style="float:right">
                                                             @Html.TextBox("CaptchaCode", null, new { @class = "form-control captchaVal" })
                                                         </div>
                                                     </div>
@@ -260,18 +260,27 @@ new { @class = "c-form-account", enctype = "multipart/form-data", id = "register
                         </div>
                     </div>
                 </section>
-                <footer class="c-footer-light">
-                    <div class="container">
-                        <ul class="c-footer-light__links">
-                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
-                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
-                            <li><a href="/Home/contactus" title="تماس با ما">تماس با ما</a></li>
-                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
-                        </ul>
-                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
-                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
-                    </div>
-                </footer>
+
+                @{
+                    int w = Request.Browser.ScreenPixelsWidth;
+                    int h = Request.Browser.ScreenPixelsHeight;
+                    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                    {
+                    }
+                    else
+                    { <footer class="c-footer-light">
+                            <div class="container">
+                                <ul class="c-footer-light__links">
+                                    <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                                    @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                                    <li><a href="/Home/contactUs" title="تماس با ما">تماس با ما</a></li>
+                                    @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                                </ul>
+                                <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
+                                <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                            </div>
+                        </footer>}
+                }
             </div>
             <script>
         $("#verifyyy").click(function () {

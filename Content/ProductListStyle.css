@@ -836,7 +836,7 @@ accordion-blocks .card {
 }
 @media (max-width: 768px) {
     .priceSection {
-        min-height: 20px;
+        min-height: 59px;
     }
     .selector .ui-slider-handle {
         top: -7px;

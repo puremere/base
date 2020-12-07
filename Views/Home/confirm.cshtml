@@ -81,7 +81,7 @@
                                         <span>دریافت مجدد کد تایید</span>
                                         (<span id="demo" class="js-phone-code-counter" data-countdownseconds="180">۰۰:۰۰</span>)
                                     </div>
-                                    <a style="visibility:hidden;margin-bottom:20px" id="resendButt"  class="btn-link-spoiler js-send-confirm-code" >دریافت مجدد کد تایید</a>
+                                    <a style="visibility:hidden;margin-bottom:20px" id="resendButt" class="btn-link-spoiler js-send-confirm-code">دریافت مجدد کد تایید</a>
                                     <script>
                                           $("#resendButt").click(function () {
                                               $("#resendButt").css("visibility", "hidden");
@@ -162,9 +162,9 @@
                                               });
                                           })
                                     </script>
-                                 </div>
+                                </div>
                                 <p id="demo"></p>
-                         
+
                                 <div id="verify" class="mybtn addtocart" style="">
                                     <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
                                         <i class="glyphicon glyphicon-plus" style="display: inline-block; color: white; "></i> <i style="font-size:25px;color:white" class="fas fa-user"></i>
@@ -298,18 +298,27 @@
                         </div>
                     </div>
                 </section>
-                <footer class="c-footer-light">
-                    <div class="container">
-                        <ul class="c-footer-light__links">
-                            <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
-                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
-                            <li><a href="/Home/contactUs" title="تماس با ما">تماس با ما</a></li>
-                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
-                        </ul>
-                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
-                        <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
-                    </div>
-                </footer>
+                @{
+                    int w = Request.Browser.ScreenPixelsWidth;
+                    int h = Request.Browser.ScreenPixelsHeight;
+                    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                    {
+                    }
+                    else
+                    { <footer class="c-footer-light">
+                            <div class="container">
+                                <ul class="c-footer-light__links">
+                                    <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                                    @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                                    <li><a href="/Home/contactUs" title="تماس با ما">تماس با ما</a></li>
+                                    @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                                </ul>
+                                <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
+                                <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                            </div>
+                        </footer>}
+                }
+
             </div>
         </main>
     </div>

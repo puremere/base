@@ -52,7 +52,7 @@
 </div>
 <script>
     var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-    if (iOS && '@Model.iosCookie' == "0") {
+    if ( iOS && '@Model.iosCookie' == "0") {
         $('#iosModal').modal('show');
         $('#AppFooter').hide();
     }
