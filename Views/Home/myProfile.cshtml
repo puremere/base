@@ -672,21 +672,53 @@
                             <div class="emptyholder" style="padding:10px;">
                                 <div style="    text-align: center;  direction: rtl; font-size: 20px;  margin-bottom: 25px;  background: white;  border: 1px solid #ddd; padding-bottom: 40px;  box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
                                    <p style="padding:25px">واریز به کیف پول</p>
-                                    <div class="row" style="margin:0; display:flex; align-items:center">
+                                    <div class="row " >
+                                        <style>
+                                            .liclass{
+                                                display:inline-block;
+                                                padding:10px 25px;
+                                            }
+                                        </style>
+                                        <ul>
+                                            <li class="liclass"><input id="20" type="checkbox"> 20 هزار تومان</li>
+                                            <li class="liclass"><input id="50" type="checkbox"> 50 هزار تومان</li>
+                                            <li class="liclass"><input id="100" type="checkbox"> 100 هزار تومان</li>
+                                            <li class="liclass"><input id="0" type="checkbox"> مبلغ دلخواه (کمتر از 100 هزار تومان)</li>
+                                        </ul>
+                                    </div>
+                                    <div id="delkhah"  style="display:none; margin:0;align-items:center">
                                         
-                                        <div class="col-lg-3 col-md-12 col-sm-12" style="float:right; display:inline-block; padding:20px">
-                                            <p>مبلغ (تومان)</p>
-                                        </div>
-                                        <div class="col-lg-4 col-md-12 col-sm-12" style="float:right; display:inline-block; padding:20px">
+                                        
+                                        <div class="col-lg-4 col-md-12 col-sm-12" style="margin:auto; display:inline-block; padding:20px">
                                             <input id="insertAmount" class="form-control" />
                                         </div>
-                                        <div class="col-lg-3 col-md-12 col-sm-12" style=" float:right;display:inline-block; ">
+                                       
+                                    </div>
+                                    <div  class="row" style="margin:0; display:flex; align-items:center; margin-top:15px">
+                                        <div class="col-lg-3 col-md-12 col-sm-12" style=" margin:auto;display:inline-block; ">
                                             <div class="btn btn-default" id="insertToWallet" style="padding:10px;width:100%">تایید</div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <script>
+                                $(".liclass input").click(function () {
+                                  
+                                    var amount = parseInt($(this).attr('id'));
+                                    if (amount == "0") {
+                                        $("#delkhah").css("display", "flex");
+                                        $("#insertAmount").val("");
+                                    }
+                                    else {
+                                        $("#delkhah").css("display", "none");
+                                        $("#insertAmount").val(amount);
+                                    }
+                                    $(".liclass input").prop('checked', false);
+                                    $(this).prop('checked', true);
+                                   
+                                    
+                                    
+                                })
                                 $("#insertToWallet").click(function () {
                                     var price = $("#insertAmount").val();
                                     if (price != "") {

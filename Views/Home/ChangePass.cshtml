@@ -124,7 +124,7 @@
                                             var val = $("#changetxtPassword").val();
                                             var val2 = $("#changetxtPassword2").val();
 
-                                            
+
                                             if (val.length === 0) {
 
                                                 $("#txtPassword-error").css("display", "block");
@@ -142,8 +142,8 @@
                                                 $("#changepassmain2").addClass("error");
 
                                             }
-                                           
-                                            if (val.length > 7 && val2.length > 7 && val === val2 ) {
+
+                                            if (val.length > 7 && val2.length > 7 && val === val2) {
                                                 $.ajax({
                                                     url: '/CustomerLogin/ChangePassForLogedInUser',
                                                     dataType: 'html',
@@ -168,7 +168,7 @@
                                                             toastr.error('رمز عبور باید بیش از 7 کارکتر باشد ')
                                                         }
 
-                                                       else if (srt === "500") {
+                                                        else if (srt === "500") {
                                                             toastr.options = {
                                                                 "debug": false,
                                                                 "positionClass": "toast-top-center",
@@ -183,7 +183,7 @@
                                                             toastr.error('رمز عبور شما با موفقیت تغییر یافت ')
                                                         }
                                                         else if (srt === "200") {
-                                                           
+
                                                             var url = '@Url.Action("Index", "Home")';
                                                             window.location.href = url;
 
@@ -205,6 +205,38 @@
                                                 });
                                             }
 
+                                            else {
+                                                if (val === val2) {
+                                                    toastr.options = {
+                                                        "debug": false,
+                                                        "positionClass": "toast-top-center",
+                                                        "onclick": null,
+                                                        "fadeIn": 300,
+                                                        "fadeOut": 1000,
+                                                        "timeOut": 8000,
+                                                        "extendedTimeOut": 1000,
+
+
+                                                    }
+                                                    toastr.error('رمز عبور باید بیش از 7 حرف باشد ')
+                                                }
+                                                else {
+                                                    toastr.options = {
+                                                        "debug": false,
+                                                        "positionClass": "toast-top-center",
+                                                        "onclick": null,
+                                                        "fadeIn": 300,
+                                                        "fadeOut": 1000,
+                                                        "timeOut": 8000,
+                                                        "extendedTimeOut": 1000,
+
+
+                                                    }
+                                                    toastr.error('تکرار رمز عبور مطابقت ندارد')
+                                                }
+                                                
+                                            }
+
                                         })
                                     </script>
 
@@ -215,18 +247,26 @@
                         </div>
                     </div>
                 </section>
-                <footer class="c-footer-light">
-                    <div class="container">
-                        <ul class="c-footer-light__links">
-                            <li><a href="/page/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
-                            @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
-                            <li><a href="" title="تماس با ما">تماس با ما</a></li>
-                            @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
-                        </ul>
-                        <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به شرکت آتی روناک (فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]) می‌باشد.</p>
-                        <p class="c-footer-light__copyright">Copyright © 2006 - 2019 sup-ect.com</p>
-                    </div>
-                </footer>
+                @{
+                    int w = Request.Browser.ScreenPixelsWidth;
+                    int h = Request.Browser.ScreenPixelsHeight;
+                    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                    {
+                    }
+                    else
+                    { <footer class="c-footer-light">
+                            <div class="container">
+                                <ul class="c-footer-light__links">
+                                    <li><a href="/Home/aboutus/" title="درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]">درباره @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a></li>
+                                    @* <li><a href="" target="_blank" title="فرصت‌های شغلی">فرصت‌های شغلی</a></li>*@
+                                    <li><a href="/Home/contactUs" title="تماس با ما">تماس با ما</a></li>
+                                    @*<li><a href="" title="همکاری با سازمان‌ها">همکاری با سازمان‌ها</a></li>*@
+                                </ul>
+                                <p class="c-footer-light__text">استفاده از مطالب فروشگاه اینترنتی @System.Configuration.ConfigurationManager.AppSettings["siteName"] فقط برای مقاصد غیرتجاری و با ذکر منبع بلامانع است. کلیه حقوق این سایت متعلق به فروشگاه آنلاین @System.Configuration.ConfigurationManager.AppSettings["siteName"]  @System.Configuration.ConfigurationManager.AppSettings["siteName2"]می‌باشد .</p>
+                                <p class="c-footer-light__copyright">Copyright © 2019 - 2021 supect.com</p>
+                            </div>
+                        </footer>}
+                }
             </div>
         </main>
     </div>

@@ -123,6 +123,7 @@
 
                                             }
                                             else {
+                                                $("#loading").fadeIn();
                                                 $.ajax({
                                                     url: '/CustomerLogin/forgetPass',
                                                     dataType: 'html',
@@ -131,7 +132,7 @@
                                                         phone: val
                                                     },
                                                     success: function (srt) {
-
+                                                        $("#loading").fadeOut();
                                                         if (srt === "300") {
                                                             $("#remember-error").css("display", "block");
                                                             $("#remember-error").text("شماره موبایل وارد شده در @System.Configuration.ConfigurationManager.AppSettings["siteName"] ثبت نشده است");
