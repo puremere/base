@@ -410,7 +410,7 @@
         @{
             int w = Request.Browser.ScreenPixelsWidth;
             int h = Request.Browser.ScreenPixelsHeight;
-            if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
+            if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
             {
                 <div id="FLTholderForApp" style="display:none; height: 100%;display:none; position: fixed;top: 0;z-index: 999991;background-color:white;width: 100%;right: 0">
 
@@ -574,7 +574,7 @@
                                         Value = ranges.min.ToString()
 
                                     });
-                                    for (int i = 1; i <10; i++)
+                                    for (int i = 1; i < 10; i++)
                                     {
                                         list.Add(new SelectListItem
                                         {
@@ -994,9 +994,9 @@
                                                             </label>
                                                             @*<label class="CHcontainer">
 
-                                                                <input type="checkbox">
+                                                                    <input type="checkbox">
 
-                                                            </label>*@
+                                                                </label>*@
 
 
                                                         </div>
@@ -1004,15 +1004,15 @@
                                                 }
 
                                                 <script>
-                                    var detail = "detail" + "@item.ID";
-                                    var countid = "count" + "@item.ID";
-                                    var count = $("#" + countid).text();
+                                                var detail = "detail" + "@item.ID";
+                                                var countid = "count" + "@item.ID";
+                                                var count = $("#" + countid).text();
 
-                                    if (count > 6) {
-                                        $("#" + detail).css("overflow", "scroll");
-                                        $("#" + detail).css("height", "450px");
-                                        $("#" + detail).css("direction", "rtl");
-                                    }
+                                                if (count > 6) {
+                                                    $("#" + detail).css("overflow", "scroll");
+                                                    $("#" + detail).css("height", "450px");
+                                                    $("#" + detail).css("direction", "rtl");
+                                                    };
 
 
 
@@ -1320,145 +1320,145 @@
 
 
                                 @*
-                                <script>
-                                                $(document).ready(function () {
+                                    <script>
+                                                    $(document).ready(function () {
 
-                                                    $("div#range-slider").rangeslider();
-                                                    $('.min').each(function () {
+                                                        $("div#range-slider").rangeslider();
+                                                        $('.min').each(function () {
 
-                                                        $(this).change(function (e) {
-                                                            var val = $(this).val();
-                                                            var id = e.target.id;
-                                                            setTimeout(function () {
-                                                                var val2 = document.getElementById(id).value;
-                                                                if (val === val2) {
+                                                            $(this).change(function (e) {
+                                                                var val = $(this).val();
+                                                                var id = e.target.id;
+                                                                setTimeout(function () {
+                                                                    var val2 = document.getElementById(id).value;
+                                                                    if (val === val2) {
 
-                                                                    var mins = "";
-                                                                    var maxes = "";
-                                                                    $('.min').each(function (a) {
-                                                                        var vle = $(this).val();
-                                                                        var tlt = this.id;
-                                                                        tlt = tlt.substr(1, tlt.length);
-                                                                        mins = mins + tlt + "-" + vle + ",";
+                                                                        var mins = "";
+                                                                        var maxes = "";
+                                                                        $('.min').each(function (a) {
+                                                                            var vle = $(this).val();
+                                                                            var tlt = this.id;
+                                                                            tlt = tlt.substr(1, tlt.length);
+                                                                            mins = mins + tlt + "-" + vle + ",";
 
-                                                                    })
-                                                                    $('.max').each(function (a) {
-                                                                        var vle = $(this).val();
-                                                                        var tlt = this.id;
-                                                                        tlt = tlt.substr(1, tlt.length);
-                                                                        maxes = maxes + tlt + "-" + vle + ",";
+                                                                        })
+                                                                        $('.max').each(function (a) {
+                                                                            var vle = $(this).val();
+                                                                            var tlt = this.id;
+                                                                            tlt = tlt.substr(1, tlt.length);
+                                                                            maxes = maxes + tlt + "-" + vle + ",";
 
-                                                                    })
-                                                                    $.ajax({
-                                                                        url: '/Home/changeRangeIDes',
-                                                                        data: {
-                                                                            min: mins,
-                                                                            max: maxes
+                                                                        })
+                                                                        $.ajax({
+                                                                            url: '/Home/changeRangeIDes',
+                                                                            data: {
+                                                                                min: mins,
+                                                                                max: maxes
 
-                                                                        },
-                                                                        dataType: 'html',
-                                                                        success: function () {
-                                                                            // فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-                                                                            //$.ajax({
-                                                                            //    url: '/Home/gogetproductlist',
-                                                                            //    aType: 'html',
-                                                                            //    success: function (data) {
-                                                                            //        $("#SIBdiv").css("height", "");
-                                                                            //        $('#productlist').html(data);
-                                                                            //        window.scrollTo(0, 50);
-                                                                            //    },
-                                                                            //    error: function () {
-                                                                            //        //alert("nashod")
-                                                                            //    },
-                                                                            //    complete: function () {
-                                                                            //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                                            //        $('#spaceholder').css("height", '');
-
-
-                                                                            //    }
-                                                                            //});
-                                                                        },
-                                                                        error: function () {
-                                                                            alert("nashod")
-                                                                        }
-                                                                    });
+                                                                            },
+                                                                            dataType: 'html',
+                                                                            success: function () {
+                                                                                // فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                                                //$.ajax({
+                                                                                //    url: '/Home/gogetproductlist',
+                                                                                //    aType: 'html',
+                                                                                //    success: function (data) {
+                                                                                //        $("#SIBdiv").css("height", "");
+                                                                                //        $('#productlist').html(data);
+                                                                                //        window.scrollTo(0, 50);
+                                                                                //    },
+                                                                                //    error: function () {
+                                                                                //        //alert("nashod")
+                                                                                //    },
+                                                                                //    complete: function () {
+                                                                                //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                                                //        $('#spaceholder').css("height", '');
 
 
-                                                                }
-                                                            }, 1000);
-                                                        })
-                                                    })
-                                                    $('.max').each(function () {
-
-                                                        $(this).change(function (e) {
-                                                            var val = $(this).val();
-                                                            var id = e.target.id;
-                                                            setTimeout(function () {
-                                                                var val2 = document.getElementById(id).value;
-                                                                if (val === val2) {
-
-                                                                    var mins = "";
-                                                                    var maxes = "";
-                                                                    $('.min').each(function (a) {
-                                                                        var vle = $(this).val();
-                                                                        var tlt = this.id;
-                                                                        tlt = tlt.substr(1, tlt.length);
-                                                                        mins = mins + tlt + "-" + vle + ",";
-
-                                                                    })
-                                                                    $('.max').each(function (a) {
-                                                                        var vle = $(this).val();
-                                                                        var tlt = this.id;
-                                                                        tlt = tlt.substr(1, tlt.length);
-                                                                        maxes = maxes + tlt + "-" + vle + ",";
-
-                                                                    })
-                                                                    $.ajax({
-                                                                        url: '/Home/changeRangeIDes',
-                                                                        data: {
-                                                                            min: mins,
-                                                                            max: maxes
-
-                                                                        },
-                                                                        dataType: 'html',
-                                                                        success: function () {
-                                                                            //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-
-                                                                            if ($(window).width() > 960) {
-                                                                                $.ajax({
-                                                                                    url: '/Home/gogetproductlist',
-                                                                                    aType: 'html',
-                                                                                    success: function (data) {
-                                                                                        $("#SIBdiv").css("height", "");
-                                                                                        $('#productlist').html(data);
-                                                                                        window.scrollTo(0, 50);
-                                                                                    },
-                                                                                    error: function () {
-                                                                                        //alert("nashod")
-                                                                                    },
-                                                                                    complete: function () {
-                                                                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                                                        $('#spaceholder').css("height", '');
-
-
-                                                                                    }
-                                                                                });
+                                                                                //    }
+                                                                                //});
+                                                                            },
+                                                                            error: function () {
+                                                                                alert("nashod")
                                                                             }
-                                                                        },
-                                                                        error: function () {
-                                                                            alert("nashod")
-                                                                        }
-                                                                    });
+                                                                        });
 
 
-                                                                }
-                                                            }, 1000);
+                                                                    }
+                                                                }, 1000);
+                                                            })
                                                         })
+                                                        $('.max').each(function () {
+
+                                                            $(this).change(function (e) {
+                                                                var val = $(this).val();
+                                                                var id = e.target.id;
+                                                                setTimeout(function () {
+                                                                    var val2 = document.getElementById(id).value;
+                                                                    if (val === val2) {
+
+                                                                        var mins = "";
+                                                                        var maxes = "";
+                                                                        $('.min').each(function (a) {
+                                                                            var vle = $(this).val();
+                                                                            var tlt = this.id;
+                                                                            tlt = tlt.substr(1, tlt.length);
+                                                                            mins = mins + tlt + "-" + vle + ",";
+
+                                                                        })
+                                                                        $('.max').each(function (a) {
+                                                                            var vle = $(this).val();
+                                                                            var tlt = this.id;
+                                                                            tlt = tlt.substr(1, tlt.length);
+                                                                            maxes = maxes + tlt + "-" + vle + ",";
+
+                                                                        })
+                                                                        $.ajax({
+                                                                            url: '/Home/changeRangeIDes',
+                                                                            data: {
+                                                                                min: mins,
+                                                                                max: maxes
+
+                                                                            },
+                                                                            dataType: 'html',
+                                                                            success: function () {
+                                                                                //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+
+                                                                                if ($(window).width() > 960) {
+                                                                                    $.ajax({
+                                                                                        url: '/Home/gogetproductlist',
+                                                                                        aType: 'html',
+                                                                                        success: function (data) {
+                                                                                            $("#SIBdiv").css("height", "");
+                                                                                            $('#productlist').html(data);
+                                                                                            window.scrollTo(0, 50);
+                                                                                        },
+                                                                                        error: function () {
+                                                                                            //alert("nashod")
+                                                                                        },
+                                                                                        complete: function () {
+                                                                                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                                                            $('#spaceholder').css("height", '');
+
+
+                                                                                        }
+                                                                                    });
+                                                                                }
+                                                                            },
+                                                                            error: function () {
+                                                                                alert("nashod")
+                                                                            }
+                                                                        });
+
+
+                                                                    }
+                                                                }, 1000);
+                                                            })
+                                                        })
+
                                                     })
 
-                                                })
-
-                                </script>*@
+                                    </script>*@
                             }
                         }
 
@@ -1534,7 +1534,7 @@
 
 
 
-                                    if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
+                                    if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
                                         $('#FLTholder').css("height", '');
                                         $('#spaceholder').css("height", '');
                                         $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
@@ -1572,7 +1572,7 @@
                                     // alert($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2);
 
                                     // if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() + $(window).height() <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2)) {
-                                    if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() <bottomline - (pardivheight - $("#spaceholder").height()))) {
+                                    if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() < bottomline - (pardivheight - $("#spaceholder").height()))) {
                                         $('#FLTholder').css("height", '');
                                         $('#spaceholder').css("height", '');
                                         $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
@@ -1632,7 +1632,7 @@
             var acc = document.getElementsByClassName("accordion");
             var i;
 
-            for (i = 0; i <acc.length; i++) {
+            for (i = 0; i < acc.length; i++) {
                 var sibdiv = $("#SIBdiv");
                 var sibdivheight = sibdiv.height();
 
@@ -1691,23 +1691,23 @@
         <script>
             $(document).ready(function () {
                 $("#startpresentModel").click(function () {
-                  
+
                     var user = '@Session["logedInUser"]'
                     if (user.length > 0) {
-                       
+
                         $("#addToWishListModal").modal("toggle");
 
-                       
+
                     }
                     else {
                         var url = "/Home/login";
                         window.location.href = url;
-                        
+
                     }
                 })
                 $("#listVerify").click(function () {
 
-                   
+
 
                     var myname = $("#listname").val();
                     if (myname !== "") {
@@ -1748,7 +1748,7 @@
                                     }
                                     toastr.error(data)
                                 }
-                               
+
 
                             },
                             error: function () {
@@ -1760,7 +1760,7 @@
                     } else {
                         alert("یک نام برای لیست انتخاب کنید")
                     }
-                   
+
                 })
             })
 

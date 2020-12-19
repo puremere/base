@@ -1,0 +1,276 @@
+﻿@model  banimo.ViewModel.adminMoneyVM
+@{
+    ViewBag.Title = "money";
+}
+
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "مدیریت سفارشات";
+
+}
+
+@section scripts{
+    <style>
+        .dashdata {
+            padding: 10px;
+        }
+
+        .dirLeft {
+            float: left;
+        }
+
+        .panel-heading {
+            padding: 10px 15px;
+            border-bottom: 1px solid transparent;
+            border-top-left-radius: 3px;
+            border-top-right-radius: 3px;
+        }
+
+        .heading-blog {
+            color: #fff;
+            line-height: 26px;
+            background-image: linear-gradient(to bottom, #2a85ae 0, #246388 100%) !important;
+            height: 110px !important;
+        }
+
+        .huge-head {
+            font-size: 28px;
+            margin-top: 5px;
+        }
+
+        .heading-blog {
+            color: #fff;
+            line-height: 26px;
+        }
+
+        .titr-head {
+            font-size: 16px;
+            margin-top: 35px;
+        }
+
+        .panel-footer {
+            padding: 10px 15px;
+            background-color: #f5f5f5;
+            border-top: 1px solid #ddd;
+            border-bottom-right-radius: 3px;
+            border-bottom-left-radius: 3px;
+            color: #337ab7;
+        }
+
+        .page-header {
+            padding-bottom: 9px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .header-wellcom {
+            margin: 0 !important;
+            direction: rtl;
+            font-size: 20px;
+            color: #029fca;
+            float: left;
+        }
+
+        .breadcrumb {
+            float: right;
+            text-align: right;
+        }
+
+        .breadcrumb {
+            padding: 8px 15px;
+            margin-bottom: 20px;
+            list-style: none;
+            background-color: #f5f5f5;
+            border-radius: 4px;
+        }
+
+        .breadcrumb {
+            position: relative;
+            font-size: 14px;
+        }
+
+            .breadcrumb > .active {
+                color: #777;
+            }
+
+
+            .breadcrumb > li {
+                display: inline-block;
+            }
+
+            .breadcrumb > li {
+                font-size: 12px;
+                direction: rtl;
+            }
+    </style>
+    <script src="~/Scripts/choices.min.js"></script>
+    <link href="~/Content/choices.css" rel="stylesheet" />
+    <link href="~/Content/persian-datepicker.css" rel="stylesheet" />
+    <script src="~/Scripts/persian-date.js"></script>
+    <script src="~/Scripts/persian-datepicker.js"></script>
+   
+}
+
+<div class="row">
+
+    <div class="col-lg-4 col-md-6 col-xs-12 floatRight">
+        <div class="panel panel-green" style="border: 0">
+            <div class="panel-heading heading-blog ">
+                <div class="row">
+
+                    <div class="col-xs-12 text-center">
+                        <div class="huge-head">@Model.expenses.ToString("##,#") تومان  </div>
+                        <div class="titr-head">هزینه ها</div>
+
+                    </div>
+                </div>
+            </div>
+            <a href="" title=" ">
+                <div class="panel-footer ">
+                    <span class="pull-left"> </span>
+                    <span class="pull-right"><i class="fa  fa-product-hunt" aria-hidden="true"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-xs-12 floatRight">
+        <div class="panel panel-green" style="border: 0">
+            <div class="panel-heading heading-blog ">
+                <div class="row">
+
+                    <div class="col-xs-12 text-center">
+                        <div class="huge-head">@Model.productsProfit.ToString("##,#") تومان</div>
+                        <div class="titr-head">درآمد</div>
+                    </div>
+                </div>
+            </div>
+            <a href="" title=" ">
+                <div class="panel-footer ">
+                    <span class="pull-left">  </span>
+                    <span class="pull-right"><i class="fa  fa-product-hunt" aria-hidden="true"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-xs-12 floatRight">
+        <div class="panel panel-green" style="border: 0">
+            <div class="panel-heading heading-blog ">
+                <div class="row">
+
+                    <div class="col-xs-12 text-center">
+                        <div class="huge-head">@Model.userDebt.ToString("##,#") تومان</div>
+                        <div class="titr-head">بدهی کاربر</div>
+                    </div>
+                </div>
+            </div>
+            <a href="" title=" ">
+                <div class="panel-footer ">
+                    <span class="pull-left">   </span>
+                    <span class="pull-right"><i class="fa  fa-product-hunt" aria-hidden="true"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+
+    .fieldholder {
+        /*width: 30%;
+            display: inline-block;*/
+        padding: 15px;
+    }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">صورتحساب  </a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; "> استعلام مزینه ها</a></li>
+
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in  active" style="padding-top:20px">
+            <div>
+                <div class="col-lg-2">
+                    <p>شامل کاربرها با شماره های :</p>
+                    <input id="includeUsers" type="text" value="">
+                    <script>
+                        var firstElement = document.getElementById('includeUsers');
+                        var choices1 = new Choices(firstElement, {
+                            delimiter: ',',
+                            editItems: true,
+                            // maxItems: 5,
+                            removeButton: true
+                        });
+                    </script>
+                </div>
+                <div class="col-lg-2">
+                    <p>بدون کاربرها با شماره های :</p>
+                    <input id="excludeUsers" type="text" value="">
+                    <script>
+                        var firstElement = document.getElementById('excludeUsers');
+                        var choices1 = new Choices(firstElement, {
+                            delimiter: ',',
+                            editItems: true,
+                            // maxItems: 5,
+                            removeButton: true
+                        });
+                    </script>
+                </div>
+                <div class="col-lg-2">
+                    <p>نوع تراکنش :</p>
+                    <select class="form-control">
+                        <option value="0,1">همه</option>
+                        <option value="1">واریز</option>
+                        <option value="0">برداشت</option>
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2" style="position:relative" id="dateHolder">
+                    <p>از تاریخ :</p>
+                    <input type="text" class="form-control projectDate inputfield" />
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".projectDate").pDatepicker();
+                            var testDiv = document.getElementById("dateHolder");
+                            var loc = testDiv.offsetTop + 75;
+                            $(".datepicker-container").css("top", loc);
+                        });
+                    </script>
+                </div>
+                <div class="col-lg-2" style="position:relative" id="dateHolder2">
+                    <p>تا تاریخ :</p>
+                    <input type="text" class="form-control projectDate2 inputfield" />
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".projectDate2").pDatepicker();
+                            var testDiv = document.getElementById("dateHolder2");
+                            var loc = testDiv.offsetTop + 75;
+                            $(".datepicker-container").css("top", loc);
+                        });
+                    </script>
+                </div>
+                <div class="col-lg-2" style="position:relative" id="dateHolder2">
+                   <div class="btn btn-success" style="width:100%;margin-top:20px">تایید</div>
+                </div>
+
+            </div>
+
+        </div>
+     
+
+    </div>
+</div>
