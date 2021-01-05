@@ -16,8 +16,8 @@
 .progress-circlle:after{
     border: none;
     position: absolute;
-    top: 0.7em;
-    left: 0.7em;
+    top: 0.8em;
+    left: 0.8em;
     text-align: center;
     display: block;
     border-radius: 50%;
