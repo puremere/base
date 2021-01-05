@@ -1244,6 +1244,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         
                     }
                     var spg = $("#" + progressID).parent();
+                    
+
+
                     spg.children('.progress-circlle').each(function () {
                         this.remove();
                     })
