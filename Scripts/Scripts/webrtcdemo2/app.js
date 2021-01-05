@@ -1215,7 +1215,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 let request = new XMLHttpRequest();
                 request.open('POST', '/screen/sendToServer');
                 request.upload.addEventListener('progress', function (e) {
-                    let percent_complete = (e.loaded / e.total) * 100;
+                    let percent_complete =parseInt((e.loaded / e.total) * 100);
 
                     let classname = '';
                     if (percent_complete >= 50) {
@@ -1226,7 +1226,6 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                     spg.children('.progress-circlle').each(function () {
                         this.remove();
-                       
                     })
                     spg.append(srt);
                     
@@ -1245,11 +1244,11 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         
                     }
                     var spg = $("#" + progressID).parent();
-                    spg.children('.progress-circlle').each(function () {
-                        this.remove();
-                    })
-                    let check = `<i class="fa fa-check" style="font-size: 14px;position: absolute;bottom: 5px;right: 140px;color: white;"></i>`;
-                    spg.append(check);
+                    //spg.children('.progress-circlle').each(function () {
+                    //    this.remove();
+                    //})
+                    //let check = `<i class="fa fa-check" style="font-size: 14px;position: absolute;bottom: 5px;right: 140px;color: white;"></i>`;
+                    //spg.append(check);
 
 
 
