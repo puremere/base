@@ -231,8 +231,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
         _requestedType ,
         _noMoreConnection = "",
         _relayProcess,
-        mixer,
-        _chatSelected,
+        _Attachment = {},
+        mediaRecorder;
         _connect = function (username, onSuccess, onFailure) {
             // Set Up SignalR Signaler
 
@@ -253,8 +253,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 viewModel.setUsers(userList);
             };
-            hub.client.setMessage = function (message, connectionID, name) {
+            hub.client.setMessage = function (message, connectionID, name,type) {
 
+             
                 if (connectionID == viewModel.MyConnectionId()) {
                     //var ul = $(".messages ul");
                     //const li = document.createElement('li');
@@ -265,25 +266,93 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 }
                 else {
-                    var ul = $(".messages ul");
+                    var hasobject; // بفهمیم چنتا ال آی باید به لیست اضافه کنیم
+                    var hastext;
+                    var li; // مال متن همراه با آبجکت یا بدون آبجکت 
+                    var li2;// مال آبجکت
+                    var ul = $(".messages ul"); // لیست اصلی پیام ها - سیستم اینجوری کار میکنه که دوتالیست نداریم یه لیست داریم برای داخل و خارج که لیست با مستر خودش هیدن میشه
+                    if (message.includes('-')) {
+                        let msg = message.split('-')[0];
+                        url = message.split('-')[1];
+                        hastext = true;
+                        li = document.createElement('li');
+                        li2 = document.createElement('li');
+                        li.className = 'replies ' + connectionID;
+                        li2.className = 'replies ' + connectionID;
+                        li.innerHTML = `<p>` + msg + `</p> `;
+                       
+                    }
+                    else {
+                        hastext = false;
+                        url = message   // این یو آر ال میتواند هم یور ال هر آبجکتی باشد هم تکست آبحکت تکست
+                        li = document.createElement('li');
+                        li.className = 'replies ' + connectionID;
+                        li.innerHTML = `<p>` + url + `</p> `;
+                    }
+
+                   
                     var specificLi = $("#" + connectionID).text();
+                    let ismainListempty;  // مشخص میکند که آیا لیست اصلی خالی است یا پر حالت یک خالی حالت دو پر  
                     if (specificLi != '') {
+                        ismainListempty = 2
+                    }
+                    else {
+                        ismainListempty = 1
+                    }
 
-                        var bool = $('#backButt').css('display') == 'block';
-                        var bool2 = $('#hiddeninput').val() == connectionID;
-                        if (bool && bool2) {
+                    var bool = $('#backButt').css('display') == 'block';
+                    var bool2 = $('#hiddeninput').val() == connectionID;
+                    var isBackIsHitInItem;// اگر توی یه آیتم باشی 2 و اگه بک زده باشی 1 
+                    if (bool && bool2) {
+                        isBackIsHitInItem = 2
+                    }
+                    else {
+                        isBackIsHitInItem = 1
+                    }
+
+
+
+                    if (type == "image") {
+                        console.log(url);
+                        li2 = document.createElement('li');
+                        li2.className = 'replies ' + connectionID;
+                        li2.innerHTML = `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
+                        hasobject = true;
+                    }
+                    else if (type == "audio") {
+                        li2 = document.createElement('li');
+                        li2.className = 'replies ' + connectionID;
+                        li2.innerHTML = `<audio controls='' style="float:right"><source src="/Files/` + url + `"></source></audio>`;
+                        hasobject = true;
+                    }
+                    else {
+                        hastext = true;
+                    }
+
+
+
+
+                    console.log(hasobject);
+                    console.log(hastext);
+                    if (ismainListempty == 2  ) {   
+
+                       
+
+                        if (isBackIsHitInItem == 2)// اینجوری لازم نیست مستر تغییر کنه و فقط آیتم داخل مستر تغییر میکنن
+                        {
+                            console.log("2")
+                            display = 'block';
+                            if (hasobject == true) {
+                                li2.style.display = display;
+                                ul.append(li2);
+                            }
+                            if (hastext == true) {
+                                li.style.display = display;
+                                ul.append(li);
+                            }
                            
-                            display = 'display';
-                            const li = document.createElement('li');
-                            li.className = 'replies ' + connectionID;
-                            li.style.display = display;
-                            li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                            // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-
-                            ul.append(li);
                             
-
-                            $('ul li').css("display", "none");
+                            
                             $("." + connectionID).css("display", "block");
                             $("#backButt").css("display", "block");
                             $(".num").css("display", "none");
@@ -295,22 +364,23 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                             var objDiv = document.getElementById("message");
                             var num = objDiv.scrollHeight;
                             objDiv.scrollTop = num
-                        }
-                        else {
-                          
+
+                        } else {   // مسترم باید تغییر کنه
+                            console.log("1")
                             display = 'none';
-                            const li = document.createElement('li');
-                            li.className = 'replies ' + connectionID;
-                            li.style.display = display;
-                            li.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                            // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-
-                            ul.append(li);
-
-
+                            if (hasobject == true) {
+                                li2.style.display = display;
+                                ul.append(li2);
+                            }
+                            if (hastext == true) {
+                                li.style.display = display;
+                                ul.append(li);
+                            }
+                            $('ul li').css("display", "none");
                             var firstnum = $("#" + connectionID).find(".num");
+                            var preview = $("#" + connectionID).find(".preview");
                             var numtext = firstnum.text();
-                          
+
                             if (numtext == '') {
                                 num = 1;
                             }
@@ -320,37 +390,107 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                             firstnum.text(num);
                             firstnum.css("display", "block");
+                            preview.text("");
+
                         }
+                       
+                        
+                        
+                      
+                        
                        
                        
                     }
                     else {
+                        if (type == "image") {
+                            if (message.includes('-')) {
+                                let msg = message.split('-')[0];
+                                url = message.split('-')[1];
+                            }
+                            else {
+                                url = message;
+                            }
+                        }
+                        else {
+                            url = message;
+                        }
+                        
                         display = 'block';
 
                         const li = document.createElement('li');
                         li.className = 'replies mainli ' + connectionID;
                         li.id = connectionID;
                     
+                        let bodystring =  `<span style=" width=:100%; font-weight:600">` + name + `</span><br><span class="preview">` + url + `</span>`;
                        
                         li.style.display = display;
-                        li.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"`+`,`+`"`+name+`"`+`)'  class="main" > <span style=" width=:100%; font-weight:600">` + name + `</span><br><span>` + message + `</span>` + `<span class="num" style="position:absolute;margin-right: 10px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
+                        li.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"` + `,` + `"` + name + `"` + `)'  class="main" >  ` + bodystring+`<span class="num" style="position:absolute;margin-right: 10px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
                         // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
 
+
+
+
                         var ulInnerHtml = ul.html();
-                      
                         ul.html(li)
                       
 
+                        display = 'none';
+                        if (type == "image") {
 
 
-                        const li2 = document.createElement('li');
-                        li2.className = 'replies ' + connectionID;
-                        li2.style.display = 'none';
-                        li2.innerHTML = `<p>` + name + ": " + message + `</p> `;
-                        // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                            if (message.includes('-')) {
 
-                        ul.append(li2);
+                                let msg = message.split('-')[0];
+                                url = message.split('-')[1];
+                                
+
+                                const li2 = document.createElement('li');
+                                li2.className = 'replies ' + connectionID;
+                                li2.style.display = display;
+                                url = message;
+                                li2.innerHTML = `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `"/>`;
+                                ul.append(li2);
+
+                                const li3 = document.createElement('li');
+                                url = message;
+                                li3.className = 'replies ' + connectionID;
+                                li3.style.display = display;
+                                li3.innerHTML = `<p>` + msg + `</p> `;
+                                ul.append(li3);
+
+                            }
+                            else {
+                                const li2 = document.createElement('li');
+                                url = message;
+                                li2.className = 'replies ' + connectionID;
+                                li2.style.display = display;
+                                url = message;
+                                li2.innerHTML = `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `"/>`;
+                                ul.append(li2);
+                            }
+                        }
+                        else if (type == "audio") {
+                             const li2 = document.createElement('li');
+                                url = message;
+                                li2.className = 'replies ' + connectionID;
+                                li2.style.display = display;
+                                url = message;
+                                li2.innerHTML = `<audio controls='' style="float:right"><source src="/Files/` + url + `"></source></audio>`;
+                                ul.append(li2);
+                        }
+                        else {
+                            const li2 = document.createElement('li');
+                            li2.className = 'replies ' + connectionID;
+                            li2.style.display = 'none';
+                            li2.innerHTML = `<p>` + message + `</p> `;
+                            // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+
+                            ul.append(li2);
+                        }
+                       
+
                         ul.append(ulInnerHtml);
+
 
                         var firstnum = $("#" + connectionID).find(".num");
                         var numtext = firstnum.text();
@@ -364,8 +504,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         firstnum.text(num);
                     }
                    
-                    var objDiv = document.getElementsByClassName("messages");
+                    var objDiv = document.getElementById("message");
                     objDiv.scrollTop = objDiv.scrollHeight;
+                 
                     
 
                    
@@ -858,23 +999,97 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     viewModel.Mode('idle');
                 }
             });
-            $(".submit").click(function () {
 
+
+            $(".attachment").click(function () {
+                $("#fileupload").click();
+            });
+            $("#addItem").click(function () {
+                $("#fileupload").click();
+            });
+            $("#fileupload").on('change', function () {
+
+                var input = this;
+                var url = $(this).val()
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+
+                if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+                    $("#attachmentDiv").fadeIn();
+
+                    const mydiv = document.createElement('div');
+                    mydiv.className = 'thumbItem added';
+                    mydiv.innerHTML = `<img src="#" style="width:100%;height:100%"/>`;
+
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        sourc = e.target.result;
+                        $('#preview').attr('src', sourc);
+                        mydiv.firstChild.setAttribute("src", sourc);
+
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                    $(".thumbHolder").append(mydiv);
+                    let key = $("#fileupload").val().split('\\').pop();
+                    _Attachment[key] = input.files[0];
+
+                };
+
+
+                //if (input.files && input.files[0]) {
+                //    _Attachment = input.files[0]
+                //    $("#attachmentDiv").show();
+                //    var reader = new FileReader();
+                //    reader.onload = function () {
+                //        $("#preview").attr("src", reader.result);
+                //    }
+
+                //    reader.readAsDataURL(file);
+
+                //    //$("#preview").attr('src', $("#fileupload").val()); 
+                //   // $(".previewImage").attr() text($(this).val()
+                //}
+                //else {
+                //    // alert("s")
+                //}
+
+            });
+            $("#removePreview").click(function () {
+                $("#attachmentDiv").fadeOut();
+                _Attachment = {};
+                $('.added').remove();
+            });
+
+
+            $(".submit").click(function () {
+                var messageType = "text";
                 var id = $("#hiddeninput").val();
                 var message = $("#chatMessage").val();
-                if (message != "") {
-                    _hub.server.sendMessage(message, id);
+                let count = 0;
+                $.each(_Attachment, function (key,value) {
+                  
+                    count += 1;
+                })
+                if (count != 0) {
+                   
+
+                    message = $("#chatMessage2").val();
+                    var returnName = _sendFile(_Attachment, message);
 
                 }
+                else  {
+                    _hub.server.sendMessage(message, id, messageType);
+                }
 
-               $("#hiddeninput").val('');
+               //$("#hiddeninput").val('');
                 var ul = $(".messages ul");
                 var name = viewModel.Username();
 
               
                 const li = document.createElement('li');
                 li.className = 'sent ' + id;
-                li.innerHTML = `<p>` + name + ": " + message + `</p> `;
+                li.innerHTML = `<p>` + message + `</p> `;
                 // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
                 ul.append(li);
 
@@ -888,7 +1103,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 $(".mainli").css("display", "none");
                 $(".message-input").css("display", "block")
 
-
+                var objDiv = document.getElementById("message");
+                objDiv.scrollTop = objDiv.scrollHeight;
+                $("#chatMessage").val('');
 
 
             });
@@ -942,102 +1159,233 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
 
             });
-            $(".attachment").click(function () {
 
-                $('#upload').trigger('click');
-            })
-            $('#upload').on('change', function () {
-
-                var formdata = new FormData();
-
-                var file, img;
-                for (var i = 0; i <this.files.length; i++) {
-                    if ((file = this.files[i])) {
-                        size = this.files[i].size;
-                        filename = this.files[i].filename;
-                        // alert(this.files[i].name);
-                        formdata.append(this.files[i].name, this.files[i]);
-
-
-                        //img = new Image();
-                        //img.onload = function () {
-
-                        //    // if (this.width !== 500 && this.height !== 500 ) {
-                        //    //if (size > 10000000) {
-                        //    //    document.getElementById("istrueimage").innerHTML = "1";
-                        //    //    toastr.options = {
-                        //    //        "debug": false,
-                        //    //        "positionClass": "toast-top-center",
-                        //    //        "onclick": null,
-                        //    //        "fadeIn": 300,
-                        //    //        "fadeOut": 1000,
-                        //    //        "timeOut": 5000,
-                        //    //        "extendedTimeOut": 1000
-                        //    //    }
-                        //    //    toastr.error('  بیش از 1 مگا بایت است ' + file.name + ' سایز عکس')
-                        //    //}
-                        //    //else {
-                        //    //    formdata.append(this.files[i].name, this.files[i]);
-                        //    //}
-                        //    // alert("Width:" + this.width + "   Height: " + this.height);//this will give you image width and height and you can easily validate here....
-                        //};
-                        //img.src = _URL.createObjectURL(file);
-                    };
-                    $.ajax({
-                        url: '/Screen/uploadFile',
-                        type: 'POST',
-                        processData: false, // important
-                        contentType: false, // important
-                        data: formdata,
-                        beforeSend: function () {
-                            $("#err").fadeOut();
-                        },
-                        success: function (result) {
-                            //alert("success")
-                            //if (result == 'invalid file') {
-                            //    // invalid file format.
-                            //    $("#err").html("Invalid File. Image must be JPEG, PNG or GIF.").fadeIn();
-                            //} else {
-
-                            //    // view uploaded file.
-                            //    $("#image").attr('src', '/' + result);
-                            //    /* $("#preview").html(data).fadeIn();*/
-                            //    /* $("#form")[0].reset(); */
-                            //    //show the remove image button
-                            //    $('#file-selected').empty();
-                            //    $("#remove-image").show();
-                            //    $("#custom-file-upload").hide();
-                            //    $("#uploadImage").hide();
-                            //    $("#button").hide();
-                            //}
-                        },
-                        error: function (result) {
-                            $("#err").html("errorcity").fadeIn();
-                        }
-                    });
-
-                }
-
-                //Make ajax call here:
-
-
+            $('#save-recording').click(function () {
+                this.disabled = true;
+                mediaRecorder.save();
             });
-            //$('.video').click(function () {
-            //    alert("aa");
+            $("#recodrdVoice").on('mousedown', function (e) {
 
-            //    //let id = $(this).attr('id');
+                _startRecording();
+            });
+            $("#recodrdVoice").on('mouseup', function (e) {
 
-            //    //if (viewmodel.mode() != 'idle') {
-            //    //    _hub.server.hangup();
-            //    //    connectionmanager.closeallconnections();
-            //    //    viewmodel.mode('idle');
-            //    //}
+                _stopRecording();
+            });
+        },
+        _captureUserMedia = function (mediaConstraints, successCallback, errorCallback) {
 
-            //    //_index = id;
+            navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+        },
+        _startRecording = function (idx) {
+            $('#start-recording').disabled = true;
+            audiosContainer = document.getElementById('audios-container');
+            document.getElementById("clicks").innerHTML = "درحال رکورد";
 
-            //    //_hub.server.resetallconnction(id);
+            var f = document.getElementById('clicks');
+            setInterval(function () {
+                f.style.display = (f.style.display == 'none' ? '' : 'none');
+            }, 1000);
+            var mediaConstraints = {
+                audio: true
+            };
+            _captureUserMedia(mediaConstraints, onMediaSuccess, onMediaError);
+        },
+        onMediaSuccess = function (stream) {
+            var TOK = $("#validation").val();
 
-            //})
+            mediaRecorder = new MediaStreamRecorder(stream);
+            mediaRecorder.stream = stream;
+            mediaRecorder.mimeType = 'audio/wav';
+            mediaRecorder.audioChannels = 1;
+            mediaRecorder.ondataavailable = function (blob) {
+
+                var fileObject = new File([blob], "test.wav", {
+                    type: 'audio/wav'
+                });
+
+
+
+                var formData = new FormData();
+
+                // recorded data
+                formData.append('audio-blob', fileObject);
+
+                // file name
+                formData.append('audio-filename', fileObject.name);
+                let request = new XMLHttpRequest();
+                request.open('POST', '/Screen/sendToServer');
+
+                // upload progress event
+                request.upload.addEventListener('progress', function (e) {
+                    let percent_complete = (e.loaded / e.total) * 100;
+
+                    // percentage of upload completed
+                    console.log(e.loaded / e.total + "-" + percent_complete + "%");
+                });
+
+                // AJAX request finished event
+                request.addEventListener('load', function (e) {
+
+
+
+                    let messageType;
+                    let rsp = request.response;
+                    const li = document.createElement('li');
+                    li.className = "sent";
+                    var htmlsrt = "";
+                    htmlsrt += `<audio controls='' style="float:right"><source src="` + URL.createObjectURL(blob) + `"></source></audio>`;
+                    li.innerHTML = htmlsrt;
+                    var ul = $(".messages ul");
+                    ul.append(li);
+                    messageType = 'audio';
+
+                    _hub.server.sendMessage(rsp, $("#hiddeninput").val(), messageType);// اینجا میفرسته برا ادمین
+                    message = "";
+                    $("#chatMessage2").val('');
+                    var objDiv = document.getElementById("message");
+                    objDiv.scrollTop = objDiv.scrollHeight;
+
+                    console.log(request.status);
+                    console.log(request.response);
+
+
+                });
+                request.send(formData);
+
+
+
+
+            };
+
+            var timeInterval = 360 * 1000;
+            mediaRecorder.start(timeInterval);
+            // $('#stop-recording').disabled = false;
+        },
+        onMediaError = function (e) {
+            console.error('media error', e);
+        },
+        _stopRecording = function () {
+            $('#stop-recording').disabled = true;
+
+            document.getElementById("clicks").innerHTML = "";
+
+            //var f = document.getElementById('clicks');
+            //setInterval(function () {
+            //    f.style.display = (f.style.display == 'none' ? '' : 'none');
+            //}, 10000);
+            mediaRecorder.stop();
+            mediaRecorder.stream.stop();
+
+
+            //$('.start-recording').disabled = false;
+        },
+        bytesToSize = function (bytes) {
+            var k = 1000;
+            var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            if (bytes === 0) return '0 Bytes';
+            var i = parseInt(Math.floor(Math.log(bytes) / Math.log(k)), 10);
+            return (bytes / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i];
+        },
+        getTimeLength = function (milliseconds) {
+            var data = new Date(milliseconds);
+            return data.getUTCHours() + " hours, " + data.getUTCMinutes() + " minutes and " + data.getUTCSeconds() + " second(s)";
+        },
+        _makeid = function () {
+            var result = '';
+            var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < 10; i++) {
+                result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        },
+
+        _sendFile = function (file, message) {
+            let total = 0;
+            let counter = 0;
+            $.each(file, function (key, value) {
+                total += 1;
+            });
+            $.each(file, function (key, value) {
+
+              
+
+                var formData = new FormData();
+                var fileName = key
+                formData.append('blob', value);
+                formData.append('filename', fileName);
+                let request = new XMLHttpRequest();
+                request.open('POST', '/screen/sendToServer');
+                request.upload.addEventListener('progress', function (e) {
+                    let percent_complete = (e.loaded / e.total) * 100;
+
+                    console.log(e.loaded / e.total + "-" + percent_complete + "%");
+                });
+
+                // AJAX request finished event
+                request.addEventListener('load', function (e) {
+                    counter += 1;
+                    let messageType;
+                    let rsp = request.response;
+                    var ext = rsp.substring(rsp.lastIndexOf('.') + 1).toLowerCase();
+                    const li = document.createElement('li');
+                    if ((ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
+
+                        li.className = "sent";
+                        var htmlsrt = "";
+                        htmlsrt += `<img src="/Files/` + rsp + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
+                        li.innerHTML = htmlsrt;
+                        var ul = $(".messages ul");
+                        ul.append(li);
+                        messageType = 'image';
+                    }
+
+
+
+
+
+                    $("#attachmentDiv").hide();
+
+
+                    if (counter == total) {
+
+                        if (message != '') {
+                            const li2 = document.createElement('li');
+                            li2.className = "sent";
+                            let htmlsrt2;
+                            htmlsrt2 = `<p>` + message + `</p> `;
+                            li2.innerHTML = htmlsrt2;
+                            ul.append(li2);
+                            message = message + "-" + rsp;
+
+
+
+                        }
+                        else {
+                            message = rsp;
+                        }
+                        _Attachment = {};
+                        $('.added').remove();
+                        $("#fileupload").val('');
+
+                    }
+                    else {
+                        message = rsp;
+                    }
+
+                    _hub.server.sendMessage(message, $("#hiddeninput").val(), messageType);// اینجا میفرسته برا ادمین
+                    message = "";
+                    console.log(request.status);
+
+                    // request.response will hold the response from the server
+                    console.log(request.response);
+                })
+                // send POST request to server side script
+                request.send(formData);
+            })
+
+
         },
         _setName = function (name) {
             viewModel.Groupname(name);

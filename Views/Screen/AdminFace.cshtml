@@ -67,25 +67,25 @@
 
                 @*<span class="loading-indicator icon-spinner-3" data-bind="css: { on: Loading }"></span>*@
                 <span style="margin:10px auto; ">
-                   
+
                     @*<i id="pwd_spn" style="display:none; color:white; margin-top:10px">https://lecture.sup-ect.ir/screen/userface?groupname=<span data-bind="text:  Groupname"></span></i>
-                    <button id="cp_btn" class="btn btn-success">آدرس اتصال</button>*@
+                        <button id="cp_btn" class="btn btn-success">آدرس اتصال</button>*@
                     <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success chat"><i class="fa fa-comment"></i> </button>
-         
+
 
                     @*<script>
-                        document.getElementById("cp_btn").addEventListener("click", copy_password);
-                        function copy_password() {
-                            var copyText = document.getElementById("pwd_spn");
-                            var textArea = document.createElement("textarea");
-                            textArea.value = copyText.textContent;
-                            document.body.appendChild(textArea);
-                            textArea.select();
-                            document.execCommand("Copy");
-                            textArea.remove();
-                            alertify.success("آدرس اتصال کاربر کپی شد");
-                        }
-                    </script>*@
+                            document.getElementById("cp_btn").addEventListener("click", copy_password);
+                            function copy_password() {
+                                var copyText = document.getElementById("pwd_spn");
+                                var textArea = document.createElement("textarea");
+                                textArea.value = copyText.textContent;
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand("Copy");
+                                textArea.remove();
+                                alertify.success("آدرس اتصال کاربر کپی شد");
+                            }
+                        </script>*@
                 </span>
                 <div class="">
                     <p class="navbar-text pull-right">
@@ -123,17 +123,17 @@
                     <div id="videoHolder" class="partnerholder" style=" ">
                         <div class="master">
                             <div class="mainholder" style="height:100%; width:100%; display:flex;float:left">
-                                <video  controls id="main0" style="width:auto ; height:100%; margin:auto" class=" cool-background" autoplay="autoplay"></video>
+                                <video controls id="main0" style="width:auto ; height:100%; margin:auto" class=" cool-background" autoplay="autoplay"></video>
                             </div>
                             <div class="mainholder" style="display:none; float:left">
-                                <video  controls id="main1" style="width:100% ; height:auto" class="cool-background" autoplay="autoplay"></video>
+                                <video controls id="main1" style="width:100% ; height:auto" class="cool-background" autoplay="autoplay"></video>
                             </div>
                             <div class="mainholder" style="display:none;float:left">
-                                <video  controls id="main2" style=" width:100%;height:auto" class="cool-background" autoplay="autoplay"></video>
+                                <video controls id="main2" style=" width:100%;height:auto" class="cool-background" autoplay="autoplay"></video>
                             </div>
                         </div>
                         <div class="slave" style=" ">
-                            <video muted style="max-height:150px" id="1" class="video mine cool-background" autoplay="autoplay" ></video>  @*onclick="changeStream(this.id)*@
+                            <video muted style="max-height:150px" id="1" class="video mine cool-background" autoplay="autoplay"></video>  @*onclick="changeStream(this.id)*@
 
                         </div>
 
@@ -162,30 +162,30 @@
 
                     </script>
                     @*<div class="well user-list" style="position:relative; display:none">
-                        <i style="position:absolute; top:10px ; left :10px ;" id="refresh" class="fa fa-refresh"></i>
-                        <ul class="nav nav-list">
-                            <li class="nav-header">کاربران آنلاین <small data-bind="text: Users().length"></small></li>
-                            <!-- ko foreach: Users -->
-                            <li class="user">
-                                <div class="row" style="margin-bottom:10px">
-                                    <a data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" href="#" style="width:80%; display:inline-block; padding:10px 0px 5px 10px">
-                                        <!-- only using an a here for bootstrap styling -->
-                                        <div class="username" data-bind="text: Username"></div>
-                                    </a>
-                                    <div class="row">
-                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-danger userHangup" style="display:inline-block; float:right; margin-left:10px">قطع</p>
-                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success oneWay" style="display:inline-block; float:right;margin-left:10px">یک طرفه</p>
-                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success screen" style="display:inline-block; float:right;margin-left:10px">اسکرین</p>
-                                        <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success webcam" style="display:inline-block; float:right;margin-left:10px">وب کم</p>
+                            <i style="position:absolute; top:10px ; left :10px ;" id="refresh" class="fa fa-refresh"></i>
+                            <ul class="nav nav-list">
+                                <li class="nav-header">کاربران آنلاین <small data-bind="text: Users().length"></small></li>
+                                <!-- ko foreach: Users -->
+                                <li class="user">
+                                    <div class="row" style="margin-bottom:10px">
+                                        <a data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" href="#" style="width:80%; display:inline-block; padding:10px 0px 5px 10px">
+                                            <!-- only using an a here for bootstrap styling -->
+                                            <div class="username" data-bind="text: Username"></div>
+                                        </a>
+                                        <div class="row">
+                                            <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-danger userHangup" style="display:inline-block; float:right; margin-left:10px">قطع</p>
+                                            <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success oneWay" style="display:inline-block; float:right;margin-left:10px">یک طرفه</p>
+                                            <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success screen" style="display:inline-block; float:right;margin-left:10px">اسکرین</p>
+                                            <p data-bind="attr: { 'data-cid': ConnectionId, 'title': Username }" class="btn btn-success webcam" style="display:inline-block; float:right;margin-left:10px">وب کم</p>
+
+                                        </div>
 
                                     </div>
 
-                                </div>
-
-                            </li>
-                            <!-- /ko -->
-                        </ul>
-                    </div>*@
+                                </li>
+                                <!-- /ko -->
+                            </ul>
+                        </div>*@
                     <div id="frame">
 
                         <div class="content">
@@ -194,10 +194,10 @@
                                 <p id="chatname"></p>
                                 <i style="display: none;float: left;position: absolute;top: 15px;left: 25px;font-size: 32px;" id="backButt" class="fa fa-angle-left"></i>
                                 @*<div class="social-media">
-            <i class="fa fa-facebook" aria-hidden="true"></i>
-            <i class="fa fa-twitter" aria-hidden="true"></i>
-            <i class="fa fa-instagram" aria-hidden="true"></i>
-        </div>*@
+                <i class="fa fa-facebook" aria-hidden="true"></i>
+                <i class="fa fa-twitter" aria-hidden="true"></i>
+                <i class="fa fa-instagram" aria-hidden="true"></i>
+            </div>*@
                                 <script>
                                     $("#backButt").click(function () {
                                         var id = $("#hiddeninput").val();
@@ -205,7 +205,7 @@
                                         $("#" + id).remove();
                                         var ul = $(".messages ul");
                                         ul.append(item);
-                                        
+
                                         $(this).css("display", "none");
                                         $("ul li").css("display", "none");
                                         $(".mainli").css("display", "block");
@@ -216,55 +216,110 @@
                                             }
                                         })
                                         $(".message-input").css("display", "none")
-                                       
+
                                     })
                                 </script>
                             </div>
                             <div id="message" class="messages" style="">
-                                 <input type="hidden" id="hiddeninput"/>
+                                <input type="hidden" id="hiddeninput" />
                                 <ul>
                                     @*<li class="sent">
-                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
-            </li>
-            <li class="replies">
-                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                <p>When you're backed against the wall, break the god damn thing down.</p>
-            </li>
-            <li class="replies">
-                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                <p>Excuses don't win championships.</p>
-            </li>
-            <li class="sent">
-                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                <p>Oh yeah, did Michael Jordan tell you that?</p>
-            </li>
-            <li class="replies">
-                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                <p>No, I told him that.</p>
-            </li>
-            <li class="replies">
-                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                <p>What are your choices when someone puts a gun to your head?</p>
-            </li>
-            <li class="sent">
-                <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-                <p>What are you talking about? You do what they say or they shoot you.</p>
-            </li>
-            <li class="replies">
-                <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
-                <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
-            </li>*@
+                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                    <p>How the hell am I supposed to get a jury to believe you when I am not even sure that I do?!</p>
+                </li>
+                <li class="replies">
+                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                    <p>When you're backed against the wall, break the god damn thing down.</p>
+                </li>
+                <li class="replies">
+                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                    <p>Excuses don't win championships.</p>
+                </li>
+                <li class="sent">
+                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                    <p>Oh yeah, did Michael Jordan tell you that?</p>
+                </li>
+                <li class="replies">
+                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                    <p>No, I told him that.</p>
+                </li>
+                <li class="replies">
+                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                    <p>What are your choices when someone puts a gun to your head?</p>
+                </li>
+                <li class="sent">
+                    <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
+                    <p>What are you talking about? You do what they say or they shoot you.</p>
+                </li>
+                <li class="replies">
+                    <img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" />
+                    <p>Wrong. You take the gun, or you pull out a bigger one. Or, you call their bluff. Or, you do any one of a hundred and forty six other things.</p>
+                </li>*@
                                 </ul>
 
 
                             </div>
-                            <div class="message-input" style="display:none">
+                            <div class="message-input" >
                                 <div class="wrap">
-                                    <input id="chatMessage" type="text" placeholder="Write your message..." />
-                                    <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                                    <button id="recodrdVoice" style="float:left"><i class="fa fa-microphone" aria-hidden="true"></i></button>
+                                    <input id="chatMessage" type="text"  placeholder="پیام خود را بنویسید" style="text-align:right"/>
+                                    <button id="attach" class="attachment"> <i class="fa fa-paperclip " aria-hidden="true"></i></button>
                                     <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+                                    <input id="fileupload" type="file" style="display:none" />
                                 </div>
+                            </div>
+                            <style>
+
+                                #chatMessage2 {
+                                    border: none;
+                                    width: 100%;
+                                    -webkit-box-shadow: none;
+                                    border: none;
+                                    padding: 0px 10px;
+                                    margin: 0;
+                                    padding: 5px !important;
+                                }
+
+                                    #chatMessage2:focus {
+                                        -webkit-box-shadow: none;
+                                        border: none
+                                    }
+
+                                .thumbHolder {
+                                    padding: 15px;
+                                    display: flex;
+                                    justify-content: center
+                                }
+
+                                .thumbItem {
+                                    width: 70px;
+                                    height: 60px;
+                                    object-fit: cover;
+                                    text-align: center;
+                                    padding: 10px;
+                                    background-color: white;
+                                    border: 1px solid #ddd;
+                                    margin-left: 5px;
+                                    font-size: 9px;
+                                }
+                            </style>
+                            <div id="attachmentDiv" style="z-index:99; background-color:white; margin-bottom:5px;display:none;width: 100%;position: absolute;bottom: 0px;left: 0;text-align: left;border: 1px solid #9d9d9d;height: 100%;">
+                                <div style="padding:15px; background-color:aqua; text-align:center; ">پیش نمایش  <i id="removePreview" style="float:right" class="fa fa-remove"></i></div>
+                                <div class="imageHolder" style="width:40%; height:40%; object-fit:scale-down;text-align:center; margin:15px auto">
+                                    <img id="preview" style="max-height:100%; max-width:100%; " src="#" />
+                                </div>
+                                <div style="margin:15px auto; width:70%; border-bottom:1px solid aqua; position:relative">
+                                    <input id="chatMessage2" placeholder="متن مورد نظر شما" type="text" style="" />
+                                    <i class="fa fa-send submit" style="border-radius:50%;padding: 7px;background-color:aqua;color:white;position: absolute;top: 10px;"></i>
+                                </div>
+                                <div class="thumbHolder">
+
+                                    <div class="thumbItem" id="addItem">
+                                        <p style="margin:7px 0">افزودن مورد</p>
+                                        <i class="fa fa-plus"></i>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -281,7 +336,7 @@
     <script src="/Scripts/Scripts/knockout-2.2.1.js"></script>
     <script src="/Scripts/Scripts/knockout.mapping-latest.js"></script>
 
-    
+
 
     @*<script src="/Scripts/Scripts/alertify.min.js"></script>*@
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
@@ -292,7 +347,7 @@
     <script src="~/signalr/hubs"></script>
 
     <!-- App JS -->
-
+    <script src="https://cdn.WebRTC-Experiment.com/MediaStreamRecorder.js"></script>
     <script src="/Scripts/Scripts/webrtcdemo/viewModel.js"></script>
     <script src="/Scripts/Scripts/webrtcdemo/connectionManager.js"></script>
     <script src="/Scripts/Scripts/webrtcdemo/app.js"></script>
@@ -318,8 +373,8 @@
         };
         mainliClicked = function (connectionID,name) {
 
-            
-          
+
+
             $('ul li').css("display", "none");
             $("." + connectionID).css("display", "block");
             $("#backButt").css("display", "block");
@@ -327,12 +382,12 @@
             $("#" + connectionID).css("display", "none")
             $("#" + connectionID).find(".num").text('');
             $("#" + connectionID).find(".num").css("display", "none");
-            
+
             $(".message-input").css("display", "block");
             WebRtcDemo.App.chatselectedFun(name);
             $("#hiddeninput").val(connectionID);
         };
-       
+
 
     </script>
 
