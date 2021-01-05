@@ -974,7 +974,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             });
 
             $(".submit").click(function () {
-
+                $("#attachmentDiv").hide();
                 var messageType = "text";
                 var message = $("#chatMessage").val();
                 let count = 0;
@@ -1254,7 +1254,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
 
 
-                    $("#attachmentDiv").hide();
+                 
 
 
                     if (counter == total) {
