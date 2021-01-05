@@ -1244,11 +1244,11 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         
                     }
                     var spg = $("#" + progressID).parent();
-                    //spg.children('.progress-circlle').each(function () {
-                    //    this.remove();
-                    //})
-                    //let check = `<i class="fa fa-check" style="font-size: 14px;position: absolute;bottom: 5px;right: 140px;color: white;"></i>`;
-                    //spg.append(check);
+                    spg.children('.progress-circlle').each(function () {
+                        this.remove();
+                    })
+                    let check = `<i class="fa fa-check" style="font-size: 14px;position: absolute;bottom: 5px;right: 140px;color: white;"></i>`;
+                    spg.append(check);
 
 
 
