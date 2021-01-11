@@ -26,18 +26,20 @@
     @*<link href="/Content/Content/alertify/alertify.core.css" rel="stylesheet" />
         <link href="/Content/Content/alertify/alertify.default.css" rel="stylesheet" />*@
 
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+    @*<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
 
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+        <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
+        <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>*@
 
     <link href="~/Content/Content/chatStyle.css" rel="stylesheet" />
     <link href="~/Content/Content/userDisplay.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!-- Libs -->
+    <link href="~/Content/css-circular-prog-bar.css" rel="stylesheet" />
     <script src="/Scripts/Scripts/adapter.js"></script>
     <script src="/Scripts/Scripts/jquery-1.7.1.js"></script>
 
@@ -387,6 +389,53 @@
             WebRtcDemo.App.chatselectedFun(name);
             $("#hiddeninput").val(connectionID);
         };
+        downlodIMG = function (element) {
+            
+            let id = element.id;
+            var spg = element.parentNode;
+            element.style.display = "none";
+            
+            var xmlHTTP = new XMLHttpRequest();
+            xmlHTTP.open('GET', "/files/"+id, true);
+            xmlHTTP.responseType = 'arraybuffer';
+            xmlHTTP.onload = function (e) {
+                var blob = new Blob([this.response]);
+                let els = spg.getElementsByClassName('progress-circlle');
+                Array.prototype.forEach.call(els, function (el) {
+                    // Do stuff here
+                    el.remove();
+                });
+              
+                var imagtag = spg.getElementsByTagName('img')
+                console.log(imagtag)
+                imagtag[0].src = window.URL.createObjectURL(blob);
+                //thisImg.src = window.URL.createObjectURL(blob);
+            };
+            xmlHTTP.onprogress = function (e) {
+               
+               
+                let percent_complete = parseInt((e.loaded / e.total) * 100);
+
+                let classname = '';
+                if (percent_complete >= 50) {
+                    classname = 'over50';
+                }
+                let srt = `<div style="top:50%; left:50%; transform :translate(-50%, -50%);" class="progress-circlle ` + classname + `  p` + percent_complete + ` "><span>` + percent_complete + `%</span><div class="left-half-clipper"><div class="first50-bar"></div><div class="value-bar"></div></div></div>`;
+               
+
+                let els =  spg.getElementsByClassName('progress-circlle');
+                Array.prototype.forEach.call(els, function (el) {
+                    // Do stuff here
+                    el.remove();
+                });
+                
+                spg.insertAdjacentHTML('beforeend', srt );
+            };
+            xmlHTTP.onloadstart = function () {
+               // thisImg.completedPercentage = 0;
+            };
+            xmlHTTP.send();
+        }
 
 
     </script>

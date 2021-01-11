@@ -316,8 +316,36 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         console.log(url);
                         li2 = document.createElement('li');
                         li2.className = 'replies ' + connectionID;
-                        li2.innerHTML = `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
+                       
+                        li2.innerHTML = `<div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <i id="` + url +`" style="position: absolute; top: 50%; left: 50%;  font-size: 20px;cursor:pointer; transform: translate(-50%, -50%);" class="fal fa-download" onclick="downlodIMG(this)"></i><img  style="min-width: 150px;max-width: 150px;border-radius:5px;margin: 0;"  src="/Files/0`+url+`"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
+                        //li2.innerHTML = `<div style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"><span style="display:none">` + url + `</span> <i style="position: absolute; top: 50%; left: 50%;  font-size: 30px; transform: translate(-50%, -50%);" class="fal fa-download"></i><img style="min-width: 150px;max-width: 150px;border-radius:5px;margin: 0;"  src="/Files/0` + url + `"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
                         hasobject = true;
+
+                       
+
+                        //xhr.open("GET", "http://fiddle.jshell.net/img/logo.png", true);
+
+                        //// Ask for the result as an ArrayBuffer.
+                        //xhr.responseType = "arraybuffer";
+
+                        //xhr.onload = function (e) {
+                        //    // Obtain a blob: URL for the image data.
+                        //    var arrayBufferView = new Uint8Array(this.response);
+                        //    var blob = new Blob([arrayBufferView], { type: "image/jpeg" });
+                        //    var urlCreator = window.URL || window.webkitURL;
+                        //    var imageUrl = urlCreator.createObjectURL(blob);
+
+                        //    console.log(url);
+                        //    li2 = document.createElement('li');
+                        //    li2.className = 'replies ' + connectionID;
+                        //    li2.innerHTML = `<div style="width:150px;height:150px;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"><span style="display:none">` + imageUrl + `</span><i class="fal fa-download"></i> <img  src="/Files/"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
+                        //    hasobject = true;
+                           
+                        //};
+
+                        //xhr.send();
+
+                       
                     }
                     else if (type == "audio") {
                         li2 = document.createElement('li');
@@ -336,8 +364,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     console.log(hastext);
                     if (ismainListempty == 2  ) {   
 
-                       
-
+                        
                         if (isBackIsHitInItem == 2)// اینجوری لازم نیست مستر تغییر کنه و فقط آیتم داخل مستر تغییر میکنن
                         {
                             console.log("2")
@@ -402,98 +429,38 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                        
                     }
                     else {
-                        if (type == "image") {
-                            if (message.includes('-')) {
-                                let msg = message.split('-')[0];
-                                url = message.split('-')[1];
-                            }
-                            else {
-                                url = message;
-                            }
-                        }
-                        else {
-                            url = message;
-                        }
-                        
-                        display = 'block';
-
-                        const li = document.createElement('li');
-                        li.className = 'replies mainli ' + connectionID;
-                        li.id = connectionID;
-                    
+                       
+                       
+                      
+                        const llii = document.createElement('li');
+                        llii.className = 'replies mainli ' + connectionID;
+                        llii.id = connectionID;
                         let bodystring =  `<span style=" width=:100%; font-weight:600">` + name + `</span><br><span class="preview">` + url + `</span>`;
                        
-                        li.style.display = display;
-                        li.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"` + `,` + `"` + name + `"` + `)'  class="main" >  ` + bodystring+`<span class="num" style="position:absolute;margin-right: 10px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
+                        llii.style.display = "block";
+                        llii.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"` + `,` + `"` + name + `"` + `)'  class="main" >  ` + bodystring+`<span class="num" style="position:absolute;margin-right: 10px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
                         // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
 
-
-
-
                         var ulInnerHtml = ul.html();
-                        ul.html(li)
-                      
-
-                        display = 'none';
-                        if (type == "image") {
-
-
-                            if (message.includes('-')) {
-
-                                let msg = message.split('-')[0];
-                                url = message.split('-')[1];
-                                
-
-                                const li2 = document.createElement('li');
-                                li2.className = 'replies ' + connectionID;
-                                li2.style.display = display;
-                                url = message;
-                                li2.innerHTML = `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `"/>`;
-                                ul.append(li2);
-
-                                const li3 = document.createElement('li');
-                                url = message;
-                                li3.className = 'replies ' + connectionID;
-                                li3.style.display = display;
-                                li3.innerHTML = `<p>` + msg + `</p> `;
-                                ul.append(li3);
-
-                            }
-                            else {
-                                const li2 = document.createElement('li');
-                                url = message;
-                                li2.className = 'replies ' + connectionID;
-                                li2.style.display = display;
-                                url = message;
-                                li2.innerHTML = `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `"/>`;
-                                ul.append(li2);
-                            }
-                        }
-                        else if (type == "audio") {
-                             const li2 = document.createElement('li');
-                                url = message;
-                                li2.className = 'replies ' + connectionID;
-                                li2.style.display = display;
-                                url = message;
-                                li2.innerHTML = `<audio controls='' style="float:right"><source src="/Files/` + url + `"></source></audio>`;
-                                ul.append(li2);
-                        }
-                        else {
-                            const li2 = document.createElement('li');
-                            li2.className = 'replies ' + connectionID;
-                            li2.style.display = 'none';
-                            li2.innerHTML = `<p>` + message + `</p> `;
-                            // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-
-                            ul.append(li2);
-                        }
-                       
-
+                        ul.html(llii)
                         ul.append(ulInnerHtml);
 
 
+                        console.log(hasobject);
+                        console.log(hastext);
+                        if (hasobject == true) {
+                            li2.style.display = "none";
+                            ul.append(li2);
+                        }
+                        if (hastext == true) {
+                            li.style.display = "none";
+                            ul.append(li);
+                        }
+                        
                         var firstnum = $("#" + connectionID).find(".num");
+                       
                         var numtext = firstnum.text();
+                       
                         if (numtext == '') {
                             num = 1;
                         }
@@ -725,11 +692,34 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     }
                 })
                 .fail(function (event) {
-
+                    console.log('connecting fail: ' + _hub.connection.id);
                     if (onFailure) {
-                        onFailure(event);
+
+                        //onFailure(event);
                     }
                 });
+            $.connection.hub.disconnected(function () {
+                setTimeout(function () {
+                    $.connection.hub.start().done(function () {
+                        //alert('connected to SignalR hub... connection id: ' + _hub.connection.id);
+
+                        // Tell the hub what our username is
+                        console.log(viewModel.Groupname());
+                        console.log(username);
+                        hub.server.join(viewModel.Groupname(), username, 'client');
+                        $("#chatname").text(username)
+                        if (onSuccess) {
+                            onSuccess(hub);
+                        }
+                    }).fail(function (event) {
+
+                        if (onFailure) {
+                            onFailure(event);
+                        }
+                    });
+                    console.log("restart connection");
+                }, 5000); // Restart connection after 5 seconds.
+            });
 
             // Setup client SignalR operations
             _setupHubCallbacks(hub);
@@ -1068,7 +1058,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 var message = $("#chatMessage").val();
                 let count = 0;
                 $.each(_Attachment, function (key,value) {
-                  
+                    
                     count += 1;
                 })
                 if (count != 0) {
@@ -1164,6 +1154,11 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 this.disabled = true;
                 mediaRecorder.save();
             });
+            $(".dwimg").click(function () {
+                alert("ss");
+                let img = $(this).parent().find("span").text();
+                alert(img);
+            })
             $("#recodrdVoice").on('mousedown', function (e) {
 
                 _startRecording();
@@ -1329,7 +1324,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     let messageType;
                     let rsp = request.response;
                     var ext = rsp.substring(rsp.lastIndexOf('.') + 1).toLowerCase();
-                    const li = document.createElement('li');
+                    messageType = 'image';
                     if ((ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
 
                         li.className = "sent";
@@ -1338,7 +1333,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         li.innerHTML = htmlsrt;
                         var ul = $(".messages ul");
                         ul.append(li);
-                        messageType = 'image';
+                        
                     }
 
 
@@ -1347,9 +1342,10 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                     $("#attachmentDiv").hide();
 
-
+                  
                     if (counter == total) {
-
+                        
+                        var ul = $(".messages ul");
                         if (message != '') {
                             const li2 = document.createElement('li');
                             li2.className = "sent";

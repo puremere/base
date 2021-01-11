@@ -2737,6 +2737,14 @@ readers do not read off random characters that represent icons */
 .fa-search:before {
   content: "\f002"; }
 
+.fa-send:before, .fa-paper-plane:before {
+    content: "\f1d8"
+}
+
+.fa-send-o:before, .fa-paper-plane-o:before {
+    content: "\f1d9"
+}
+
 .fa-search-minus:before {
   content: "\f010"; }
 

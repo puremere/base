@@ -22,10 +22,10 @@
 
     <link href="~/Content/Content/userDisplay.css" rel="stylesheet" />
 
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css'>
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.2/css/font-awesome.min.css'>
+
     <link href="~/Content/Content/chatStyle.css" rel="stylesheet" />
     <link href="~/Content/css-circular-prog-bar.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -113,7 +113,7 @@
                 <span class="loading-indicator icon-spinner-3" data-bind="css: { on: Loading }"></span>
                 <span style="margin:10px auto; ">
                     <button style=" display:none;border-radius:10px;" class="btn btn-danger hangup"><i class="fa fa-power-off"></i> </button>
-                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstTasviri"><i class="fa fa-video-camera"></i></button>
+                    <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstTasviri"><i class="fa fa-video"></i></button>
                     <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success requstSoti"><i class="fa fa-microphone"></i></button>
                     <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success chat"><i class="fa fa-comment"></i> </button>
 
@@ -228,12 +228,14 @@
 
                             </div>
                             <div>
-                                
+                                <span id="clicks" style="display:none;  width: 100%; bottom: 45px;position: absolute;left: 10px;">
+                                    <img src="/images/redbutt.png" style=" float: left;">
+                                </span>
                                 <div class="message-input">
-                                    <span id="clicks"> </span>
+                                    
                                     <div class="wrap">
                                         <button id="recodrdVoice" style="float:left"><i class="fa fa-microphone" aria-hidden="true"></i></button>
-                                        <input id="chatMessage" type="text" placeholder="پیام خود را بنویسید" style="text-align:right"/>
+                                        <input id="chatMessage" type="text" placeholder="پیام خود را بنویسید" style="text-align:right;margin-bottom:0"/>
                                         <button id="attach" class="attachment"> <i class="fa fa-paperclip " aria-hidden="true"></i></button>
                                         <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                         <input id="fileupload" type="file" style="display:none" />
@@ -282,7 +284,7 @@
                                 </div>
                                 <div style="margin:15px auto; width:70%; border-bottom:1px solid aqua; position:relative">
                                     <input id="chatMessage2" placeholder="متن مورد نظر شما" type="text" style="" />
-                                    <i class="fa fa-send submit" style="border-radius:50%;padding: 7px;background-color:aqua;color:white;position: absolute;top: 10px;"></i>
+                                    <i class="fa fa-paper-plane submit" style="border-radius:50%;padding: 7px;background-color:aqua;color:white;position: absolute;top: 10px;"></i>
                                 </div>
                                 <div class="thumbHolder">
 
