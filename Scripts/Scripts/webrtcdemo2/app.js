@@ -189,8 +189,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
         _streamType = 'blank',
         _IAMDone,
         _Attachment = {},
-        mediaRecorder;
-
+        mediaRecorder,
+        reader = null
 
     _connect = function (username, onSuccess, onFailure) {
         // Set Up SignalR Signaler
@@ -219,9 +219,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 var li; // مال متن همراه با آبجکت یا بدون آبجکت 
                 var li2;// مال آبجکت
                 var ul = $(".messages ul"); // لیست اصلی پیام ها - سیستم اینجوری کار میکنه که دوتالیست نداریم یه لیست داریم برای داخل و خارج که لیست با مستر خودش هیدن میشه
-                if (message.includes('-')) {
-                    let msg = message.split('-')[0];
-                    url = message.split('-')[1];
+                if (message.includes(';;;')) {
+                    let msg = message.split(';;;')[0];
+                    url = message.split(';;;')[1];
                     hastext = true;
                     li = document.createElement('li');
                     li2 = document.createElement('li');
@@ -1003,16 +1003,13 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 var message2 = $("#chatMessage2").val();
                 var ul = $(".messages ul");
                 $.each(_Attachment, function (key, value) {
-                    var reader = new FileReader();
+                    reader = new FileReader();
                     var progressID = _makeid();
                     reader.onload = function (e) {
-                        sourc = e.target.result;
+                       
                         const li = document.createElement('li');
                         li.className = "sent";
-                        var htmlsrt = "";
-                        htmlsrt += `<img id="` + progressID+`" src="` + sourc + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
-                        li.innerHTML = htmlsrt;
-                      
+                        li.innerHTML = `<img id="` + progressID + `" src="` + e.target.result + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;;
                         ul.append(li);
                         messageType = 'image';
                         $("#chatMessage2").val('');
@@ -1029,6 +1026,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     _Attachment2[key] = value;
                     
                 })
+                
                 if (count != 0) {
                     message = $("#chatMessage2").val();
                    
@@ -1124,12 +1122,10 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 var reader = new FileReader();
                 var progressID = _makeid();
                 reader.onload = function (e) {
-                    sourc = e.target.result;
+                   
                     const li = document.createElement('li');
                     li.className = "sent";
-                    var htmlsrt = "";
-                    htmlsrt += `<audio id=` + progressID+` controls='' style="float:right"><source src="` + sourc+ `"></source></audio>`;
-                    li.innerHTML = htmlsrt;
+                    li.innerHTML = `<audio id=` + progressID + ` controls='' style="float:right"><source src="` + e.target.result + `"></source></audio>`;;
                     var ul = $(".messages ul");
                     ul.append(li);
                 }
@@ -1298,12 +1294,6 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     counter += 1;
                     let messageType = 'image';
                     let rsp = request.response;
-                    //var ext = rsp.substring(rsp.lastIndexOf('.') + 1).toLowerCase();
-                   
-                    //if ((ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
-                       
-                        
-                    //}
                     var spg = $("#" + progressID).parent();
                     
 
@@ -1326,7 +1316,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                             htmlsrt2 = `<p>` + message + `</p> `;
                             li2.innerHTML = htmlsrt2;
                             ul.append(li2);
-                            message = message + "-" + rsp;
+                            message = message + ";;;" + rsp;
 
 
 

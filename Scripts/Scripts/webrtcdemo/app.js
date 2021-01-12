@@ -271,9 +271,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     var li; // مال متن همراه با آبجکت یا بدون آبجکت 
                     var li2;// مال آبجکت
                     var ul = $(".messages ul"); // لیست اصلی پیام ها - سیستم اینجوری کار میکنه که دوتالیست نداریم یه لیست داریم برای داخل و خارج که لیست با مستر خودش هیدن میشه
-                    if (message.includes('-')) {
-                        let msg = message.split('-')[0];
-                        url = message.split('-')[1];
+                    if (message.includes(';;;')) {
+                        let msg = message.split(';;;')[0];
+                        url = message.split(';;;')[1];
                         hastext = true;
                         li = document.createElement('li');
                         li2 = document.createElement('li');
@@ -320,37 +320,14 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         li2.innerHTML = `<div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <i id="` + url +`" style="position: absolute; top: 50%; left: 50%;  font-size: 20px;cursor:pointer; transform: translate(-50%, -50%);" class="fal fa-download" onclick="downlodIMG(this)"></i><img  style="min-width: 150px;max-width: 150px;border-radius:5px;margin: 0;"  src="/Files/0`+url+`"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
                         //li2.innerHTML = `<div style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"><span style="display:none">` + url + `</span> <i style="position: absolute; top: 50%; left: 50%;  font-size: 30px; transform: translate(-50%, -50%);" class="fal fa-download"></i><img style="min-width: 150px;max-width: 150px;border-radius:5px;margin: 0;"  src="/Files/0` + url + `"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
                         hasobject = true;
-
                        
-
-                        //xhr.open("GET", "http://fiddle.jshell.net/img/logo.png", true);
-
-                        //// Ask for the result as an ArrayBuffer.
-                        //xhr.responseType = "arraybuffer";
-
-                        //xhr.onload = function (e) {
-                        //    // Obtain a blob: URL for the image data.
-                        //    var arrayBufferView = new Uint8Array(this.response);
-                        //    var blob = new Blob([arrayBufferView], { type: "image/jpeg" });
-                        //    var urlCreator = window.URL || window.webkitURL;
-                        //    var imageUrl = urlCreator.createObjectURL(blob);
-
-                        //    console.log(url);
-                        //    li2 = document.createElement('li');
-                        //    li2.className = 'replies ' + connectionID;
-                        //    li2.innerHTML = `<div style="width:150px;height:150px;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"><span style="display:none">` + imageUrl + `</span><i class="fal fa-download"></i> <img  src="/Files/"/></div>`;// `<img style="width:150px; float:left; border-radius:0" src="/Files/` + url + `" />`;
-                        //    hasobject = true;
-                           
-                        //};
-
-                        //xhr.send();
 
                        
                     }
                     else if (type == "audio") {
                         li2 = document.createElement('li');
                         li2.className = 'replies ' + connectionID;
-                        li2.innerHTML = `<audio controls='' style="float:right"><source src="/Files/` + url + `"></source></audio>`;
+                        li2.innerHTML = `<div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <i id="` + url + `" style="z-index:99; position: absolute; top: 50%; left: 50%;  font-size: 20px;cursor:pointer; transform: translate(-50%, -50%);" class="fal fa-download" onclick="downlodIMG(this)"></i><audio controls='' style="float:right"><source src=""></source></audio></div>` ;
                         hasobject = true;
                     }
                     else {
@@ -1353,7 +1330,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                             htmlsrt2 = `<p>` + message + `</p> `;
                             li2.innerHTML = htmlsrt2;
                             ul.append(li2);
-                            message = message + "-" + rsp;
+                            message = message + ";;;" + rsp;
 
 
 

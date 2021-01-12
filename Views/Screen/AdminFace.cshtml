@@ -21,7 +21,8 @@
     <link href="~/Content/Content/alertify/semantic.rtl.css" rel="stylesheet" />
     <link href="~/Content/Content/alertify/bootstrap.rtl.css" rel="stylesheet" />
 
-
+    <link href="~/Content/css-circular-prog-bar.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
 
     @*<link href="/Content/Content/alertify/alertify.core.css" rel="stylesheet" />
         <link href="/Content/Content/alertify/alertify.default.css" rel="stylesheet" />*@
@@ -389,7 +390,7 @@
             WebRtcDemo.App.chatselectedFun(name);
             $("#hiddeninput").val(connectionID);
         };
-        downlodIMG = function (element) {
+        downlodIMG = function (element,type) {
             
             let id = element.id;
             var spg = element.parentNode;
@@ -405,10 +406,18 @@
                     // Do stuff here
                     el.remove();
                 });
-              
-                var imagtag = spg.getElementsByTagName('img')
-                console.log(imagtag)
-                imagtag[0].src = window.URL.createObjectURL(blob);
+
+                if (type == 1) {
+                    var imagtag = spg.getElementsByTagName('img')
+                    console.log(imagtag)
+                    imagtag[0].src = window.URL.createObjectURL(blob);
+                }
+                else {
+                    var imagtag = spg.getElementsByTagName('audio')
+                    console.log(imagtag)
+                    imagtag[0].src = window.URL.createObjectURL(blob);
+                }
+               
                 //thisImg.src = window.URL.createObjectURL(blob);
             };
             xmlHTTP.onprogress = function (e) {
@@ -420,7 +429,7 @@
                 if (percent_complete >= 50) {
                     classname = 'over50';
                 }
-                let srt = `<div style="top:50%; left:50%; transform :translate(-50%, -50%);" class="progress-circlle ` + classname + `  p` + percent_complete + ` "><span>` + percent_complete + `%</span><div class="left-half-clipper"><div class="first50-bar"></div><div class="value-bar"></div></div></div>`;
+                let srt = `<div style="z-index:99; top:50%; left:50%; transform :translate(-50%, -50%);" class="progress-circlle ` + classname + `  p` + percent_complete + ` "><span>` + percent_complete + `%</span><div class="left-half-clipper"><div class="first50-bar"></div><div class="value-bar"></div></div></div>`;
                
 
                 let els =  spg.getElementsByClassName('progress-circlle');
