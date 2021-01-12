@@ -190,7 +190,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
         _IAMDone,
         _Attachment = {},
         mediaRecorder,
-        reader = null
+        reader = null,
+        intervalVar
 
     _connect = function (username, onSuccess, onFailure) {
         // Set Up SignalR Signaler
@@ -1095,7 +1096,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             //document.getElementById("clicks").innerHTML = "درحال رکورد";
 
             var f = document.getElementById('clicks');
-            setInterval(function () {
+            intervalVar =  setInterval(function () {
                 f.style.display = (f.style.display == 'none' ? '' : 'none');
             }, 1000);
             var mediaConstraints = {
@@ -1214,9 +1215,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             console.error('media error', e);
         },
         _stopRecording = function () {
-            $('#stop-recording').disabled = true;
+           clearInterval(intervalVar);
 
-            document.getElementById("clicks").innerHTML = "";
+            document.getElementById("clicks").style.display = "none";
 
             //var f = document.getElementById('clicks');
             //setInterval(function () {
