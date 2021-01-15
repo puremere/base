@@ -271,9 +271,12 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     var li; // مال متن همراه با آبجکت یا بدون آبجکت 
                     var li2;// مال آبجکت
                     var ul = $(".messages ul"); // لیست اصلی پیام ها - سیستم اینجوری کار میکنه که دوتالیست نداریم یه لیست داریم برای داخل و خارج که لیست با مستر خودش هیدن میشه
-                    if (message.includes(';;;')) {
-                        let msg = message.split(';;;')[0];
-                        url = message.split(';;;')[1];
+                   
+                    if (message.includes('***')) {
+
+                        let msg = message.split('***')[0];
+                        url = message.split('***')[1];
+                      
                         hastext = true;
                         li = document.createElement('li');
                         li2 = document.createElement('li');
@@ -311,7 +314,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     }
 
 
-
+                   
                     if (type == "image") {
                         console.log(url);
                         li2 = document.createElement('li');
@@ -324,10 +327,17 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                        
                     }
+                    
                     else if (type == "audio") {
                         li2 = document.createElement('li');
                         li2.className = 'replies ' + connectionID;
                         li2.innerHTML = `<div  style="position:relative;object-fit:scale-down;float:left;border-radius:0;border: 2px solid white;border-radius: 5px;"> <i id="` + url + `" style="z-index:99; position: absolute; top: 50%; left: 50%;  font-size: 20px;cursor:pointer; transform: translate(-50%, -50%);" class="fal fa-download" onclick="downlodIMG(this)"></i><audio controls='' style="float:right"><source src=""></source></audio></div>` ;
+                        hasobject = true;
+                    }
+                    else if (type == "file") {
+                        li2 = document.createElement('li');
+                        li2.className = 'replies ' + connectionID;
+                        li2.innerHTML = `<div class='fileUploadParent  row' onclick="downlodFile(this)"  style=""><img  src="/images/fileicon.png" /><span  >` + url + `</span></div>` + `<i class="fa fa-download" style="font-size: 14px;position: absolute;bottom: 20px;right: 10px;color: white;"></i>`;
                         hasobject = true;
                     }
                     else {
@@ -341,7 +351,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     console.log(hastext);
                     if (ismainListempty == 2  ) {   
 
-                        
+                        var preview = $("#" + connectionID).find(".preview");
                         if (isBackIsHitInItem == 2)// اینجوری لازم نیست مستر تغییر کنه و فقط آیتم داخل مستر تغییر میکنن
                         {
                             console.log("2")
@@ -381,8 +391,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                                 ul.append(li);
                             }
                             $('ul li').css("display", "none");
+                            $(".mainli").css("display", "block");
                             var firstnum = $("#" + connectionID).find(".num");
-                            var preview = $("#" + connectionID).find(".preview");
+                           
                             var numtext = firstnum.text();
 
                             if (numtext == '') {
@@ -394,10 +405,10 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                             firstnum.text(num);
                             firstnum.css("display", "block");
-                            preview.text("");
+                          
 
                         }
-                       
+                        preview.text(url);
                         
                         
                       
@@ -412,10 +423,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         const llii = document.createElement('li');
                         llii.className = 'replies mainli ' + connectionID;
                         llii.id = connectionID;
-                        let bodystring =  `<span style=" width=:100%; font-weight:600">` + name + `</span><br><span class="preview">` + url + `</span>`;
-                       
+                        let bodystring =  `<span style="display:inline-block width=:100%; font-weight:600; float:right">  : ` + name + `</span><span class="preview" style:"display:inline-block">` + url + `</span>`;
                         llii.style.display = "block";
-                        llii.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"` + `,` + `"` + name + `"` + `)'  class="main" >  ` + bodystring+`<span class="num" style="position:absolute;margin-right: 10px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
+                        llii.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"` + `,` + `"` + name + `"` + `)'  class="main" >  ` + bodystring+`<span class="num" style="position:absolute;margin-right: 5px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
                         // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
 
                         var ulInnerHtml = ul.html();
@@ -447,10 +457,13 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                         firstnum.text(num);
                     }
-                   
+
+
                     var objDiv = document.getElementById("message");
                     objDiv.scrollTop = objDiv.scrollHeight;
-                 
+                   
+
+                  
                     
 
                    
@@ -1106,10 +1119,10 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     if (width == 0) {
                         $(".user-list").css("display", "block");
                         $("#vidoeHolder").animate({
-                            width: '75%'
+                            width: '60%'
                         });
                         $("#chatHolder").animate({
-                            width: '25%'
+                            width: '40%'
                         })
                     }
                     else {
@@ -1134,7 +1147,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             $(".dwimg").click(function () {
                 alert("ss");
                 let img = $(this).parent().find("span").text();
-                alert(img);
+               
             })
             $("#recodrdVoice").on('mousedown', function (e) {
 

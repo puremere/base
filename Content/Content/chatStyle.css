@@ -610,6 +610,7 @@
     height: 60px;
     line-height: 60px;
     background: #f5f5f5;
+    padding:0 20px;
 }
 
     #frame .content .contact-profile img {
@@ -668,9 +669,10 @@
     clear: both;
     float: left;
     margin: 15px 15px 5px 15px;
-    width: calc(100% - 25px);
+    /*width: calc(100% - 25px);*/
     font-size: 0.9em;
-    position:relative
+    position:relative;
+    float:right;
 }
 
     #frame .content .messages ul li:nth-last-child(1) {
@@ -712,7 +714,7 @@
 
         #frame .content .messages ul li p.main {
             display: inline-block;
-            padding: 10px 15px;
+            padding: 20px 30px;
             border-radius: 2px;
             max-width: 205px;
             line-height: 130%;
@@ -746,7 +748,8 @@
             padding: 11px 32px 10px 8px;
             font-size: 0.8em;
             color: #32465a;
-            height:45px !important
+            height:45px !important;
+            margin:0
         }
 
 @media screen and (max-width: 735px) {
@@ -793,6 +796,7 @@
     cursor: pointer;
     background: #32465a;
     color: #f5f5f5;
+    height:45px;
 }
 
 @media screen and (max-width: 735px) {
@@ -803,8 +807,56 @@
 
 #frame .content .message-input .wrap button:hover {
     background: #435f7a;
+    color:white
 }
 
 #frame .content .message-input .wrap button:focus {
     outline: none;
+}
+.fileUploadParent {
+    display: flex;
+    align-items: center;
+    direction: ltr;
+    padding: 10px 10px;
+    min-width: 200px;
+    border: 1px solid #435f7a;
+    background-color: #435f7a;
+    border-radius: 5px;
+    color: white;
+}
+    .fileUploadParent img {
+        margin: 0 !important;
+        float: right !important;
+        width: 30px !important;
+        display: inline-block !important;
+        margin: 0px !important
+    }
+    .fileUploadParent span {
+        display: inline-block
+    }
+
+
+.replies .fileUploadParent{
+    background-color:lightgray
+}
+
+
+
+
+li.sent, li.replies{
+    width:inherit 
+}
+
+.mainli {
+    width: 100% !important;
+    margin: 10px 0 !important;
+}
+
+    .mainli p {
+        max-width: 100% !important;
+       
+    }
+
+li.replies{
+    float:left !important;
 }
