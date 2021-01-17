@@ -253,7 +253,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 viewModel.setUsers(userList);
             };
-            hub.client.setMessage = function (message, connectionID, name,type) {
+            hub.client.setMessage = function (message, connectionID, name, type, progressID) {
 
              
                 if (connectionID == viewModel.MyConnectionId()) {
@@ -337,7 +337,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     else if (type == "file") {
                         li2 = document.createElement('li');
                         li2.className = 'replies ' + connectionID;
-                        li2.innerHTML = `<div class='fileUploadParent  row' onclick="downlodFile(this)"  style=""><img  src="/images/fileicon.png" /><span  >` + url + `</span></div>` + `<i class="fa fa-download" style="font-size: 14px;position: absolute;bottom: 20px;right: 10px;color: white;"></i>`;
+                        li2.innerHTML = `<div class='fileUploadParent  '  style=""><div class="row" style="margin:0"><img  src="/images/fileicon.png" /><span  >` + url + `</span></div></div>` + `<i id="` + url +`" class="fa fa-download" style="font-size: 14px;position: absolute;bottom: 20px;right: 10px;color: #1c1c1c;cursor:pointer " onclick = downlodFile(this)></i>`;
                         hasobject = true;
                     }
                     else {
@@ -349,9 +349,11 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                     console.log(hasobject);
                     console.log(hastext);
+                  
                     if (ismainListempty == 2  ) {   
 
                         var preview = $("#" + connectionID).find(".preview");
+                      
                         if (isBackIsHitInItem == 2)// اینجوری لازم نیست مستر تغییر کنه و فقط آیتم داخل مستر تغییر میکنن
                         {
                             console.log("2")
@@ -418,13 +420,18 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     }
                     else {
                        
+                        let display = "block";
                        
+                        if (bool == true) {
+                            display = "none";
+                        }
+                        
                       
                         const llii = document.createElement('li');
                         llii.className = 'replies mainli ' + connectionID;
                         llii.id = connectionID;
                         let bodystring =  `<span style="display:inline-block width=:100%; font-weight:600; float:right">  : ` + name + `</span><span class="preview" style:"display:inline-block">` + url + `</span>`;
-                        llii.style.display = "block";
+                        llii.style.display = display;
                         llii.innerHTML = `<p onclick='mainliClicked(` + `"` + connectionID + `"` + `,` + `"` + name + `"` + `)'  class="main" >  ` + bodystring+`<span class="num" style="position:absolute;margin-right: 5px;right: 0;padding: 1px 8px;border-radius:50;border-radius: 50%;top: 5px;background: #4d4d4d;color: white;"></span></p> `  ;
                         // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
 
@@ -462,8 +469,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     var objDiv = document.getElementById("message");
                     objDiv.scrollTop = objDiv.scrollHeight;
                    
-
-                  
+                    _hub.server.messageRcieved(connectionID, progressID);
+                   
                     
 
                    
@@ -471,6 +478,12 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                     //togglePlay();
 
                 }
+            };
+            hub.client.messageRecived = function (progressID) {
+                var spg = $("#" + progressID).parent();
+                let check = `<i class="fa fa-check" style=" font-size: 12px;position: absolute;bottom: 5px;left: 10px;color: white;"></i>`;
+                spg.append(check);
+
             };
             // Hub Callback: Incoming Call
             hub.client.incomingCall = function (callingUser) {
@@ -992,7 +1005,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 var input = this;
                 var url = $(this).val()
                 var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-
+                var filename = url.substring(url.lastIndexOf('\\') + 1).toLowerCase();
                 if (input.files && input.files[0] && (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
                     $("#attachmentDiv").fadeIn();
 
@@ -1011,10 +1024,24 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                     reader.readAsDataURL(input.files[0]);
                     $(".thumbHolder").append(mydiv);
-                    let key = $("#fileupload").val().split('\\').pop();
+                    let key = $("#fileupload").val();
+
                     _Attachment[key] = input.files[0];
 
-                };
+                } else {
+                    $("#attachmentDiv").fadeIn();
+
+                    const mydiv = document.createElement('div');
+                    mydiv.className = 'thumbItem added';
+                    let key = $("#fileupload").val();
+                    mydiv.innerHTML = `<img src="/images/fileicon.png" style="width:100%;height:100%"/>`;
+                    $('#preview').attr('src', '/images/fileicon.png');
+                    $('#previewText').text(filename);
+
+                    $(".thumbHolder").append(mydiv);
+
+                    _Attachment[key] = input.files[0];
+                }
 
 
                 //if (input.files && input.files[0]) {
@@ -1042,52 +1069,106 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             });
 
 
-            $(".submit").click(function () {
+            $(".submit").click(function () {  // به ازای هر آبجکت علاوه بر ذخیره سازی یه بلاب برای نمایش میسازد و مسیج را نیز میفرستد همراه با آرایه
+
+
+
+
+                $("#attachmentDiv").hide();
                 var messageType = "text";
-                var id = $("#hiddeninput").val();
                 var message = $("#chatMessage").val();
                 let count = 0;
-                $.each(_Attachment, function (key,value) {
-                    
-                    count += 1;
-                })
-                if (count != 0) {
-                   
+                _Attachment2 = {};
 
-                    message = $("#chatMessage2").val();
-                    var returnName = _sendFile(_Attachment, message);
-
-                }
-                else  {
-                    _hub.server.sendMessage(message, id, messageType);
-                }
-
-               //$("#hiddeninput").val('');
                 var ul = $(".messages ul");
-                var name = viewModel.Username();
 
-              
-                const li = document.createElement('li');
-                li.className = 'sent ' + id;
-                li.innerHTML = `<p>` + message + `</p> `;
-                // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
-                ul.append(li);
+                $.each(_Attachment, function (key, value) {
+                    count += 1;
 
-              
-                $('ul li').css("display", "none");
-                $("." + id).css("display", "block");
-                $("#backButt").css("display", "block");
-                $(".num").css("display", "none");
-                $(this).find(".num").text('');
-                $(this).find(".num").css("display", "none");
-                $(".mainli").css("display", "none");
-                $(".message-input").css("display", "block")
+                    var ext = key.substring(key.lastIndexOf('.') + 1).toLowerCase();
+                    var filename = key.substring(key.lastIndexOf('\\') + 1).toLowerCase();
+                    var ul = $(".messages ul");
+
+                    if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg") {
+
+                        reader = new FileReader();
+                        var progressID = _makeid();
+                        reader.onload = function (e) {
+                            count += 1;
+                            const li = document.createElement('li');
+                            li.className = "sent";
+                            li.innerHTML = `<img id="` + progressID + `" src="` + e.target.result + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
+                            ul.append(li);
+                            messageType = 'image';
+
+
+                            // $("#chatMessage2").val('');
+                            //$('#preview').attr('src', sourc);
+                            //mydiv.firstChild.setAttribute("src", sourc);
+
+                        }
+
+                        reader.readAsDataURL(value);
+                    }
+                    else {
+
+                        var progressID = _makeid();
+                        const li = document.createElement('li');
+                        li.className = "sent";
+                        li.innerHTML = `<div class='fileUploadParent row' id="` + progressID + `" style=""><div class="row"><img  src="/images/fileicon.png" /><span  >` + filename + `</span></div></div>`;
+                        ul.append(li);
+                        messageType = 'image';
+
+
+
+                    };
+
+
+                    _Attachment2[filename + ";;;" + progressID] = value;
+
+                });
+
+                if (count != 0) {   // اگر تعداد فایل بالای صفر باشد دیگر کاری به نوشته دارد و فایل ها را میفرستد برای ارسال
+
+                    _Attachment = {};
+                    var returnName = _sendFile(_Attachment2);
+
+                }
+                else {
+
+
+                    var Username = $("#chatname").text();
+                    if (message != '') {
+                        var progressID = _makeid();
+                        _hub.server.sendMessage(message, $("#hiddeninput").val(), messageType, progressID);
+                        $("#chatMessage").val('');
+                        var ul = $(".messages ul");
+                        const li = document.createElement('li');
+                        li.className = 'sent';
+                        li.innerHTML = `<div id=` + progressID + `><p>` + message + `</p><i class="fa fa-check" style="font-size: 12px;position: absolute;bottom: 5px;left: 0px;color: white;"></i></div> `;
+                        // var li = ' <li class="sent"> <img src = "http://emilcarlsson.se/assets/mikeross.png" alt = "" /> </li >';
+                        ul.append(li);
+
+
+
+
+
+                    };
+
+                    //var objDiv = $("#messages");
+
+
+                }
+
 
                 var objDiv = document.getElementById("message");
                 objDiv.scrollTop = objDiv.scrollHeight;
-                $("#chatMessage").val('');
+                console.log($("#message").offset().top + '-');
 
+                $(".message-input").val('');
 
+                //var objDiv = document.getElementsByClassName("messages");
+                //objDiv.scrollTop = objDiv.scrollHeight;
             });
             $(".chat").click(function () {
                 console.log("hit")
@@ -1157,18 +1238,23 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 _stopRecording();
             });
-        },
-        _captureUserMedia = function (mediaConstraints, successCallback, errorCallback) {
+            },
 
-            navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
-        },
+
+       
+
+
+    _captureUserMedia = function (mediaConstraints, successCallback, errorCallback) {
+
+        navigator.mediaDevices.getUserMedia(mediaConstraints).then(successCallback).catch(errorCallback);
+    },
         _startRecording = function (idx) {
-            $('#start-recording').disabled = true;
-            audiosContainer = document.getElementById('audios-container');
-            document.getElementById("clicks").innerHTML = "درحال رکورد";
+            //$('#start-recording').disabled = true;
+            //audiosContainer = document.getElementById('audios-container');
+            //document.getElementById("clicks").innerHTML = "درحال رکورد";
 
             var f = document.getElementById('clicks');
-            setInterval(function () {
+            intervalVar = setInterval(function () {
                 f.style.display = (f.style.display == 'none' ? '' : 'none');
             }, 1000);
             var mediaConstraints = {
@@ -1190,6 +1276,29 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 });
 
 
+                // در اینجا بلاب راظاهر میکنیم
+
+                var reader = new FileReader();
+                var progressID = _makeid();
+                reader.onload = function (e) {
+
+                    const li = document.createElement('li');
+                    li.className = "sent";
+                    li.innerHTML = `<audio id=` + progressID + ` controls='' style="float:right"><source src="` + e.target.result + `"></source></audio>`;;
+                    var ul = $(".messages ul");
+                    ul.append(li);
+                }
+
+                reader.readAsDataURL(fileObject);
+
+
+
+
+
+
+
+
+
 
                 var formData = new FormData();
 
@@ -1203,44 +1312,53 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 // upload progress event
                 request.upload.addEventListener('progress', function (e) {
-                    let percent_complete = (e.loaded / e.total) * 100;
+                    let percent_complete = parseInt((e.loaded / e.total) * 100);
 
-                    // percentage of upload completed
-                    console.log(e.loaded / e.total + "-" + percent_complete + "%");
+                    let classname = '';
+                    if (percent_complete >= 50) {
+                        classname = 'over50';
+                    }
+                    let srt = `<div style="right:270px;"  class="progress-circlle ` + classname + `  p` + percent_complete + ` "><span>` + percent_complete + `%</span><div class="left-half-clipper"><div class="first50-bar"></div><div class="value-bar"></div></div></div>`;
+                    var spg = $("#" + progressID).parent();
+
+                    spg.children('.progress-circlle').each(function () {
+                        this.remove();
+                    })
+                    spg.append(srt);
                 });
 
                 // AJAX request finished event
                 request.addEventListener('load', function (e) {
 
-
+                    var spg = $("#" + progressID).parent();
+                    spg.children('.progress-circlle').each(function () {
+                        this.remove();
+                    })
+                    let check = `<i class="fa fa-check" style="font-size: 12px;position: absolute;bottom: 5px;left: 0px;color: white;"></i>`;
+                    spg.append(check);
 
                     let messageType;
                     let rsp = request.response;
-                    const li = document.createElement('li');
-                    li.className = "sent";
-                    var htmlsrt = "";
-                    htmlsrt += `<audio controls='' style="float:right"><source src="` + URL.createObjectURL(blob) + `"></source></audio>`;
-                    li.innerHTML = htmlsrt;
-                    var ul = $(".messages ul");
-                    ul.append(li);
+
                     messageType = 'audio';
 
-                    _hub.server.sendMessage(rsp, $("#hiddeninput").val(), messageType);// اینجا میفرسته برا ادمین
-                    message = "";
+                    _hub.server.sendMessage(rsp, $("#hiddeninput").val(), messageType, progressID);// اینجا میفرسته برا ادمین
+                    console.log('resid');
                     $("#chatMessage2").val('');
+
+
                     var objDiv = document.getElementById("message");
+                    console.log($("#message").offset().top + '-');
+
                     objDiv.scrollTop = objDiv.scrollHeight;
 
+                    message = "";
                     console.log(request.status);
                     console.log(request.response);
 
 
                 });
                 request.send(formData);
-
-
-
-
             };
 
             var timeInterval = 360 * 1000;
@@ -1251,9 +1369,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             console.error('media error', e);
         },
         _stopRecording = function () {
-            $('#stop-recording').disabled = true;
+            clearInterval(intervalVar);
 
-            document.getElementById("clicks").innerHTML = "";
+            document.getElementById("clicks").style.display = "none";
 
             //var f = document.getElementById('clicks');
             //setInterval(function () {
@@ -1286,7 +1404,8 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             return result;
         },
 
-        _sendFile = function (file, message) {
+        _sendFile = function (file) {
+
             let total = 0;
             let counter = 0;
             $.each(file, function (key, value) {
@@ -1294,7 +1413,20 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
             });
             $.each(file, function (key, value) {
 
-              
+
+                let progressID = key.split(';;;')[1];
+                key = key.split(';;;')[0];
+
+                var ext = key.substring(key.lastIndexOf('.') + 1).toLowerCase();
+                var filename = key.substring(key.lastIndexOf('\\') + 1).toLowerCase();
+                let messageType = null;
+                if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg") {
+                    messageType = 'image';
+                }
+                else {
+                    messageType = 'file';
+                }
+
 
                 var formData = new FormData();
                 var fileName = key
@@ -1303,39 +1435,71 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                 let request = new XMLHttpRequest();
                 request.open('POST', '/screen/sendToServer');
                 request.upload.addEventListener('progress', function (e) {
-                    let percent_complete = (e.loaded / e.total) * 100;
+                    let percent_complete = parseInt((e.loaded / e.total) * 100);
 
-                    console.log(e.loaded / e.total + "-" + percent_complete + "%");
+                    let classname = '';
+                    if (percent_complete >= 50) {
+                        classname = 'over50';
+                    }
+                    let classnamerForthis = '';
+                    if (messageType == 'file') {
+                        classnamerForthis = 'filePostition';
+                    }
+
+                    let srt = `<div  class="` + classnamerForthis + `  progress-circlle ` + classname + `  p` + percent_complete + ` "><span>` + percent_complete + `%</span><div class="left-half-clipper"><div class="first50-bar"></div><div class="value-bar"></div></div></div>`;
+                    var spg = $("#" + progressID).parent();
+
+                    spg.children('.progress-circlle').each(function () {
+                        this.remove();
+                    })
+                    spg.append(srt);
+
+                    //console.log(e.loaded / e.total + "-" + percent_complete + "%");
                 });
 
                 // AJAX request finished event
                 request.addEventListener('load', function (e) {
-                    counter += 1;
-                    let messageType;
-                    let rsp = request.response;
-                    var ext = rsp.substring(rsp.lastIndexOf('.') + 1).toLowerCase();
-                    messageType = 'image';
-                    if ((ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg")) {
 
-                        li.className = "sent";
-                        var htmlsrt = "";
-                        htmlsrt += `<img src="/Files/` + rsp + `" style="float:right; width: 150px;border-radius:0; position: relative;background-color: #ddd;color: black;"/>`;
-                        li.innerHTML = htmlsrt;
-                        var ul = $(".messages ul");
-                        ul.append(li);
-                        
+                    var ext = key.substring(key.lastIndexOf('.') + 1).toLowerCase();
+                    var filename = key.substring(key.lastIndexOf('\\') + 1).toLowerCase();
+                    let messageType = null;
+                    if (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg") {
+                        messageType = 'image';
+                    }
+                    else {
+                        messageType = 'file';
                     }
 
 
+                    var ul = $(".messages ul");
+                    counter += 1;
+
+                    let rsp = request.response;
+                    var spg = $("#" + progressID).parent();
 
 
 
-                    $("#attachmentDiv").hide();
+                    spg.children('.progress-circlle').each(function () {
+                        this.remove();
+                    })
 
-                  
-                    if (counter == total) {
+                    let check = `<i class="fa fa-check" style="font-size: 12px;position: absolute;bottom: 5px;left: 0px;color: white;"></i>`;
+                    spg.append(check);
+                    //if (messageType == "image") {
+                    //    let check = `<i class="fa fa-check" style="font-size: 12px;position: absolute;bottom: 5px;right: 140px;color: white;"></i>`;
+                    //    spg.append(check);
+                    //}
+                    //else {
                         
-                        var ul = $(".messages ul");
+                    //}
+
+
+
+
+
+                    if (counter == total) {
+                        message = $("#chatMessage2").val();
+
                         if (message != '') {
                             const li2 = document.createElement('li');
                             li2.className = "sent";
@@ -1343,8 +1507,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                             htmlsrt2 = `<p>` + message + `</p> `;
                             li2.innerHTML = htmlsrt2;
                             ul.append(li2);
-                            message = message + ";;;" + rsp;
-
+                            message = message + "***" + rsp;
 
 
                         }
@@ -1354,18 +1517,26 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
                         _Attachment = {};
                         $('.added').remove();
                         $("#fileupload").val('');
+                        $("#chatMessage2").val('');
 
                     }
                     else {
                         message = rsp;
                     }
 
-                    _hub.server.sendMessage(message, $("#hiddeninput").val(), messageType);// اینجا میفرسته برا ادمین
-                    message = "";
-                    console.log(request.status);
+                    _hub.server.sendMessage(message, $("#hiddeninput").val(), messageType, progressID);// اینجا میفرسته برا ادمین
 
-                    // request.response will hold the response from the server
-                    console.log(request.response);
+
+                    //setInterval(function () {
+
+                    //}, 1000);
+                    var myobj = document.getElementById("message");
+                    myobj.scrollTop = myobj.scrollHeight;
+
+
+
+                    message = "";
+
                 })
                 // send POST request to server side script
                 request.send(formData);
@@ -1373,6 +1544,9 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
 
         },
+
+
+
         _setName = function (name) {
             viewModel.Groupname(name);
         },
@@ -1472,6 +1646,7 @@ WebRtcDemo.App = (function (viewModel, connectionManager) {
 
                 final.srcObject = event.stream;
 
+                $(".hangup").css("display", "inline-block");
 
                 //var i = new MediaStream();
                 //if (event.streams != null) {

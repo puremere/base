@@ -72,23 +72,24 @@
                 <span style="margin:10px auto; ">
 
                     @*<i id="pwd_spn" style="display:none; color:white; margin-top:10px">https://lecture.sup-ect.ir/screen/userface?groupname=<span data-bind="text:  Groupname"></span></i>
-                        <button id="cp_btn" class="btn btn-success">آدرس اتصال</button>*@
+        <button id="cp_btn" class="btn btn-success">آدرس اتصال</button>*@
+                    <button style=" display:none;border-radius:10px;" class="btn btn-danger hangup"><i class="fa fa-power-off"></i> </button>
                     <button style=" display:inline-block; border-radius:10px; outline:none" class="btn btn-success chat"><i class="fa fa-comment"></i> </button>
 
 
                     @*<script>
-                            document.getElementById("cp_btn").addEventListener("click", copy_password);
-                            function copy_password() {
-                                var copyText = document.getElementById("pwd_spn");
-                                var textArea = document.createElement("textarea");
-                                textArea.value = copyText.textContent;
-                                document.body.appendChild(textArea);
-                                textArea.select();
-                                document.execCommand("Copy");
-                                textArea.remove();
-                                alertify.success("آدرس اتصال کاربر کپی شد");
-                            }
-                        </script>*@
+            document.getElementById("cp_btn").addEventListener("click", copy_password);
+            function copy_password() {
+                var copyText = document.getElementById("pwd_spn");
+                var textArea = document.createElement("textarea");
+                textArea.value = copyText.textContent;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("Copy");
+                textArea.remove();
+                alertify.success("آدرس اتصال کاربر کپی شد");
+            }
+        </script>*@
                 </span>
                 <div class="">
                     <p class="navbar-text pull-right">
@@ -127,17 +128,13 @@
                         <div class="master">
                             <div class="mainholder" style="height:100%; width:100%; display:flex;float:left">
                                 <video controls id="main0" style="width:auto ; height:100%; margin:auto" class=" cool-background" autoplay="autoplay"></video>
+                                <video muted  id="1" class="video mine cool-background slaveVideo" autoplay="autoplay"></video>  @*onclick="changeStream(this.id)*@
+
                             </div>
-                            <div class="mainholder" style="display:none; float:left">
-                                <video controls id="main1" style="width:100% ; height:auto" class="cool-background" autoplay="autoplay"></video>
-                            </div>
-                            <div class="mainholder" style="display:none;float:left">
-                                <video controls id="main2" style=" width:100%;height:auto" class="cool-background" autoplay="autoplay"></video>
-                            </div>
+                           
                         </div>
                         <div class="slave" style=" ">
-                            <video muted style="max-height:150px" id="1" class="video mine cool-background" autoplay="autoplay"></video>  @*onclick="changeStream(this.id)*@
-
+                           
                         </div>
 
                         <div class="slave">
@@ -262,10 +259,13 @@
 
 
                             </div>
-                            <div class="message-input" >
+                            <span id="clicks" style="display:none;  width: 100%; bottom: 45px;position: absolute;left: 10px;">
+                                <img src="/images/redbutt.png" style=" float: left;">
+                            </span>
+                            <div class="message-input">
                                 <div class="wrap">
                                     <button id="recodrdVoice" style="float:left"><i class="fa fa-microphone" aria-hidden="true"></i></button>
-                                    <input id="chatMessage" type="text"  placeholder="پیام خود را بنویسید" style="text-align:right"/>
+                                    <input id="chatMessage" type="text" placeholder="پیام خود را بنویسید" style="text-align:right" />
                                     <button id="attach" class="attachment"> <i class="fa fa-paperclip " aria-hidden="true"></i></button>
                                     <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
                                     <input id="fileupload" type="file" style="display:none" />
@@ -460,6 +460,11 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
+
+        downlodFile = function (element) {
+            var id = element.id;
+            window.location.href = "/screen/GetFileAsync?fileId=" + id;
+        }
     </script>
 </body>
 </html>

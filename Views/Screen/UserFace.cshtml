@@ -56,7 +56,7 @@
                 window.setTimeout(MeasureConnectionSpeed, 1);
             };
             if (window.addEventListener) {
-                window.addEventListener('load', InitiateSpeedDetection, false);
+                window.addEventListener('load', message, false);
             } else if (window.attachEvent) {
                 window.attachEvent('onload', InitiateSpeedDetection);
             }
@@ -68,7 +68,7 @@
                     showResults();
                 }
                 download.onerror = function (err, msg) {
-                    ShowProgressMessage("Invalid image, or error downloading");
+                    ShowProgressMessage("Invalid image, or error downloadimessageng");
                 }
                 startTime = (new Date()).getTime();
                 var cacheBuster = "?nnn=" + startTime;
@@ -159,12 +159,10 @@
                     <div class="partnerholder" style="background-color:black ">
                         <div class="master" style="display:flex">
                             <video controls style=" margin:auto" class="video partner cool-background" autoplay="autoplay"></video>
+                            <video  style="position:absolute; width:"  muted id="1" class="video mine cool-background slaveVideo" autoplay="autoplay"></video>
 
                         </div>
-                        <div class="slave" style=" ">
-                            <video muted id="1" class="video mine cool-background" autoplay="autoplay"></video>
-
-                        </div>
+                        
 
                     </div>
                     @*<div class="partnerholder2">
@@ -194,7 +192,7 @@
                                         <i class="fa fa-instagram" aria-hidden="true"></i>
                                     </div>*@
                             </div>
-                            <div id="message" class="messages" style="">
+                            <div id="message" class="messages" style="width:100%">
 
                                 <ul>
                                     @*<li class="sent">
@@ -370,6 +368,69 @@
             ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
         })();
+    </script>
+    <script>
+        downlodFile = function (element) {
+            var id = element.id;
+            window.location.href = "/screen/GetFileAsync?fileId="+id;
+        }
+        downlodIMG = function (element, type) {
+         
+            let id = element.id;
+            var spg = element.parentNode;
+            element.style.display = "none";
+
+            var xmlHTTP = new XMLHttpRequest();
+            xmlHTTP.open('GET', "/files/" + id, true);
+            xmlHTTP.responseType = 'arraybuffer';
+            xmlHTTP.onload = function (e) {
+                var blob = new Blob([this.response]);
+                let els = spg.getElementsByClassName('progress-circlle');
+                Array.prototype.forEach.call(els, function (el) {
+                    // Do stuff here
+                    el.remove();
+                });
+              
+                if (type == 1) {
+                   
+                    var imagtag = spg.getElementsByTagName('img')
+                    imagtag[0].src = window.URL.createObjectURL(blob);
+                }
+                else {
+                    var imagtag = spg.getElementsByTagName('audio')
+                    imagtag[0].src = window.URL.createObjectURL(blob);
+                }
+
+                //thisImg.src = window.URL.createObjectURL(blob);
+            };
+            xmlHTTP.onprogress = function (e) {
+
+
+                let percent_complete = parseInt((e.loaded / e.total) * 100);
+
+                let classname = '';
+                if (percent_complete >= 50) {
+                    classname = 'over50';
+                }
+                let srt = `<div style="z-index:99; top:50%; left:50%; transform :translate(-50%, -50%);" class="progress-circlle ` + classname + `  p` + percent_complete + ` "><span>` + percent_complete + `%</span><div class="left-half-clipper"><div class="first50-bar"></div><div class="value-bar"></div></div></div>`;
+
+
+                let els = spg.getElementsByClassName('progress-circlle');
+                if (els != null) {
+                    Array.prototype.forEach.call(els, function (el) {
+                        // Do stuff here
+                        el.remove();
+                    });
+                }
+               
+
+                spg.insertAdjacentHTML('beforeend', srt);
+            };
+            xmlHTTP.onloadstart = function () {
+                // thisImg.completedPercentage = 0;
+            };
+            xmlHTTP.send();
+        }
     </script>
     <style>
         .audioPlayer {
