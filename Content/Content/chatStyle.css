@@ -787,8 +787,8 @@
 
 @media screen and (max-width: 735px) {
     #frame .content .message-input .wrap .attachment {
-        margin-top: 17px;
-        right: 65px;
+        /*margin-top: 17px;
+        right: 65px;*/
     }
 }
 

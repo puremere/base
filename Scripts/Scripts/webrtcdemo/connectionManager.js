@@ -112,9 +112,8 @@ WebRtcDemo.ConnectionManager = (function () {
                     connection.createAnswer(function (desc) {
                         connection.setLocalDescription(desc, function () {
                             _signaler.sendSignal(JSON.stringify({ "sdp": connection.localDescription }), partnerClientId);
-                        });
-                    },
-                        function (error) { console.log('Error creating session description: ' + error); });
+                        }, function () { });
+                    },function (error) { console.log('Error creating session description: ' + error); });
                 } else if (connection.remoteDescription.type == "answer") {
                     console.log('WebRTC: received answer');
                 }
@@ -128,7 +127,7 @@ WebRtcDemo.ConnectionManager = (function () {
                 connection = _getConnection(partnerClientId);
 
             console.log('WebRTC: received signal');
-
+            console.log(signal.candidate);
             // Route signal based on type
             if (signal.sdp) {
                 _receivedSdpSignal(connection, partnerClientId, signal.sdp);
@@ -140,6 +139,7 @@ WebRtcDemo.ConnectionManager = (function () {
         // Process a newly received Candidate signal
         _receivedCandidateSignal = function (connection, partnerClientId, candidate) {
 
+            
             console.log('WebRTC: processing candidate signal');
             connection.addIceCandidate(new RTCIceCandidate(candidate));
         },
@@ -228,7 +228,7 @@ WebRtcDemo.ConnectionManager = (function () {
             connection.createOffer(function (desc) {
                 connection.setLocalDescription(desc, function () {
                     _signaler.sendSignal(JSON.stringify({ "sdp": connection.localDescription }), partnerClientId);
-                });
+                }, function () { });
             }, function (error) { alert('Error creating session description: ' + error); });
         },
         _sendSignal = function (partnerClientId, signal) {

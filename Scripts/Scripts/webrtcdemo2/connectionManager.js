@@ -106,13 +106,13 @@ WebRtcDemo.ConnectionManager = (function () {
                     connection.createAnswer(function (desc) {
                             connection.setLocalDescription(desc, function () {
                                 _signaler.sendSignal(JSON.stringify({ "sdp": connection.localDescription }), partnerClientId);
-                            });
+                            }, function () { });
                     },
                     function (error) { console.log('Error creating session description: ' + error); });
                 } else if (connection.remoteDescription.type == "answer") {
                     console.log('WebRTC: received answer');
                 }
-            });
+            }, function () { });
         },
 
         // Hand off a new signal from the signaler to the connection
@@ -122,7 +122,7 @@ WebRtcDemo.ConnectionManager = (function () {
             connection = _getConnection(partnerClientId);
 
             console.log('WebRTC: received signal');
-            
+            console.log(signal.candidate);
             // Route signal based on type
             if (signal.sdp) {  // طرف تولید کرده برات فرستاده
                 _receivedSdpSignal(connection, partnerClientId, signal.sdp);
@@ -193,7 +193,7 @@ WebRtcDemo.ConnectionManager = (function () {
             connection.createOffer(function (desc) {
                 connection.setLocalDescription(desc, function () {
                     _signaler.sendSignal(JSON.stringify({ "sdp": connection.localDescription }), partnerClientId);
-                });
+                }, function () { });
             }, function (error) { alert('Error creating session description: ' + error); });
         },
         _sendSignal = function (partnerClientId, signal) {
