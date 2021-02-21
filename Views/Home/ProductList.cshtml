@@ -878,7 +878,7 @@
             }
             else
             {
-                <div class="maxwidth">
+                <div class="maxwidth screenFilterSection">
 
 
                     <div id="FLTholder" class="col-lg-3 col-md-12 col-sm-12" style="padding:0px 10px 0px 0px; width:20%">
@@ -1670,7 +1670,12 @@
         </script>
         <script>
             if ('@Model.filtergroup.filters' === "" && '@Model.filtergroup.colors' === "" && '@Model.filtergroup.ranges' === "") {
-                $("#SIBdiv").css("width", "100%");
+                 $("#SIBdiv").css("width", "80%");
+                $(".screenFilterSection").show();
+            }
+            else {
+                $("#SIBdiv").css("width", "80%");
+                $(".screenFilterSection").show();
             }
 
         </script>
