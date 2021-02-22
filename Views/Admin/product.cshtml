@@ -35,6 +35,8 @@
         });
         //tinymce.activeEditor.execCommand('mceDirectionRTL');
     </script>
+    <link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
 }
 
 
@@ -115,8 +117,8 @@
 
     <div class="tab-content">
         <div id="home" class="tab-pane fade in  active" style="padding-top:20px">
-           
-            
+
+
             <div class="">
                 <div class="form-group " style="display:flex; align-items:center">
 
@@ -295,7 +297,7 @@
                         <input id="myfile" type="file" name="myfile" style="display: none;" />
                         <script>
                             $('#upload').on('click', function () {
-                             
+
                                 $('#myfile').trigger('click');
                             });
                             $('#myfile').change(function () {
@@ -304,34 +306,34 @@
                         </script>
                     }
                     @*@using (Html.BeginForm("UploadExcelNew", "Admin", FormMethod.Post, new { id = "UploadExcelNew", enctype = "multipart/form-data" }))
-                    {
-                        <div id="uploadNew" class="btn btn-primary lgnsubmitt" style="margin-top:25px">بارگزاری فایل اکسل (جدید)</div>
-                        <input id="myfileNew" type="file" name="myfile" style="display: none;" />
-                        <script>
-                            $('#uploadNew').on('click', function () {
-                                var value = $("#listofproduct").val();
-                                if (value == "") {
-                                    toastr.options = {
-                                        "debug": false,
-                                        "positionClass": "toast-top-center",
-                                        "onclick": null,
-                                        "fadeIn": 300,
-                                        "fadeOut": 1000,
-                                        "timeOut": 5000,
-                                        "extendedTimeOut": 1000
+                        {
+                            <div id="uploadNew" class="btn btn-primary lgnsubmitt" style="margin-top:25px">بارگزاری فایل اکسل (جدید)</div>
+                            <input id="myfileNew" type="file" name="myfile" style="display: none;" />
+                            <script>
+                                $('#uploadNew').on('click', function () {
+                                    var value = $("#listofproduct").val();
+                                    if (value == "") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('دسته بندی مورد نظر را انتخاب کنید')
                                     }
-                                    toastr.error('دسته بندی مورد نظر را انتخاب کنید')
-                                }
-                                else {
-                                    $('#myfileNew').trigger('click');
-                                }
-                              
-                            });
-                            $('#myfileNew').change(function () {
-                                $("#UploadExcelNew").submit();
-                            })
-                        </script>
-                    }*@
+                                    else {
+                                        $('#myfileNew').trigger('click');
+                                    }
+
+                                });
+                                $('#myfileNew').change(function () {
+                                    $("#UploadExcelNew").submit();
+                                })
+                            </script>
+                        }*@
 
 
 
@@ -352,10 +354,10 @@
                 <div class="form-group rowholder" id="listholder" style="display:none">
 
                 </div>
-               
+
                 <div id="serverModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
-                      
+
                         <!-- Modal content-->
                         <div class="modal-content">
 
@@ -466,7 +468,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">لغو</button>
-                               
+
                             </div>
                         </div>
 
@@ -477,371 +479,380 @@
 
         </div>
         <div id="menu1" class="tab-pane fade in " style="padding-top:20px">
-            @using (Html.BeginForm("setproduct", "Admin", FormMethod.Post,new { enctype = "multipart/form-data", id = "addproduct00" }))
-            {
 
-                <div class="row" style="padding:0 25px">
-                    <div class="row fieldholder col-lg-3">
-                        <label> دسته بندی</label>
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#add1" style=" color: #8d8d8d; ">افزودن دستی</a></li>
+                <li><a data-toggle="tab" href="#add2" style=" color: #8d8d8d; ">افزودن از سرور</a></li>
 
-                        @{
-                            List<SelectListItem> listItemsadd = new List<SelectListItem>();
-                            if (Model.log.filtersModel != null)
-                            {
-                                foreach (var item in Model.log.filtersModel)
-                                {
-                                    listItemsadd.Add(new SelectListItem
+
+            </ul>
+            <div class="tab-content">
+                <div id="add1" class="tab-pane fade in  active" style="padding-top:20px">
+                    @using (Html.BeginForm("setproduct", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "addproduct00" }))
+                    {
+
+                        <div class="row" style="padding:0 25px">
+                            <div class="row fieldholder col-lg-3">
+                                <label> دسته بندی</label>
+
+                                @{
+                                    List<SelectListItem> listItemsadd = new List<SelectListItem>();
+                                    if (Model.log.filtersModel != null)
                                     {
-                                        Text = item.title,
-                                        Value = "1" + item.ID
-                                    });
-                                    if (item.filtersubcat != null)
-                                    {
-                                        foreach (var subcat in item.filtersubcat)
+                                        foreach (var item in Model.log.filtersModel)
                                         {
                                             listItemsadd.Add(new SelectListItem
                                             {
-                                                Text = "---" + subcat.title,
-                                                Value = "2" + subcat.ID
+                                                Text = item.title,
+                                                Value = "1" + item.ID
                                             });
-                                            if (subcat.filtersubcat2 != null)
+                                            if (item.filtersubcat != null)
                                             {
-                                                foreach (var subcat2 in subcat.filtersubcat2)
+                                                foreach (var subcat in item.filtersubcat)
                                                 {
                                                     listItemsadd.Add(new SelectListItem
                                                     {
-                                                        Text = "------" + subcat2.title,
-                                                        Value = "3" + subcat2.ID
+                                                        Text = "---" + subcat.title,
+                                                        Value = "2" + subcat.ID
                                                     });
+                                                    if (subcat.filtersubcat2 != null)
+                                                    {
+                                                        foreach (var subcat2 in subcat.filtersubcat2)
+                                                        {
+                                                            listItemsadd.Add(new SelectListItem
+                                                            {
+                                                                Text = "------" + subcat2.title,
+                                                                Value = "3" + subcat2.ID
+                                                            });
+                                                        }
+                                                    }
+
                                                 }
                                             }
 
                                         }
                                     }
 
+
                                 }
-                            }
-
-
-                        }
-                        <div class=" ">
-                            @Html.DropDownListFor(m => m.SelectedaddProduct, listItems, "-- Select Status --", new { id = "addproduct", style = "", @class = "form-control" })
-                        </div>
-                        <script>
-
-                            $("#addproduct").change(function () {
-
-                                var sentitem = $("#addproduct").val();
-
-
-                                $.ajax({
-                                    url: '/Admin/bringFilterForProductSet',
-                                    dataType: 'html',
-                                    data:
-                                    {
-                                        catid: sentitem
-                                    },
-                                    success: function (data) {
-
-                                        $('#filterholderforproduct').html(data);
-
-                                    },
-                                    error: function () {
-                                        alert("filterfail")
-                                    }
-                                });
-                                $.ajax({
-                                    url: '/Admin/bringFeatureforproduct',
-                                    dataType: 'html',
-                                    data:
-                                    {
-                                        catid: sentitem
-                                    },
-                                    success: function (data) {
-
-                                        $('#featureholderforproduct').html(data);
-
-                                    },
-                                    error: function () {
-                                        alert("featurefail")
-                                    }
-                                });
-                            })
-
-
-
-                        </script>
-
-
-
-                    </div>
-
-
-                    <div class="row fieldholder col-lg-3">
-                        <input id="inputallfilterid" name="inputallfilterid" type="hidden" />
-                        <input id="inputallrangeid" name="inputallrangeid" type="hidden" />
-                        <input id="inputallfilteridServer" name="inputallfilteridServer" type="hidden" />
-                        <input id="inputallrangeidServer" name="inputallrangeidServer" type="hidden" />
-                        <input id="inputallfeatureid" name="inputallfeatureid" type="hidden" />
-                        @* <input id="inputallfeatureidServer" name="inputallfeatureidServer" type="hidden" />*@
-                        <input id="inputallcolid" name="inputallcolid" type="hidden" />
-                        <input id="Selectedfilters" name="Selectedfilters" type="hidden" />
-                        <input id="inputallcolidServer" name="inputallcolidServer" type="hidden" />
-                        <input id="SelectedfiltersServer" name="SelectedfiltersServer" type="hidden" />
-
-
-                        <label for="first-name" style="text-align:right">
-                            نام :
-                        </label>
-                        <div>
-                            <input type="text" id="productname" name="productname" required="required" class="form-control ">
-                        </div>
-
-
-                    </div>
-
-                    <div class="row fieldholder col-lg-3">
-                        <label style="text-align: right">
-                            قیمت :
-                        </label>
-
-                        @{
-                            if (Model.productmodel != null)
-                            {
-                                <div>
-                                    <input value=@Model.productmodel.productprice type="text" id="productprice" name="productprice" required="required" class="form-control col-md-7 col-xs-12">
+                                <div class=" ">
+                                    @Html.DropDownListFor(m => m.SelectedaddProduct, listItems, "-- Select Status --", new { id = "addproduct", style = "", @class = "form-control" })
                                 </div>
-                            }
-                            else
-                            {
-                                <div>
-                                    <input value="0" type="text" id="productprice" name="productprice" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            }
-                        }
+                                <script>
+
+                                    $("#addproduct").change(function () {
+
+                                        var sentitem = $("#addproduct").val();
 
 
-                    </div>
-                    <div class="row fieldholder col-lg-3">
-                        <label style="text-align: right">
-                            تخفیف :
-                        </label>
+                                        $.ajax({
+                                            url: '/Admin/bringFilterForProductSet',
+                                            dataType: 'html',
+                                            data:
+                                            {
+                                                catid: sentitem
+                                            },
+                                            success: function (data) {
 
-                        @{
-                            if (Model.productmodel != null)
-                            {
-                                <div>
-                                    <input value=@Model.productmodel.productdiscount type="text" id="productdiscount" name="productdiscount" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            }
-                            else
-                            {
-                                <div>
-                                    <input value="0" type="text" id="productdiscount" name="productdiscount" required="required" class="form-control col-md-7 col-xs-12">
-                                </div>
-                            }
-                        }
+                                                $('#filterholderforproduct').html(data);
 
-
-                    </div>
-                </div>
-                <div class="row" style="padding:0 25px">
-
-
-
-
-
-                    <div class="row fieldholder  col-lg-3">
-                        <label style="text-align: right">
-                            شماره گروه :
-                        </label>
-
-                        @{
-                            if (Model.productmodel != null)
-                            {
-                                <div>
-                                    <input disabled value=@Model.productmodel.SetID type="text" id="SetID" name="SetID" required="required" class="form-control">
-                                </div>
-                            }
-
-                            else
-                            {
-                                if (Model.log.filtersModel != null)
-                                {
-                                    <div>
-                                        <input disabled value="@Model.log.filtersModel.First().setID" type="text" id="SetID" name="SetID" required="required" class="form-control">
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div>
-                                        <input disabled value="" type="text" id="SetID" name="SetID" required="required" class="form-control">
-                                    </div>
-                                }
-
-                            }
-                        }
-
-                        <input id="setIDtoggle" type="checkbox" />
-
-                        <script>
-
-                            $("#setIDtoggle").click(function () {
-
-                                var isDisabled = $("#SetID").is(':disabled');
-                                if (isDisabled) {
-                                    $(SetID).prop('disabled', false);
-                                }
-                                else {
-                                    $(SetID).prop('disabled', true);
-                                }
-                            })
-                        </script>
-                    </div>
-
-                    <div class="row fieldholder col-lg-3" style="min-height:70px">
-
-                        <label style="text-align: right">
-                            تگ ها :
-                        </label>
-
-                        <div>
-                            <span style="color:red; display:none">*</span>
-                            <input data-role="tagsinput" id="tag" name="tag" required="required" class="form-control REM">
-                        </div>
-
-
-                    </div>
-                    <div class="row fieldholder col-lg-3" style="float:right">
-                        <label for="first-name" style="text-align: right">
-                            تعداد :
-                        </label>
-                        <div>
-                            <input value="-1" type="text" id="productCount" name="productCount" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="row fieldholder col-lg-3" style="float:right">
-                        <label for="first-name" style="text-align: right">
-                            واحد :
-                        </label>
-                        <div>
-                            @{
-                                if (Model.productmodel != null)
-                                {
-                                    <div>
-                                        <input value=@Model.productmodel.productunit type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div>
-                                        <input type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
-                                    </div>
-                                }
-                            }
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row" style="padding:0 25px">
-                    <div class="row fieldholder col-lg-12">
-                        <label for="first-name" style="text-align: right">
-                            توضیحات :
-                        </label>
-
-                        @{
-                            if (Model.productmodel != null)
-                            {
-
-                                <div>
-                                    <div id="productdesc" required="required" class="form-control" name="productdesc">@Html.Raw(Model.productmodel.productdesc)</div>
-                                </div>
-                            }
-                            else
-                            {
-                                <div>
-                                    <textarea id="productdesc" required="required" class="form-control" name="productdesc"></textarea>
-                                </div>
-                            }
-                        }
-
-
-                    </div>
-                </div>
-                <div class="row" style=" padding:10px 25px; margin:10px;border:1px solid #ddd; border-radius:5px">
-                    <div>
-                        <div class=" fieldholder col-lg-3">
-                            <div class="webview">
-                                <input class="" style="display: inline-block; float: right" id="fileupload11" type="file" name="file" multiple="multiple" accept="image/*">
-
-                                <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
-
-
-                                    <div id="istrueimage" style="display:none">سلام</div>
-                                    <script>
-                                        var _URL = window.URL;
-                                        $("#fileupload11").change(function (e) {
-                                            var formdata = new FormData();
-                                            document.getElementById("istrueimage").innerHTML = "0";
-                                            var file, img;
-                                            for (var i = 0; i <this.files.length; i++) {
-                                                if ((file = this.files[i])) {
-                                                    size = this.files[i].size;
-                                                    filename = this.files[i].filename;
-
-
-                                                    img = new Image();
-                                                    img.onload = function () {
-
-                                                        // if (this.width !== 500 && this.height !== 500 ) {
-                                                        if (size > 1000000) {
-                                                            document.getElementById("istrueimage").innerHTML = "1";
-                                                            toastr.options = {
-                                                                "debug": false,
-                                                                "positionClass": "toast-top-center",
-                                                                "onclick": null,
-                                                                "fadeIn": 300,
-                                                                "fadeOut": 1000,
-                                                                "timeOut": 5000,
-                                                                "extendedTimeOut": 1000
-                                                            }
-                                                            toastr.error('  بیش از 1 مگا بایت است ' + file.name + ' سایز عکس')
-                                                        }
-                                                        else {
-                                                            formdata.append(this.files[i].name, this.files[i]);
-                                                        }
-                                                        // alert("Width:" + this.width + "   Height: " + this.height);//this will give you image width and height and you can easily validate here....
-                                                    };
-                                                    img.src = _URL.createObjectURL(file);
-                                                }
-
-
+                                            },
+                                            error: function () {
+                                                alert("filterfail")
                                             }
-
                                         });
+                                        $.ajax({
+                                            url: '/Admin/bringFeatureforproduct',
+                                            dataType: 'html',
+                                            data:
+                                            {
+                                                catid: sentitem
+                                            },
+                                            success: function (data) {
+
+                                                $('#featureholderforproduct').html(data);
+
+                                            },
+                                            error: function () {
+                                                alert("featurefail")
+                                            }
+                                        });
+                                    })
+
+
+
+                                </script>
+
+
+
+                            </div>
+
+
+                            <div class="row fieldholder col-lg-3">
+                                <input id="inputallfilterid" name="inputallfilterid" type="hidden" />
+                                <input id="inputallrangeid" name="inputallrangeid" type="hidden" />
+                                <input id="inputallfilteridServer" name="inputallfilteridServer" type="hidden" />
+                                <input id="inputallrangeidServer" name="inputallrangeidServer" type="hidden" />
+                                <input id="inputallfeatureid" name="inputallfeatureid" type="hidden" />
+                                @* <input id="inputallfeatureidServer" name="inputallfeatureidServer" type="hidden" />*@
+                                <input id="inputallcolid" name="inputallcolid" type="hidden" />
+                                <input id="Selectedfilters" name="Selectedfilters" type="hidden" />
+                                <input id="inputallcolidServer" name="inputallcolidServer" type="hidden" />
+                                <input id="SelectedfiltersServer" name="SelectedfiltersServer" type="hidden" />
+
+
+                                <label for="first-name" style="text-align:right">
+                                    نام :
+                                </label>
+                                <div>
+                                    <input type="text" id="productname" name="productname" required="required" class="form-control ">
+                                </div>
+
+
+                            </div>
+
+                            <div class="row fieldholder col-lg-3">
+                                <label style="text-align: right">
+                                    قیمت :
+                                </label>
+
+                                @{
+                                    if (Model.productmodel != null)
+                                    {
+                                        <div>
+                                            <input value=@Model.productmodel.productprice type="text" id="productprice" name="productprice" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <input value="0" type="text" id="productprice" name="productprice" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                            <div class="row fieldholder col-lg-3">
+                                <label style="text-align: right">
+                                    تخفیف :
+                                </label>
+
+                                @{
+                                    if (Model.productmodel != null)
+                                    {
+                                        <div>
+                                            <input value=@Model.productmodel.productdiscount type="text" id="productdiscount" name="productdiscount" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <input value="0" type="text" id="productdiscount" name="productdiscount" required="required" class="form-control col-md-7 col-xs-12">
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="row" style="padding:0 25px">
 
 
 
 
-                                    </script>
+
+                            <div class="row fieldholder  col-lg-3">
+                                <label style="text-align: right">
+                                    شماره گروه :
+                                </label>
+
+                                @{
+                                    if (Model.productmodel != null)
+                                    {
+                                        <div>
+                                            <input disabled value=@Model.productmodel.SetID type="text" id="SetID" name="SetID" required="required" class="form-control">
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        if (Model.log.filtersModel != null)
+                                        {
+                                            <div>
+                                                <input disabled value="@Model.log.filtersModel.First().setID" type="text" id="SetID" name="SetID" required="required" class="form-control">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <input disabled value="" type="text" id="SetID" name="SetID" required="required" class="form-control">
+                                            </div>
+                                        }
+
+                                    }
+                                }
+
+                                <input id="setIDtoggle" type="checkbox" />
+
+                                <script>
+
+                                    $("#setIDtoggle").click(function () {
+
+                                        var isDisabled = $("#SetID").is(':disabled');
+                                        if (isDisabled) {
+                                            $(SetID).prop('disabled', false);
+                                        }
+                                        else {
+                                            $(SetID).prop('disabled', true);
+                                        }
+                                    })
+                                </script>
+                            </div>
+
+                            <div class="row fieldholder col-lg-3" style="min-height:70px">
+
+                                <label style="text-align: right">
+                                    تگ ها :
+                                </label>
+
+                                <div>
+                                    <span style="color:red; display:none">*</span>
+                                    <input data-role="tagsinput" id="tag" name="tag" required="required" class="form-control REM">
+                                </div>
+
+
+                            </div>
+                            <div class="row fieldholder col-lg-3" style="float:right">
+                                <label for="first-name" style="text-align: right">
+                                    تعداد :
+                                </label>
+                                <div>
+                                    <input value="-1" type="text" id="productCount" name="productCount" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+                            </div>
+                            <div class="row fieldholder col-lg-3" style="float:right">
+                                <label for="first-name" style="text-align: right">
+                                    واحد :
+                                </label>
+                                <div>
+                                    @{
+                                        if (Model.productmodel != null)
+                                        {
+                                            <div>
+                                                <input value=@Model.productmodel.productunit type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <input type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        }
+                                    }
                                 </div>
                             </div>
 
-                            <div class="appview">
-                                <div>
-                                    <div style="width:100%">
-                                        <a class="button actionSelect" style="display:inline-block">
-                                            <input type="file" id="select" value="Choose Image" accept="image/*">
-                                        </a>
-                                        <div class="actionUpload btn btn-success" style="display:none;">Upload</div>
+                        </div>
+
+                        <div class="row" style="padding:0 25px">
+                            <div class="row fieldholder col-lg-12">
+                                <label for="first-name" style="text-align: right">
+                                    توضیحات :
+                                </label>
+
+                                @{
+                                    if (Model.productmodel != null)
+                                    {
+
+                                        <div>
+                                            <div id="productdesc" required="required" class="form-control" name="productdesc">@Html.Raw(Model.productmodel.productdesc)</div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <textarea id="productdesc" required="required" class="form-control" name="productdesc"></textarea>
+                                        </div>
+                                    }
+                                }
+
+
+                            </div>
+                        </div>
+                        <div class="row" style=" padding:10px 25px; margin:10px;border:1px solid #ddd; border-radius:5px">
+                            <div>
+                                <div class=" fieldholder col-lg-3">
+                                    <div class="webview">
+                                        <input class="" style="display: inline-block; float: right" id="fileupload11" type="file" name="file" multiple="multiple" accept="image/*">
+
+                                        <div class="col-md-4 col-sm-4 col-xs-12 " style="direction:rtl">
+
+
+                                            <div id="istrueimage" style="display:none">سلام</div>
+                                            <script>
+                                                var _URL = window.URL;
+                                                $("#fileupload11").change(function (e) {
+                                                    var formdata = new FormData();
+                                                    document.getElementById("istrueimage").innerHTML = "0";
+                                                    var file, img;
+                                                    for (var i = 0; i < this.files.length; i++) {
+                                                        if ((file = this.files[i])) {
+                                                            size = this.files[i].size;
+                                                            filename = this.files[i].filename;
+
+
+                                                            img = new Image();
+                                                            img.onload = function () {
+
+                                                                // if (this.width !== 500 && this.height !== 500 ) {
+                                                                if (size > 1000000) {
+                                                                    document.getElementById("istrueimage").innerHTML = "1";
+                                                                    toastr.options = {
+                                                                        "debug": false,
+                                                                        "positionClass": "toast-top-center",
+                                                                        "onclick": null,
+                                                                        "fadeIn": 300,
+                                                                        "fadeOut": 1000,
+                                                                        "timeOut": 5000,
+                                                                        "extendedTimeOut": 1000
+                                                                    }
+                                                                    toastr.error('  بیش از 1 مگا بایت است ' + file.name + ' سایز عکس')
+                                                                }
+                                                                else {
+                                                                    formdata.append(this.files[i].name, this.files[i]);
+                                                                }
+                                                                // alert("Width:" + this.width + "   Height: " + this.height);//this will give you image width and height and you can easily validate here....
+                                                            };
+                                                            img.src = _URL.createObjectURL(file);
+                                                        }
+
+
+                                                    }
+
+                                                });
+
+
+
+
+                                            </script>
+                                        </div>
                                     </div>
 
+                                    <div class="appview">
+                                        <div>
+                                            <div style="width:100%">
+                                                <a class="button actionSelect" style="display:inline-block">
+                                                    <input type="file" id="select" value="Choose Image" accept="image/*">
+                                                </a>
+                                                <div class="actionUpload btn btn-success" style="display:none;">Upload</div>
+                                            </div>
 
-                                    <div id="main-cropper" style="display:none; overflow:scroll; max-width:350px; max-height:480px; z-index:99999999 "></div>
-                                </div>
 
-                                <script>
+                                            <div id="main-cropper" style="display:none; overflow:scroll; max-width:350px; max-height:480px; z-index:99999999 "></div>
+                                        </div>
+
+                                        <script>
 
                                 var basic = $('#main-cropper').croppie({
                                     viewport: { width: 850, height: 300 },
@@ -907,416 +918,465 @@
                                             });
                                             $(this).css("display", "none");
                                 });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="fieldholder col-lg-3" style="float:right">
+
+                                    <div style="display:inline-block">
+                                        <button style="margin:0" type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
+                                            مشاهده فیلتر
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog" role="document" style="width:800px">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" id="filterholderforproduct">
+                                                        فیلتر
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div style="display:inline-block">
+                                        <button style="margin:0" type="button" class="btn btn-primary" data-toggle="modal" data-target="#featureModal">
+                                            مشاهده ویژگی
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="featureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body" id="featureholderforproduct">
+                                                        فیچر
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+
+                                <div class="appview">
+                                    <div class="col-lg-12" id="thumbholder" style="margin-bottom:20px">
+
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+                        <div class=" row fieldholder col-lg-12">
+                            <p id="allfilterid" style="display:none"></p>
+                            <p id="allfeaturetext" style="display:none"></p>
+
+                            <p id="allfilteridServer" style="display:none"></p>
+                            <p id="allfeaturetextServer" style="display:none"></p>
+
+
+                            <div class=" " style="padding : 0 10px">
+                                <a id="CRprocuct" class="btn btn-primary" style=" width: 185px">تایید</a>
+                                <script>
+                                    if (screen.width > 900) {
+
+                                        $("#CRprocuct").click(function () {
+
+                                            var value = $("#addproduct").val();
+                                            var FF = document.getElementById("istrueimage").innerHTML;
+                                            var name = productname.value;
+                                            var desc = productdesc.value;
+                                            var file = fileupload11.value;
+                                            var color = $("#inputallcolid").val();
+                                            var filters = $("#inputallfilterid").val();
+                                            var ragnes = $("#inputallrangeid").val();
+                                            var colorServer = $("#inputallcolidServer").val();
+                                            var filtersServer = $("#inputallfilteridServer").val();
+                                            var ragnesServer = $("#inputallrangeidServer").val();
+                                            var count = $("#productCount").val();
+                                            var features = $("#allfeaturetext").text();
+                                            $("#inputallfeatureid").val(features);
+                                            //var featuresServer = $("#allfeaturetextServer").text();
+                                            //$("#inputallfeatureidServer").val(features);
+
+
+
+                                            //if (color == "") {
+                                            //
+                                            //}
+                                            if (count == "0") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('تعداد محصول نباید صفر باشد')
+                                            }
+                                            if (name == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('نام محصول را وارد نمایید')
+                                            }
+                                            if (filters == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' فیلتر های محصول انتخاب نشده است')
+
+                                            }
+
+                                            if (features == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' ویژگی های محصول انتخاب نشده است')
+                                            }
+                                            if (file == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' عکس محصول انتخاب نشده است')
+                                            }
+                                            //if (desc == "") {
+                                            //    toastr.options = {
+                                            //        "debug": false,
+                                            //        "positionClass": "toast-top-center",
+                                            //        "onclick": null,
+                                            //        "fadeIn": 300,
+                                            //        "fadeOut": 1000,
+                                            //        "timeOut": 5000,
+                                            //        "extendedTimeOut": 1000
+                                            //    }
+                                            //    toastr.error(' توضیحات محصول وارد نشده است')
+                                            //}
+                                            if (ragnes.indexOf("-;") >= 0) {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' همه فیلدهای عددی بخش فیلتر باید کامل شوند')
+                                            }
+
+                                            // name != "" && file != "" && desc != "" && cat != "" && ragnes != ""  && filters != ""
+
+
+                                            if (name != "" && file != "" && value != "" && ragnes.indexOf("-;") < 0) {
+                                                //  alert(features)
+                                                $("#addproduct00").submit();
+                                                //if (FF == "1") {
+                                                //    toastr.options = {
+                                                //        "debug": false,
+                                                //        "positionClass": "toast-top-center",
+                                                //        "onclick": null,
+                                                //        "fadeIn": 300,
+                                                //        "fadeOut": 1000,
+                                                //        "timeOut": 5000,
+                                                //        "extendedTimeOut": 1000
+                                                //    }
+                                                //    toastr.error('عکس های آپلود شده باید حجم کمتر از 1 مگا بایت داشته باشند')
+                                                //    //$("#addproduct00").submit();
+                                                //}
+                                                //else {
+
+
+
+
+                                                //}
+
+                                            }
+                                            else {
+
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('تمامی موارد را کامل کنید')
+                                            }
+                                        })
+                                    }
+                                    else {
+                                        $("#CRprocuct").click(function () {
+
+                                            var value = $("#addproduct").val();
+                                            // var FF = document.getElementById("istrueimage").innerHTML;
+                                            var name = productname.value;
+                                            var desc = productdesc.value;
+                                            //var file = fileupload11.value;
+                                            var color = $("#productcolor").val();
+                                            var filters = $("#inputallfilterid").val();
+                                            var ragnes = $("#inputallrangeid").val();
+                                            var colorServer = $("#inputallcolidServer").val();
+                                            var filtersServer = $("#inputallfilteridServer").val();
+                                            var ragnesServer = $("#inputallrangeidServer").val();
+                                            var features = $("#allfeaturetext").text();
+                                            $("#inputallfeatureid").val(features);
+                                            //var featuresServer = $("#allfeaturetextServer").text();
+                                            //$("#inputallfeatureidServer").val(features);
+
+                                            //if (color == "") {
+                                            //
+                                            //}
+                                            if (name == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('نام محصول را وارد نمایید')
+                                            }
+                                            if (filters == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' فیلتر های محصول انتخاب نشده است')
+
+                                            }
+
+                                            if (features == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' ویژگی های محصول انتخاب نشده است')
+                                            }
+                                            //if (file == "") {
+                                            //    toastr.options = {
+                                            //        "debug": false,
+                                            //        "positionClass": "toast-top-center",
+                                            //        "onclick": null,
+                                            //        "fadeIn": 300,
+                                            //        "fadeOut": 1000,
+                                            //        "timeOut": 5000,
+                                            //        "extendedTimeOut": 1000
+                                            //    }
+                                            //    toastr.error(' عکس محصول انتخاب نشده است')
+                                            //}
+                                            if (desc == "") {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' توضیحات محصول وارد نشده است')
+                                            }
+                                            if (ragnes.indexOf("-;") >= 0) {
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error(' همه فیلدهای عددی بخش فیلتر باید کامل شوند')
+                                            }
+                                            // name != "" && file != "" && desc != "" && cat != ""
+                                            if (name != "" && desc != "" && value != "" && filters != "" && features != "" && ragnes.indexOf("-;") < 0) {
+                                                //alert(features);
+                                                $("#addproduct00").submit();
+                                                //if (FF == "1") {
+                                                //    toastr.options = {
+                                                //        "debug": false,
+                                                //        "positionClass": "toast-top-center",
+                                                //        "onclick": null,
+                                                //        "fadeIn": 300,
+                                                //        "fadeOut": 1000,
+                                                //        "timeOut": 5000,
+                                                //        "extendedTimeOut": 1000
+                                                //    }
+                                                //    toastr.error('عکس های آپلود شده باید حجم کمتر از 1 مگا بایت داشته باشند')
+                                                //    //$("#addproduct00").submit();
+                                                //}
+                                                //else {
+
+
+
+
+                                                //}
+
+                                            }
+                                            else {
+
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error('تمامی موارد را کامل کنید')
+                                            }
+                                        })
+                                    }
+
+
                                 </script>
                             </div>
+
                         </div>
-                        <div class="fieldholder col-lg-3" style="float:right">
-
-                            <div style="display:inline-block">
-                                <button style="margin:0" type="button" class="btn btn-primary" data-toggle="modal" data-target="#filterModal">
-                                    مشاهده فیلتر
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document" style="width:800px">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body" id="filterholderforproduct">
-                                                فیلتر
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="display:inline-block">
-                                <button style="margin:0" type="button" class="btn btn-primary" data-toggle="modal" data-target="#featureModal">
-                                    مشاهده ویژگی
-                                </button>
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="featureModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body" id="featureholderforproduct">
-                                                فیچر
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
+                        <div class="row" style="padding:25px">
 
                         </div>
 
 
-                        <div class="appview">
-                            <div class="col-lg-12" id="thumbholder" style="margin-bottom:20px">
 
-
-                            </div>
-
-                        </div>
-                    </div>
+                        <script>
 
 
 
 
+                            $(".REM").click(function () {
 
-                </div>
+                                var id = $(this).attr('id');
 
-            
-                <div class=" row fieldholder col-lg-12">
-                    <p id="allfilterid" style="display:none"></p>
-                    <p id="allfeaturetext" style="display:none"></p>
-
-                    <p id="allfilteridServer" style="display:none"></p>
-                    <p id="allfeaturetextServer" style="display:none"></p>
-
-
-                    <div class=" " style="padding : 0 10px">
-                        <a id="CRprocuct" class="btn btn-primary" style=" width: 185px">تایید</a>
+                            })
+                        </script>
                         <script>
                             if (screen.width > 900) {
-
-                                $("#CRprocuct").click(function () {
-
-                                    var value = $("#addproduct").val();
-                                    var FF = document.getElementById("istrueimage").innerHTML;
-                                    var name = productname.value;
-                                    var desc = productdesc.value;
-                                    var file = fileupload11.value;
-                                    var color = $("#inputallcolid").val();
-                                    var filters = $("#inputallfilterid").val();
-                                    var ragnes = $("#inputallrangeid").val();
-                                    var colorServer = $("#inputallcolidServer").val();
-                                    var filtersServer = $("#inputallfilteridServer").val();
-                                    var ragnesServer = $("#inputallrangeidServer").val();
-                                    var count = $("#productCount").val();
-                                    var features = $("#allfeaturetext").text();
-                                    $("#inputallfeatureid").val(features);
-                                    //var featuresServer = $("#allfeaturetextServer").text();
-                                    //$("#inputallfeatureidServer").val(features);
-
-
-
-                                    //if (color == "") {
-                                    //
-                                    //}
-                                    if (count == "0") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error('تعداد محصول نباید صفر باشد')
-                                    }
-                                    if (name == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error('نام محصول را وارد نمایید')
-                                    }
-                                    if (filters == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' فیلتر های محصول انتخاب نشده است')
-
-                                    }
-
-                                    if (features == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' ویژگی های محصول انتخاب نشده است')
-                                    }
-                                    if (file == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' عکس محصول انتخاب نشده است')
-                                    }
-                                    //if (desc == "") {
-                                    //    toastr.options = {
-                                    //        "debug": false,
-                                    //        "positionClass": "toast-top-center",
-                                    //        "onclick": null,
-                                    //        "fadeIn": 300,
-                                    //        "fadeOut": 1000,
-                                    //        "timeOut": 5000,
-                                    //        "extendedTimeOut": 1000
-                                    //    }
-                                    //    toastr.error(' توضیحات محصول وارد نشده است')
-                                    //}
-                                    if (ragnes.indexOf("-;") >= 0) {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' همه فیلدهای عددی بخش فیلتر باید کامل شوند')
-                                    }
-
-                                    // name != "" && file != "" && desc != "" && cat != "" && ragnes != ""  && filters != ""
-
-
-                                    if (name != "" && file != "" && value != "" && ragnes.indexOf("-;") <0) {
-                                        //  alert(features)
-                                        $("#addproduct00").submit();
-                                        //if (FF == "1") {
-                                        //    toastr.options = {
-                                        //        "debug": false,
-                                        //        "positionClass": "toast-top-center",
-                                        //        "onclick": null,
-                                        //        "fadeIn": 300,
-                                        //        "fadeOut": 1000,
-                                        //        "timeOut": 5000,
-                                        //        "extendedTimeOut": 1000
-                                        //    }
-                                        //    toastr.error('عکس های آپلود شده باید حجم کمتر از 1 مگا بایت داشته باشند')
-                                        //    //$("#addproduct00").submit();
-                                        //}
-                                        //else {
-
-
-
-
-                                        //}
-
-                                    }
-                                    else {
-
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error('تمامی موارد را کامل کنید')
-                                    }
-                                })
+                                $(".appview").css("display", "none")
                             }
                             else {
-                                $("#CRprocuct").click(function () {
-
-                                    var value = $("#addproduct").val();
-                                    // var FF = document.getElementById("istrueimage").innerHTML;
-                                    var name = productname.value;
-                                    var desc = productdesc.value;
-                                    //var file = fileupload11.value;
-                                    var color = $("#productcolor").val();
-                                    var filters = $("#inputallfilterid").val();
-                                    var ragnes = $("#inputallrangeid").val();
-                                    var colorServer = $("#inputallcolidServer").val();
-                                    var filtersServer = $("#inputallfilteridServer").val();
-                                    var ragnesServer = $("#inputallrangeidServer").val();
-                                    var features = $("#allfeaturetext").text();
-                                    $("#inputallfeatureid").val(features);
-                                    //var featuresServer = $("#allfeaturetextServer").text();
-                                    //$("#inputallfeatureidServer").val(features);
-
-                                    //if (color == "") {
-                                    //
-                                    //}
-                                    if (name == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error('نام محصول را وارد نمایید')
-                                    }
-                                    if (filters == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' فیلتر های محصول انتخاب نشده است')
-
-                                    }
-
-                                    if (features == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' ویژگی های محصول انتخاب نشده است')
-                                    }
-                                    //if (file == "") {
-                                    //    toastr.options = {
-                                    //        "debug": false,
-                                    //        "positionClass": "toast-top-center",
-                                    //        "onclick": null,
-                                    //        "fadeIn": 300,
-                                    //        "fadeOut": 1000,
-                                    //        "timeOut": 5000,
-                                    //        "extendedTimeOut": 1000
-                                    //    }
-                                    //    toastr.error(' عکس محصول انتخاب نشده است')
-                                    //}
-                                    if (desc == "") {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' توضیحات محصول وارد نشده است')
-                                    }
-                                    if (ragnes.indexOf("-;") >= 0) {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error(' همه فیلدهای عددی بخش فیلتر باید کامل شوند')
-                                    }
-                                    // name != "" && file != "" && desc != "" && cat != ""
-                                    if (name != "" && desc != "" && value != "" && filters != "" && features != "" && ragnes.indexOf("-;") <0) {
-                                        //alert(features);
-                                        $("#addproduct00").submit();
-                                        //if (FF == "1") {
-                                        //    toastr.options = {
-                                        //        "debug": false,
-                                        //        "positionClass": "toast-top-center",
-                                        //        "onclick": null,
-                                        //        "fadeIn": 300,
-                                        //        "fadeOut": 1000,
-                                        //        "timeOut": 5000,
-                                        //        "extendedTimeOut": 1000
-                                        //    }
-                                        //    toastr.error('عکس های آپلود شده باید حجم کمتر از 1 مگا بایت داشته باشند')
-                                        //    //$("#addproduct00").submit();
-                                        //}
-                                        //else {
-
-
-
-
-                                        //}
-
-                                    }
-                                    else {
-
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.error('تمامی موارد را کامل کنید')
-                                    }
-                                })
+                                $(".webview").css("display", "none")
                             }
+                        </script>
+
+                    }
+                </div>
+                <div id="add2" class="tab-pane fade in  active" style="padding-top:20px">
+                    <div class="row">
+                        <div style="display:flex">
+                            <div style="width:50%; display:flex">
+                                <input style="width:100%; display:inline-block" id="addItemToOrderInput" class="form-control" />
+                                
+                                <i id="refreshList" style="font-size:22px ; padding:5px" class="fa fa-refresh"></i>
+                            </div>
 
 
+                        </div>
+                        <script>
+
+                            $("#refreshList").click(function () {
+
+                                $.ajax({
+                                    url: '/Admin/getNewListProductFromServer',
+                                    dataType: 'html',
+                                    data: {
+                                        val: $("#addItemToOrderInput").val(),
+                                      
+                                    },
+                                    success: function (data) {
+
+                                        var products = {
+                                            data: JSON.parse(data),
+                                            getValue: "ID",
+
+                                            template: {
+                                                type: "custom",
+                                                method: function (value, item) {
+                                                    return item.title + " | <div style='background-color:#ddd; border-radius:50%; width:30px'></div> "
+                                                }
+                                            },
+
+                                        };
+                                        $("#addItemToOrderInput").easyAutocomplete(products);
+                                        //$("#addItemToOrderInput").parent.css("width", "100%")
+                                    }
+
+                                })
+                            })
                         </script>
                     </div>
-
                 </div>
-                <div class="row" style="padding:25px">
-
-                </div>
+            </div>
 
 
-
-                <script>
-
-
-
-
-                    $(".REM").click(function () {
-
-                        var id = $(this).attr('id');
-
-                    })
-                </script>
-                <script>
-                    if (screen.width > 900) {
-                        $(".appview").css("display", "none")
-                    }
-                    else {
-                        $(".webview").css("display", "none")
-                    }
-                </script>
-
-            }
 
 
         </div>
