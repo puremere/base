@@ -125,6 +125,7 @@
 
                     @{
                         List<SelectListItem> listItems = new List<SelectListItem>();
+                        List<SelectListItem> listItems2 = new List<SelectListItem>();
                         if (Model.log.filtersModel != null)
                         {
                             foreach (var item in Model.log.filtersModel)
@@ -160,7 +161,41 @@
 
                             }
                         }
+                        if (Model.serverCat.filtersModel != null)
+                        {
+                            foreach (var item in Model.serverCat.filtersModel)
+                            {
+                                listItems2.Add(new SelectListItem
+                                {
+                                    Text = item.title,
+                                    Value = "1" + item.ID
+                                });
+                                if (item.filtersubcat != null)
+                                {
+                                    foreach (var subcat in item.filtersubcat)
+                                    {
+                                        listItems2.Add(new SelectListItem
+                                        {
+                                            Text = "---" + subcat.title,
+                                            Value = "2" + subcat.ID
+                                        });
+                                        if (subcat.filtersubcat2 != null)
+                                        {
+                                            foreach (var subcat2 in subcat.filtersubcat2)
+                                            {
+                                                listItems2.Add(new SelectListItem
+                                                {
+                                                    Text = "------" + subcat2.title,
+                                                    Value = "3" + subcat2.ID
+                                                });
+                                            }
+                                        }
 
+                                    }
+                                }
+
+                            }
+                        }
 
                     }
 
@@ -193,7 +228,7 @@
 
                                 }
                             </div>
-                        }
+                                    }
 
                         <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
                             <label> طبقه بندی :</label>
@@ -1327,15 +1362,46 @@
                             }
                         </script>
 
-                    }
+                                    }
                 </div>
                 <div id="add2" class="tab-pane fade in  active" style="padding-top:20px">
                     <div class="row">
-                        <div style="display:flex">
-                            <div style="width:50%; display:flex">
-                                <input style="width:100%; display:inline-block" id="addItemToOrderInput" class="form-control" />
-                                
-                                <i id="refreshList" style="font-size:22px ; padding:5px" class="fa fa-refresh"></i>
+                        <div style="display:flex" class="col-lg-4">
+                            <div style="width:100%">
+                                <p>نام محصول</p>
+                                <div style=" display:flex">
+                                    <input style="width:100%; display:inline-block" id="addItemToOrderInput" class="form-control" />
+                                    <i id="refreshList" style="font-size:22px ; padding:5px" class="fa fa-refresh"></i>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div style="display:flex" class="col-lg-3">
+                            <div style="width:100%">
+                                <p>طبقه بندی وب سایت :</p>
+                                @Html.DropDownList("baseCatList", listItems, "-- Select website cat --", new { id = "addproduct", style = "", @class = "form-control" })
+
+                            </div>
+
+
+                        </div>
+
+                        <div style="display:flex" class="col-lg-3">
+                            <div style="width:100%">
+                                <p>طبقه بندی سرور :</p>
+                                @Html.DropDownList("baseCatList", listItems2, "-- Select server cat --", new { id = "addproduct", style = "", @class = "form-control" })
+
+                            </div>
+
+
+                        </div>
+                        <div style="display:flex" class="col-lg-1">
+                            <div style="width:100%">
+                                <p style="height:20px"> </p>
+                                <div class="btn btn-success">تایید</div>
+
                             </div>
 
 
@@ -1349,20 +1415,20 @@
                                     dataType: 'html',
                                     data: {
                                         val: $("#addItemToOrderInput").val(),
-                                      
+
                                     },
                                     success: function (data) {
 
                                         var products = {
                                             data: JSON.parse(data),
-                                            getValue: "ID",
+                                            getValue: "title",
 
-                                            template: {
-                                                type: "custom",
-                                                method: function (value, item) {
-                                                    return item.title + " | <div style='background-color:#ddd; border-radius:50%; width:30px'></div> "
+                                            list: {
+                                                maxNumberOfElements: 100,
+                                                match: {
+                                                    enabled: true
                                                 }
-                                            },
+                                            }
 
                                         };
                                         $("#addItemToOrderInput").easyAutocomplete(products);
