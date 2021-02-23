@@ -835,7 +835,7 @@
                                 <div class="carousel-inner">
                                     @foreach (var item in Model.slides)
                                     {
-                                        string src =  item.image;
+                                        string src = "/images/panelimages/"+  item.image;
                                         if (Model.slides.IndexOf(item) == 0)
                                         {
                                             <div class="item active">
