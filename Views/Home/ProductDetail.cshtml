@@ -118,7 +118,7 @@
                         {
                             imagefile = Model.slides.First().image;
                         }
-                        string src = "/images/panelimages/" + imagefile;
+                        string src = imagefile;
                         <div class="thumb-image" style="width:100%;overflow:hidden; margin:auto ; padding:20px; "> <img style="height:100%; width:100%; object-fit:scale-down" src="@src" data-imagezoom="true" class="img-responsive "> </div>
 
                     }
@@ -206,7 +206,7 @@
                                         {
                                             imagefile = item.image;
                                         }
-                                        string src = "/images/panelimages/" + imagefile;
+                                        string src = imagefile;
                                         <li data-thumb="@src">
                                             <div class="thumb-image imageitself" style=" margin:auto ; padding:20px;">
                                                 <img style="width:100%; height:100%; object-fit:scale-down" src="@src" data-imagezoom="true" class="img-responsive ">
@@ -1149,7 +1149,7 @@
                             <p style="display:none">
                                 @{
 
-                                    string ig = "/images/panelimages/" + @Model.slides.First().image;
+                                    string ig = @Model.slides.First().image;
                                     <i id="detailimage">@ig</i>
                                 }
                             </p>*@
@@ -1206,7 +1206,7 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
+                                        string src =  imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
@@ -1687,7 +1687,7 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
+                                        string src = imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer">
 
