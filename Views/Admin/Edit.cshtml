@@ -646,12 +646,13 @@
                                                 string deletetid = "addtocart" + ID;
                                                 string title = "titleof" + ID;
                                                 string id = Model.ID;
+                                                string source = "~/images/panelimages/" +  @Path.GetFileName(item.title);
 
                                                 <div class="imagelistholder">
 
                                                     <div class="con">
 
-                                                        <img src="~/images/panelimages/@item.title" data-imagezoom="true" class=" back">
+                                                        <img src=@source data-imagezoom="true" class=" back">
                                                         <div id=@deletetid class="btn deleteimage">حذف</div>
                                                         <div style="display:none" id=@title>@item.title</div>
                                                     </div>
