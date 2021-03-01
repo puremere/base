@@ -1188,7 +1188,7 @@
                                 <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد مشابه</span>
                                 <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
                             </div>
-                            <div id="bestholder" class="resCarousel" data-items="3-2-2-2" data-slide="3" data-speed="500">
+                            <div id="bestholder" class="resCarousel" data-items="3-3-2-2" data-slide="3" data-speed="500">
 
 
                                 <div class="resCarousel-inner" style="direction:rtl">
@@ -1224,7 +1224,7 @@
                                                             }
                                                             else
                                                             {
-                                                                <h6>@item.title</h6>
+                                                                <h6> @item.title </h6>
                                                             }
 
                                                         }
@@ -2061,7 +2061,9 @@
             startClass: 'lg-start-zoom'
         })
     })
+
 </script>
+
 <script>
     $("#slidholder").click(function () {
         var IMGList = @Html.Raw(Json.Encode(@Model.imgGallery)) ;
