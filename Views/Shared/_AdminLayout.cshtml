@@ -98,7 +98,7 @@
                                     <a href="@Url.Action("dashboard", "Admin")"><i class="fa fa-dashboard"></i>داشبورد </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("product", "Admin")"><i class="fa fa-edit"></i> مدیریت مطالب </a>
+                                    <a href="@Url.Action("product", "Admin")"><i class="fa fa-edit"></i> مدیریت محصولات </a>
                                 </li>
                                 <li>
                                     <a href="@Url.Action("productdetail", "Admin")"><i class="fa fa-filter"></i> مدیریت فیلتر </a>
@@ -188,7 +188,7 @@
                     </div>
                     <div>
                         <a>
-                            <i class="glyphicon glyphicon-log-out" style="font-size: 22px;"></i>
+                            <i id="logout" class="glyphicon glyphicon-log-out" style="font-size: 22px;"></i>
                         </a>
                     </div>
                 </div>
@@ -267,6 +267,15 @@
         $(document).ajaxComplete(function () {
             $("#loading").css("display", "none");
         });
+        $("#logout").click(function () {
+            $.ajax({
+                url: "/admin/logout",
+                dataType: "html",
+                success: function () {
+                    window.location.href = "/Home/index"
+                }
+            })
+        })
 
     </script>
    
