@@ -144,7 +144,7 @@
                                 {
 
                                     int i = Model.myProducts.IndexOf(item) + 1;
-                                    string image = "/images/panelimages/" + item.image;
+                                    string image = item.image;
 
                                     <div class="Itemholderr" id="@item.orderID">
 
@@ -200,7 +200,7 @@
                                             {
                                                 foreach (var item in Model.myProducts)
                                                 {
-                                                    string image = "/images/panelimages/" + item.image;
+                                                    string image =  item.image;
                                                     int i = Model.myProducts.IndexOf(item) + 1;
                                                     string deleteid = item.id + "-" + item.orderID;
                                                     <tr style=" ">
