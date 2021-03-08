@@ -680,9 +680,9 @@
                                             }
                                         </style>
                                         <ul>
-                                            <li class="liclass"><input id="20" type="checkbox"> 20 هزار تومان</li>
-                                            <li class="liclass"><input id="50" type="checkbox"> 50 هزار تومان</li>
-                                            <li class="liclass"><input id="100" type="checkbox"> 100 هزار تومان</li>
+                                            <li class="liclass"><input id="20000" type="checkbox"> 20 هزار تومان</li>
+                                            <li class="liclass"><input id="50000" type="checkbox"> 50 هزار تومان</li>
+                                            <li class="liclass"><input id="100000" type="checkbox"> 100 هزار تومان</li>
                                             <li class="liclass"><input id="0" type="checkbox"> مبلغ دلخواه (کمتر از 100 هزار تومان)</li>
                                         </ul>
                                     </div>
@@ -1369,7 +1369,7 @@
                     int total = 0;
                     if (Model.mytransaction != null)
                     {
-                        total = Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "1").Sum(x => x.price) - Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "0").Sum(x => x.price);
+                        total = Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "1" ).Sum(x => x.price) - Model.mytransaction.Where(x => x.status == "1" && x.transactionType == "0").Sum(x => x.price);
                     }
 
                     <p style="text-align:center; padding-bottom:25px">اعتبار :   <span>@total</span> &nbsp; تومان</p>
