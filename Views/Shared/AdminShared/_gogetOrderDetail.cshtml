@@ -312,12 +312,12 @@
                     data: JSON.parse(data),
                     getValue: "ID",
 
-                    template: {
-                        type: "custom",
-                        method: function (value, item) {
-                            return   item.title + " | <div style='background-color:#ddd; border-radius:50%; width:30px'></div> "
+                    list: {
+                        maxNumberOfElements: 100,
+                        match: {
+                            enabled: true
                         }
-                    },
+                    }
 
                 };
                 $("#addItemToOrderInput").easyAutocomplete(products);
