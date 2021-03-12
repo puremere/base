@@ -50,7 +50,7 @@
                             <div style="width:100%; display:flex">
                                 <input style="width:100%; display:inline-block" id="addItemToOrderInput" class="form-control" />
                                 <input value="1" id="quntityInput" style="width:20%; display:inline-block" class="form-control" />
-                                <input id="index-holder" hidden />
+                                <input id="IDholder"  hidden/>
                                 <i id="refreshList" style="font-size:22px ; padding:5px" class="fa fa-refresh"></i>
                             </div>
 
@@ -111,7 +111,7 @@
                     <input name="data" hidden />
                     <input name="id" hidden />
                     <input value="user" name="type" hidden />
-                    <input hidden name="orderID" value="@Model.myProducts.First().orderID"/>
+                    <input hidden name="orderID" value="@Model.myProducts.First().orderID" />
                     <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> شرح سفارش    <i id="print" style="cursor:pointer; float:left" class="fa fa-print"></i>  <i id="addItemToOrderIcon" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus"></i></h3>
 
                 </form>
@@ -200,7 +200,7 @@
                                             {
                                                 foreach (var item in Model.myProducts)
                                                 {
-                                                    string image =  item.image;
+                                                    string image = item.image;
                                                     int i = Model.myProducts.IndexOf(item) + 1;
                                                     string deleteid = item.id + "-" + item.orderID;
                                                     <tr style=" ">
@@ -308,19 +308,34 @@
             },
             success: function (data) {
 
-                var products = {
+                var productItems = {
                     data: JSON.parse(data),
-                    getValue: "ID",
-
+                    getValue: "title",
                     list: {
                         maxNumberOfElements: 100,
-                        match: {
-                            enabled: true
+
+                        onSelectItemEvent: function () {
+                            var value = $("#addItemToOrderInput").getSelectedItemData().ID;
+                        
+                            $("#IDholder").val(value).trigger("change");
                         }
                     }
+                    //  list: {
+                    //    maxNumberOfElements: 100,
+                    //    match: {
+                    //        enabled: true
+                    //    }
+                    //},
+                    //template: {
+                    //    type: "custom",
+                    //    method: function (value, item) {
+                    //        return   item.title + " | <div style='background-color:#ddd; border-radius:50%; width:30px'></div> "
+                    //    }
+                    //},
+
 
                 };
-                $("#addItemToOrderInput").easyAutocomplete(products);
+                $("#addItemToOrderInput").easyAutocomplete(productItems);
                 //$("#addItemToOrderInput").parent.css("width", "100%")
             }
 
@@ -332,7 +347,7 @@
             url: '/Admin/addNewTtemToOrder',
             dataType: 'html',
             data: {
-                ID: $("#addItemToOrderInput").val(),
+                ID: $("#IDholder").val(),
                 quantity: $("#quntityInput").val(),
                 OrderId: '@Model.myProducts.First().orderID'
 
