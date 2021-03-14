@@ -9,7 +9,7 @@
 
     string logo = TempData["logo"] as string;
     string phone = TempData["phone"] as string;
-    string analyticID =  TempData["analyticID"] as string;
+    string analyticID = TempData["analyticID"] as string;
     TempData.Keep("phone");
     TempData.Keep("logo");
     TempData.Keep("analyticID");
@@ -18,69 +18,69 @@
     int h = Request.Browser.ScreenPixelsHeight;
     if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
     {
-<head>
+        <head>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
-    <script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+            <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
 
                 gtag('config', '@analyticID');
-    </script>
+            </script>
 
-    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+            <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
-    <title>@ViewBag.Title </title>
-
-
-    <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
-    <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
-    <meta http-equiv="content-language" content="fa" />
-
-    <!-- Mobile Specific Metas
-          ================================================== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.jpg" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.jpg" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.jpg" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.jpg" />
+            <title>@ViewBag.Title </title>
 
 
-    @RenderSection("HeadIncludes", required: false)
-    @Styles.Render("~/Content/css")
+            <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
+            <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
+            <meta http-equiv="content-language" content="fa" />
+
+            <!-- Mobile Specific Metas
+                  ================================================== -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.jpg" />
+            <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.jpg" />
+            <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.jpg" />
+            <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.jpg" />
+
+
+            @RenderSection("HeadIncludes", required: false)
+            @Styles.Render("~/Content/css")
 
 
 
-    <link href="~/Content/bundle.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/jquery.flexslider2.js"></script>
-    <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
-    <script src="~/Scripts/imagezoom.js"></script>
-    <script src="~/Scripts/toastr.js"></script>
-    <script src="~/Scripts/jquery-ui.js"></script>
-    @RenderSection("header", required: false)
-    @RenderSection("scripts", required: false)
-    <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
-    <style>
-        #loading {
-            align-content: center;
-            background: #fff;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999999;
-            opacity: 1;
-            margin: 0 auto;
-        }
-    </style>
+            <link href="~/Content/bundle.css" rel="stylesheet" />
+            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+            <script src="~/Scripts/jquery.flexslider2.js"></script>
+            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+            <script src="~/Scripts/imagezoom.js"></script>
+            <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/jquery-ui.js"></script>
+            @RenderSection("header", required: false)
+            @RenderSection("scripts", required: false)
+            <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
+            <style>
+                #loading {
+                    align-content: center;
+                    background: #fff;
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    z-index: 999999;
+                    opacity: 1;
+                    margin: 0 auto;
+                }
+            </style>
 
 
-</head>
+        </head>
         <body>
-         
+
             <div id="loading" style="display:none">
                 <div style="padding:15px 35px; background-color:white;position:fixed;overflow: visible;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
 
@@ -602,9 +602,9 @@
             </script>
 
             @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
-        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>*@
-            <div style="display:none" id="summerydetailholder" ></div>
+                <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
+                <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>*@
+            <div style="display:none" id="summerydetailholder"></div>
 
         </body>
     }
@@ -636,7 +636,7 @@
             <meta http-equiv="content-language" content="fa" />
 
             <!-- Mobile Specific Metas
-    ================================================== -->
+            ================================================== -->
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 
@@ -650,7 +650,7 @@
 
 
 
-      
+
 
 
             <link href="~/Content/bundle.css" rel="stylesheet" />
@@ -714,7 +714,11 @@
                                                 <tr>
                                                     <th style="padding: 0 10px; " height="40px; "><img style="width:40px" src="~/images/cart.png" class="cartimage" /></th>
                                                     <th style="padding: 0 10px;" width="45%"><p class="carttext">سبد خرید</p></th>
-                                                    <th style="padding: 0 0px;"><span class="cartnumber simpleCart_quantityy" id="simpleCart_quantityy"></span></th>
+                                                    @{
+
+                                                        <th style="padding: 0 0px;"><span class="cartnumber simpleCart_quantityy" id="simpleCart_quantityy">@TempData["itemCount"]</span></th>
+                                                        TempData.Keep("itemCount");
+                                                    }
                                                     <th style="padding: 0 10px;"><img style="font-size:12px; width:15px; " src="~/images/arrow.png" /></th>
 
                                                 </tr>
@@ -776,8 +780,43 @@
                                     <script>
 
                                         $("#arrowcart").click(function () {
+
+                                            windows.location.href = "/Home/shopsummary";
+
                                             var x = document.getElementById("cartsummery");
                                             if (x.style.display === "none") {
+                                                $.ajax({
+                                                    url: '/Home/checkoutsummery/',
+                                                    dataType: 'html',
+                                                    success: function (data) {
+
+                                                        $('#summerydetailholder').html(data);
+                                                        $("#loading").fadeOut()
+                                                    },
+                                                    error: function () {
+
+                                                    }
+                                                });
+                                                $.ajax({
+                                                    url: '/Home/gogetfinalprice/',
+                                                    success: function (data) {
+                                                        var array = data.split(',');
+                                                        if (array[3] === "0") {
+                                                            $(".discountSection").css("display", "none");
+                                                        }
+                                                        $("#basepriceholder").text(addCommas(array[1]))
+                                                        $("#spanfortotal").text(addCommas(array[0]))
+                                                        $("#spanfortotal2").text(addCommas(array[0]))
+                                                        $(".simpleCart_quantityy").text(array[2])
+                                                        $("#simpleCart_quantityy").text(array[2])
+                                                        $(".discountfinal").text(addCommas(array[3]))
+                                                        $(".discountpercent").text(array[4])
+
+                                                    },
+                                                    error: function () {
+
+                                                    }
+                                                });
                                                 $("#cartsummery").show(150);
 
                                             } else {
@@ -846,26 +885,26 @@
 
                                 if (user == null)
                                 {
-                            <a class="c-header__user-dropdown-login" href="../Home/login">
-                                ورود
-                                به
-                                @{
-                                    if (TempData["partnerName"] != null)
-                                    {
-                                        @TempData["partnerName"];
-                                        TempData.Keep("partnerName");
-                                    }
-                                    else
-                                    {
-                                        @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]
-                                    }
-                                }
+                                    <a class="c-header__user-dropdown-login" href="../Home/login">
+                                        ورود
+                                        به
+                                        @{
+                                            if (TempData["partnerName"] != null)
+                                            {
+                                                @TempData["partnerName"];
+                                                TempData.Keep("partnerName");
+                                            }
+                                            else
+                                            {
+                                                @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]
+                                            }
+                                        }
 
 
-                            </a>
+                                    </a>
                                     <div class="c-header__user-dropdown-sign-up">
                                         <span>کاربر جدید هستید؟</span>
-                                        <a data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;sign-up&quot;}" href="/Home/Register">ثبت‌نام</a>
+                                        <a data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;sign-up&quot;}" href="../Home/Register">ثبت‌نام</a>
                                     </div>
                                 }
 
@@ -1112,51 +1151,20 @@
 
                     })
                     $.ajax({
-                        url: '/Home/gogetfinalprice/',
-
+                        url: '/Home/getmenue/',
+                        dataType: 'html',
 
                         success: function (data) {
-                            var array = data.split(',');
-                            if (array[3] === "0") {
-                                $(".discountSection").css("display", "none");
-                            }
-                            $("#basepriceholder").text(addCommas(array[1]))
-                            $("#spanfortotal").text(addCommas(array[0]))
-                            $("#spanfortotal2").text(addCommas(array[0]))
-                            $(".simpleCart_quantityy").text(array[2])
-                            $("#simpleCart_quantityy").text(array[2])
-                            $(".discountfinal").text(addCommas(array[3]))
-                            $(".discountpercent").text(array[4])
-                            $.ajax({
-                                url: '/Home/getmenue/',
-                                dataType: 'html',
 
-                                success: function (data) {
+                            $('#mainmenu').html(data);
 
-                                    $('#mainmenu').html(data);
-                                    $.ajax({
-                                        url: '/Home/checkoutsummery/',
-                                        dataType: 'html',
-                                        success: function (data) {
 
-                                            $('#summerydetailholder').html(data);
-                                            $("#loading").fadeOut()
-                                        },
-                                        error: function () {
-
-                                        }
-                                    });
-
-                                },
-                                error: function () {
-                                    alert("error")
-                                }
-                            });
                         },
                         error: function () {
-
+                            alert("error")
                         }
                     });
+
 
 
 
@@ -1235,7 +1243,26 @@
 
             </script>
 
+            <script>
 
+                 var srtcookie = '@ViewBag.cookie';
+                 var total = 0;
+                if (srtcookie.length > 0) {
+                    srtcookie = srtcookie.replace(/&quot;/g, '"');
+                    JSON.parse(srtcookie).forEach(function (item) {
+                        let valueID = "value" + item.productid;
+                        $("." + valueID).text(item.quantity);
+                        total += parseInt(item.quantity);
+                    });
+                    $(".simpleCart_quantityy").text(total)
+
+                } else {
+                    $(".simpleCart_quantityy").text("0")
+                }
+
+
+
+            </script>
 
 
         </body>

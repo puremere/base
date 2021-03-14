@@ -118,7 +118,7 @@
                         {
                             imagefile = Model.slides.First().image;
                         }
-                        string src = imagefile;
+                        string src = "/images/panelimages/" + imagefile;
                         <div class="thumb-image" style="width:100%;overflow:hidden; margin:auto ; padding:20px; "> <img style="height:100%; width:100%; object-fit:scale-down" src="@src" data-imagezoom="true" class="img-responsive "> </div>
 
                     }
@@ -206,7 +206,7 @@
                                         {
                                             imagefile = item.image;
                                         }
-                                        string src = imagefile;
+                                        string src = "/images/panelimages/" + imagefile;
                                         <li data-thumb="@src">
                                             <div class="thumb-image imageitself" style=" margin:auto ; padding:20px;">
                                                 <img style="width:100%; height:100%; object-fit:scale-down" src="@src" data-imagezoom="true" class="img-responsive ">
@@ -404,9 +404,6 @@
         int h = Request.Browser.ScreenPixelsHeight;
         if (!Request.Browser.IsMobileDevice || !(w < 720 && h > 720))
         {
-
-
-            
             <div id="dataholder" class="col-md-8 col-lg-8 col-sm-12 single-right-left simpleCart_shelfItem animated wow slideInRight animated" style="border-right:1px solid #dedede; padding-bottom: 10px; direction: rtl; float: left; background-color: #fdfdfd; visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;" data-wow-delay=".5s">
 
                 <div class="col-lg-4 mustbehide">
@@ -1152,7 +1149,7 @@
                             <p style="display:none">
                                 @{
 
-                                    string ig = @Model.slides.First().image;
+                                    string ig = "/images/panelimages/" + @Model.slides.First().image;
                                     <i id="detailimage">@ig</i>
                                 }
                             </p>*@
@@ -1191,7 +1188,7 @@
                                 <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد مشابه</span>
                                 <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
                             </div>
-                            <div id="bestholder" class="resCarousel" data-items="3-3-2-2" data-slide="3" data-speed="500">
+                            <div id="bestholder" class="resCarousel" data-items="3-2-2-2" data-slide="3" data-speed="500">
 
 
                                 <div class="resCarousel-inner" style="direction:rtl">
@@ -1209,7 +1206,7 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src =  imagefile;
+                                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
@@ -1227,7 +1224,7 @@
                                                             }
                                                             else
                                                             {
-                                                                <h6> @item.title </h6>
+                                                                <h6>@item.title</h6>
                                                             }
 
                                                         }
@@ -1690,7 +1687,7 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src = imagefile;
+                                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer">
 
@@ -2064,9 +2061,7 @@
             startClass: 'lg-start-zoom'
         })
     })
-
 </script>
-
 <script>
     $("#slidholder").click(function () {
         var IMGList = @Html.Raw(Json.Encode(@Model.imgGallery)) ;
@@ -2074,6 +2069,7 @@
             dynamic: true,
             dynamicEl: IMGList,
             startClass: 'lg-start-zoom'
+
         })
     })
 </script>

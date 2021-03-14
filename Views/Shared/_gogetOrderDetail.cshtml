@@ -75,7 +75,7 @@
                                 {
 
                                     int i = Model.myProducts.IndexOf(item) + 1;
-                                    string image = item.image;
+                                    string image = "/images/panelimages/" + item.image;
 
                                     <div class="Itemholderr" id="@item.orderID">
 
@@ -127,7 +127,7 @@
                                     <tbody>
                                         @foreach (var item in Model.myProducts)
                                         {
-                                            string image = item.image;
+                                            string image = "/images/panelimages/" + item.image;
                                             int i = Model.myProducts.IndexOf(item) + 1;
 
                                             <tr style=" ">

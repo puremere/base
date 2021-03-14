@@ -175,6 +175,7 @@
                                     {
                                         <div class="col-md-5 col-sm-5 col-xs-12">
                                             @Html.TextBoxFor(m => m.productprice, new { @class = "form-control col-md-7 col-xs-12", id = "productprice", name = "productprice" })
+
                                         </div>
 
                                     }
@@ -646,13 +647,12 @@
                                                 string deletetid = "addtocart" + ID;
                                                 string title = "titleof" + ID;
                                                 string id = Model.ID;
-                                                string source = "/images/panelimages/" +  @Path.GetFileName(item.title);
 
                                                 <div class="imagelistholder">
 
                                                     <div class="con">
 
-                                                        <img src=@source data-imagezoom="true" class=" back">
+                                                        <img src="~/images/panelimages/@item.title" data-imagezoom="true" class=" back">
                                                         <div id=@deletetid class="btn deleteimage">حذف</div>
                                                         <div style="display:none" id=@title>@item.title</div>
                                                     </div>

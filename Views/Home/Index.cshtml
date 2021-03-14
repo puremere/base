@@ -134,8 +134,6 @@
                         else
                         {
                             <li data-target="#myCarousel" data-slide-to="@index"></li>
-
-
                         }
 
                     }
@@ -147,7 +145,7 @@
                 <div class="carousel-inner">
                     @foreach (var item in Model.slides)
                     {
-                        string src ="/images/panelimages/"+  item.image;
+                        string src = "/images/panelimages/" + item.image;
                         if (Model.slides.IndexOf(item) == 0)
                         {
                             <div class="item active">
@@ -254,7 +252,7 @@
                         string addtocartid = "addtocart" + ID;
                         string price = item.price;
 
-                        string src =  imagefile;
+                        string src = "/images/panelimages/" + imagefile;
 
                         <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
@@ -524,7 +522,7 @@
                             string addtocartid = "addtocart" + ID;
                             string price = item.price;
 
-                            string src =  imagefile;
+                            string src = "/images/panelimages/" + imagefile;
 
                             <div class="item showmedetail" id=@ID style="cursor:pointer;  max-width:34%">
 
@@ -674,7 +672,7 @@
                             string addtocartid = "addtocart" + ID;
                             string price = item.price;
 
-                            string src =  imagefile;
+                            string src = "/images/panelimages/" + imagefile;
 
                             <div class="item showmedetail" id=@ID style="cursor:pointer; ; max-width:34%">
 
@@ -817,7 +815,7 @@
                                 <ol class="carousel-indicators">
                                     @foreach (var item in Model.slides)
                                     {
-                                        string src =  item.image;
+                                        string src = "/images/panelimages/" + item.image;
                                         var index = Model.slides.IndexOf(item);
                                         if (index == 0)
                                         {
@@ -837,7 +835,7 @@
                                 <div class="carousel-inner">
                                     @foreach (var item in Model.slides)
                                     {
-                                        string src = "/images/panelimages/"+  item.image;
+                                        string src = "/images/panelimages/" + item.image;
                                         if (Model.slides.IndexOf(item) == 0)
                                         {
                                             <div class="item active">
@@ -937,7 +935,7 @@
                                     string addtocartid = "addtocart" + ID;
                                     string price = item.price;
 
-                                    string src =  imagefile;
+                                    string src = "/images/panelimages/" + imagefile;
 
                                     <div class="item showmedetail" id=@ID style="cursor:pointer">
 
@@ -1146,7 +1144,7 @@
                                     string addtocartid = "addtocart" + ID;
                                     string price = item.price;
 
-                                    string src =  imagefile;
+                                    string src = "/images/panelimages/" + imagefile;
 
                                     <div class="item showmedetail" id=@ID style="cursor:pointer">
 
@@ -1343,7 +1341,7 @@
                                     string addtocartid = "addtocart" + ID;
                                     string price = item.price;
 
-                                    string src =  imagefile;
+                                    string src = "/images/panelimages/" + imagefile;
 
                                     <div class="item showmedetail" id=@ID style="cursor:pointer">
 
@@ -1510,40 +1508,10 @@
 
             },
             success: function (data) {
-                $.ajax({
-                    url: '/Home/gogetfinalprice',
-
-
-                    success: function (data) {
-                        var array = data.split(',');
-
-
-                        if (array[3] === "0") {
-                            $(".discountSection").css("display", "none");
-                        }
-                        $("#basepriceholder").text(addCommas(array[1]))
-                        $("#spanfortotal").text(addCommas(array[0]))
-                        $("#spanfortotal2").text(addCommas(array[0]))
-                        $(".simpleCart_quantityy").text(array[2])
-                        $(".discountfinal").text(addCommas(array[3]))
-                        $(".discountpercent").text(array[4])
-                        $.ajax({
-                            url: '/Home/checkoutsummery/',
-                            dataType: 'html',
-                            success: function (data) {
-
-                                $('#summerydetailholder').html(data);
-                                $("#loading").fadeOut()
-                            },
-                            error: function () {
-
-                            }
-                        });
-                    },
-                    error: function () {
-
-                    }
-                });
+                var count =parseInt($(".simpleCart_quantityy").text());
+                count += 1;
+                $(".simpleCart_quantityy").text(count);
+                $("#loading").fadeOut()
 
 
             },
@@ -1556,63 +1524,39 @@
     });
     $('.value-minus').on('click', function () {
         event.stopPropagation();
-        $("#loading").fadeIn()
+      
         var ID = $(this).attr('id');
         let myid = "value" + ID.replace('minus', '');
-       
+        
         let newVal = $(this).parent().children(".value").text();
         if (newVal != "0") {
+            $("#loading").fadeIn()
             let finalVal = parseInt(newVal) - 1;
-            $("."+myid).text(finalVal);
+            $("." + myid).text(finalVal);
+            $.ajax({
+                url: '/Home/minusfromcart',
+                dataType: 'html',
+                data: {
+                    id: ID
+                },
+                success: function (data) {
+                    var count = parseInt($(".simpleCart_quantityy").text());
+                    count -= 1;
+                    $(".simpleCart_quantityy").text(count);
+                    $("#loading").fadeOut()
+
+
+                },
+                error: function () {
+                    alert("error")
+                }
+
+
+            });
         }
 
 
-        $.ajax({
-            url: '/Home/minusfromcart',
-            dataType: 'html',
-            data: {
-                id: ID
-            },
-            success: function (data) {
-
-                $.ajax({
-                    url: '/Home/gogetfinalprice',
-                    success: function (data) {
-                        var array = data.split(',');
-                        if (array[3] === "0") {
-                            $(".discountSection").css("display", "none");
-                        }
-                        $("#basepriceholder").text(addCommas(array[1]))
-                        $("#spanfortotal").text(addCommas(array[0]))
-                        $("#spanfortotal2").text(addCommas(array[0]))
-                        $(".simpleCart_quantityy").text(array[2])
-                        $(".discountfinal").text(addCommas(array[3]))
-                        $(".discountpercent").text(array[4])
-                        $.ajax({
-                            url: '/Home/checkoutsummery/',
-                            dataType: 'html',
-                            success: function (data) {
-
-                                $('#summerydetailholder').html(data);
-                                $("#loading").fadeOut()
-                            },
-                            error: function () {
-
-                            }
-                        });
-                    },
-                    error: function () {
-
-                    }
-                });
-
-            },
-            error: function () {
-                alert("error")
-            }
-
-
-        });
+      
 
 
 
