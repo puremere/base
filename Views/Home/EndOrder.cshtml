@@ -35,38 +35,9 @@
             }
             return x1 + x2;
         }
-        $.ajax({
-            url: '/Home/gogetfinalprice',
-
-
-            success: function (data) {
-                var array = data.split(',');
-
-                // $("#finalprice").text(array[0]);
-                $("#finalprice").text(addCommas(array[0]))
-                if (parseInt(array[0]) < parseInt('@Model.baseDeliver')) {
-                    $("#deliveryprice").text('@Model.priceDeliver');
-                    $("#totalprice").text(addCommas(parseInt(array[0]) + parseInt('@Model.priceDeliver')));
-
-                }
-                else {
-                    $("#deliveryprice").text("0");
-                    $("#totalprice").text(addCommas(parseInt(array[0])));
-
-
-
-
-                }
-
-
-            },
-            error: function () {
-
-            }
-        });
     </script>
 
-  
+
     userdata user = @Session["LogedInUser"] as userdata;
     string fullname = user.fullname;
     string phone = user.phone;
@@ -393,12 +364,12 @@
 
                             </div>
                             <div class="row priceitem">
-                                <p class="col-lg-6 col-sm-6 deliveryHolder Holder"><span id="deliveryprice"></span>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6 deliveryHolder Holder"><span id="deliveryprice">@String.Format("{0:n0}", @Model.priceDeliver)</span>&nbsp;تومان</p>
                                 <p class="col-lg-6 col-sm-6">هزینه ارسال</p>
 
                             </div>
                             <div class="row priceitem">
-                                <p class="col-lg-6 col-sm-6 Holder"><span id="totalprice"></span>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6 Holder"><span id="totalprice">@String.Format("{0:n0}", @Model.finalAmount) </span>&nbsp;تومان</p>
                                 <p class="col-lg-6 col-sm-6">مبلغ نهایی</p>
 
                             </div>
@@ -419,7 +390,7 @@
                         <div id="finalPriceHolder" style="">
                             <div class="row priceitem">
                                 <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@Model.credit</i>&nbsp;تومان</p>
-                                <p class="col-lg-6 col-sm-6">اعتبار</p> 
+                                <p class="col-lg-6 col-sm-6">اعتبار</p>
 
                             </div>
                             <style>
@@ -774,7 +745,7 @@
     function showLocation(position) {
         var lat = position.coords.latitude;
         var lon = position.coords.longitude;
-      
+
         var myMap = new L.Map('map', {
             minZoom: 1,
             maxZoom: 20,
