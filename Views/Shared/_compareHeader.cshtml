@@ -25,12 +25,12 @@
         <div class="imageHolder">
             @if (item.slides != null)
             {
-                <img style="" src="~/Images/panelimages/@item.slides.First().image" />
+                <img style="" src="@item.slides.First().image" />
 
             }
             else
             {
-                <img style="" src="~/Images/panelimages/placeholder.jpg" />
+                <img style="" src="placeholder.jpg" />
 
             }
         </div>
