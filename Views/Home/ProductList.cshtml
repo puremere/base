@@ -30,7 +30,17 @@
 
 
 
-
+<script>
+    window.addEventListener("pageshow", function (event) {
+        var historyTraversal = event.persisted ||
+            (typeof window.performance != "undefined" &&
+                window.performance.navigation.type === 2);
+        if (historyTraversal) {
+            // Handle page restore.
+            window.location.reload();
+        }
+    });
+</script>
 
 
 <div id="filterAndSortButt" class="row minwidth" style="display:none">
@@ -108,16 +118,18 @@
 
             },
             dataType: 'html',
-            success: function () {
+            success: function (data) {
                 //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-
+                getquntity()
                 $.ajax({
                     url: '/Home/gogetproductlist',
                     aType: 'html',
                     success: function (data) {
+                        
                         $("#SIBdiv").css("height", "");
                         $('#productlist').html(data);
                         window.scrollTo(0, 0);
+
                     },
                     error: function () {
                         //alert("nashod")

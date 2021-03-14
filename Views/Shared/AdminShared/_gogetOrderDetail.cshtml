@@ -200,10 +200,16 @@
                                             {
                                                 foreach (var item in Model.myProducts)
                                                 {
+                                                    string active = item.active;
+                                                    string color = "RGBA(255,255,255,1)";
+                                                    ;                                                    if (active != "1")
+                                                    {
+                                                        color = "RGBA(255,0,0,0.3)";
+                                                    }
                                                     string image = item.image;
                                                     int i = Model.myProducts.IndexOf(item) + 1;
                                                     string deleteid = item.id + "-" + item.orderID;
-                                                    <tr style=" ">
+                                                    <tr style=" background-color : @color">
                                                         <td>@i</td>
                                                         <td>@item.title</td>
                                                         <td>@item.price</td>

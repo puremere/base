@@ -245,17 +245,17 @@
                                                     var editclassname = "editproduct" + item.ID;
                                                     <a id=@item.ID class="btn btn-primary @editclassname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
                                                     <script>
-                                var editclassname = "editproduct" + "@item.ID";
-                                var selectedCatID = $("#listofproduct").val();
+                                                        var editclassname = "editproduct" + "@item.ID";
+                                                        var selectedCatID = $("#listofproduct").val();
 
-                                $("." + editclassname).click(function () {
+                                                        $("." + editclassname).click(function () {
 
-                                    var url = "@Url.Action("Edit", "Admin", new { id = "__id__", catID = "__catID__" })";
-                                    var url2 = url.replace("__id__", this.id);
-                                    var url3 = url2.replace("__catID__", selectedCatID);
-                                    window.location.href = url3;
+                                                            var url = "@Url.Action("Edit", "Admin", new { id = "__id__", catID = "__catID__" })";
+                                                            var url2 = url.replace("__id__", this.id);
+                                                            var url3 = url2.replace("__catID__", selectedCatID);
+                                                            window.open(url3);
 
-                                })
+                                                        });
                                                     </script>
                                                 }
 

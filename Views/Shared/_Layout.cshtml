@@ -719,7 +719,7 @@
                                                         <th style="padding: 0 0px;"><span class="cartnumber simpleCart_quantityy" id="simpleCart_quantityy">@TempData["itemCount"]</span></th>
                                                         TempData.Keep("itemCount");
                                                     }
-                                                    <th style="padding: 0 10px;"><img style="font-size:12px; width:15px; " src="~/images/arrow.png" /></th>
+                                                    <th style="padding: 0 10px;"></th>
 
                                                 </tr>
 
@@ -781,47 +781,47 @@
 
                                         $("#arrowcart").click(function () {
 
-                                            windows.location.href = "/Home/shopsummary";
+                                            window.location.href = "/Home/checkout";
 
-                                            var x = document.getElementById("cartsummery");
-                                            if (x.style.display === "none") {
-                                                $.ajax({
-                                                    url: '/Home/checkoutsummery/',
-                                                    dataType: 'html',
-                                                    success: function (data) {
+                                            //var x = document.getElementById("cartsummery");
+                                            //if (x.style.display === "none") {
+                                            //    $.ajax({
+                                            //        url: '/Home/checkoutsummery/',
+                                            //        dataType: 'html',
+                                            //        success: function (data) {
 
-                                                        $('#summerydetailholder').html(data);
-                                                        $("#loading").fadeOut()
-                                                    },
-                                                    error: function () {
+                                            //            $('#summerydetailholder').html(data);
+                                            //            $("#loading").fadeOut()
+                                            //        },
+                                            //        error: function () {
 
-                                                    }
-                                                });
-                                                $.ajax({
-                                                    url: '/Home/gogetfinalprice/',
-                                                    success: function (data) {
-                                                        var array = data.split(',');
-                                                        if (array[3] === "0") {
-                                                            $(".discountSection").css("display", "none");
-                                                        }
-                                                        $("#basepriceholder").text(addCommas(array[1]))
-                                                        $("#spanfortotal").text(addCommas(array[0]))
-                                                        $("#spanfortotal2").text(addCommas(array[0]))
-                                                        $(".simpleCart_quantityy").text(array[2])
-                                                        $("#simpleCart_quantityy").text(array[2])
-                                                        $(".discountfinal").text(addCommas(array[3]))
-                                                        $(".discountpercent").text(array[4])
+                                            //        }
+                                            //    });
+                                            //    $.ajax({
+                                            //        url: '/Home/gogetfinalprice/',
+                                            //        success: function (data) {
+                                            //            var array = data.split(',');
+                                            //            if (array[3] === "0") {
+                                            //                $(".discountSection").css("display", "none");
+                                            //            }
+                                            //            $("#basepriceholder").text(addCommas(array[1]))
+                                            //            $("#spanfortotal").text(addCommas(array[0]))
+                                            //            $("#spanfortotal2").text(addCommas(array[0]))
+                                            //            $(".simpleCart_quantityy").text(array[2])
+                                            //            $("#simpleCart_quantityy").text(array[2])
+                                            //            $(".discountfinal").text(addCommas(array[3]))
+                                            //            $(".discountpercent").text(array[4])
 
-                                                    },
-                                                    error: function () {
+                                            //        },
+                                            //        error: function () {
 
-                                                    }
-                                                });
-                                                $("#cartsummery").show(150);
+                                            //        }
+                                            //    });
+                                            //    $("#cartsummery").show(150);
 
-                                            } else {
-                                                $("#cartsummery").hide(150);
-                                            }
+                                            //} else {
+                                            //    $("#cartsummery").hide(150);
+                                            //}
 
                                         });
                                         $(document).mouseup(function (e) {
@@ -1244,21 +1244,33 @@
             </script>
 
             <script>
+                var getquntity = function () {
+                    $.ajax({
+                        url: '/Home/getquntitiy',
+                        dataType: 'html',
+                        success: function (data) {
+                            var total = 0;
+                            var srtcookie = data;
+                           
+                            if (srtcookie.length > 0) {
+                                srtcookie = srtcookie.replace(/&quot;/g, '"');
+                                JSON.parse(srtcookie).forEach(function (item) {
+                                    let valueID = "value" + item.productid;
+                                    $("." + valueID).text(item.quantity);
+                                    total += parseInt(item.quantity);
+                                });
+                                 $(".simpleCart_quantityy").text(total)
 
-                 var srtcookie = '@ViewBag.cookie';
-                 var total = 0;
-                if (srtcookie.length > 0) {
-                    srtcookie = srtcookie.replace(/&quot;/g, '"');
-                    JSON.parse(srtcookie).forEach(function (item) {
-                        let valueID = "value" + item.productid;
-                        $("." + valueID).text(item.quantity);
-                        total += parseInt(item.quantity);
-                    });
-                    $(".simpleCart_quantityy").text(total)
+                            } else {
+                                $(".simpleCart_quantityy").text("0")
+                            };
+                        }
 
-                } else {
-                    $(".simpleCart_quantityy").text("0")
-                }
+                    })
+                };
+                getquntity();
+               
+
 
 
 

@@ -35,17 +35,33 @@
                         <div class="rowabove" style="width: 100%; background-color: #fff; padding: 20px; border: 1px solid #eee;">
                             <div class="row" style="padding:15px 15px">
                                 <p style="float:right; text-align:right; font-size:12px; font-weight:700 ; color:#808080">مبلغ کل ( <i class="simpleCart_quantityy"></i>  کالا) </p>
-                                <p style="float: left; text-align: right; font-size: 14px; font-weight: 700; color: #808080; "><span id="basepriceholder"></span>  تومان</p>
+                                @{
+                                    
+                                    decimal leftbaseprice = Model.Sum(x => x.baseprice * x.quantity);
+                                     <p style="float: left; text-align: right; font-size: 14px; font-weight: 700; color: #808080; "><span id="basepriceholder">@String.Format("{0:n0}", @leftbaseprice)</span>  تومان</p>
+
+                                }
+
+
                             </div>
                             <div class="row discountSection" style="padding:5px 15px">
                                 <p style="float: right; text-align: right; font-size: 14px; font-weight: 700; color: #00BFD6; ">سود شما از خرید </p>
-                                <p style="float: left; text-align: right; font-size: 14px; font-weight: 700; color: #00BFD6; ">(<span class="discountpercent"></span>) <span class="discountfinal"></span>   تومان </p>
+                                @{
+
+                                    decimal benefit = Model.Sum(x => x.baseprice * x.quantity) - Model.Sum(x => x.price * x.quantity);
+
+                                    <p style="float: left; text-align: right; font-size: 14px; font-weight: 700; color: #00BFD6; ">(<span class="discountpercent">@String.Format("{0:n0}", @benefit) </span>) <span class="discountfinal"></span>   تومان </p>
+
+                                }
                             </div>
                         </div>
 
                         <div class="rowabove" style="width: 100%; background-color: #fff; padding: 20px; border: 1px solid #eee;">
                             <p style=" text-align:center; font-size:20px; padding:10px">مبلغ قابل پرداخت</p>
-                            <p style=" font-size: 22px; color: red; text-align: center; padding: 10px"><span id="spanfortotal2"> </span> تومان</p>
+                            @{ 
+                                decimal payment = Model.Sum(x => x.price * x.quantity);
+                            }
+                            <p style=" font-size: 22px; color: red; text-align: center; padding: 10px"><span id="spanfortotal2">@String.Format("{0:n0}", @payment)</span> تومان</p>
 
                             <style>
                                 .mybtn {
@@ -89,8 +105,6 @@
                                 @{
 
 
-
-
                                     foreach (var item in Model)
                                     {
                                         string imagefile = "placeholder.jpg";
@@ -108,7 +122,7 @@
                                         string pricesectionbase = "pricesectionbase" + i;
                                         string pricesection = "pricesection" + i;
                                         string finaltotal = "total" + i;
-                                        string imagesrc = "/images/panelimages/" + imagefile;
+                                        string imagesrc =  imagefile;
                                         string quantity = item.quantity.ToString();
                                         string price = item.price.ToString();
                                         string baseprice = item.baseprice.ToString();
@@ -137,42 +151,7 @@
 
                                                         },
                                                         success: function (data) {
-                                                            $.ajax({
-                                                                url: '/Home/gogetfinalprice',
-
-
-                                                                success: function (data) {
-                                                                    var array = data.split(',');
-
-                                                                    if (array[1] === "0") {
-                                                                        $(".contentSection").css("display", "none");
-                                                                        $(".noData").fadeIn();
-                                                                    }
-                                                                    else {
-                                                                        if (array[3] === "0") {
-                                                                            $(".discountSection").css("display", "none");
-                                                                        }
-
-                                                                        $("#basepriceholder").text(addCommas(array[1]))
-                                                                        $("#spanfortotal").text(addCommas(array[0]))
-                                                                        $("#spanfortotal2").text(addCommas(array[0]))
-                                                                        $(".simpleCart_quantityy").text(array[2])
-                                                                        $(".discountfinal").text(addCommas(array[3]))
-                                                                        $(".discountpercent").text(array[4])
-
-
-
-                                                                    }
-
-                                                                },
-                                                                error: function () {
-
-                                                                }
-                                                            });
-
-                                                            $('.@classremname').parent().fadeOut('slow', function (c) {
-                                                                $('.@classremname').parent().remove();
-                                                            });
+                                                          window.location.reload()
 
                                                         },
                                                         error: function () {
@@ -294,7 +273,7 @@
                                                     string pricesectionbase = "pricesectionbase" + i;
                                                     string pricesection = "pricesection" + i;
                                                     string finaltotal = "total" + i;
-                                                    string imagesrc = "/images/panelimages/" + imagefile;
+                                                    string imagesrc =  imagefile;
                                                     string quantity = item.quantity.ToString();
                                                     string price = item.price.ToString();
                                                     string baseprice = item.baseprice.ToString();
@@ -322,43 +301,8 @@
 
                                                                 },
                                                                 success: function (data) {
-                                                                    $.ajax({
-                                                                        url: '/Home/gogetfinalprice',
-
-
-                                                                        success: function (data) {
-                                                                            var array = data.split(',');
-
-                                                                            if( array[1] === "0")
-                                                                            {
-                                                                                $(".contentSection").css("display", "none");
-                                                                                $(".noData").fadeIn();
-                                                                            }
-                                                                            else {
-                                                                                if (array[3] === "0") {
-                                                                                    $(".discountSection").css("display", "none");
-                                                                                }
-
-                                                                                $("#basepriceholder").text(addCommas(array[1]))
-                                                                                $("#spanfortotal").text(addCommas(array[0]))
-                                                                                $("#spanfortotal2").text(addCommas(array[0]))
-                                                                                $(".simpleCart_quantityy").text(array[2])
-                                                                                $(".discountfinal").text(addCommas(array[3]))
-                                                                                $(".discountpercent").text(array[4])
-
-
-
-                                                                            }
-
-                                                                        },
-                                                                        error: function () {
-
-                                                                        }
-                                                                    });
-
-                                                                    $('.@classremname').fadeOut('slow', function (c) {
-                                                                        $('.@classremname').remove();
-                                                                    });
+                                                                    window.location.reload()
+                                                                   
 
                                                                 },
                                                                 error: function () {
@@ -440,31 +384,8 @@
                     <script>
 
                         $('.value-plus').on('click', function () {
-
-                            var id = $(this).attr("id").replace('add', '');
-                            var divUpd
-                            var divUpd = $(this).siblings('.value'),
-                                newVal = parseInt(divUpd.text(), 10) + 1;
-                            divUpd.text(newVal);
-                            var TBA = "tobeadded" + id;
-                            var TBAB = "tobeaddedbase" + id;
-                            var PT = "pricesection" + id;
-                            var PTB = "pricesectionbase" + id;
-
-
-                            var tobeadded = $("." + TBA).text();
-                            var tobeaddedbase = $("." + TBAB).text();
-                            var newtd = parseInt(newVal, 10) * parseInt(tobeadded, 10);
-                            var newtdbase = parseInt(newVal, 10) * parseInt(tobeaddedbase, 10);
-                            var td = $(this).closest('tr').find('td:nth-child(7)');
-                            var priceselection = $('.' + PT);
-                            var priceselectionbase = $('.' + PTB);
-                            priceselection.text(addCommas(newtd));
-                            priceselectionbase.text(addCommas(newtdbase));
-
-
+                            $("#loading").show();
                             var ID = this.id
-
                             $.ajax({
                                 url: '/Home/addtocart2',
                                 dataType: 'html',
@@ -473,29 +394,8 @@
 
                                 },
                                 success: function (data) {
-                                    $.ajax({
-                                        url: '/Home/gogetfinalprice',
-
-
-                                        success: function (data) {
-                                            var array = data.split(',');
-
-
-                                            if (array[3] === "0") {
-                                                $(".discountSection").css("display", "none");
-                                            }
-                                            $("#basepriceholder").text(addCommas(array[1]))
-                                            $("#spanfortotal").text(addCommas(array[0]))
-                                            $("#spanfortotal2").text(addCommas(array[0]))
-                                            $(".simpleCart_quantityy").text(array[2])
-                                            $(".discountfinal").text(addCommas(array[3]))
-                                            $(".discountpercent").text(array[4])
-
-                                        },
-                                        error: function () {
-
-                                        }
-                                    });
+                                    window.location.reload();
+                                  
 
 
                                 },
@@ -511,35 +411,13 @@
                         });
 
                         $('.value-minus').on('click', function () {
-                            var id = $(this).attr("id").replace('minus', '');
+                            $("#loading").show();
                             var divUpd = $(this).siblings('.value'),
                                 newVal = parseInt(divUpd.text(), 10) - 1;
                             
                             
-
-                            var TBA = "tobeadded" + id;
-                            var TBAB = "tobeaddedbase" + id;
-                            var PT = "pricesection" + id;
-                            var PTB = "pricesectionbase" + id;
-                            var divUpd = $(this).siblings('.value');
-
-                            var tobeadded = $("." + TBA).text();
-                            var tobeaddedbase = $("." + TBAB).text();
-
-
-
-                            var newtd = parseInt(newVal, 10) * parseInt(tobeadded, 10);
-                            var newtdbase = parseInt(newVal, 10) * parseInt(tobeaddedbase, 10);
-
-                            var td = $(this).closest('tr').find('td:nth-child(7)');
-                            var priceselection = $('.' + PT);
-                            var priceselectionbase = $('.' + PTB);
-
-
                             if (newVal >= 1) {
-                                divUpd.text(newVal);
-                                priceselection.text(addCommas(newtd));
-                                priceselectionbase.text(addCommas(newtdbase));
+                               
 
                                 var ID = this.id
                                 $.ajax({
@@ -549,29 +427,7 @@
                                         id: ID
                                     },
                                     success: function (data) {
-
-                                        $.ajax({
-                                            url: '/Home/gogetfinalprice',
-
-
-                                            success: function (data) {
-                                                var array = data.split(',');
-                                                if (array[3] === "0") {
-                                                    $(".discountSection").css("display", "none");
-                                                }
-                                                $("#basepriceholder").text(addCommas(array[1]))
-                                                $("#spanfortotal").text(addCommas(array[0]))
-                                                $("#spanfortotal2").text(addCommas(array[0]))
-                                                $(".simpleCart_quantityy").text(array[2])
-                                                $(".discountfinal").text(addCommas(array[3]))
-                                                $(".discountpercent").text(array[4])
-
-                                            },
-                                            error: function () {
-
-                                            }
-                                        });
-
+                                        window.location.reload();
                                     },
                                     error: function () {
                                         alert("error")

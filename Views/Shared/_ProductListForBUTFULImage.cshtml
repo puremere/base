@@ -768,6 +768,7 @@
 
                                 $('#productlist').html(data);
                                 window.scrollTo(0, 500);
+                                getquntity();
                             },
                             error: function () {
                                 alert("nashod")
@@ -811,41 +812,10 @@
 
                 },
                 success: function (data) {
-                    $.ajax({
-                        url: '/Home/gogetfinalprice',
-
-
-                        success: function (data) {
-                            var array = data.split(',');
-
-
-                            if (array[3] === "0") {
-                                $(".discountSection").css("display", "none");
-                            }
-                            $("#basepriceholder").text(addCommas(array[1]))
-                            $("#spanfortotal").text(addCommas(array[0]))
-                            $("#spanfortotal2").text(addCommas(array[0]))
-                            $(".simpleCart_quantityy").text(array[2])
-                            $(".discountfinal").text(addCommas(array[3]))
-                            $(".discountpercent").text(array[4])
-                            $.ajax({
-                                url: '/Home/checkoutsummery/',
-                                dataType: 'html',
-                                success: function (data) {
-
-                                    $('#summerydetailholder').html(data);
-                                    $("#loading").fadeOut()
-                                },
-                                error: function () {
-
-                                }
-                            });
-                        },
-                        error: function () {
-
-                        }
-                    });
-
+                    var count = parseInt($(".simpleCart_quantityy").text());
+                    count += 1;
+                    $(".simpleCart_quantityy").text(count);
+                    $("#loading").fadeOut()
 
                 },
                 error: function () {
@@ -876,36 +846,10 @@
                 },
                 success: function (data) {
 
-                    $.ajax({
-                        url: '/Home/gogetfinalprice',
-                        success: function (data) {
-                            var array = data.split(',');
-                            if (array[3] === "0") {
-                                $(".discountSection").css("display", "none");
-                            }
-                            $("#basepriceholder").text(addCommas(array[1]))
-                            $("#spanfortotal").text(addCommas(array[0]))
-                            $("#spanfortotal2").text(addCommas(array[0]))
-                            $(".simpleCart_quantityy").text(array[2])
-                            $(".discountfinal").text(addCommas(array[3]))
-                            $(".discountpercent").text(array[4])
-                            $.ajax({
-                                url: '/Home/checkoutsummery/',
-                                dataType: 'html',
-                                success: function (data) {
-
-                                    $('#summerydetailholder').html(data);
-                                    $("#loading").fadeOut()
-                                },
-                                error: function () {
-
-                                }
-                            });
-                        },
-                        error: function () {
-
-                        }
-                    });
+                    var count = parseInt($(".simpleCart_quantityy").text());
+                    count -= 1;
+                    $(".simpleCart_quantityy").text(count);
+                    $("#loading").fadeOut()
 
                 },
                 error: function () {
@@ -924,6 +868,9 @@
 
 
 
+    </script>
+    <script>
+        getquntity();
     </script>
 
 </div>
