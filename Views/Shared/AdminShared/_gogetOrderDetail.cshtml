@@ -1,4 +1,4 @@
-﻿@model  banimo.ViewModelPost.ListOfProductOrder
+﻿@model  banimo.ViewModel.orderDetailVM
 
 
 
@@ -111,17 +111,21 @@
                     <input name="data" hidden />
                     <input name="id" hidden />
                     <input value="user" name="type" hidden />
-                    <input hidden name="orderID" value="@Model.myProducts.First().orderID" />
+                    <input hidden name="orderID" value="@Model.id" />
                     <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> شرح سفارش    <i id="print" style="cursor:pointer; float:left" class="fa fa-print"></i>  <i id="addItemToOrderIcon" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus"></i></h3>
 
                 </form>
 
+
+            </div>
+            @if (Model.list.myProducts != null)
+            {
                 <script>
                     $("#print").click(function () {
 
-                        var obj = @Html.Raw(@Json.Encode(Model.myProducts));
+                        var obj = @Html.Raw(@Json.Encode(Model.list.myProducts));
                         $("input[name=data]").val(JSON.stringify(obj));
-                        $("input[name=id]").val('@Model.myProducts.First().id');
+                        $("input[name=id]").val('@Model.id');
                         $("#getPDF").submit();
                         $("#loading").fadeIn();
                         setInterval(function () { $("#loading").fadeOut(); }, 3000);
@@ -130,109 +134,110 @@
 
                     });
                 </script>
-            </div>
-            <div class="panel-body">
-                <div id="morris-area-chart">
-                    @{
-                        int w = Request.Browser.ScreenPixelsWidth;
-                        int h = Request.Browser.ScreenPixelsHeight;
-                        if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
-                        {
-                            if (Model.myProducts != null)
+                <div class="panel-body">
+                    <div id="morris-area-chart">
+                        @{
+                            int w = Request.Browser.ScreenPixelsWidth;
+                            int h = Request.Browser.ScreenPixelsHeight;
+                            if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
                             {
-                                foreach (var item in Model.myProducts)
+                                if (Model.list.myProducts != null)
                                 {
+                                    foreach (var item in Model.list.myProducts)
+                                    {
 
-                                    int i = Model.myProducts.IndexOf(item) + 1;
-                                    string image = item.image;
+                                        int i = Model.list.myProducts.IndexOf(item) + 1;
+                                        string image = item.image;
 
-                                    <div class="Itemholderr" id="@item.orderID">
+                                        <div class="Itemholderr" id="@item.orderID">
 
-                                        <div class="Item">
-                                            <p class="itemtitle">ردیف :</p>
-                                            <p class="itemvalue">@i</p>
+                                            <div class="Item">
+                                                <p class="itemtitle">ردیف :</p>
+                                                <p class="itemvalue">@i</p>
+
+                                            </div>
+                                            <div class="Item">
+                                                <p class="itemtitle">نام کالا : </p>
+                                                <p class="itemvalue">@item.title</p>
+
+                                            </div>
+                                            <div class="Item">
+                                                <p class="itemtitle">قیمت :</p>
+                                                <p class="itemvalue">@item.price</p>
+
+                                            </div>
+                                            <div class="Item">
+                                                <p class="itemtitle">تعداد :</p>
+                                                <p class="itemvalue">@item.nums</p>
+
+                                            </div>
+                                            <div class="Item" style="text-align:center">
+                                                <img src=@image style="max-width:100px" />
+                                            </div>
+
+
 
                                         </div>
-                                        <div class="Item">
-                                            <p class="itemtitle">نام کالا : </p>
-                                            <p class="itemvalue">@item.title</p>
-
-                                        </div>
-                                        <div class="Item">
-                                            <p class="itemtitle">قیمت :</p>
-                                            <p class="itemvalue">@item.price</p>
-
-                                        </div>
-                                        <div class="Item">
-                                            <p class="itemtitle">تعداد :</p>
-                                            <p class="itemvalue">@item.nums</p>
-
-                                        </div>
-                                        <div class="Item" style="text-align:center">
-                                            <img src=@image style="max-width:100px" />
-                                        </div>
-
-
-
-                                    </div>
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            <div style="overflow:auto">
-                                <table class="table table-bordered table-hover table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>ردیف</th>
-                                            <th>نام کالا</th>
-                                            <th>قیمت </th>
-                                            <th>تعداد</th>
-                                            <th></th>
-                                            <th></th>
+                            else
+                            {
+                                <div style="overflow:auto">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>نام کالا</th>
+                                                <th>قیمت </th>
+                                                <th>تعداد</th>
+                                                <th></th>
+                                                <th></th>
 
 
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @{
-                                            if (Model.myProducts != null)
-                                            {
-                                                foreach (var item in Model.myProducts)
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                if (Model.list.myProducts != null)
                                                 {
-                                                    string active = item.active;
-                                                    string color = "RGBA(255,255,255,1)";
-                                                    ;                                                    if (active != "1")
+                                                    foreach (var item in Model.list.myProducts)
                                                     {
-                                                        color = "RGBA(255,0,0,0.3)";
+                                                        string active = item.active;
+                                                        string color = "RGBA(255,255,255,1)";
+                                                        ; if (active != "1")
+                                                        {
+                                                            color = "RGBA(255,0,0,0.3)";
+                                                        }
+                                                        string image = item.image;
+                                                        int i = Model.list.myProducts.IndexOf(item) + 1;
+                                                        string deleteid = item.id + "-" + item.orderID;
+                                                        <tr style=" background-color : @color">
+                                                            <td>@i</td>
+                                                            <td>@item.title</td>
+                                                            <td>@item.price</td>
+                                                            <td>@item.nums</td>
+                                                            <td><img src=@image style="max-width:100px" /> </td>
+                                                            <td><div id="@deleteid" class="btn btn-danger deletItem">حذف</div> </td>
+                                                        </tr>
                                                     }
-                                                    string image = item.image;
-                                                    int i = Model.myProducts.IndexOf(item) + 1;
-                                                    string deleteid = item.id + "-" + item.orderID;
-                                                    <tr style=" background-color : @color">
-                                                        <td>@i</td>
-                                                        <td>@item.title</td>
-                                                        <td>@item.price</td>
-                                                        <td>@item.nums</td>
-                                                        <td><img src=@image style="max-width:100px" /> </td>
-                                                        <td><div id="@deleteid" class="btn btn-danger deletItem">حذف</div> </td>
-                                                    </tr>
                                                 }
                                             }
-                                        }
 
 
 
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
 
-                            </div>
+                                </div>
+                            }
                         }
-                    }
 
+                    </div>
                 </div>
-            </div>
+            }
+
         </div>
     </div>
 </div>
@@ -355,7 +360,7 @@
             data: {
                 ID: $("#IDholder").val(),
                 quantity: $("#quntityInput").val(),
-                OrderId: '@Model.myProducts.First().orderID'
+                OrderId: '@Model.id'
 
             },
             success: function (data) {
@@ -378,7 +383,7 @@
                         url: '/Admin/goGetOrderDetail',
                         dataType: 'html',
                         data: {
-                            id: '@Model.myProducts.First().orderID',
+                            id: '@Model.id',
                         },
 
                         success: function (data) {

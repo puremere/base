@@ -1,6 +1,27 @@
 ﻿
 @model banimo.ViewModelPost.OrderList
 
+<div class="modal fade" id="endOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <p style="text-align:center"> انتخاب منبغ واریزی</p>
+                <select id="payment" class="form-control">
+
+                    <option value="5">زرین پال</option>
+                    <option value="2">در محل</option>
+                    
+                </select>
+                <p style="display:none" id="verifyHolder"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                <button id="endOrderVerify" type="button" class="btn btn-primary">تایید</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div style="overflow-x:auto;padding:10px">
         <div class="panel panel-default">
@@ -41,39 +62,52 @@
 
                                             int i = Model.myOrder.IndexOf(item) + 1;
                                             
-                                            <tr style=" ">
-                                                <td>@i</td>
-                                                <td>@item.orderNumber</td>
-                                                <td>@item.fullname</td>
-                                                <td>@item.phone</td>
-                                                <td>@item.price</td>
-                                                <td>@item.date</td>
-                                                <td>@item.Rdate</td>
-                                                <td>@item.DayText</td>
-                                                <td>@item.TimeFrom  - @item.TimeTo</td>
-                                                <td>@item.statusTitle</td>
-                                                <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
-                                                <td>
-                                                    @{
-                                                        if (item.statusTitle == "ارسال شده")
-                                                        {
-                                                            <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
+                                <tr style=" ">
+                                    <td>@i</td>
+                                    <td>@item.orderNumber</td>
+                                    <td>@item.fullname</td>
+                                    <td>@item.phone</td>
+                                    <td>@item.price</td>
+                                    <td>@item.date</td>
+                                    <td>@item.Rdate</td>
+                                    <td>@item.DayText</td>
+                                    <td>@item.TimeFrom  - @item.TimeTo</td>
+                                    <td>@item.statusTitle</td>
+                                    @{
+                                        if (item.statusTitle == "پرداخت نشده")
+                                        {
+                                            <td><div class="btn btn-default endOrder" id="@item.ID">اتمام سفارش</div></td>
 
-                                                        }
-                                                        else if (item.statusTitle == "تحویل شده")
-                                                        {
+                                        }
+                                        else
+                                        {
+                                            <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
+
+                                        }
+                                    }
+
+                                    <td>
+                                        @{
+
+                                            if (item.statusTitle == "ارسال شده")
+                                            {
+                                                <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
+
+                                            }
+                                            else if (item.statusTitle == "تحویل شده")
+                                            {
 
 
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
-                                                        }
+                                            }
+                                            else
+                                            {
+                                                <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
+                                            }
 
-                                                    }
-                                                </td>
+                                        }
+                                    </td>
 
-                                            </tr>
+                                </tr>
                                         }
                                     }
                                 }
@@ -159,6 +193,28 @@
 
         });
     });
+    $(".endOrder").click(function () {
+        var ID = $(this).attr('id');
+        $("#endOrderModal").modal('toggle');
+        $("#verifyHolder").text(ID);
+    })
+    $("#endOrderVerify").click(function () {
+        var ID = $("#verifyHolder").text();
+        var payment = $("#payment option:selected").val();
+        $.ajax({
+            url: "/connection/verifyByAdmin",
+            dataType: "html",
+            data: {
+                id: ID,
+                payment : payment
+            },
+            success: function (data) {
+                if (data == "200") {
+                    $("#endOrderModal").modal('toggle');
+                }
+            }
+        })
+    })
     $(".orderdetail").click(function () {
 
         var ID = $(this).attr('id');
