@@ -58,10 +58,12 @@
 
                         <div class="rowabove" style="width: 100%; background-color: #fff; padding: 20px; border: 1px solid #eee;">
                             <p style=" text-align:center; font-size:20px; padding:10px">مبلغ قابل پرداخت</p>
-                            @{ 
+                            @{
                                 decimal payment = Model.Sum(x => x.price * x.quantity);
+                                
+                                <p style=" font-size: 22px; color: red; text-align: center; padding: 10px"><span id="spanfortotal2">@String.Format("{0:n0}", @payment)</span> تومان</p>
+
                             }
-                            <p style=" font-size: 22px; color: red; text-align: center; padding: 10px"><span id="spanfortotal2">@String.Format("{0:n0}", @payment)</span> تومان</p>
 
                             <style>
                                 .mybtn {
