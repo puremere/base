@@ -354,7 +354,11 @@
 
                         <div id="finalPriceHolder" style="">
                             <div class="row priceitem">
-                                <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice"></i>&nbsp;تومان</p>
+                                @{ 
+                                    decimal totalprice = decimal.Parse(Model.finalAmount) + decimal.Parse(Model.priceDeliver);
+                                }
+
+                                <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@String.Format("{0:n0}", @Model.finalAmount)</i>&nbsp;تومان</p>
                                 <p class="col-lg-6 col-sm-6">مبلغ</p>
 
                             </div>
@@ -369,7 +373,7 @@
 
                             </div>
                             <div class="row priceitem">
-                                <p class="col-lg-6 col-sm-6 Holder"><span id="totalprice">@Model.finalAmount</span>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6 Holder"><span id="totalprice"> @String.Format("{0:n0}", totalprice)  </span>&nbsp;تومان</p>
                                 <p class="col-lg-6 col-sm-6">مبلغ نهایی</p>
 
                             </div>
