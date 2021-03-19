@@ -131,8 +131,7 @@
 
 
 }
-
-
+<input  type="file" hidden id="descriptionUpload"/>
 <style>
     .nav-tabs {
         padding-right: 0px;
@@ -794,6 +793,47 @@
 
                         <div class="row" style="padding:0 25px">
                             <div class="row fieldholder col-lg-12">
+                                <p id="addDescButt" class="btn btn-default">افزودن عکس</p>
+                                <div id="thumbholderEdior">
+
+                                </div>
+                                <script>
+                                    $("#addDescButt").click(function () {
+                                        $("#descriptionUpload").click();
+                                    })
+                                    $("#descriptionUpload").on('change', function () {
+
+                                        // $("#dvPreview").html("");
+                                        var input = this;
+                                        if (input.files && input.files[0]) {
+
+                                            var formData = new FormData();
+                                            formData.append('blob', input.files[0]);
+                                            formData.append('filename', 'edit');
+
+                                            var MyAppUrlSettings = {
+                                                MyUsefulUrl: '@Url.Action("GetImageForMCEEditUpload", "admin")'
+                                            }
+
+                                            var request = new XMLHttpRequest();
+                                            request.open('POST', MyAppUrlSettings.MyUsefulUrl);
+                                            request.send(formData);
+                                            request.onreadystatechange = function () {
+                                                if (request.readyState == 4 && request.status == 200) {
+                                                    $('#thumbholderEdior').append(request.responseText);
+                                                    $("#main-cropper").css("display", "none");
+                                                    $("#loading").css("display", "none");
+
+
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            alert("s")
+                                        }
+
+                                    });
+                                </script>
                                 <label for="first-name" style="text-align: right">
                                     توضیحات :
                                 </label>

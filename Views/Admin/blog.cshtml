@@ -392,39 +392,38 @@
                             </script>
                             <script language="javascript" type="text/javascript">
 
-                            $("#imageFileHolderEdit").on('change', function () {
+                                $("#imageFileHolderEdit").on('change', function () {
 
-                       // $("#dvPreview").html("");
-                        var input = this;
-                        if (input.files && input.files[0]) {
+                                    // $("#dvPreview").html("");
+                                    var input = this;
+                                    if (input.files && input.files[0]) {
 
-                                            var formData = new FormData();
-                            formData.append('blob', input.files[0]);
-                            formData.append('filename', 'edit');
+                                        var formData = new FormData();
+                                        formData.append('blob', input.files[0]);
+                                        formData.append('filename', 'edit');
 
-                                            var MyAppUrlSettings = {
-                                                MyUsefulUrl: '@Url.Action("GetImageForMCEEditUpload", "admin")'
+                                        var MyAppUrlSettings = {
+                                            MyUsefulUrl: '@Url.Action("GetImageForMCEEditUpload", "admin")'
+                                        }
+
+                                        var request = new XMLHttpRequest();
+                                        request.open('POST', MyAppUrlSettings.MyUsefulUrl);
+                                        request.send(formData);
+                                        request.onreadystatechange = function () {
+                                            if (request.readyState == 4 && request.status == 200) {
+                                                $('#thumbholderEdior').append(request.responseText);
+                                                $("#main-cropper").css("display", "none");
+                                                $("#loading").css("display", "none");
+
+
                                             }
+                                        }
+                                    }
+                                    else {
+                                        alert("s")
+                                    }
 
-                                            var request = new XMLHttpRequest();
-                                            request.open('POST', MyAppUrlSettings.MyUsefulUrl);
-                                            request.send(formData);
-                                            request.onreadystatechange = function() {
-                                                if (request.readyState == 4 && request.status == 200)
-                                                {
-                                                                                      $('#thumbholderEdior').append(request.responseText);
-                                                                                        $("#main-cropper").css("display", "none");
-                                                                                        $("#loading").css("display", "none");
-
-
-                                                }
-                                                }
-                        }
-                        else {
-                            alert("s")
-                        }
-
-                    });
+                                });
                             </script>
                         </div>
 

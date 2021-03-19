@@ -79,32 +79,36 @@
                                                     @{
                                                         if (Model != null)
                                                         {
-                                                            foreach (var item in Model.data)
+                                                            if (Model.data != null)
                                                             {
+                                                                foreach (var item in Model.data)
+                                                                {
 
-                                                                int index = @Model.data.IndexOf(item) + 1;
-                                                                <tr>
-                                                                    <td>
-                                                                        @index
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.title)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.price)
-                                                                    </td>
-                                                                    <td>
+                                                                    int index = @Model.data.IndexOf(item) + 1;
+                                                                    <tr>
+                                                                        <td>
+                                                                            @index
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.title)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.price)
+                                                                        </td>
+                                                                        <td>
 
-                                                                        @{
-                                                                            var ID = @item.ID;
-                                                                            <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                            @{
+                                                                                var ID = @item.ID;
+                                                                                <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
 
-                                                                        }
+                                                                            }
 
-                                                                    </td>
+                                                                        </td>
 
-                                                                </tr>
+                                                                    </tr>
+                                                                }
                                                             }
+
 
                                                         }
                                                     }
