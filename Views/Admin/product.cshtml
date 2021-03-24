@@ -27,7 +27,7 @@
             toolbar: 'undo redo | formatselect | ' +
                 ' bold italic backcolor | alignleft aligncenter ' +
                 ' alignright alignjustify | bullist numlist outdent indent |' +
-                ' removeformat | help',
+                ' removeformat | help| link image ',
             content_css: [
                 '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                 '//www.tiny.cloud/css/codepen.min.css'
@@ -131,7 +131,7 @@
 
 
 }
-<input  type="file" hidden id="descriptionUpload"/>
+<input  type="file" style="display:none" id="descriptionUpload"/>
 <style>
     .nav-tabs {
         padding-right: 0px;
@@ -776,7 +776,7 @@
                                         if (Model.productmodel != null)
                                         {
                                             <div>
-                                                <input value=@Model.productmodel.productunit type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input  value=@Model.productmodel.productunit type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         }
                                         else
@@ -794,10 +794,11 @@
                         <div class="row" style="padding:0 25px">
                             <div class="row fieldholder col-lg-12">
                                 <p id="addDescButt" class="btn btn-default">افزودن عکس</p>
-                                <div id="thumbholderEdior">
+                                <div id="thumbholderEdior" style="display:flex">
 
                                 </div>
                                 <script>
+                                   
                                     $("#addDescButt").click(function () {
                                         $("#descriptionUpload").click();
                                     })
@@ -812,7 +813,7 @@
                                             formData.append('filename', 'edit');
 
                                             var MyAppUrlSettings = {
-                                                MyUsefulUrl: '@Url.Action("GetImageForMCEEditUpload", "admin")'
+                                                MyUsefulUrl: '@Url.Action("setImageForDescription", "admin")'
                                             }
 
                                             var request = new XMLHttpRequest();
@@ -820,8 +821,8 @@
                                             request.send(formData);
                                             request.onreadystatechange = function () {
                                                 if (request.readyState == 4 && request.status == 200) {
-                                                    $('#thumbholderEdior').append(request.responseText);
-                                                    $("#main-cropper").css("display", "none");
+                                                    var html = "<div style='border:1px solid #ddd; position:relative; padding:3px'><img  style='width:150px; display:inlne-block'    src='" + request.responseText + "'><p>" + request.responseText + "</p><img onclick='removeimg(this)' id='" + request.responseText +"' class='delIcon' style='top:0px; left:0px;right:0px; bottom:0px; width:30px; cursor:pointer ;position:absolute;' src='/images/del.png'></div>";
+                                                    $('#thumbholderEdior').append(html);
                                                     $("#loading").css("display", "none");
 
 
@@ -833,6 +834,24 @@
                                         }
 
                                     });
+                                    var removeimg = function (newel) {
+                                        
+                                        var id = newel.id;
+                                       
+                                        
+                                        $.ajax({
+                                            url: "/admin/deleteimageDesc",
+                                            dataType: "html",
+                                            data: {
+                                                title: id
+                                            },
+                                            success: function () {
+                                                newel.parentNode.parentNode.removeChild(newel.parentNode);
+                                            }
+                                        })
+                                        var id = $(this).attr('id');
+                                    } 
+                                    
                                 </script>
                                 <label for="first-name" style="text-align: right">
                                     توضیحات :
@@ -1550,7 +1569,9 @@
     });
     </script>
 }
-
+<script>
+    
+</script>
 
 
 

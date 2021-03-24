@@ -134,6 +134,8 @@
                                                     <th>ساعت تحویل</th>
                                                     <th>آدرس</th>
                                                     <th>وضعیت</th>
+                                                    <th>توضیحات</th>
+                                                    <th>کد پستی</th>
 
                                                     <th>جزئیات</th>
                                                     <th>اقدامات</th>
@@ -150,44 +152,46 @@
 
                                                             int i = Model.myOrder.IndexOf(item) + 1;
 
-                                                            <tr style=" ">
-                                                                <td>@i</td>
-                                                                <td>@item.orderNumber</td>
-                                                                <td style="white-space: nowrap;">@item.fullname</td>
-                                                                <td>@item.phone</td>
-                                                                <td>@item.price</td>
-                                                                <td>@item.date</td>
-                                                                <td>@item.Rdate</td>
-                                                                <td>@item.DayText</td>
-                                                                <td>@item.TimeFrom  - @item.TimeTo</td>
-                                                                <td style="min-width:140px">@item.address</td>
-                                                                <td>@item.statusTitle</td>
-                                                                <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
-                                                                <td>
-                                                                    @{
-                                                                        if (item.statusTitle == "ارسال شده")
-                                                                        {
-                                                                            <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
+                                                <tr style=" ">
+                                                    <td>@i</td>
+                                                    <td>@item.orderNumber</td>
+                                                    <td style="white-space: nowrap;">@item.fullname</td>
+                                                    <td>@item.phone</td>
+                                                    <td>@item.price</td>
+                                                    <td>@item.date</td>
+                                                    <td>@item.Rdate</td>
+                                                    <td>@item.DayText</td>
+                                                    <td>@item.TimeFrom  - @item.TimeTo</td>
+                                                    <td style="min-width:140px">@item.address</td>
+                                                    <td>@item.statusTitle</td>
+                                                    <td style="min-width:140px"> @item.desc</td>
+                                                    <td>@item.postalcode</td>
+                                                    <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
+                                                    <td>
+                                                        @{
+                                                            if (item.statusTitle == "ارسال شده")
+                                                            {
+                                                                <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
 
 
-                                                                        }
-                                                                        else if (item.statusTitle == "تحویل شده")
-                                                                        {
+                                                            }
+                                                            else if (item.statusTitle == "تحویل شده")
+                                                            {
 
 
-                                                                        }
-                                                                        else
-                                                                        {
-                                                                            <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
-                                                                        }
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
+                                                            }
 
-                                                                    }
-                                                                </td>
-                                                                <td class="deliver" id="@item.ID" style="cursor:pointer">
-                                                                    @item.deliver
-                                                                </td>
+                                                        }
+                                                    </td>
+                                                    <td class="deliver" id="@item.ID" style="cursor:pointer">
+                                                        @item.deliver
+                                                    </td>
 
-                                                            </tr>
+                                                </tr>
                                                         }
                                                     }
                                                 }

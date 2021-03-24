@@ -23,7 +23,7 @@
             toolbar: 'undo redo | formatselect | ' +
                 ' bold italic backcolor | alignleft aligncenter ' +
                 ' alignright alignjustify | bullist numlist outdent indent |' +
-                ' removeformat | help',
+                ' removeformat | help| link image',
             content_css: [
                 '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
                 '//www.tiny.cloud/css/codepen.min.css'
@@ -31,9 +31,7 @@
         });
         //tinymce.activeEditor.execCommand('mceDirectionRTL');
     </script>
-    <script>
-        tinymce.get('productdesc').setContent('@Model.description');
-    </script>
+    
 }
 <p id="messageholder">@ViewBag.message</p>
 <script>
@@ -89,7 +87,7 @@
         toastr.error('محصول تکراری است')
     }
 </script>
-
+<input type="file" style="display:none" id="descriptionUpload" />
 <div class="row">
 
 
@@ -149,7 +147,7 @@
                                 @{
                                     if (Model.title != "")
                                     {
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
                                             @Html.TextBoxFor(m => m.title, new { @class = "form-control col-md-7 col-xs-12", id = "title" })
 
                                         </div>
@@ -157,7 +155,7 @@
                                     }
                                     else
                                     {
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
                                             <input type="text" id="title" name="title" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     }
@@ -173,7 +171,7 @@
                                 @{
                                     if (Model.productprice != "")
                                     {
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
                                             @Html.TextBoxFor(m => m.productprice, new { @class = "form-control col-md-7 col-xs-12", id = "productprice", name = "productprice" })
 
                                         </div>
@@ -181,7 +179,7 @@
                                     }
                                     else
                                     {
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
                                             <input type="text" id="productprice" name="productprice" required="required" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     }
@@ -196,7 +194,7 @@
                                 @{
                                     if (Model.discount != "")
                                     {
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
                                             @Html.TextBoxFor(m => m.discount, new { @class = "form-control col-md-7 col-xs-12", name = "discount", id = "discount" })
 
                                         </div>
@@ -204,7 +202,7 @@
                                     }
                                     else
                                     {
-                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                        <div class="col-md-8 col-sm-8 col-xs-12">
                                             <input type="text" id="discount" name="discount" required="required" class="form-control col-md-7 col-xs-12">
                                         </div>
                                     }
@@ -216,7 +214,7 @@
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
                                     شماره گروه :
                                 </label>
-                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="col-md-8 col-sm-8 col-xs-12">
                                     <input value=@Model.SetId type="text" id="SetID" name="SetID" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
 
@@ -225,7 +223,7 @@
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
                                     واحد :
                                 </label>
-                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="col-md-8 col-sm-8 col-xs-12">
                                     <input value='@Model.vahed' type="text" id="vahed" name="vahed" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
 
@@ -234,7 +232,7 @@
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
                                     تعداد محصول :
                                 </label>
-                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="col-md-8 col-sm-8 col-xs-12">
                                     <input value=@Model.count type="text" id="count" name="count" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
 
@@ -243,8 +241,58 @@
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
                                     توضیحات :
                                 </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <p id="addDescButt" class="btn btn-default">افزودن عکس</p>
+                                    <div id="thumbholderEdior" style="display:flex">
 
-                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
+                                   
+                                </label>
+
+                                
+                                <script>
+                                    $("#addDescButt").click(function () {
+                                        $("#descriptionUpload").click();
+                                    })
+                                    $("#descriptionUpload").on('change', function () {
+
+                                        // $("#dvPreview").html("");
+                                        var input = this;
+                                        if (input.files && input.files[0]) {
+
+                                            var formData = new FormData();
+                                            formData.append('blob', input.files[0]);
+                                            formData.append('filename', 'edit');
+
+                                            var MyAppUrlSettings = {
+                                                MyUsefulUrl: '@Url.Action("setImageForDescription", "admin")'
+                                            }
+
+                                            var request = new XMLHttpRequest();
+                                            request.open('POST', MyAppUrlSettings.MyUsefulUrl);
+                                            request.send(formData);
+                                            request.onreadystatechange = function () {
+                                                if (request.readyState == 4 && request.status == 200) {
+                                                    var html = "<div style='border:1px solid #ddd; position:relative; padding:3px'><img  style='width:150px; display:inlne-block'    src='" + request.responseText + "'><p>" + request.responseText + "</p><img onclick='removeimg(this)'  class='delIcon' style='top:0px; left:0px;right:0px; bottom:0px; width:30px; cursor:pointer ;position:absolute;' src='/images/del.png'></div>";
+                                                    $('#thumbholderEdior').append(html);
+                                                    $("#loading").css("display", "none");
+
+
+                                                }
+                                            }
+                                        }
+                                        else {
+                                            alert("s")
+                                        }
+
+                                    });
+                                </script>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
                                     <textarea id="productdesc" required="required" class="form-control" name="productdesc" style="height:170px">@Model.description</textarea>
                                 </div>
 
@@ -257,7 +305,7 @@
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
                                     تگ ها :
                                 </label>
-                                <div class="col-md-5 col-sm-5 col-xs-12">
+                                <div class="col-md-8 col-sm-8 col-xs-12">
                                     <input data-role="tagsinput" id="tagupdate" name="tagupdate" required="required" class="form-control REM2" style="min-height:150px">
                                 </div>
                                 <script>
@@ -310,7 +358,7 @@
                                                                                         @myitem.filtername :
                                                                                     </label>
 
-                                                                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                                                                         <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
                                                                                             @if (myitem.filterdetailes != null)
                                                                                             {
@@ -361,7 +409,7 @@
                                                                                         @myitem.filtername :
                                                                                     </label>
 
-                                                                                    <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                                    <div class="col-md-8 col-sm-8 col-xs-12">
                                                                                         <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect" multiple>
                                                                                             @if (myitem.filterdetailes != null)
                                                                                             {
@@ -442,7 +490,7 @@
                                                                     {
 
 
-                                                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                        <div class="col-md-8 col-sm-8 col-xs-12">
                                                                             @{
                                                                             <select id=productcolor name=productcolor onchange="Getcolorlist(this)" style="width:100%" class="" multiple>
                                                                                 @if (Model.Colores != null)
@@ -492,7 +540,7 @@
                                                                     }
                                                                     else if (Model.Colores != null)
                                                                     {
-                                                                        <div class="col-md-5 col-sm-5 col-xs-12">
+                                                                        <div class="col-md-8 col-sm-8 col-xs-12">
 
                                                                             @Html.DropDownListFor(m => m.color, Model.Colores, "--", new { id = "productcolor", name = "productcolor", onchange = "Getcolorlist(this)", style = "width:100%", @class = "DRPd" })
                                                                         </div>
@@ -873,3 +921,53 @@
         </div>
     </div>
 </div>
+<script>
+
+        //tinymce.get('productdesc').setContent('@Model.description');
+
+        let srt = @Html.Raw(Json.Encode(@Model));
+        var html = $.parseHTML(srt.description);
+        var $response = $(html);
+        var $links = $response.find('img');
+        var value = "";
+        $links.each(function (index, $link) {
+            var src = $(this).attr('src');
+            var html = "<div style='border:1px solid #ddd; position:relative; padding:3px'><img  style='width:150px; display:inlne-block'    src='" + src + "'><p>" + src + "</p><img id='"+src+"' class='delIcon' style='top:0px; left:0px;right:0px; bottom:0px; width:30px; cursor:pointer ;position:absolute;' src='/images/del.png'></div>";
+            
+            $('#thumbholderEdior').append(html);
+            $("#loading").css("display", "none");
+        });
+    $(".delIcon").click(function () {
+              var id = $(this).attr('id');
+            var element = $(this).parent();
+            $.ajax({
+                url: "/admin/deleteimageDesc",
+                dataType: "html",
+                data: {
+                    title: id
+                },
+                success: function () {
+                    element.remove();
+                }
+            })
+            var id = $(this).attr('id');
+            
+    });
+    var removeimg = function (newel) {
+
+        var id = newel.id;
+
+
+        $.ajax({
+            url: "/admin/deleteimageDesc",
+            dataType: "html",
+            data: {
+                title: id
+            },
+            success: function () {
+                newel.parentNode.parentNode.removeChild(newel.parentNode);
+            }
+        })
+        var id = $(this).attr('id');
+    } 
+</script>
