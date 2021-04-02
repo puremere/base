@@ -1,6 +1,47 @@
 ﻿
 @model banimo.ViewModelPost.OrderList
 
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin:0">
+                    <div class="col-lg-6" style="padding:25px">
+                        <p>لطفا یکی از پیک ها را انتخاب کنید</p>
+                        <div style="display:inline-block">
+                            @if (Model.myUsers != null)
+                            {
+
+                                @Html.DropDownList("deliverDromdown", new SelectList(Model.myUsers, "ID", "fullname"), new { @class = "form-control", })
+
+
+                            }
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6" style="padding:25px">
+                        <p>توضحات ادمین</p>
+                        <textarea id="adminDesc" class="form-control" cols="8" style="height:150px"></textarea>
+                    </div>
+                </div>
+
+
+                <div id="setDeliver" style="display:inline-block" class="btn  btn-default">تایید</div>
+                <div id="rowSelectd"></div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 <div class="modal fade" id="endOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -10,8 +51,8 @@
                 <select id="payment" class="form-control">
 
                     <option value="5">زرین پال</option>
-                    <option value="5"> کیف پول</option>
-                    <option value="2">در محل</option>
+                    <option value="1"> کیف پول</option>
+                
 
                 </select>
                 <p style="display:none" id="verifyHolder"></p>
@@ -41,16 +82,21 @@
                                 <tr>
                                     <th style="cursor:pointer" class="orderID">ردیف</th>
                                     <th>شماره سفارش</th>
-                                    <th>کاربر</th>
+                                    <th style="white-space: nowrap; ">کاربر</th>
                                     <th>موبایل کاربر</th>
                                     <th>مبلغ (تومان)</th>
                                     <th>تاریخ سفارش</th>
                                     <th style="cursor:pointer" class="order">تاریخ تحویل</th>
                                     <th>روز تحویل</th>
                                     <th>ساعت تحویل</th>
+                                    <th>آدرس</th>
                                     <th>وضعیت</th>
-                                    <th></th>
-                                    <th></th>
+                                    <th>توضیحات</th>
+                                    <th>کد پستی</th>
+
+                                    <th>جزئیات</th>
+                                    <th>اقدامات</th>
+                                    <th>دلیور</th>
 
                                 </tr>
                             </thead>
@@ -62,18 +108,21 @@
                                         {
 
                                             int i = Model.myOrder.IndexOf(item) + 1;
-                                            
+
                                 <tr style=" ">
                                     <td>@i</td>
                                     <td>@item.orderNumber</td>
-                                    <td>@item.fullname</td>
+                                    <td style="white-space: nowrap;">@item.fullname</td>
                                     <td>@item.phone</td>
                                     <td>@item.price</td>
                                     <td>@item.date</td>
                                     <td>@item.Rdate</td>
                                     <td>@item.DayText</td>
                                     <td>@item.TimeFrom  - @item.TimeTo</td>
+                                    <td>@item.address</td>
                                     <td>@item.statusTitle</td>
+                                    <td> @item.desc</td>
+                                    <td>@item.postalcode</td>
                                     @{
                                         if (item.statusTitle == "پرداخت نشده")
                                         {
@@ -86,13 +135,12 @@
 
                                         }
                                     }
-
                                     <td>
                                         @{
-
                                             if (item.statusTitle == "ارسال شده")
                                             {
                                                 <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
+
 
                                             }
                                             else if (item.statusTitle == "تحویل شده")
@@ -107,10 +155,13 @@
 
                                         }
                                     </td>
+                                    <td class="deliver" id="@item.ID" style="cursor:pointer">
+                                        @item.deliver
+                                    </td>
 
                                 </tr>
+                                            }
                                         }
-                                    }
                                 }
 
 
@@ -202,19 +253,39 @@
     $("#endOrderVerify").click(function () {
         var ID = $("#verifyHolder").text();
         var payment = $("#payment option:selected").val();
-        $.ajax({
-            url: "/connection/verifyByAdmin",
-            dataType: "html",
-            data: {
-                id: ID,
-                payment : payment
-            },
-            success: function (data) {
-                if (data == "200") {
-                    $("#endOrderModal").modal('toggle');
+
+        if (payment == "2") {
+            $.ajax({
+                url: "/connection/finalizeOrder",
+                dataType: "html",
+                data: {
+                    id: ID,
+                    payment: payment
+                },
+                success: function (data) {
+                    if (data == "200") {
+                        $("#endOrderModal").modal('toggle');
+                    }
                 }
-            }
-        })
+            })
+        }
+        else {
+            $.ajax({
+                url: "/connection/verifyByAdmin",
+                dataType: "html",
+                data: {
+                    id: ID,
+                    payment: payment
+                },
+                success: function (data) {
+                    if (data == "200") {
+                        $("#endOrderModal").modal('toggle');
+                    }
+                }
+            })
+        }
+
+        
     })
     $(".orderdetail").click(function () {
 
@@ -243,11 +314,10 @@
         var ID = $(this).attr('id');
 
         $.ajax({
-            url: '/Admin/finalizeOrder',
+            url: '/connection/finalizeOrder',
             dataType: 'html',
             data: {
                 id: ID,
-                type: "5"
             },
 
             success: function (data) {
@@ -260,25 +330,32 @@
         });
     })
     $(".finalorder").click(function () {
-        var ID = $(this).attr('id');
-
-        $.ajax({
-            url: '/Admin/finalizeOrder',
-            dataType: 'html',
-            data: {
-                id: ID,
-                type: "4"
-            },
-
-            success: function (data) {
-
-                window.location.reload();
-            }
-
-
-
-        });
+        $("#myModal").modal('toggle');
+        idselected = $(this).attr('id');
     })
+      $("#setDeliver").click(function () {
+                        $("#myModal").modal('toggle');
+                        var deliverID = $("#deliverDromdown").val();
+                        var description = $('textarea#adminDesc').val();
+                        $.ajax({
+                            url: '/Admin/finalizeOrderAndDeliver',
+                            dataType: 'html',
+                            data: {
+                                id: idselected,
+                                deliverID: deliverID,
+                                type: "4",
+                                desc: description
+                            },
+
+                            success: function (data) {
+
+                                window.location.reload();
+                            }
+
+
+
+                        });
+                    })
 </script>
 <div class="detailHolder">
 

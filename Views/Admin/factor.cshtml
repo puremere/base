@@ -1,0 +1,365 @@
+﻿@model banimo.ViewModel.factorVM
+
+@{
+
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "مدیریت سفارشات";
+
+}
+@section scripts{
+
+    <style>
+        .nav-tabs {
+            padding-right: 0px;
+        }
+
+            .nav-tabs li {
+                float: right !important;
+            }
+
+        td {
+            white-space: nowrap;
+            padding: 15px;
+            text-align: center
+        }
+
+        th {
+            white-space: nowrap;
+            padding: 15px;
+            text-align: center
+        }
+    </style>
+
+    <link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
+}
+
+
+
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+
+
+
+
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">آخرین فاکتورها </a></li>
+        <li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">افزودن فاکتور جدید</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+
+
+
+          
+            <div id="OrderTableHolder">
+                <div class="row">
+                    <div style="overflow-x:auto;padding:10px">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> آخرین فاکتورها  </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-area-chart">
+                                    <div style="overflow:auto; max-height:400px; overflow-y:scroll">
+
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="cursor:pointer" class="orderID">ردیف</th>
+                                                    <th>شماره فاکتور</th>
+                                                    <th style="white-space: nowrap; ">تامین کننده</th>
+                                                    
+                                                    <th>تاریخ فاکتور</th>
+                                                    <th>توضیحات</th>
+                                                    @*<th>وضعیت</th>*@
+                                                    <th>جزئیات</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    if (Model.factorList != null)
+                                                    {
+                                                        foreach (var item in Model.factorList)
+                                                        {
+
+                                                            int i = Model.factorList.IndexOf(item) + 1;
+
+                                                            <tr style=" ">
+                                                                <td>@i</td>
+                                                                <td>@item.ID</td>
+                                                                <td style="white-space: nowrap;">@item.partner</td>
+                                                                <td>@item.timestamp</td>
+                                                                <td>@item.description</td>
+                                                                <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
+                                                               
+
+                                                            </tr>
+                                                        }
+                                                    }
+                                                }
+
+
+
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <script>
+                    var idselected = "";
+                    $(".order").click(function () {
+
+                        if ($("#dataOrder").text() == "11") {
+                            $("#dataOrder").text("12");
+
+                        }
+                        else {
+
+                            $("#dataOrder").text("11");
+
+                        }
+
+                        order = $("#dataOrder").text();
+                        type = $("#selectOrderType").val();
+
+                        $.ajax({
+                            url: '/Admin/ChangeOrderList',
+                            dataType: 'html',
+                            data: {
+                                type: type,
+                                order: order
+
+                            },
+
+                            success: function (data) {
+
+                                $("#OrderTableHolder").html(data);
+                            }
+
+
+
+                        });
+                    });
+                    $(".orderID").click(function () {
+
+                        if ($("#dataOrder").text() == "21") {
+                            $("#dataOrder").text("22");
+
+                        }
+                        else {
+
+                            $("#dataOrder").text("21");
+
+                        }
+
+                        order = $("#dataOrder").text();
+                        type = $("#selectOrderType").val();
+
+                        $.ajax({
+                            url: '/Admin/ChangeOrderList',
+                            dataType: 'html',
+                            data: {
+                                type: type,
+                                order: order
+
+                            },
+
+                            success: function (data) {
+
+                                $("#OrderTableHolder").html(data);
+                            }
+
+
+
+                        });
+                    });
+                    $(".orderdetail").click(function () {
+
+                        var ID = $(this).attr('id');
+                        //alert("aaa");
+                        //alert(ID);
+                        $.ajax({
+                            url: '/Admin/goGetFactorDetail',
+                            dataType: 'html',
+                            data: {
+                                id: ID,
+
+                            },
+
+                            success: function (data) {
+                                
+                                $(".detailHolder").html(data);
+                                $("#loading").fadeOut();
+
+                            }
+
+
+
+                        });
+                    })
+                    $(".deliverorder").click(function () {
+                        var ID = $(this).attr('id');
+
+                        $.ajax({
+
+                            url: '/Admin/finalizeOrderAndDeliver',
+                            dataType: 'html',
+                            data: {
+                                id: ID,
+                                type: "5"
+                            },
+
+                            success: function (data) {
+
+                                window.location.reload();
+                            }
+
+
+
+                        });
+                    })
+                    $("#setDeliver").click(function () {
+                        $("#myModal").modal('toggle');
+                        var deliverID = $("#deliverDromdown").val();
+                        var description = $('textarea#adminDesc').val();
+                        $.ajax({
+                            url: '/Admin/finalizeOrderAndDeliver',
+                            dataType: 'html',
+                            data: {
+                                id: idselected,
+                                deliverID: deliverID,
+                                type: "4",
+                                desc: description
+                            },
+
+                            success: function (data) {
+
+                                window.location.reload();
+                            }
+
+
+
+                        });
+                    })
+
+                    $(".deliver").click(function () {
+                        $("#myModal").modal('toggle');
+                        idselected = $(this).attr('id');
+                    })
+                    //comment
+                    $(".finalorder").click(function () {
+                        $("#myModal").modal('toggle');
+                        idselected = $(this).attr('id');
+
+                    })
+                </script>
+                <div class="detailHolder">
+
+                </div>
+            </div>
+          
+        </div>
+
+   
+        <div id="menu2" class="tab-pane fade" style="padding-top:20px">
+            <div class="form-group ">
+
+
+                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                    شماره فاکتور
+                </label>
+                <div class="component ">
+                    <input type="text" id="number" class="form-control" />
+                </div>
+                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                    تامین کننده
+                </label>
+                @{
+                    List<SelectListItem> partnerList = new List<SelectListItem>();
+                    if (Model.partnerList != null && Model.partnerList != null)
+                    {
+
+                        foreach (var item in Model.partnerList)
+                        {
+
+                            partnerList.Add(new SelectListItem
+                            {
+                                Text = item.title,
+                                Value = item.ID
+                            });
+                        }
+
+
+                    }
+                    <div class="component" >
+                        @Html.DropDownList("partnerList", partnerList, "-- انتخاب کنید --", new { id = "partnerList", style = "width:100%; min-height:43px", @class = "form-control" })
+                    </div>
+                }
+                <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
+                    توضیحات
+                </label>
+                <div class="component ">
+                    <textarea style="height:250px" id="description"></textarea>
+                </div>
+                <div class="component " style="direction: rtl; ">
+                    <button id="addfactorParent" class="btn btn-success">تایید</button>
+                    <script>
+                        $(document).ready(function () {
+                            $("#addfactorParent").click(function () {
+
+                                var number = $("#number").val();
+                                var partner = $("#partnerList").val();
+                                var description = $("#description").val();
+                                $.ajax({
+                                    url: '/Admin/addNewFactorParent',
+                                    dataType: 'html',
+                                    data: {
+                                        number: number,
+                                        partner: partner,
+                                        description: description
+                                    },
+                                    success: function (data) {
+                                        if (data === "200") {
+                                            toastr.options = {
+                                                "debug": false,
+                                                "positionClass": "toast-top-center",
+                                                "onclick": null,
+                                                "fadeIn": 300,
+                                                "fadeOut": 1000,
+                                                "timeOut": 5000,
+                                                "extendedTimeOut": 1000
+                                            }
+
+                                            toastr.success('با موقیت ثبت شد');
+                                            location.reload();
+                                        }
+
+                                    },
+                                    error: function () {
+                                        alert("خطا")
+                                    }
+                                });
+                            })
+                        })
+
+                    </script>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
