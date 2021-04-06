@@ -1,0 +1,473 @@
+﻿@model banimo.ViewModel.adminBankVM
+@{
+    ViewBag.Title = "bank";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+
+    .fieldholder {
+        /*width: 30%;
+            display: inline-block;*/
+        padding: 15px;
+    }
+
+    .REM {
+        border-radius: 5px;
+    }
+</style>
+<div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">حساب ها</a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">ثبت تراکنش</a></li>
+        @*<li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">ثبت درآمد ها</a></li>*@
+       
+
+    </ul>
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+            <div class="modal fade" id="delAccountModal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+
+                        <div class="modal-body">
+                            <p>آیا از حذف آیتم مورد نظر اطمینان دارید؟</p>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="modalDelaccount">تایید</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="createAccount" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <form id="accountForm" action="setNewAccount" method="post">
+                            <input hidden class="typeID" />
+                            <div class="formsection main1" style="display:none">
+                                <div class="modal-body">
+                                    <p>عنوان درآمد</p>
+                                    <input name="daramadTitle" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="formsection main2" style="display:none">
+                                <div class="modal-body">
+                                    <p>عنوان هزینه</p>
+                                    <input name="hazineTitle" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="formsection main3" style="display:none">
+                                <div class="modal-body">
+                                    <p>عنوان صندوق</p>
+                                    <input name="sandoghTitle" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="formsection main4" style="display:none">
+                                <div class="modal-body">
+                                    <p>عنوان بانک</p>
+                                    <input name="bankTitle" class="form-control" />
+                                    <p>شعبه بانک</p>
+                                    <input name="bankshobe" class="form-control" />
+                                    <p>شماره حساب</p>
+                                    <input name="bankShomare" class="form-control" />
+                                </div>
+                            </div>
+                        </form>
+
+                        
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="verify">تایید</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                        </div>
+
+                        <script>
+                            $("#verify").click(function () {
+
+                            })
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background-color:white; padding:10px; margin:0px;">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#daramad" style=" color: #8d8d8d; ">درآمد</a></li>
+                    <li><a data-toggle="tab" href="#hazine" style=" color: #8d8d8d; ">هزینه</a></li>
+                    <li><a data-toggle="tab" href="#sandogh" style=" color: #8d8d8d; ">صندوق</a></li>
+                    <li><a data-toggle="tab" href="#bank" style=" color: #8d8d8d; ">بانک</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="daramad" class="tab-pane fade in active" style="padding-top:20px">
+                        <div class="row">
+
+                            <div id="Listholder">
+                                <div class="row" style="padding:20px">
+                                    <div style="overflow-x:auto;padding:10px">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست درآمد ها  <i id="1" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div id="morris-area-chart">
+                                                    <div style="overflow:auto">
+                                                        <table class="table table-bordered table-hover table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        ID
+                                                                    </th>
+                                                                    <th>
+                                                                        عنوان
+                                                                    </th>
+
+                                                                    <th>
+
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @{
+                                                                    if (Model.List.Where(x => x.type == "درآمد") != null)
+                                                                    {
+                                                                        foreach (var item in Model.List.Where(x => x.type == "درآمد"))
+                                                                        {
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                                                </td>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.title)
+                                                                                </td>
+
+
+
+                                                                                <td style="text-align: center;">
+
+                                                                                    @{
+                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                                    }
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    }
+                                                                }
+
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div id="hazine" class="tab-pane fade in " style="padding-top:20px">
+                        <div class="row">
+
+                            <div id="Listholder">
+                                <div class="row" style="padding:20px">
+                                    <div style="overflow-x:auto;padding:10px">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست هزینه ها  <i id="2" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div id="morris-area-chart">
+                                                    <div style="overflow:auto">
+                                                        <table class="table table-bordered table-hover table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        ID
+                                                                    </th>
+                                                                    <th>
+                                                                        عنوان
+                                                                    </th>
+
+                                                                    <th>
+
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @{
+                                                                    if (Model.List.Where(x => x.type == "هزینه") != null)
+                                                                    {
+                                                                        foreach (var item in Model.List.Where(x => x.type == "هزینه"))
+                                                                        {
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                                                </td>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.title)
+                                                                                </td>
+
+
+
+                                                                                <td style="text-align: center;">
+
+                                                                                    @{
+                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                                    }
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    }
+                                                                }
+
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div id="sandogh" class="tab-pane fade in " style="padding-top:20px">
+                        <div class="row">
+
+                            <div id="Listholder">
+                                <div class="row" style="padding:20px">
+                                    <div style="overflow-x:auto;padding:10px">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست صندوق ها  <i id="3" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div id="morris-area-chart">
+                                                    <div style="overflow:auto">
+                                                        <table class="table table-bordered table-hover table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        ID
+                                                                    </th>
+                                                                    <th>
+                                                                        عنوان
+                                                                    </th>
+
+                                                                    <th>
+
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @{
+                                                                    if (Model.List.Where(x => x.type == "صندوق") != null)
+                                                                    {
+                                                                        foreach (var item in Model.List.Where(x => x.type == "صندوق"))
+                                                                        {
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                                                </td>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.title)
+                                                                                </td>
+
+
+
+                                                                                <td style="text-align: center;">
+
+                                                                                    @{
+                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                                    }
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    }
+                                                                }
+
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                    <div id="bank" class="tab-pane fade in " style="padding-top:20px">
+                        <div class="row">
+
+                            <div id="Listholder">
+                                <div class="row" style="padding:20px">
+                                    <div style="overflow-x:auto;padding:10px">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست بانک ها  <i id="4" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
+                                            </div>
+                                            <div class="panel-body">
+                                                <div id="morris-area-chart">
+                                                    <div style="overflow:auto">
+                                                        <table class="table table-bordered table-hover table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        ID
+                                                                    </th>
+                                                                    <th>
+                                                                        عنوان
+                                                                    </th>
+
+                                                                    <th>
+
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @{
+                                                                    if (Model.List.Where(x => x.type == "بانک") != null)
+                                                                    {
+                                                                        foreach (var item in Model.List.Where(x => x.type == "بانک"))
+                                                                        {
+
+                                                                            <tr>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                                                </td>
+                                                                                <td>
+                                                                                    @Html.DisplayFor(modelItem => item.title)
+                                                                                </td>
+
+
+
+                                                                                <td style="text-align: center;">
+
+                                                                                    @{
+                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                                    }
+
+                                                                                </td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    }
+                                                                }
+
+
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+                <script>
+                    $(".addacount").click(function () {
+                        var id = this.id;
+                        $("#typeID").val(id);
+                        $(".formsection").css("display", "none");
+                        $(".main" + id).css("display", "inline-block");
+                        $("#createAccount").modal('toggle');
+                    })
+                </script>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade in " style="padding-top:20px">
+            <div class="row" style="background-color:white; padding:10px; margin:0px; ">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#Sdaramad" style=" color: #8d8d8d; ">ثبت درآمد</a></li>
+                    <li><a data-toggle="tab" href="#Shazine" style=" color: #8d8d8d; ">ثبت هزینه</a></li>
+                    <li><a data-toggle="tab" href="#factor" style=" color: #8d8d8d; ">تسویه فاکتور</a></li>
+                    <li><a data-toggle="tab" href="#enteghal" style=" color: #8d8d8d; ">انتقال</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div id="Sdaramad" class="tab-pane fade in active" style="padding-top:20px">
+                        Sdaramad
+                    </div>
+                    <div id="Shazine" class="tab-pane fade in " style="padding-top:20px">
+                        Shazine
+                    </div>
+                    <div id="factor" class="tab-pane fade in " style="padding-top:20px">
+                        factor
+                    </div>
+                    <div id="enteghal" class="tab-pane fade in " style="padding-top:20px">
+                        enteghal
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

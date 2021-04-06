@@ -52,7 +52,7 @@
                                 </div>
 
 
-                                
+
                             </div>
                         </div>
                         <div class="row" style="margin-top:20px">
@@ -73,10 +73,10 @@
                                     <input id="IDholder" hidden />
                                     <div id="addItemToOrderButton" style=" display:inline-block" class="btn  btn-default">تایید</div>
                                 </div>
-                                
+
                             </div>
                         </div>
-                        
+
 
                     </div>
 
@@ -104,7 +104,7 @@
                 <div style="display:none" id="selectedIDForDelete"></div>
                 <div class="row" style="margin:0">
                     <div class="col-lg-12" style="padding:25px">
-                        <p>آیا از حذف مورد اطمینان دارید؟</p>
+                        <p>آیا از حذف آیتم مورد نظر اطمینان دارید؟</p>
 
                     </div>
 
@@ -122,6 +122,39 @@
 
     </div>
 </div>
+<div id="editItemFromOrderModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div style="display:none" id="selectedIDForEdit"></div>
+                <div class="row" style="margin:0">
+                    <div class="col-lg-12" style="padding:25px">
+                        <p>تعداد جدید</p>
+                         <input id="newval" class="form-control"/>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirmEdit">تایید</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
 <div class="row">
     <div style="overflow-x:auto;padding:10px">
         <div class="panel panel-default">
@@ -143,19 +176,19 @@
             @if (Model.list.factorDetail != null)
             {
                 @*<script>
-                    $("#print").click(function () {
+                        $("#print").click(function () {
 
-                        var obj = @Html.Raw(@Json.Encode(Model.list.myProducts));
-                        $("input[name=data]").val(JSON.stringify(obj));
-                        $("input[name=id]").val('@Model.id');
-                        $("#getPDF").submit();
-                        $("#loading").fadeIn();
-                        setInterval(function () { $("#loading").fadeOut(); }, 3000);
+                            var obj = @Html.Raw(@Json.Encode(Model.list.myProducts));
+                            $("input[name=data]").val(JSON.stringify(obj));
+                            $("input[name=id]").val('@Model.id');
+                            $("#getPDF").submit();
+                            $("#loading").fadeIn();
+                            setInterval(function () { $("#loading").fadeOut(); }, 3000);
 
 
 
-                    });
-                </script>*@
+                        });
+                    </script>*@
                 <div class="panel-body">
                     <div id="morris-area-chart">
                         @{
@@ -212,7 +245,9 @@
                                                 <th>ردیف</th>
                                                 <th>نام کالا</th>
                                                 <th>قیمت </th>
-                                                <th>تعداد</th>
+                                                <th>تعداد فروش رفته</th>
+                                                <th>تعداد کل</th>
+                                                <th></th>
                                                 <th></th>
                                                 <th></th>
 
@@ -224,24 +259,26 @@
                                             {
                                                 string image = item.imagetiltle;
                                                 int i = Model.list.factorDetail.IndexOf(item) + 1;
-                                                string deleteid = item.ID + "-" + item.parentID;
-                                            <tr style=" ">
-                                                <td>@i</td>
-                                                <td>@item.title</td>
-                                                <td>@item.price</td>
-                                                <td>@item.count</td>
-                                                <td><img src=@image style="max-width:100px" /> </td>
-                                                <td><div id="@deleteid" class="btn btn-danger deletItem">حذف</div> </td>
-                                            </tr>
+                                                string deleteid = item.ID;
+                                                <tr style=" ">
+                                                    <td>@i</td>
+                                                    <td>@item.title</td>
+                                                    <td>@item.price</td>
+                                                    <td>@item.sold</td>
+                                                    <td>@item.count</td>
+                                                    <td><img src=@image style="max-width:100px" /> </td>
+                                                    <td><div id="@item.ID" class="btn btn-success editItem">ویرایش</div> </td>
+                                                    <td><div id="@deleteid" class="btn btn-danger deletItem">حذف</div> </td>
+                                                </tr>
                                             }
-                                            @{ 
-                                               
+                                            @{
+
                                             }
 
                                             <tr>
                                                 <td></td>
                                                 <td>جمع کل فاکتور</td>
-                                                <td>@Model.list.factorDetail.Sum(c=>c.price * c.count)</td>
+                                                <td>@Model.list.factorDetail.Sum(c => c.price * c.count)</td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -272,13 +309,18 @@
         $("#selectedIDForDelete").text($(this).attr('id'));
         $("#deleteItemFromOrderModal").modal('toggle');
     })
+    $(".editItem").click(function () {
+        $("#selectedIDForEdit").text($(this).attr('id'));
+        $("#editItemFromOrderModal").modal('toggle');
+    })
+
 
     $(".confirmDelete").click(function () {
         $("#deleteItemFromOrderModal").modal('toggle');
         var id = $("#selectedIDForDelete").text();
         var orderID = id.split('-')[1];
         $.ajax({
-            url: "/admin/deletFromOrder",
+            url: "/admin/deletFromFactor",
             dataType: "html",
             data: {
                 id: id,
@@ -296,10 +338,10 @@
                         "extendedTimeOut": 1000
                     }
 
-                    toastr.success('با موقیت ثبت شد');
+                    toastr.success('با موقیت انجام شد');
 
                     $.ajax({
-                        url: '/Admin/goGetOrderDetail',
+                        url: '/Admin/goGetFactorDetail',
                         dataType: 'html',
                         data: {
                             id: orderID,
@@ -315,11 +357,87 @@
 
                     });
                 }
+                else if (data == "400") {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('خطا ! آیتم مورد نظر دارای سفارش میباشد');
+                }
             }
 
         })
     })
+    $(".confirmEdit").click(function () {
 
+        $("#editItemFromOrderModal").modal('toggle');
+        var id = $("#selectedIDForEdit").text();
+        var newval = $("#newval").val();
+        var orderID = id.split('-')[1];
+        $.ajax({
+            url: "/admin/editItemInFactor",
+            dataType: "html",
+            data: {
+                id: id,
+                newval: newval
+            },
+            success: function (data) {
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت انجام شد');
+
+                    $.ajax({
+                        url: '/Admin/goGetFactorDetail',
+                        dataType: 'html',
+                        data: {
+                            id: orderID,
+                        },
+
+                        success: function (data) {
+
+                            $(".detailHolder").html(data);
+
+                        }
+
+
+
+                    });
+                }
+                else if (data == "400") {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('خطا ! آیتم مورد نظر دارای سفارش میباشد');
+                }
+            }
+
+        })
+    })
 
 </script>
 
@@ -376,7 +494,7 @@
     })
     $("#addItemToOrderButton").click(function () {
         $("#addItemToOrderModal").modal('toggle');
-       
+
         $.ajax({
             url: '/Admin/addNewTtemToFactor',
             dataType: 'html',
