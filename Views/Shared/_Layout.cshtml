@@ -63,6 +63,13 @@
             @RenderSection("scripts", required: false)
             <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
             <style>
+                .menuparentsection {
+                    font-size: 13px;
+                    color: #f6f5f5;
+                    background-color: #656565;
+                    padding-right: 0px;
+                    border-bottom: 2px solid black
+                }
                 #loading {
                     align-content: center;
                     background: #fff;
@@ -1088,12 +1095,12 @@
             <div class="row" style=" margin:0px" id="manuholder">
 
                 <div class="">
-                    <nav id="mainmenu" style="font-size:13px; color:#f6f5f5; background-color:#656565; padding-right:0px; border-bottom:2px solid black">
+                    <nav class="menuparentsection" id="mainmenu" style="">
 
 
                         <!-- Sample menu definition -->
 
-
+                        @{ Html.RenderAction("getmenue", "Home"); }
 
                     </nav>
                 </div>
@@ -1150,20 +1157,20 @@
                         $("#contactPhone").text($("#footerPhone").text());
 
                     })
-                    $.ajax({
-                        url: '/Home/getmenue/',
-                        dataType: 'html',
+                    //$.ajax({
+                    //    url: '/Home/getmenue/',
+                    //    dataType: 'html',
 
-                        success: function (data) {
+                    //    success: function (data) {
 
-                            $('#mainmenu').html(data);
+                    //        $('#mainmenu').html(data);
 
 
-                        },
-                        error: function () {
-                            alert("error")
-                        }
-                    });
+                    //    },
+                    //    error: function () {
+                    //        alert("error")
+                    //    }
+                    //});
 
 
 

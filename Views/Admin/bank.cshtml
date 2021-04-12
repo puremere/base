@@ -28,7 +28,7 @@
         <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">حساب ها</a></li>
         <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">ثبت تراکنش</a></li>
         @*<li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">ثبت درآمد ها</a></li>*@
-       
+
 
     </ul>
 
@@ -53,47 +53,117 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <form id="accountForm" action="setNewAccount" method="post">
-                            <input hidden class="typeID" />
+                            <input name="typeID" hidden id="typeID" />
                             <div class="formsection main1" style="display:none">
                                 <div class="modal-body">
                                     <p>عنوان درآمد</p>
-                                    <input name="daramadTitle" class="form-control" />
+                                    <input id="daramadTitle"   name="daramadTitle" class="form-control" />
                                 </div>
                             </div>
                             <div class="formsection main2" style="display:none">
                                 <div class="modal-body">
                                     <p>عنوان هزینه</p>
-                                    <input name="hazineTitle" class="form-control" />
+                                    <input id="hazineTitle" name="hazineTitle" class="form-control" />
                                 </div>
                             </div>
                             <div class="formsection main3" style="display:none">
                                 <div class="modal-body">
                                     <p>عنوان صندوق</p>
-                                    <input name="sandoghTitle" class="form-control" />
+                                    <input id="sandoghTitle" name="sandoghTitle" class="form-control" />
                                 </div>
                             </div>
                             <div class="formsection main4" style="display:none">
                                 <div class="modal-body">
                                     <p>عنوان بانک</p>
-                                    <input name="bankTitle" class="form-control" />
+                                    <input id="bankTitle" name="bankTitle" class="form-control" />
                                     <p>شعبه بانک</p>
-                                    <input name="bankshobe" class="form-control" />
+                                    <input id="bankshobe" name="bankshobe" class="form-control" />
                                     <p>شماره حساب</p>
-                                    <input name="bankShomare" class="form-control" />
+                                    <input id="bankShomare" name="bankShomare" class="form-control" />
                                 </div>
                             </div>
                         </form>
 
-                        
+
 
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="verify">تایید</button>
+                            <button type="button" class="btn btn-primary" id="addAccountVerify">تایید</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
                         </div>
 
                         <script>
-                            $("#verify").click(function () {
+                            $("#addAccountVerify").click(function () {
 
+                              
+                                var typeID = $("#typeID").val();
+
+                            
+                                if (typeID == "1") {
+                                    var title = $("#daramadTitle").val();
+                                   
+                                    if (title == "") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('تمامی موارد را کامل کنید')
+                                    }
+                                    else {
+                                        $("#accountForm").submit();
+                                    }
+                                }
+                                else if (typeID == "2") {
+                                    var title = $("#hazineTitle").val();
+                                    if (title == "") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('تمامی موارد را کامل کنید')
+                                    }
+                                }
+                                else if (typeID == "3") {
+                                    var title = $("#sandoghTitle").val();
+                                    if (title == "") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('تمامی موارد را کامل کنید')
+                                    }
+                                }
+                                else if (typeID == "4") {
+                                    var title = $("#bankTitle").val();
+                                    var shobe = $("#bankshobe").val();
+                                    var shomare = $("#bankShomare").val();
+                                    if (title == "" || shobe == "" || shomare == "") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('تمامی موارد را کامل کنید')
+                                    }
+                                }
                             })
                         </script>
 
@@ -468,6 +538,6 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 </div>
