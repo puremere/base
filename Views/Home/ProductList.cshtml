@@ -333,14 +333,15 @@
                 </div>
 
                 <div style="text-align:center; padding-top:10px" id="productlist">
-                    <div>
+                    @{ Html.RenderAction("gogetproductlist", "Home"); }
+                    @*<div>
                         <div style="padding:15px 35px; background-color:white;position:relative;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
 
                             <img style="max-width:80px; display:block; margin:auto" src="~/images/logo.png" />
                             <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
 
                         </div>
-                    </div>
+                    </div>*@
 
                 </div>
 
@@ -1493,150 +1494,154 @@
 
 
         <script>
-            $.ajax({
-                url: '/Home/gogetproductlist',
-                dataType: 'html',
-                data: {
-                    id: "1"
+            $(document).ready(function () {
+                $("#SIBdiv").css("height", "");
+                var sibdiv = $("#SIBdiv");
+                var sibdivheight = sibdiv.height();
+                var pardiv = $("#FLTholder");
+                var pardivheight = pardiv.height();
 
-                },
-                success: function (data) {
-                    $("#SIBdiv").css("height", "");
-                    $('#productlist').html(data);
+                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                $('#spaceholder').css("height", '');
+                var stickyHeaderTop = $('#FLTholder').offset().top;
+                var stickyHeaderTop2 = $('#SIBdiv').offset().top;
+                var screen = $(window).width();
+                var bottomline = $('.footer').offset().top;
+                var lastScroll = 0;
+                var palaceholder = 0;
 
-                },
-                error: function () {
-                    alert("*****")
-                },
-                complete: function () {
+                $(window).scroll(function () {
 
-                    var sibdiv = $("#SIBdiv");
-                    var sibdivheight = sibdiv.height();
-                    var pardiv = $("#FLTholder");
-                    var pardivheight = pardiv.height();
-
-                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                    $('#spaceholder').css("height", '');
-                    var stickyHeaderTop = $('#FLTholder').offset().top;
-                    var stickyHeaderTop2 = $('#SIBdiv').offset().top;
-                    var screen = $(window).width();
-                    var bottomline = $('.footer').offset().top;
-                    var lastScroll = 0;
-                    var palaceholder = 0;
-
-                    $(window).scroll(function () {
-
-                        if ($(window).width() > 960) {
-                            var sibdiv = $("#SIBdiv");
-                            var sibdivheight = sibdiv.height();
-                            var pardiv = $("#FLTholder");
-                            var filterdiv = $("#FLT");
+                    if ($(window).width() > 960) {
+                        var sibdiv = $("#SIBdiv");
+                        var sibdivheight = sibdiv.height();
+                        var pardiv = $("#FLTholder");
+                        var filterdiv = $("#FLT");
 
 
 
-                            var pardivheight = pardiv.height();
+                        var pardivheight = pardiv.height();
 
 
 
-                            if (sibdivheight >= pardivheight - 10) {
-                                //alert("sssss");
-                                var st = $(this).scrollTop();
+                        if (sibdivheight >= pardivheight - 10) {
+                            //alert("sssss");
+                            var st = $(this).scrollTop();
 
-                                if (st > lastScroll) {
+                            if (st > lastScroll) {
 
 
 
-                                    if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
-                                        $('#FLTholder').css("height", '');
-                                        $('#spaceholder').css("height", '');
-                                        $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
-                                    }
-                                    else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
-                                        var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
-                                        palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
-                                        if (palaceholder == 0) {
-
-                                        }
-                                        else {
-                                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                            $('#spaceholder').css("height", palaceholder + 'px')
-                                        }
-                                        //alert($("#SIBdiv")[0].scrollHeight);
-                                        //alert($("#FLTholder")[0].scrollHeight);
+                                if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
+                                    $('#FLTholder').css("height", '');
+                                    $('#spaceholder').css("height", '');
+                                    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                }
+                                else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
+                                    var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
+                                    palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
+                                    if (palaceholder == 0) {
 
                                     }
                                     else {
-
+                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                        $('#spaceholder').css("height", palaceholder + 'px')
                                     }
-
+                                    //alert($("#SIBdiv")[0].scrollHeight);
+                                    //alert($("#FLTholder")[0].scrollHeight);
 
                                 }
                                 else {
 
-
-                                    //alert($(window).scrollTop() );
-                                    //alert(bottomline)
-                                    //alert(pardivheight)
-
-
-
-
-                                    // alert($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2);
-
-                                    // if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() + $(window).height() <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2)) {
-                                    if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() < bottomline - (pardivheight - $("#spaceholder").height()))) {
-                                        $('#FLTholder').css("height", '');
-                                        $('#spaceholder').css("height", '');
-                                        $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
-                                    }
-                                    else {
-                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                    }
-                                    //else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
-                                    //    var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
-                                    //    palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
-                                    //    if (palaceholder == 0) {
-
-                                    //    }
-                                    //    else {
-                                    //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                    //        $('#spaceholder').css("height", palaceholder + 'px')
-                                    //    }
-                                    //    //alert($("#SIBdiv")[0].scrollHeight);
-                                    //    //alert($("#FLTholder")[0].scrollHeight);
-
-                                    //}
-                                    //var myspot = $("#spaceholder").height();
-                                    //if (($(window).scrollTop() <myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
-
-
-                                    //    $('#FLTholder').css("height", '');
-                                    //    $('#spaceholder').css("height", '')
-                                    //    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
-                                    //}
-                                    //else if ($(window).scrollTop() <stickyHeaderTop2) {
-
-
-                                    //    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-
-                                    //}
-                                    //Replace this with your function call for upward-scrolling
-                                    //alert("UP");
                                 }
-                                //Updates scroll position
-                                lastScroll = st;
+
 
                             }
+                            else {
+
+
+                                //alert($(window).scrollTop() );
+                                //alert(bottomline)
+                                //alert(pardivheight)
+
+
+
+
+                                // alert($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2);
+
+                                // if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() + $(window).height() <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2)) {
+                                if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() < bottomline - (pardivheight - $("#spaceholder").height()))) {
+                                    $('#FLTholder').css("height", '');
+                                    $('#spaceholder').css("height", '');
+                                    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                }
+                                else {
+                                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                }
+                                //else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
+                                //    var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
+                                //    palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
+                                //    if (palaceholder == 0) {
+
+                                //    }
+                                //    else {
+                                //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                //        $('#spaceholder').css("height", palaceholder + 'px')
+                                //    }
+                                //    //alert($("#SIBdiv")[0].scrollHeight);
+                                //    //alert($("#FLTholder")[0].scrollHeight);
+
+                                //}
+                                //var myspot = $("#spaceholder").height();
+                                //if (($(window).scrollTop() <myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
+
+
+                                //    $('#FLTholder').css("height", '');
+                                //    $('#spaceholder').css("height", '')
+                                //    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
+                                //}
+                                //else if ($(window).scrollTop() <stickyHeaderTop2) {
+
+
+                                //    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+
+                                //}
+                                //Replace this with your function call for upward-scrolling
+                                //alert("UP");
+                            }
+                            //Updates scroll position
+                            lastScroll = st;
+
                         }
+                    }
 
 
 
 
 
-                    });
+                });
 
-                }
-            });
+            })
+            //$.ajax({
+            //    url: '/Home/gogetproductlist',
+            //    dataType: 'html',
+            //    data: {
+            //        id: "1"
+
+            //    },
+            //    success: function (data) {
+                
+            //        $('#productlist').html(data);
+
+            //    },
+            //    error: function () {
+            //        alert("*****")
+            //    },
+            //    complete: function () {
+
+                    
+            //    }
+            //});
         </script>
         <script>
 
