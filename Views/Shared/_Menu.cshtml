@@ -86,7 +86,7 @@
                         if (cat.IsFinal == "1")
                         {
                             srtcat = "1" + cat.ID;
-                            <li style="cursor: pointer"><a href="@Url.Action("ProductList", "Home", new { catmode = srtcat })">@cat.title</a></li>
+                            <li style="cursor: pointer"><a href="@Url.Action("ProductList", "Home", new { catmode = srtcat, value =  @cat.title})">@cat.title</a></li>
                         }
                         else
                         {
@@ -106,13 +106,13 @@
                                             {
                                                 subsrtcat = "2" + SB.ID;
                                                 @*<li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat })">@SB.title</a></li>*@
-                                                <li><a href="/Home/ProductList?catmode=@subsrtcat">@SB.title</a></li>
+                                                <li><a href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title</a></li>
                                             }
                                             else if (SB.IsFinal == "0" && SB.CatID == cat.ID)
                                             {
                                                 subsrtcat = "2" + SB.ID;
                                                 <li class="li">
-                                                    <a href="/Home/ProductList?catmode=@subsrtcat">&nbsp;&nbsp;@SB.title</a>
+                                                    <a href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">&nbsp;&nbsp;@SB.title</a>
 
                                                     <ul>
                                                         @if (Model.catsdata.First().mysubcatcollection2 != null)
@@ -124,7 +124,7 @@
                                                                   
 
                                                                     subsrtcat2 = "3" + SB2.ID;
-                                                                    <li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2 })">@SB2.title</a></li>
+                                                                    <li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
                                                                 }
                                                             }
                                                         }
