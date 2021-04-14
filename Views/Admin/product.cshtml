@@ -769,20 +769,41 @@
                             </div>
                             <div class="row fieldholder col-lg-3" style="float:right">
                                 <label for="first-name" style="text-align: right">
-                                    واحد :
+                                    هشدار انبار :
                                 </label>
                                 <div>
                                     @{
                                         if (Model.productmodel != null)
                                         {
                                             <div>
-                                                <input  value=@Model.productmodel.productunit type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input value=@Model.productmodel.productunit type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         }
                                         else
                                         {
                                             <div>
                                                 <input type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            <div class="row fieldholder col-lg-3" style="float:right">
+                                <label for="first-name" style="text-align: right">
+                                    محدودیت خرید :
+                                </label>
+                                <div>
+                                    @{
+                                        if (Model.productmodel != null)
+                                        {
+                                            <div>
+                                                <input value=@Model.productmodel.productLimit type="text" id="productlimit" name="productlimit" required="required" class="form-control col-md-7 col-xs-12">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div>
+                                                <input type="text" id="productlimit" name="productlimit" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         }
                                     }

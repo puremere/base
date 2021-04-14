@@ -23,6 +23,8 @@
         }
     </script>
 
+
+
     if (@Model.Count() > 0)
     {
         <div class="contentSection">
@@ -36,9 +38,9 @@
                             <div class="row" style="padding:15px 15px">
                                 <p style="float:right; text-align:right; font-size:12px; font-weight:700 ; color:#808080">مبلغ کل ( <i class="simpleCart_quantityy"></i>  کالا) </p>
                                 @{
-                                    
+
                                     decimal leftbaseprice = Model.Sum(x => x.baseprice * x.quantity);
-                                     <p style="float: left; text-align: right; font-size: 14px; font-weight: 700; color: #808080; "><span id="basepriceholder">@String.Format("{0:n0}", @leftbaseprice)</span>  تومان</p>
+                                    <p style="float: left; text-align: right; font-size: 14px; font-weight: 700; color: #808080; "><span id="basepriceholder">@String.Format("{0:n0}", @leftbaseprice)</span>  تومان</p>
 
                                 }
 
@@ -60,7 +62,8 @@
                             <p style=" text-align:center; font-size:20px; padding:10px">مبلغ قابل پرداخت</p>
                             @{
                                 decimal payment = Model.Sum(x => x.price * x.quantity);
-                                
+
+
                                 <p style=" font-size: 22px; color: red; text-align: center; padding: 10px"><span id="spanfortotal2">@String.Format("{0:n0}", @payment)</span> تومان</p>
 
                             }
@@ -83,14 +86,32 @@
                                         background-position: right bottom;
                                     }
                             </style>
-                            <div class="mybtn " style="">
-                                <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 20%; padding: 20px; display: inline-block">
-                                    <img style="display:inline-block;width:30px " src="~/images/arrleft2.png" />
+                            @{
+                                List<banimo.ViewModel.CheckoutViewModel> isitemexist = Model.Where(x => x.limit < x.quantity || x.quantity > x.count).ToList();
+                                if (isitemexist.Count() == 0)
+                                {
+                                    <div class="mybtn " style="">
+                                        <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 20%; padding: 20px; display: inline-block">
+                                            <img style="display:inline-block;width:30px " src="~/images/arrleft2.png" />
 
-                                </div>
-                                <p id="confirmation" style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:65%; color:white" class=" ">ادامه ثبت سفارش</p>
+                                        </div>
 
-                            </div>
+                                        <p id="confirmation" style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:65%; color:white" class=" ">ادامه ثبت سفارش</p>
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="mybtn " style="    background-color: #4d4d4d;background-image: none; border: none;">
+                                     
+
+                                        <p  style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:100%;padding:20px;  color:white" class=" ">فاکتور خود را اصلاح کنید</p>
+
+                                    </div>
+                                }
+
+                            }
+
 
 
                         </div>
@@ -99,7 +120,7 @@
                     @{
                         int w = Request.Browser.ScreenPixelsWidth;
                         int h = Request.Browser.ScreenPixelsHeight;
-                        if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
+                        if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
                         {
                             <div id="tr2" class="col-lg-8" style=" display:none; width:100%; margin: 0px; float: right; padding: 5px;background-color: #f5f5f5">
 
@@ -124,7 +145,7 @@
                                         string pricesectionbase = "pricesectionbase" + i;
                                         string pricesection = "pricesection" + i;
                                         string finaltotal = "total" + i;
-                                        string imagesrc =  imagefile;
+                                        string imagesrc = imagefile;
                                         string quantity = item.quantity.ToString();
                                         string price = item.price.ToString();
                                         string baseprice = item.baseprice.ToString();
@@ -132,6 +153,28 @@
                                         decimal total = item.quantity * item.price;
                                         decimal totalbase = item.quantity * item.baseprice;
                                         string name = item.productname;
+                                        string background = "white";
+                                        string color = "black";
+                                        string message = "";
+                                        if (item.count < decimal.Parse(quantity))
+                                        {
+                                            background = "gray";
+                                            color = "white";
+                                            if (item.count != 0)
+                                            {
+                                                message = " موجود در انبار : " + item.count;
+                                            }
+                                            else
+                                            {
+                                                message = " ناموجود ";
+                                            }
+                                        }
+                                        if (item.limit < decimal.Parse(quantity))
+                                        {
+                                            background = "gray";
+                                            color = "white";
+                                            message = " محدودیت خرید : " + item.limit;
+                                        }
                                         <div style="background-color:white; border:1px solid #ddd; margin:5px; padding:5px">
                                             <div class="@classremname">
                                                 <div class="invert-closeb " style="position: relative; top: 15px;right:10px; z-index:999">
@@ -139,36 +182,36 @@
                                                         <div id=@classremname class=@classclosename> <i class="fa fa-times-circle" style="font-size:22px"></i></div>
                                                     </div>
                                                     <script>
-                                            $(document).ready(function (c) {
-                                                $('.@classclosename').on('click', function (c) {
+                                                        $(document).ready(function (c) {
+                                                            $('.@classclosename').on('click', function (c) {
 
 
-                                                    var ID = this.id
+                                                                var ID = this.id;
 
-                                                    $.ajax({
-                                                        url: '/Home/deletefromcart',
-                                                        dataType: 'html',
-                                                        data: {
-                                                            id: ID
+                                                                $.ajax({
+                                                                    url: '/Home/deletefromcart',
+                                                                    dataType: 'html',
+                                                                    data: {
+                                                                        id: ID
 
-                                                        },
-                                                        success: function (data) {
-                                                          window.location.reload()
+                                                                    },
+                                                                    success: function (data) {
+                                                                        window.location.reload()
 
-                                                        },
-                                                        error: function () {
+                                                                    },
+                                                                    error: function () {
 
-                                                        }
-
-
-                                                    });
+                                                                    }
 
 
+                                                                });
 
 
 
-                                                })
-                                            });
+
+
+                                                            });
+                                                        });
                                                     </script>
                                                 </div>
                                                 <div class="row" style="padding:0px">
@@ -177,33 +220,45 @@
                                                         <div class="invert" style="text-align: right; margin-bottom: 45px; font-weight:600">
                                                             @name
                                                         </div>
-                                                        @if (@price == "0")
-                                                        {
-                                                            <div class="invert  " style="display:none">توافقی</div>
-                                                            <div style="width: 50%" class=@finaltotal>توافقی</div>
-                                                        }
 
+                                                        @if (@message != "")
+                                                        {
+
+
+                                                            <div style="font-size:16px; " class=@finaltotal>@message</div>
+                                                        }
                                                         else
                                                         {
-                                                            <div class="@tobeadded" style="display: none; ">@price</div>
-                                                            <div class="@tobeaddedbase" style="display: none;">@baseprice</div>
-                                                            <div style="direction:ltr; margin-bottom:15px">
-                                                                <div style="width:100%; text-align:right">
-                                                                    <div>
-                                                                        <del style="display: inline-block; color: red" class="@pricesectionbase">@string.Format("{0:n0}", Convert.ToInt32(totalbase)) </del>
+                                                            if (@price == "0")
+                                                            {
+                                                                <div class="invert  " style="display:none">توافقی</div>
+                                                                <div style="width: 50%" class=@finaltotal>توافقی</div>
+                                                            }
+
+                                                            else
+                                                            {
+                                                                <div class="@tobeadded" style="display: none; ">@price</div>
+                                                                <div class="@tobeaddedbase" style="display: none;">@baseprice</div>
+                                                                <div style="direction:ltr; margin-bottom:15px">
+                                                                    <div style="width:100%; text-align:right">
+                                                                        <div>
+                                                                            <del style="display: inline-block; color: red" class="@pricesectionbase">@string.Format("{0:n0}", Convert.ToInt32(totalbase)) </del>
+                                                                        </div>
+
+                                                                        <div>
+                                                                            <p style="display:inline-block; color:green">تومان</p>
+                                                                            <p style="display: inline-block; color: green; font-size:16px; font-weight:600" class="@pricesection">@string.Format("{0:n0}", Convert.ToInt32(total)) </p>
+                                                                        </div>
                                                                     </div>
 
-                                                                    <div>
-                                                                        <p style="display:inline-block; color:green">تومان</p>
-                                                                        <p style="display: inline-block; color: green; font-size:16px; font-weight:600" class="@pricesection">@string.Format("{0:n0}", Convert.ToInt32(total)) </p>
-                                                                    </div>
+
+
+
                                                                 </div>
-
-
-
-
-                                                            </div>
+                                                            }
                                                         }
+
+
 
 
 
@@ -218,7 +273,7 @@
 
                                                                     <i id=@classminusname class="fa fa-minus-circle value-minus" style="border: none;  font-size: 22px; color: #36CDDF; "></i>
 
-                                                                    <div class="entry value"><span>@quantity</span></div>
+                                                                    <div style="background-color:@background; color:@color" class="entry value"><span>@quantity</span></div>
                                                                     <i id=@classaddname class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF; "></i>
 
                                                                 </div>
@@ -275,7 +330,7 @@
                                                     string pricesectionbase = "pricesectionbase" + i;
                                                     string pricesection = "pricesection" + i;
                                                     string finaltotal = "total" + i;
-                                                    string imagesrc =  imagefile;
+                                                    string imagesrc = imagefile;
                                                     string quantity = item.quantity.ToString();
                                                     string price = item.price.ToString();
                                                     string baseprice = item.baseprice.ToString();
@@ -283,75 +338,110 @@
                                                     decimal total = item.quantity * item.price;
                                                     decimal totalbase = item.quantity * item.baseprice;
                                                     string name = item.productname;
-                                                    <tr class=@classremname>
+                                                    string background = "white";
+                                                    string color = "black";
+                                                    string message = "";
+                                                    string parentback = "white";
+
+                                                    if (item.count < decimal.Parse(quantity))
+                                                    {
+                                                        background = "gray";
+                                                        parentback = "#fa5f5f";
+                                                        color = "white";
+                                                        if (item.count != 0)
+                                                        {
+                                                            message = " موجود در انبار : " + item.count;
+                                                        }
+                                                        else
+                                                        {
+                                                            message = " ناموجود ";
+                                                        }
+                                                    }
+                                                    if (item.limit < decimal.Parse(quantity))
+                                                    {
+                                                        background = "gray";
+                                                        parentback = "#fba9a9";
+                                                        color = "white";
+                                                        message = " محدودیت خرید : " + item.limit;
+                                                    }
+
+                                                    <tr class=@classremname style="background-color:@parentback">
                                                         <td id="row1_td1" class="invert-closeb " style="width:5%">
                                                             <div class="rem">
                                                                 <div id=@classremname class=@classclosename style="background-color:#ddd; border-radius:50%; padding:5px; width:30px"><img style="width:15px" src="~/images/del.png"> </div>
                                                             </div>
                                                             <script>
-                                                    $(document).ready(function (c) {
-                                                        $('.@classclosename').on('click', function (c) {
+                                                                $(document).ready(function (c) {
+                                                                    $('.@classclosename').on('click', function (c) {
 
 
-                                                            var ID = this.id
+                                                                        var ID = this.id;
 
-                                                            $.ajax({
-                                                                url: '/Home/deletefromcart',
-                                                                dataType: 'html',
-                                                                data: {
-                                                                    id: ID
+                                                                        $.ajax({
+                                                                            url: '/Home/deletefromcart',
+                                                                            dataType: 'html',
+                                                                            data: {
+                                                                                id: ID
 
-                                                                },
-                                                                success: function (data) {
-                                                                    window.location.reload()
-                                                                   
-
-                                                                },
-                                                                error: function () {
-
-                                                                }
+                                                                            },
+                                                                            success: function (data) {
+                                                                                window.location.reload()
 
 
-                                                            });
+                                                                            },
+                                                                            error: function () {
+
+                                                                            }
 
 
+                                                                        });
 
 
 
-                                                        })
-                                                    });
+
+
+                                                                    });
+                                                                });
                                                             </script>
                                                         </td>
                                                         <td id="row1_td2" style="width:20%; padding:20px" class="invert-image"><img style="width:110px" src="@imagesrc" alt=" " class="img-responsive" /></td>
                                                         <td id="row1_td3" style="width:25%" class="invert">
                                                             @name
-
-
                                                         </td>
 
                                                         <td id="row1_td4" style="width:25%" class="invert ">
                                                             <div class="quantity">
                                                                 <div class="quantity-select row">
                                                                     <div id=@classminusname class="entry value-minus" style="background-color: #ddd; border-radius: 50%; border-color:#eee">&nbsp;</div>
-                                                                    <div class="entry value"><span>@quantity</span></div>
+                                                                    <div style="background-color:@background; color:@color" class="entry value"><span>@quantity</span></div>
                                                                     <div id=@classaddname class="entry value-plus active" style="background-color: #ddd; border-radius: 50%; border-color: #eee">&nbsp;</div>
                                                                 </div>
                                                             </div>
                                                         </td>
 
-
-                                                        @if (price == "0")
+                                                        @if (@message != "")
                                                         {
-                                                            <td class="invert  " style="display:none">توافقی</td>
-                                                            <td style="width: 25%" class=@finaltotal>توافقی</td>
-                                                        }
 
+
+                                                            <td style="font-size:16px">@message</td>
+                                                        }
                                                         else
                                                         {
-                                                            <td class="invert @tobeadded" style="display:none">@price</td>
-                                                            <td class="invert @tobeaddedbase" style="display:none">@baseprice</td>
-                                                            <td id="" style="width: 25%; font-size:20px" class=@finaltotal><div style="color:#808080; font-size:14px"><p style="display:inline-block" class="@pricesectionbase">@string.Format("{0:n0}", Convert.ToInt32(totalbase)) </p> <p style="display:inline-block">تومان</p></div> <div><p style="display:inline-block" class="@pricesection">@string.Format("{0:n0}", Convert.ToInt32(total)) </p> <p style="display:inline-block">تومان</p></div></td>
+                                                            if (price == "0")
+                                                            {
+                                                                <td class="invert  " style="display:none">توافقی</td>
+                                                                <td style="width: 25%" class=@finaltotal>توافقی</td>
+                                                            }
+
+                                                            else
+                                                            {
+                                                                <td class="invert @tobeadded" style="display:none">@price</td>
+                                                                <td class="invert @tobeaddedbase" style="display:none">@baseprice</td>
+                                                                <td id="" style="width: 25%; font-size:20px" class=@finaltotal><div style="color:#808080; font-size:14px"><p style="display:inline-block" class="@pricesectionbase">@string.Format("{0:n0}", Convert.ToInt32(totalbase)) </p> <p style="display:inline-block">تومان</p></div> <div><p style="display:inline-block" class="@pricesection">@string.Format("{0:n0}", Convert.ToInt32(total)) </p> <p style="display:inline-block">تومان</p></div></td>
+                                                            }
                                                         }
+
+
 
 
 
@@ -397,7 +487,7 @@
                                 },
                                 success: function (data) {
                                     window.location.reload();
-                                  
+
 
 
                                 },
@@ -416,10 +506,10 @@
                             $("#loading").show();
                             var divUpd = $(this).siblings('.value'),
                                 newVal = parseInt(divUpd.text(), 10) - 1;
-                            
-                            
+
+
                             if (newVal >= 1) {
-                               
+
 
                                 var ID = this.id
                                 $.ajax({
@@ -462,61 +552,44 @@
             </div>
 
             <script>
-            $(document).ready(function () {
-                $('#confirmation').click(function () {
+                $(document).ready(function () {
+                    $('#confirmation').click(function () {
 
-                    var totalquantity = $(".simpleCart_quantityy").text();
 
-                    if (totalquantity === "0") {
-                        toastr.options = {
-                            "debug": false,
-                            "positionClass": "toast-top-center",
-                            "onclick": null,
-                            "fadeIn": 300,
-                            "fadeOut": 1000,
-                            "timeOut": 5000,
-                            "extendedTimeOut": 1000
-                        }
+                        var totalquantity = $(".simpleCart_quantityy").text();
+                        if (totalquantity === "0") {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 5000,
+                                "extendedTimeOut": 1000
+                            }
 
-                        toastr.error('موردی در سبد خرید وجود ندارد')
+                            toastr.error('موردی در سبد خرید وجود ندارد')
 
-                    }
-                    else {
-
-                        if ('@Session["LogedInUser"]' !== "") {
-
-                           // alert(@Session["LogedInUser"]);
-                            var URL = "/Home/EndOrder"
-                            window.location.href = URL;
                         }
                         else {
 
-                           window.location.href = "/Home/login"
+                            if ('@Session["LogedInUser"]' !== "") {
 
-                        }
-                        //$.ajax({
-                        //    url: '/Home/IsLogedIn',
-                        //    dataType: 'html',
-                        //    success: function (data) {
-                        //        if (data === "0") {
+                                // alert(@Session["LogedInUser"]);
+                                var URL = "/Home/EndOrder"
+                                window.location.href = URL;
+                            }
+                            else {
 
-                        //        }
-                        //        else {
+                                window.location.href = "/Home/login"
 
-                        //        }
+                            }
+                            
+                        };
 
+                    });
 
-
-                        //    },
-                        //    error: function () {
-
-                        //    }
-                        //});
-                    }
-
-                })
-
-            })
+                });
             </script>
         </div>
         <div class="checkout noData" style="display:none">
@@ -532,7 +605,7 @@
     else
     {
         <div class="checkout noData">
-            <div class="c-profile-empty" >
+            <div class="c-profile-empty">
 
                 موردی برای نمایش وجود ندارد!
             </div>

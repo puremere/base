@@ -221,10 +221,19 @@
                             </div>
                             <div class="form-group ">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12">
-                                    واحد :
+                                    هشدار انبار :
                                 </label>
                                 <div class="col-md-8 col-sm-8 col-xs-12">
                                     <input value='@Model.vahed' type="text" id="vahed" name="vahed" required="required" class="form-control col-md-7 col-xs-12">
+                                </div>
+
+                            </div>
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    محدودیت خرید :
+                                </label>
+                                <div class="col-md-8 col-sm-8 col-xs-12">
+                                    <input value='@Model.limit' type="text" id="limit" name="limit" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
 
                             </div>
@@ -247,14 +256,14 @@
 
                                     </div>
                                 </div>
-                                
+
                             </div>
                             <div class="form-group ">
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
-                                   
+
                                 </label>
 
-                                
+
                                 <script>
                                     $("#addDescButt").click(function () {
                                         $("#descriptionUpload").click();
@@ -492,26 +501,26 @@
 
                                                                         <div class="col-md-8 col-sm-8 col-xs-12">
                                                                             @{
-                                                                            <select id=productcolor name=productcolor onchange="Getcolorlist(this)" style="width:100%" class="" multiple>
-                                                                                @if (Model.Colores != null)
-                                                                                {
-                                                                                    foreach (var color in Model.Colores)
+                                                                                <select id=productcolor name=productcolor onchange="Getcolorlist(this)" style="width:100%" class="" multiple>
+                                                                                    @if (Model.Colores != null)
                                                                                     {
-                                                                                        if (color.Value == Model.color)
+                                                                                        foreach (var color in Model.Colores)
                                                                                         {
-                                                                                            <option value=@color.Value selected> @color.Text    </option>
+                                                                                            if (color.Value == Model.color)
+                                                                                            {
+                                                                                                <option value=@color.Value selected> @color.Text    </option>
 
-                                                                                        }
-                                                                                        else
-                                                                                        {
-                                                                                            <option value=@color.Value> @color.Text    </option>
+                                                                                            }
+                                                                                            else
+                                                                                            {
+                                                                                                <option value=@color.Value> @color.Text    </option>
 
+                                                                                            }
                                                                                         }
+
                                                                                     }
 
-                                                                            }
-
-                                                                            </select>
+                                                                                </select>
                                                                             }
                                                                             @* @Html.DropDownListFor(m => m.color, Model.Colores, new { id = "productcolor", name = "productcolor", onchange = "Getcolorlist(this)", style = "width:100%", @class = "DRPd" })*@
                                                                         </div>
