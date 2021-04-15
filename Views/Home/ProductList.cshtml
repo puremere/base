@@ -5,6 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 @*
     <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
     <link href="~/Content/jquery.mobile-1.4.5.css" rel="stylesheet" />*@
@@ -31,6 +32,8 @@
 
 
 <script>
+   
+   
     window.addEventListener("pageshow", function (event) {
         var historyTraversal = event.persisted ||
             (typeof window.performance != "undefined" &&
@@ -333,7 +336,13 @@
                 </div>
 
                 <div style="text-align:center; padding-top:10px" id="productlist">
-                    @{ Html.RenderAction("gogetproductlist", "Home"); }
+
+
+                    @{ 
+
+                        Html.RenderAction("gogetproductlist", "Home", new { fromList  = "1"});
+
+                        }
                     @*<div>
                         <div style="padding:15px 35px; background-color:white;position:relative;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
 
