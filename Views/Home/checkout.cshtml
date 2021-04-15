@@ -90,6 +90,7 @@
                                 List<banimo.ViewModel.CheckoutViewModel> isitemexist = Model.Where(x => x.limit < x.quantity || x.quantity > x.count).ToList();
                                 if (isitemexist.Count() == 0)
                                 {
+
                                     <div class="mybtn " style="">
                                         <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 20%; padding: 20px; display: inline-block">
                                             <img style="display:inline-block;width:30px " src="~/images/arrleft2.png" />
@@ -103,10 +104,7 @@
                                 else
                                 {
                                     <div class="mybtn " style="    background-color: #4d4d4d;background-image: none; border: none;">
-                                     
-
                                         <p  style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:100%;padding:20px;  color:white" class=" ">فاکتور خود را اصلاح کنید</p>
-
                                     </div>
                                 }
 
