@@ -2,7 +2,7 @@
 @using banimo.Classes;
 
 @{
-    ViewBag.Title = Model.title;
+    ViewBag.Title = Model.title + " | " +  @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -612,7 +612,7 @@
                                     List<string> list2 = Model.tag.Split(',').ToList();
                                     foreach (var tag in list2)
                                     {
-                                        <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag">@tag</div>
+                                        <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag"><a href="/Home/productlist?tag=@tag&value=@tag" style="padding:5px; color:white; text-decoration:none" >@tag</a></div>
 
                                     }
 
@@ -1019,7 +1019,7 @@
                                         List<string> list2 = Model.tag.Split(',').ToList();
                                         foreach (var item in list2)
                                         {
-                                            <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag item"><p>@item</p></div>
+                                    <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag item"> <a style="padding:5px; color:white; text-decoration:none" href="/Home/productlist?tag=@item&value=@item">@item</a></div>
 
                                         }
 
@@ -2039,13 +2039,7 @@
 <script src="~/Scripts/lg-thumbnail.js"></script>
 <script src="~/Scripts/lg-fullscreen.js"></script>
 <script src="~/Scripts/lg-zoom.js"></script>
-<script>
-    $(".tag").click(function () {
-        var value = $(this).text();
-        window.location.href = "/Home/productlist?tag=" + value;
 
-    })
-</script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#lightgallery").lightGallery();

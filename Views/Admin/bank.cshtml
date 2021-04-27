@@ -25,7 +25,7 @@
 </style>
 <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">حساب ها</a></li>
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">سرفصل ها</a></li>
         <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">ثبت تراکنش</a></li>
         @*<li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">ثبت درآمد ها</a></li>*@
 
@@ -131,6 +131,9 @@
                                         }
                                         toastr.error('تمامی موارد را کامل کنید')
                                     }
+                                    else {
+                                        $("#accountForm").submit();
+                                    }
                                 }
                                 else if (typeID == "3") {
                                     var title = $("#sandoghTitle").val();
@@ -145,6 +148,9 @@
                                             "extendedTimeOut": 1000
                                         }
                                         toastr.error('تمامی موارد را کامل کنید')
+                                    }
+                                    else {
+                                        $("#accountForm").submit();
                                     }
                                 }
                                 else if (typeID == "4") {
@@ -162,6 +168,9 @@
                                             "extendedTimeOut": 1000
                                         }
                                         toastr.error('تمامی موارد را کامل کنید')
+                                    }
+                                    else {
+                                        $("#accountForm").submit();
                                     }
                                 }
                             })
@@ -444,6 +453,12 @@
                                                                     <th>
                                                                         عنوان
                                                                     </th>
+                                                                    <th>
+                                                                        شعبه
+                                                                    </th>
+                                                                    <th>
+                                                                        شماره حساب
+                                                                    </th>
 
                                                                     <th>
 
@@ -457,24 +472,29 @@
                                                                         foreach (var item in Model.List.Where(x => x.type == "بانک"))
                                                                         {
 
-                                                                            <tr>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.ID)
-                                                                                </td>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.title)
-                                                                                </td>
+                                                                <tr>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.title)
+                                                                    </td>
 
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.shobe)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.shomare)
+                                                                    </td>
 
+                                                                    <td style="text-align: center;">
 
-                                                                                <td style="text-align: center;">
+                                                                        @{
+                                                                            <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                        }
 
-                                                                                    @{
-                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
-                                                                                    }
-
-                                                                                </td>
-                                                                            </tr>
+                                                                    </td>
+                                                                </tr>
                                                                         }
 
                                                                     }
@@ -523,16 +543,285 @@
 
                 <div class="tab-content">
                     <div id="Sdaramad" class="tab-pane fade in active" style="padding-top:20px">
-                        Sdaramad
+                        <form id="">
+                            <div class="row" style=" margin: 20px; padding: 35px; ">
+
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>انتخاب نوع درآمد :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("income1", new SelectList(Model.List.Where(x => x.type == "درآمد"), "ID", "title"), "-- انتخاب درآمد --", new { id = "partnerListForPartner", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مقصد تراکنش :</label>
+                                    @{
+
+
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("destination1", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "catListforPartner", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مبلغ :</label>
+                                    @{
+
+                                        <div class=" " style="width:100%">
+                                            <input id="price1" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>توضیحات :</label>
+                                    @{
+
+                                        <div class=" " style="width:100%">
+                                            <input id="Desc1" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+
+                                <div id="verifyCat" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+
+                            </div>
+                        </form>
+                        <script>
+                            $("#verifyCat").click(function () {
+                                var daramad = $("#income1").val();
+                                var destination = $("#destination1").val();
+                                var price = $("#price1").val();
+                                var desc = $("#Desc1").val();
+                                
+
+                                $.ajax({
+                                    url: "setCustomTransaction",
+                                    dataType: "html",
+                                    data: {
+                                        mabda: daramad,
+                                        maghsad: destination,
+                                        price: price,
+                                        desc: desc
+
+
+                                    },
+                                    success: function (data) {
+                                        window.location.reload();
+                                    }
+                                })
+                            })
+                        </script>
                     </div>
                     <div id="Shazine" class="tab-pane fade in " style="padding-top:20px">
-                        Shazine
+                        <form id="">
+                            <div class="row" style=" margin: 20px; padding: 35px; ">
+
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>انتخاب نوع هزینه :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("to2", new SelectList(Model.List.Where(x => x.type == "هزینه"), "ID", "title"), "-- انتخاب هزینه --", new { id = "to2", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مبدا تراکنش :</label>
+                                    @{
+
+
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("from2", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "from2", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مبلغ :</label>
+                                    @{
+
+                                        <div class=" " style="width:100%">
+                                            <input id="price2" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>توضیحات :</label>
+                                    @{
+
+                                        <div class=" " style="width:100%">
+                                            <input id="Desc2" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+
+                                <div id="verifyCat2" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+
+                            </div>
+                        </form>
+                        <script>
+                            $("#verifyCat2").click(function () {
+                                var from = $("#from2").val();
+                                var to = $("#to2").val();
+                                var price = $("#price2").val();
+                                var desc = $("#Desc2").val();
+                                
+
+                                $.ajax({
+                                    url: "setCustomTransaction",
+                                    dataType: "html",
+                                    data: {
+                                        fromSource: from,
+                                        toSource: to,
+                                        price: price,
+                                        desc: desc,
+                                        typeto: "2"
+
+
+                                    },
+                                    success: function (data) {
+                                        window.location.reload();
+                                    }
+                                })
+                            })
+                        </script>
                     </div>
                     <div id="factor" class="tab-pane fade in " style="padding-top:20px">
-                        factor
+                        <form id="">
+                            <div class="row" style=" margin: 20px; padding: 35px; ">
+
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>انتخاب تامین کننده :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("to2", new SelectList(Model.partnerList, "ID", "title"), "-- انتخاب تامین کننده --", new { id = "to3", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مبدا تراکنش :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("from2", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "from3", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مبلغ :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            <input id="price3" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>توضیحات :</label>
+                                    @{
+
+                                        <div class=" " style="width:100%">
+                                            <input id="Desc3" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+
+                                <div id="verifyCat3" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+
+                            </div>
+                        </form>
+                        <script>
+                            $("#verifyCat3").click(function () {
+                                var from = $("#from3").val();
+                                var to = $("#to3").val();
+                                var price = $("#price3").val();
+                                var desc = $("#Desc3").val();
+
+
+                                $.ajax({
+                                    url: "setCustomTransaction",
+                                    dataType: "html",
+                                    data: {
+                                        fromSource: from,
+                                        toSource: to,
+                                        price: price,
+                                        desc: desc,
+                                        typeto: "3"
+
+
+                                    },
+                                    success: function (data) {
+                                        window.location.reload();
+                                    }
+                                })
+                            })
+                        </script>
                     </div>
                     <div id="enteghal" class="tab-pane fade in " style="padding-top:20px">
-                        enteghal
+                        <form id="">
+                            <div class="row" style=" margin: 20px; padding: 35px; ">
+
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مبدا تراکنش :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("from4", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب تامین کننده --", new { id = "from4", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مقصد تراکنش :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            @Html.DropDownList("to4", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "to4", style = "width:100%; min-height:43px", @class = "form-control" })
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>مبلغ :</label>
+                                    @{
+                                        <div class=" " style="width:100%">
+                                            <input id="price4" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                                    <label>توضیحات :</label>
+                                    @{
+
+                                        <div class=" " style="width:100%">
+                                            <input id="Desc4" class="form-control" style="width:100%; min-height:43px" />
+                                        </div>
+                                    }
+                                </div>
+
+                                <div id="verifyCat4" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+
+                            </div>
+                        </form>
+                        <script>
+                            $("#verifyCat4").click(function () {
+                                var from = $("#from4").val();
+                                var to = $("#to4").val();
+                                var price = $("#price4").val();
+                                var desc = $("#Desc4").val();
+
+
+                                $.ajax({
+                                    url: "setCustomTransaction",
+                                    dataType: "html",
+                                    data: {
+                                        fromSource: from,
+                                        toSource: to,
+                                        price: price,
+                                        desc: desc,
+                                        typeto: "2"
+
+
+                                    },
+                                    success: function (data) {
+                                        window.location.reload();
+                                    }
+                                })
+                            })
+                        </script>
                     </div>
 
                 </div>

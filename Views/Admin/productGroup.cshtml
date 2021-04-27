@@ -27,7 +27,6 @@
         border-radius: 5px;
     }
 </style>
-
 <script>
 
      var filterstr = '@Model.filters';
@@ -178,14 +177,12 @@
                                 {
 
                                     @Html.AntiForgeryToken()
-
                                     <input id="type" name="type" type="hidden" />
                                     <input id="catID" name="catID" type="hidden" />
                                     <input id="catTitle" name="catTitle" type="hidden" />
                                     <input id="image" name="image" type="hidden" />
                                     <input id="ID" name="ID" type="hidden" />
-
-
+                                    <input id="contentID" hidden />
 
                                     <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:25px">
 
@@ -242,7 +239,7 @@
                                                             <span style="color:red; display:none">*</span>
 
                                                             <div id="contentHolder">
-                                                                <input value="" type="text" id="catidOrLink" name="catIDOrLink" required="required" class="form-control   ">
+                                                                <input value="" type="text" id="catIDOrLink" name="catIDOrLink" required="required" class="form-control   ">
                                                             </div>
 
 
@@ -290,7 +287,25 @@
 
 
 
+                                                    //change autocomplete source based on selected type
+                                                    $("#bannerList").change(function () {
 
+                                                        var val = $("#bannerList  option:selected").val();
+
+                                                        if (val === "filter") {
+                                                            $("#catIDOrLink").easyAutocomplete(filters);
+                                                        }
+                                                        else if (val == "cat") {
+                                                            $("#catIDOrLink").easyAutocomplete(cats);
+                                                        }
+                                                        else if (val == "subcat") {
+                                                            $("#catIDOrLink").easyAutocomplete(subcats);
+                                                        }
+                                                        else if (val == "subcat2") {
+                                                            $("#catIDOrLink").easyAutocomplete(subcats2);
+                                                        }
+
+                                                    });
                                                     // verify button
 
                                                 </script>
@@ -334,15 +349,20 @@
                                                             عنوان
                                                         </th>
                                                         <th style="text-align:center">
-                                                            مبلغ
+                                                            نوع
                                                         </th>
-
+                                                        <th style="text-align:center">
+                                                            محتوا
+                                                        </th>
+                                                        <th style="text-align:center">
+                                                            دسته بندی
+                                                        </th>
                                                         <th style="text-align:center">
                                                             حذف
                                                         </th>
-                                                        <th style="text-align:center">
-                                                            ویرایش
-                                                        </th>
+                                                        @*<th style="text-align:center">
+            ویرایش
+        </th>*@
 
                                                     </tr>
                                                 </thead>
@@ -354,36 +374,42 @@
                                                             {
 
                                                                 int index = @Model.grlist.IndexOf(item) + 1;
-                                                                <tr>
-                                                                    <td>
-                                                                        @index
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.title)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.catTitle)
-                                                                    </td>
-                                                                    <td>
+                                                    <tr>
+                                                        <td>
+                                                            @index
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.title)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.type)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.catIDOrLink)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.catTitle)
+                                                        </td>
+                                                        <td>
 
-                                                                        @{
-                                                                            var ID = @item.ID;
-                                                                            <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                            @{
+                                                                var ID = @item.ID;
+                                                                <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
 
-                                                                        }
+                                                            }
 
-                                                                    </td>
-                                                                    <td>
+                                                        </td>
+                                                        <td>
 
-                                                                        @{
+                                                            @{
 
-                                                                            <a id=@ID class="btn btn-primary Ebutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
+                                                                <a id=@ID class="btn btn-primary Ebutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
 
-                                                                        }
+                                                            }
 
-                                                                    </td>
+                                                        </td>
 
-                                                                </tr>
+                                                    </tr>
                                                             }
 
                                                         }
@@ -499,7 +525,9 @@
             $("#type").val($("#bannerList").val());
             $("#catID").val($("#listofcat").val());
             $("#catTitle").val($("#listofcat option:selected").text());
+            $("#image").val($("#imageUpload").val());
             $("form#setNewProductGroup").submit();
+           
         }
         else {
             toastr.options = {
@@ -517,26 +545,6 @@
 
 
     })
-    //change autocomplete source based on selected type
-    $("#bannerList").change(function () {
-
-        var val = $("#bannerList  option:selected").val();
-
-        if (val === "filter") {
-            alert(val)
-            $("#catIDOrLink").easyAutocomplete(filters);
-        }
-        else if (val == "cat") {
-            $("#catIDOrLink").easyAutocomplete(cats);
-        }
-        else if (val == "subcat") {
-            $("#catIDOrLink").easyAutocomplete(subcats);
-        }
-        else if (val == "subcat2") {
-            $("#catIDOrLink").easyAutocomplete(subcats2);
-        }
-
-    });
 </script>
 
 

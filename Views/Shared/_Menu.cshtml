@@ -1,41 +1,36 @@
 ﻿@model banimo.ViewModel.MyCollectionOfCatsList
 
-@{
+@section scripts{
 
 }
-<script src="~/Scripts/jquery.smartmenus.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('#main-menu').smartmenus({
-            subMenusSubOffsetX: 1,
-            subMenusSubOffsetY: -8
-        });
-    });
-</script>
+
+
+<style>
+    .mainForParent {
+        background-color: #f6f5f5;
+    }
+
+    .parentItem {
+        padding: 5px;
+        display: inline-block;
+        padding: 30px;
+        background-color: #eee;
+        cursor: pointer;
+    }
+
+    .mainForParent .actv {
+        background-color: #4d4d4d;
+        color: white;
+    }
+
+    .parentItem:hover {
+        background-color: #808080;
+        color: white
+    }
+</style>
+
 @{
-    <style>
-        .mainForParent {
-            background-color: #f6f5f5;
-        }
 
-        .parentItem {
-            padding: 5px;
-            display: inline-block;
-            padding: 30px;
-            background-color: #eee;
-            cursor: pointer;
-        }
-
-        .mainForParent .actv {
-            background-color: #4d4d4d;
-            color: white;
-        }
-
-        .parentItem:hover {
-            background-color: #808080;
-            color: white
-        }
-    </style>
 
     if (Model.catsParents != null)
     {
@@ -121,7 +116,7 @@
                                                             {
                                                                 if (SB2.subcatid == SB.ID)
                                                                 {
-                                                                  
+
 
                                                                     subsrtcat2 = "3" + SB2.ID;
                                                                     <li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
@@ -157,12 +152,19 @@
 
 
     </nav>
-
-
+    <script src="~/Scripts/jquery.smartmenus.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#main-menu').smartmenus({
+                subMenusSubOffsetX: 1,
+                subMenusSubOffsetY: -8
+            });
+        })
+    </script>
     <script>
         $('#back').click(function () {
 
-            if ($(window).width() <960) {
+            if ($(window).width() < 960) {
                 $("#main-nav").hide(500);
                 $("body").css("overflow", "scroll");
             }
@@ -196,92 +198,4 @@
     }
 
 }
-
-
-@*<li><a href="http://www.smartmenus.org/">Home</a></li>
-    <li>
-        <a href="http://www.smartmenus.org/about/">About</a>
-        <ul>
-            <li><a href="http://www.smartmenus.org/about/introduction-to-smartmenus-jquery/">Introduction to SmartMenus jQuery</a></li>
-            <li><a href="http://www.smartmenus.org/about/themes/">Demos + themes</a></li>
-            <li><a href="http://vadikom.com/about/#vasil-dinkov">The author</a></li>
-            <li>
-                <a href="http://www.smartmenus.org/about/vadikom/">The company</a>
-                <ul>
-                    <li><a href="http://vadikom.com/about/">About Vadikom</a></li>
-                    <li><a href="http://vadikom.com/projects/">Projects</a></li>
-                    <li><a href="http://vadikom.com/services/">Services</a></li>
-                    <li><a href="http://www.smartmenus.org/about/vadikom/privacy-policy/">Privacy policy</a></li>
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li><a href="http://www.smartmenus.org/download/">Download</a></li>
-    <li>
-        <a href="http://www.smartmenus.org/support/">Support</a>
-        <ul>
-            <li><a href="http://www.smartmenus.org/support/premium-support/">Premium support</a></li>
-            <li><a href="http://www.smartmenus.org/support/forums/">Forums</a></li>
-        </ul>
-    </li>
-    <li><a href="http://www.smartmenus.org/docs/">Docs</a></li>
-    <li>
-        <a href="#">Sub test</a>
-        <ul>
-            <li><a href="#">Dummy item</a></li>
-            <li><a href="#">Dummy item</a></li>
-            <li><a href="#" class="disabled">Disabled menu item</a></li>
-            <li><a href="#">Dummy item</a></li>
-            <li>
-                <a href="#">more...</a>
-                <ul>
-                    <li><a href="#">A pretty long text to test the default subMenusMaxWidth:20em setting for the sub menus</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li>
-                        <a href="#">more...</a>
-                        <ul>
-                            <li><a href="#">Dummy item</a></li>
-                            <li><a href="#" class="current">A 'current' class item</a></li>
-                            <li><a href="#">Dummy item</a></li>
-                            <li>
-                                <a href="#">more...</a>
-                                <ul>
-                                    <li><a href="#">subMenusMinWidth</a></li>
-                                    <li><a href="#">10em</a></li>
-                                    <li><a href="#">forced.</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#">Dummy item</a></li>
-                            <li><a href="#">Dummy item</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">Dummy item</a></li>
-                    <li><a href="#">A pretty long text to test the default subMenusMaxWidth:20em setting for the sub menus</a></li>
-
-                </ul>
-            </li>
-        </ul>
-    </li>
-    <li>
-        <a href="#">Mega menu</a>
-        <ul class="mega-menu">
-            <li>
-                <!-- The mega drop down contents -->
-                <div style="width:400px;max-width:100%;">
-                    <div style="padding:5px 24px;">
-                        <p>This is a mega drop down test. Just set the "mega-menu" class to the parent UL element to inform the SmartMenus script. It can contain <strong>any HTML</strong>.</p>
-                        <p>Just style the contents as you like (you may need to reset some SmartMenus inherited styles - e.g. for lists, links, etc.)</p>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </li>*@
-
 

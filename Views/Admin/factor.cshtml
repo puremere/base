@@ -42,12 +42,231 @@
 
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">آخرین فاکتورها </a></li>
+        <li class="active"><a data-toggle="tab" href="#alert" style=" color: #8d8d8d; ">لیست هشدار کالا </a></li>
+        <li><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">آخرین فاکتورها </a></li>
         <li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">افزودن فاکتور جدید</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="home" class="tab-pane fade in active" style="padding-top:20px">
+        <div id="alert" class="tab-pane fade in active" style="padding-top:20px">
+            <div id="OrderTableHolder">
+                <div class="row">
+                    <div style="overflow-x:auto;padding:10px">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> لیست محصولات  </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div id="morris-area-chart">
+                                    <div style="overflow:auto; max-height:400px; overflow-y:scroll">
+
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th style="cursor:pointer" class="orderID">ردیف</th>
+                                                    <th>شماره محصول</th>
+
+                                                    <th style="white-space: nowrap; ">عنوان محصول</th>
+                                                    <th>رنگ</th>
+                                                    <th>تعداد</th>
+                                                    <th></th>
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @{
+                                                    if (Model.myProducts != null)
+                                                    {
+                                                        foreach (var item in Model.myProducts)
+                                                        {
+
+                                                            int i = Model.myProducts.IndexOf(item) + 1;
+
+                                                <tr style=" ">
+                                                    <td>@i</td>
+                                                    <td>@item.id</td>
+                                                    <td style="white-space: nowrap;">@item.title</td>
+                                                    <td> @item.colorTitle</td>
+                                                    <td> @item.count</td>
+                                                    <td><img style="width:150px" src="@item.image" /></td>
+
+
+                                                </tr>
+                                                        }
+                                                    }
+                                                }
+
+
+
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <script>
+                    var idselected = "";
+                    $(".order").click(function () {
+
+                        if ($("#dataOrder").text() == "11") {
+                            $("#dataOrder").text("12");
+
+                        }
+                        else {
+
+                            $("#dataOrder").text("11");
+
+                        }
+
+                        order = $("#dataOrder").text();
+                        type = $("#selectOrderType").val();
+
+                        $.ajax({
+                            url: '/Admin/ChangeOrderList',
+                            dataType: 'html',
+                            data: {
+                                type: type,
+                                order: order
+
+                            },
+
+                            success: function (data) {
+
+                                $("#OrderTableHolder").html(data);
+                            }
+
+
+
+                        });
+                    });
+                    $(".orderID").click(function () {
+
+                        if ($("#dataOrder").text() == "21") {
+                            $("#dataOrder").text("22");
+
+                        }
+                        else {
+
+                            $("#dataOrder").text("21");
+
+                        }
+
+                        order = $("#dataOrder").text();
+                        type = $("#selectOrderType").val();
+
+                        $.ajax({
+                            url: '/Admin/ChangeOrderList',
+                            dataType: 'html',
+                            data: {
+                                type: type,
+                                order: order
+
+                            },
+
+                            success: function (data) {
+
+                                $("#OrderTableHolder").html(data);
+                            }
+
+
+
+                        });
+                    });
+                    $(".orderdetail").click(function () {
+
+                        var ID = $(this).attr('id');
+                        //alert("aaa");
+                        //alert(ID);
+                        $.ajax({
+                            url: '/Admin/goGetFactorDetail',
+                            dataType: 'html',
+                            data: {
+                                id: ID,
+
+                            },
+
+                            success: function (data) {
+
+                                $(".detailHolder").html(data);
+                                $("#loading").fadeOut();
+
+                            }
+
+
+
+                        });
+                    })
+                    $(".deliverorder").click(function () {
+                        var ID = $(this).attr('id');
+
+                        $.ajax({
+
+                            url: '/Admin/finalizeOrderAndDeliver',
+                            dataType: 'html',
+                            data: {
+                                id: ID,
+                                type: "5"
+                            },
+
+                            success: function (data) {
+
+                                window.location.reload();
+                            }
+
+
+
+                        });
+                    })
+                    $("#setDeliver").click(function () {
+                        $("#myModal").modal('toggle');
+                        var deliverID = $("#deliverDromdown").val();
+                        var description = $('textarea#adminDesc').val();
+                        $.ajax({
+                            url: '/Admin/finalizeOrderAndDeliver',
+                            dataType: 'html',
+                            data: {
+                                id: idselected,
+                                deliverID: deliverID,
+                                type: "4",
+                                desc: description
+                            },
+
+                            success: function (data) {
+
+                                window.location.reload();
+                            }
+
+
+
+                        });
+                    })
+
+                    $(".deliver").click(function () {
+                        $("#myModal").modal('toggle');
+                        idselected = $(this).attr('id');
+                    })
+                    //comment
+                    $(".finalorder").click(function () {
+                        $("#myModal").modal('toggle');
+                        idselected = $(this).attr('id');
+
+                    })
+                </script>
+                <div class="detailHolder">
+
+                </div>
+            </div>
+        </div>
+        <div id="home" class="tab-pane fade in" style="padding-top:20px">
 
 
 

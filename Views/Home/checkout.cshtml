@@ -6,6 +6,7 @@
 }
 
 
+
 @{
 
     <link href="~/Content/checkoutStyle.css" rel="stylesheet" />
@@ -22,6 +23,22 @@
             return x1 + x2;
         }
     </script>
+    if (ViewBag.Message != "")
+    {
+        <script>
+         
+            toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error('@ViewBag.message' + " ، تنها یک مورد از این گروه میتواند در سبد خرید وجود داشته باشد")
+        </script>
+    }
 
 
 
@@ -88,7 +105,7 @@
                             </style>
                             @{
                                 List<banimo.ViewModel.CheckoutViewModel> isitemexist = Model.Where(x => x.limit < x.quantity || x.quantity > x.count).ToList();
-                                if (isitemexist.Count() == 0)
+                                if (isitemexist.Count() == 0 && ViewBag.message == "")
                                 {
 
                                     <div class="mybtn " style="">
@@ -104,7 +121,7 @@
                                 else
                                 {
                                     <div class="mybtn " style="    background-color: #4d4d4d;background-image: none; border: none;">
-                                        <p  style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:100%;padding:20px;  color:white" class=" ">فاکتور خود را اصلاح کنید</p>
+                                        <p style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:100%;padding:20px;  color:white" class=" ">فاکتور خود را اصلاح کنید</p>
                                     </div>
                                 }
 
@@ -582,7 +599,7 @@
                                 window.location.href = "/Home/login"
 
                             }
-                            
+
                         };
 
                     });

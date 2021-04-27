@@ -1,0 +1,280 @@
+﻿@model banimo.AdminPanel.ViewModel.catAll
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "مدیریت مطالب";
+}
+<style>
+    .nav-tabs {
+        padding-right: 0px;
+    }
+
+        .nav-tabs li {
+            float: right !important;
+        }
+
+    .classhide{
+        display:none;
+    }
+    .classshow {
+        display: inline-block;
+    }
+</style>
+<link href="~/Content/css-circular-prog-bar.css" rel="stylesheet" />
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    if (Model.filtercatsAll != null)
+    {
+        foreach (var item in Model.filtercatsAll)
+        {
+            listItems.Add(new SelectListItem
+            {
+                Text = item.title,
+                Value = "1" + item.ID
+            });
+            if (item.filtersubcat != null)
+            {
+                foreach (var subcat in item.filtersubcat)
+                {
+                    listItems.Add(new SelectListItem
+                    {
+                        Text = "---" + subcat.title,
+                        Value = "2" + subcat.ID
+                    });
+                    if (subcat.filtersubcat2 != null)
+                    {
+                        foreach (var subcat2 in subcat.filtersubcat2)
+                        {
+                            listItems.Add(new SelectListItem
+                            {
+                                Text = "------" + subcat2.title,
+                                Value = "3" + subcat2.ID
+                            });
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+
+
+}
+
+<div class="modal fade" id="delmodal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <p class="modalDelQuestion">آیا از حذف آیتم اطمینان دارید؟</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="remove">تایید</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="margin:50px; padding:50px; border:1px solid #fff;    box-shadow: 2px 2px 5px -1px rgb(148 149 153); border-radius: 5px; background-color:white; margin-top:100px">
+    <div class=" component col-md-3 col-sm-3 col-xs-12" style="min-width:250px">
+        <label> طبقه بندی </label>
+        <div style="width:100%">
+            @Html.DropDownList("catname", listItems, "select item", new { id = "listofcat", @class = "form-control" })
+        </div>
+    </div>
+    <div class="component">
+        <label> عنوان </label>
+        <input type="text" id="title" required="required" class="form-control INP">
+    </div>
+    <div class="component">
+        <label> عکس  </label>
+        <input id="imageFileHolder" type="file" required="required" class="form-control INP">
+    </div>
+    <div class="component classshow">
+        <div id="addCat" class="btn btn-success">افزودن</div>
+    </div>
+    <div class="component classshow">
+        <div id="edit" class="btn btn-success">ویرایش</div>
+    </div>
+    <div class="component classshow">
+        <div id="removeButt" class="btn btn-success">حذف</div>
+    </div>
+    <div class="component classhide">
+        <div id="verifEdit" class="btn btn-success">تایید  </div>
+    </div>
+    <div class="component classhide">
+        <div id="cancelEdit" class="btn btn-success">لغو</div>
+    </div>
+    <p hidden class="imageName"></p>
+    <div style="width:100%">
+        <div id="imageHolder" style="display:flex; ">
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/download.js"></script>
+
+<script>
+    $("#imageFileHolder").on('change', function () {
+
+        uploadImage("imageHolder", "imageName", this)
+    });
+    $("#addCat").click(function () {
+
+        var catname = $("#listofcat").val();
+        if (catname == "") {
+            catname = "00";
+        }
+        var name = $("#title").val();
+        var image = $(".imageName").text();
+
+        if (catname != "" && name != "" && image != "") {
+            $.ajax({
+                url: "/admin/setnewcatNew",
+                dataType: "html",
+                data: {
+                    catID: catname,
+                    title: name,
+                    image: image
+                },
+                success: function (data) {
+                    if (data == "1") {
+                        location.reload();
+
+                    }
+                }
+            })
+        }
+    })
+    $("#removeButt").click(function () {
+        $("#delmodal").modal('toggle');
+
+    })
+    $("#remove").click(function () {
+
+        var catname = $("#listofcat").val();
+        if (catname != "") {
+            $.ajax({
+                url: "/admin/delnewcatNew",
+                dataType: "html",
+                data: {
+                    catid: catname,
+
+                },
+                success: function (data) {
+                    if (data == "1") {
+                        location.reload();
+
+                    }
+                    else {
+                        $("#delmodal").modal('toggle');
+                        alert(data)
+                    }
+                }
+            })
+        }
+    })
+
+    $("#edit").click(function () {
+        var catname = $("#listofcat").val();
+        if (catname != "") {
+            $.ajax({
+                url: "/admin/getCatDetail",
+                dataType: "html",
+                data: {
+                    catid: catname,
+
+                },
+                success: function (data) {
+                    $(".classhide").css("display","inline-block");
+                    $(".classshow").css("display", "none");
+                    var obj = JSON.parse(data);
+                    var image =  obj[0]["image"];
+                    var title = obj[0]["title"];
+                    $("#title").val(title);
+
+                    if (image != null) {
+                        var htmldiv = `<div id=` + image + ` class="imageCover" style="postion:relative !important; width:150px"><div><div  style="position:relative"><img src="/images/` + image + `" style="width:150px"" src="#" /> <img  onclick= deletImage("` + image + `")   " class="removeImage" src="/images/trash.png" style="position:absolute; bottom:0;top:0;left:0;right:0;margin:auto" /><div></div></div> `;
+                        $("#imageHolder").append(htmldiv);
+
+
+                        var srt = $(".imageName").text();
+                        $(".imageName").text(obj[0]["image"] + "," + srt);
+                    }
+                   
+
+                }
+            })
+        }
+    })
+    var deletImage = function (name) {
+        var srt = $(".imageName").text();
+        srt = srt.replace(name + ",", "");
+        $(".imageName").text(srt);
+        $.ajax({
+            url: "/admin/removeImage",
+            data: {
+                id: name
+            },
+            success: function () {
+                var element = document.getElementById(name);
+                element.style.display = "none";
+            }
+        })
+    }
+    $("#verifEdit").click(function () {
+        var catname = $("#listofcat").val();
+        var name = $("#title").val();
+        var image = $(".imageName").text();
+
+        if (catname != "" && name != "" && image != "") {
+            $.ajax({
+                url: "/admin/editcatNew",
+                dataType: "html",
+                data: {
+                    catID: catname,
+                    title: name,
+                    image: image
+                },
+                success: function (data) {
+                    if (data == "1") {
+                        location.reload();
+
+                    }
+                }
+            })
+        }
+    })
+    $("#cancelEdit").click(function () {
+        $(".classhide").css("display", "none");
+        $(".classshow").css("display", "inline-block");
+        $("#imageHolder").css("display", "none");
+        $("#title").val("");
+    })
+    $(".ImageDelete").click(function () {
+
+        var name = $(".imageName").text();
+        $.ajax({
+            url: "/admin/deleteImage",
+            data: {
+                id: name
+            },
+            success: function () {
+                var srt = $(".imageName").text();
+                $(".imageName2").text(srt.replace(name+ ","),"" );
+                $("#imageHolder0").css("display","none")
+            }
+        })
+
+    });
+</script>
+
+
+
+

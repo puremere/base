@@ -70,6 +70,7 @@
                     padding-right: 0px;
                     border-bottom: 2px solid black
                 }
+
                 #loading {
                     align-content: center;
                     background: #fff;
@@ -83,7 +84,8 @@
                     margin: 0 auto;
                 }
             </style>
-
+            <script src="~/Scripts/toastr.js"></script>
+            <link href="~/Content/toastr.css" rel="stylesheet" />
 
         </head>
         <body>
@@ -628,11 +630,6 @@
                 gtag('config', '@analyticID');
             </script>
 
-
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-
-
-
             <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
             <title>@ViewBag.Title </title>
@@ -643,7 +640,7 @@
             <meta http-equiv="content-language" content="fa" />
 
             <!-- Mobile Specific Metas
-            ================================================== -->
+    ================================================== -->
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
 
@@ -652,24 +649,6 @@
             <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.jpg" />
             <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.jpg" />
             <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.jpg" />
-
-            @RenderSection("HeadIncludes", required: false)
-
-
-
-
-
-
-            <link href="~/Content/bundle.css" rel="stylesheet" />
-            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-            <script src="~/Scripts/jquery.flexslider2.js"></script>
-            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
-            <script src="~/Scripts/imagezoom.js"></script>
-            <script src="~/Scripts/toastr.js"></script>
-            <script src="~/Scripts/jquery-ui.js"></script>
-            @RenderSection("header", required: false)
-
-
             <style>
                 #loading {
                     align-content: center;
@@ -684,10 +663,26 @@
                     margin: 0 auto;
                 }
             </style>
+            @RenderSection("HeadIncludes", required: false)
 
-            @RenderSection("scripts", required: false)
+
+
+
+
+
+            <link href="~/Content/bundle.css" rel="stylesheet" />
+            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+            <script src="~/Scripts/jquery.flexslider2.js"></script>
+            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+            <script src="~/Scripts/imagezoom.js"></script>
+            <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/jquery-ui.js"></script>
+           
+            @RenderSection("header", required: false)
+
             <link href="~/Content/layoutStyle.css" rel="stylesheet" />
-
+            <script src="~/Scripts/toastr.js"></script>
+            <link href="~/Content/toastr.css" rel="stylesheet" />
 
         </head>
         <body>
@@ -724,7 +719,7 @@
                                                     @{
 
                                                         <th style="padding: 0 0px;"><span class="cartnumber simpleCart_quantityy" id="simpleCart_quantityy"></span></th>
-                                                       
+
                                                     }
                                                     <th style="padding: 0 10px;"></th>
 
@@ -1101,7 +1096,9 @@
                         <!-- Sample menu definition -->
 
                         @{ Html.RenderAction("getmenue", "Home"); }
+                       
 
+                      
                     </nav>
                 </div>
 
@@ -1118,22 +1115,6 @@
 
 
             @{Html.RenderAction("contactSection", "Home");}
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- //login -->
-
-
 
 
 
@@ -1157,23 +1138,6 @@
                         $("#contactPhone").text($("#footerPhone").text());
 
                     })
-                    //$.ajax({
-                    //    url: '/Home/getmenue/',
-                    //    dataType: 'html',
-
-                    //    success: function (data) {
-
-                    //        $('#mainmenu').html(data);
-
-
-                    //    },
-                    //    error: function () {
-                    //        alert("error")
-                    //    }
-                    //});
-
-
-
 
                     $('.showmedetail').click(function () {
                         var ID = this.id;
@@ -1183,14 +1147,7 @@
 
                     $('.tracotdda').click(function () {
                         var ID = this.id;
-
-                        //var pricetotal = document.getElementById("spanfortotal").textContent;
                         var tobeadded = $('.item_price', $(this).parent('div:first')).text();
-                        //var counttotal = document.getElementById("simpleCart_quantityy").textContent;
-                        //var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
-                        //var finalcount = parseInt(counttotal, 10) + 1;
-                        //$('#spanfortotal').text(final);
-                        //$('#simpleCart_quantityy').text(finalcount)
 
 
                         $.ajax({
@@ -1202,23 +1159,6 @@
 
                             },
                             success: function (data) {
-                                //$.ajax({
-                                //    url: '/Home/gogetfinalprice/',
-
-
-                                //    success: function (data) {
-                                //        var array = data.split(',');
-                                //        $("#basepriceholder").text(addCommas(array[1]))
-                                //        $("#spanfortotal").text(addCommas(array[0]))
-                                //        $("#spanfortotal2").text(addCommas(array[0]))
-                                //        $(".simpleCart_quantityy").text(array[2])
-
-                                //    },
-                                //    error: function () {
-
-                                //    }
-                                //});
-
 
                                 toastr.options = {
                                     "debug": false,
@@ -1249,7 +1189,6 @@
                 })
 
             </script>
-
             <script>
                 var getquntity = function () {
                     $.ajax({
@@ -1258,7 +1197,7 @@
                         success: function (data) {
                             var total = 0;
                             var srtcookie = data;
-                           
+
                             if (srtcookie.length > 0) {
                                 srtcookie = srtcookie.replace(/&quot;/g, '"');
                                 JSON.parse(srtcookie).forEach(function (item) {
@@ -1266,7 +1205,7 @@
                                     $("." + valueID).text(item.quantity);
                                     total += parseInt(item.quantity);
                                 });
-                                 $(".simpleCart_quantityy").text(total)
+                                $(".simpleCart_quantityy").text(total)
 
                             } else {
                                 $(".simpleCart_quantityy").text("0")
@@ -1276,13 +1215,13 @@
                     })
                 };
                 getquntity();
-               
+
 
 
 
 
             </script>
-
+            @RenderSection("scripts", required: false)
 
         </body>
     }
