@@ -89,7 +89,7 @@
                             srtcat = "1" + cat.ID;
                             <li class="li catItem @pID">
 
-                                <a style="cursor:default">@cat.title</a>
+                                <a href="@Url.Action("ProductList", "Home", new { catmode = srtcat, value =  @cat.title})" style="cursor:default">@cat.title</a>
                                 <ul>
                                     @if (Model.catsdata.First().mysubcatcollection != null)
                                     {
