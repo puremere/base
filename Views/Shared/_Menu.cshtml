@@ -66,6 +66,8 @@
 
 
         <ul id="main-menu" class="sm sm-rtl sm-mint" style="z-index:1000; ">
+            
+            
             <li id="back" style=" display:none; cursor: pointer; border-bottom: 3px solid ; border-bottom-color:transparent"><a style="padding-right:20px"><i class="fa fa-arrow-left" style="margin-left:25px"></i>بازگشت</a></li>
 
             <li style="cursor: pointer; border-bottom: 3px solid ; border-bottom-color:transparent"><a href="@Url.Action("Index", "Home")">خانه</a></li>
@@ -88,16 +90,14 @@
                             string pID = "P" + cat.parentID;
                             srtcat = "1" + cat.ID;
                             <li class="li catItem @pID">
+                                
                                 <div>
                                     <a href="@Url.Action("submenu", "Home", new { catmode = srtcat, value =  @cat.title})" style="cursor:default">@cat.title</a>
 
                                 </div>
-                                <div style="display:flex; background-color:white">
-                                    <div style="width : 30%">
-                                        @*<img src="~/images/panelimages/0HYZ7AM.jpg" />*@
-                                    </div>
-                                    <div style="flex:1">
-                                        <ul style="flex-direction:column; flex-wrap: wrap; height:400px; padding:50px">
+                                <ul  style="height:800px; background-color:rgba(0,0,0,0.5)">
+                                    <li>
+                                        <ul class="ulinside" style="flex-direction:column; flex-wrap: wrap; height:400px; padding:50px">
                                             @if (Model.catsdata.First().mysubcatcollection != null)
                                             {
                                                 foreach (var SB in Model.catsdata.First().mysubcatcollection)
@@ -107,14 +107,15 @@
                                                     if (SB.IsFinal == "1" && SB.CatID == cat.ID)
                                                     {
                                                         subsrtcat = "2" + SB.ID;
-                                                        <li><a style="font-weight:600; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title</a></li>
+                                                        <li style=" display:flex; align-items:center;"><a style="font-weight:500; font-size:12px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title</a><i class="fa fa-angle-left" style="color:black"></i></li>
                                                     }
                                                     else if (SB.IsFinal == "0" && SB.CatID == cat.ID)
                                                     {
                                                         subsrtcat = "2" + SB.ID;
-                                                        <li class="li">
-                                                            <a style="font-weight:600; font-size:14px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">&nbsp;&nbsp;@SB.title</a>
+                                                        <li class="li" style=" display:flex; align-items:center;">
 
+                                                            <a style="font-weight:500; font-size:12px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">&nbsp;&nbsp;@SB.title</a>
+                                                            <i class="fa fa-angle-left" style="color:black"></i>
                                                         </li>
                                                         if (Model.catsdata.First().mysubcatcollection2 != null)
                                                         {
@@ -125,7 +126,7 @@
 
 
                                                                     subsrtcat2 = "3" + SB2.ID;
-                                                                    <li><a style="font-weight:500; font-size:14px" href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SB2.title</a></li>
+                                                                    <li><a style="font-weight:400; font-size:12px" href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
                                                                 }
                                                             }
                                                         }
@@ -140,18 +141,21 @@
                                             @{
                                                 if (cat.image != "")
                                                 {
-                                                    <li style="text-align:right; width:300px; height:300px; object-fit:cover">
+                                                    <li style="text-align:right; width:200px; height:300px; object-fit:cover">
+                                                    </li>
+                                                    <li style="    box-shadow: 2px 2px 5px -1px rgb(148 149 153);border-radius: 5px; text-align:right; width:400px; height:300px; object-fit:cover">
                                                         <img style="width:100%; object-fit:cover" src="~/images/@cat.image" />
                                                     </li>
 
                                                 }
                                             }
-
                                         </ul>
-                                    </div>
+                                    </li>
+                                    
                                    
-                                </div>
-                              
+
+                                </ul>
+
                             </li>
 
                         }
