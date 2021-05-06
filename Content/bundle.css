@@ -24381,7 +24381,7 @@ td.invert-image a img {
   
   }
     .sm-mint .ulinside {
-        width: 75% !important;
+        width: 75% ;
         margin-right: 5%;
         border-radius: 0 0 15px 15px !important;
         border-radius: 0 4px 4px 4px;
