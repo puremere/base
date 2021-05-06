@@ -98,11 +98,12 @@
             @foreach (var newitem in Model.mycat)
             {
                 string classname = "cbp-item ";
-
+                string url = "";
+                
                 string imagaddress = newitem.image.ToString() == "" ? "/images/placeholder.jpg" : "/images/" + newitem.image;
                 <div class="@classname" style="direction:rtl; border:1px solid #ddd;border-radius: 18px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
 
-                    <a href="/Home/magDetail?currentid=@newitem.ID" target="" class="cbp-caption">
+                    <a href="/Home/ProductList?catmode=@newitem.ID" target="" class="cbp-caption">
                         <div class="cbp-caption-defaultWrap">
                             <img src="@imagaddress" style="max-height:230px; max-width:380px ; background-color:white; object-fit: cover;" />
                         </div>
