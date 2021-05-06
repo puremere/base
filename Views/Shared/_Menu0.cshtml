@@ -91,67 +91,53 @@
                                 <div>
                                     <a href="@Url.Action("submenu", "Home", new { catmode = srtcat, value =  @cat.title})" style="cursor:default">@cat.title</a>
 
+
                                 </div>
-                                <div style="display:flex; background-color:white">
-                                    <div style="width : 30%">
-                                        @*<img src="~/images/panelimages/0HYZ7AM.jpg" />*@
-                                    </div>
-                                    <div style="flex:1">
-                                        <ul style="flex-direction:column; flex-wrap: wrap; height:400px; padding:50px">
-                                            @if (Model.catsdata.First().mysubcatcollection != null)
+                                <ul>
+                                    @if (Model.catsdata.First().mysubcatcollection != null)
+                                    {
+                                        foreach (var SB in Model.catsdata.First().mysubcatcollection)
+                                        {
+
+
+                                            if (SB.IsFinal == "1" && SB.CatID == cat.ID)
                                             {
-                                                foreach (var SB in Model.catsdata.First().mysubcatcollection)
-                                                {
+                                                subsrtcat = "2" + SB.ID;
+                                                @*<li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat })">@SB.title</a></li>*@
+                                                <li><a href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">@SB.title</a></li>
+                                            }
+                                            else if (SB.IsFinal == "0" && SB.CatID == cat.ID)
+                                            {
+                                                @*subsrtcat = "2" + SB.ID;
+                                                    <li class="li">
+                                                        <a href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">&nbsp;&nbsp;@SB.title</a>
 
-
-                                                    if (SB.IsFinal == "1" && SB.CatID == cat.ID)
-                                                    {
-                                                        subsrtcat = "2" + SB.ID;
-                                                        <li><a style="font-weight:600; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title</a></li>
-                                                    }
-                                                    else if (SB.IsFinal == "0" && SB.CatID == cat.ID)
-                                                    {
-                                                        subsrtcat = "2" + SB.ID;
-                                                        <li class="li">
-                                                            <a style="font-weight:600; font-size:14px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">&nbsp;&nbsp;@SB.title</a>
-
-                                                        </li>
-                                                        if (Model.catsdata.First().mysubcatcollection2 != null)
-                                                        {
-                                                            foreach (var SB2 in Model.catsdata.First().mysubcatcollection2)
+                                                        <ul>
+                                                            @if (Model.catsdata.First().mysubcatcollection2 != null)
                                                             {
-                                                                if (SB2.subcatid == SB.ID)
+                                                                foreach (var SB2 in Model.catsdata.First().mysubcatcollection2)
                                                                 {
+                                                                    if (SB2.subcatid == SB.ID)
+                                                                    {
 
 
-                                                                    subsrtcat2 = "3" + SB2.ID;
-                                                                    <li><a style="font-weight:500; font-size:14px" href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @SB2.title</a></li>
+                                                                        subsrtcat2 = "3" + SB2.ID;
+                                                                        <li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
+                                                                    }
                                                                 }
                                                             }
-                                                        }
 
+                                                        </ul>
+                                                    </li>*@
 
-                                                    }
-
-
-
-                                                }
-                                            }
-                                            @{
-                                                if (cat.image != "")
-                                                {
-                                                    <li style="text-align:right; width:300px; height:300px; object-fit:cover">
-                                                        <img style="width:100%; object-fit:cover" src="~/images/@cat.image" />
-                                                    </li>
-
-                                                }
                                             }
 
-                                        </ul>
-                                    </div>
-                                   
-                                </div>
-                              
+
+
+                                        }
+                                    }
+
+                                </ul>
                             </li>
 
                         }
@@ -169,15 +155,15 @@
 
 
     </nav>
-    @*<script src="~/Scripts/jquery.smartmenus.js"></script>
+    <script src="~/Scripts/jquery.smartmenus.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#main-menuu').smartmenus({
+            $('#main-menu').smartmenus({
                 subMenusSubOffsetX: 1,
                 subMenusSubOffsetY: -8
             });
         })
-    </script>*@
+    </script>
     <script>
         $('#back').click(function () {
 
@@ -215,15 +201,13 @@
 
     }
     <script>
-                 $(".catItem").hover(function () {
-                     $(this).css("position", "unset");
-                     $(this).find('ul').css('display', "flex");
-                 }
-                     , function () {
-                     $(this).css("position", "relative");
-                     $(this).find('ul').css('display',"none");
-                     }
-                 )
+                 //$(".catItem").hover(function () {
+                 //    $(this).css("position", "unset");
+                 //    $(this).find('ul').css('width', window.width());
+                 //}, function () {
+                 //    $(this).css("position", "relative");
+                 //    $(this).find('ul').css('width',"110%");
+                 //})
     </script>
 
 }

@@ -215,7 +215,7 @@
 
                                                         <div class=" ">
                                                             <span style="color:red; display:none">*</span>
-                                                            @Html.DropDownList("listofcat", listItemsCat, "صفحه اصلی", new { id = "listofcat", @class = "form-control" })
+                                                            @Html.DropDownList("listofcat", listItemsCat, "select item", new { id = "listofcat", @class = "form-control" })
 
                                                         </div>
                                                     </div>
@@ -361,8 +361,8 @@
                                                             حذف
                                                         </th>
                                                         @*<th style="text-align:center">
-            ویرایش
-        </th>*@
+                                                                ویرایش
+                                                            </th>*@
 
                                                     </tr>
                                                 </thead>
@@ -374,34 +374,42 @@
                                                             {
 
                                                                 int index = @Model.grlist.IndexOf(item) + 1;
-                                                    <tr>
-                                                        <td>
-                                                            @index
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.title)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.type)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.catIDOrLink)
-                                                        </td>
-                                                        <td>
-                                                            @Html.DisplayFor(modelItem => item.catTitle)
-                                                        </td>
-                                                        <td>
+                                                                <tr>
+                                                                    <td>
+                                                                        @index
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.title)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.type)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.catIDOrLink)
+                                                                    </td>
+                                                                    <td>
+                                                                        @Html.DisplayFor(modelItem => item.catTitle)
+                                                                    </td>
+                                                                    <td>
 
-                                                            @{
-                                                                var ID = @item.ID;
-                                                                <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                        @{
+                                                                            var ID = @item.ID;
+                                                                            <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
 
-                                                            }
+                                                                        }
 
-                                                        </td>
-                                                    
+                                                                    </td>
+                                                                    <td>
 
-                                                    </tr>
+                                                                        @{
+
+                                                                            <a id=@ID class="btn btn-primary Ebutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
+
+                                                                        }
+
+                                                                    </td>
+
+                                                                </tr>
                                                             }
 
                                                         }
@@ -450,7 +458,7 @@
                 })
                 $("#delDiscount").click(function () {
                     $.ajax({
-                        url: '/Admin/deleteProductGroup',
+                        url: '/Admin/deleteDiscount',
                         dataType: 'html',
                         data: {
                             id: id,
@@ -519,7 +527,7 @@
             $("#catTitle").val($("#listofcat option:selected").text());
             $("#image").val($("#imageUpload").val());
             $("form#setNewProductGroup").submit();
-           
+
         }
         else {
             toastr.options = {

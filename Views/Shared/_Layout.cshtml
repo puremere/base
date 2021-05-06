@@ -770,8 +770,18 @@
                                             container.hide();
                                             var loginarrow = $("#loginsectin");
                                             loginarrow.hide();
+
+                                            var searchResultSection = $("#searchResultSection");
+                                            searchResultSection.hide();
+                                            
                                         })
                                         $(document).mouseup(function (e) {
+                                            var searchResultSection = $("#searchResultSection");
+                                            // if the target of the click isn't the container nor a descendant of the container
+                                            if (!searchResultSection.is(e.target) && searchResultSection.has(e.target).length === 0) {
+                                                searchResultSection.hide();
+                                            }
+
                                             var container = $("#loginsectin");
                                             // if the target of the click isn't the container nor a descendant of the container
                                             if (!container.is(e.target) && container.has(e.target).length === 0) {
@@ -856,7 +866,36 @@
                             </tr>
                         </table>
 
+                        <div id="searchResultSection" style="padding:15px; border: 1px #ddd solid; background-color: #fff; position: fixed; top: 65px;  z-index: 99000; display: none ; border-radius:0px 0px 10px 10px">
+
+                        </div>
+
                         <script>
+                            $("#searchInputWeb").on('input', function () {
+                                var left = $("#searchpanel").position().left;
+                                $("#searchResultSection").css("left", left + "px");
+                                $("#searchResultSection").width($("#searchInputWeb").width());
+                                $("#searchResultSection").show();
+                                let val = $(this).val();
+                           
+                                if (val.length > 2) {
+                                    $("#searchResultSection").show(15);
+                                    $.ajax({
+                                        url: "/Home/getsearch",
+                                        dataType: "html",
+                                        data: {
+                                            val: val,
+                                        },
+                                        success: function (data) {
+                                            $("#searchResultSection").html(data);
+                                        }
+                                    })
+                                }
+                                else {
+                                    $("#searchResultSection").html("")
+                                    $("#searchResultSection").hide();
+                                }
+                            })
                             $("#searchImageWeb").click(function () {
                                 var search = $("#searchInputWeb").val();
                                 if (search.length < 3) {
@@ -979,9 +1018,11 @@
                             })
 
                             var WI = $(document).width() / 4;
-                            $("#cartsummery").width(WI);
+                         
+                           // $("#searchResultSection").width($("#searchpanel").width());
+                         
                             $("#loginsectin").width(WI);
-
+                           
                         </script>
                         <div class="clearfix"></div>
                     </div>

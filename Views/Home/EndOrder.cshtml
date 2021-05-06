@@ -14,8 +14,6 @@
 
     <link href="~/Content/endOrderStyle.css" rel="stylesheet" />
 
-    <link rel="stylesheet" href="https://cdn.map.ir/web-sdk/1.4.2/css/mapp.min.css">
-    <link rel="stylesheet" href="https://cdn.map.ir/web-sdk/1.4.2/css/fa/style.css">
 
 
     <script>
@@ -766,10 +764,14 @@
                                 ثبت کد تخفیف
                             </div>
                             <script>
+
                                 $('#discountConfirm').click(function () {
+                                   
                                     var mot = $("#finalprice").text().replace(",", '')
                                     mot = mot.replace(',', "");
                                     var discount = $('#discountfake').val();
+
+
                                     //alert(discount);
                                     if (discount == "") {
 
@@ -794,10 +796,11 @@
                                                 price: mot
                                             },
                                             success: function (data) {
-
+                                              
                                                 let obj = jQuery.parseJSON(data);
 
                                                 if (obj.message.length > 0) {
+                                                   
                                                     toastr.options = {
                                                         "debug": false,
                                                         "positionClass": "toast-top-center",

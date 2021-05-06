@@ -1,0 +1,467 @@
+﻿@model banimo.ViewModel.wonderProductVM
+
+@{
+    ViewBag.Title = "wonderProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<style>
+    .Itemholderr {
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-bottom: 25px;
+        cursor: pointer;
+    }
+
+        .Itemholderr .itemtitle {
+            font-weight: 700;
+        }
+
+        .Itemholderr .itemvalue {
+            margin-right: 10px;
+        }
+
+        .Itemholderr .Item {
+            padding: 10px;
+            text-align: right;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+
+            .Itemholderr .Item p {
+                display: inline-block;
+                text-align: right;
+                direction: rtl
+            }
+</style>
+<link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
+<div id="addItemToOrderModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin:0">
+                    <div class="col-lg-12" style="padding:25px">
+                        <div class="row">
+                            <p>انتخاب محصول</p>
+                            <div style="display:flex" class="row">
+                                <div style="width:100%; display:flex">
+                                    <input style="width:100%; display:inline-block" id="addItemToOrderInput" class="form-control" />
+
+                                    <i id="refreshList" style="font-size:22px ; padding:5px" class="fa fa-refresh"></i>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            <div style="display:flex" class="row">
+                                <div>
+                                    <p>به مدت (ساعت)</p>
+                                    <input value="1" id="hourInput" style="width:200px; display:inline-block; " class="form-control" />
+
+                                </div>
+                                <div>
+                                    <p>درصد تخفیف</p>
+                                    <input value="0" id="discountInput" style="width:200px; display:inline-block;" class="form-control" />
+
+                                </div>
+
+                                <div>
+                                    <p style="min-height:20px"></p>
+                                    <input id="IDholder" hidden />
+                                    <div id="addItemToOrderButton" style=" display:inline-block" class="btn  btn-default">تایید</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div id="deleteItemFromOrderModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div style="display:none" id="selectedIDForDelete"></div>
+                <div class="row" style="margin:0">
+                    <div class="col-lg-12" style="padding:25px">
+                        <p>آیا از حذف آیتم مورد نظر اطمینان دارید؟</p>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary confirmDelete">تایید</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="row">
+    <div style="overflow-x:auto;padding:10px">
+        <div class="panel panel-default">
+            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                <form method="post" id="getPDF" action="/Admin/createUserReport">
+                    <input name="data" hidden />
+                    <input name="id" hidden />
+                    <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> لیست محصولات  @*<i id="print" style="cursor:pointer; float:left" class="fa fa-print"></i>*@  <i id="addItemToOrderIcon" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus"></i></h3>
+
+                </form>
+
+
+            </div>
+            @if (Model.factorDetail != null)
+            {
+                @*<script>
+                        $("#print").click(function () {
+
+                            var obj = @Html.Raw(@Json.Encode(Model.list.myProducts));
+                            $("input[name=data]").val(JSON.stringify(obj));
+                            $("input[name=id]").val('@Model.id');
+                            $("#getPDF").submit();
+                            $("#loading").fadeIn();
+                            setInterval(function () { $("#loading").fadeOut(); }, 3000);
+
+
+
+                        });
+                    </script>*@
+                <div class="panel-body">
+                    <div id="morris-area-chart">
+                        @{
+                            int w = Request.Browser.ScreenPixelsWidth;
+                            int h = Request.Browser.ScreenPixelsHeight;
+                            if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+                            {
+                                if (Model.factorDetail != null)
+                                {
+                                    foreach (var item in Model.factorDetail)
+                                    {
+
+                                        int i = Model.factorDetail.IndexOf(item) + 1;
+                                        string image = item.imagetiltle;
+
+                                        <div class="Itemholderr" id="@item.ID">
+
+                                            <div class="Item">
+                                                <p class="itemtitle">ردیف :</p>
+                                                <p class="itemvalue">@i</p>
+
+                                            </div>
+                                            <div class="Item">
+                                                <p class="itemtitle">نام کالا : </p>
+                                                <p class="itemvalue">@item.title</p>
+
+                                            </div>
+                                            <div class="Item">
+                                                <p class="itemtitle">تخفیف :</p>
+                                                <p class="itemvalue">@item.discount</p>
+
+                                            </div>
+
+                                            <div class="Item" style="text-align:center">
+                                                <img src=@image style="max-width:100px" />
+                                            </div>
+
+
+
+                                        </div>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                <div style="overflow:auto">
+                                    <table class="table table-bordered table-hover table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>ردیف</th>
+                                                <th>نام کالا</th>
+                                                <th>تخفیف </th>
+
+                                                <th></th>
+                                                <th></th>
+                                              
+
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.factorDetail)
+                                            {
+                                                string color = "#f9f9f9";
+                                                if (item.passed == 1)
+                                                {
+                                                    color = "#f99999";
+                                                }
+                                                string image = item.imagetiltle;
+                                                int i = Model.factorDetail.IndexOf(item) + 1;
+                                                string deleteid = item.ID;
+                                                <tr style=" background-color:@color">
+                                                    <td>@i</td>
+                                                    <td>@item.title</td>
+                                                    <td>@item.discount</td>
+                                                    <td><img src=@image style="max-width:100px" /> </td>
+                                                    <td><div id="@deleteid" class="btn btn-danger deletItem">حذف</div> </td>
+                                                </tr>
+                                            }
+                                            @{
+
+                                            }
+
+
+
+
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            }
+                        }
+
+                    </div>
+                </div>
+            }
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#addItemToOrderIcon").click(function () {
+        $("#addItemToOrderModal").modal('toggle');
+    })
+    $(".deletItem").click(function () {
+        $("#selectedIDForDelete").text($(this).attr('id'));
+        $("#deleteItemFromOrderModal").modal('toggle');
+    })
+    $(".editItem").click(function () {
+        $("#selectedIDForEdit").text($(this).attr('id'));
+        $("#editItemFromOrderModal").modal('toggle');
+    })
+
+
+    $(".confirmDelete").click(function () {
+        $("#deleteItemFromOrderModal").modal('toggle');
+        var id = $("#selectedIDForDelete").text();
+        var orderID = id.split('-')[1];
+        $.ajax({
+            url: "/admin/deletFromWonder",
+            dataType: "html",
+            data: {
+                id: id,
+            },
+            success: function (data) {
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت انجام شد');
+
+                    window.location.reload();
+                }
+                else if (data == "400") {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('خطا ! آیتم مورد نظر دارای سفارش میباشد');
+                }
+            }
+
+        })
+    })
+    $(".confirmEdit").click(function () {
+
+        $("#editItemFromOrderModal").modal('toggle');
+        var id = $("#selectedIDForEdit").text();
+        var newval = $("#newval").val();
+        var orderID = id.split('-')[1];
+        $.ajax({
+            url: "/admin/editItemInFactor",
+            dataType: "html",
+            data: {
+                id: id,
+                newval: newval
+            },
+            success: function (data) {
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت انجام شد');
+
+                    window.location.href();
+                }
+                else if (data == "400") {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('خطا ! آیتم مورد نظر دارای سفارش میباشد');
+                }
+            }
+
+        })
+    })
+
+</script>
+
+<style>
+    .addItemToOrderInput {
+        width: 100% !important;
+    }
+</style>
+
+<script>
+    $("#refreshList").click(function () {
+
+        $.ajax({
+            url: '/Admin/getNewListProduct',
+            dataType: 'html',
+            data: {
+                val: $("#addItemToOrderInput").val(),
+                server: ""
+            },
+            success: function (data) {
+
+                var productItems = {
+                    data: JSON.parse(data),
+                    getValue: "title",
+                    list: {
+                        maxNumberOfElements: 100,
+
+                        onSelectItemEvent: function () {
+                            var value = $("#addItemToOrderInput").getSelectedItemData().ID;
+
+                            $("#IDholder").val(value).trigger("change");
+                        }
+                    }
+                    //  list: {
+                    //    maxNumberOfElements: 100,
+                    //    match: {
+                    //        enabled: true
+                    //    }
+                    //},
+                    //template: {
+                    //    type: "custom",
+                    //    method: function (value, item) {
+                    //        return   item.title + " | <div style='background-color:#ddd; border-radius:50%; width:30px'></div> "
+                    //    }
+                    //},
+
+
+                };
+                $("#addItemToOrderInput").easyAutocomplete(productItems);
+                //$("#addItemToOrderInput").parent.css("width", "100%")
+            }
+
+        })
+    })
+    $("#addItemToOrderButton").click(function () {
+        $("#addItemToOrderModal").modal('toggle');
+
+        $.ajax({
+            url: '/Admin/addNewTtemToWonder',
+            dataType: 'html',
+            data: {
+                ID: $("#IDholder").val(),
+                hour: $("#hourInput").val(),
+                discount: $("#discountInput").val(),
+
+            },
+            success: function (data) {
+
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت ثبت شد');
+
+                    window.location.reload();
+                }
+            }
+
+        })
+    })
+
+</script>
+

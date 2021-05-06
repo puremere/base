@@ -1,0 +1,42 @@
+﻿@model banimo.ViewModel.searchVM
+
+<style>
+    .searchItem{
+        cursor:pointer
+    }
+    .searchItem:hover{
+        background-color:#eee;
+    }
+</style>
+
+<div class="" style="width:100%; margin:0;">
+    @if (Model.lst != null)
+    {
+        <div  style=" margin-bottom:20px;border-bottom:2px solid #ddd ">
+            @foreach (var item in Model.lst)
+            {
+                <div id="@item.ID" class="row searchItem" style="display:flex; padding:20px">
+                    <p class="searchtitle">@item.title</p>
+                    <p style="margin:0 5px">در دسته بندی</p>
+                    <p style="color:blue; flex:1"> @item.cattitle</p>
+                </div>
+            }
+        </div>
+    }
+
+    <div class="row searchItem" style="display:flex; padding:20px">
+        <p style="margin:0 5px">نمایش همه نتایج برای</p>
+        <p style="color:blue; flex:1"> @Model.key</p>
+    </div>
+
+
+
+</div>
+
+<script>
+    $(".searchItem").click(function () {
+        var id = $(this).attr('id');
+        var search = $(this).find(".searchtitle").text();
+        window.location.href = "/Home/ProductList?newquery=" + search + "&catmode=" + id
+    })
+</script>

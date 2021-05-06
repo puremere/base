@@ -964,7 +964,7 @@
 						$sub.css('z-index', this.zIndexInc = (this.zIndexInc || this.getStartZIndex()) + 1);
 						// min/max-width fix - no way to rely purely on CSS as all UL's are nested
 						if (this.opts.subMenusMinWidth || this.opts.subMenusMaxWidth) {
-							$sub.css({ width: 'auto', minWidth: '', maxWidth: '' }).addClass('sm-nowrap');
+							$sub.css({ width: 'auto', minWidth: '', maxWidth: '' }).addClass('sm-nowrap').addClass("ulinside");
 							if (this.opts.subMenusMinWidth) {
 							 	$sub.css('min-width', this.opts.subMenusMinWidth);
 							}

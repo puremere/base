@@ -68,6 +68,9 @@
                                                         <th style="text-align:center">
                                                             مبلغ
                                                         </th>
+                                                        <th style="text-align:center">
+                                                            یکبارمصرف
+                                                        </th>
 
                                                         <th style="text-align:center">
                                                             حذف
@@ -85,27 +88,40 @@
                                                                 {
 
                                                                     int index = @Model.data.IndexOf(item) + 1;
-                                                                    <tr>
-                                                                        <td>
-                                                                            @index
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.title)
-                                                                        </td>
-                                                                        <td>
-                                                                            @Html.DisplayFor(modelItem => item.price)
-                                                                        </td>
-                                                                        <td>
+                                                    <tr>
+                                                        <td>
+                                                            @index
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.title)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.price)
+                                                        </td>
+                                                        <td>
+                                                            @{
+                                                                if (item.oneTime == "1")
+                                                                {
+                                                                    <input type="checkbox" class="form-control" checked />
+                                                                }
+                                                                else
+                                                                {
+                                                                    <input type="checkbox" class="form-control" />
 
-                                                                            @{
-                                                                                var ID = @item.ID;
-                                                                                <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                }
+                                                            }
+                                                        </td>
+                                                        <td>
 
-                                                                            }
+                                                            @{
+                                                                var ID = @item.ID;
+                                                                <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
 
-                                                                        </td>
+                                                            }
 
-                                                                    </tr>
+                                                        </td>
+
+                                                    </tr>
                                                                 }
                                                             }
 
@@ -215,7 +231,7 @@ new { enctype = "multipart/form-data", id = "addArticle" }))
                                 عنوان :
                             </label>
                             <div>
-                                
+
                                 <input value="" type="text" id="title" name="title" required="required" class="form-control  ">
                             </div>
                         </div>
@@ -234,7 +250,7 @@ new { enctype = "multipart/form-data", id = "addArticle" }))
                                 کاربر :
                             </label>
                             <div>
-                                
+
                                 <input value="" type="text" id="user" name="user" required="required" class="form-control  ">
                             </div>
                         </div>
@@ -243,8 +259,42 @@ new { enctype = "multipart/form-data", id = "addArticle" }))
                                 حداقل خرید :
                             </label>
                             <div>
-                                
+
                                 <input value="0" type="text" id="minPrice" name="minPrice" required="required" class="form-control  ">
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <label style="text-align: right">
+                                یکبار مصرف :
+                            </label>
+                            <div>
+
+                                <input type="checkbox" id="oneTime" name="oneTime" required="required" class="form-control  ">
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <label style="text-align: right">
+                                خرید اول :
+                            </label>
+                            <div>
+
+                                <input type="checkbox" id="firstTime" name="firstTime" required="required" class="form-control  ">
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <label style="text-align: right">
+                                درصد :
+                            </label>
+                            <div>
+                                <input type="checkbox" id="darsad" name="darsad" required="required" class="form-control  ">
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <label style="text-align: right">
+                                همیشگی :
+                            </label>
+                            <div>
+                                <input type="checkbox" id="infinit" name="infinit" required="required" class="form-control  ">
                             </div>
                         </div>
 

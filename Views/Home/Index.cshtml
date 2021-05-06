@@ -8,6 +8,8 @@
 
 
 @{
+    /**/
+
 
     ViewBag.Title = @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,8 +22,28 @@
     <link href="~/Content/indexStyle.css" rel="stylesheet" />
 
 }
+<style>
+    .jst-hours {
+        float: left;
+    }
 
+    .jst-minutes {
+        float: left;
+    }
 
+    .jst-seconds {
+        float: left;
+    }
+
+    .jst-clearDiv {
+        clear: both;
+    }
+
+    .jst-timeout {
+        color: red;
+    }
+</style>
+<script src="~/Scripts/jquery.simple.timer.js"></script>
 
 <div class="modal fade" id="iosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -228,140 +250,140 @@
 
         if (Model.specialOffers != null)
         {
-           
-        <div class="minwidth" style="display:none">
-            <div class="row" style=" padding: 10px">
-                <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
-                <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
-            </div>
-            <div id="bestholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
+
+            <div class="minwidth" style="display:none">
+                <div class="row" style=" padding: 10px">
+                    <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
+                    <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+                </div>
+                <div id="bestholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
 
 
-                <div class="resCarousel-inner" style="direction:rtl">
+                    <div class="resCarousel-inner" style="direction:rtl">
 
-                    @foreach (var item in Model.specialOffers)
-                    {
-                        string addID = "addtocarto" + item.ID;
-                        string minusID = "minus" + item.ID;
-                        string imagefile = "placeholder.jpg";
-                        if (item.title != null)
+                        @foreach (var item in Model.specialOffers)
                         {
-                            imagefile = item.image;
-                        }
-                        string ID = "N" + item.ID.ToString();
-                        string addtocartid = "addtocart" + ID;
-                        string price = item.price;
+                            string addID = "addtocarto" + item.ID;
+                            string minusID = "minus" + item.ID;
+                            string imagefile = "placeholder.jpg";
+                            if (item.title != null)
+                            {
+                                imagefile = item.image;
+                            }
+                            string ID = "N" + item.ID.ToString();
+                            string addtocartid = "addtocart" + ID;
+                            string price = item.price;
 
-                        string src =  imagefile;
+                            string src = imagefile;
 
-                        <div class="item showmedetail" id=@ID style="cursor:pointer; ">
+                            <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
 
-                            <div class="showmedetailx">
-                                <div style="padding:2px  ">
-                                    <div class="imageholderindex" style="width:100%; ">
-                                        <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
-                                    </div>
-                                    <div class="titleholder" style=" ">
-                                        @{
-                                            if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
-                                            {
-                                                <h6 class="numEn"> @item.title</h6>
+                                <div class="showmedetailx">
+                                    <div style="padding:2px  ">
+                                        <div class="imageholderindex" style="width:100%; ">
+                                            <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                        </div>
+                                        <div class="titleholder" style=" ">
+                                            @{
+                                                if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                {
+                                                    <h6 class="numEn"> @item.title</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6>@item.title</h6>
+                                                }
+
                                             }
-                                            else
-                                            {
-                                                <h6>@item.title</h6>
-                                            }
 
-                                        }
-
-
-                                    </div>
-                                    @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
-                                    {
-                                        string valueID = "value" + item.ID;
-                                        <div class="addholder" style="margin:5px">
-                                            <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
-
-                                            <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
-                                            <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
 
                                         </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            <div class="addholder" style="margin:5px">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
 
-                                    }
-                                    <div class="priceholder">
+                                                <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
 
-                                        @{
-                                            if (item.isAvailable == "0")
-                                            {
-                                                @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
-                                                <div class="row">
-                                                    <div class="row" style="min-height:17px"></div>
-                                                    <p style="display:inline-block">ناموجود</p>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                if (item.price == "0")
+                                            </div>
+
+                                        }
+                                        <div class="priceholder">
+
+                                            @{
+                                                if (item.isAvailable == "0")
                                                 {
+                                                    @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
                                                     <div class="row">
-                                                        <p style="display:inline-block">تماس بگیرید</p>
+                                                        <div class="row" style="min-height:17px"></div>
+                                                        <p style="display:inline-block">ناموجود</p>
                                                     </div>
                                                 }
                                                 else
                                                 {
-                                                    <div class="row" style="text-align:left;min-height:17px">
+                                                    if (item.price == "0")
+                                                    {
+                                                        <div class="row">
+                                                            <p style="display:inline-block">تماس بگیرید</p>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="row" style="text-align:left;min-height:17px">
 
-                                                        <div class="">
-                                                            <div class="" style="color:red">
-                                                                @if (item.price != item.oldPrice)
-                                                                {
-                                                                    <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del> <p style="display: inline-block">تومان</p>
+                                                            <div class="">
+                                                                <div class="" style="color:red">
+                                                                    @if (item.price != item.oldPrice)
+                                                                    {
+                                                                        <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del> <p style="display: inline-block">تومان</p>
 
-                                                                }
+                                                                    }
+                                                                </div>
+
                                                             </div>
+                                                        </div>
+
+                                                        <div class="row" style="text-align:left; color:green">
+
+                                                            <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
 
                                                         </div>
-                                                    </div>
-
-                                                    <div class="row" style="text-align:left; color:green">
-
-                                                        <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
-
-                                                    </div>
-                                                    <div>
-                                                    </div>
+                                                        <div>
+                                                        </div>
+                                                    }
                                                 }
+
                                             }
 
-                                        }
 
 
 
 
-
+                                        </div>
                                     </div>
                                 </div>
+
+
+
+
                             </div>
 
-
-
-
-                        </div>
-
-                    }
+                        }
 
 
 
 
 
+
+
+                    </div>
 
 
                 </div>
-
-
             </div>
-        </div>
         }
         if (Model.banners != null)
         {
@@ -522,7 +544,7 @@
                             string addtocartid = "addtocart" + ID;
                             string price = item.price;
 
-                            string src =imagefile;
+                            string src = imagefile;
 
                             <div class="item showmedetail" id=@ID style="cursor:pointer;  max-width:34%">
 
@@ -672,7 +694,7 @@
                             string addtocartid = "addtocart" + ID;
                             string price = item.price;
 
-                            string src =  imagefile;
+                            string src = imagefile;
 
                             <div class="item showmedetail" id=@ID style="cursor:pointer; ; max-width:34%">
 
@@ -906,6 +928,170 @@
 
         </div>
 
+        if (Model.wonderList != null)
+        {
+
+            <div class="maxwidth">
+                <div style="background-color: #f6f5f5; padding: 2% 0px;padding:50px 20px; background-color:red; display:flex; align-items:center">
+                    <div class="" style=" width:80%">
+
+
+
+                        <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
+
+
+                            <div class="resCarousel-inner">
+
+                                @foreach (var item in Model.wonderList)
+                                {
+                                    string addID = "addtocarto" + item.ID;
+                                    string minusID = "minus" + item.ID;
+                                    string imagefile = "placeholder.jpg";
+                                    if (item.title != null)
+                                    {
+                                        imagefile = item.image;
+                                    }
+                                    string ID = "N" + item.ID.ToString();
+                                    string addtocartid = "addtocart" + ID;
+                                    string price = item.price;
+
+                                    string src = imagefile;
+
+                                    <div class="item showmedetail" id=@ID style="cursor:pointer;">
+
+
+
+                                        <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
+                                            <div style="padding:50px 20px">
+                                                <div class="imageholderindex">
+                                                    <img class="imageitself" src="@src" />
+                                                </div>
+                                                <div class="titleholder">
+                                                    @{
+                                                        if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                        {
+                                                            <h5 class="numEn"> @item.title</h5>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h5>@item.title</h5>
+                                                        }
+
+                                                    }
+
+                                                </div>
+                                                @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                {
+                                                    string valueID = "value" + item.ID;
+                                                    <div class="addholder" style="margin:5px">
+                                                        <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                        <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                        <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                    </div>
+
+                                                }
+
+                                                <div style="margin-top:10px">
+
+                                                    @{
+                                                        if (item.isAvailable == "0")
+                                                        {
+                                                            <div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>
+                                                        }
+                                                        else
+                                                        {
+
+
+                                                            if (item.price == "0")
+                                                            {
+                                                                <div class="row" style="margin:0px 15px">
+                                                                    <p style="display:inline-block"> تماس بگیرید</p>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+
+
+                                                                <div style="display:flex; align-items:center; margin-top:40px">
+                                                                    <div style="width:15%">
+                                                                        <span style="color: white;font-size:25px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px;">
+                                                                            @item.discount%
+                                                                        </span>
+                                                                    </div>
+                                                                    <div style="flex:1">
+                                                                        <div>
+                                                                            <div class="row" style="margin:0px 15px; min-height:20px">
+
+                                                                                <div class="">
+                                                                                    <div class="">
+                                                                                        @if (item.price != item.oldPrice)
+                                                                                        {
+                                                                                            <p style="display: inline-block"> تومان </p> <del style="font-size:20px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
+
+                                                                                        }
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row" style="margin:0px 15px">
+
+                                                                                <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:25px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                                                            }
+                                                        }
+
+                                                    }
+
+
+
+
+
+                                                </div>
+
+                                                <div style="margin-top : 10px; text-align:center; border-top:1px solid #ddd; padding-top:15px">
+                                                    @*<h5 class='timer' data-minutes-left=1></h5>*@
+
+                                                    <h3 style="text-align:center" class='timer' data-seconds-left=@item.time></h3>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                }
+
+
+
+
+
+
+
+                            </div>
+                            <button class='btn btn-default leftRs'><</button>
+                            <button class='btn btn-default rightRs'>></button>
+
+                        </div>
+                    </div>
+                    <div style="flex:1;">
+                        <img src="~/images/wonder.png" />
+                    </div>
+                </div>
+            </div>
+        }
+
         if (Model.specialOffers != null)
         {
 
@@ -990,26 +1176,35 @@
                                                             }
                                                             else
                                                             {
-                                                                <div class="row" style="margin:0px 15px; min-height:20px">
-
-                                                                    <div class="">
-                                                                        <div class="">
-                                                                            @if (item.price != item.oldPrice)
-                                                                            {
-                                                                                <p style="display: inline-block"> تومان </p> <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
-
-                                                                            }
-                                                                        </div>
-
+                                                                <div style="display:flex; align-items:center; margin-top:40px">
+                                                                    <div style="width:15%">
+                                                                        <span style="color: white;font-size:25px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px;">
+                                                                            @item.discount%
+                                                                        </span>
                                                                     </div>
-                                                                </div>
+                                                                    <div style="flex:1">
+                                                                        <div>
+                                                                            <div class="row" style="margin:0px 15px; min-height:20px">
 
-                                                                <div class="row" style="margin:0px 15px">
+                                                                                <div class="">
+                                                                                    <div class="">
+                                                                                        @if (item.price != item.oldPrice)
+                                                                                        {
+                                                                                            <p style="display: inline-block"> تومان </p> <del style="font-size:20px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
-                                                                    <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                                                        }
+                                                                                    </div>
 
-                                                                </div>
-                                                                <div>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row" style="margin:0px 15px">
+
+                                                                                <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:25px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             }
                                                         }
@@ -1144,7 +1339,7 @@
                                     string addtocartid = "addtocart" + ID;
                                     string price = item.price;
 
-                                    string src =  imagefile;
+                                    string src = imagefile;
 
                                     <div class="item showmedetail" id=@ID style="cursor:pointer">
 
@@ -1198,24 +1393,35 @@
                                                             }
                                                             else
                                                             {
-                                                                <div class="row" style="margin:0px 15px; min-height:20px">
-
-                                                                    <div class="">
-                                                                        <div class="">
-                                                                            @if (item.price != item.oldPrice)
-                                                                            {
-                                                                                <p style="display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
-
-                                                                            }
-                                                                        </div>
-
+                                                                <div style="display:flex; align-items:center; margin-top:40px">
+                                                                    <div style="width:15%">
+                                                                        <span style="color: white;font-size:25px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px;">
+                                                                            @item.discount%
+                                                                        </span>
                                                                     </div>
-                                                                </div>
+                                                                    <div style="flex:1">
+                                                                        <div>
+                                                                            <div class="row" style="margin:0px 15px; min-height:20px">
 
-                                                                <div class="row" style="margin:0px 15px">
+                                                                                <div class="">
+                                                                                    <div class="">
+                                                                                        @if (item.price != item.oldPrice)
+                                                                                        {
+                                                                                            <p style="display: inline-block"> تومان </p> <del style="font-size:20px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
-                                                                    <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                                                        }
+                                                                                    </div>
 
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row" style="margin:0px 15px">
+
+                                                                                <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:25px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             }
                                                         }
@@ -1341,7 +1547,7 @@
                                     string addtocartid = "addtocart" + ID;
                                     string price = item.price;
 
-                                    string src =  imagefile;
+                                    string src = imagefile;
 
                                     <div class="item showmedetail" id=@ID style="cursor:pointer">
 
@@ -1395,24 +1601,35 @@
                                                             }
                                                             else
                                                             {
-                                                                <div class="row" style="margin:0px 15px; min-height:20px">
-
-                                                                    <div class="">
-                                                                        <div class="">
-                                                                            @if (item.price != item.oldPrice)
-                                                                            {
-                                                                                <p style="display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
-
-                                                                            }
-                                                                        </div>
-
+                                                                <div style="display:flex; align-items:center; margin-top:40px">
+                                                                    <div style="width:15%">
+                                                                        <span style="color: white;font-size:25px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px;">
+                                                                            @item.discount%
+                                                                        </span>
                                                                     </div>
-                                                                </div>
+                                                                    <div style="flex:1">
+                                                                        <div>
+                                                                            <div class="row" style="margin:0px 15px; min-height:20px">
 
-                                                                <div class="row" style="margin:0px 15px">
+                                                                                <div class="">
+                                                                                    <div class="">
+                                                                                        @if (item.price != item.oldPrice)
+                                                                                        {
+                                                                                            <p style="display: inline-block"> تومان </p> <del style="font-size:20px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
-                                                                    <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                                                        }
+                                                                                    </div>
 
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row" style="margin:0px 15px">
+
+                                                                                <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:25px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             }
                                                         }
@@ -1451,6 +1668,164 @@
 
 
         }
+
+        if (Model.gourpList != null)
+        {
+            foreach (var group in Model.gourpList)
+            {
+                string id = group.type + "-" + group.catIDOrLink;
+
+                if (group.value != null)
+                {
+                    <div class="maxwidth">
+                        <div style="background-color: #f6f5f5; padding: 2% 0px">
+                            <div class="SECTIONHOLDER">
+
+                                <div class="o-headline"><span>@Html.ActionLink(@group.title, "ManageSlide", new { val = @id }, new { style = " color: #808080;" }) </span></div>
+
+
+
+                                <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
+
+
+                                    <div class="resCarousel-inner">
+
+                                        @foreach (var item in group.value)
+                                        {
+                                            string addID = "addtocarto" + item.ID;
+                                            string minusID = "minus" + item.ID;
+                                            string imagefile = "placeholder.jpg";
+                                            if (item.title != null)
+                                            {
+                                                imagefile = item.image;
+                                            }
+                                            string ID = "N" + item.ID.ToString();
+                                            string addtocartid = "addtocart" + ID;
+                                            string price = item.price;
+
+                                            string src = imagefile;
+
+                                            <div class="item showmedetail" id=@ID style="cursor:pointer">
+
+
+
+                                                <div class="showmedetailFirstDiv showmedetailx">
+                                                    <div style="padding:15px">
+                                                        <div class="imageholderindex">
+                                                            <img class="imageitself" src="@src" />
+                                                        </div>
+                                                        <div class="titleholder">
+                                                            @{
+                                                                if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                                {
+                                                                    <h5 class="numEn"> @item.title</h5>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <h5>@item.title</h5>
+                                                                }
+
+                                                            }
+
+                                                        </div>
+                                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                        {
+                                                            string valueID = "value" + item.ID;
+                                                            <div class="addholder" style="margin:5px">
+                                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                                <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
+                                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
+
+                                                            </div>
+
+                                                        }
+                                                        <div style="margin-top:10px">
+
+                                                            @{
+                                                                if (item.isAvailable == "0")
+                                                                {
+                                                                    <div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    if (item.price == "0")
+                                                                    {
+                                                                        <div class="row" style="margin:0px 15px">
+                                                                            <p style="display:inline-block"> تماس بگیرید</p>
+                                                                        </div>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <div style="display:flex; align-items:center; margin-top:40px">
+                                                                            <div style="width:15%">
+                                                                                <span style="color: white;font-size:25px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px;">
+                                                                                    @item.discount%
+                                                                                </span>
+                                                                            </div>
+                                                                            <div style="flex:1">
+                                                                                <div>
+                                                                                    <div class="row" style="margin:0px 15px; min-height:20px">
+
+                                                                                        <div class="">
+                                                                                            <div class="">
+                                                                                                @if (item.price != item.oldPrice)
+                                                                                                {
+                                                                                                    <p style="display: inline-block"> تومان </p> <del style="font-size:20px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
+
+                                                                                                }
+                                                                                            </div>
+
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="row" style="margin:0px 15px">
+
+                                                                                        <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:25px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    }
+                                                                }
+
+                                                            }
+
+
+
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+                                            </div>
+
+                                        }
+
+
+
+
+
+
+
+                                    </div>
+                                    <button class='btn btn-default leftRs'><</button>
+                                    <button class='btn btn-default rightRs'>></button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            }
+        }
+
     }
 }
 
@@ -1487,7 +1862,10 @@
     }
 </style>
 
+<script>
+    $('.timer').startTimer();
 
+</script>
 <script>
     $('.value-plus').on('click', function () {
         event.stopPropagation();
@@ -1496,9 +1874,9 @@
         let finalVal = parseInt(newVal) + 1;
         // $(this).parent().children(".value").text(finalVal);
         var ID = $(this).attr('id');
-        let myid = "value" + ID.replace("addtocarto","");
-      
-        $("."+myid).text(finalVal);
+        let myid = "value" + ID.replace("addtocarto", "");
+
+        $("." + myid).text(finalVal);
 
         $.ajax({
             url: '/Home/addtocart',
@@ -1508,7 +1886,7 @@
 
             },
             success: function (data) {
-                var count =parseInt($(".simpleCart_quantityy").text());
+                var count = parseInt($(".simpleCart_quantityy").text());
                 count += 1;
                 $(".simpleCart_quantityy").text(count);
                 $("#loading").fadeOut()
@@ -1524,10 +1902,10 @@
     });
     $('.value-minus').on('click', function () {
         event.stopPropagation();
-      
+
         var ID = $(this).attr('id');
         let myid = "value" + ID.replace('minus', '');
-        
+
         let newVal = $(this).parent().children(".value").text();
         if (newVal != "0") {
             $("#loading").fadeIn()
@@ -1556,7 +1934,7 @@
         }
 
 
-      
+
 
 
 
