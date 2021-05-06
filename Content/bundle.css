@@ -24079,8 +24079,6 @@ td.invert-image a img {
 .sm>li>h1,.sm>li>h2,.sm>li>h3,.sm>li>h4,.sm>li>h5,.sm>li>h6{margin:0;padding:0;}
 .sm ul {
     display: none;
-    width: 100% !important;
-    max-width: 100% !important;
     /*list-style: none !important;
   
     display: flex !important;
@@ -24280,8 +24278,7 @@ td.invert-image a img {
     border: 0;
     padding: 8px 0;
     background: #fff;
-    border-radius: 0 4px 4px 4px;
-    box-shadow: 0 4px 3px rgba(0, 0, 0, 0.25);
+  
   }
   .sm-mint ul ul {
     border-radius: 4px;
@@ -24384,9 +24381,11 @@ td.invert-image a img {
   
   }
     .sm-mint .ulinside {
-        max-width: 75% !important;
+        width: 75% !important;
         margin-right: 5%;
         border-radius: 0 0 15px 15px !important;
+        border-radius: 0 4px 4px 4px;
+        box-shadow: 0 4px 3px rgba(0, 0, 0, 0.25);
     }
         .sm-mint .ulinside li:hover{
             color:red;
