@@ -24388,9 +24388,12 @@ td.invert-image a img {
         margin-right: 5%;
         border-radius: 0 0 15px 15px !important;
     }
-  .sm-mint.sm-rtl ul a {
-    border-radius: 0 !important;
-  }
+        .sm-mint .ulinside li:hover{
+            color:red;
+        }
+        .sm-mint.sm-rtl ul a {
+            border-radius: 0 !important;
+        }
   .sm-mint.sm-rtl ul a.has-submenu {
     padding: 10px 20px !important;
   }
