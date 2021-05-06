@@ -84,7 +84,7 @@
             @Html.DropDownList("catname", listItems, "select item", new { id = "listofcat", @class = "form-control" })
         </div>
     </div>
-    <div class="component">
+    <div class="component" style="display:none">
         <label> عنوان </label>
         <input type="text" id="title" required="required" class="form-control INP">
     </div>
@@ -93,14 +93,18 @@
         <input id="imageFileHolder" type="file" required="required" class="form-control INP">
     </div>
     <div class="component classshow">
-        <div id="addCat" class="btn btn-success">افزودن</div>
-    </div>
-    <div class="component classshow">
         <div id="edit" class="btn btn-success">ویرایش</div>
     </div>
-    <div class="component classshow">
-        <div id="removeButt" class="btn btn-success">حذف</div>
+    <div style="display:none">
+        <div class="component classshow">
+            <div id="addCat" class="btn btn-success">افزودن</div>
+        </div>
+
+        <div class="component classshow">
+            <div id="removeButt" class="btn btn-success">حذف</div>
+        </div>
     </div>
+    
     <div class="component classhide">
         <div id="verifEdit" class="btn btn-success">تایید  </div>
     </div>
