@@ -932,7 +932,7 @@
         {
 
             <div class="maxwidth">
-                <div style="background-color: #f6f5f5; padding: 2% 0px;padding:50px 20px; background-color:red; display:flex; align-items:center">
+                <div style="background-color: #f6f5f5; padding: 2% 0px;padding: 20px; background-color:#ef394e; display:flex; align-items:center">
                     <div class="" style=" width:80%">
 
 
@@ -962,19 +962,19 @@
 
 
                                         <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
-                                            <div style="padding:50px 20px">
+                                            <div style="padding: 20px">
                                                 <div class="imageholderindex">
                                                     <img class="imageitself" src="@src" />
                                                 </div>
-                                                <div class="titleholder">
+                                                <div class="">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
                                                         {
-                                                            <h5 class="numEn"> @item.title</h5>
+                                                            <h4 class="numEn titleholder"> @item.title</h4>
                                                         }
                                                         else
                                                         {
-                                                            <h5>@item.title</h5>
+                                                            <h4 class="titleholder">@item.title</h4>
                                                         }
 
                                                     }
@@ -1015,14 +1015,14 @@
 
 
                                                                 <div style="display:flex; align-items:center; margin-top:40px">
-                                                                    <div style="width:15%">
-                                                                        <span style="color: white;font-size:20px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px;">
+                                                                    <div style="width:20%">
+                                                                        <span style="color: white;font-size:20px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px 10px;">
                                                                             @item.discount%
                                                                         </span>
                                                                     </div>
                                                                     <div style="flex:1">
                                                                         <div>
-                                                                            <div class="row" style="margin:0px 15px; min-height:20px">
+                                                                            <div class="row" style="margin:0px 15px; min-height:20px;text-align:left">
 
                                                                                 <div class="">
                                                                                     <div class="">
@@ -1036,7 +1036,7 @@
                                                                                 </div>
                                                                             </div>
 
-                                                                            <div class="row" style="margin:0px 15px">
+                                                                            <div class="row" style="margin:0px 15px; text-align:left">
 
                                                                                 <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
 
@@ -1056,10 +1056,10 @@
 
                                                 </div>
 
-                                                <div style="margin-top : 10px; text-align:center; border-top:1px solid #ddd; padding-top:15px">
+                                                <div style="display:flex;align-items:center; margin-top : 10px; text-align:center; border-top:1px solid #ddd; padding-top:15px">
                                                     @*<h5 class='timer' data-minutes-left=1></h5>*@
-
-                                                    <h3 style="text-align:center" class='timer' data-seconds-left=@item.time></h3>
+                                                    <i class="fal fa-clock" style="margin-right:10px;font-size:20px"></i>
+                                                    <p style="font-size:22px; text-align:center" class='timer' data-seconds-left=@item.time></p>
 
                                                 </div>
 
