@@ -8,7 +8,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
+<link href="~/Extra/leaflet/leaflet.css" rel="stylesheet" />
 
 @section scripts{
 
@@ -176,16 +176,16 @@
         })
     </script>
 
-  
-        @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
+
+    @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyDnIMRNDW6W-9c74yyiO_Sp3oeya0hoLwQ"></script>*@
 
-            <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-                    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-                    crossorigin="">
-            </script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+            integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+            crossorigin="">
+    </script>
 
-            <script type="text/javascript">
+    <script type="text/javascript">
                 var myMap;
                 var theMarker = {};
                 var greenIcon;
@@ -223,7 +223,7 @@
 
 
 
-               
+
                 myMap.on('click', function (e) {
 
                     lat = e.latlng.lat;
@@ -258,7 +258,7 @@
                     //alert("Error: Position is unavailable!");
                 }
 
-               
+
                 myMap = L.map('Map', { attributionControl: false }).setView([35.75453394917301, 51.37116999302821], 13);
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -285,7 +285,7 @@
 
 
 
-               
+
                 myMap.on('click', function (e) {
 
                     lat = e.latlng.lat;
@@ -434,7 +434,7 @@
                     toastr.error("لطفا همه موارد را کامل کنید");
                     value = "1";
                 }
-               
+
                 if (value == "0") {
                     $.ajax({
                         url: "setAddress",
@@ -487,7 +487,7 @@
                     var sid = $(this).parent().parent().attr('id');
                     var addes = @Html.Raw(Json.Encode(Model.address))
                         $.each(addes, function (index, item) {
-                           
+
                             var id = item.ID;
                             if (sid == id) {
                                 $("#addressModal").modal('toggle');
@@ -499,7 +499,7 @@
 
                                 var lat = item.lat;
                                 var lon = item.lng;
-                              
+
                                 $("#lat").val(lat);
                                 $("#lon").val(lon);
                                 if (theMarker != undefined) {
@@ -510,13 +510,13 @@
                                 theMarker = L.marker([lat, lon], { icon: greenIcon }).addTo(myMap);
                                 myMap.panTo(new L.LatLng(lat, lon));
                             }
-                           
+
 
                         });
 
                 })
 
-            </script>
+    </script>
 
 
 
@@ -606,7 +606,7 @@
                                     <div style="text-align:right;font-size:14px; font-weight:600">   @item.title</div><br />
                                     <div style="text-align:right; font-size:14px"> آدرس :   @item.address</div>
                                     <div class="row" ; style="margin-top:30px; margin-bottom:10px">
-                                        <p class="btn btn-default editAddress" style="display:block; margin:-10px 10px" >ویرایش</p>
+                                        <p class="btn btn-default editAddress" style="display:block; margin:-10px 10px">ویرایش</p>
                                         <p class="btn btn-danger removeAddress" style="display:block; margin: -10px 10px">حذف</p>
                                     </div>
 
@@ -744,7 +744,7 @@
                 </div>
             </div>
 
-          
+
             <div class="containerofform">
                 <div class="header"><p> کد تخفیف</p></div>
                 <div class="sectionBody">
@@ -766,7 +766,7 @@
                             <script>
 
                                 $('#discountConfirm').click(function () {
-                                   
+
                                     var mot = $("#finalprice").text().replace(",", '')
                                     mot = mot.replace(',', "");
                                     var discount = $('#discountfake').val();
@@ -796,11 +796,11 @@
                                                 price: mot
                                             },
                                             success: function (data) {
-                                              
+
                                                 let obj = jQuery.parseJSON(data);
 
                                                 if (obj.message.length > 0) {
-                                                   
+
                                                     toastr.options = {
                                                         "debug": false,
                                                         "positionClass": "toast-top-center",
