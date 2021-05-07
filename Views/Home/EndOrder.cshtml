@@ -504,35 +504,116 @@
     <p id="maphide" style="position:fixed; cursor:pointer;   z-index: 9999999;left:50%;bottom: 15px"><span style=" color: white; background-color: #4f9d94; border-radius: 5px; padding: 20px 30px;">انتخاب موقعیت</span></p>
 
 </div>
+<style>
+    .form__group {
+        position: relative;
+        padding: 15px 0 0;
+        margin-top: 20px;
+        width: 80%;
+        direction:rtl
+    }
+
+    .form__field {
+        font-family: inherit;
+        width: 100%;
+        border: 0;
+        border-bottom: 2px solid #9b9b9b;
+        outline: 0;
+        font-size: 1.3rem;
+        color: #fff;
+        padding: 7px 0;
+        background: transparent;
+        transition: border-color 0.2s;
+    }
+
+        .form__field::placeholder {
+            color: transparent;
+        }
+
+        .form__field:placeholder-shown ~ .form__label {
+            font-size: 1rem;
+            cursor: text;
+            top: 20px;
+        }
+
+    .form__label {
+        position: absolute;
+        top: 0;
+        display: block;
+        transition: 0.2s;
+        font-size: 1rem;
+        color: #9b9b9b;
+    }
+
+    .form__field:focus {
+        padding-bottom: 6px;
+        font-weight: 700;
+        border-width: 3px;
+        border-image: linear-gradient(to right, #11998e, #38ef7d);
+        border-image-slice: 1;
+    }
+
+        .form__field:focus ~ .form__label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;
+            font-size: 1rem;
+            color: #11998e;
+            font-weight: 700;
+        }
+
+    /* reset input */
+    .form__field:required, .form__field:invalid {
+        box-shadow: none;
+    }
+
+    /* demo */
+    .modal-body {
+       
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 60vh;
+        font-size: 1.5rem;
+        background-color: #222222;
+    }
+
+</style>
 <div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" >
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+           
             <div class="modal-body">
-                <div style="margin:0px">
-                    <p style="text-align:right; margin:20px 5px;font-size:16px; font-weight:600; ">: عنوان </p>
-                    <input id="modalTitle" style="text-align:right; margin:20px 0" class="form-control" />
+
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
+                    <label for="name" class="form__label">عنوان</label>
                 </div>
-                <div style="margin:0px">
-                    <p style="text-align:right; margin:20px 5px;font-size:16px; font-weight:600; ">: شهر </p>
-                    <input id="modalCity" style="text-align:right; margin:20px 0" class="form-control" />
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="استان" name="modalState" id='modalState' required />
+                    <label for="name" class="form__label">استان</label>
                 </div>
-                <div style="margin:0px">
-                    <p style="text-align:right; margin:20px 5px;font-size:16px; font-weight:600; ">: آدرس </p>
-                    <input id="modalAddress" style="text-align:right; margin:20px 0" class="form-control" />
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="شهر" name="modalCity" id='modalCity' required />
+                    <label for="name" class="form__label">شهر</label>
                 </div>
-                <div style="margin:0px">
-                    <p style="text-align:right; margin:20px 5px;font-size:16px; font-weight:600; ">: کد پستی </p>
-                    <input id="modalpostalCode" style="text-align:right; margin:20px 0" class="form-control" />
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="آدرس" name="modalAddress" id='modalAddress' required />
+                    <label for="name" class="form__label">آدرس</label>
+                </div>
+
+                <div class="form__group field">
+                    <input type="text" class="form__field" placeholder="کدپستی" name="modalpostalCode" id='modalpostalCode' required />
+                    <label for="name" class="form__label">کدپستی</label>
                 </div>
                 <div class="row">
+                  <div style="height:40px"></div>
                     <div id="mapshow" style="text-align:center;display:flex;align-items: center;justify-content: center;">
-                        <i id="checkmap" class="fal fa-check" style="display:none; font-size: 35px;color: green;margin: 0 20px;"></i><p style="cursor:pointer;color: white;background-color: #4f9d94;border-radius: 5px;padding: 20px 30px;">انتخاب موقعیت</p>
+
+
+                        <i id="checkmap" class="fal fa-check" style="display:none; font-size: 35px;color: green;margin: 0 20px;"></i><p style="cursor:pointer;color: white;background-color: #4f9d94;border-radius: 5px;padding: 5px 10px;font-size:14px">انتخاب موقعیت</p>
 
                     </div>
                 </div>
