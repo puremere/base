@@ -193,8 +193,6 @@
                 var lat = position.coords.latitude;
                 var lon = position.coords.longitude;
 
-
-
                 myMap = L.map('Map', { attributionControl: false }).setView([35.75453394917301, 51.37116999302821], 13);
 
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
@@ -205,8 +203,8 @@
                     zoomOffset: -1,
                     accessToken: 'pk.eyJ1IjoibWVyaW9saSIsImEiOiJja2p6dXhmdngwYmVvMnZwY2lyc2htNGxhIn0.Y9t__Bll6Fw9b9amb_rcHg',
 
-                }).addTo(mymap);
-                mymap.panTo(new L.LatLng(lat, lon));
+                }).addTo(myMap);
+                myMap.panTo(new L.LatLng(lat, lon));
 
 
 
