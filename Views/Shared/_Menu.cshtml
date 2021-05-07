@@ -93,8 +93,8 @@
                             
                             <li style="cursor:pointer;" class="li catItem @pID">
                                 
-                                <div>
-                                    <a href="@Url.Action("submenu", "Home", new { catmode = srtcat, value =  @cat.title})" style="cursor:default">@cat.title</a>
+                                <div style="cursor:pointer;">
+                                    <a style="cursor:pointer;" href="@Url.Action("submenu", "Home", new { catmode = srtcat, value =  @cat.title})" >@cat.title</a>
 
                                 </div>
                                 <ul  style="height:800px; background-color:rgba(0,0,0,0.5); width:100%">
@@ -111,15 +111,15 @@
                                                             if (SB.IsFinal == "1" && SB.CatID == cat.ID)
                                                             {
                                                                 subsrtcat = "2" + SB.ID;
-                                                                <li style="width:200px; display:flex; align-items:center;"><a style="font-weight:500; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title</a><i class="fa fa-angle-left" style="color:black"></i></li>
+                                                                <li style="width:200px; display:flex; align-items:center;"><a style="font-weight:500; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title  </a> <i class="fa fa-angle-left" style="color:black"></i></li>
                                                             }
                                                             else if (SB.IsFinal == "0" && SB.CatID == cat.ID)
                                                             {
                                                                 subsrtcat = "2" + SB.ID;
                                                                 <li class="li" style="width:200px; display:flex; align-items:center;">
 
-                                                                    <a style="font-weight:500; font-size:14px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">@SB.title</a>
-                                                                    <i class="fa fa-angle-left" style="color:black"></i>
+                                                                    <a style="font-weight:500; font-size:14px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">@SB.title </a> <i class="fa fa-angle-left" style="color:black"></i>
+                                                                 
                                                                 </li>
                                                                 if (Model.catsdata.First().mysubcatcollection2 != null)
                                                                 {
@@ -236,8 +236,8 @@
                     
                  }
                      , function () {
-                     $(this).css("position", "relative");
-                     $(this).find('ul').css('display',"none");
+                     //$(this).css("position", "relative");
+                     //$(this).find('ul').css('display',"none");
                      }
                  )
     </script>
