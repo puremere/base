@@ -179,6 +179,7 @@
 
     @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyDnIMRNDW6W-9c74yyiO_Sp3oeya0hoLwQ"></script>*@
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyDnIMRNDW6W-9c74yyiO_Sp3oeya0hoLwQ"></script>
 
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
@@ -188,7 +189,7 @@
                 var myMap;
                 var theMarker = {};
                 var greenIcon;
-          
+
             function showLocation(position) {
                 var lat = position.coords.latitude;
                 var lon = position.coords.longitude;
@@ -292,12 +293,31 @@
                 } else {
                     alert("Sorry, browser does not support geolocation!");
                 }
-            }
+        };
+
+        google.maps.event.addDomListener(window, 'load', function () {
+            var places = new google.maps.places.Autocomplete(document.getElementById('mapaddress'));
+            google.maps.event.addListener(places, 'place_changed', function () {
+                var place = places.getPlace();
 
 
-        $("#mapshow p").click(function () {
-           
-            $("#mapHolder").css("display", "block");
+                if (theMarker != undefined) {
+                    myMap.removeLayer(theMarker);
+                };
+                myMap.panTo(new L.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
+                theMarker = L.marker([place.geometry.location.lat(), place.geometry.location.lng()]).addTo(mymap);
+                $("#lat").val(place.geometry.location.lat());
+                $("#lng").val(place.geometry.location.lng());
+            });
+        });
+        $("#cancelAddress").click(function () {
+            $("#addAddressHolder").css("display", "none");
+            $("body").css("overflow", "scroll")
+        })
+        $("#addAddress").click(function () {
+
+            $("#addAddressHolder").css("display", "block");
+            $("body").css("overflow","hidden")
             getLocation();
             //$("#mapshow").hide();
 
@@ -497,18 +517,16 @@
 
 
 }
-<div id="mapHolder" style="display:none; z-index:9999999999; position:fixed;top:0; left:0; margin:auto; width:100%; height:1000px;  background-color:white; text-align:center; background-color:white;  /* Negative half of width. */">
-    <div id="Map" style="margin-top:5%; width: 100%; margin:auto; height: 1000px; background: #eee; border: 2px solid #aaa;"></div>
-    <p id="maphide" style="position:fixed; cursor:pointer;   z-index: 9999999;left:50%;bottom: 15px"><span style=" color: white; background-color: #4f9d94; border-radius: 5px; padding: 20px 30px;">انتخاب موقعیت</span></p>
 
-</div>
+
+
 <style>
     .form__group {
         position: relative;
         padding: 15px 0 0;
         margin-top: 20px;
         width: 80%;
-        direction:rtl
+        direction: rtl
     }
 
     .form__field {
@@ -568,7 +586,6 @@
 
     /* demo */
     .modal-body {
-       
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -577,12 +594,11 @@
         font-size: 1.5rem;
         background-color: #222222;
     }
-
 </style>
-<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document" >
+@*<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
-           
+
             <div class="modal-body">
 
                 <div class="form__group field">
@@ -607,7 +623,7 @@
                     <label for="name" class="form__label">کدپستی</label>
                 </div>
                 <div class="row">
-                  <div style="height:40px"></div>
+                    <div style="height:40px"></div>
                     <div id="mapshow" style="text-align:center;display:flex;align-items: center;justify-content: center;">
 
 
@@ -625,7 +641,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>*@
 
 
 @{
@@ -676,8 +692,61 @@
                         }
                     }
 
-                    <p class="btn btn-success" data-toggle="modal" data-target="#addressModal">افزودن آدرس جدید</p>
+                    <p id="addAddress" class="btn btn-success" >افزودن آدرس جدید</p>
+                    <div id="addAddressHolder" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;z-index:9">
+                        <div style="height:100%; width:100%; background-color:rgba(0,0,0,0.5)">
+                            <div class="modal-body">
+                                <div class="row" style="width:100%">
+                                    <div class="col-lg-6">
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
+                                            <label for="name" class="form__label">عنوان</label>
+                                        </div>
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="استان" name="modalState" id='modalState' required />
+                                            <label for="name" class="form__label">استان</label>
+                                        </div>
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="شهر" name="modalCity" id='modalCity' required />
+                                            <label for="name" class="form__label">شهر</label>
+                                        </div>
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="آدرس" name="modalAddress" id='modalAddress' required />
+                                            <label for="name" class="form__label">آدرس</label>
+                                        </div>
 
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="کدپستی" name="modalpostalCode" id='modalpostalCode' required />
+                                            <label for="name" class="form__label">کدپستی</label>
+                                        </div>
+                                        <p style="display:none" id="modalID"></p>
+                                        <div class="modal-footer" style="border-top:0; margin-top:20px">
+                                            <button id="cancelAddress" type="button" class="btn btn-secondary">لغو</button>
+                                            <button id="verifyAddress" type="button" class="btn btn-primary ">تایید</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div id="mapHolder" style="display:block;  position:relative;top:0; left:0; margin:auto; width:100%; height:500px;  background-color:white; text-align:center; background-color:white;  /* Negative half of width. */">
+                                            <div style="height:8%; width:100%;z-index: 9999999999999;height:40px">
+                                                <input type="text" id="mapaddress" style="width:100%; height:100% " class="form-control" />
+                                            </div>
+
+                                            <div id="Map" style="margin-top:10%; width:100%; margin:auto; height:92%; background: #eee; border: 2px solid #aaa;"></div>
+                                            
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+                        </div>
+                       
+                       
+                    </div>
                     @*<div class="row ">
                             <div class="col-lg-12 col-sm-12 row1 ">
                                 <div class="inputdiv1"><p>شهر</p></div>
