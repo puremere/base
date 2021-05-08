@@ -111,12 +111,12 @@
                                                             if (SB.IsFinal == "1" && SB.CatID == cat.ID)
                                                             {
                                                                 subsrtcat = "2" + SB.ID;
-                                                                <li style="width:200px; display:flex; align-items:center;"><a style="font-weight:500; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title  </a> <i class="fa fa-angle-left" style="color:black"></i></li>
+                                                                <li style="display:flex; align-items:center;"><a style="font-weight:500; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title  </a> <i class="fa fa-angle-left" style="color:black"></i></li>
                                                             }
                                                             else if (SB.IsFinal == "0" && SB.CatID == cat.ID)
                                                             {
                                                                 subsrtcat = "2" + SB.ID;
-                                                                <li class="li" style="width:200px; display:flex; align-items:center;">
+                                                                <li class="li" style="display:flex; align-items:center;">
 
                                                                     <a style="font-weight:500; font-size:14px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">@SB.title </a> <i class="fa fa-angle-left" style="color:black"></i>
                                                                  
@@ -130,7 +130,7 @@
 
 
                                                                             subsrtcat2 = "3" + SB2.ID;
-                                                                            <li style="width:200px;"><a style="font-weight:400; font-size:13px" href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
+                                                                            <li><a style="font-weight:400; font-size:13px" href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
                                                                         }
                                                                     }
                                                                 }

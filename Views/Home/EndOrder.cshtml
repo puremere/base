@@ -310,6 +310,9 @@
                 $("#lng").val(place.geometry.location.lng());
             });
         });
+        $("#changeAddress").click(function () {
+            $(".addressy").css("display","block")
+        })
         $("#cancelAddress").click(function () {
             $("#addAddressHolder").css("display", "none");
             $("body").css("overflow", "scroll")
@@ -461,7 +464,9 @@
 
 
                     $(".addressy").find('i').css("display", "none")
+                    $(".addressy").css("display", "none");
                     $(this).find('i').css("display", "block");
+                    $(this).css("display", "block");
 
                 });
                 $(".removeAddress").click(function (e) {
@@ -533,13 +538,14 @@
         font-family: inherit;
         width: 100%;
         border: 0;
-        border-bottom: 2px solid #9b9b9b;
+        border: 2px solid #9b9b9b;
         outline: 0;
         font-size: 1.3rem;
-        color: #fff;
-        padding: 7px 0;
+        color: #4d4d4d;
+        padding: 7px;
         background: transparent;
         transition: border-color 0.2s;
+        border-radius:8px
     }
 
         .form__field::placeholder {
@@ -554,7 +560,8 @@
 
     .form__label {
         position: absolute;
-        top: 0;
+        top: -10px;
+        right:10px;
         display: block;
         transition: 0.2s;
         font-size: 1rem;
@@ -565,17 +572,20 @@
         padding-bottom: 6px;
         font-weight: 700;
         border-width: 3px;
-        border-image: linear-gradient(to right, #11998e, #38ef7d);
-        border-image-slice: 1;
+        border-width: 3px;
+        border-color: #7599e9;
+        border-radius: 8px;
+       
     }
 
         .form__field:focus ~ .form__label {
             position: absolute;
-            top: 0;
+            top: -10px;
+            right: 10px;
             display: block;
             transition: 0.2s;
             font-size: 1rem;
-            color: #11998e;
+            color: #4169E1;
             font-weight: 700;
         }
 
@@ -672,6 +682,11 @@
 
             <div class="containerofform">
                 <div class="header"><p>انتخاب آدرس</p></div>
+                <div style="display:flex;margin:20px 30px 0 20px;">
+                    <p style="margin-left:20px" id="addAddress" class="btn btn-success">افزودن آدرس جدید</p>
+                    <p id="changeAddress" class="btn btn-success">تغییرآدرس</p>
+
+                </div>
                 <div class="sectionBody" style="text-align:center">
 
                     @{
@@ -694,23 +709,25 @@
                         }
                     }
 
-                    <p id="addAddress" class="btn btn-success" >افزودن آدرس جدید</p>
                     <div id="addAddressHolder" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;z-index:9">
                         <div style="height:100%; width:100%; background-color:rgba(0,0,0,0.5)">
                             <div class="modal-body">
                                 <div class="row" style="width:100%">
-                                      <div class="col-lg-6">
+                                    
+                                    <div class="col-lg-6">
                                         <div id="mapHolder" style="display:block;  position:relative;top:0; left:0; margin:auto; width:100%; height:500px;  background-color:white; text-align:center; background-color:white;  /* Negative half of width. */">
                                             <div style="height:8%; width:100%;z-index: 9999999999999;height:40px">
                                                 <input type="text" id="mapaddress" style="width:100%; height:100% " class="form-control" />
                                             </div>
 
                                             <div id="Map" style="margin-top:10%; width:100%; margin:auto; height:92%; background: #eee; border: 2px solid #aaa;"></div>
-                                            
+
 
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
+                                        <h4 style="text-align:right; margin-bottom:20px">جزئیات آدرس</h4>
+                                        <h5  style="text-align:right">لطفا جزئیات آدرس را وارد نمایید.</h5>
                                         <div class="form__group field">
                                             <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
                                             <label for="name" class="form__label">عنوان</label>
@@ -735,10 +752,10 @@
                                         <p style="display:none" id="modalID"></p>
                                         <div class="modal-footer" style="border-top:0; margin-top:20px">
                                             <button id="cancelAddress" type="button" class="btn btn-secondary">لغو</button>
-                                            <button id="verifyAddress" type="button" class="btn btn-primary ">تایید</button>
+                                            <button id="verifyAddress" type="button" class="btn btn-primary ">تایید و ثبت آدرس</button>
                                         </div>
                                     </div>
-                                  
+
                                 </div>
 
 
@@ -747,40 +764,40 @@
 
                             </div>
                         </div>
-                       
-                       
+
+
                     </div>
                     @*<div class="row ">
-                            <div class="col-lg-12 col-sm-12 row1 ">
-                                <div class="inputdiv1"><p>شهر</p></div>
-                                <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
-                            </div>
+                <div class="col-lg-12 col-sm-12 row1 ">
+                    <div class="inputdiv1"><p>شهر</p></div>
+                    <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
+                </div>
 
 
-                        </div>
-                        <div class="row ">
-                            <div class="col-lg-6 col-sm-6 row1 ">
-                                <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
-                                <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 row1">
-                                <div class="inputdiv1"><p>آدرس</p></div>
-                                <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
-                            </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-6 col-sm-6 row1 ">
+                    <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
+                    <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
+                </div>
+                <div class="col-lg-6 col-sm-6 row1">
+                    <div class="inputdiv1"><p>آدرس</p></div>
+                    <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
+                </div>
 
-                        </div>
-                        <div class="row ">
-                            <div class="col-lg-6 col-sm-6 row1">
-                                <div class="inputdiv1"><p>شماره تلفن</p></div>
-                                <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 row1 ">
-                                <div class="inputdiv1"><p>کد پستی</p></div>
-                                <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
-                            </div>
+            </div>
+            <div class="row ">
+                <div class="col-lg-6 col-sm-6 row1">
+                    <div class="inputdiv1"><p>شماره تلفن</p></div>
+                    <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
+                </div>
+                <div class="col-lg-6 col-sm-6 row1 ">
+                    <div class="inputdiv1"><p>کد پستی</p></div>
+                    <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
+                </div>
 
 
-                        </div>*@
+            </div>*@
                 </div>
 
             </div>
