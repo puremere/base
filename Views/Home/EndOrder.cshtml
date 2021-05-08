@@ -604,7 +604,8 @@
         font-size: 1.5rem;
         background-color: #fff;
         width:80%;
-        margin:auto
+        margin:auto;
+        border-radius:10px
     }
 </style>
 @*<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -713,14 +714,14 @@
                         <div style="height:100%; width:100%; background-color:rgba(0,0,0,0.5)">
                             <div class="modal-body">
                                 <div class="row" style="width:100%">
-                                    
+                                    <div class="col-lg-12" style="height:50px"></div>
                                     <div class="col-lg-6">
                                         <div id="mapHolder" style="display:block;  position:relative;top:0; left:0; margin:auto; width:100%; height:500px;  background-color:white; text-align:center; background-color:white;  /* Negative half of width. */">
-                                            <div style="height:8%; width:100%;z-index: 9999999999999;height:40px">
+                                            <div style="height:8%; width:100%;z-index: 9999999999999;height:40px; margin-bottom:10px">
                                                 <input type="text" id="mapaddress" style="width:100%; height:100% " class="form-control" />
                                             </div>
 
-                                            <div id="Map" style="margin-top:10%; width:100%; margin:auto; height:92%; background: #eee; border: 2px solid #aaa;"></div>
+                                            <div id="Map" style="border-radius:3px margin-top:10%; width:100%; margin:auto; height:92%; background: #eee; border: 2px solid #aaa;"></div>
 
 
                                         </div>
@@ -741,18 +742,18 @@
                                             <label for="name" class="form__label">شهر</label>
                                         </div>
                                         <div class="form__group field">
-                                            <input type="text" class="form__field" placeholder="آدرس" name="modalAddress" id='modalAddress' required />
-                                            <label for="name" class="form__label">آدرس</label>
+                                            <input type="text" class="form__field" placeholder="نشانی پستی" name="modalAddress" id='modalAddress' required />
+                                            <label for="name" class="form__label">نشانی پستی</label>
                                         </div>
 
                                         <div class="form__group field">
-                                            <input type="text" class="form__field" placeholder="کدپستی" name="modalpostalCode" id='modalpostalCode' required />
-                                            <label for="name" class="form__label">کدپستی</label>
+                                            <input type="text" class="form__field" placeholder="کد پستی" name="modalpostalCode" id='modalpostalCode' required />
+                                            <label for="name" class="form__label">کد پستی</label>
                                         </div>
                                         <p style="display:none" id="modalID"></p>
                                         <div class="modal-footer" style="border-top:0; margin-top:20px">
-                                            <button id="cancelAddress" type="button" class="btn btn-secondary">لغو</button>
-                                            <button id="verifyAddress" type="button" class="btn btn-primary ">تایید و ثبت آدرس</button>
+                                            <button id="cancelAddress" type="button" class="btn btn-secondary" style="font-size:15px; padding:7px 14px">لغو</button>
+                                            <button id="verifyAddress" type="button" class="btn btn-primary "  style="font-size:15px; padding:7px 14px">تایید و ثبت آدرس</button>
                                         </div>
                                     </div>
 
