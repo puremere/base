@@ -122,20 +122,20 @@
             text-align: center;
             padding: 10px;
             font-size: 16px;
-            font-weight : 600
+            font-weight: 600
         }
 </style>
 @{
 
     if (Model.mycat != null)
     {
-       
+
         <div id="" class="row SECTIONHOLDER">
 
 
             @foreach (var newitem in Model.mycat)
             {
-                string url = "/Home/productList?catmode="+newitem.ID+"&value="+newitem.title;
+                string url = "/Home/productList?catmode=" + newitem.ID + "&value=" + newitem.title;
                 if (newitem.isFinal == 0)
                 {
                     url = "Home/submenu?catmode=" + newitem.ID + "&value=" + newitem.title; ;
@@ -143,7 +143,7 @@
 
                 string imagaddress = newitem.image == null ? "/images/placeholder.jpg" : "/images/" + newitem.image;
 
-                <div  class="col-lg-3 item">
+                <div class="col-lg-3 item">
                     <a href="@url">
                         <div class="itemHolder" style="width:100%;">
                             <div style="margin:auto;  width:100%">
@@ -153,7 +153,7 @@
 
                         </div>
                     </a>
-                   
+
 
                 </div>
 
@@ -257,24 +257,37 @@
                                                             }
                                                             else
                                                             {
-                                                                <div class="row" style="margin:0px 15px; min-height:20px">
+                                                                <div style="display:flex; align-items:center; margin-top:40px">
+                                                                    <div style="width:20%;margin-right:5px">
+                                                                        <span style="color: white;font-size:18px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px 10px;">
+                                                                            @item.discount%
 
-                                                                    <div class="">
-                                                                        <div class="">
-                                                                            @if (item.price != item.oldPrice)
-                                                                            {
-                                                                                <p style="display: inline-block"> تومان </p><del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
-
-                                                                            }
-                                                                        </div>
-
+                                                                        </span>
                                                                     </div>
-                                                                </div>
 
-                                                                <div class="row" style="margin:0px 15px">
+                                                                    <div style="flex:1">
+                                                                        <div>
+                                                                            <div class="" style="margin:0px 15px; min-height:20px;text-align:left">
 
-                                                                    <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                                                <div class="">
+                                                                                    <div class="">
+                                                                                        @if (item.price != item.oldPrice)
+                                                                                        {
+                                                                                            <p style="display: inline-block; "> تومان </p> <del style="font-size:15px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
+                                                                                        }
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="row" style="margin:0px 15px; text-align:left">
+
+                                                                                <p style="display: inline-block; color: black"> تومان </p> <p style="color:black; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             }
                                                         }
@@ -313,7 +326,6 @@
         }
 
     }
-
 }
 
 
