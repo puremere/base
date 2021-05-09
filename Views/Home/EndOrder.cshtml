@@ -190,45 +190,56 @@
                 var theMarker = {};
                 var greenIcon;
 
-            function showLocation(position) {
-                var lat = position.coords.latitude;
-                var lon = position.coords.longitude;
+        function showLocation(position) {
+            alert("ww");
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
 
-                myMap = L.map('Map', { attributionControl: false }).setView([35.75453394917301, 51.37116999302821], 13);
 
-                L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 18,
-                    id: 'mapbox/streets-v11',
-                    tileSize: 512,
-                    zoomOffset: -1,
-                    accessToken: 'pk.eyJ1IjoibWVyaW9saSIsImEiOiJja2p6dXhmdngwYmVvMnZwY2lyc2htNGxhIn0.Y9t__Bll6Fw9b9amb_rcHg',
 
-                }).addTo(myMap);
+            myMap = L.map('Map', { attributionControl: false }).setView([35.75453394917301, 51.37116999302821], 13);
+
+            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: 'pk.eyJ1IjoibWVyaW9saSIsImEiOiJja2p6dXhmdngwYmVvMnZwY2lyc2htNGxhIn0.Y9t__Bll6Fw9b9amb_rcHg',
+
+            }).addTo(myMap);
+            myMap.panTo(new L.LatLng(lat, lon));
+
+            if ($("#lat").val() != "0") {
+
+                lat = $("#lat").val();
+                lon = $("#lon").val()
+                theMarker = L.marker([lat, lon]).addTo(myMap);
                 myMap.panTo(new L.LatLng(lat, lon));
+            };
 
 
 
 
 
-                myMap.on('click', function (e) {
+            myMap.on('click', function (e) {
 
-                    $("#checkmap").show();
-                    lat = e.latlng.lat;
-                    lon = e.latlng.lng;
+                $("#checkmap").show();
+                lat = e.latlng.lat;
+                lon = e.latlng.lng;
 
-                    console.log("You clicked the map at LAT: " + lat + " and LONG: " + lon);
-                    //Clear existing marker,
+                console.log("You clicked the map at LAT: " + lat + " and LONG: " + lon);
+                //Clear existing marker,
 
-                    if (theMarker != undefined) {
-                        myMap.removeLayer(theMarker);
-                    };
+                if (theMarker != undefined) {
+                    myMap.removeLayer(theMarker);
+                };
 
-                    //Add a marker to show where you clicked.
-                    theMarker = L.marker([lat, lon]).addTo(myMap);
-                    $("#lat").val(lat);
-                    $("#lon").val(lon);
-                });
+                //Add a marker to show where you clicked.
+                theMarker = L.marker([lat, lon]).addTo(myMap);
+                $("#lat").val(lat);
+                $("#lon").val(lon);
+            });
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 $("#lat").val(lat);
                 $("#lon").val(lon);
@@ -239,15 +250,17 @@
 
 
             }
-            function errorHandler(err) {
+        function errorHandler(err) {
+              
                 if (err.code == 1) {
                     //alert("Error: Access is denied!");
                 } else if (err.code == 2) {
                     //alert("Error: Position is unavailable!");
                 }
 
-
-                myMap = L.map('Map', { attributionControl: false }).setView([35.75453394917301, 51.37116999302821], 13);
+            var lat = 35.75453394917301;
+            var lon = 51.37116999302821;
+                myMap = L.map('Map', { attributionControl: false }).setView([lat, lon], 13);
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 18,
@@ -258,8 +271,15 @@
 
                 }).addTo(myMap);
 
-                myMap.panTo(new L.LatLng(35.73598454240641, 51.48437862217327));
+            myMap.panTo(new L.LatLng(lat, lon));
+         
+                if ($("#lat").val() != "0") {
 
+                    lat = $("#lat").val();
+                    lon = $("#lon").val()
+                    theMarker = L.marker([lat, lon]).addTo(myMap);
+                    myMap.panTo(new L.LatLng(lat, lon));
+                }
 
 
 
@@ -305,7 +325,7 @@
                     myMap.removeLayer(theMarker);
                 };
                 myMap.panTo(new L.LatLng(place.geometry.location.lat(), place.geometry.location.lng()));
-                theMarker = L.marker([place.geometry.location.lat(), place.geometry.location.lng()]).addTo(mymap);
+                theMarker = L.marker([place.geometry.location.lat(), place.geometry.location.lng()]).addTo(myMap);
                 $("#lat").val(place.geometry.location.lat());
                 $("#lng").val(place.geometry.location.lng());
             });
@@ -398,92 +418,106 @@
 
             });
 
-            $("#verifyAddress").click(function () {
-                var lat = $("#lat").val();
-                var lng = $("#lon").val();
-                var address = $("#modalAddress").val();
-                var postalCode = $("#modalpostalCode").val();
-                var title = $("#modalTitle").val();
-                var city = $("#modalCity").val();
-                var ID = $("#modalID").val();
-                var value = "0";
-                if (lat == "" || lng == "") {
-                    toastr.options = {
-                        "debug": false,
-                        "positionClass": "toast-top-center",
-                        "onclick": null,
-                        "fadeIn": 300,
-                        "fadeOut": 1000,
-                        "timeOut": 5000,
-                        "extendedTimeOut": 1000
-                    }
-                    toastr.error("موقعیت خود را انتخاب کنید");
-                    value = "1";
-                };
-                if (address == "" || postalCode == "" || title == "") {
-                    toastr.options = {
-                        "debug": false,
-                        "positionClass": "toast-top-center",
-                        "onclick": null,
-                        "fadeIn": 300,
-                        "fadeOut": 1000,
-                        "timeOut": 5000,
-                        "extendedTimeOut": 1000
-                    }
-                    toastr.error("لطفا همه موارد را کامل کنید");
-                    value = "1";
+        $("#verifyAddress").click(function () {
+            var lat = $("#lat").val();
+            var lng = $("#lon").val();
+            var address = $("#modalAddress").val();
+            var postalCode = $("#modalpostalCode").val();
+            var title = $("#modalTitle").val();
+            var city = $("#modalCity").val();
+            var state = $("#modalState").val();
+            var ID = $("#modalID").val();
+            var value = "0";
+            if (lat == "0" || lng == "0") {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
                 }
-
-                if (value == "0") {
-                    $.ajax({
-                        url: "setAddress",
-                        dataType: "html",
-                        data: {
-                            lat: lat,
-                            lng: lng,
-                            address: address,
-                            postalCode: postalCode,
-                            title: title,
-                            city: city,
-                            id : ID
-                        },
-                        success: function (data) {
-                            window.location.reload();
-                        }
-                    });
+                toastr.error("موقعیت خود را انتخاب کنید");
+                value = "1";
+            };
+            if (address == "" || postalCode == "" || title == "" || city == "" || state == "") {
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000
                 }
+                toastr.error("لطفا همه موارد را کامل کنید");
+                value = "1";
+            }
+
+            if (value == "0") {
+                $.ajax({
+                    url: "setAddress",
+                    dataType: "html",
+                    data: {
+                        lat: lat,
+                        lng: lng,
+                        address: address,
+                        postalCode: postalCode,
+                        title: title,
+                        city: city,
+                        state: state,
+                        id: ID
+                    },
+                    success: function (data) {
+                        window.location.reload();
+                    }
+                });
+            }
 
 
+        });
+
+        $(".addressy").click(function () {
+
+            var id = $(this).attr('id');
+            $("#addressID").val(id);
+
+
+
+            $(".addressy").find('i').css("display", "none")
+            $(".addressy").css("display", "none");
+            $(this).find('i').css("display", "block");
+            $(this).css("display", "block");
+
+        });
+        $(".removeAddress").click(function (e) {
+            e.stopPropagation();
+            $("#removeModal").modal('toggle');
+            var sid = $(this).parent().parent().attr('id');
+            $("#idToDelete").val(sid);
+
+
+        });
+        $("#removeAddressCancel").click(function () {
+            $("#removeModal").modal('toggle');
+        })
+        $("#removeAddressButt").click(function () {
+
+            var sid = $("#idToDelete").val();
+            $.ajax({
+                url: "removeAddress",
+                dataType: "html",
+                data: {
+                    id: sid
+                },
+                success: function (data) {
+                    window.location.reload();
+                }
             });
-
-                $(".addressy").click(function () {
-
-                    var id = $(this).attr('id');
-                    $("#addressID").val(id);
-
-
-
-                    $(".addressy").find('i').css("display", "none")
-                    $(".addressy").css("display", "none");
-                    $(this).find('i').css("display", "block");
-                    $(this).css("display", "block");
-
-                });
-                $(".removeAddress").click(function (e) {
-                    e.stopPropagation();
-                    var sid = $(this).parent().parent().attr('id');
-                    $.ajax({
-                        url: "removeAddress",
-                        dataType: "html",
-                        data: {
-                            id: sid
-                        },
-                        success: function (data) {
-                            window.location.reload();
-                        }
-                    });
-                });
-                $(".editAddress").click(function (e) {
+        });
+        $(".editAddress").click(function (e) {
+            $("#addAddressHolder").show()
                     e.stopPropagation();
                     var sid = $(this).parent().parent().attr('id');
                     var addes = @Html.Raw(Json.Encode(Model.address))
@@ -494,6 +528,7 @@
                                 $("#addressModal").modal('toggle');
                                 $("#modalTitle").val(item.title);
                                 $("#modalCity").val(item.city);
+                                $("#modalState").val(item.state);
                                 $("#modalAddress").val(item.address);
                                 $("#modalpostalCode").val(item.postalCode);
                                 $("#modalID").val(item.ID);
@@ -503,9 +538,15 @@
 
                                 $("#lat").val(lat);
                                 $("#lon").val(lon);
-                                if (theMarker != undefined) {
-                                    myMap.removeLayer(theMarker);
-                                };
+                                if (myMap == undefined) {
+                                    getLocation();
+                                }
+                                else {
+                                    if (theMarker != undefined) {
+                                        myMap.removeLayer(theMarker);
+                                    };
+                                }
+
 
                                 //Add a marker to show where you clicked.
                                 theMarker = L.marker([lat, lon]).addTo(myMap);
@@ -545,7 +586,7 @@
         padding: 7px;
         background: transparent;
         transition: border-color 0.2s;
-        border-radius:8px
+        border-radius: 8px
     }
 
         .form__field::placeholder {
@@ -561,7 +602,7 @@
     .form__label {
         position: absolute;
         top: -10px;
-        right:10px;
+        right: 10px;
         display: block;
         transition: 0.2s;
         font-size: 1rem;
@@ -575,7 +616,6 @@
         border-width: 3px;
         border-color: #7599e9;
         border-radius: 8px;
-       
     }
 
         .form__field:focus ~ .form__label {
@@ -595,7 +635,7 @@
     }
 
     /* demo */
-    .modal-body {
+    .modal-bodyy {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -603,59 +643,32 @@
         min-height: 60vh;
         font-size: 1.5rem;
         background-color: #fff;
-        width:80%;
-        margin:auto;
-        border-radius:10px
+        width: 80%;
+        margin: auto;
+        border-radius: 10px
     }
 </style>
-@*<div class="modal fade" id="addressModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-
+            <input id="idToDelete" style="display:none" />
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
             <div class="modal-body">
 
-                <div class="form__group field">
-                    <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
-                    <label for="name" class="form__label">عنوان</label>
-                </div>
-                <div class="form__group field">
-                    <input type="text" class="form__field" placeholder="استان" name="modalState" id='modalState' required />
-                    <label for="name" class="form__label">استان</label>
-                </div>
-                <div class="form__group field">
-                    <input type="text" class="form__field" placeholder="شهر" name="modalCity" id='modalCity' required />
-                    <label for="name" class="form__label">شهر</label>
-                </div>
-                <div class="form__group field">
-                    <input type="text" class="form__field" placeholder="آدرس" name="modalAddress" id='modalAddress' required />
-                    <label for="name" class="form__label">آدرس</label>
-                </div>
-
-                <div class="form__group field">
-                    <input type="text" class="form__field" placeholder="کدپستی" name="modalpostalCode" id='modalpostalCode' required />
-                    <label for="name" class="form__label">کدپستی</label>
-                </div>
-                <div class="row">
-                    <div style="height:40px"></div>
-                    <div id="mapshow" style="text-align:center;display:flex;align-items: center;justify-content: center;">
-
-
-                        <i id="checkmap" class="fal fa-check" style="display:none; font-size: 35px;color: green;margin: 0 20px;"></i><p style="cursor:pointer;color: white;background-color: #4f9d94;border-radius: 5px;padding: 5px 10px;font-size:14px">انتخاب موقعیت</p>
-
-                    </div>
-                </div>
-
-
-                <p style="display:none" id="modalID"></p>
+                آیا از حذف آیتم مورد نظر اطمینان دارید؟
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
-                <button id="verifyAddress" type="button" class="btn btn-primary ">تایید</button>
+                <button id="removeAddressButt" type="button" class="btn btn-secondary" data-dismiss="modal">تایید</button>
+                <button id="removeAddressCancel" type="button" class="btn btn-primary">لغو</button>
             </div>
         </div>
     </div>
-</div>*@
-
+</div>
 
 @{
 
@@ -676,6 +689,7 @@
         <input hidden name="addID" id="addID" value="0" />
         <input hidden name="disc" id="lon" value="0" />
 
+
         <div id="app" style="width:100%; height:100%"></div>
 
         <div style="margin:30px 0px 30px 0px"></div>
@@ -684,8 +698,16 @@
             <div class="containerofform">
                 <div class="header"><p>انتخاب آدرس</p></div>
                 <div style="display:flex;margin:20px 30px 0 20px;">
+
                     <p style="margin-left:20px" id="addAddress" class="btn btn-success">افزودن آدرس جدید</p>
-                    <p id="changeAddress" class="btn btn-success">تغییرآدرس</p>
+                    @if (Model.address != null)
+                    {
+                        if (Model.address.Count() > 1)
+                        {
+                            <p id="changeAddress" class="btn btn-success">تغییرآدرس</p>
+                        }
+                    }
+
 
                 </div>
                 <div class="sectionBody" style="text-align:center">
@@ -695,8 +717,16 @@
                         {
                             foreach (var item in Model.address)
                             {
-                                <div id="@item.ID" style="margin:20px; padding:20px; " class="halfrow addressy">
-                                    <i class="fa fa-check " style="display:none; margin:0 5px"></i>
+                                string display = "none";
+                                if (item.active == "1")
+                                {
+                                    display = "block";
+                                    <input hidden id="addressID" name="addressID" value="@item.ID" />
+
+                                }
+
+                                <div id="@item.ID" style="display:@display;  margin: 20px; padding:20px; " class="halfrow addressy">
+                                    <i class="fa fa-check " style="display:@display;  margin:0 5px"></i>
 
                                     <div style="text-align:right;font-size:14px; font-weight:600">   @item.title</div><br />
                                     <div style="text-align:right; font-size:14px"> آدرس :   @item.address</div>
@@ -712,7 +742,7 @@
 
                     <div id="addAddressHolder" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;z-index:9">
                         <div style="height:100%; width:100%; background-color:rgba(0,0,0,0.5)">
-                            <div class="modal-body">
+                            <div class="modal-bodyy">
                                 <div class="row" style="width:100%">
                                     <div class="col-lg-12" style="height:50px"></div>
                                     <div class="col-lg-6">
@@ -728,7 +758,7 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <h4 style="text-align:right; margin-bottom:20px">جزئیات آدرس</h4>
-                                        <h5  style="text-align:right">لطفا جزئیات آدرس را وارد نمایید.</h5>
+                                        <h5 style="text-align:right">لطفا جزئیات آدرس را وارد نمایید.</h5>
                                         <div class="form__group field">
                                             <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
                                             <label for="name" class="form__label">عنوان</label>
@@ -753,7 +783,7 @@
                                         <p style="display:none" id="modalID"></p>
                                         <div class="modal-footer" style="border-top:0; margin-top:20px">
                                             <button id="cancelAddress" type="button" class="btn btn-secondary" style="font-size:15px; padding:7px 14px">لغو</button>
-                                            <button id="verifyAddress" type="button" class="btn btn-primary "  style="font-size:15px; padding:7px 14px">تایید و ثبت آدرس</button>
+                                            <button id="verifyAddress" type="button" class="btn btn-primary " style="font-size:15px; padding:7px 14px">تایید و ثبت آدرس</button>
                                         </div>
                                     </div>
 
@@ -769,36 +799,36 @@
 
                     </div>
                     @*<div class="row ">
-                <div class="col-lg-12 col-sm-12 row1 ">
-                    <div class="inputdiv1"><p>شهر</p></div>
-                    <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
-                </div>
+                            <div class="col-lg-12 col-sm-12 row1 ">
+                                <div class="inputdiv1"><p>شهر</p></div>
+                                <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
+                            </div>
 
 
-            </div>
-            <div class="row ">
-                <div class="col-lg-6 col-sm-6 row1 ">
-                    <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
-                    <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
-                </div>
-                <div class="col-lg-6 col-sm-6 row1">
-                    <div class="inputdiv1"><p>آدرس</p></div>
-                    <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
-                </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-lg-6 col-sm-6 row1 ">
+                                <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
+                                <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 row1">
+                                <div class="inputdiv1"><p>آدرس</p></div>
+                                <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
+                            </div>
 
-            </div>
-            <div class="row ">
-                <div class="col-lg-6 col-sm-6 row1">
-                    <div class="inputdiv1"><p>شماره تلفن</p></div>
-                    <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
-                </div>
-                <div class="col-lg-6 col-sm-6 row1 ">
-                    <div class="inputdiv1"><p>کد پستی</p></div>
-                    <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
-                </div>
+                        </div>
+                        <div class="row ">
+                            <div class="col-lg-6 col-sm-6 row1">
+                                <div class="inputdiv1"><p>شماره تلفن</p></div>
+                                <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 row1 ">
+                                <div class="inputdiv1"><p>کد پستی</p></div>
+                                <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
+                            </div>
 
 
-            </div>*@
+                        </div>*@
                 </div>
 
             </div>
@@ -1239,7 +1269,7 @@
             var value = "final" + @Model.times[0].hours[0].ID;
             <input hidden id="hourid" name="hourid" value=@value />
             <input hidden id="payment" name="payment" value="" />
-            <input hidden id="addressID" name="addressID" value="" />
+
         }
 
         <div style="margin:30px 0px 30px 0px"></div>
