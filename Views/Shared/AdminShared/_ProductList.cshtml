@@ -50,34 +50,49 @@
                                     id: id,
                                 },
                                 success: function (data) {
-                                    toastr.options = {
-                                        "debug": false,
-                                        "positionClass": "toast-top-center",
-                                        "onclick": null,
-                                        "fadeIn": 300,
-                                        "fadeOut": 1000,
-                                        "timeOut": 5000,
-                                        "extendedTimeOut": 1000
-                                    }
-                                    toastr.success('محصول مورد نظر حذف شد')
-                                    var value = $("#listofproduct").val();
-                                    var partner = $("#partnerList").val();
-                                    $.ajax({
-                                        url: '/Admin/GetTheListOfItems',
-                                        dataType: 'html',
-                                        data: {
-                                            value: value,
-                                            partner: partner
-                                        },
-                                        success: function (data) {
-
-                                            $('#listholder').html(data);
-                                            $('#listholder').css("display", "block");
-                                        },
-                                        error: function () {
-                                            alert("nashod")
+                                    if (data == "error") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
                                         }
-                                    });
+                                        toastr.error('محصول مورد نظر دارای گردش میباشد')
+                                    }
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.success('محصول مورد نظر حذف شد')
+                                        var value = $("#listofproduct").val();
+                                        var partner = $("#partnerList").val();
+                                        $.ajax({
+                                            url: '/Admin/GetTheListOfItems',
+                                            dataType: 'html',
+                                            data: {
+                                                value: value,
+                                                partner: partner
+                                            },
+                                            success: function (data) {
+
+                                                $('#listholder').html(data);
+                                                $('#listholder').css("display", "block");
+                                            },
+                                            error: function () {
+                                                alert("nashod")
+                                            }
+                                        });
+                                    }
+                                    
 
                                 },
                                 error: function () {
