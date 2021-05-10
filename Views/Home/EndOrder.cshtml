@@ -684,8 +684,7 @@
 
     <form id="endOrderForm" name="endOrderForm" action="EndOrder" method="post">
         <p id="error" style="color :red; text-align:center; padding:10px"></p>
-        <input hidden name="lat" id="lat" value="0" />
-        <input hidden name="lon" id="lon" value="0" />
+        
         <input hidden name="addID" id="addID" value="0" />
         <input hidden name="disc" id="lon" value="0" />
 
@@ -722,7 +721,8 @@
                                 {
                                     display = "block";
                                     <input hidden id="addressID" name="addressID" value="@item.ID" />
-
+                                    <input hidden name="lat" id="lat" value="@item.lat" />
+                                    <input hidden name="lon" id="lon" value="@item.lng" />
                                 }
 
                                 <div id="@item.ID" style="display:@display;  margin: 20px; padding:20px; " class="halfrow addressy">
@@ -799,36 +799,36 @@
 
                     </div>
                     @*<div class="row ">
-                            <div class="col-lg-12 col-sm-12 row1 ">
-                                <div class="inputdiv1"><p>شهر</p></div>
-                                <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
-                            </div>
+            <div class="col-lg-12 col-sm-12 row1 ">
+                <div class="inputdiv1"><p>شهر</p></div>
+                <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
+            </div>
 
 
-                        </div>
-                        <div class="row ">
-                            <div class="col-lg-6 col-sm-6 row1 ">
-                                <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
-                                <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 row1">
-                                <div class="inputdiv1"><p>آدرس</p></div>
-                                <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
-                            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-6 col-sm-6 row1 ">
+                <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
+                <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
+            </div>
+            <div class="col-lg-6 col-sm-6 row1">
+                <div class="inputdiv1"><p>آدرس</p></div>
+                <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
+            </div>
 
-                        </div>
-                        <div class="row ">
-                            <div class="col-lg-6 col-sm-6 row1">
-                                <div class="inputdiv1"><p>شماره تلفن</p></div>
-                                <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 row1 ">
-                                <div class="inputdiv1"><p>کد پستی</p></div>
-                                <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
-                            </div>
+        </div>
+        <div class="row ">
+            <div class="col-lg-6 col-sm-6 row1">
+                <div class="inputdiv1"><p>شماره تلفن</p></div>
+                <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
+            </div>
+            <div class="col-lg-6 col-sm-6 row1 ">
+                <div class="inputdiv1"><p>کد پستی</p></div>
+                <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
+            </div>
 
 
-                        </div>*@
+        </div>*@
                 </div>
 
             </div>
