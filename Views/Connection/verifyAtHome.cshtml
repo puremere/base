@@ -4,11 +4,11 @@
 }
 
 @{
-    string srt = ViewBag.package + "//" + @ViewBag.message + "-" + @ViewBag.message3;
-    <a id="android" href="www.google.com">@srt</a>
-    <script>
+    string srt = ViewBag.package + "//" + "mellatgate-"+@ViewBag.message + "-" + @ViewBag.message3;
+    <a style="font-size:15px" id="android" href="@srt">click   me</a>
+    @*<script>
         $("#android").click();
-    </script>
+    </script>*@
 }
 
 <style>
