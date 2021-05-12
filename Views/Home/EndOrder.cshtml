@@ -213,7 +213,7 @@
             if ($("#lat").val() != "0") {
 
                 lat = $("#lat").val();
-                lon = $("#lon").val()
+                lon = $("#lgn").val()
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 myMap.panTo(new L.LatLng(lat, lon));
             };
@@ -238,11 +238,11 @@
                 //Add a marker to show where you clicked.
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 $("#lat").val(lat);
-                $("#lon").val(lon);
+                $("#lgn").val(lon);
             });
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 $("#lat").val(lat);
-                $("#lon").val(lon);
+                $("#lgn").val(lon);
 
 
 
@@ -276,7 +276,7 @@
                 if ($("#lat").val() != "0") {
 
                     lat = $("#lat").val();
-                    lon = $("#lon").val()
+                    lon = $("#lgn").val()
                     theMarker = L.marker([lat, lon]).addTo(myMap);
                     myMap.panTo(new L.LatLng(lat, lon));
                 }
@@ -299,7 +299,7 @@
                     theMarker = L.marker([lat, lon]).addTo(myMap);
 
                     $("#lat").val(lat);
-                    $("#lon").val(lon);
+                    $("#lgn").val(lon);
                 });
 
 
@@ -352,7 +352,7 @@
                 $("#mapHolder").css("display", "none");
 
                 var lat = $("#lat").val();
-                var lon = $("#lon").val();
+                var lon = $("#lgn").val();
                 //myMap.panTo(new L.LatLng(lat, lon));
                 //$("#maphide").hide();
                 //$("#mapshow").show();
@@ -365,7 +365,7 @@
                         data: 'html',
                         data: {
                             lat: $("#lat").val(),
-                            log: $("#lon").val(),
+                            log: $("#lgn").val(),
                         },
                         success: function (data) {
 
@@ -420,7 +420,7 @@
 
         $("#verifyAddress").click(function () {
             var lat = $("#lat").val();
-            var lng = $("#lon").val();
+            var lng = $("#lgn").val();
             var address = $("#modalAddress").val();
             var postalCode = $("#modalpostalCode").val();
             var title = $("#modalTitle").val();
@@ -537,7 +537,7 @@
                                 var lon = item.lng;
 
                                 $("#lat").val(lat);
-                                $("#lon").val(lon);
+                                $("#lgn").val(lon);
                                 if (myMap == undefined) {
                                     getLocation();
                                 }
@@ -714,6 +714,8 @@
                     @{
                         if (Model.address != null)
                         {
+                            <input hidden name="lat" id="lat" value="" />
+                            <input hidden name="lgn" id="lgn" value="" />
                             foreach (var item in Model.address)
                             {
                                 string display = "none";
@@ -721,9 +723,16 @@
                                 {
                                     display = "block";
                                     <input hidden id="addressID" name="addressID" value="@item.ID" />
-                                    <input hidden name="lat" id="lat" value="@item.lat" />
-                                    <input hidden name="lon" id="lon" value="@item.lng" />
+                                    <script>
+                                       
+                                        let latelement = document.getElementById('lat');
+                                        let lonelement = document.getElementById('lgn');
+                                        latelement.value = @item.lat;
+                                        lonelement.value = @item.lng;
+                                       
+                                    </script>
                                 }
+
 
                                 <div id="@item.ID" style="display:@display;  margin: 20px; padding:20px; " class="halfrow addressy">
                                     <i class="fa fa-check " style="display:@display;  margin:0 5px"></i>
