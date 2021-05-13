@@ -428,7 +428,7 @@
             var state = $("#modalState").val();
             var ID = $("#modalID").val();
             var value = "0";
-            if (lat == "0" || lng == "0") {
+            if (lat == "0" || lat == "") {
                 toastr.options = {
                     "debug": false,
                     "positionClass": "toast-top-center",
