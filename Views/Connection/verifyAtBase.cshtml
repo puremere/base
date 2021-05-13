@@ -63,7 +63,12 @@
 
 
             <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
+            @{
+                string srt = ViewBag.package + "://" + "mellatgate-" + @ViewBag.message + "-" + @ViewBag.message3;
 
+                <div class="btn btn-default" style="margin:25px"> <a style="font-size:15px" id="android" href="@srt">بازگشت به اپلیکیشن</a></div>
+
+            }
 
 
 
