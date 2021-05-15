@@ -191,7 +191,7 @@
                 var greenIcon;
 
         function showLocation(position) {
-            alert("ww");
+          
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
 
@@ -1032,7 +1032,7 @@
 
                                                     }
 
-                                                    $("#finalDiscount").text(obj.price);
+                                                    $("#finalDiscount").text(addCommas(obj.price));
                                                 }
                                             }
                                         },
