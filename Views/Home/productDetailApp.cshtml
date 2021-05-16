@@ -7,9 +7,9 @@
 
 
 @{
-    string srt = ViewBag.package + "://" + ViewBag.id;
+    string srt = ViewBag.package + "://" + @ViewBag.id;
     <script>
         window.location.href = '@srt';
-        window.location.href = "/home/productdetail?id=N" + ViewBag.id;
+        window.location.href = "/home/productdetail?id=N" + @ViewBag.id;
     </script>
 }

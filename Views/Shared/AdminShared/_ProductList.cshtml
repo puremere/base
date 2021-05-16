@@ -556,13 +556,14 @@
                     var num = this.textContent;
                     var value = $("#listofproduct").val();
                     var partner = $("#partnerList").val();
+                    var que = $("#SearchQuery").val();
                     $.ajax({
                         url: '/admin/GetTheListOfItems',
                         data: {
                             page: num,
                             value: value,
-                            partner: partner
-
+                            partner: partner,
+                            query: que
                         },
                         dataType: 'html',
                         success: function (data) {
