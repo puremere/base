@@ -87,13 +87,12 @@
 <div id="idholder" style="display:none">@Model.ID</div>
 
 
-@if(Request.Browser.IsMobileDevice){
-    @{
-        string srt = ViewBag.package + "://" + Model.ID;
-        <script>
+@if (Request.Browser.IsMobileDevice)
+{
+    string srt = ViewBag.package + "://" + Model.ID;
+    <script>
                         window.location.href = '@srt';
-        </script>
-    }
+    </script>
 }
 
 
