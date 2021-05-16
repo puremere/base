@@ -87,13 +87,6 @@
 <div id="idholder" style="display:none">@Model.ID</div>
 
 
-@if (Request.Browser.IsMobileDevice)
-{
-    string srt = ViewBag.package + "://" + Model.ID;
-    <script>
-                        window.location.href = '@srt';
-    </script>
-}
 
 
 <div class="row contentholder" style="background-color: #fff; margin: 20px 20px 0 20px; border: 1px #eee solid; border-radius: 5px ;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
@@ -406,6 +399,7 @@
     }
 
     @{
+
         int w = Request.Browser.ScreenPixelsWidth;
         int h = Request.Browser.ScreenPixelsHeight;
         if (!Request.Browser.IsMobileDevice || !(w < 720 && h > 720))
