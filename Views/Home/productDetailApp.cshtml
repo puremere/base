@@ -1,13 +1,13 @@
-﻿@{
-    ViewBag.Title = Model.title + " | " + @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
+﻿
+@{
+    ViewBag.Title =  @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
 
-@if (Request.Browser.IsMobileDevice)
-{
-    string srt = ViewBag.package + "://" + Model.ID;
+@{
+    string srt = ViewBag.package + "://" + ViewBag.id;
     <script>
             window.location.href = '@srt';
     </script>
