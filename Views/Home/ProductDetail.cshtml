@@ -10,12 +10,7 @@
 <link href="~/Content/flexslider2.css" rel="stylesheet" />
 <link href="~/Content/detailStyle.css" rel="stylesheet" />
 <link href="~/Content/lightgallery.min.css" rel="stylesheet" />
-@{
-    string srt = ViewBag.package + "://"+Model.ID;
-    <script>
-                    window.location.href = '@srt';
-    </script>
-}
+
 <style>
     .c-product__summary {
         max-width: 450px;
@@ -92,7 +87,14 @@
 <div id="idholder" style="display:none">@Model.ID</div>
 
 
-
+@if(Request.Browser.IsMobileDevice){
+    @{
+        string srt = ViewBag.package + "://" + Model.ID;
+        <script>
+                        window.location.href = '@srt';
+        </script>
+    }
+}
 
 
 <div class="row contentholder" style="background-color: #fff; margin: 20px 20px 0 20px; border: 1px #eee solid; border-radius: 5px ;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
