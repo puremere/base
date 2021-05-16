@@ -2,7 +2,7 @@
 @using banimo.Classes;
 
 @{
-    ViewBag.Title = Model.title + " | " +  @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
+    ViewBag.Title = Model.title + " | " + @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
@@ -10,7 +10,12 @@
 <link href="~/Content/flexslider2.css" rel="stylesheet" />
 <link href="~/Content/detailStyle.css" rel="stylesheet" />
 <link href="~/Content/lightgallery.min.css" rel="stylesheet" />
-
+@{
+    string srt = ViewBag.package + "://"+Model.ID;
+    <script>
+                    window.location.href = '@srt';
+    </script>
+}
 <style>
     .c-product__summary {
         max-width: 450px;
@@ -206,7 +211,7 @@
                                         {
                                             imagefile = item.image;
                                         }
-                                        string src =  imagefile;
+                                        string src = imagefile;
                                         <li data-thumb="@src">
                                             <div class="thumb-image imageitself" style=" margin:auto ; padding:20px;">
                                                 <img style="width:100%; height:100%; object-fit:scale-down" src="@src" data-imagezoom="true" class="img-responsive ">
@@ -612,7 +617,7 @@
                                     List<string> list2 = Model.tag.Split(',').ToList();
                                     foreach (var tag in list2)
                                     {
-                                        <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag"><a href="/Home/productlist?tag=@tag&value=@tag" style="padding:5px; color:white; text-decoration:none" >@tag</a></div>
+                                        <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag"><a href="/Home/productlist?tag=@tag&value=@tag" style="padding:5px; color:white; text-decoration:none">@tag</a></div>
 
                                     }
 
@@ -1019,7 +1024,7 @@
                                         List<string> list2 = Model.tag.Split(',').ToList();
                                         foreach (var item in list2)
                                         {
-                                    <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag item"> <a style="padding:5px; color:white; text-decoration:none" href="/Home/productlist?tag=@item&value=@item">@item</a></div>
+                                            <div style="cursor:pointer; padding:5px; margin:5px ; border-radius:5px; background-color:#64c4ef; color:white; display:inline-block" class="tag item"> <a style="padding:5px; color:white; text-decoration:none" href="/Home/productlist?tag=@item&value=@item">@item</a></div>
 
                                         }
 
@@ -1206,7 +1211,7 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src =  imagefile;
+                                        string src = imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer; ">
 
@@ -1687,7 +1692,7 @@
                                         string addtocartid = "addtocart" + ID;
                                         string price = item.price;
 
-                                        string src =  imagefile;
+                                        string src = imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer">
 
