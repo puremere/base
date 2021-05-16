@@ -71,7 +71,7 @@
             <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
             @{
 
-                string srt = ViewBag.package + "://mellatgate-" + "0" + "-" + @ViewBag.message2;
+                string srt = @ViewBag.package + "://mellatgate-" + "0" + "-" + @ViewBag.message2;
                 <script>
                     window.location.href = '@srt';
                 </script>
