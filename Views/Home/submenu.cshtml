@@ -138,7 +138,7 @@
                 string url = "/Home/productList?catmode=" + newitem.ID + "&value=" + newitem.title;
                 if (newitem.isFinal == 0)
                 {
-                    url = "/Home/submenu?catmode=" + newitem.ID + "&value=" + newitem.title; ;
+                    url = "Home/submenu?catmode=" + newitem.ID + "&value=" + newitem.title; ;
                 }
 
                 string imagaddress = newitem.image == null ? "/images/placeholder.jpg" : "/images/" + newitem.image;

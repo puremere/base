@@ -100,68 +100,6 @@
 
     </div>
 </div>
-<div id="handoverDeliveyModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-            <div class="modal-body">
-                <div style="display:none" id="itemIDForhandover"></div>
-                <div class="row" style="margin:0">
-                    <div class="col-lg-12" style="padding:25px">
-                        <p>آیا از تحویل کالا اطمینان دارید؟</p>
-
-                    </div>
-
-                </div>
-
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirmhandover">تایید</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
-            </div>
-        </div>
-
-    </div>
-</div>
-<div id="returnItemModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-            <div class="modal-body">
-                <div style="display:none" id="itemIDForReturn"></div>
-                <div class="row" style="margin:0">
-                    <div class="col-lg-12" style="padding:25px">
-                        <p>آیا از بازگشت کالا  اطمینان دارید؟</p>
-
-                    </div>
-
-                </div>
-
-
-
-
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary confirmReturnItem">تایید</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
-            </div>
-        </div>
-
-    </div>
-</div>
 <div class="row">
     <div style="overflow-x:auto;padding:10px">
         <div class="panel panel-default">
@@ -174,17 +112,7 @@
                     <input name="id" hidden />
                     <input value="user" name="type" hidden />
                     <input hidden name="orderID" value="@Model.id" />
-                    <h3 class="panel-title">
-                        <i class="fa fa-shopping-basket fa-fw"></i> شرح سفارش
-
-
-                        @if (Model.type != "00")
-                        {
-                            <i id="print" style="cursor:pointer; float:left" class="fa fa-print"></i>
-                            <i id="addItemToOrderIcon" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus"></i>
-
-                        }
-                    </h3>
+                    <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> شرح سفارش    <i id="print" style="cursor:pointer; float:left" class="fa fa-print"></i>  <i id="addItemToOrderIcon" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus"></i></h3>
 
                 </form>
 
@@ -284,29 +212,14 @@
                                                         string image = item.image;
                                                         int i = Model.list.myProducts.IndexOf(item) + 1;
                                                         string deleteid = item.id + "-" + item.orderID;
-                                                       
-                                            <tr style=" background-color : @color">
-                                                <td>@i</td>
-                                                <td>@item.title</td>
-                                                <td>@item.price</td>
-                                                <td>@item.nums</td>
-                                                <td><img src=@image style="max-width:100px" /> </td>
-                                                @if (Model.type == "00")
-                                                {
-                                                    if (item.delivered == 0)
-                                                    {
-                                                        <td><div id="@deleteid" class="btn btn-success hondover">تحویل</div> </td>
-                                                    }
-                                                    else
-                                                    {
-                                                        <td><div id="@deleteid" class="btn btn-danger returnItem">دریافت مجدد</div> </td>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <td><div id="@deleteid" class="btn btn-danger deletItem">حذف</div> </td>
-                                                }
-                                            </tr>
+                                                        <tr style=" background-color : @color">
+                                                            <td>@i</td>
+                                                            <td>@item.title</td>
+                                                            <td>@item.price</td>
+                                                            <td>@item.nums</td>
+                                                            <td><img src=@image style="max-width:100px" /> </td>
+                                                            <td><div id="@deleteid" class="btn btn-danger deletItem">حذف</div> </td>
+                                                        </tr>
                                                     }
                                                 }
                                             }
@@ -337,117 +250,6 @@
         $("#selectedIDForDelete").text($(this).attr('id'));
         $("#deleteItemFromOrderModal").modal('toggle');
     })
-    $(".hondover").click(function () {
-        $("#itemIDForhandover").text($(this).attr('id'));
-        $("#handoverDeliveyModal").modal('toggle');
-    });
-    $(".confirmhandover").click(function () {
-        $("#handoverDeliveyModal").modal('toggle');
-        var id = $("#itemIDForhandover").text();
-        var orderID = id.split('-')[1];
-        $.ajax({
-            url: "/admin/handoverItem",
-            dataType: "html",
-            data: {
-                id: id,
-            },
-            success: function (data) {
-                if (data == 200) {
-
-                    toastr.options = {
-                        "debug": false,
-                        "positionClass": "toast-top-center",
-                        "onclick": null,
-                        "fadeIn": 300,
-                        "fadeOut": 1000,
-                        "timeOut": 5000,
-                        "extendedTimeOut": 1000
-                    }
-
-                    toastr.success('با موقیت انجام شد');
-
-                    $.ajax({
-                        url: '/Admin/goGetOrderDetail',
-                        dataType: 'html',
-                        data: {
-                            id: orderID,
-                            type:"00"
-                        },
-
-                        success: function (data) {
-
-                            $(".factorDetailHolder").html(data);
-
-                        }
-
-
-
-                    });
-                }
-            }
-
-        })
-
-
-
-
-    })
-    $(".returnItem").click(function () {
-        $("#itemIDForReturn").text($(this).attr('id'));
-        $("#returnItemModal").modal('toggle');
-    });
-    $(".confirmReturnItem").click(function () {
-        $("#returnItemModal").modal('toggle');
-        var id = $("#itemIDForReturn").text();
-        var orderID = id.split('-')[1];
-        $.ajax({
-            url: "/admin/returnItem",
-            dataType: "html",
-            data: {
-                id: id,
-            },
-            success: function (data) {
-                if (data == 200) {
-
-                    toastr.options = {
-                        "debug": false,
-                        "positionClass": "toast-top-center",
-                        "onclick": null,
-                        "fadeIn": 300,
-                        "fadeOut": 1000,
-                        "timeOut": 5000,
-                        "extendedTimeOut": 1000
-                    }
-
-                    toastr.success('با موقیت انجام شد');
-
-                    $.ajax({
-                        url: '/Admin/goGetOrderDetail',
-                        dataType: 'html',
-                        data: {
-                            id: orderID,
-                            type: "00"
-                        },
-
-                        success: function (data) {
-
-                            $(".factorDetailHolder").html(data);
-
-                        }
-
-
-
-                    });
-                }
-            }
-
-        })
-
-
-
-
-    })
-
 
     $(".confirmDelete").click(function () {
         $("#deleteItemFromOrderModal").modal('toggle');

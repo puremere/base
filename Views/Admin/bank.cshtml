@@ -538,7 +538,6 @@
                     <li class="active"><a data-toggle="tab" href="#Sdaramad" style=" color: #8d8d8d; ">ثبت درآمد</a></li>
                     <li><a data-toggle="tab" href="#Shazine" style=" color: #8d8d8d; ">ثبت هزینه</a></li>
                     <li><a data-toggle="tab" href="#factor" style=" color: #8d8d8d; ">تسویه فاکتور</a></li>
-                    <li><a data-toggle="tab" href="#deliver" style=" color: #8d8d8d; ">تسویه دلیور</a></li>
                     <li><a data-toggle="tab" href="#enteghal" style=" color: #8d8d8d; ">انتقال</a></li>
                 </ul>
 
@@ -594,19 +593,16 @@
                                 var destination = $("#destination1").val();
                                 var price = $("#price1").val();
                                 var desc = $("#Desc1").val();
-
+                                
 
                                 $.ajax({
                                     url: "setCustomTransaction",
                                     dataType: "html",
                                     data: {
-                                        fromSource: daramad,
-                                        toSource: destination,
+                                        mabda: daramad,
+                                        maghsad: destination,
                                         price: price,
-                                        desc: desc,
-                                        typeto: "2",
-                                        typefrom: "2",
-                                        sourseID: "6"
+                                        desc: desc
 
 
                                     },
@@ -668,7 +664,7 @@
                                 var to = $("#to2").val();
                                 var price = $("#price2").val();
                                 var desc = $("#Desc2").val();
-
+                                
 
                                 $.ajax({
                                     url: "setCustomTransaction",
@@ -678,10 +674,7 @@
                                         toSource: to,
                                         price: price,
                                         desc: desc,
-                                        typeto: "2",
-                                        typefrom: "2",
-                                        sourseID: "6"
-
+                                        typeto: "2"
 
 
                                     },
@@ -750,104 +743,12 @@
                                         toSource: to,
                                         price: price,
                                         desc: desc,
-                                        typeto: "3",
-                                        typefrom: "2",
-                                        sourseID: "6"
+                                        typeto: "3"
 
 
                                     },
                                     success: function (data) {
                                         window.location.reload();
-                                    }
-                                })
-                            })
-                        </script>
-                    </div>
-                    <div id="deliver" class="tab-pane fade in " style="padding-top:20px">
-                        <form id="">
-                            <div class="row" style=" margin: 20px; padding: 35px; ">
-
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>آی دی انتقال دهنده  :</label>
-                                    @{
-                                    <div class=" " style="width:100%">
-                                        <input id="deliverID" class="form-control" style="width:100%; min-height:43px" />
-
-                                    </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مقصد تراکنش :</label>
-                                    @{
-
-
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("destinationD", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "destinationD", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبلغ :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="priceD" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>توضیحات :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="DescD" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-
-                                <div id="verifydeliver" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
-
-                            </div>
-                        </form>
-                        <script>
-                            $("#verifydeliver").click(function () {
-                              
-                                var daramad = $("#deliverID").val();
-                                var destination = $("#destinationD").val();
-                                var price = $("#priceD").val();
-                                var desc = $("#DescD").val();
-
-
-                                $.ajax({
-                                    url: "setCustomTransaction",
-                                    dataType: "html",
-                                    data: {
-                                        fromSource: daramad,
-                                        toSource: destination,
-                                        price: price,
-                                        desc: desc,
-                                        typeto: "2",
-                                        typefrom: "0",
-                                        sourseID : destination
-
-
-                                    },
-                                    success: function (data) {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
-                                        }
-                                        toastr.success('باموفقیت انجام شد')
-                                       // window.location.reload();
-                                        $("#deliverID").val("");
-                                        $("#destinationD").val("");
-                                        $("#priceD").val("");
-                                        $("#DescD").val("");
                                     }
                                 })
                             })
@@ -911,9 +812,7 @@
                                         toSource: to,
                                         price: price,
                                         desc: desc,
-                                        typeto: "2",
-                                        typefrom: "2",
-                                        sourseID: "6"
+                                        typeto: "2"
 
 
                                     },

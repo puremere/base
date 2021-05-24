@@ -136,11 +136,9 @@
     int h = Request.Browser.ScreenPixelsHeight;
     if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
     {
-        @*<script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
-            <script src="~/Scripts/jquery-ui.js"></script>*@
-        <link href="~/Content/owl.carousel.min.css" rel="stylesheet" />
-        <link href="~/Content/owl.theme.default.min.css" rel="stylesheet" />
-        <script src="~/Scripts/owl.carousel.min.js"></script>
+        <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
+        <script src="~/Scripts/jquery-ui.js"></script>
+
         if (Model.slides != null)
         {
 
@@ -250,169 +248,6 @@
             }
         </script>
 
-
-        <div style="background-color: #f6f5f5; padding: 2% 0px;padding: 10px; background-color:#ef394e; display:flex; align-items:center">
-            <div class="" style=" width:60%">
-
-                <div class="owl-carousel">
-                    @foreach (var item in Model.wonderList)
-                    {
-                        string addID = "addtocarto" + item.ID;
-                        string minusID = "minus" + item.ID;
-                        string imagefile = "placeholder.jpg";
-                        if (item.title != null)
-                        {
-                            imagefile = item.image;
-                        }
-                        string ID = "N" + item.ID.ToString();
-                        string addtocartid = "addtocart" + ID;
-                        string price = item.price;
-
-                        string src = imagefile;
-                        <div>
-                            <div class="item showmedetail" id=@ID style="cursor:pointer;">
-
-
-
-                                <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
-                                    <div style="padding: 20px">
-                                        <div class="imageholderindex">
-                                            <img class="imageitself" src="@src" />
-                                        </div>
-                                        <div class="">
-                                            @{
-                                                if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
-                                                {
-                                                    <p style="font-size:14px" class="numEn titleholder"> @item.title</p>
-                                                }
-                                                else
-                                                {
-                                                    <p style="font-size:14px" class="titleholder">@item.title</p>
-                                                }
-
-                                            }
-
-                                        </div>
-                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
-                                        {
-                                            string valueID = "value" + item.ID;
-                                            <div class="addholder" style="margin:8px;display: flex;justify-content: center;align-items:center">
-                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" margin:7px; border: none;  font-size: 22px; color: #36CDDF "></i>
-
-                                                <div class="entry value  @valueID " style="text-align:center; margin:8px; border:0px; padding:0; width:10px;height:unset"><span>0</span></div>
-                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="margin:7px;border: none;  font-size: 22px; color: #36CDDF "></i>
-
-                                            </div>
-
-                                        }
-
-                                        <div style="margin-top:10px">
-
-                                            @{
-                                                if (item.isAvailable == "0")
-                                                {
-                                                    <div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>
-                                                }
-                                                else
-                                                {
-
-
-                                                    if (item.price == "0")
-                                                    {
-                                                        <div class="row" style="margin:0px 15px">
-                                                            <p style="display:inline-block"> تماس بگیرید</p>
-                                                        </div>
-                                                    }
-                                                    else
-                                                    {
-
-
-                                                        <div style="display:flex; align-items:center; margin-top:40px">
-                                                            <div style="width:20%;margin-right:5px">
-                                                                <span style="color: white;font-size:18px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px 10px;">
-                                                                    @item.discount%
-
-                                                                </span>
-                                                            </div>
-
-                                                            <div style="flex:1; direction:ltr">
-                                                                <div>
-                                                                    <div class="" style="margin:0px 15px; min-height:20px;text-align:left">
-
-                                                                        <div class="">
-                                                                            <div class="">
-                                                                                @if (item.price != item.oldPrice)
-                                                                                {
-                                                                                    <p style="display: inline-block; "> تومان </p> <del style="font-size:15px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
-
-                                                                                }
-                                                                            </div>
-
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row" style="margin:0px 15px; text-align:left">
-
-                                                                        <p style="display: inline-block; color: black"> تومان </p> <p style="color:black; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
-
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                    }
-                                                }
-
-                                            }
-
-
-
-
-
-                                        </div>
-
-                                        <div style="direction:ltr; display:flex;align-items:center; margin-top : 10px; text-align:center; border-top:1px solid #ddd; padding-top:15px">
-                                            @*<h5 class='timer' data-minutes-left=1></h5>*@
-                                            <i class="fal fa-clock" style="margin-right:10px;font-size:18px"></i>
-                                            <p style="font-size:19px; text-align:center" class='timer' data-seconds-left=@item.time></p>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-
-
-
-                            </div>
-                        </div>
-
-
-                    }
-                </div>
-
-            </div>
-            <div style="flex:1">
-                <div class="row" style=" text-align: center;">
-                    <img style="max-width: 70%;" src="/images/wonder.png">
-
-                    <p style="display:flex;border-radius:10px;border:1px solid #fff;margin: 50px 10px 0 10px;padding: 12px 0;align-items: center;justify-content: center;font-size: 16px;color: white;cursor: pointer;">
-                        <i class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span>
-
-                    </p>
-                </div>
-
-            </div>
-        </div>
-        <script>
-            $(document).ready(function () {
-                $(".owl-carousel").owlCarousel({
-                    items: 1,
-                    rtl: true
-                });
-            });
-        </script>
-
         if (Model.specialOffers != null)
         {
 
@@ -421,7 +256,7 @@
                     <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
                     <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
                 </div>
-                <div id="wonderholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
+                <div id="bestholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
 
 
                     <div class="resCarousel-inner" style="direction:rtl">
@@ -1258,10 +1093,10 @@
 
                             <p style="display:flex;border-radius:10px;border:1px solid #fff;margin: 50px 50px 0 50px;padding: 12px 0;align-items: center;justify-content: center;font-size: 16px;color: white;cursor: pointer;">
                                 <i class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span>
-
+                            
                             </p>
                         </div>
-
+                       
                     </div>
                 </div>
             </div>
@@ -1699,11 +1534,13 @@
         }
         if (Model.bestseller != null)
         {
+
+
             <div class="maxwidth">
                 <div style="background-color: #f6f5f5; padding: 2% 0px">
                     <div class="SECTIONHOLDER">
-
                         <div class="o-headline"><span>@Html.ActionLink("پرفروش ترین ها", "ProductList", new { sortID = 2 }, new { style = " color: #808080;" }) </span></div>
+
 
 
                         <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
@@ -1761,7 +1598,6 @@
                                                     </div>
 
                                                 }
-
                                                 <div style="margin-top:10px">
 
                                                     @{
@@ -1826,7 +1662,6 @@
 
 
 
-
                                     </div>
 
                                 }
@@ -1847,7 +1682,7 @@
                 </div>
             </div>
 
-         
+
         }
 
         if (Model.gourpList != null)
@@ -2137,57 +1972,118 @@
 
 
 
+<script>
+    //ResCarouselCustom();
+    var pageRefresh = true;
+
+    function ResCarouselCustom() {
+        var items = $("#dItems").val(),
+            slide = $("#dSlide").val(),
+            speed = $("#dSpeed").val(),
+            interval = $("#dInterval").val()
+
+        var itemsD = "data-items=\"" + items + "\"",
+            slideD = "data-slide=\"" + slide + "\"",
+            speedD = "data-speed=\"" + speed + "\"",
+            intervalD = "data-interval=\"" + interval + "\"";
 
 
+        var atts = "";
+        atts += items != "" ? itemsD + " " : "";
+        atts += slide != "" ? slideD + " " : "";
+        atts += speed != "" ? speedD + " " : "";
+        atts += interval != "" ? intervalD + " " : ""
+
+        //console.log(atts);
+
+        var dat = "";
+        dat += '<h4>' + atts + '</h4>'
+        dat += '<div class=\"resCarousel\" ' + atts + '>'
+        dat += '<div class="resCarousel-inner">'
+        for (var i = 1; i <= 14; i++) {
+            dat += '<div class=\"item\"><div><h1>' + i + '</h1></div></div>'
+        }
+        dat += '</div>'
+        dat += '<button class=\'btn btn-default leftRs\'><i class=\"fa fa-fw fa-angle-left\"></i></button>'
+        dat += '<button class=\'btn btn-default rightRs\'><i class=\"fa fa-fw fa-angle-right\"></i></button>    </div>'
+        console.log(dat);
+        $("#customRes").html(null).append(dat);
+
+        if (!pageRefresh) {
+            ResCarouselSize();
+        } else {
+            pageRefresh = false;
+        }
+        //ResCarouselSlide();
+    }
+
+    $("#eventLoad").on('ResCarouselLoad', function () {
+        //console.log("triggered");
+        var dat = "";
+
+        var lenghtI = $(this).find(".item").length;
+        if (lenghtI <= 30) {
+            for (var i = lenghtI; i <= lenghtI + 10; i++) {
+                dat += '<div class="item"><div class="tile"><div><h1>' + (i + 1) + '</h1></div><h3>Title</h3><p>content</p></div></div>'
+            }
+            $(this).append(dat);
+        }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+
+    })
+</script>
 <script src="~/Scripts/resCarousel.js"></script>
 @{
-    @*if (Model.newest != null)
-        {
-            <script>
-                $(document).ready(function () {
-                    var count = @Model.newest.Count()
+    if (Model.newest != null)
+    {
+        <script>
+            $(document).ready(function () {
+                var count = @Model.newest.Count()
 
-                    $("#newholder").attr("data-value", (2 * count) - 1);
-                })
-
-
-            </script>
-
-        }
-        if (Model.bestseller != null)
-        {
-            <script>
-                $(document).ready(function () {
-                    var count = @Model.bestseller.Count()
-                        $("#bestholder").attr("data-value", (2 * count) - 1);
-                })
+                $("#newholder").attr("data-value", (2 * count) - 1);
+            })
 
 
+        </script>
+
+    }
+    if (Model.bestseller != null)
+    {
+        <script>
+            $(document).ready(function () {
+                var count = @Model.bestseller.Count()
+                    $("#bestholder").attr("data-value", (2 * count) - 1);
+            })
 
 
-            </script>
-        }
-
-        if (Model.specialOffers != null)
-        {
-            <script>
-                $(document).ready(function () {
-
-                    var width = window.innerWidth;
-                    if (width <500) {
-                        //var final = width / 2;
-                        //$(".imageitself").css("max-width", final + "px")
-                        //$(".imageitself").css("max-height", final + "px")
-                    }
-
-                    var count = @Model.specialOffers.Count()
-
-                    $("#offerholder").attr("data-value", (2 * count) - 1);
-                })
 
 
-            </script>
-        }*@
+        </script>
+    }
+
+    if (Model.specialOffers != null)
+    {
+        <script>
+            $(document).ready(function () {
+
+                var width = window.innerWidth;
+                if (width <500) {
+                    //var final = width / 2;
+                    //$(".imageitself").css("max-width", final + "px")
+                    //$(".imageitself").css("max-height", final + "px")
+                }
+
+                var count = @Model.specialOffers.Count()
+
+                $("#offerholder").attr("data-value", (2 * count) - 1);
+            })
+
+
+        </script>
+    }
 
 
 }

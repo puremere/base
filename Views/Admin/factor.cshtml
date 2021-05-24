@@ -42,105 +42,13 @@
 
 
     <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#deliver" style=" color: #8d8d8d; ">لیست انتقال</a></li>
-        <li ><a data-toggle="tab" href="#alert" style=" color: #8d8d8d; ">لیست هشدار کالا </a></li>
+        <li class="active"><a data-toggle="tab" href="#alert" style=" color: #8d8d8d; ">لیست هشدار کالا </a></li>
         <li><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">آخرین فاکتورها </a></li>
         <li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">افزودن فاکتور جدید</a></li>
     </ul>
 
     <div class="tab-content">
-        <div id="deliver" class="tab-pane fade in active" style="padding-top:20px">
-            <div id="OrderTableHolder">
-                <div class="row">
-                    <div style="overflow-x:auto;padding:10px">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
-    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> لیست افراد  </h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-area-chart">
-                                    <div style="overflow:auto; max-height:400px; overflow-y:scroll">
-
-                                        <table class="table table-bordered table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th style="cursor:pointer" class="orderID">ردیف</th>
-                                                    <th>شماره سفارش</th>
-                                                    <th style="white-space: nowrap; ">نام انتقال دهنده</th>
-                                                    <th></th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @{
-                                                    if (Model.deliverList != null)
-                                                    {
-                                                        foreach (var item in Model.deliverList)
-                                                        {
-
-                                                            int i = Model.deliverList.IndexOf(item) + 1;
-
-                                                            <tr style=" ">
-                                                                <td>@i</td>
-                                                                <td>@item.purchaseID</td>
-                                                                <td style="white-space: nowrap;">@item.fullname</td>
-
-                                                                <td><button class="btn btn-success orderdetail" id="@item.purchaseID">جزئیات</button></td>
-
-
-                                                            </tr>
-                                                        }
-                                                    }
-                                                }
-
-
-
-
-                                            </tbody>
-                                        </table>
-                                        <script>
-                                            $(".orderdetail").click(function () {
-
-                                                var ID = $(this).attr('id');
-                                                //alert("aaa");
-                                                //alert(ID);
-                                                $.ajax({
-                                                    url: '/Admin/goGetOrderDetail',
-                                                    dataType: 'html',
-                                                    data: {
-                                                        id: ID,
-                                                        type:"00"
-                                                    },
-
-                                                    success: function (data) {
-                                                       
-                                                        $(".factorDetailHolder").html(data);
-                                                        $("#loading").fadeOut();
-
-                                                    }
-
-
-
-                                                });
-                                            })
-                                        </script>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              
-                <div class="factorDetailHolder">
-
-                </div>
-            </div>
-            
-        </div>
-        <div id="alert" class="tab-pane fade in " style="padding-top:20px">
+        <div id="alert" class="tab-pane fade in active" style="padding-top:20px">
             <div id="OrderTableHolder">
                 <div class="row">
                     <div style="overflow-x:auto;padding:10px">
@@ -177,16 +85,16 @@
 
                                                             int i = Model.myProducts.IndexOf(item) + 1;
 
-                                                            <tr style=" ">
-                                                                <td>@i</td>
-                                                                <td>@item.id</td>
-                                                                <td style="white-space: nowrap;">@item.title</td>
-                                                                <td> @item.colorTitle</td>
-                                                                <td> @item.count</td>
-                                                                <td><img style="width:150px" src="@item.image" /></td>
+                                                <tr style=" ">
+                                                    <td>@i</td>
+                                                    <td>@item.id</td>
+                                                    <td style="white-space: nowrap;">@item.title</td>
+                                                    <td> @item.colorTitle</td>
+                                                    <td> @item.count</td>
+                                                    <td><img style="width:150px" src="@item.image" /></td>
 
 
-                                                            </tr>
+                                                </tr>
                                                         }
                                                     }
                                                 }
@@ -362,7 +270,7 @@
 
 
 
-
+          
             <div id="OrderTableHolder">
                 <div class="row">
                     <div style="overflow-x:auto;padding:10px">
@@ -383,7 +291,7 @@
                                                     <th style="cursor:pointer" class="orderID">ردیف</th>
                                                     <th>شماره فاکتور</th>
                                                     <th style="white-space: nowrap; ">تامین کننده</th>
-
+                                                    
                                                     <th>تاریخ فاکتور</th>
                                                     <th>توضیحات</th>
                                                     @*<th>وضعیت</th>*@
@@ -406,7 +314,7 @@
                                                                 <td>@item.timestamp</td>
                                                                 <td>@item.description</td>
                                                                 <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
-
+                                                               
 
                                                             </tr>
                                                         }
@@ -509,7 +417,7 @@
                             },
 
                             success: function (data) {
-
+                                
                                 $(".detailHolder").html(data);
                                 $("#loading").fadeOut();
 
@@ -579,10 +487,10 @@
 
                 </div>
             </div>
-
+          
         </div>
 
-
+   
         <div id="menu2" class="tab-pane fade" style="padding-top:20px">
             <div class="form-group ">
 
@@ -613,7 +521,7 @@
 
 
                     }
-                    <div class="component">
+                    <div class="component" >
                         @Html.DropDownList("partnerList", partnerList, "-- انتخاب کنید --", new { id = "partnerList", style = "width:100%; min-height:43px", @class = "form-control" })
                     </div>
                 }

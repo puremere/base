@@ -191,7 +191,7 @@
                 var greenIcon;
 
         function showLocation(position) {
-          
+            alert("ww");
             var lat = position.coords.latitude;
             var lon = position.coords.longitude;
 
@@ -210,10 +210,10 @@
             }).addTo(myMap);
             myMap.panTo(new L.LatLng(lat, lon));
 
-            if ($("#lat").val() != "") {
+            if ($("#lat").val() != "0") {
 
                 lat = $("#lat").val();
-                lon = $("#lgn").val()
+                lon = $("#lon").val()
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 myMap.panTo(new L.LatLng(lat, lon));
             };
@@ -238,11 +238,11 @@
                 //Add a marker to show where you clicked.
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 $("#lat").val(lat);
-                $("#lgn").val(lon);
+                $("#lon").val(lon);
             });
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 $("#lat").val(lat);
-                $("#lng").val(lon);
+                $("#lon").val(lon);
 
 
 
@@ -272,11 +272,11 @@
                 }).addTo(myMap);
 
             myMap.panTo(new L.LatLng(lat, lon));
-          
-                if ($("#lat").val() != "") {
+         
+                if ($("#lat").val() != "0") {
 
                     lat = $("#lat").val();
-                    lon = $("#lgn").val()
+                    lon = $("#lon").val()
                     theMarker = L.marker([lat, lon]).addTo(myMap);
                     myMap.panTo(new L.LatLng(lat, lon));
                 }
@@ -299,7 +299,7 @@
                     theMarker = L.marker([lat, lon]).addTo(myMap);
 
                     $("#lat").val(lat);
-                    $("#lgn").val(lon);
+                    $("#lon").val(lon);
                 });
 
 
@@ -352,7 +352,7 @@
                 $("#mapHolder").css("display", "none");
 
                 var lat = $("#lat").val();
-                var lon = $("#lgn").val();
+                var lon = $("#lon").val();
                 //myMap.panTo(new L.LatLng(lat, lon));
                 //$("#maphide").hide();
                 //$("#mapshow").show();
@@ -365,7 +365,7 @@
                         data: 'html',
                         data: {
                             lat: $("#lat").val(),
-                            log: $("#lgn").val(),
+                            log: $("#lon").val(),
                         },
                         success: function (data) {
 
@@ -420,7 +420,7 @@
 
         $("#verifyAddress").click(function () {
             var lat = $("#lat").val();
-            var lng = $("#lgn").val();
+            var lng = $("#lon").val();
             var address = $("#modalAddress").val();
             var postalCode = $("#modalpostalCode").val();
             var title = $("#modalTitle").val();
@@ -428,7 +428,7 @@
             var state = $("#modalState").val();
             var ID = $("#modalID").val();
             var value = "0";
-            if (lat == "0" || lat == "") {
+            if (lat == "0" || lng == "0") {
                 toastr.options = {
                     "debug": false,
                     "positionClass": "toast-top-center",
@@ -537,7 +537,7 @@
                                 var lon = item.lng;
 
                                 $("#lat").val(lat);
-                                $("#lgn").val(lon);
+                                $("#lon").val(lon);
                                 if (myMap == undefined) {
                                     getLocation();
                                 }
@@ -682,338 +682,306 @@
     string ostan = user.province;
 
 
-<form id="endOrderForm" name="endOrderForm" action="EndOrder" method="post">
-    <p id="error" style="color :red; text-align:center; padding:10px"></p>
+    <form id="endOrderForm" name="endOrderForm" action="EndOrder" method="post">
+        <p id="error" style="color :red; text-align:center; padding:10px"></p>
+        
+        <input hidden name="addID" id="addID" value="0" />
+        <input hidden name="disc" id="lon" value="0" />
 
-    <input hidden name="addID" id="addID" value="0" />
-    <input hidden name="disc" id="lon" value="0" />
-    <input hidden name="lat" id="lat" value="" />
-    <input hidden name="lgn" id="lgn" value="" />
-    <input hidden id="addressID" name="addressID" value="" />
-    <div id="app" style="width:100%; height:100%"></div>
 
-    <div style="margin:30px 0px 30px 0px"></div>
-    <div class="main_container" style="width: 50%; margin: auto">
+        <div id="app" style="width:100%; height:100%"></div>
 
-        <div class="containerofform">
-            <div class="header"><p>انتخاب آدرس</p></div>
-            <div style="display:flex;margin:20px 30px 0 20px;">
+        <div style="margin:30px 0px 30px 0px"></div>
+        <div class="main_container" style="width: 50%; margin: auto">
 
-                <p style="margin-left:20px" id="addAddress" class="btn btn-success">افزودن آدرس جدید</p>
-                @if (Model.address != null)
-                {
-                    if (Model.address.Count() > 1)
+            <div class="containerofform">
+                <div class="header"><p>انتخاب آدرس</p></div>
+                <div style="display:flex;margin:20px 30px 0 20px;">
+
+                    <p style="margin-left:20px" id="addAddress" class="btn btn-success">افزودن آدرس جدید</p>
+                    @if (Model.address != null)
                     {
-                        <p id="changeAddress" class="btn btn-success">تغییرآدرس</p>
-                    }
-                }
-
-
-            </div>
-            <div class="sectionBody" style="text-align:center">
-
-                @{
-                    if (Model.address != null)
-                    {
-
-                        foreach (var item in Model.address)
+                        if (Model.address.Count() > 1)
                         {
-                            string display = "none";
-                            if (item.active == "1")
-                            {
-                                display = "block";
-
-                                <script>
-
-                                        let latelement = document.getElementById('lat');
-                                        let lonelement = document.getElementById('lgn');
-                                        let addr = document.getElementById('addressID');
-                                        latelement.value = @item.lat;
-                                        lonelement.value = @item.lng;
-                                        addr.value = @item.ID;
-
-                                </script>
-                            }
-
-
-                            <div id="@item.ID" style="display:@display;  margin: 20px; padding:20px; " class="halfrow addressy">
-                                <i class="fa fa-check " style="display:@display;  margin:0 5px"></i>
-
-                                <div style="text-align:right;font-size:14px; font-weight:600">   @item.title</div><br />
-                                <div style="text-align:right; font-size:14px"> آدرس :   @item.address</div>
-                                <div class="row" ; style="margin-top:30px; margin-bottom:10px">
-                                    <p class="btn btn-default editAddress" style="display:block; margin:-10px 10px">ویرایش</p>
-                                    <p class="btn btn-danger removeAddress" style="display:block; margin: -10px 10px">حذف</p>
-                                </div>
-
-                            </div>
+                            <p id="changeAddress" class="btn btn-success">تغییرآدرس</p>
                         }
                     }
-                }
 
-                <div id="addAddressHolder" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;z-index:9">
-                    <div style="height:100%; width:100%; background-color:rgba(0,0,0,0.5)">
-                        <div class="modal-bodyy">
-                            <div class="row" style="width:100%">
-                                <div class="col-lg-12" style="height:50px"></div>
-                                <div class="col-lg-6">
-                                    <div id="mapHolder" style="display:block;  position:relative;top:0; left:0; margin:auto; width:100%; height:500px;  background-color:white; text-align:center; background-color:white;  /* Negative half of width. */">
-                                        <div style="height:8%; width:100%;z-index: 9999999999999;height:40px; margin-bottom:10px">
-                                            <input type="text" id="mapaddress" style="width:100%; height:100% " class="form-control" />
+
+                </div>
+                <div class="sectionBody" style="text-align:center">
+
+                    @{
+                        if (Model.address != null)
+                        {
+                            foreach (var item in Model.address)
+                            {
+                                string display = "none";
+                                if (item.active == "1")
+                                {
+                                    display = "block";
+                                    <input hidden id="addressID" name="addressID" value="@item.ID" />
+                                    <input hidden name="lat" id="lat" value="@item.lat" />
+                                    <input hidden name="lon" id="lon" value="@item.lng" />
+                                }
+
+                                <div id="@item.ID" style="display:@display;  margin: 20px; padding:20px; " class="halfrow addressy">
+                                    <i class="fa fa-check " style="display:@display;  margin:0 5px"></i>
+
+                                    <div style="text-align:right;font-size:14px; font-weight:600">   @item.title</div><br />
+                                    <div style="text-align:right; font-size:14px"> آدرس :   @item.address</div>
+                                    <div class="row" ; style="margin-top:30px; margin-bottom:10px">
+                                        <p class="btn btn-default editAddress" style="display:block; margin:-10px 10px">ویرایش</p>
+                                        <p class="btn btn-danger removeAddress" style="display:block; margin: -10px 10px">حذف</p>
+                                    </div>
+
+                                </div>
+                            }
+                        }
+                    }
+
+                    <div id="addAddressHolder" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;z-index:9">
+                        <div style="height:100%; width:100%; background-color:rgba(0,0,0,0.5)">
+                            <div class="modal-bodyy">
+                                <div class="row" style="width:100%">
+                                    <div class="col-lg-12" style="height:50px"></div>
+                                    <div class="col-lg-6">
+                                        <div id="mapHolder" style="display:block;  position:relative;top:0; left:0; margin:auto; width:100%; height:500px;  background-color:white; text-align:center; background-color:white;  /* Negative half of width. */">
+                                            <div style="height:8%; width:100%;z-index: 9999999999999;height:40px; margin-bottom:10px">
+                                                <input type="text" id="mapaddress" style="width:100%; height:100% " class="form-control" />
+                                            </div>
+
+                                            <div id="Map" style="border-radius:3px margin-top:10%; width:100%; margin:auto; height:92%; background: #eee; border: 2px solid #aaa;"></div>
+
+
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <h4 style="text-align:right; margin-bottom:20px">جزئیات آدرس</h4>
+                                        <h5 style="text-align:right">لطفا جزئیات آدرس را وارد نمایید.</h5>
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
+                                            <label for="name" class="form__label">عنوان</label>
+                                        </div>
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="استان" name="modalState" id='modalState' required />
+                                            <label for="name" class="form__label">استان</label>
+                                        </div>
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="شهر" name="modalCity" id='modalCity' required />
+                                            <label for="name" class="form__label">شهر</label>
+                                        </div>
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="نشانی پستی" name="modalAddress" id='modalAddress' required />
+                                            <label for="name" class="form__label">نشانی پستی</label>
                                         </div>
 
-                                        <div id="Map" style="border-radius:3px margin-top:10%; width:100%; margin:auto; height:92%; background: #eee; border: 2px solid #aaa;"></div>
-
-
+                                        <div class="form__group field">
+                                            <input type="text" class="form__field" placeholder="کد پستی" name="modalpostalCode" id='modalpostalCode' required />
+                                            <label for="name" class="form__label">کد پستی</label>
+                                        </div>
+                                        <p style="display:none" id="modalID"></p>
+                                        <div class="modal-footer" style="border-top:0; margin-top:20px">
+                                            <button id="cancelAddress" type="button" class="btn btn-secondary" style="font-size:15px; padding:7px 14px">لغو</button>
+                                            <button id="verifyAddress" type="button" class="btn btn-primary " style="font-size:15px; padding:7px 14px">تایید و ثبت آدرس</button>
+                                        </div>
                                     </div>
+
                                 </div>
-                                <div class="col-lg-6">
-                                    <h4 style="text-align:right; margin-bottom:20px">جزئیات آدرس</h4>
-                                    <h5 style="text-align:right">لطفا جزئیات آدرس را وارد نمایید.</h5>
-                                    <div class="form__group field">
-                                        <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
-                                        <label for="name" class="form__label">عنوان</label>
-                                    </div>
-                                    <div class="form__group field">
-                                        <input type="text" class="form__field" placeholder="استان" name="modalState" id='modalState' required />
-                                        <label for="name" class="form__label">استان</label>
-                                    </div>
-                                    <div class="form__group field">
-                                        <input type="text" class="form__field" placeholder="شهر" name="modalCity" id='modalCity' required />
-                                        <label for="name" class="form__label">شهر</label>
-                                    </div>
-                                    <div class="form__group field">
-                                        <input type="text" class="form__field" placeholder="نشانی پستی" name="modalAddress" id='modalAddress' required />
-                                        <label for="name" class="form__label">نشانی پستی</label>
-                                    </div>
 
-                                    <div class="form__group field">
-                                        <input type="text" class="form__field" placeholder="کد پستی" name="modalpostalCode" id='modalpostalCode' required />
-                                        <label for="name" class="form__label">کد پستی</label>
-                                    </div>
-                                    <p style="display:none" id="modalID"></p>
-                                    <div class="modal-footer" style="border-top:0; margin-top:20px">
-                                        <button id="cancelAddress" type="button" class="btn btn-secondary" style="font-size:15px; padding:7px 14px">لغو</button>
-                                        <button id="verifyAddress" type="button" class="btn btn-primary " style="font-size:15px; padding:7px 14px">تایید و ثبت آدرس</button>
-                                    </div>
-                                </div>
+
+
+
 
                             </div>
-
-
-
-
-
-                        </div>
-                    </div>
-
-
-                </div>
-                @*<div class="row ">
-                        <div class="col-lg-12 col-sm-12 row1 ">
-                            <div class="inputdiv1"><p>شهر</p></div>
-                            <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
                         </div>
 
 
                     </div>
-                    <div class="row ">
-                        <div class="col-lg-6 col-sm-6 row1 ">
-                            <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
-                            <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6 row1">
-                            <div class="inputdiv1"><p>آدرس</p></div>
-                            <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
-                        </div>
-
-                    </div>
-                    <div class="row ">
-                        <div class="col-lg-6 col-sm-6 row1">
-                            <div class="inputdiv1"><p>شماره تلفن</p></div>
-                            <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6 row1 ">
-                            <div class="inputdiv1"><p>کد پستی</p></div>
-                            <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
-                        </div>
+                    @*<div class="row ">
+            <div class="col-lg-12 col-sm-12 row1 ">
+                <div class="inputdiv1"><p>شهر</p></div>
+                <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
+            </div>
 
 
-                    </div>*@
+        </div>
+        <div class="row ">
+            <div class="col-lg-6 col-sm-6 row1 ">
+                <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
+                <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
+            </div>
+            <div class="col-lg-6 col-sm-6 row1">
+                <div class="inputdiv1"><p>آدرس</p></div>
+                <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
             </div>
 
         </div>
+        <div class="row ">
+            <div class="col-lg-6 col-sm-6 row1">
+                <div class="inputdiv1"><p>شماره تلفن</p></div>
+                <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
+            </div>
+            <div class="col-lg-6 col-sm-6 row1 ">
+                <div class="inputdiv1"><p>کد پستی</p></div>
+                <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
+            </div>
+
+
+        </div>*@
+                </div>
+
+            </div>
 
 
 
-        <div class="containerofform">
-            <div class="header"><p> زمان ارسال</p></div>
-            <div class="sectionBody">
-                <div class="row ">
-                    @{
-                        if (Model.times != null)
-                        {
-
-                            foreach (var item in Model.times)
+            <div class="containerofform">
+                <div class="header"><p> زمان ارسال</p></div>
+                <div class="sectionBody">
+                    <div class="row ">
+                        @{
+                            if (Model.times != null)
                             {
 
-                                int index = Model.times.IndexOf(item);
-                                string checkname = "check" + index;
-                                if (index == 0)
+                                foreach (var item in Model.times)
                                 {
-                                    <div class="col-lg-6 col-sm-6 slave" id="@checkname">
-                                        @foreach (var detail in item.hours)
-                                        {
 
-                                            string finalname = "final" + detail.ID;
-
-                                            <div class="halfrow">
-                                                @if (@detail.isChecked == true)
-                                                {
-                                                    <i class="fa fa-check finalrow" id="@finalname"></i>
-                                                }
-                                                else
-                                                {
-                                                    <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
-                                                }
-
-                                                <p>@detail.title</p>
-                                            </div>
-                                        }
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="col-lg-6 col-sm-6 slave" id="@checkname" style="display:none">
-                                        @foreach (var detail in item.hours)
-                                        {
-
-                                            string finalname = "final" + detail.ID;
-
-                                            <div class="halfrow ">
-                                                @if (@detail.isChecked == true)
-                                                {
-                                                    <i class="fa fa-check finalrow" id="@finalname"></i>
-                                                }
-                                                else
-                                                {
-                                                    <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
-                                                }
-
-                                                <p>@detail.title</p>
-                                            </div>
-                                        }
-                                    </div>
-                                }
-
-                            }
-
-                            <div class="col-lg-6 col-sm-6 Mmaster">
-                                @foreach (var item in Model.times)
-                                {
                                     int index = Model.times.IndexOf(item);
                                     string checkname = "check" + index;
-                                    <div class="halfrow master">
-                                        @if (@item.isChecked == true)
-                                        {
-                                            <i class="fa fa-check dispath" id="@checkname"></i>
-                                        }
-                                        else
-                                        {
-                                            <i class="fa fa-check dispath" id="@checkname" style="display:none"></i>
-                                        }
+                                    if (index == 0)
+                                    {
+                                        <div class="col-lg-6 col-sm-6 slave" id="@checkname">
+                                            @foreach (var detail in item.hours)
+                                            {
 
-                                        <p>@item.title</p>
-                                    </div>
+                                                string finalname = "final" + detail.ID;
+
+                                                <div class="halfrow">
+                                                    @if (@detail.isChecked == true)
+                                                    {
+                                                        <i class="fa fa-check finalrow" id="@finalname"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
+                                                    }
+
+                                                    <p>@detail.title</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-lg-6 col-sm-6 slave" id="@checkname" style="display:none">
+                                            @foreach (var detail in item.hours)
+                                            {
+
+                                                string finalname = "final" + detail.ID;
+
+                                                <div class="halfrow ">
+                                                    @if (@detail.isChecked == true)
+                                                    {
+                                                        <i class="fa fa-check finalrow" id="@finalname"></i>
+                                                    }
+                                                    else
+                                                    {
+                                                        <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
+                                                    }
+
+                                                    <p>@detail.title</p>
+                                                </div>
+                                            }
+                                        </div>
+                                    }
+
                                 }
-                            </div>
 
+                                <div class="col-lg-6 col-sm-6 Mmaster">
+                                    @foreach (var item in Model.times)
+                                    {
+                                        int index = Model.times.IndexOf(item);
+                                        string checkname = "check" + index;
+                                        <div class="halfrow master">
+                                            @if (@item.isChecked == true)
+                                            {
+                                                <i class="fa fa-check dispath" id="@checkname"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="fa fa-check dispath" id="@checkname" style="display:none"></i>
+                                            }
+
+                                            <p>@item.title</p>
+                                        </div>
+                                    }
+                                </div>
+
+                            }
                         }
-                    }
 
-
-                </div>
-            </div>
-        </div>
-
-
-        <div class="containerofform">
-            <div class="header"><p> کد تخفیف</p></div>
-            <div class="sectionBody">
-                <div class="row ">
-                    <div style="padding:7px 15px; width:70%; margin-right : auto; margin-left: auto; border-bottom:2px solid green">
-                        <div class="row">
-                            <i class="fa fa-pen" style="float:right; width:10%"></i>
-                            <input id="discountfake" style="border:none; float:left; width:90%" />
-                            <input id="discount" style="display:none; border:none; float:left; width:90%" />
-
-
-                        </div>
 
                     </div>
-                    <div class="row" style="width:80%; margin:auto;  color:#2585bd">
-                        <div style="float:left" id="discountConfirm" class="btn-link-spoiler btn-link-spoiler--edit">
-                            ثبت کد تخفیف
+                </div>
+            </div>
+
+
+            <div class="containerofform">
+                <div class="header"><p> کد تخفیف</p></div>
+                <div class="sectionBody">
+                    <div class="row ">
+                        <div style="padding:7px 15px; width:70%; margin-right : auto; margin-left: auto; border-bottom:2px solid green">
+                            <div class="row">
+                                <i class="fa fa-pen" style="float:right; width:10%"></i>
+                                <input id="discountfake" style="border:none; float:left; width:90%" />
+                                <input id="discount" style="display:none; border:none; float:left; width:90%" />
+
+
+                            </div>
+
                         </div>
-                        <script>
+                        <div class="row" style="width:80%; margin:auto;  color:#2585bd">
+                            <div style="float:left" id="discountConfirm" class="btn-link-spoiler btn-link-spoiler--edit">
+                                ثبت کد تخفیف
+                            </div>
+                            <script>
 
-                            $('#discountConfirm').click(function () {
+                                $('#discountConfirm').click(function () {
 
-                                var mot = $("#finalprice").text().replace(",", '')
-                                mot = mot.replace(',', "");
-                                var discount = $('#discountfake').val();
-
-
-                                //alert(discount);
-                                if (discount == "") {
+                                    var mot = $("#finalprice").text().replace(",", '')
+                                    mot = mot.replace(',', "");
+                                    var discount = $('#discountfake').val();
 
 
-                                    toastr.options = {
-                                        "debug": false,
-                                        "positionClass": "toast-top-center",
-                                        "onclick": null,
-                                        "fadeIn": 300,
-                                        "fadeOut": 1000,
-                                        "timeOut": 5000,
-                                        "extendedTimeOut": 1000
+                                    //alert(discount);
+                                    if (discount == "") {
+
+
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error("نام تخفیف را وارد نمایید");
                                     }
-                                    toastr.error("نام تخفیف را وارد نمایید");
-                                }
-                                else {
-                                    $.ajax({
-                                        url: '/Home/SetDiscount',
-                                        dataType: 'html',
-                                        data: {
-                                            val: discount,
-                                            price: mot
-                                        },
-                                        success: function (data) {
+                                    else {
+                                        $.ajax({
+                                            url: '/Home/SetDiscount',
+                                            dataType: 'html',
+                                            data: {
+                                                val: discount,
+                                                price: mot
+                                            },
+                                            success: function (data) {
 
-                                            let obj = jQuery.parseJSON(data);
+                                                let obj = jQuery.parseJSON(data);
 
-                                            if (obj.message.length > 5) {
+                                                if (obj.message.length > 0) {
 
-                                                toastr.options = {
-                                                    "debug": false,
-                                                    "positionClass": "toast-top-center",
-                                                    "onclick": null,
-                                                    "fadeIn": 300,
-                                                    "fadeOut": 1000,
-                                                    "timeOut": 5000,
-                                                    "extendedTimeOut": 1000
-                                                }
-                                                toastr.error(obj.message);
-
-                                                // let price = parseInt($("#finalprice").val())
-
-                                            }
-                                            else {
-                                                $("#discount").val(discount);
-                                                var mot = $("#totalprice").text().replace(",", '')
-                                                mot = mot.replace(',', "");
-                                                var del = $("#deliveryprice").text().replace(",", '')
-                                                del = del.replace(',', "");
-                                                if (parseInt(mot) - parseInt(obj.price) > 0) {
                                                     toastr.options = {
                                                         "debug": false,
                                                         "positionClass": "toast-top-center",
@@ -1023,268 +991,289 @@
                                                         "timeOut": 5000,
                                                         "extendedTimeOut": 1000
                                                     }
-                                                    toastr.success("کد تخفیف اعمال شد");
-                                                    if (parseInt(obj.price) > parseInt(mot)) {
-                                                        $("#totalprice").text("0");
-                                                    }
-                                                    else {
+                                                    toastr.error(obj.message);
 
-                                                        $("#totalprice").text(addCommas(parseInt(mot) - parseInt(obj.price)))
+                                                    // let price = parseInt($("#finalprice").val())
 
-                                                    }
-
-                                                    $("#finalDiscount").text(addCommas(obj.price));
                                                 }
+                                                else {
+                                                    $("#discount").val(discount);
+                                                    var mot = $("#finalprice").text().replace(",", '')
+                                                    mot = mot.replace(',', "");
+                                                    var del = $("#deliveryprice").text().replace(",", '')
+                                                    del = del.replace(',', "");
+                                                    if (parseInt(mot) - parseInt(obj.price) > 0) {
+                                                        toastr.options = {
+                                                            "debug": false,
+                                                            "positionClass": "toast-top-center",
+                                                            "onclick": null,
+                                                            "fadeIn": 300,
+                                                            "fadeOut": 1000,
+                                                            "timeOut": 5000,
+                                                            "extendedTimeOut": 1000
+                                                        }
+                                                        toastr.success("کد تخفیف اعمال شد");
+                                                        if (parseInt(obj.price) > parseInt(mot)) {
+                                                            $("#totalprice").text("0");
+                                                        }
+                                                        else {
+
+                                                            $("#totalprice").text(addCommas(parseInt(mot) - parseInt(obj.price) + parseInt(del)))
+
+                                                        }
+
+                                                        $("#finalDiscount").text(obj.price);
+                                                    }
+                                                }
+                                            },
+                                            error: function () {
+
                                             }
-                                        },
-                                        error: function () {
 
-                                        }
+                                        })
+                                    }
 
-                                    })
-                                }
-
-                            })
-                        </script>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
-        <div class="containerofform">
-            <div class="header"><p> مبلغ نهایی</p></div>
-            <div class="sectionBody">
-                <div class="row ">
-
-                    <div id="finalPriceHolder" style="">
-                        <div class="row priceitem">
-                            @{
-                                decimal totalprice = decimal.Parse(Model.finalAmount) + decimal.Parse(Model.priceDeliver);
-                            }
-
-                            <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@String.Format("{0:n0}", @Model.finalAmount)</i>&nbsp;تومان</p>
-                            <p class="col-lg-6 col-sm-6">مبلغ</p>
-
+                                })
+                            </script>
                         </div>
-                        <div class="row priceitem">
-                            <p class="col-lg-6 col-sm-6 Holder"> <i id="finalDiscount">0</i>&nbsp;تومان</p>
-                            <p class="col-lg-6 col-sm-6">تخفیف</p>
 
-                        </div>
-                        <div class="row priceitem">
-                            <p class="col-lg-6 col-sm-6 deliveryHolder Holder"><span id="deliveryprice">@String.Format("{0:n0}", @Model.priceDeliver)</span>&nbsp;تومان</p>
-                            <p class="col-lg-6 col-sm-6">هزینه ارسال</p>
-
-                        </div>
-                        <div class="row priceitem">
-                            <p class="col-lg-6 col-sm-6 Holder"><span id="totalprice"> @String.Format("{0:n0}", totalprice)  </span>&nbsp;تومان</p>
-                            <p class="col-lg-6 col-sm-6">مبلغ نهایی</p>
-
-                        </div>
 
                     </div>
-
-
                 </div>
             </div>
-        </div>
 
+            <div class="containerofform">
+                <div class="header"><p> مبلغ نهایی</p></div>
+                <div class="sectionBody">
+                    <div class="row ">
 
-        <div class="containerofform">
-            <div class="header"><p> استفاده از اعتبار</p></div>
-            <div class="sectionBody">
-                <div class="row ">
-
-                    <div id="finalPriceHolder" style="">
-                        <div class="row priceitem">
-                            <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@Model.credit</i>&nbsp;تومان</p>
-                            <p class="col-lg-6 col-sm-6">اعتبار</p>
-
-                        </div>
-                        <style>
-                            .switch {
-                                position: relative;
-                                display: inline-block;
-                                width: 60px;
-                                height: 34px;
-                            }
-
-                                .switch input {
-                                    opacity: 0;
-                                    width: 0;
-                                    height: 0;
+                        <div id="finalPriceHolder" style="">
+                            <div class="row priceitem">
+                                @{
+                                    decimal totalprice = decimal.Parse(Model.finalAmount) + decimal.Parse(Model.priceDeliver);
                                 }
 
-                            .slider {
-                                position: absolute;
-                                cursor: pointer;
-                                top: 0;
-                                left: 0;
-                                right: 0;
-                                bottom: 0;
-                                background-color: #ccc;
-                                -webkit-transition: .4s;
-                                transition: .4s;
-                            }
+                                <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@String.Format("{0:n0}", @Model.finalAmount)</i>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6">مبلغ</p>
 
-                                .slider:before {
+                            </div>
+                            <div class="row priceitem">
+                                <p class="col-lg-6 col-sm-6 Holder"> <i id="finalDiscount">0</i>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6">تخفیف</p>
+
+                            </div>
+                            <div class="row priceitem">
+                                <p class="col-lg-6 col-sm-6 deliveryHolder Holder"><span id="deliveryprice">@String.Format("{0:n0}", @Model.priceDeliver)</span>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6">هزینه ارسال</p>
+
+                            </div>
+                            <div class="row priceitem">
+                                <p class="col-lg-6 col-sm-6 Holder"><span id="totalprice"> @String.Format("{0:n0}", totalprice)  </span>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6">مبلغ نهایی</p>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="containerofform">
+                <div class="header"><p> استفاده از اعتبار</p></div>
+                <div class="sectionBody">
+                    <div class="row ">
+
+                        <div id="finalPriceHolder" style="">
+                            <div class="row priceitem">
+                                <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@Model.credit</i>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6">اعتبار</p>
+
+                            </div>
+                            <style>
+                                .switch {
+                                    position: relative;
+                                    display: inline-block;
+                                    width: 60px;
+                                    height: 34px;
+                                }
+
+                                    .switch input {
+                                        opacity: 0;
+                                        width: 0;
+                                        height: 0;
+                                    }
+
+                                .slider {
                                     position: absolute;
-                                    content: "";
-                                    height: 26px;
-                                    width: 26px;
-                                    left: 4px;
-                                    bottom: 4px;
-                                    background-color: white;
+                                    cursor: pointer;
+                                    top: 0;
+                                    left: 0;
+                                    right: 0;
+                                    bottom: 0;
+                                    background-color: #ccc;
                                     -webkit-transition: .4s;
                                     transition: .4s;
                                 }
 
-                            input:checked + .slider {
-                                background-color: #2196F3;
-                            }
+                                    .slider:before {
+                                        position: absolute;
+                                        content: "";
+                                        height: 26px;
+                                        width: 26px;
+                                        left: 4px;
+                                        bottom: 4px;
+                                        background-color: white;
+                                        -webkit-transition: .4s;
+                                        transition: .4s;
+                                    }
 
-                            input:focus + .slider {
-                                box-shadow: 0 0 1px #2196F3;
-                            }
-
-                            input:checked + .slider:before {
-                                -webkit-transform: translateX(26px);
-                                -ms-transform: translateX(26px);
-                                transform: translateX(26px);
-                            }
-
-                            /* Rounded sliders */
-                            .slider.round {
-                                border-radius: 34px;
-                            }
-
-                                .slider.round:before {
-                                    border-radius: 50%;
+                                input:checked + .slider {
+                                    background-color: #2196F3;
                                 }
-                        </style>
-                        <div class="row " style="margin-top:15px; text-align:center">
 
-                            <label id="lableToggle" style="display:inline-block" class="switch">
-                                <input type="checkbox">
-                                <span class="slider round"></span>
-                            </label>
+                                input:focus + .slider {
+                                    box-shadow: 0 0 1px #2196F3;
+                                }
+
+                                input:checked + .slider:before {
+                                    -webkit-transform: translateX(26px);
+                                    -ms-transform: translateX(26px);
+                                    transform: translateX(26px);
+                                }
+
+                                /* Rounded sliders */
+                                .slider.round {
+                                    border-radius: 34px;
+                                }
+
+                                    .slider.round:before {
+                                        border-radius: 50%;
+                                    }
+                            </style>
+                            <div class="row " style="margin-top:15px; text-align:center">
+
+                                <label id="lableToggle" style="display:inline-block" class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider round"></span>
+                                </label>
+
+                            </div>
+
 
                         </div>
+                        <script>
+                            $(".switch").click(function () {
+                                alet("aaa");
+                            })
+                        </script>
 
 
                     </div>
-                    <script>
-                        $(".switch").click(function () {
-                            alet("aaa");
-                        })
-                    </script>
-
-
                 </div>
             </div>
-        </div>
 
-        <div class="containerofform" id="raveshpardakht">
-            <div class="header"><p> روش پرداخت</p></div>
-            <div class="sectionBody">
-                <div class="row " style="direction:rtl;">
-                    @*<div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
-                            <div class="halfrow">
-                                <i class="fa fa-check banky"></i>
-
-                                <p>پرداخت درمحل</p>
-                            </div>
-
-                        </div>*@
-
-
-                    @{
-                        if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("inplace"))
-                        {
-                            <div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
+            <div class="containerofform" id="raveshpardakht">
+                <div class="header"><p> روش پرداخت</p></div>
+                <div class="sectionBody">
+                    <div class="row " style="direction:rtl;">
+                        @*<div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
                                 <div class="halfrow">
-                                    <i class="fa fa-check banky" style="display:none"></i>
+                                    <i class="fa fa-check banky"></i>
 
-                                    <p>پرداخت در محل</p>
+                                    <p>پرداخت درمحل</p>
                                 </div>
 
-                            </div>
-                        }
-                        if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("zarin"))
-                        {
-                            <div class="col-lg-6 col-sm-6 " id="internet" style="cursor:pointer; float:right">
-                                <div class="halfrow">
-                                    <i class="fa fa-check banky" style="display:none"></i>
+                            </div>*@
 
-                                    <p>زرین پال</p>
-                                </div>
 
-                            </div>
-                        }
-
-                        if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("mellat"))
-                        {
-                            <div class="col-lg-6 col-sm-6 " id="mellat" style="cursor:pointer; float:right">
-                                <div class="halfrow ">
-                                    <i class="fa fa-check banky" style="display:none"></i>
-
-                                    <p>بانک ملت</p>
-                                </div>
-
-                            </div>
-                        }
-                        if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("pasargad"))
-                        {
-                            <div class="col-lg-6 col-sm-6 " id="pasargad" style="cursor:pointer; float:right">
-                                <div class="halfrow">
-                                    <i class="fa fa-check banky" style="display:none"></i>
-                                    <p>بانک پاسارگاد</p>
-                                </div>
-                            </div>
-                        }
-                        if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("wallet"))
-                        {
-                            @*<div class="col-lg-6 col-sm-6 " id="Wallet" style="cursor:pointer; float:right">
+                        @{
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("inplace"))
+                            {
+                                <div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
                                     <div class="halfrow">
                                         <i class="fa fa-check banky" style="display:none"></i>
 
-                                        <p>کیف پول</p>
+                                        <p>پرداخت در محل</p>
                                     </div>
 
-                                </div>*@
+                                </div>
+                            }
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("zarin"))
+                            {
+                                <div class="col-lg-6 col-sm-6 " id="internet" style="cursor:pointer; float:right">
+                                    <div class="halfrow">
+                                        <i class="fa fa-check banky" style="display:none"></i>
+
+                                        <p>زرین پال</p>
+                                    </div>
+
+                                </div>
+                            }
+
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("mellat"))
+                            {
+                                <div class="col-lg-6 col-sm-6 " id="mellat" style="cursor:pointer; float:right">
+                                    <div class="halfrow ">
+                                        <i class="fa fa-check banky" style="display:none"></i>
+
+                                        <p>بانک ملت</p>
+                                    </div>
+
+                                </div>
+                            }
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("pasargad"))
+                            {
+                                <div class="col-lg-6 col-sm-6 " id="pasargad" style="cursor:pointer; float:right">
+                                    <div class="halfrow">
+                                        <i class="fa fa-check banky" style="display:none"></i>
+                                        <p>بانک پاسارگاد</p>
+                                    </div>
+                                </div>
+                            }
+                            if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("wallet"))
+                            {
+                                @*<div class="col-lg-6 col-sm-6 " id="Wallet" style="cursor:pointer; float:right">
+                                        <div class="halfrow">
+                                            <i class="fa fa-check banky" style="display:none"></i>
+
+                                            <p>کیف پول</p>
+                                        </div>
+
+                                    </div>*@
+                            }
                         }
-                    }
 
 
 
+                    </div>
                 </div>
             </div>
-        </div>
 
 
 
 
-        @*<div id="finalconfirm" class="btn-link-spoiler btn-link-spoiler--edit">
-                تایید اطلاعات
-            </div>*@
-        <div style="width:100%; text-align:center; padding:20px">
-            <div id="finalconfirm" class="btn btn-success" style=" width: 60%;  padding: 10px; font-size: 14px; margin: 0 auto;">
-                پرداخت
+            @*<div id="finalconfirm" class="btn-link-spoiler btn-link-spoiler--edit">
+                    تایید اطلاعات
+                </div>*@
+            <div style="width:100%; text-align:center; padding:20px">
+                <div id="finalconfirm" class="btn btn-success" style=" width: 60%;  padding: 10px; font-size: 14px; margin: 0 auto;">
+                    پرداخت
+                </div>
             </div>
+
         </div>
+        @{
+            var value = "final" + @Model.times[0].hours[0].ID;
+            <input hidden id="hourid" name="hourid" value=@value />
+            <input hidden id="payment" name="payment" value="" />
 
-    </div>
-    @{
-        var value = "final" + @Model.times[0].hours[0].ID;
-        <input hidden id="hourid" name="hourid" value=@value />
-        <input hidden id="payment" name="payment" value="" />
+        }
 
-    }
-
-    <div style="margin:30px 0px 30px 0px"></div>
-</form>
+        <div style="margin:30px 0px 30px 0px"></div>
+    </form>
 }
 
 
