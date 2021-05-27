@@ -107,7 +107,7 @@
     <link href="~/Content/persian-datepicker.css" rel="stylesheet" />
     <script src="~/Scripts/persian-date.js"></script>
     <script src="~/Scripts/persian-datepicker.js"></script>
-   
+
 }
 
 <div class="row">
@@ -194,16 +194,17 @@
 </style>
 <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">صورتحساب  </a></li>
-        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; "> استعلام مزینه ها</a></li>
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">کاربران  </a></li>
+        <li><a data-toggle="tab" href="#tamin" style=" color: #8d8d8d; "> تامین کننده</a></li>
+        <li><a data-toggle="tab" href="#hesab" style=" color: #8d8d8d; "> حساب ها</a></li>
 
 
     </ul>
 
     <div class="tab-content">
         <div id="home" class="tab-pane fade in  active" style="padding-top:20px">
-            <div>
-                <div class="col-lg-2">
+            <div class="row" style="display:flex; align-items:center">
+                <div style="margin:5px;">
                     <p>شامل کاربرها با شماره های :</p>
                     <input id="includeUsers" type="text" value="">
                     <script>
@@ -229,42 +230,48 @@
                         });
                     </script>
                 </div>*@
-                <div class="col-lg-2">
+                <div style="margin:5px;">
                     <p>نوع تراکنش :</p>
-                    <select class="form-control">
-                        <option value="0,1">همه</option>
+                    <select id="trantype" class="form-control">
+                        <option value="">همه</option>
                         <option value="1">واریز</option>
                         <option value="0">برداشت</option>
                     </select>
 
                 </div>
 
-                <div class="col-lg-2" style="position:relative" id="dateHolder">
+                <div style="position:relative; margin:5px" id="dateHolder">
                     <p>از تاریخ :</p>
                     <input type="text" class="form-control projectDate inputfield" />
                     <script type="text/javascript">
                         $(document).ready(function () {
-                            $(".projectDate").pDatepicker();
+                            $(".projectDate").pDatepicker({
+                                format: 'YYYY/MM/DD',
+                            });
                             var testDiv = document.getElementById("dateHolder");
                             var loc = testDiv.offsetTop + 75;
                             $(".datepicker-container").css("top", loc);
+                            $(".projectDate").val("");
                         });
                     </script>
                 </div>
-                <div class="col-lg-2" style="position:relative" id="dateHolder2">
+                <div style=" position :relative; margin:5px" id="dateHolder2">
                     <p>تا تاریخ :</p>
                     <input type="text" class="form-control projectDate2 inputfield" />
                     <script type="text/javascript">
                         $(document).ready(function () {
-                            $(".projectDate2").pDatepicker();
+                            $(".projectDate2").pDatepicker({
+                                format: 'YYYY/MM/DD',
+                            });
                             var testDiv = document.getElementById("dateHolder2");
                             var loc = testDiv.offsetTop + 75;
                             $(".datepicker-container").css("top", loc);
+                            $(".projectDate2").val("");
                         });
                     </script>
                 </div>
-                <div class="col-lg-2" style="position:relative" id="">
-                   <div class="btn btn-success" style="width:100%;margin-top:20px" id="verify">تایید</div>
+                <div style="position:relative; margin:5px" id="">
+                    <div class="btn btn-success" style="width:100%;margin-top:20px" id="verify">تایید</div>
                 </div>
 
                 <script>
@@ -273,9 +280,14 @@
                             url: 'getTransactionList',
                             dataType: 'html',
                             data: {
-                                userList: $("#includeUsers").val()
+                                userList: $("#includeUsers").val(),
+                                datefrom: $(".projectDate").val(),
+                                dateTo: $(".projectDate2").val(),
+                                transactionType: $("#trantype").val(),
+                                databaseType: "0"
                             },
                             success: function (data) {
+
                                 $("#detailHolder").html(data)
                             }
                         })
@@ -285,11 +297,184 @@
             </div>
 
         </div>
-     
+        <div id="tamin" class="tab-pane fade in  " style="padding-top:20px">
+            <div class="row" style="display:flex; align-items:center">
+                <div style="margin:5px;">
+                    <p>انتخاب تامین کننده :</p>
+                    @Html.DropDownList("taminlist", new SelectList(Model.partnerList, "ID", "title"), new { id = "taminlist", @class = "form-control" })
+                </div>
+                @*<div class="col-lg-2">
+            <p>بدون کاربرها با شماره های :</p>
+            <input id="excludeUsers" type="text" value="">
+            <script>
+                var firstElement = document.getElementById('excludeUsers');
+                var choices1 = new Choices(firstElement, {
+                    delimiter: ',',
+                    editItems: true,
+                    // maxItems: 5,
+                    removeButton: true
+                });
+            </script>
+        </div>*@
+                <div style="margin:5px;">
+                    <p>نوع تراکنش :</p>
+                    <select id="tamintrantype" class="form-control">
+                        <option value="">همه</option>
+                        <option value="1">واریز</option>
+                        <option value="0">برداشت</option>
+                    </select>
+
+                </div>
+
+                <div style="position:relative; margin:5px" id="dateHolder">
+                    <p>از تاریخ :</p>
+                    <input type="text" class="form-control taminprojectDate inputfield" />
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".taminprojectDate").pDatepicker({
+                                format: 'YYYY/MM/DD',
+                            });
+                            var testDiv = document.getElementById("dateHolder");
+                            var loc = testDiv.offsetTop + 75;
+                            $(".datepicker-container").css("top", loc);
+                            $(".taminprojectDate").val("");
+                        });
+                    </script>
+                </div>
+                <div style=" position :relative; margin:5px" id="dateHolder2">
+                    <p>تا تاریخ :</p>
+                    <input type="text" class="form-control taminprojectDate2 inputfield" />
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".taminprojectDate2").pDatepicker({
+                                format: 'YYYY/MM/DD',
+                            });
+                            var testDiv = document.getElementById("dateHolder2");
+                            var loc = testDiv.offsetTop + 75;
+                            $(".datepicker-container").css("top", loc);
+                            $(".taminprojectDate2").val("");
+                        });
+                    </script>
+                </div>
+                <div style="position:relative; margin:5px" id="">
+                    <div class="btn btn-success" style="width:100%;margin-top:20px" id="taminverify">تایید</div>
+                </div>
+
+                <script>
+                    $("#taminverify").click(function () {
+                        $.ajax({
+                            url: 'getTransactionList',
+                            dataType: 'html',
+                            data: {
+                                userList: $("#taminlist").val(),
+                                datefrom: $(".taminprojectDate").val(),
+                                dateTo: $(".taminprojectDate2").val(),
+                                transactionType: $("#tamintrantype").val(),
+                                databaseType: "3"
+                            },
+                            success: function (data) {
+
+                                $("#detailHolder").html(data)
+                            }
+                        })
+                    })
+                </script>
+
+            </div>
+
+        </div>
+        <div id="hesab" class="tab-pane fade in  " style="padding-top:20px">
+            <div class="row" style="display:flex; align-items:center">
+                <div style="margin:5px;">
+                    <p>انتخاب حساب :</p>
+                    @Html.DropDownList("hesablist", new SelectList(Model.List, "ID", "title"), new { id = "hesablist", @class = "form-control" })
+                </div>
+                @*<div class="col-lg-2">
+                    <p>بدون کاربرها با شماره های :</p>
+                    <input id="excludeUsers" type="text" value="">
+                    <script>
+                        var firstElement = document.getElementById('excludeUsers');
+                        var choices1 = new Choices(firstElement, {
+                            delimiter: ',',
+                            editItems: true,
+                            // maxItems: 5,
+                            removeButton: true
+                        });
+                    </script>
+                </div>*@
+                <div style="margin:5px;">
+                    <p>نوع تراکنش :</p>
+                    <select id="hesabtrantype" class="form-control">
+                        <option value="">همه</option>
+                        <option value="1">واریز</option>
+                        <option value="0">برداشت</option>
+                    </select>
+
+                </div>
+
+                <div style="position:relative; margin:5px" id="dateHolder">
+                    <p>از تاریخ :</p>
+                    <input type="text" class="form-control hesabprojectDate inputfield" />
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".hesabprojectDate").pDatepicker({
+                                format: 'YYYY/MM/DD',
+                            });
+                            var testDiv = document.getElementById("dateHolder");
+                            var loc = testDiv.offsetTop + 75;
+                            $(".datepicker-container").css("top", loc);
+                            $(".hesabprojectDate").val("");
+                        });
+                    </script>
+                </div>
+                <div style=" position :relative; margin:5px" id="hesabdateHolder2">
+                    <p>تا تاریخ :</p>
+                    <input type="text" class="form-control projectDate2 inputfield" />
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $(".hesabprojectDate2").pDatepicker({
+                                format: 'YYYY/MM/DD',
+                            });
+                            var testDiv = document.getElementById("dateHolder2");
+                            var loc = testDiv.offsetTop + 75;
+                            $(".datepicker-container").css("top", loc);
+                            $(".hesabprojectDate2").val("");
+                        });
+                    </script>
+                </div>
+                <div style="position:relative; margin:5px" id="">
+                    <div class="btn btn-success" style="width:100%;margin-top:20px" id="hesanverify">تایید</div>
+                </div>
+
+                <script>
+                    $("#hesanverify").click(function () {
+                        $.ajax({
+                            url: 'getTransactionList',
+                            dataType: 'html',
+                            data: {
+                                userList: $("#hesablist").val(),
+                                datefrom: $(".hesabprojectDate").val(),
+                                dateTo: $(".hesabprojectDate2").val(),
+                                transactionType: $("#hesabtrantype").val(),
+                                databaseType: "2"
+                            },
+                            success: function (data) {
+
+                                $("#detailHolder").html(data)
+                            }
+                        })
+                    })
+                </script>
+
+            </div>
+
+        </div>
+
 
     </div>
 
-    <div class="detailHolder">
 
-    </div>
+</div>
+<div id="detailHolder" class="row">
+
 </div>

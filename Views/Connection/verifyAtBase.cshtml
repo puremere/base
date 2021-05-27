@@ -26,23 +26,29 @@
 @{
     if (@ViewBag.message == "موفق")
     {
-        <div class="container" style="text-align:center; direction:rtl; padding:50px 50px;background-color: white;margin-top: 20px;border: 1px #ddd solid;border-radius: 10px;">
+<div class="container" style="text-align:center; direction:rtl; padding:50px 50px;background-color: white;margin-top: 20px;border: 1px #ddd solid;border-radius: 10px;">
 
-            <div class="row" style="display:flex">
-                <img style="width:150px; float:left; margin:auto" src="~/images/successPayment.png" />
-            </div>
+    <div class="row" style="display:flex">
+        <img style="width:150px; float:left; margin:auto" src="~/images/successPayment.png" />
+    </div>
 
-            <h4 style="text-align:center; float:right;color:#4d4d4d;padding: 30px;width:100%; ">
-                سفارش شما با موفقیت در سیستم ثبت شد
-            </h4>
-            <h4 style="text-align:center;font-size:18px;">شماره فاکتور:   <span style="font-size:25px"></span>@ViewBag.message3 </h4>
-            <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
-
-
+    <h4 style="text-align:center; float:right;color:#4d4d4d;padding: 30px;width:100%; ">
+        سفارش شما با موفقیت در سیستم ثبت شد
+    </h4>
+    <h4 style="text-align:center;font-size:18px;">شماره فاکتور:   <span style="font-size:25px"></span>@ViewBag.message3 </h4>
+    <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
 
 
 
-        </div>
+    @{
+
+        string srt = ViewBag.package + "://mellatgate-" + "1" + "-" + @ViewBag.message2;
+        <script>
+                    window.location.href = '@srt';
+        </script>
+    }
+
+</div>
 
     }
     else
@@ -63,7 +69,13 @@
 
 
             <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
+            @{
 
+                string srt = @ViewBag.package + "://mellatgate-" + "0" + "-" + @ViewBag.message2;
+                <script>
+                    window.location.href = '@srt';
+                </script>
+            }
 
 
 

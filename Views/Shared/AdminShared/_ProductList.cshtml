@@ -261,8 +261,19 @@
                                                     <a id=@item.ID class="btn btn-primary @editclassname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
                                                     <script>
                                                         var editclassname = "editproduct" + "@item.ID";
-                                                        var selectedCatID = $("#listofproduct").val();
+                                                        let selectedCatID = "";
+                                                        //var selectedCatID = $("#listofproduct").val();
+                                                        if (@item.subcatid2 == 0) {
+                                                            if (@item.subcatid == 0) {
+                                                                selectedCatID = "1" + @item.catid;
+                                                            } else {
+                                                                selectedCatID = "2" + @item.subcatid;
+                                                            }
+                                                        }
+                                                        else {
 
+                                                            selectedCatID = "3" + @item.subcatid2;
+                                                        }
                                                         $("." + editclassname).click(function () {
 
                                                             var url = "@Url.Action("Edit", "Admin", new { id = "__id__", catID = "__catID__" })";
@@ -545,13 +556,14 @@
                     var num = this.textContent;
                     var value = $("#listofproduct").val();
                     var partner = $("#partnerList").val();
+                    var que = $("#SearchQuery").val();
                     $.ajax({
                         url: '/admin/GetTheListOfItems',
                         data: {
                             page: num,
                             value: value,
-                            partner: partner
-
+                            partner: partner,
+                            query: que
                         },
                         dataType: 'html',
                         success: function (data) {

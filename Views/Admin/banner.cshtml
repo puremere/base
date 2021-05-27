@@ -186,7 +186,9 @@ new { enctype = "multipart/form-data", id = "editbanner" }))
                         string image = "image" + ID;
                         string button = "butt" + ID;
                         string classname = "REM" + ID;
-                        <div id=@ID class="tab-pane fade in " style="padding-top:20px">
+                        string active = index == 0 ? "active": "";
+                        
+                        <div id=@ID class="tab-pane fade in @active" style="padding-top:20px">
                             <div class="row">
 
 
