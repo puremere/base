@@ -97,11 +97,11 @@
                                     <a style="cursor:pointer;" href="@Url.Action("submenu", "Home", new { catmode = srtcat, value =  @cat.title})" >@cat.title</a>
 
                                 </div>
-                                <ul  style="height:800px; background-color:rgba(0,0,0,0.5); width:100%">
+                                <ul  style="min-height:410px; background-color:rgba(0,0,0,0.5); width:100%">
                                     <li>
                                         <ul class="ulinside" style="display:flex;height:400px ">
                                             <li style="width:70%; ">
-                                                <ul class="baseList"  style=" flex-direction:column; flex-wrap: wrap; height:390px; ">
+                                                <ul class="baseList"  style=" flex-direction:column; flex-wrap: wrap; height:380px; ">
                                                     @if (Model.catsdata.First().mysubcatcollection != null)
                                                     { 
                                                         foreach (var SB in Model.catsdata.First().mysubcatcollection)

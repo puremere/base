@@ -265,7 +265,6 @@
                                         <img src="@src" alt="" class="pro-image-front" style="width:100%; object-fit:scale-down;">
                                     </div>
                                     <div id="maintitleholder" style="padding:8px">
-
                                         <div class="titleholder">
                                             @{
                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -281,7 +280,6 @@
 
                                             }
 
-
                                         </div>
                                         @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
                                         {
@@ -295,22 +293,19 @@
                                                 iconcurson = "auto";
                                                 pointer = "pointer-events: none;";
                                             }
-                                            <div class="addholder" style="margin:5px">
-                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; cursor :@iconcurson ; color: @iconcolor ;height:20px; @pointer "></i>
-
-                                                <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
-                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; cursor :@iconcurson ; color: @iconcolor ;height:20px;  @pointer"></i>
-
+                                            <div class="addholder" style="margin:5px;display: flex;justify-content: center;align-items:center">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF; margin:10px"></i>
+                                                <div class="entry value @valueID " style="margin:0; border:0px; padding:0; width:10px; height:unset"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;margin:10px "></i>
                                             </div>
 
                                         }
                                         <div class="descriptionSection" style="min-width:25px">
-
                                             <p class="title" style="color:#605c5c">@Html.Raw(item.desc)</p>
                                         </div>
                                         @*<div class="descholder">
-                                                <p class="titledesc"> </p>
-                                            </div>*@
+            <p class="titledesc"> </p>
+        </div>*@
                                     </div>
 
 
@@ -788,6 +783,7 @@
     </script>
     <script>
         $('.value-plus').on('click', function () {
+           
             event.stopPropagation();
             $("#loading").fadeIn()
             let newVal = $(this).parent().children(".value").text();

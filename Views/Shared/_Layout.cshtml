@@ -60,7 +60,7 @@
             <script src="~/Scripts/toastr.js"></script>
             <script src="~/Scripts/jquery-ui.js"></script>
             @RenderSection("header", required: false)
-            @RenderSection("scripts", required: false)
+          
             <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
             <style>
                 .menuparentsection {
@@ -89,50 +89,39 @@
 
         </head>
         <body>
-
             <div id="loading" style="display:none">
                 <div style="padding:15px 35px; background-color:white;position:fixed;overflow: visible;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
-
                     <img style="max-width:80px; display:block; margin:auto" src="~/images/@logo" />
                     <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
-
                 </div>
             </div>
-
-
 
 
             @{
                 banimo.ViewModel.userdata userApp = Session["LogedInUser"] as banimo.ViewModel.userdata;
             }
-
             <!-- header-bot -->
             <div class="header-bot" style="">
                 <div class="" style="direction:rtl; width:100%">
                     <div class="minwidth" style="display:none">
                         <div class="row" style="width: 100%;display:flex;align-content:center; padding:5px 0 5px 5px;">
-
                             <div id="barsformenu" class="col-sm-6 col-xs-6" style=" padding: 0px;padding-top: 0px;">
                                 <i class="fa fa-bars toolbarText"></i>
-                                <p class="toolbarText" style="display:inline-block;margin-right: 5px;">@System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</p>
+                                <p class="toolbarText" style="display:inline-block;margin-right: 5px;">@System.Configuration.ConfigurationManager.AppSettings["siteName"]</p>
                             </div>
                             <div class="col-sm-6 col-xs-6" style="padding: 0;">
 
-
-
                                 <a href="/Home/checkout">
-                                    <p class="simpleCart_quantityy " style="border-radius: 50%;background-color:white;color:black;display: inline;position: absolute;left: 15px;padding: 0px 5px;"></p>
+                                    <p class="cartnumber simpleCart_quantityy" id="simpleCart_quantityy" style="border-radius: 50%;background-color:white;color:black;display: flex;position: absolute;left: 15px;padding: 0px 5px;align-items: center;justify-content: center;"></p>
                                     <i class="fa fa-shopping-cart toolbarText" style="min-width: 35px;display:inline-block;float: left;"></i>@*<img  src="/images/cart.png">*@
                                 </a>
                                 @if (userApp != null)
                                 {
                                     <a href="/Home/myprofile?type=1">
                                         <i class="userButt fa fa-user toolbarText" style=" min-width: 27px;display:inline-block;float: left;"></i>
-
                                     </a>
 
                                 }
-
                                 <i class="searchButt fa fa-search toolbarText" style=" min-width:35px;display:inline-block;float: left;"></i>
                                 @*<img class="searchButt toolbarText" src="/images/search.png" style="">*@
                             </div>
@@ -151,11 +140,10 @@
                             </script>
                         </div>
 
-
                     </div>
 
-
                     <style>
+
                         #searchinput {
                             border: none;
                         }
@@ -178,7 +166,6 @@
                     </style>
                     <div id="barmenu" style="display:none; height: 100%; width : 100% ;display:none; position: fixed;top: 0;z-index: 999999999;background-color:rgba(0, 0, 0, 0);right: 0;">
                         <div id="barmanuholder" style="position:relative; overflow-y:scroll; width:65% ; background-color:white; float:right; height:100%; ">
-
                             @{
 
 
@@ -187,14 +174,11 @@
                                     string name = userApp.fullname != "" ? userApp.fullname : userApp.phone;
 
                                     <div class="menuAppHeader toolbarText" style="direction: rtl;padding: 15px;">
-
                                         <a href="/Home/myprofile?type=1">
                                             <i class="fal fa-user " style=" margin-left:10px; vertical-align:middle; color:white"></i> <span class="" style="color:white">@name</span>
                                         </a>
-
                                     </div>
                                     <div class="menuAppHeader" style="direction: rtl;padding: 5px 15px 20px 5px;background-color: #E1A52B">
-
 
                                         <a href="/CustomerLogin/LogOff">
                                             <i class="fal fa-sign-out " style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white" class="">خروج</span>
@@ -207,29 +191,23 @@
                                     <a href="/Home/Login">
                                         <div class="menuAppHeader" style="direction: rtl;padding: 15px;color: white;">
 
-
                                             <i class="fal fa-sign-in" style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white">عضویت و ورود</span>
-
                                         </div>
                                     </a>
                                 }
                             }
-
                             <a href="/Home/Index">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right; direction:ltr">
                                     <span>خانه</span> <i class="fal fa-home" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
-
                                 </div>
                             </a>
                             <a href="/Home/checkout">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right;direction:ltr">
                                     <span>سبد خرید</span> <i class="fal fa-shopping-cart" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
-
                                 </div>
                             </a>
                             <div class="searchButt" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right;direction:ltr">
                                 <span>جستجو</span> <i class="fal fa-search" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
-
                             </div>
                             <div style="width:100%; border:1px solid #ddd"></div>
                             <div style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right;direction:ltr">
@@ -237,56 +215,46 @@
                                     <span>مقالات</span> <i class="fal fa-file" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
                                 </a>
 
-
                             </div>
                             <div style="width:100%; border:1px solid #ddd"></div>
                             <a href="/Home/ProductList?sortID=3">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
                                     <span>پیشنهاد های ویژه @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
-
                                 </div>
                             </a>
                             <a href="/Home/ProductList?sortID=2">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
                                     <span>پرفروش ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
-
                                 </div>
                             </a>
                             <a href="/Home/ProductList?sortID=7">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
                                     <span>بیشترین تخفیف ها @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
-
                                 </div>
                             </a>
                             <a href="/Home/ProductList?sortID=1">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
                                     <span>جدید ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span>
-
                                 </div>
                             </a>
                             <div style="width:100%; border:1px solid #ddd"></div>
                             <a href="@Url.Action("aboutus", "Home")">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
                                     <span> درباره ما</span>
-
                                 </div>
                             </a>
                             <a id="contactUsButt">
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
                                     <span>تماس با ما</span>
-
                                 </div>
                             </a>
                             <div style="width:100%;    text-align: center; position:absolute ; bottom:5px">
                                 <a href="http://www.supect.com"><img src="~/images/supect.png" style=" width:75px; margin:0 auto;" /></a>
                             </div>
-
                         </div>
-
                     </div>
                     <div id="searchdiv" style="display:none; height: 100%; width : 100% ;display:none; position: fixed;top: 0;z-index: 99999;background-color:white;right: 0;">
                         <div class="SearchReturnButt">
-
                             <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
                             <span style=" margin-right: 15px;font-size:15px">جستجو</span>
                         </div>
@@ -295,57 +263,44 @@
                             <div class="inputHolder"><i class="fal fa-search" style="margin-left:10px; font-weight:600 "></i><input name="newquery" style="text-align:right; direction:rtl" id="searchinput" type="text" placeholder="جستجو ..." /></div>
                             <div type="submit" id="searchActButt" style="position:absolute; bottom:0px ; padding:15px; background-color:green; text-align:center; width:100%"> <p style="color:white"> <span>جستجو در @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span></p></div>
                         </form>
-
                     </div>
                     <div id="contactUsDiv" style="display:none; height: 100%; width : 100% ;display:none; position: fixed;top: 0;z-index: 99999;background-color:white;right: 0;">
                         <div class="contactUsReturnButt" style="direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
                             <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
                             <span style=" margin-right: 15px;font-size:15px">تماس با ما</span>
 
-
                         </div>
-
 
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex;padding:30px;width: 60%;margin: auto;">
                             <img style="width: 100%;margin:auto;object-fit: scale-down;height: 100%;max-width: 100px;" src="~/images/@logo" />
                         </div>
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
-
                             <div class="contactItem"><i class="fa fa-envelope" style="margin-left: 10px"></i><span style="font-size:4vw"> Info&#64;<span>@System.Configuration.ConfigurationManager.AppSettings["serverName"]</span>.com</span> </div>
                         </div>
                         <div class="ContactPhoneHolder" id="searchpanel" action="~/Home/ProductList" style="display:flex">
-
                             <div class="contactItem"><i class="fa fa-headphones" style="margin-left: 10px"></i><span style="font-size:4vw">تماس با @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span> </div>
-
                         </div>
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
-
                             <div class="contactItem"><i class="fa fa-bug" style="margin-left: 10px; "></i><span style="font-size:4vw">گزارشات مشکلات اپلیکیشن</span> </div>
                         </div>
                         <div class="modal" id="mymodal" tabindex="-1" role="dialog">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
-
                                     <div class="modal-body" style="text-align:center; padding:30px 15px">
                                         <p id="contactPhone" style="font-size:16px;color:black"></p>
-
                                     </div>
                                     <div class="modal-footer">
-
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
 
                 </div>
             </div>
             <!-- //header-bot -->
             <!-- banner -->
-
 
             <script>
                 var width = screen.width;
@@ -442,29 +397,18 @@
 
             </script>
             <div class="row" style=" margin-right:0px" id="manuholder">
-
                 <div class="">
                     <nav id="main-nav" class="col-lg-12 col-md-12 col-sm-12" style="font-size:13px; color:#f6f5f5; background-color:#656565; padding-right:0px; border-bottom:2px solid black">
 
-
                         <!-- Sample menu definition -->
-
-
 
                     </nav>
                 </div>
-
             </div>
-
             @RenderBody()
-
-
 
             <!-- footer -->
             <!-- //login -->
-
-
-
 
 
             <script>
@@ -609,12 +553,43 @@
 
 
             </script>
-
             @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
-                <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
-                <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>*@
+        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
+        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>*@
             <div style="display:none" id="summerydetailholder"></div>
+            <script>
+                var getquntity = function () {
+                    $.ajax({
+                        url: '/Home/getquntitiy',
+                        dataType: 'html',
+                        success: function (data) {
+                            var total = 0;
+                            var srtcookie = data;
 
+                            if (srtcookie.length > 0) {
+                                srtcookie = srtcookie.replace(/&quot;/g, '"');
+                                JSON.parse(srtcookie).forEach(function (item) {
+                                    let valueID = "value" + item.productid;
+                                    $("." + valueID).text(item.quantity);
+                                    total += parseInt(item.quantity);
+                                });
+                                $(".simpleCart_quantityy").text(total)
+
+                            } else {
+                                $(".simpleCart_quantityy").text("0")
+                            };
+                        }
+
+                    })
+                };
+                getquntity();
+
+
+
+
+
+            </script>
+            @RenderSection("scripts", required: false)
         </body>
     }
     else
