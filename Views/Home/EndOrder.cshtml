@@ -567,7 +567,7 @@
 
 
 
-<style>
+    <style>
     .form__group {
         position: relative;
         padding: 15px 0 0;
@@ -641,14 +641,28 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-     
+
         font-size: 1.5rem;
         background-color: #fff;
         width: 80%;
         margin: auto;
         border-radius: 10px
     }
-</style>
+
+     @@media (max-width: 767px){
+        .form__group {
+            position: relative;
+            padding: 15px 0 0;
+            margin-top: 15px;
+            width: 100%;
+            direction: rtl;
+            font-size:12px;
+        }
+        .modal-bodyy{
+            width:100%
+        }
+     }
+    </style>
 <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -685,21 +699,17 @@
 
 <form id="endOrderForm" name="endOrderForm" action="EndOrder" method="post">
     <p id="error" style="color :red; text-align:center; padding:10px"></p>
-
     <input hidden name="addID" id="addID" value="0" />
     <input hidden name="disc" id="lon" value="0" />
     <input hidden name="lat" id="lat" value="" />
     <input hidden name="lgn" id="lgn" value="" />
-
+    <input hidden id="addressID" name="addressID" />
     <div id="app" style="width:100%; height:100%"></div>
-
     <div style="margin:30px 0px 30px 0px"></div>
     <div class="main_container" style="width: 50%; margin: auto">
-
         <div class="containerofform">
             <div class="header"><p>انتخاب آدرس</p></div>
             <div style="display:flex;margin:20px 30px 0 20px;">
-
                 <p style="margin-left:20px" id="addAddress" class="btn btn-success">افزودن آدرس جدید</p>
                 @if (Model.address != null)
                 {
@@ -709,10 +719,8 @@
                     }
                 }
 
-
             </div>
             <div class="sectionBody" style="text-align:center">
-
                 @{
                     if (Model.address != null)
                     {
@@ -723,13 +731,15 @@
                             if (item.active == "1")
                             {
                                 display = "block";
-                                <input hidden id="addressID" name="addressID" value="@item.ID" />
+
                                 <script>
 
                                         let latelement = document.getElementById('lat');
+                                        let addelement = document.getElementById('addressID');
                                         let lonelement = document.getElementById('lgn');
                                         latelement.value = @item.lat;
                                         lonelement.value = @item.lng;
+                                        addelement.value = @item.ID;
 
 
                                 </script>
@@ -738,19 +748,16 @@
 
                             <div id="@item.ID" style="display:@display;  margin: 20px; padding:20px; " class="halfrow addressy">
                                 <i class="fa fa-check " style="display:@display;  margin:0 5px"></i>
-
                                 <div style="text-align:right;font-size:14px; font-weight:600">   @item.title</div><br />
                                 <div style="text-align:right; font-size:14px"> آدرس :   @item.address</div>
                                 <div class="row" ; style="margin-top:30px; margin-bottom:10px">
                                     <p class="btn btn-default editAddress" style="display:block; margin:-10px 10px">ویرایش</p>
                                     <p class="btn btn-danger removeAddress" style="display:block; margin: -10px 10px">حذف</p>
                                 </div>
-
                             </div>
                         }
                     }
                 }
-
                 <div id="addAddressHolder" style="display:none; position:fixed; top:0; left:0;bottom:0; overflow:scroll; width:100%;z-index:9">
                     <div style="min-height:100%; width:100%; background-color:rgba(0,0,0,0.5)">
                         <div class="modal-bodyy">
@@ -761,9 +768,7 @@
                                         <div style="height:8%; width:100%;z-index: 9999999999999;height:40px; margin-bottom:10px">
                                             <input type="text" id="mapaddress" style="width:100%; height:100% " class="form-control" />
                                         </div>
-
                                         <div id="Map" style="border-radius:3px margin-top:10%; width:100%; margin:auto; height:88%; background: #eee; border: 2px solid #aaa;"></div>
-
 
                                     </div>
                                 </div>
@@ -790,23 +795,18 @@
                                         <input type="text" class="form__field" placeholder="کد پستی" name="modalpostalCode" id='modalpostalCode' required />
                                         <label for="name" class="form__label">کد پستی</label>
                                     </div>
-                                   
+
                                     <p style="display:none" id="modalID"></p>
                                     <div class="modal-footer" style="border-top:0; margin-top:20px">
                                         <button id="cancelAddress" type="button" class="btn btn-secondary" style="font-size:15px; padding:7px 14px">لغو</button>
                                         <button id="verifyAddress" type="button" class="btn btn-primary " style="font-size:15px; padding:7px 14px">تایید و ثبت آدرس</button>
                                     </div>
                                 </div>
-
                             </div>
-
-
-
 
 
                         </div>
                     </div>
-
 
                 </div>
                 @*<div class="row ">
@@ -841,10 +841,7 @@
 
                     </div>*@
             </div>
-
         </div>
-
-
 
         <div class="containerofform">
             <div class="header"><p> زمان ارسال</p></div>
@@ -876,7 +873,6 @@
                                                 {
                                                     <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
                                                 }
-
                                                 <p>@detail.title</p>
                                             </div>
                                         }
@@ -899,7 +895,6 @@
                                                 {
                                                     <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
                                                 }
-
                                                 <p>@detail.title</p>
                                             </div>
                                         }
@@ -922,7 +917,6 @@
                                         {
                                             <i class="fa fa-check dispath" id="@checkname" style="display:none"></i>
                                         }
-
                                         <p>@item.title</p>
                                     </div>
                                 }
@@ -931,11 +925,9 @@
                         }
                     }
 
-
                 </div>
             </div>
         </div>
-
 
         <div class="containerofform">
             <div class="header"><p> کد تخفیف</p></div>
@@ -947,9 +939,7 @@
                             <input id="discountfake" style="border:none; float:left; width:90%" />
                             <input id="discount" style="display:none; border:none; float:left; width:90%" />
 
-
                         </div>
-
                     </div>
                     <div class="row" style="width:80%; margin:auto;  color:#2585bd">
                         <div style="float:left" id="discountConfirm" class="btn-link-spoiler btn-link-spoiler--edit">
@@ -1048,62 +1038,50 @@
                         </script>
                     </div>
 
-
                 </div>
             </div>
         </div>
-
         <div class="containerofform">
             <div class="header"><p> مبلغ نهایی</p></div>
             <div class="sectionBody">
                 <div class="row ">
-
                     <div id="finalPriceHolder" style="">
                         <div class="row priceitem">
                             @{
                                 decimal totalprice = decimal.Parse(Model.finalAmount) + decimal.Parse(Model.priceDeliver);
                             }
-
                             <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@String.Format("{0:n0}", @Model.finalAmount)</i>&nbsp;تومان</p>
                             <p class="col-lg-6 col-sm-6">مبلغ</p>
-
                         </div>
                         <div class="row priceitem">
                             <p class="col-lg-6 col-sm-6 Holder"> <i id="finalDiscount">0</i>&nbsp;تومان</p>
                             <p class="col-lg-6 col-sm-6">تخفیف</p>
-
                         </div>
                         <div class="row priceitem">
                             <p class="col-lg-6 col-sm-6 deliveryHolder Holder"><span id="deliveryprice">@String.Format("{0:n0}", @Model.priceDeliver)</span>&nbsp;تومان</p>
                             <p class="col-lg-6 col-sm-6">هزینه ارسال</p>
-
                         </div>
                         <div class="row priceitem">
                             <p class="col-lg-6 col-sm-6 Holder"><span id="totalprice"> @String.Format("{0:n0}", totalprice)  </span>&nbsp;تومان</p>
                             <p class="col-lg-6 col-sm-6">مبلغ نهایی</p>
-
                         </div>
-
                     </div>
-
 
                 </div>
             </div>
         </div>
 
-
         <div class="containerofform">
             <div class="header"><p> استفاده از اعتبار</p></div>
             <div class="sectionBody">
                 <div class="row ">
-
                     <div id="finalPriceHolder" style="">
                         <div class="row priceitem">
                             <p class="col-lg-6 col-sm-6 Holder"> <i id="finalprice">@Model.credit</i>&nbsp;تومان</p>
                             <p class="col-lg-6 col-sm-6">اعتبار</p>
-
                         </div>
                         <style>
+
                             .switch {
                                 position: relative;
                                 display: inline-block;
@@ -1165,14 +1143,11 @@
                                 }
                         </style>
                         <div class="row " style="margin-top:15px; text-align:center">
-
                             <label id="lableToggle" style="display:inline-block" class="switch">
                                 <input type="checkbox">
                                 <span class="slider round"></span>
                             </label>
-
                         </div>
-
 
                     </div>
                     <script>
@@ -1181,11 +1156,9 @@
                         })
                     </script>
 
-
                 </div>
             </div>
         </div>
-
         <div class="containerofform" id="raveshpardakht">
             <div class="header"><p> روش پرداخت</p></div>
             <div class="sectionBody">
@@ -1199,17 +1172,14 @@
 
                         </div>*@
 
-
                     @{
                         if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("inplace"))
                         {
                             <div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
                                 <div class="halfrow">
                                     <i class="fa fa-check banky" style="display:none"></i>
-
                                     <p>پرداخت در محل</p>
                                 </div>
-
                             </div>
                         }
                         if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("zarin"))
@@ -1217,10 +1187,8 @@
                             <div class="col-lg-6 col-sm-6 " id="internet" style="cursor:pointer; float:right">
                                 <div class="halfrow">
                                     <i class="fa fa-check banky" style="display:none"></i>
-
                                     <p>زرین پال</p>
                                 </div>
-
                             </div>
                         }
 
@@ -1229,10 +1197,8 @@
                             <div class="col-lg-6 col-sm-6 " id="mellat" style="cursor:pointer; float:right">
                                 <div class="halfrow ">
                                     <i class="fa fa-check banky" style="display:none"></i>
-
                                     <p>بانک ملت</p>
                                 </div>
-
                             </div>
                         }
                         if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("pasargad"))
@@ -1257,13 +1223,9 @@
                         }
                     }
 
-
-
                 </div>
             </div>
         </div>
-
-
 
 
         @*<div id="finalconfirm" class="btn-link-spoiler btn-link-spoiler--edit">
@@ -1274,7 +1236,6 @@
                 پرداخت
             </div>
         </div>
-
     </div>
     @{
         var value = "final" + @Model.times[0].hours[0].ID;
@@ -1282,7 +1243,6 @@
         <input hidden id="payment" name="payment" value="" />
 
     }
-
     <div style="margin:30px 0px 30px 0px"></div>
 </form>
 }
