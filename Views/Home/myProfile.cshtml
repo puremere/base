@@ -760,7 +760,7 @@
                             @if (Model.mytransaction != null)
                             {
 
-                                <div class="c-table-orders mustbehide">
+                                <div class="c-table-orders mustbehide" style="">
                                     <div class="c-table-orders__head c-table-orders__head--highlighted">
                                         <div class="row" style="margin:0;direction:rtl; padding:25px 0; background-color:#85b3be; color:white">
                                             <div class="col-lg-1" style="float:right">#</div>
@@ -1090,6 +1090,9 @@
                                                         else {
                                                             $("#orderDetailHoLDER").css("display", "block")
                                                             $('#detaildiv').html(data);
+                                                            $([document.documentElement, document.body]).animate({
+                                                                scrollTop: $("#detaildiv").offset().top
+                                                            }, 800);
                                                         }
 
 
@@ -1166,6 +1169,7 @@
                                               
                                                 if (window.innerWidth < 950) {
                                                     $('#detaildiv').html(data);
+                                                   
                                                     $(".back2").css("display", "block")
                                                     $("#productlistHoLDER").css("display", "none")
                                                     $("#orderDetailHoLDER").css("display", "block")
@@ -1183,6 +1187,9 @@
                                                 else {
                                                     $("#orderDetailHoLDER").css("display", "block")
                                                     $('#detaildiv').html(data);
+                                                    $([document.documentElement, document.body]).animate({
+                                                        scrollTop: $("#detaildiv").offset().top
+                                                    }, 800);
                                                 }
 
 

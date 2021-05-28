@@ -92,7 +92,7 @@
 
 
             <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-4">
                     <p style="display:inline-block">وضعیت سفارش :</p>
                     <select class="form-control" style="width:70%; display:inline-block" id="selectOrderType">
                         <option value="">همه</option>
@@ -103,6 +103,14 @@
                         <option value="5">تحویل شده</option>
                         <option value="0">ناموفق</option>
                     </select>
+                </div>
+                <div class="col-lg-4">
+                    <p style="display:inline-block">عبارت مورد نظر :</p>
+                    <input style="width:70%; display:inline-block" class="form-control" id="searchText" />
+                </div>
+                <div class="col-lg-2">
+                    <p class="btn btn-success" style="display:inline-block" id="orderFormSearch"> تایید</p>
+                 
                 </div>
             </div>
             <p class="ORDERBUTT" style="display:none" id="dataOrder">11</p>
@@ -373,18 +381,19 @@
                 </div>
             </div>
             <script>
-                $("#selectOrderType").change(function () {
+                $("#orderFormSearch").click(function () {
 
                     order = "12";
                     type = $("#selectOrderType").val();
+                    search = $("#searchText").val();
 
                     $.ajax({
                         url: '/Admin/ChangeOrderList',
                         dataType: 'html',
                         data: {
                             type: type,
-                            order: order
-
+                            order: order,
+                            search: search
                         },
 
                         success: function (data) {

@@ -24,9 +24,9 @@
         </div>
     }
 
-    <div class="row searchItem" style="display:flex; padding:20px">
+    <div class="row searchItemRaw" style="display:flex; padding:20px; cursor:pointer">
         <p style="margin:0 5px">نمایش همه نتایج برای</p>
-        <p style="color:blue; flex:1"> @Model.key</p>
+        <p id="valsearch" style="color:blue; flex:1"> @Model.key</p>
     </div>
 
 
@@ -37,6 +37,13 @@
     $(".searchItem").click(function () {
         var id = $(this).attr('id');
         var search = $(this).find(".searchtitle").text();
+       
         window.location.href = "/Home/ProductList?newquery=" + search + "&catmode=" + id
+    })
+    $(".searchItemRaw").click(function () {
+       
+        var search = $(this).find("#valsearch").text();
+        //alert(search)
+        window.location.href = "/Home/ProductList?newquery=" + search
     })
 </script>

@@ -284,100 +284,54 @@ new { @class = "c-form-account", enctype = "multipart/form-data", id = "register
                 }
             </div>
             <script>
-        $("#verifyyy").click(function () {
-            function isValidPhonenumber(phonenumber) {
-                var pattern = /^09[0-9]{9}$/;
-                return pattern.test(phonenumber);
-            };
-            var n = $("#accountAutoLogin:checked").length;
-            var pass = $("#registerpassword").val();
-            var val = $("#registertext").val();
+                function isValidPhonenumber(phonenumber) {
+                    var pattern = /^09[0-9]{9}$/;
+                    return pattern.test(phonenumber);
+                };
+                function dologin() {
+                    var n = $("#accountAutoLogin:checked").length;
+                    var pass = $("#registerpassword").val();
+                    var val = $("#registertext").val();
 
 
 
-            if (pass.length === 0) {
-                $("#registerpassword-error").css("display", "block");
-                $("#registertext").css("color", "#ef5662");
-                $("#registerpassword").css("border", "1px solid #ef5662");
-                $("#mainlabla2").addClass("error");
+                    if (pass.length === 0) {
+                        $("#registerpassword-error").css("display", "block");
+                        $("#registertext").css("color", "#ef5662");
+                        $("#registerpassword").css("border", "1px solid #ef5662");
+                        $("#mainlabla2").addClass("error");
 
-            }
-            if (!isValidPhonenumber(val)) {
-
-                $("#registererror").css("display", "block");
-                $("#registertext").css("color", "#ef5662");
-                $("#registertext").css("border", "1px solid #ef5662");
-                $("#mainlabla").addClass("error");
-
-
-            }
-
-            if (isValidPhonenumber(val) && (pass.length !== 0)) {
-
-
-                $("#registerForm").submit();
-                @*$.ajax({
-                    url: '/CustomerLogin/CustomerLogIn',
-                    dataType: 'html',
-                    data: {
-
-                        pass: pass,
-                        phone: val,
-                        register: n
-
-                    },
-                    success: function (data) {
-                        if (data === "200") {
-
-                            toastr.options = {
-                                "debug": false,
-                                "positionClass": "toast-top-center",
-                                "onclick": null,
-                                "fadeIn": 300,
-                                "fadeOut": 1000,
-                                "timeOut": 8000,
-                                "extendedTimeOut": 1000,
-
-
-                            }
-                            toastr.success('با موفقیت وارد شدید');
-                            var rul = '@Url.Action("Index","Home")';
-                            window.location.href = rul;
-                        }
-                        else if (data === "300") {
-                            var url = '@Url.Action("confirm", "Home")';
-
-                            window.location.href = url;
-
-
-                            // $('#lblsubscribeSubmit').text("");
-                        }
-
-                        else {
-                            toastr.options = {
-                                "debug": false,
-                                "positionClass": "toast-top-center",
-                                "onclick": null,
-                                "fadeIn": 300,
-                                "fadeOut": 1000,
-                                "timeOut": 8000,
-                                "extendedTimeOut": 1000,
-
-
-                            }
-                            toastr.error('نام کاربری یا رمز عبور نادرست است');
-                        }
-
-
-
-                    },
-                    error: function () {
-                        $('#lblsubscribeSubmit').text("خطای سیستمی، لطفاً با اپراتور تماس بگیرید");
                     }
-                });*@
-            }
+                    if (!isValidPhonenumber(val)) {
 
-        });
+                        $("#registererror").css("display", "block");
+                        $("#registertext").css("color", "#ef5662");
+                        $("#registertext").css("border", "1px solid #ef5662");
+                        $("#mainlabla").addClass("error");
+
+
+                    }
+
+                    if (isValidPhonenumber(val) && (pass.length !== 0)) {
+
+
+                        $("#registerForm").submit();
+
+                    }
+                }
+                $('body').keypress(function (e) {
+                    var key = e.which;
+                    if (key == 13)  // the enter key code
+                    {
+                        dologin();
+                        return false;
+                    }
+                });
+                $("#verifyyy").click(function () {
+                    dologin();
+
+
+                });
             </script>
         </main>
 
