@@ -4,7 +4,8 @@
 .choices {
   position: relative;
   overflow: hidden;
-  margin-bottom: 24px;
+
+  margin-bottom: 0px;
   font-size: 16px;
 }
 
