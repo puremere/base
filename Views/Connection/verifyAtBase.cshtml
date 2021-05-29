@@ -42,7 +42,7 @@
 
     @{
 
-        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "1" + "-" + @ViewBag.message2;
+        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://"  + @ViewBag.message2;
         <script>
            window.location.href = '@srt';
         </script>
@@ -69,7 +69,13 @@
 
         string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "0" + "-" + @ViewBag.message2;
         <script>
-           window.location.href = '@srt';
+            try {
+                window.location.href = '@srt';
+            }
+            catch (err) {
+               
+            }
+          
         </script>
     }
 
