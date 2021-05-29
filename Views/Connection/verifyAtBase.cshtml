@@ -42,7 +42,7 @@
 
     @{
 
-        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://"  + @ViewBag.message2;
+        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "OK" + "-" + @ViewBag.message2;
         <script>
            window.location.href = '@srt';
         </script>
@@ -67,7 +67,7 @@
     <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
     @{
 
-        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "0" + "-" + @ViewBag.message2;
+        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "NOTOK" + "-" + @ViewBag.message2;
         <script>
             try {
                 window.location.href = '@srt';
