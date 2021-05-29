@@ -387,7 +387,7 @@
             <div class="row" style="display:flex; align-items:center">
                 <div style="margin:5px;">
                     <p>انتخاب حساب :</p>
-                    @Html.DropDownList("hesablist", new SelectList(Model.List, "ID", "title"), new { id = "hesablist", @class = "form-control" })
+                    @Html.DropDownList("hesablist", new SelectList(Model.AList, "ID", "title"), new { id = "hesablist", @class = "form-control" })
                 </div>
                 @*<div class="col-lg-2">
                     <p>بدون کاربرها با شماره های :</p>
