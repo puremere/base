@@ -42,9 +42,9 @@
 
     @{
 
-        string srt = ViewBag.package + "://mellatgate-" + "1" + "-" + @ViewBag.message2;
+        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "1" + "-" + @ViewBag.message2;
         <script>
-                    window.location.href = '@srt';
+           window.location.href = '@srt';
         </script>
     }
 
@@ -53,34 +53,28 @@
     }
     else
     {
-        <div class="container" style="text-align:center; direction:rtl; padding:50px 50px;background-color: white;margin-top: 20px;border: 1px #ddd solid;border-radius: 10px;">
+<div class="container" style="text-align:center; direction:rtl; padding:50px 50px;background-color: white;margin-top: 20px;border: 1px #ddd solid;border-radius: 10px;">
+    <div class="row" style="display:flex">
+        <img src="~/images/paymentError.png" style="width:150px; float:left; margin:auto" />
+    </div>
+    <h4 style="text-align:center; float:right;color:#4d4d4d;padding: 30px;width:100%; ">
+        خطا ! در پروسه پرداخت خطایی رخ داده است لطفاً مجدداً تلاش نمایید
+    </h4>
+    <p> @ViewBag.message </p>
+    <p> @ViewBag.message2 </p>
+    <p> @ViewBag.message3 </p>
 
-            <div class="row" style="display:flex">
+    <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
+    @{
 
-                <img src="~/images/paymentError.png" style="width:150px; float:left; margin:auto" />
-            </div>
-
-            <h4 style="text-align:center; float:right;color:#4d4d4d;padding: 30px;width:100%; ">
-                خطا ! در پروسه پرداخت خطایی رخ داده است لطفاً مجدداً تلاش نمایید
-            </h4>
-            <p> @ViewBag.message </p>
-            <p> @ViewBag.message2 </p>
-            <p> @ViewBag.message3 </p>
-
-
-            <div class="btn btn-default" style="margin:25px"><a href="/Home/index">بازگشت به صفحه اول</a> </div>
-            @{
-
-                string srt = @ViewBag.package + "://mellatgate-" + "0" + "-" + @ViewBag.message2;
-                <script>
-                    window.location.href = '@srt';
-                </script>
-            }
+        string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "0" + "-" + @ViewBag.message2;
+        <script>
+           window.location.href = '@srt';
+        </script>
+    }
 
 
-
-
-        </div>
+</div>
 
     }
 }
