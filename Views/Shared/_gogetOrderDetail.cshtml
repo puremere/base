@@ -130,7 +130,7 @@
                                             string image = item.image;
                                             int i = Model.myProducts.IndexOf(item) + 1;
 
-                                            <tr style=" ">
+                                            <tr id="@item.id" class="itemdetail" style="cursor:pointer ">
                                                 <td>@i</td>
                                                 <td>@item.title</td>
                                                 <td>@item.price</td>
@@ -155,3 +155,11 @@
     </div>
 </div>
 
+<script>
+    $(".itemdetail").click(function () {
+        var id = this.id;
+        var url = "/Home/ProductDetail?id=N" + id;
+        window.open(url)
+        //window.location.href = url
+    })
+</script>

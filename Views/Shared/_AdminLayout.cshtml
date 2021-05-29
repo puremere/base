@@ -202,7 +202,7 @@
                     </div>
                     <div>
                         <a>
-                            <i class="glyphicon glyphicon-log-out" style="font-size: 22px;"></i>
+                            <i id="logout" class="glyphicon glyphicon-log-out" style="font-size: 22px;"></i>
                         </a>
                     </div>
                 </div>
@@ -281,7 +281,9 @@
         $(document).ajaxComplete(function () {
             $("#loading").css("display", "none");
         });
-
+        $("#logout").click(function () {
+            window.location.href = "/admin/CustomerLogout"
+        })
     </script>
    
 
