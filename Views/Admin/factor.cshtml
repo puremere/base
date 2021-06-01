@@ -1,5 +1,4 @@
 ﻿@model banimo.ViewModel.factorVM
-
 @{
 
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
@@ -7,8 +6,8 @@
 
 }
 @section scripts{
-
     <style>
+
         .nav-tabs {
             padding-right: 0px;
         }
@@ -29,25 +28,378 @@
             text-align: center
         }
     </style>
-
     <link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
 }
 
+<p id="factorID" style="display:none"></p>
+<div id="addItemTofactor" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row" style="margin:0">
+                    <div class="col-lg-12" style="padding:25px">
+                        <div class="row">
+                            <p>انتخاب محصول</p>
+                            <div style="display:flex" class="row">
+                                <div style="width:100%; display:flex">
+                                    <input style="width:100%; display:inline-block" id="addItemToOrderInput" class="form-control" />
+
+                                    <i id="refreshList" style="font-size:22px ; padding:5px" class="fa fa-refresh"></i>
+                                </div>
 
 
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            <div style="display:flex" class="row">
+                                <div>
+                                    <p>تعداد</p>
+                                    <input value="1" id="quntityInput" style="width:200px; display:inline-block; " class="form-control" />
+
+                                </div>
+                                <div>
+                                    <p>قیمت</p>
+                                    <input value="1" id="priceInput" style="width:200px; display:inline-block;" class="form-control" />
+
+                                </div>
+
+                                <div>
+                                    <p style="min-height:20px"></p>
+                                    <input id="IDholder" hidden />
+                                    <div id="addItemToOrderButton" style=" display:inline-block" class="btn  btn-default">تایید</div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div id="deleteItemFromOrderModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div style="display:none" id="selectedIDForDelete"></div>
+                <div class="row" style="margin:0">
+                    <div class="col-lg-12" style="padding:25px">
+                        <p>آیا از حذف آیتم مورد نظر اطمینان دارید؟</p>
+
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <p class="btn btn-primary confirmDelete">تایید</p>
+                <p class="btn btn-secondary" data-dismiss="modal">انصراف</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="editItemFromOrderModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div style="display:none" id="selectedIDForEdit"></div>
+                <div class="row" style="margin:0">
+                    <div class="col-lg-12" style="padding:25px">
+                        <p>تعداد جدید</p>
+                        <input id="newval" class="form-control" />
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <div class="modal-footer">
+                <p class="btn btn-primary confirmEdit">تایید</p>
+                <p class="btn btn-secondary" data-dismiss="modal">انصراف</p>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    var doadditem = function (id) {
+        $("#addItemTofactor").modal('toggle');
+        $("#factorID").text(id);
+    }
+    var deleteitemfactor = function (id) {
+        $("#selectedIDForDelete").text(id);
+        $("#deleteItemFromOrderModal").modal('toggle');
+    }
+    var edititemfactor = function (id) {
+        $("#selectedIDForEdit").text(id);
+        $("#editItemFromOrderModal").modal('toggle');
+    }
+    $("#refreshList").click(function () {
+
+        $.ajax({
+            url: '/Admin/getNewListProduct',
+            dataType: 'html',
+            data: {
+                val: $("#addItemToOrderInput").val(),
+                server: ""
+            },
+            success: function (data) {
+
+                var productItems = {
+                    data: JSON.parse(data),
+                    getValue: "title",
+                    list: {
+                        maxNumberOfElements: 100,
+
+                        onSelectItemEvent: function () {
+                            var value = $("#addItemToOrderInput").getSelectedItemData().ID;
+
+                            $("#IDholder").val(value).trigger("change");
+                        }
+                    }
+                    //  list: {
+                    //    maxNumberOfElements: 100,
+                    //    match: {
+                    //        enabled: true
+                    //    }
+                    //},
+                    //template: {
+                    //    type: "custom",
+                    //    method: function (value, item) {
+                    //        return   item.title + " | <div style='background-color:#ddd; border-radius:50%; width:30px'></div> "
+                    //    }
+                    //},
+
+
+                };
+                $("#addItemToOrderInput").easyAutocomplete(productItems);
+                //$("#addItemToOrderInput").parent.css("width", "100%")
+            }
+
+        })
+    })
+    $("#addItemToOrderButton").click(function () {
+        $("#addItemTofactor").modal('toggle');
+        var FactorId = $("#factorID").text();
+        $.ajax({
+            url: '/Admin/addNewTtemToFactor',
+            dataType: 'html',
+            data: {
+                ID: $("#IDholder").val(),
+                quantity: $("#quntityInput").val(),
+                FactorId: FactorId,
+                price: $("#priceInput").val(),
+
+            },
+            success: function (data) {
+
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت ثبت شد');
+
+                    $.ajax({
+                        url: '/Admin/goGetFactorDetail',
+                        dataType: 'html',
+                        data: {
+                            id: FactorId,
+                        },
+
+                        success: function (data) {
+
+                            $(".detailHolder").html(data);
+
+                        }
+
+
+
+                    });
+                }
+            }
+
+        });
+    });
+  
+
+
+    $(".confirmDelete").click(function () {
+        $("#deleteItemFromOrderModal").modal('toggle');
+        var id = $("#selectedIDForDelete").text();
+        var orderID = id.split('-')[1];
+        $.ajax({
+            url: "/admin/deletFromFactor",
+            dataType: "html",
+            data: {
+                id: id,
+            },
+            success: function (data) {
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت انجام شد');
+
+                    $.ajax({
+                        url: '/Admin/goGetFactorDetail',
+                        dataType: 'html',
+                        data: {
+                            id: orderID,
+                        },
+
+                        success: function (data) {
+
+                            $(".detailHolder").html(data);
+
+                        }
+
+
+
+                    });
+                }
+                else if (data == "400") {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('خطا ! آیتم مورد نظر دارای سفارش میباشد');
+                }
+            }
+
+        })
+    })
+    $(".confirmEdit").click(function () {
+
+        $("#editItemFromOrderModal").modal('toggle');
+        var id = $("#selectedIDForEdit").text();
+        var newval = $("#newval").val();
+        var orderID = id.split('-')[1];
+        $.ajax({
+            url: "/admin/editItemInFactor",
+            dataType: "html",
+            data: {
+                id: id,
+                newval: newval
+            },
+            success: function (data) {
+                if (data == 200) {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.success('با موقیت انجام شد');
+
+                    $.ajax({
+                        url: '/Admin/goGetFactorDetail',
+                        dataType: 'html',
+                        data: {
+                            id: orderID,
+                        },
+
+                        success: function (data) {
+
+                            $(".detailHolder").html(data);
+
+                        }
+
+
+
+                    });
+                }
+                else if (data == "400") {
+
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('خطا ! آیتم مورد نظر دارای سفارش میباشد');
+                }
+            }
+
+        })
+    })
+
+</script>
 <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
 
 
-
-
     <ul class="nav nav-tabs">
-          <li class="active"><a data-toggle="tab" href="#deliver" style=" color: #8d8d8d; ">لیست انتقال</a></li>
-        <li ><a data-toggle="tab" href="#alert" style=" color: #8d8d8d; ">لیست هشدار کالا </a></li>
+        <li class="active"><a data-toggle="tab" href="#deliver" style=" color: #8d8d8d; ">لیست انتقال</a></li>
+        <li><a data-toggle="tab" href="#alert" style=" color: #8d8d8d; ">لیست هشدار کالا </a></li>
         <li><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">آخرین فاکتورها  </a></li>
         <li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">افزودن فاکتور جدید</a></li>
     </ul>
-
     <div class="tab-content">
         <div id="deliver" class="tab-pane fade in active" style="padding-top:20px">
             <div id="OrderTableHolder">
@@ -63,7 +415,6 @@
                             <div class="panel-body">
                                 <div id="morris-area-chart">
                                     <div style="overflow:auto; max-height:400px; overflow-y:scroll">
-
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
@@ -71,7 +422,6 @@
                                                     <th>شماره سفارش</th>
                                                     <th style="white-space: nowrap; ">نام انتقال دهنده</th>
                                                     <th></th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -87,16 +437,12 @@
                                                                 <td>@i</td>
                                                                 <td>@item.purchaseID</td>
                                                                 <td style="white-space: nowrap;">@item.fullname</td>
-
                                                                 <td><button class="btn btn-success orderdetail" id="@item.purchaseID">جزئیات</button></td>
-
 
                                                             </tr>
                                                         }
                                                     }
                                                 }
-
-
 
 
                                             </tbody>
@@ -112,11 +458,11 @@
                                                     dataType: 'html',
                                                     data: {
                                                         id: ID,
-                                                        type:"00"
+                                                        type: "00"
                                                     },
 
                                                     success: function (data) {
-                                                       
+
                                                         $(".factorDetailHolder").html(data);
                                                         $("#loading").fadeOut();
 
@@ -133,12 +479,11 @@
                         </div>
                     </div>
                 </div>
-              
-                <div class="factorDetailHolder">
 
+                <div class="factorDetailHolder">
                 </div>
             </div>
-            
+
         </div>
         <div id="alert" class="tab-pane fade in " style="padding-top:20px">
             <div id="OrderTableHolder">
@@ -154,18 +499,15 @@
                             <div class="panel-body">
                                 <div id="morris-area-chart">
                                     <div style="overflow:auto; max-height:400px; overflow-y:scroll">
-
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
                                                     <th style="cursor:pointer" class="orderID">ردیف</th>
                                                     <th>شماره محصول</th>
-
                                                     <th style="white-space: nowrap; ">عنوان محصول</th>
                                                     <th>رنگ</th>
                                                     <th>تعداد</th>
                                                     <th></th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -185,25 +527,20 @@
                                                                 <td> @item.count</td>
                                                                 <td><img style="width:150px" src="@item.image" /></td>
 
-
                                                             </tr>
                                                         }
                                                     }
                                                 }
 
 
-
-
                                             </tbody>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
                 <script>
                     var idselected = "";
@@ -354,13 +691,10 @@
                     })
                 </script>
                 <div class="detailHolder">
-
                 </div>
             </div>
         </div>
         <div id="home" class="tab-pane fade in" style="padding-top:20px">
-
-
 
 
             <div id="OrderTableHolder">
@@ -376,14 +710,12 @@
                             <div class="panel-body">
                                 <div id="morris-area-chart">
                                     <div style="overflow:auto; max-height:400px; overflow-y:scroll">
-
                                         <table class="table table-bordered table-hover table-striped">
                                             <thead>
                                                 <tr>
                                                     <th style="cursor:pointer" class="orderID">ردیف</th>
                                                     <th>شماره فاکتور</th>
                                                     <th style="white-space: nowrap; ">تامین کننده</th>
-
                                                     <th>تاریخ فاکتور</th>
                                                     <th>توضیحات</th>
                                                     @*<th>وضعیت</th>*@
@@ -407,25 +739,20 @@
                                                                 <td>@item.description</td>
                                                                 <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
 
-
                                                             </tr>
                                                         }
                                                     }
                                                 }
 
 
-
-
                                             </tbody>
                                         </table>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
 
                 <script>
                     var idselected = "";
@@ -576,16 +903,12 @@
                     })
                 </script>
                 <div class="detailHolder">
-
                 </div>
             </div>
-
         </div>
-
 
         <div id="menu2" class="tab-pane fade" style="padding-top:20px">
             <div class="form-group ">
-
 
                 <label style="font:bold; margin-left:20px" class="control-label component" for="first-name">
                     شماره فاکتور
@@ -666,11 +989,8 @@
 
                     </script>
                 </div>
-
             </div>
         </div>
     </div>
 </div>
-
-
 
