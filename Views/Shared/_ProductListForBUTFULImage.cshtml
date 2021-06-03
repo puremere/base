@@ -259,11 +259,13 @@
 
                                 <div id="contentholderofAll" style="padding:3px">
 
+                                    <a style="cursor:pointer" href="/Home/ProductDetail?id=@ID&title=@item.title">
+                                        <div id="productlistimageholder">
+                                            <img src="@src" alt="" class="pro-image-front" style="width:100%; object-fit:scale-down;">
+                                        </div>
+                                    </a>
 
-
-                                    <div id="productlistimageholder">
-                                        <img src="@src" alt="" class="pro-image-front" style="width:100%; object-fit:scale-down;">
-                                    </div>
+                                   
                                     <div id="maintitleholder" style="padding:8px">
                                         <div class="titleholder">
                                             @{
@@ -473,6 +475,7 @@
                                     padding-bottom: 15px;
                                 }
                             </style>
+
                             <div id=@ID class="col-md-3 product-men showmedetail" style=" z-index:8;cursor:pointer; padding:5px">
                               
                                 <div id="detailholdermain" style="background-color:white;">
