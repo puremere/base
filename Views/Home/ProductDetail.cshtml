@@ -1,17 +1,37 @@
 ﻿@model banimo.ViewModelPost.viewProductViewModel
 @using banimo.Classes;
-
 @{
     ViewBag.Title = Model.title + " | " + @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
+@section HeadIncludes{
+    <meta name="product_name" content="@Model.title">
+    <meta name="product_price" content="@Model.price">
+    <meta name="product_old_price" content="@Model.oldPrice">
+    @if (Model.isAvailable == "1")
+    {
+        <meta name="availability" content="instockor">
+    }
+    else
+    {
+        <meta name="availability" content="outofstock ">
+    }
+    @if (Model.imgGallery != null)
+    {
+        if (Model.imgGallery.Count() > 0)
+        {
+            <meta property="og:image" content="@Model.imgGallery.First().src">
+        }
 
+    }
+
+}
 <link href="~/Content/flexslider2.css" rel="stylesheet" />
 <link href="~/Content/detailStyle.css" rel="stylesheet" />
 <link href="~/Content/lightgallery.min.css" rel="stylesheet" />
-
 <style>
+
     .c-product__summary {
         max-width: 450px;
     }
@@ -87,11 +107,7 @@
 <div id="idholder" style="display:none">@Model.ID</div>
 
 
-
-
 <div class="row contentholder" style="background-color: #fff; margin: 20px 20px 0 20px; border: 1px #eee solid; border-radius: 5px ;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
-
-
 
 
     @{
@@ -109,7 +125,6 @@
 
 
                 <div id="slidholder" class="col-md-12 col-sm-12 col-lg-4 slidone" style="display:flex; float:right; visibility: visible; animation-delay: 0.5s; animation-name: slideInUp; background-color:#fff; ">
-
                     @{
 
                         string imagefile = "placeholder.jpg";
@@ -121,18 +136,14 @@
                         <div class="thumb-image" style="width:100%;overflow:hidden; margin:auto ; padding:20px; "> <img style="height:100%; width:100%; object-fit:scale-down" src="@src" data-imagezoom="true" class="img-responsive "> </div>
 
                     }
-
                     <div class="gradientback" style="display:none">
-
                     </div>
-
                 </div>
 
                 <i id="@wishonid" class="detailfal fas fa-heart wish_on" style="cursor:pointer; font-size: 25px; z-index: 999; float: right; position: absolute; right: 50px; top: 200px;color:red"></i>
                 <i id="@wishoffid" class="detailfal fal fa-heart wish_off" style="cursor:pointer;font-size: 25px; z-index: 999; float: right; position: absolute; right: 50px; top: 200px;"></i>
                 <i id="@shareid" class="detailfal fal fa-share-alt" style="cursor:pointer;font-size: 25px; z-index: 999; float: right; position: absolute; right: 50px; top: 260px;"></i>
                 <i id="@compareid" class="detailfal fal  fa-clone" style="cursor:pointer;font-size: 25px; z-index: 999; float: right; position: absolute; right: 50px; top: 320px;">
-
                 </i>
 
 
@@ -161,7 +172,6 @@
                                 }
                         </style>
                           <div class="special-deal" > فروش ویژه</div>*@
-
                     <div class="flexslider" style="margin-bottom:0px">
                         <!-- FlexSlider -->
                         <script>
@@ -193,7 +203,6 @@
                         </script>
                         <!-- //FlexSlider-->
                         <ul class="slides">
-
                             @{
                                 if (Model.slides != null)
                                 {
@@ -219,15 +228,10 @@
 
                             }
 
-
                         </ul>
-
                     </div>
-
                     <div class="gradientback" style="display:none">
-
                     </div>
-
                 </div>
                 <i id="@wishonid" class="detailfal fal fa-heart wish_on" style="font-family:FontAwesome; cursor:pointer; font-size: 25px; z-index: 999; float: right; position: absolute; right: 50px; top: 200px;color:red"></i>
                 <i id="@wishoffid" class="detailfal fal fa-heart" style="cursor:pointer;font-size: 25px; z-index: 999; float: right; position: absolute; right: 50px; top: 200px;"></i>
@@ -397,7 +401,6 @@
             })
         </script>
     }
-
     @{
 
         int w = Request.Browser.ScreenPixelsWidth;
@@ -405,24 +408,19 @@
         if (!Request.Browser.IsMobileDevice || !(w < 720 && h > 720))
         {
             <div id="dataholder" class="col-md-8 col-lg-8 col-sm-12 single-right-left simpleCart_shelfItem animated wow slideInRight animated" style="border-right:1px solid #dedede; padding-bottom: 10px; direction: rtl; float: left; background-color: #fdfdfd; visibility: visible; animation-delay: 0.5s; animation-name: slideInRight;" data-wow-delay=".5s">
-
                 <div class="col-lg-4 mustbehide">
                     <div style="width:100%; padding:20px 0px; margin-bottom:20px">
 
-
                         <div>
                             <h5 style="margin-right:15px;font-size: 16px;margin-bottom: 20px;">ویژگی های محصول</h5>
-
                             @if (Model.filter.Count() > 0)
                             {
                                 foreach (var item in Model.filter.Select(x => x.filtername).Distinct())
                                 {
                                     <div style="margin-top:15px; width:100%">
                                         <h6 style="display: inline-block; margin-right:15px;line-height:2.5">
-
                                             <i class="fa fa-circle" style="font-size:8px"> </i>
                                             <span style="font-weight:600">@item:</span>
-
 
                                             @foreach (var newitem in Model.filter)
                                             {
@@ -437,15 +435,11 @@
                                 }
 
                             }
-
                         </div>
 
-
                     </div>
-
                 </div>
                 <div class="col-lg-8 mustbehide">
-
                     <div style="width:100%; padding:20px 0 40px 0 ; border-bottom: 1px solid #eee; ">
                         @if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
                         {
@@ -456,7 +450,6 @@
                         {
                             <h4 style="padding:15px">@Model.title</h4>
                         }
-
                     </div>
                     <div style="width:100%; padding:20px 0 20px 0; border-bottom: 1px solid #eee; ">
                         <h5 style="display:inline-block;font-weight: 600;">دسته بندی:</h5>
@@ -481,9 +474,7 @@
                                             }
 
                                         }
-
                                     </select>
-
                                     <script>
 
                                         $("#SFlist").on('change', function () {
@@ -500,7 +491,6 @@
 
                         }
                     }
-
                     @{
                         if (Model.color != "" && Model.color != null)
                         {
@@ -512,7 +502,6 @@
                                     <div style="cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
                                         <span class="dot" style="background-color: @Model.color; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
                                         <h5 style=" display: inline-block; text-align: center; position: relative; ">@Model.colorTitle</h5>
-
                                     </div>
                                 </div>
                                 @{
@@ -537,7 +526,6 @@
                                                                 <div id=@ID class="otherColor" style="border:1px solid #eee; cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
                                                                     <span class="dot" style="background-color: @it.colorCode; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
                                                                     <h5 style=" display: inline-block; text-align: center; position: relative; ">@it.colorTitle</h5>
-
                                                                 </div>
 
                                                                 i += 1;
@@ -548,7 +536,6 @@
                                                                 <div id=@ID class="hid otherColor" style="border:1px solid #eee; cursor: pointer;height: 40px; padding: 0px 10px; display: inline-block; margin: 10px 10px 10px 0">
                                                                     <span class="dot" style="background-color: @it.colorCode; display: inline-block; width: 22px; height: 22px; border-radius: 50%; position: relative; top: 10px;"></span>
                                                                     <h5 style=" display: inline-block; text-align: center; position: relative; ">@it.colorTitle</h5>
-
                                                                 </div>
 
                                                             }
@@ -587,13 +574,10 @@
                                                 }
 
 
-
-
                                             </div>
                                         </div>
                                     }
                                 }
-
 
                             </div>
                         }
@@ -617,16 +601,13 @@
                                     }
 
                                 }
-
                             </div>
                         }
                     }
 
-
                     <div class="row" style="box-shadow: 2px 2px 5px -1px rgba(148,149,153,1); background-color: #ddd; margin-top: 15px; border-radius: 10px; padding: 0 20px;">
                         <div class="row" style="margin-top:10px">
                             <div style=" min-height:65px; text-align:center">
-
                                 @{
                                     if (Model.isAvailable == "0")
                                     {
@@ -655,18 +636,12 @@
                                                         <p style="display:inline-block; margin-bottom:5px; font-size:18px;"><del>@string.Format("{0:n0}", Convert.ToInt32(@Model.oldPrice))  </del></p>
 
                                                     }
-
                                                 </div>
-
 
                                                 <div style="display:inline-block;width:100%; direction:ltr">
-
                                                     <p style="display: inline-block;font-size:18px;color: red;">تومان </p>
-
                                                     <h4 class="item_price" style="display: inline-block;  color: red; font-size: 26px">@string.Format("{0:n0}", Convert.ToInt32(@Model.price))   </h4>
-
                                                 </div>
-
 
                                             </div>
 
@@ -677,7 +652,6 @@
                                             <div class="col-lg-6" style="margin:0px;height: 100%;">
                                                 <div style="display:inline-block;height: 100%;">
                                                     <h4 class="item_price" style="display: inline-block;  color: red; font-size: 26px">@string.Format("{0:n0}", Convert.ToInt32(@Model.price))   </h4>
-
 
                                                 </div>
                                                 <div style="display:inline-block">
@@ -691,7 +665,6 @@
                                 }
                             </div>
                         </div>
-
                         <div class="row">
                             @if (Model.isAvailable != "0")
                             {
@@ -703,13 +676,9 @@
                                 </div>
                             }
                         </div>
-
                     </div>
 
-
-
                 </div>
-
             </div>
         }
 
@@ -721,14 +690,7 @@
 
 
 
-
-
-
-
-
-
 </div>
-
 @{
 
     if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
@@ -783,7 +745,6 @@
             </script>
             <div class="mustbeshown appsection" style="display:none">
                 <div style="background-color:white;text-align:center;border-bottom:1px solid #eee; margin:-5px 0 10px 0" class="col-sm-12">
-
                     <div style="width:100% ; text-align:center; padding:0px; ">
                         @{
                             if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -798,12 +759,10 @@
 
                         }
 
-
                     </div>
                 </div>
                 <div class="priceAndSoAppSection">
                     <div style="background-color:white; width:100%;padding:10px">
-
 
                         @{
                             if (Model.isAvailable == "0")
@@ -823,7 +782,6 @@
                             else
                             {
                                 <div class="row" style="margin: 5px;padding-top:10px ; text-align: left; min-height: 26px">
-
                                     @if (Model.price != Model.oldPrice & Convert.ToInt32(Model.price) > 0)
                                     {
                                         <span style="direction:rtl; ">
@@ -846,16 +804,13 @@
                                 </div>
 
                                 <div class="row" style="margin:10px 5px 0 5px;  text-align: left;">
-
                                     <p class="toman" style="display: inline-block; font-size:12px; color:green ">تومان</p>  <p class="pricetoman" style=" display:inline-block;font-size:16px;color:green; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(Model.price))</p>
                                     <div class="colorholder" style="">
-
                                         @{
                                             if (Model.color != "" && Model.color != null)
                                             {
 
                                                 <span style="padding:2px;border:1px solid #eee; border-radius:3px; display:flex; align-items:center; padding:5px">
-
                                                     <span class="dot" style="margin: 0 5px; display:inline-block ; width:15px; height:15px; background-color:@Model.color; border-radius:100%; border: 1px solid @Model.color"></span>
                                                     @Model.colorTitle
                                                 </span>
@@ -873,11 +828,7 @@
 
                         }
 
-
-
                     </div>
-
-
 
                 </div>
                 @{
@@ -887,7 +838,6 @@
                             <div>
                                 <p style="width:100%; text-align:right; padding:8px ; font-weight:500;border-bottom:1px solid #eee ">رنگ های دیگر</p>
                                 <div class="resCarousel-inner " style="direction:rtl;padding: 5px 0 5px 0;">
-
                                     @foreach (var it in Model.otherColors)
                                     {
                                         var ID = "o" + @it.ID;
@@ -899,7 +849,6 @@
 
                                     }
 
-
                                     <script>
                                         $('.showmeOtherdetail').click(function () {
 
@@ -909,9 +858,6 @@
                                             window.location.href = url;
                                         })
                                     </script>
-
-
-
 
 
 
@@ -943,9 +889,7 @@
                                 {
                                     <div style="margin-top:2px;" class="row">
                                         <p style="display: inline-block; margin:10px;direction:rtl;text-align:right;float:right">
-
                                             @item
-
 
                                             @foreach (var newitem in Model.filter)
                                             {
@@ -956,9 +900,7 @@
                                                     <span> @newitem.detailname </span>
                                                 }
                                             }
-
                                         </p>
-
                                     </div>
 
                                 }
@@ -983,7 +925,6 @@
                             else
                             {
                                 <h6 style="display: inline-block; margin:10px;direction:rtl;text-align:center;width:100%">
-
                                     @Model.desc
                                 </h6>
                             }
@@ -992,7 +933,6 @@
                             {
                                 <div style="background-color: white;margin: 7px;">
                                     <div class="resCarousel-inner" style="direction:rtl;padding: 5px 0 5px 0;">
-
                                     </div>
                                 </div>
                             }
@@ -1001,8 +941,6 @@
 
                         }
                     </div>
-
-
 
 
                 </div>
@@ -1014,7 +952,6 @@
                             <div style="background-color: white;margin: 5px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);">
                                 <p style="width:100%; text-align:right; padding:8px ; font-weight:500;border-bottom:1px solid #eee ">هشتگ ها</p>
                                 <div class="resCarousel-inner " style="direction:rtl;padding: 5px 0 5px 0;">
-
                                     @{
                                         List<string> list2 = Model.tag.Split(',').ToList();
                                         foreach (var item in list2)
@@ -1039,7 +976,6 @@
                             <span style=" margin-right: 15px;font-size:15px"> مشخصات</span>
                         </div>
 
-
                     </div>
                     <div class="row">
                         @if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1050,12 +986,9 @@
                         {
                             <p style="width:100%; padding:10px; text-align:center; ">@Model.title</p>
                         }
-
                         <div class="c-box c-box--tabs p-tabs__content">
-
                             <div class="c-params is-active">
                                 <article>
-
                                     @{
 
                                         if (Model.feature != null)
@@ -1116,7 +1049,6 @@
                                                             }
                                                         }
 
-
                                                     </ul>
                                                 </section>
                                             }
@@ -1125,25 +1057,18 @@
 
                                     }
 
-
                                 </article>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
-
                 <div id="commentApp" style="display:none; height: 100%;display:none; position: fixed;top: 0;z-index: 999991;background-color:white;width: 100%;right: 0">
                     <div class="returnbutt">
-
                         <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
                         <span style=" margin-right: 15px;font-size:15px; font-weight:500">نظرات کاربران</span>
 
-
                     </div>
                     <div id="appComment" style="height:90%; padding:5px;  ">
-
 
                         @*<p id="detailid" style="display:none">@Model.ID</p>
                             <p style="display:none">
@@ -1153,8 +1078,6 @@
                                     <i id="detailimage">@ig</i>
                                 }
                             </p>*@
-
-
 
 
                     </div>
@@ -1178,7 +1101,6 @@
                     });
                     </script>
 
-
                 </div>
                 @if (Model.similarProduct != null)
                 {
@@ -1190,9 +1112,7 @@
                             </div>
                             <div id="bestholder" class="resCarousel" data-items="3-2-2-2" data-slide="3" data-speed="500">
 
-
                                 <div class="resCarousel-inner" style="direction:rtl">
-
                                     @foreach (var item in Model.similarProduct)
                                     {
                                         string addID = "addtocarto" + item.ID;
@@ -1209,7 +1129,6 @@
                                         string src = imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer; ">
-
 
                                             <div class="showmedetailx">
                                                 <div style="padding:2px  ">
@@ -1229,22 +1148,18 @@
 
                                                         }
 
-
                                                     </div>
                                                     @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
                                                     {
                                                         string valueID = "value" + item.ID;
                                                         <div class="addholder" style="margin:5px">
                                                             <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
-
                                                             <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
                                                             <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
-
                                                         </div>
 
                                                     }
                                                     <div class="priceholder">
-
                                                         @{
                                                             if (item.isAvailable == "0")
                                                             {
@@ -1265,7 +1180,6 @@
                                                                 else
                                                                 {
                                                                     <div class="row" style="text-align:left;min-height:17px">
-
                                                                         <div class="">
                                                                             <div class="" style="color:red">
                                                                                 @if (item.price != item.oldPrice)
@@ -1274,14 +1188,11 @@
 
                                                                                 }
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="row" style="text-align:left; color:green">
-
                                                                         <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
-
                                                                     </div>
                                                                     <div>
                                                                     </div>
@@ -1291,14 +1202,9 @@
                                                         }
 
 
-
-
-
                                                     </div>
                                                 </div>
                                             </div>
-
-
 
 
                                         </div>
@@ -1307,19 +1213,12 @@
 
 
 
-
-
-
-
                                 </div>
-
 
                             </div>
                         </div>
-
                     </div>
                 }
-
                 @if (Model.isAvailable != "0")
                 {
                     <div class="btn btn-success addtocart" style=" width: 100%; padding: 10px;  position:fixed; bottom:0; z-index:99999999">
@@ -1380,7 +1279,6 @@
         <div id="webb">
             <div class="row " style="box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);background-color: #fff; min-height: 50px; margin: 30px 20px 20px 20px;  border-radius: 5px;">
                 <ul class="nav nav-tabs" style="background-color: #eee; border: 1px solid #ddd; border-right:0px">
-
                     <li><a data-toggle="tab" href="#home">  <span style="margin-right: 25px;">   نقد و بررسی</span> <i class="fal fa-pencil" style="font-size:25px; color:black;position: absolute;top: 35%;right: 5%;color:#808080"></i> </a></li>
                     @{
 
@@ -1392,9 +1290,7 @@
                     }
                     <li><a data-toggle="tab" href="#commentsection">  <span style="margin-right: 25px;">   نظرات کاربران</span> <i class="fal fa-comment" style="font-size:25px; color:black;position: absolute;top: 35%;right: 5%; color:#808080"></i> </a></li>
 
-
                 </ul>
-
                 <div class="tab-content" style="text-align: right;">
                     <div id="home" class="tab-pane fade in active" style="margin-bottom:10px">
                         <div style="margin:30px">
@@ -1408,9 +1304,9 @@
                             {
                                 <h4 style="color:#808080">@Model.title</h4>
                             }
-
                         </div>
                         <style>
+
                             .c-content-expert__summary {
                                 background: #fcfcfc;
                                 color: #404040;
@@ -1463,7 +1359,6 @@
                                     {
                                         <p style="margin:10px;  text-align:right">@Html.Raw(Model.desc)</p>
                                     }
-
                                 </div>
                                 <a id="toggledesc" style="display: none; cursor:pointer; text-align:center; float:left;margin:10px 0; padding:10px;color:blue"><span>ادامه مطلب</span></a>
                                 <script>
@@ -1490,7 +1385,6 @@
                             </div>
                         </section>
 
-
                     </div>
                     @{
 
@@ -1498,12 +1392,9 @@
                         {
                             <div id="menu1" class="tab-pane fade">
 
-
                                 <div class="c-box c-box--tabs p-tabs__content">
-
                                     <div class="c-params is-active">
                                         <article>
-
                                             @{
                                                 lst2.Clear();
                                                 foreach (var item in Model.feature)
@@ -1561,23 +1452,18 @@
                                                                 }
                                                             }
 
-
                                                         </ul>
                                                     </section>
                                                 }
                                             }
 
-
                                         </article>
                                     </div>
-
                                 </div>
                             </div>
                         }
                     }
-
                     <div id="commentsection" class="tab-pane fade">
-
 
                         <div class="c-comments ">
                             <h2 class="c-comments__headline">
@@ -1590,9 +1476,7 @@
                                         </span>*@
                                 </span>
                             </h2>
-
                             <div class="c-comments__summary">
-
                                 <div class="c-comments__summary-note">
                                     <span>شما هم می‌توانید در مورد این کالا نظر بدهید.</span>
                                     <p>
@@ -1602,7 +1486,6 @@
                                     <div class="mybtn addingcomment" style="cursor:default">
                                         <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
                                             <i class="glyphicon glyphicon-plus" style="display:inline-block; color:white"></i> <img style="display:inline-block; width:40px " src="~/images/comments.png" />
-
                                         </div>
                                         @{
                                             string id = Model.ID;
@@ -1620,19 +1503,14 @@
                                             }
 
                                         }
-
                                     </div>
-
                                 </div>
                             </div>
                             <div class="c-comments__filter">
                                 <span class="c-faq__filter-title h4">نظرات کاربران</span>
-
                             </div>
                             <div id="product-comment-list">
-
                                 <ul id="comment" class="c-comments__list"></ul>
-
                             </div>
                         </div>
                     </div>
@@ -1656,7 +1534,6 @@
             });
                     </script>
                 </div>
-
             </div>
             @if (Model.similarProduct != null)
             {
@@ -1664,16 +1541,11 @@
                 <div class="maxwidth">
                     <div style="background-color: #f6f5f5; padding: 2% 0px">
                         <div class="SECTIONHOLDER">
-
                             <div class="o-headline"><span>@Html.ActionLink("پیشنهادهای مشابه", "ProductList", new { sortID = 3 }, new { style = " color: #808080;" }) </span></div>
-
-
 
                             <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
 
-
                                 <div class="resCarousel-inner">
-
                                     @foreach (var item in Model.similarProduct)
                                     {
                                         string addID = "addtocarto" + item.ID;
@@ -1690,8 +1562,6 @@
                                         string src = imagefile;
 
                                         <div class="item showmedetail" id=@ID style="cursor:pointer">
-
-
 
                                             <div class="showmedetailFirstDiv showmedetailx">
                                                 <div style="padding:15px">
@@ -1710,23 +1580,18 @@
                                                             }
 
                                                         }
-
                                                     </div>
                                                     @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
                                                     {
                                                         string valueID = "value" + item.ID;
                                                         <div class="addholder" style="margin:5px">
                                                             <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
-
                                                             <div class="entry value @valueID " style=";height:20px;margin:0; border:0px; padding:0; width:10px"><span>0</span></div>
                                                             <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;height:20px "></i>
-
                                                         </div>
 
                                                     }
-
                                                     <div style="margin-top:10px">
-
                                                         @{
                                                             if (item.isAvailable == "0")
                                                             {
@@ -1743,7 +1608,6 @@
                                                                 else
                                                                 {
                                                                     <div class="row" style="margin:0px 15px; min-height:20px">
-
                                                                         <div class="">
                                                                             <div class="">
                                                                                 @if (item.price != item.oldPrice)
@@ -1752,14 +1616,11 @@
 
                                                                                 }
                                                                             </div>
-
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="row" style="margin:0px 15px">
-
                                                                         <p style="display: inline-block; color: red"> تومان </p> <p style="color:red; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
-
                                                                     </div>
                                                                     <div>
                                                                     </div>
@@ -1769,14 +1630,9 @@
                                                         }
 
 
-
-
-
                                                     </div>
                                                 </div>
                                             </div>
-
-
 
 
                                         </div>
@@ -1785,33 +1641,20 @@
 
 
 
-
-
-
-
                                 </div>
                                 <button class='btn btn-default leftRs'><</button>
                                 <button class='btn btn-default rightRs'>></button>
-
                             </div>
                         </div>
-
                     </div>
                 </div>
 
 
             }
-
         </div>
 
     }
 }
-
-
-
-
-
-
 
 
 
@@ -1977,7 +1820,6 @@
         }
     });
 </script>
-
 <script src="~/Scripts/resCarousel.js"></script>
 <script>
 
@@ -2039,13 +1881,11 @@
 <script src="~/Scripts/lg-thumbnail.js"></script>
 <script src="~/Scripts/lg-fullscreen.js"></script>
 <script src="~/Scripts/lg-zoom.js"></script>
-
 <script type="text/javascript">
     $(document).ready(function () {
         $("#lightgallery").lightGallery();
     });
 </script>
-
 <script>
     $(".flexslider").click(function () {
         var IMGList = @Html.Raw(Json.Encode(@Model.imgGallery)) ;
