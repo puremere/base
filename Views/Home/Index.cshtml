@@ -1060,11 +1060,11 @@
                                 <!-- Indicators -->
                                 <ol class="carousel-indicators">
                                     @foreach (var item in Model.slides)
-                                    {
-                                        string src = "/images/panelimages/" + item.image;
-                                        var index = Model.slides.IndexOf(item);
-                                        if (index == 0)
-                                        {
+                                                {
+                                                    string src = "/images/panelimages/" + item.image;
+                                                    var index = Model.slides.IndexOf(item);
+                                                    if (index == 0) 
+                                                    {
                                             <li data - target="#myCarousel" data-slide-to="@index" class="active"></li>
                                         }
                                         else
