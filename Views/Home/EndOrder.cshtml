@@ -132,8 +132,8 @@
             }
 
         })
-        $("#finalconfirm").click(function () {
-
+        var senddata = function () {
+           
 
 
             var addressID = $("#addressID").val();
@@ -152,6 +152,11 @@
                     "extendedTimeOut": 1000
                 }
                 toastr.error("لطفا آدرس خود را انتخاب کنید");
+                $("#finalconfirm").click(function () {
+                    $("#finalconfirm").off('click');
+                    senddata();
+
+                })
                 counter = 1;
             }
 
@@ -166,12 +171,23 @@
                     "extendedTimeOut": 1000
                 }
                 toastr.error("لطفا روش پرداخت را انتخاب کنید");
+                $("#finalconfirm").click(function () {
+                    $("#finalconfirm").off('click');
+                    senddata();
+
+                })
                 counter = 1;
             }
             if (counter == 0) {
-                $("form#endOrderForm").submit();
-            }
 
+                $("form#endOrderForm").submit();
+
+            }
+        }
+      
+        $("#finalconfirm").click(function () {
+            $("#finalconfirm").off('click');
+            senddata();
 
         })
     </script>

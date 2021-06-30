@@ -115,51 +115,80 @@
                                                     @foreach (var item in Model.Users)
                                                     {
 
-                                                        <tr>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.ID)
-                                                            </td>
-                                                            <td>
-                                                                @Html.DisplayFor(modelItem => item.fullname)
-                                                            </td>
-                                                            <td style=" text-align:right">
-                                                                @Html.DisplayFor(modelItem => item.email)
-                                                            </td>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.ID)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.fullname)
+                                                        </td>
+                                                        <td style=" text-align:right">
+                                                            @Html.DisplayFor(modelItem => item.email)
+                                                        </td>
 
-                                                            <td style=" text-align:right">
-                                                                @Html.DisplayFor(modelItem => item.mobile)
-                                                            </td>
-                                                            <td style="text-align: right;">
-                                                                @Html.DisplayFor(modelItem => item.address)
+                                                        <td style=" text-align:right">
+                                                            @Html.DisplayFor(modelItem => item.mobile)
+                                                        </td>
+                                                        <td style="text-align: right;">
+                                                            @Html.DisplayFor(modelItem => item.address)
 
-                                                            </td>
+                                                        </td>
+                                                        <td style="text-align: center;">
 
-                                                            <td style="text-align: center;">
+                                                            @{
+                                                                var ID = @item.ID;
+                                                                <a id=@ID class="btn btn-primary Abutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">آدرس ها</a>
 
-                                                                @{
-                                                                    var ID = @item.ID;
-                                                                    <a id=@ID class="btn btn-primary Pbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
+                                                            }
 
-                                                                }
+                                                        </td>
+                                                        <td style="text-align: center;">
 
-                                                            </td>
-                                                            <td style="text-align: center;">
+                                                            @{
+                                                                 
+                                                                <a id=@ID class="btn btn-primary Pbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
 
-                                                                @{
+                                                            }
 
-                                                                    <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                        </td>
+                                                        <td style="text-align: center;">
 
-                                                                }
+                                                            @{
 
-                                                            </td>
-                                                        </tr>
+                                                                <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                            }
+
+                                                        </td>
+                                                    </tr>
                                                     }
 
 
                                                 </tbody>
                                             </table>
                                             <script>
+                                                $(".Abutton").click(function () {
 
+                                                    var id = $(this).attr("id");
+
+                                                    $.ajax({
+                                                        url: '/Admin/AddressUser',
+                                                        dataType: 'html',
+                                                        data: {
+                                                            id: id,
+                                                        },
+                                                        success: function (data) {
+                                                         
+                                                            $("#addressList").html(data)
+                                                            $('html,body').animate({
+                                                                scrollTop: $("#addressList").offset().top
+                                                            }, 'fast');
+                                                        },
+                                                        error: function () {
+
+                                                        }
+                                                    });
+                                                });
                                                 $(".Dbutton").click(function () {
 
                                                     var id = $(this).attr("id");
@@ -201,6 +230,9 @@
                                                     var rowid = $(this).attr("id");
                                                     var articles = @Html.Raw(Json.Encode(Model.Users));
                                                     $("#detailholder").css("display", "inline-block");
+                                                    $('html,body').animate({
+                                                        scrollTop: $("#detailholder").offset().top
+                                                    }, 'fast');
 
                                                     $.each(articles, function (index, item) {
                                                         if (item.ID.toString() === rowid) {
@@ -238,7 +270,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row" id="detailholder" style="padding: 0px 20px;display:none;width: 100%;margin: 0px;">
 
@@ -388,7 +419,7 @@
 
                 </div>
 
-
+                <div id="addressList" style="padding:10px 20px"></div>
             </div>
 
 

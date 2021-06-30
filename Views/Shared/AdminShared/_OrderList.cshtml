@@ -45,14 +45,14 @@
 <div class="modal fade" id="endOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            
+
             <div class="modal-body">
                 <p style="text-align:center"> انتخاب منبغ واریزی</p>
                 <select id="payment" class="form-control">
 
                     <option value="5">زرین پال</option>
                     <option value="1"> کیف پول</option>
-                
+
 
                 </select>
                 <p style="display:none" id="verifyHolder"></p>
@@ -109,59 +109,59 @@
 
                                             int i = Model.myOrder.IndexOf(item) + 1;
 
-                                <tr style=" ">
-                                    <td>@i</td>
-                                    <td>@item.orderNumber</td>
-                                    <td style="white-space: nowrap;">@item.fullname</td>
-                                    <td>@item.phone</td>
-                                    <td>@item.price</td>
-                                    <td>@item.date</td>
-                                    <td>@item.Rdate</td>
-                                    <td>@item.DayText</td>
-                                    <td>@item.TimeFrom  - @item.TimeTo</td>
-                                    <td>@item.address</td>
-                                    <td>@item.statusTitle</td>
-                                    <td> @item.desc</td>
-                                    <td>@item.postalcode</td>
-                                    @{
-                                        if (item.statusTitle == "پرداخت نشده")
-                                        {
-                                            <td><div class="btn btn-default endOrder" id="@item.ID">اتمام سفارش</div></td>
+                                            <tr style=" ">
+                                                <td>@i</td>
+                                                <td>@item.orderNumber</td>
+                                                <td style="white-space: nowrap;">@item.fullname</td>
+                                                <td>@item.phone</td>
+                                                <td>@item.price</td>
+                                                <td>@item.date</td>
+                                                <td>@item.Rdate</td>
+                                                <td>@item.DayText</td>
+                                                <td>@item.TimeFrom  - @item.TimeTo</td>
+                                                <td>@item.address</td>
+                                                <td>@item.statusTitle</td>
+                                                <td> @item.desc</td>
+                                                <td>@item.postalcode</td>
+                                                @{
+                                                    if (item.statusTitle == "پرداخت نشده")
+                                                    {
+                                                        <td><div class="btn btn-default endOrder" id="@item.ID">اتمام سفارش</div></td>
 
-                                        }
-                                        else
-                                        {
-                                            <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
+                                                    }
+                                                    else
+                                                    {
+                                                        <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
 
+                                                    }
+                                                }
+                                                <td>
+                                                    @{
+                                                        if (item.statusTitle == "ارسال شده")
+                                                        {
+                                                            <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
+
+
+                                                        }
+                                                        else if (item.statusTitle == "تحویل شده")
+                                                        {
+
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
+                                                        }
+
+                                                    }
+                                                </td>
+                                                <td class="deliver" id="@item.ID" style="cursor:pointer">
+                                                    @item.deliver
+                                                </td>
+
+                                            </tr>
                                         }
                                     }
-                                    <td>
-                                        @{
-                                            if (item.statusTitle == "ارسال شده")
-                                            {
-                                                <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
-
-
-                                            }
-                                            else if (item.statusTitle == "تحویل شده")
-                                            {
-
-
-                                            }
-                                            else
-                                            {
-                                                <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
-                                            }
-
-                                        }
-                                    </td>
-                                    <td class="deliver" id="@item.ID" style="cursor:pointer">
-                                        @item.deliver
-                                    </td>
-
-                                </tr>
-                                            }
-                                        }
                                 }
 
 
@@ -177,7 +177,110 @@
     </div>
 </div>
 
+<div class="row">
+    @{
+        var total = (Convert.ToInt32(Model.count) / 12);
+        var remain = (Convert.ToInt32(Model.count) % 12);
+        if (remain != 0)
+        {
+            total = total + 1;
+        }
+        var activ = Convert.ToInt32(Model.current);
+        var activminus2 = activ - 2;
+        var activminus1 = activ - 1;
+        var activplus1 = activ + 1;
+        var activplus2 = activ + 2;
 
+
+
+        if ((total - activ) > 3 & activ > 3)
+        {
+            <ul class="pagination">
+
+                <li><a>«</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                @if (activminus2 > 2)
+                {
+                    <li><a>...</a></li>
+                }
+
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                <li class="active"><a>@activ</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                <li><a> ...</a></li>
+                <li><a>@total</a></li>
+                <li><a>»</a></li>
+            </ul>
+        }
+        else if ((total - activ > 3) && !(activ > 3))
+        {
+            <ul class="pagination">
+
+                @for (int i = 1; i < activ; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li class="active"><a>@activ </a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                <li><a href="#">...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@total</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+
+        }
+        else if (!(total - activ > 3) && activ > 3)
+        {
+            <ul class="pagination">
+
+                <li><a>«</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                <li><a>...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                <li style="cursor:pointer" class="active"><a>@activ </a></li>
+                @for (int i = activ + 1; i <= total; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li><a>»</a></li>
+            </ul>
+
+        }
+        else if (total > 1 && !((total - activ) > 3) && !(activ > 3))
+        {
+
+            <ul class="pagination">
+
+                @for (int i = 1; i < activ; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li class="active"><a href="#">@activ</a></li>
+                @for (int i = activ + 1; i <= total; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+
+            </ul>
+
+        }
+
+    }
+
+    <script>
+        $(".pagingnumberforall").click(function () {
+
+            var num = this.textContent;
+            getlofo(num);
+        })
+
+    </script>
+
+
+</div>
 <script>
     $(".order").click(function () {
 
@@ -285,7 +388,7 @@
             })
         }
 
-        
+
     })
     $(".orderdetail").click(function () {
 
@@ -333,29 +436,29 @@
         $("#myModal").modal('toggle');
         idselected = $(this).attr('id');
     })
-      $("#setDeliver").click(function () {
-                        $("#myModal").modal('toggle');
-                        var deliverID = $("#deliverDromdown").val();
-                        var description = $('textarea#adminDesc').val();
-                        $.ajax({
-                            url: '/Admin/finalizeOrderAndDeliver',
-                            dataType: 'html',
-                            data: {
-                                id: idselected,
-                                deliverID: deliverID,
-                                type: "4",
-                                desc: description
-                            },
+    $("#setDeliver").click(function () {
+        $("#myModal").modal('toggle');
+        var deliverID = $("#deliverDromdown").val();
+        var description = $('textarea#adminDesc').val();
+        $.ajax({
+            url: '/Admin/finalizeOrderAndDeliver',
+            dataType: 'html',
+            data: {
+                id: idselected,
+                deliverID: deliverID,
+                type: "4",
+                desc: description
+            },
 
-                            success: function (data) {
+            success: function (data) {
 
-                                window.location.reload();
-                            }
+                window.location.reload();
+            }
 
 
 
-                        });
-                    })
+        });
+    })
 </script>
 <div class="detailHolder">
 

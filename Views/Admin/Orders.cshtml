@@ -110,282 +110,23 @@
                 </div>
                 <div class="col-lg-2">
                     <p class="btn btn-success" style="display:inline-block" id="orderFormSearch"> تایید</p>
-                 
+
                 </div>
+
+               
             </div>
+           
             <p class="ORDERBUTT" style="display:none" id="dataOrder">11</p>
             <div id="OrderTableHolder">
-                <div class="row">
-                    <div style="overflow-x:auto;padding:10px">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
-    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i> آخرین سفارشات  </h3>
-                            </div>
-                            <div class="panel-body">
-                                <div id="morris-area-chart">
-                                    <div style="overflow:auto; max-height:400px; overflow-y:scroll">
-
-                                        <table class="table table-bordered table-hover table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th style="cursor:pointer" class="orderID">ردیف</th>
-                                                    <th>شماره سفارش</th>
-                                                    <th style="white-space: nowrap; ">کاربر</th>
-                                                    <th>موبایل کاربر</th>
-                                                    <th>مبلغ (تومان)</th>
-                                                    <th>تاریخ سفارش</th>
-                                                    <th style="cursor:pointer" class="order">تاریخ تحویل</th>
-                                                    <th>روز تحویل</th>
-                                                    <th>ساعت تحویل</th>
-                                                    <th>آدرس</th>
-                                                    <th>وضعیت</th>
-                                                    <th>توضیحات</th>
-                                                    <th>کد پستی</th>
-
-                                                    <th>جزئیات</th>
-                                                    <th>اقدامات</th>
-                                                    <th>دلیور</th>
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @{
-                                                    if (Model.myOrder != null)
-                                                    {
-                                                        foreach (var item in Model.myOrder)
-                                                        {
-
-                                                            int i = Model.myOrder.IndexOf(item) + 1;
-
-                                                <tr style=" ">
-                                                    <td>@i</td>
-                                                    <td>@item.orderNumber</td>
-                                                    <td style="white-space: nowrap;">@item.fullname</td>
-                                                    <td>@item.phone</td>
-                                                    <td>@item.price</td>
-                                                    <td>@item.date</td>
-                                                    <td>@item.Rdate</td>
-                                                    <td>@item.DayText</td>
-                                                    <td>@item.TimeFrom  - @item.TimeTo</td>
-                                                    <td>@item.address</td>
-                                                    <td>@item.statusTitle</td>
-                                                    <td>@item.desc</td>
-                                                    <td>@item.postalcode</td>
-                                                    @{
-                                                        if (item.statusTitle == "پرداخت نشده")
-                                                        {
-                                                            <td><div class="btn btn-default endOrder" id="@item.ID">اتمام سفارش</div></td>
-
-                                                        }
-                                                        else
-                                                        {
-                                                            <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
-
-                                                        }
-                                                    }
-                                                    <td>
-                                                        @{
-                                                            if (item.statusTitle == "ارسال شده")
-                                                            {
-                                                                <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
-
-
-                                                            }
-                                                            else if (item.statusTitle == "تحویل شده")
-                                                            {
-
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
-                                                            }
-
-                                                        }
-                                                    </td>
-                                                    <td class="deliver" id="@item.ID" style="cursor:pointer">
-                                                        @item.deliver
-                                                    </td>
-
-                                                </tr>
-                                                        }
-                                                    }
-                                                }
-
-
-
-
-                                            </tbody>
-                                        </table>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <script>
-                    var idselected = "";
-                    $(".order").click(function () {
-
-                        if ($("#dataOrder").text() == "11") {
-                            $("#dataOrder").text("12");
-
-                        }
-                        else {
-
-                            $("#dataOrder").text("11");
-
-                        }
-
-                        order = $("#dataOrder").text();
-                        type = $("#selectOrderType").val();
-
-                        $.ajax({
-                            url: '/Admin/ChangeOrderList',
-                            dataType: 'html',
-                            data: {
-                                type: type,
-                                order: order
-
-                            },
-
-                            success: function (data) {
-
-                                $("#OrderTableHolder").html(data);
-                            }
-
-
-
-                        });
-                    });
-                    $(".orderID").click(function () {
-
-                        if ($("#dataOrder").text() == "21") {
-                            $("#dataOrder").text("22");
-
-                        }
-                        else {
-
-                            $("#dataOrder").text("21");
-
-                        }
-
-                        order = $("#dataOrder").text();
-                        type = $("#selectOrderType").val();
-
-                        $.ajax({
-                            url: '/Admin/ChangeOrderList',
-                            dataType: 'html',
-                            data: {
-                                type: type,
-                                order: order
-
-                            },
-
-                            success: function (data) {
-
-                                $("#OrderTableHolder").html(data);
-                            }
-
-
-
-                        });
-                    });
-                    $(".orderdetail").click(function () {
-
-                        var ID = $(this).attr('id');
-                        //alert("aaa");
-                        //alert(ID);
-                        $.ajax({
-                            url: '/Admin/goGetOrderDetail',
-                            dataType: 'html',
-                            data: {
-                                id: ID,
-
-                            },
-
-                            success: function (data) {
-
-                                $(".detailHolder").html(data);
-                                $("#loading").fadeOut();
-
-                            }
-
-
-
-                        });
-                    })
-                    $(".deliverorder").click(function () {
-                        var ID = $(this).attr('id');
-
-                        $.ajax({
-
-                            url: '/connection/finalizeOrder',
-                            dataType: 'html',
-                            data: {
-                                id: ID,
-                            },
-
-                            success: function (data) {
-
-                                window.location.reload();
-                            }
-
-
-
-                        });
-                    })
-                    $("#setDeliver").click(function () {
-                        $("#myModal").modal('toggle');
-                        var deliverID = $("#deliverDromdown").val();
-                        var description = $('textarea#adminDesc').val();
-                        $.ajax({
-                            url: '/Admin/finalizeOrderAndDeliver',
-                            dataType: 'html',
-                            data: {
-                                id: idselected,
-                                deliverID: deliverID,
-                                type: "4",
-                                desc: description
-                            },
-
-                            success: function (data) {
-
-                                window.location.reload();
-                            }
-
-
-
-                        });
-                    })
-
-                    $(".deliver").click(function () {
-                        $("#myModal").modal('toggle');
-                        idselected = $(this).attr('id');
-                    })
-                    //comment
-                    $(".finalorder").click(function () {
-                        $("#myModal").modal('toggle');
-                        idselected = $(this).attr('id');
-
-                    })
-                </script>
-                <div class="detailHolder">
-
-                </div>
+               
             </div>
             <script>
-                $("#orderFormSearch").click(function () {
-
+                var getlofo = function (page) {
+                    $("#loading").show();
                     order = "12";
                     type = $("#selectOrderType").val();
                     search = $("#searchText").val();
+
 
                     $.ajax({
                         url: '/Admin/ChangeOrderList',
@@ -393,20 +134,31 @@
                         data: {
                             type: type,
                             order: order,
-                            search: search
+                            search: search,
+                            page: page
                         },
 
                         success: function (data) {
 
                             $("#OrderTableHolder").html(data);
+                            $("#loading").hide();
                         }
 
 
 
                     });
+                   
+                }
+                $("#orderFormSearch").click(function () {
+                    $("#loading").show();
+                    getlofo(1)
                 });
+                $("#loading").show();
+                getlofo(1)
 
             </script>
+
+
 
         </div>
 
