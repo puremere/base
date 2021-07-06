@@ -11,99 +11,145 @@
     if (Model.filterlist != null && Model.filterlist.Count() > 0)
     {
 
-        <div style=" border:1px solid #ddd; padding:0px ; margin:0px;margin-bottom:10px; padding:10px;box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);">
-            <p style="margin:5px">فیلتر های گزینه ای:</p>
-            @foreach (var myitem in Model.filterlist)
+    <div style=" border:1px solid #ddd; padding:0px ; margin:0px;margin-bottom:10px; padding:10px;box-shadow: 2px 2px 1px 0px rgba(0,0,0,0.75);">
+        <p style="margin:5px">فیلتر های گزینه ای:</p>
+        @foreach (var myitem in Model.filterlist)
+        {
+            if (myitem.filterdetailes != null)
             {
-                if (myitem.filterdetailes != null)
+                string ID = myitem.ID;
+
+                string filterdetaillist = "DF" + ID;
+                if (myitem.filterkinde == "1")
                 {
-                    string ID = myitem.ID;
+                    <div id="filtersholder" class="form-group  selectedfilter row" style="">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
+                            @myitem.filtername :
+                        </label>
 
-                    string filterdetaillist = "DF" + ID;
-                    if (myitem.filterkinde == "1")
-                    {
-                        <div id="filtersholder" class="form-group  selectedfilter" style="">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
-                                @myitem.filtername :
-                            </label>
-
-                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
-                                    @if (myitem.filterdetailes != null)
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
+                                @if (myitem.filterdetailes != null)
+                                {
+                                    foreach (var detail in myitem.filterdetailes)
                                     {
-                                        foreach (var detail in myitem.filterdetailes)
-                                        {
 
-                                            <option value=@detail.ID> @detail.detailname</option>
-                                        }
+                                        <option value=@detail.ID> @detail.detailname</option>
                                     }
+                                }
 
 
 
-                                </select>
+                            </select>
 
-                                @*<script>
-                                        $(document).ready(function () {
-                                            var ID = "@myitem.ID";
-                                            var filterdetaillist = "DEFfilterdetaillist" + ID;
-                                            var filterVALUE = $("#" + filterdetaillist + " option:selected").val();
-                                            //$("#allfilterid").append(ID + "-" + filterVALUE + ",");
-                                            $('select#' + filterdetaillist).on('change', function () {
-                                                //alert($(this).val());
-                                                $("#allfilterid").append(ID + "-" + $(this).val() + ";");
+                            @*<script>
+                                $(document).ready(function () {
+                                    var ID = "@myitem.ID";
+                                    var filterdetaillist = "DEFfilterdetaillist" + ID;
+                                    var filterVALUE = $("#" + filterdetaillist + " option:selected").val();
+                                    //$("#allfilterid").append(ID + "-" + filterVALUE + ",");
+                                    $('select#' + filterdetaillist).on('change', function () {
+                                        //alert($(this).val());
+                                        $("#allfilterid").append(ID + "-" + $(this).val() + ";");
 
-                                            });
-
-
-                                        })
-                                    </script>*@
-                            </div>
+                                    });
 
 
-
-
-
+                                })
+                            </script>*@
                         </div>
-                    }
-                    else
-                    {
-                        <div id="filtersholder" class="form-group " style="">
-                            <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
-                                @myitem.filtername :
-                            </label>
-
-                            <div class="">
-                                <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect" multiple>
-                                    @if (myitem.filterdetailes != null)
-                                    {
-                                        foreach (var detail in myitem.filterdetailes)
-                                        {
-
-                                            <option value=@detail.ID> @detail.detailname</option>
-                                        }
-                                    }
-
-
-
-                                </select>
-
-
-                            </div>
 
 
 
 
 
-                        </div>
-                    }
-
-
-
-
+                    </div>
                 }
 
+                else if (myitem.filterkinde == "2")
+                {
+                    <div id="filtersholder" class="form-group  SelectedAnbar  row" style="">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
+                            @myitem.filtername :
+                        </label>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
+                                @if (myitem.filterdetailes != null)
+                                {
+                                    foreach (var detail in myitem.filterdetailes)
+                                    {
+
+                                        <option value=@detail.ID> @detail.detailname</option>
+                                    }
+                                }
+
+
+
+                            </select>
+
+                            @*<script>
+                                $(document).ready(function () {
+                                    var ID = "@myitem.ID";
+                                    var filterdetaillist = "DEFfilterdetaillist" + ID;
+                                    var filterVALUE = $("#" + filterdetaillist + " option:selected").val();
+                                    //$("#allfilterid").append(ID + "-" + filterVALUE + ",");
+                                    $('select#' + filterdetaillist).on('change', function () {
+                                        //alert($(this).val());
+                                        $("#allfilterid").append(ID + "-" + $(this).val() + ";");
+
+                                    });
+
+
+                                })
+                            </script>*@
+                        </div>
+
+
+
+
+
+                    </div>
+                }
+                else
+                {
+                    <div id="filtersholder" class="form-group " style="">
+                        <label class="control-label col-md-4 col-sm-4 col-xs-12" style="text-align: right">
+                            @myitem.filtername :
+                        </label>
+
+                        <div class="">
+                            <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect" multiple>
+                                @if (myitem.filterdetailes != null)
+                                {
+                                    foreach (var detail in myitem.filterdetailes)
+                                    {
+
+                                        <option value=@detail.ID> @detail.detailname</option>
+                                    }
+                                }
+
+
+
+                            </select>
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+                }
+
+
+
+
             }
-        </div>
+
+        }
+    </div>
 
 
         if (Model.Range != null)
@@ -234,6 +280,7 @@
                             else {
                                 $("#inputallcolid").val(colval);
                                 $("#Selectedfilters").val($(".selectedfilter option:selected").text());
+                                $("#SelectedAnbar").val($(".SelectedAnbar option:selected").text());
                                 $('#filterModal').modal('toggle');
                             }
 
@@ -294,6 +341,7 @@
 
 
                             $("#Selectedfilters").val($(".selectedfilter option:selected").text());
+                            $("#SelectedAnbar").val($(".SelectedAnbar option:selected").text());
                             $('#filterModal').modal('toggle');
 
 

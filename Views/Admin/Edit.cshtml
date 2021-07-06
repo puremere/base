@@ -31,7 +31,7 @@
         });
         //tinymce.activeEditor.execCommand('mceDirectionRTL');
     </script>
-    
+
 }
 <p id="messageholder">@ViewBag.message</p>
 <script>
@@ -130,81 +130,81 @@
                     new { enctype = "multipart/form-data", id = "signupformforedit" }))
                         {
                             @Html.HiddenFor(m => m.ID);
-                        <div class="form-group ">
-                            <label class="control-label col-md-2 col-sm-2 col-xs-12">
-                                دسته بندی:
-                            </label>
-                            <div class="col-lg-8">
-                                @{
-                                    List<SelectListItem> listItems = new List<SelectListItem>();
-                                    if (Model.filtercatsAll != null)
-                                    {
-
-                                        foreach (var item in Model.filtercatsAll)
+                            <div class="form-group ">
+                                <label class="control-label col-md-2 col-sm-2 col-xs-12">
+                                    دسته بندی:
+                                </label>
+                                <div class="col-lg-8">
+                                    @{
+                                        List<SelectListItem> listItems = new List<SelectListItem>();
+                                        if (Model.filtercatsAll != null)
                                         {
 
-
-                                            if (item.filtersubcat != null)
+                                            foreach (var item in Model.filtercatsAll)
                                             {
-                                                listItems.Add(new SelectListItem
+
+
+                                                if (item.filtersubcat != null)
                                                 {
-                                                    Text = item.title,
-                                                    Value = "1"+ item.ID ,
-                                                });
-                                                foreach (var subcat in item.filtersubcat)
-                                                {
-                                                    if (subcat.filtersubcat2 != null)
+                                                    listItems.Add(new SelectListItem
                                                     {
-                                                        listItems.Add(new SelectListItem
-                                                        {
-                                                            Text = "------" + subcat.title,
-                                                             Value = "2" + subcat.ID
-                                                        });
-                                                        foreach (var subcat2 in subcat.filtersubcat2)
+                                                        Text = item.title,
+                                                        Value = "1" + item.ID,
+                                                    });
+                                                    foreach (var subcat in item.filtersubcat)
+                                                    {
+                                                        if (subcat.filtersubcat2 != null)
                                                         {
                                                             listItems.Add(new SelectListItem
                                                             {
-                                                                Text = "--------------" + subcat2.title,
-                                                                Value = "3" + subcat2.ID
+                                                                Text = "------" + subcat.title,
+                                                                Value = "2" + subcat.ID
                                                             });
+                                                            foreach (var subcat2 in subcat.filtersubcat2)
+                                                            {
+                                                                listItems.Add(new SelectListItem
+                                                                {
+                                                                    Text = "--------------" + subcat2.title,
+                                                                    Value = "3" + subcat2.ID
+                                                                });
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                            listItems.Add(new SelectListItem
+                                                            {
+                                                                Text = "------" + subcat.title,
+                                                                Value = "2" + subcat.ID
+                                                            });
+
                                                         }
 
+
                                                     }
-                                                    else
+                                                }
+                                                else
+                                                {
+                                                    listItems.Add(new SelectListItem
                                                     {
-                                                        listItems.Add(new SelectListItem
-                                                        {
-                                                            Text = "------" + subcat.title,
-                                                            Value = "2" + subcat.ID
-                                                        });
-
-                                                    }
-
+                                                        Text = item.title,
+                                                        Value = "1" + item.ID
+                                                    });
 
                                                 }
-                                            }
-                                            else
-                                            {
-                                                listItems.Add(new SelectListItem
-                                                {
-                                                    Text = item.title,
-                                                    Value = "1" + item.ID
-                                                });
+
+
 
                                             }
-
-
-
                                         }
+
+
                                     }
+                                    @Html.DropDownListFor(model => model.catmode, listItems, new { id = "newcat", style = "width:100%", @class = "form-control" })
+                                </div>
 
 
-                                }
-                                @Html.DropDownListFor(model => model.catmode, listItems,  new { id = "newcat", style = "width:100%", @class = "form-control" })
                             </div>
-
-
-                        </div>
                             <div class="form-group ">
                                 <input id="addnew" name="addnew" type="hidden" value="false" />
                                 <input id="inputallfilterid" name="inputallfilterid" type="hidden" />
@@ -212,8 +212,9 @@
                                 <input id="inputallfeatureid" name="inputallfeatureid" type="hidden" />
                                 <input id="inputallcolid" name="inputallcolid" type="hidden" />
                                 <input id="Selectedfilters" name="Selectedfilters" type="hidden" />
+                                <input id="SelectedAnbars" name="SelectedAnbars" type="hidden" />
 
-
+                                
                                 <input id="catID" name="catID" type="hidden" value="@Model.catid" />
                                 <label class="control-label col-md-2 col-sm-2 col-xs-12" for="first-name">
                                     نام :
@@ -422,127 +423,181 @@
                                                     <div class="modal-body" id="filterholderforproduct">
                                                         @{
 
-                                                            <div style=" border-bottom:1px solid #ddd; padding:0px ; margin:0px;margin-bottom:10px; padding-bottom:10px">
-                                                                <p style="margin:5px">فیلتر های گزینه ای:</p>
-                                                                @if (Model.filters != null && Model.filters.Count() > 0)
-                                                                {
-                                                                    foreach (var myitem in Model.filters)
-                                                                    {
-                                                                        if (myitem.filterdetailes != null)
-                                                                        {
-                                                                            string ID = myitem.ID;
-                                                                            string filterdetailtitle = "DEFfilterdetailtitle" + ID;
-                                                                            string filterdetaillist = "DEFfilterdetaillist" + ID;
-                                                                            string parentID = "parent" + ID;
-                                                                            if (myitem.filterkinde == "1")
-                                                                            {
-                                                                                <div id=@parentID class="form-group  selectedfilter">
-                                                                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
-                                                                                        @myitem.filtername :
-                                                                                    </label>
+                                                                                                                <div style=" border-bottom:1px solid #ddd; padding:0px ; margin:0px;margin-bottom:10px; padding-bottom:10px">
+                                                                                                                    <p style="margin:5px">فیلتر های گزینه ای:</p>
+                                                                                                                    @if (Model.filters != null && Model.filters.Count() > 0)
+                                                                                                                    {
+                                                                                                                        foreach (var myitem in Model.filters)
+                                                                                                                        {
+                                                                                                                            if (myitem.filterdetailes != null)
+                                                                                                                            {
+                                                                                                                                string ID = myitem.ID;
+                                                                                                                                string filterdetailtitle = "DEFfilterdetailtitle" + ID;
+                                                                                                                                string filterdetaillist = "DEFfilterdetaillist" + ID;
+                                                                                                                                string parentID = "parent" + ID;
+                                                                                                                                if (myitem.filterkinde == "1")
+                                                                                                                                {
+                                                                                                                                    <div id=@parentID class="form-group  selectedfilter">
+                                                                                                                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                                                                                                                                            @myitem.filtername :
+                                                                                                                                        </label>
 
-                                                                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                                                                        <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
-                                                                                            @if (myitem.filterdetailes != null)
-                                                                                            {
-                                                                                                if (myitem.filterdetailes != null)
-                                                                                                {
-                                                                                                    foreach (var detail in myitem.filterdetailes)
-                                                                                                    {
-                                                                                                        if (Model.productfilterlist != null)
-                                                                                                        {
-                                                                                                            if (Model.productfilterlist.Any(s => s.detailname.Contains(detail.detailname)))
-                                                                                                            {
-                                                                                                                <option value=@detail.ID selected> @detail.detailname</option>
-                                                                                                            }
-                                                                                                            else
-                                                                                                            {
-                                                                                                                <option value=@detail.ID> @detail.detailname</option>
-                                                                                                            }
-                                                                                                        }
-                                                                                                        else
-                                                                                                        {
-                                                                                                            <option value=@detail.ID> @detail.detailname</option>
-                                                                                                        }
-
-
-
-                                                                                                    }
-                                                                                                }
-
-                                                                                            }
+                                                                                                                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                                                                                                                            <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
+                                                                                                                                                @if (myitem.filterdetailes != null)
+                                                                                                                                                {
+                                                                                                                                                    if (myitem.filterdetailes != null)
+                                                                                                                                                    {
+                                                                                                                                                        foreach (var detail in myitem.filterdetailes)
+                                                                                                                                                        {
+                                                                                                                                                            if (Model.productfilterlist != null)
+                                                                                                                                                            {
+                                                                                                                                                                if (Model.productfilterlist.Any(s => s.detailname.Contains(detail.detailname)))
+                                                                                                                                                                {
+                                                                                                                                                                    <option value=@detail.ID selected> @detail.detailname</option>
+                                                                                                                                                                }
+                                                                                                                                                                else
+                                                                                                                                                                {
+                                                                                                                                                                    <option value=@detail.ID> @detail.detailname</option>
+                                                                                                                                                                }
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <option value=@detail.ID> @detail.detailname</option>
+                                                                                                                                                            }
 
 
 
-                                                                                        </select>
+                                                                                                                                                        }
+                                                                                                                                                    }
 
-
-                                                                                    </div>
-
-
-
-
-
-                                                                                </div>
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <div id=@parentID class="form-group ">
-                                                                                    <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
-                                                                                        @myitem.filtername :
-                                                                                    </label>
-
-                                                                                    <div class="col-md-8 col-sm-8 col-xs-12">
-                                                                                        <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect" multiple>
-                                                                                            @if (myitem.filterdetailes != null)
-                                                                                            {
-                                                                                                if (myitem.filterdetailes != null)
-                                                                                                {
-                                                                                                    foreach (var detail in myitem.filterdetailes)
-                                                                                                    {
-                                                                                                        if (Model.productfilterlist != null)
-                                                                                                        {
-                                                                                                            if (Model.productfilterlist.Any(s => s.detailname.Contains(detail.detailname)))
-                                                                                                            {
-                                                                                                                <option value=@detail.ID selected> @detail.detailname</option>
-                                                                                                            }
-                                                                                                            else
-                                                                                                            {
-                                                                                                                <option value=@detail.ID> @detail.detailname</option>
-                                                                                                            }
-                                                                                                        }
-                                                                                                        else
-                                                                                                        {
-                                                                                                            <option value=@detail.ID> @detail.detailname</option>
-                                                                                                        }
+                                                                                                                                                }
 
 
 
-                                                                                                    }
-                                                                                                }
-
-                                                                                            }
+                                                                                                                                            </select>
 
 
-
-                                                                                        </select>
-
-                                                                                    </div>
+                                                                                                                                        </div>
 
 
 
 
 
-                                                                                </div>
+                                                                                                                                    </div>
+                                                                                                                                }
 
-                                                                            }
+                                                                                                                                if (myitem.filterkinde == "2")
+                                                                                                                                {
+                                                                                                                                    
+                                                                                                                                    <div id=@parentID class="form-group  SelectedAnbar">
+                                                                                                                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                                                                                                                                            @myitem.filtername :
+                                                                                                                                        </label>
 
-                                                                        }
+                                                                                                                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                                                                                                                            <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect">
+                                                                                                                                                @if (myitem.filterdetailes != null)
+                                                                                                                                                {
+                                                                                                                                                    if (myitem.filterdetailes != null)
+                                                                                                                                                    {
+                                                                                                                                                        foreach (var detail in myitem.filterdetailes)
+                                                                                                                                                        {
+                                                                                                                                                            if (Model.productfilterlist != null)
+                                                                                                                                                            {
+                                                                                                                                                                if (Model.productfilterlist.Any(s => s.detailname.Contains(detail.detailname)))
+                                                                                                                                                                {
+                                                                                                                                                                    <option value=@detail.ID selected> @detail.detailname</option>
+                                                                                                                                                                }
+                                                                                                                                                                else
+                                                                                                                                                                {
+                                                                                                                                                                    <option value=@detail.ID> @detail.detailname</option>
+                                                                                                                                                                }
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <option value=@detail.ID> @detail.detailname</option>
+                                                                                                                                                            }
 
-                                                                    }
-                                                                }
 
-                                                            </div>
+
+                                                                                                                                                        }
+                                                                                                                                                    }
+
+                                                                                                                                                }
+
+
+
+                                                                                                                                            </select>
+
+
+                                                                                                                                        </div>
+
+
+
+
+
+                                                                                                                                    </div>
+                                                                                                                                 
+                                                                                                                                }
+                                                                                                                                else
+                                                                                                                                {
+                                                                                                                                    <div id=@parentID class="form-group ">
+                                                                                                                                        <label class="control-label col-md-2 col-sm-2 col-xs-12" style="text-align: right">
+                                                                                                                                            @myitem.filtername :
+                                                                                                                                        </label>
+
+                                                                                                                                        <div class="col-md-8 col-sm-8 col-xs-12">
+                                                                                                                                            <select id=@filterdetaillist name=filterdetaillist style="width:100%" class="filterselect" multiple>
+                                                                                                                                                @if (myitem.filterdetailes != null)
+                                                                                                                                                {
+                                                                                                                                                    if (myitem.filterdetailes != null)
+                                                                                                                                                    {
+                                                                                                                                                        foreach (var detail in myitem.filterdetailes)
+                                                                                                                                                        {
+                                                                                                                                                            if (Model.productfilterlist != null)
+                                                                                                                                                            {
+                                                                                                                                                                if (Model.productfilterlist.Any(s => s.detailname.Contains(detail.detailname)))
+                                                                                                                                                                {
+                                                                                                                                                                    <option value=@detail.ID selected> @detail.detailname</option>
+                                                                                                                                                                }
+                                                                                                                                                                else
+                                                                                                                                                                {
+                                                                                                                                                                    <option value=@detail.ID> @detail.detailname</option>
+                                                                                                                                                                }
+                                                                                                                                                            }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                                                <option value=@detail.ID> @detail.detailname</option>
+                                                                                                                                                            }
+
+
+
+                                                                                                                                                        }
+                                                                                                                                                    }
+
+                                                                                                                                                }
+
+
+
+                                                                                                                                            </select>
+
+                                                                                                                                        </div>
+
+
+
+
+
+                                                                                                                                    </div>
+
+                                                                                                                                }
+
+                                                                                                                            }
+
+                                                                                                                        }
+                                                                                                                    }
+
+                                                                                                                </div>
 
 
                                                             if (Model.range != null)
@@ -789,6 +844,7 @@
                                                     </div>
 
                                                     <style>
+
                                                         .imagelistholder {
                                                             display: inline-block;
                                                             width: 200px;
@@ -940,6 +996,7 @@
                                         });
                                         $("#inputallcolid").val(colval);
                                         $("#Selectedfilters").val($(".selectedfilter option:selected").text());
+                                        $("#SelectedAnbars").val($(".SelectedAnbar option:selected").text());
                                         $("#signupformforedit").submit();
                                     }
 
@@ -1016,7 +1073,7 @@
         $links.each(function (index, $link) {
             var src = $(this).attr('src');
             var html = "<div style='border:1px solid #ddd; position:relative; padding:3px'><img  style='width:150px; display:inlne-block'    src='" + src + "'><p>" + src + "</p><img id='"+src+"' class='delIcon' style='top:0px; left:0px;right:0px; bottom:0px; width:30px; cursor:pointer ;position:absolute;' src='/images/del.png'></div>";
-            
+
             $('#thumbholderEdior').append(html);
             $("#loading").css("display", "none");
         });
@@ -1034,7 +1091,7 @@
                 }
             })
             var id = $(this).attr('id');
-            
+
     });
     var removeimg = function (newel) {
 
@@ -1052,5 +1109,5 @@
             }
         })
         var id = $(this).attr('id');
-    } 
+    }
 </script>

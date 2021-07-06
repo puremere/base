@@ -799,9 +799,11 @@
                             }
                             else
                             {
+
                                 <div class="row" style="margin: 5px;padding-top:10px ; text-align: left; min-height: 26px">
                                     @if (Model.price != Model.oldPrice & Convert.ToInt32(Model.price) > 0)
                                     {
+
                                         <span style="direction:rtl; ">
                                             <del style="color:red"> @string.Format("{0:n0}", Convert.ToInt32(Model.oldPrice))  </del>
                                             <span style="margin:0 2px; color:red; float:left">
