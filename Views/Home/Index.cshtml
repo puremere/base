@@ -236,7 +236,7 @@
         if (Model.wonderList != null)
         {
             <div style="background-color: #f6f5f5; padding: 2% 0px;padding: 10px; background-color:#ef394e; display:flex; align-items:center">
-                <div class="" style=" width:60%">
+                <div class="wonlistHolder" style=" ">
                     <div class="owl-carousel">
                         @foreach (var item in Model.wonderList)
                         {
@@ -354,7 +354,7 @@
                     </div>
                 </div>
                 <div style="flex:1">
-                    <div class="row" style=" text-align: center;">
+                    <div class="row" style=" text-align: center;margin:0">
                         <img style="max-width: 70%;" src="/images/wonder.png">
                         <p style="display:flex;border-radius:10px;border:1px solid #fff;margin: 50px 10px 0 10px;padding: 12px 0;align-items: center;justify-content: center;font-size: 16px;color: white;cursor: pointer;">
                             <i class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span>
@@ -364,9 +364,20 @@
             </div>
             <script>
                 $(document).ready(function () {
+                    wid = window.width;
+                    ITM = 1;
+                   
+                    if (wid > 720) {
+                        ITM = 2;
+                    }
+                    if (wid > 1000) {
+                        ITM = 3;
+                    }
+                   
                     $(".owl-carousel").owlCarousel({
-                        items: 1,
-                        rtl: true
+                        items: ITM,
+                        rtl: true,
+                        margin : 5
                     });
                 });
             </script>
@@ -377,7 +388,7 @@
         {
 
             <div class="minwidth" style="display:none">
-                <div class="row" style=" padding: 10px">
+                <div class="" style=" padding: 10px">
                     <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
                     <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
                 </div>
@@ -630,7 +641,7 @@
         if (Model.newest != null)
         {
             <div class="minwidth" style="display:block">
-                <div class="row" style=" padding: 10px">
+                <div class="" style=" padding: 10px">
                     <span style="float:right;font-size: 11px;font-weight: 800;"> جدید ترین ها</span>
                     <a href="/Home/ProductList?sortID=1" style="cursor:pointer; float:left;font-size: 11px;color: blue;"> لیست کامل</a>
                 </div>
@@ -755,7 +766,7 @@
         {
             if (Model.banners.Count >= 8)
             {
-                <div class="row" style="margin:0 5px">
+                <div class="" style="margin:0 5px">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
                         <div class="imageparent">
                             <img class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[7].image' id='@Model.banners[7].type-@Model.banners[7].catIDOrLink' />
@@ -769,7 +780,7 @@
         {
 
             <div class="minwidth" style="display:none">
-                <div class="row" style=" padding: 10px">
+                <div class="" style=" padding: 10px">
                     <span style="float:right;font-size: 11px;font-weight: 800;"> پرفروش ترین ها</span>
                     <a href="/Home/ProductList?sortID=2" style="        cursor: pointer;
         float: left;
@@ -907,7 +918,7 @@
                 if (group.value != null)
                 {
                     <div class="minwidth" style="display:none">
-                        <div class="row" style=" padding: 10px">
+                        <div class="" style=" padding: 10px">
                           
                             <span style="float:right;font-size: 11px;font-weight: 800;"> @group.title</span>
                             <a href="/Home/ManageSlide?val=@id" style="cursor:pointer; float:left;font-size: 11px;color: blue;"> لیست کامل</a>
@@ -1036,7 +1047,7 @@
         }
 
 
-        <div class="row " style="margin :10px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1); border-radius: 5px;background-color:white">
+        <div class=" " style="margin :10px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1); border-radius: 5px;background-color:white">
             <div class="row" style="padding:15px">
                 @{Html.RenderAction("contactSection", "Home");}
             </div>
@@ -1150,7 +1161,7 @@
         if (Model.wonderList != null)
         {
 
-            <div class="maxwidth">
+            <div class=" DSK">
                 <div style="background-color: #f6f5f5; padding: 2% 0px;padding: 20px; background-color:#ef394e; display:flex; align-items:center">
                     <div class="" style=" width:80%">
 

@@ -131,7 +131,7 @@
 
 
 }
-<input  type="file" style="display:none" id="descriptionUpload"/>
+<input type="file" style="display:none" id="descriptionUpload" />
 <style>
     .nav-tabs {
         padding-right: 0px;
@@ -269,6 +269,10 @@
                                 }
                             </div>
                         }
+                        else
+                        {
+                            <input id = "partnerList" hidden value="@Model.selectedAnbar" />
+                        }
 
                         <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
                             <label> طبقه بندی :</label>
@@ -298,6 +302,8 @@
                                 var query = $("#SearchQuery").val();
                                 var value = $("#listofproduct").val();
                                 var partner = $("#partnerList").val();
+
+
                                 $.ajax({
                                     url: '/Admin/GetTheListOfItems',
                                     data:
@@ -633,8 +639,8 @@
                                 @* <input id="inputallfeatureidServer" name="inputallfeatureidServer" type="hidden" />*@
                                 <input id="inputallcolid" name="inputallcolid" type="hidden" />
                                 <input id="Selectedfilters" name="Selectedfilters" type="hidden" />
-                                <input id="SelectedAnbar" name="SelectedAnbar" type="hidden" />
-                                
+                                <input value="@Model.selectedAnbar" id="SelectedAnbar" name="SelectedAnbar" type="hidden" />
+
                                 <input id="inputallcolidServer" name="inputallcolidServer" type="hidden" />
                                 <input id="SelectedfiltersServer" name="SelectedfiltersServer" type="hidden" />
 
@@ -821,7 +827,7 @@
 
                                 </div>
                                 <script>
-                                   
+
                                     $("#addDescButt").click(function () {
                                         $("#descriptionUpload").click();
                                     })
@@ -858,10 +864,10 @@
 
                                     });
                                     var removeimg = function (newel) {
-                                        
+
                                         var id = newel.id;
-                                       
-                                        
+
+
                                         $.ajax({
                                             url: "/admin/deleteimageDesc",
                                             dataType: "html",
@@ -873,8 +879,8 @@
                                             }
                                         })
                                         var id = $(this).attr('id');
-                                    } 
-                                    
+                                    }
+
                                 </script>
                                 <label for="first-name" style="text-align: right">
                                     توضیحات :
@@ -1494,7 +1500,7 @@
                                 var itemName = $("#addItemToOrderInput").val();
                                 var baseCat = $("#baseCatList").val();
                                 var websiteCat = $("#webCatList").val();
-                            
+
                                 if (websiteCat != "") {
                                     if (itemName != '' || baseCat != '') {
                                         if (itemName != '') {
@@ -1509,7 +1515,7 @@
                                                 basecat: baseCat,
                                             },
                                             success: function () {
-                                               
+
                                             }
 
 
@@ -1577,7 +1583,7 @@
     dataType: 'html',
     data:
     {
-    page: item
+       page: item
     },
     success: function(data) {
 
@@ -1592,7 +1598,7 @@
     </script>
 }
 <script>
-    
+
 </script>
 
 
