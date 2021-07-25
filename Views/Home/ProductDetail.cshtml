@@ -650,6 +650,11 @@
                                                 <div style="display:inline-block;width:100%; direction:ltr; min-height:25px">
                                                     @if (Model.discount != "0")
                                                     {
+
+                                                        if (Model.wonderDiscount != "0")
+                                                        {
+                                                            Model.discount = Model.wonderDiscount;
+                                                        }
                                                         <h4 class="item_price" style="display: inline-block;  color: white; padding:5px 7px; border-radius:0% 35px 35px 35px; background-color:#ef3b3b;">  @Model.discount <i>% </i>    </h4>
                                                         <p style="display:inline-block; margin-bottom:5px; font-size:18px;"><del>@string.Format("{0:n0}", Convert.ToInt32(@Model.oldPrice))  </del></p>
 
