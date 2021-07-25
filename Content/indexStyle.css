@@ -247,7 +247,7 @@
   
 
     .indexbanner {
-        height: 180px !important;
+       
         padding: 5px !important;
     }
 
@@ -285,17 +285,13 @@
         direction: var(--titleDirection) !important;
     }
     .topHolder {
-        margin: 0 25px;
+        margin: 25px;
         display: flex;
         direction: rtl;
     }
 
    
 
-    .indexbanner {
-        height: 200px !important;
-       
-    }
 
     .imageholderindex {
         height: 220px !important;

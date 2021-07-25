@@ -1069,65 +1069,61 @@
 
         <div class="topHolder row" style="">
             <div class="slidesectionParent" style="">
-                <div class="slidesection">
-                    @if (Model.slides != null)
-                    {
-                        <div class=" indexbanner indexbannerMiddleR">
-                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                                <!-- Indicators -->
-                                <ol class="carousel-indicators">
-                                    @foreach (var item in Model.slides)
-                                                {
-                                                    string src = "/images/panelimages/" + item.image;
-                                                    var index = Model.slides.IndexOf(item);
-                                                    if (index == 0) 
-                                                    {
-                                            <li data - target="#myCarousel" data-slide-to="@index" class="active"></li>
-                                        }
-                                        else
-                                        {
-                                            <li data-target="#myCarousel" data-slide-to="@index"></li>
-                                        }
+                @if (Model.slides != null)
+                {
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @foreach (var item in Model.slides)
+                            {
+                                string src = "/images/panelimages/" + item.image;
+                                var index = Model.slides.IndexOf(item);
+                                if (index == 0)
+                                {
+                                    <li data - target="#myCarousel" data-slide-to="@index" class="active"></li>
+                                }
+                                else
+                                {
+                                    <li data-target="#myCarousel" data-slide-to="@index"></li>
+                                }
 
-                                    }
+                            }
 
-                                </ol>
-                                <!-- Wrapper for slides -->
-                                <div class="carousel-inner">
-                                    @foreach (var item in Model.slides)
-                                    {
-                                        string src = "/images/panelimages/" + item.image;
-                                        if (Model.slides.IndexOf(item) == 0)
-                                        {
-                                            <div class="item active">
-                                                <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="item ">
-                                                <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
-                                            </div>
-                                        }
+                        </ol>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @foreach (var item in Model.slides)
+                            {
+                                string src = "/images/panelimages/" + item.image;
+                                if (Model.slides.IndexOf(item) == 0)
+                                {
+                                    <div class="item active">
+                                        <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="item ">
+                                        <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
+                                    </div>
+                                }
 
-                                    }
-                                </div>
-                                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-
-                                <!-- Left and right controls -->
-                            </div>
+                            }
                         </div>
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+
+                        <!-- Left and right controls -->
+                    </div>
 
 
-                    }
-                </div>
+                }
             </div>
             <div class="bannerSectionPrent" style="">
                 <div class="bannerSection" style="width:100%; height:100%">
@@ -1147,7 +1143,7 @@
                     {
                         if (Model.banners[3].image != "")
                         {
-                            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 indexbanner indexbannerMiddleR" style="height:50%">
+                            <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 indexbanner indexbannerMiddleR " style="height:50%">
                                 <div class="imageparent">
                                     <img src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[3].image' class="banner bannerimage" id='@Model.banners[3].type-@Model.banners[3].catIDOrLink' />
                                 </div>
