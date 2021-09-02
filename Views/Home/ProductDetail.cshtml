@@ -1879,19 +1879,17 @@
 
                 //    }
                 //});
-                //toastr.options = {
-                //    "debug": false,
-                //    "positionClass": "toast-top-center",
-                //    "onclick": null,
-                //    "fadeIn": 300,
-                //    "fadeOut": 1000,
-                //    "timeOut": 5000,
-                //    "extendedTimeOut": 1000,
-
-
-                //}
-                //toastr.success('محصول مورد نظر به سبد اضافه شد')
-                window.location.href = "@Url.Action("checkout", "Home")";
+                toastr.options = {
+                    "debug": false,
+                    "positionClass": "toast-top-center",
+                    "onclick": null,
+                    "fadeIn": 300,
+                    "fadeOut": 1000,
+                    "timeOut": 5000,
+                    "extendedTimeOut": 1000,
+                }
+                toastr.success('محصول مورد نظر به سبد اضافه شد')
+                //window.location.href = "@Url.Action("checkout", "Home")";
             },
 
             error: function () {

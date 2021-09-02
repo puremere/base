@@ -96,6 +96,7 @@
 
                                     <th>جزئیات</th>
                                     <th>اقدامات</th>
+                                    <th>کد دلیور</th>
                                     <th>دلیور</th>
 
                                 </tr>
@@ -154,6 +155,9 @@
                                                         }
 
                                                     }
+                                                </td>
+                                                <td>
+                                                    @item.code
                                                 </td>
                                                 <td class="deliver" id="@item.ID" style="cursor:pointer">
                                                     @item.deliver
@@ -406,6 +410,9 @@
             success: function (data) {
 
                 $(".detailHolder").html(data);
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $(".detailHolder").offset().top
+                }, 1000);
 
             }
 

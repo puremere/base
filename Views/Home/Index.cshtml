@@ -416,9 +416,12 @@
 
                                 <div class="showmedetailx">
                                     <div style="padding:2px  ">
-                                        <div class="imageholderindex" style="width:100%; ">
-                                            <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
-                                        </div>
+                                        <a href="/Home/ProductDetail?id=@ID">
+                                            <div class="imageholderindex" style="width:100%; ">
+                                                <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                            </div>
+                                        </a>
+                                       
                                         <div class="titleholder" style=" ">
                                             @{
                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -668,9 +671,12 @@
                             <div class="item showmedetail" id=@ID style="cursor:pointer;  max-width:34%">
                                 <div class="showmedetailx">
                                     <div style="padding:2px  ">
-                                        <div class="imageholderindex" style="width:100%; ">
-                                            <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
-                                        </div>
+                                        <a href="/Home/ProductDetail?id=@ID">
+                                            <div class="imageholderindex" style="width:100%; ">
+                                                <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                            </div>
+                                        </a>
+                                      
                                         <div class="titleholder" style=" ">
                                             @{
                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -812,9 +818,12 @@
 
                                 <div class="showmedetailx">
                                     <div style="padding:2px  ">
-                                        <div class="imageholderindex" style="width:100%; ">
-                                            <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
-                                        </div>
+                                        <a href="/Home/ProductDetail?id=@ID">
+                                            <div class="imageholderindex" style="width:100%; ">
+                                                <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                            </div>
+                                        </a>
+                                       
                                         <div class="titleholder" style=" ">
                                             @{
                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -928,6 +937,7 @@
                         <div id="" class="resCarousel" data-items="3-4-4-4" data-slide="1" data-speed="500">
 
                             <div class="resCarousel-inner" style="direction:rtl">
+
                                 @foreach (var item in group.value)
                                 {
                                     string addID = "addtocarto" + item.ID;
@@ -947,9 +957,12 @@
 
                                         <div class="showmedetailx">
                                             <div style="padding:2px  ">
-                                                <div class="imageholderindex" style="width:100%; ">
-                                                    <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
-                                                </div>
+                                                <a href="/Home/ProductDetail?id=@ID">
+                                                    <div class="imageholderindex" style="width:100%; ">
+                                                        <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                                    </div>
+                                                </a>
+                                               
                                                 <div class="titleholder" style=" ">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1185,6 +1198,7 @@
 
                                         <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
                                             <div style="padding: 20px">
+                                                <a href="/Home/ProductDetail?id=@ID"></a>
                                                 <div class="imageholderindex">
                                                     <img class="imageitself" src="@src" />
                                                 </div>
@@ -1308,6 +1322,14 @@
                         <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
 
                             <div class="resCarousel-inner">
+                                <div id="/Home/ProductList?sortID=3" class="item watchall" style="cursor:pointer;height: 100%;box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);">
+                                    <div href="" style="width:100%;height:100%; display:flex; flex-direction:column; align-items:center;justify-content:center">
+                                        <span>
+                                            <i style="color:cornflowerblue; font-size:28px" class="fa fa-angle-left"></i>
+                                        </span>
+                                        <p style="padding:15px">مشاهده همه</p>
+                                    </div>
+                                </div>
                                 @foreach (var item in Model.specialOffers)
                                 {
                                     string addID = "addtocarto" + item.ID;
@@ -1327,9 +1349,13 @@
 
                                         <div class="showmedetailFirstDiv showmedetailx">
                                             <div style="padding:15px">
-                                                <div class="imageholderindex">
-                                                    <img class="imageitself" src="@src" />
-                                                </div>
+                                            
+                                                <a  href="/Home/ProductDetail?id=@ID">
+                                                    <div class="imageholderindex">
+                                                        <img class="imageitself" src="@src" />
+                                                    </div>
+                                                </a>
+                                              
                                                 <div class="titleholder">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1495,6 +1521,14 @@
                         <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
 
                             <div class="resCarousel-inner">
+                                <div id="/Home/ProductList?sortID=1" class="item watchall" style="cursor:pointer;height: 100%;box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);">
+                                    <div href="" style="width:100%;height:100%; display:flex; flex-direction:column; align-items:center;justify-content:center">
+                                        <span>
+                                            <i style="color:cornflowerblue; font-size:28px" class="fa fa-angle-left"></i>
+                                        </span>
+                                        <p style="padding:15px">مشاهده همه</p>
+                                    </div>
+                                </div>
                                 @foreach (var item in Model.newest)
                                 {
                                     string addID = "addtocarto" + item.ID;
@@ -1514,9 +1548,12 @@
 
                                         <div class="showmedetailFirstDiv showmedetailx">
                                             <div style="padding:15px">
-                                                <div class="imageholderindex">
-                                                    <img class="imageitself" src="@src" />
-                                                </div>
+                                                <a href="/Home/ProductDetail?id=@ID">
+                                                    <div class="imageholderindex">
+                                                        <img class="imageitself" src="@src" />
+                                                    </div>
+                                                </a>
+                                                
                                                 <div class="titleholder">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1671,6 +1708,14 @@
                         <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
 
                             <div class="resCarousel-inner">
+                                <div id="/Home/ProductList?sortID=2" class="item watchall"  style="cursor:pointer;height: 100%;box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);">
+                                    <div href="" style="width:100%;height:100%; display:flex; flex-direction:column; align-items:center;justify-content:center">
+                                        <span>
+                                            <i style="color:cornflowerblue; font-size:28px" class="fa fa-angle-left"></i>
+                                        </span>
+                                        <p style="padding:15px">مشاهده همه</p>
+                                    </div>
+                                </div>
                                 @foreach (var item in Model.bestseller)
                                 {
                                     string addID = "addtocarto" + item.ID;
@@ -1690,9 +1735,12 @@
 
                                         <div class="showmedetailFirstDiv showmedetailx">
                                             <div style="padding:15px">
-                                                <div class="imageholderindex">
-                                                    <img class="imageitself" src="@src" />
-                                                </div>
+                                                <a href="/Home/ProductDetail?id=@ID">
+                                                    <div class="imageholderindex">
+                                                        <img class="imageitself" src="@src" />
+                                                    </div>
+                                                </a>
+                                                
                                                 <div class="titleholder">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1775,6 +1823,7 @@
 
 
 
+
                             </div>
                             <button class='btn btn-default leftRs'><</button>
                             <button class='btn btn-default rightRs'>></button>
@@ -1802,6 +1851,14 @@
                                 <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
 
                                     <div class="resCarousel-inner">
+                                        <div id="/Home/ManageSlide?val= @id" class="item watchall" style="cursor:pointer;height: 100%;box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);">
+                                            <div href="" style="width:100%;height:100%; display:flex; flex-direction:column; align-items:center;justify-content:center">
+                                                <span>
+                                                    <i style="color:cornflowerblue; font-size:28px" class="fa fa-angle-left"></i>
+                                                </span>
+                                                <p style="padding:15px">مشاهده همه</p>
+                                            </div>
+                                        </div>
                                         @foreach (var item in group.value)
                                         {
                                             string addID = "addtocarto" + item.ID;
@@ -1821,9 +1878,12 @@
 
                                                 <div class="showmedetailFirstDiv showmedetailx">
                                                     <div style="padding:15px">
-                                                        <div class="imageholderindex">
-                                                            <img class="imageitself" src="@src" />
-                                                        </div>
+                                                        <a href="/Home/ProductDetail?id=@ID">
+                                                            <div class="imageholderindex">
+                                                                <img class="imageitself" src="@src" />
+                                                            </div>
+                                                        </a>
+
                                                         <div class="titleholder">
                                                             @{
                                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -2021,8 +2081,13 @@
 
 
     });
+    $(".watchall").height($(".showmedetail").height() -5)
 
-
+    $(".watchall").click(function () {
+        
+        window.location.href = this.id 
+       
+    })
 
 
 </script>

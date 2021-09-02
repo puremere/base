@@ -594,6 +594,32 @@
 
                     });
                 }
+                else if (data == 500) {
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('موجودی کیف پول کافی نیست');
+                }
+                else if (data == 300) {
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 5000,
+                        "extendedTimeOut": 1000
+                    }
+
+                    toastr.error('تعداد انبار کافی نیست');
+                }
             }
 
         })
