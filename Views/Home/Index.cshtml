@@ -2081,7 +2081,12 @@
 
 
     });
-    $(".watchall").height($(".showmedetail").height() -5)
+
+    $(".watchall").each(function () {
+        var hi = $(this).parent().find(".showmedetailFirstDiv").height();
+
+        $(this).height(hi - 5);
+    })
 
     $(".watchall").click(function () {
         
