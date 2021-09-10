@@ -256,9 +256,12 @@
 
                                     <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
                                         <div style="padding: 20px">
-                                            <div class="imageholderindex">
-                                                <img class="imageitself" src="@src" />
-                                            </div>
+                                            <a href="/Home/ProductDetail?id=@ID">
+                                                <div class="imageholderindex">
+                                                    <img class="imageitself" src="@src" />
+                                                </div>
+                                            </a>
+                                            
                                             <div class="">
                                                 @{
                                                     if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1110,13 +1113,13 @@
                                 string src = "/images/panelimages/" + item.image;
                                 if (Model.slides.IndexOf(item) == 0)
                                 {
-                                    <div class="item active">
+                                    <div class=" item active">
                                         <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
                                     </div>
                                 }
                                 else
                                 {
-                                    <div class="item ">
+                                    <div class=" item ">
                                         <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
                                     </div>
                                 }
@@ -1198,10 +1201,12 @@
 
                                         <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
                                             <div style="padding: 20px">
-                                                <a href="/Home/ProductDetail?id=@ID"></a>
+                                                <a href="/Home/ProductDetail?id=@ID">
                                                 <div class="imageholderindex">
                                                     <img class="imageitself" src="@src" />
                                                 </div>
+                                                </a>
+                                                
                                                 <div class="">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -2164,12 +2169,12 @@
     <script>
 
         $(".carousel").on("swipeleft", function () {
-
+            console.log("ss");
             $(this).carousel('next')
         });
 
         $(".carousel").on("swiperight", function () {
-
+            console.log("dd");
             $(this).carousel('prev')
         });
     </script>
