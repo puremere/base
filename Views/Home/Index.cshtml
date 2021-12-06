@@ -1403,10 +1403,13 @@
                                                             {
                                                                 <div style="display:flex; align-items:center; margin-top:40px">
                                                                     <div style="width:20%;margin-right:5px">
-                                                                        <span style="color: white;font-size:18px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px 10px;">
-                                                                            @item.discount%
+                                                                        @if (@item.discount != "0")
+                                                                        {
+                                                                            <span style="color: white;font-size:18px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px 10px;">
+                                                                                @item.discount%
+                                                                            </span>
+                                                                        }
 
-                                                                        </span>
                                                                     </div>
                                                                     <div style="flex:1">
                                                                         <div>

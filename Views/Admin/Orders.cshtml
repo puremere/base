@@ -17,7 +17,6 @@
             }
 
         td {
-           
             padding: 15px;
             text-align: center
         }
@@ -31,6 +30,19 @@
 
     <link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
+
+    <script src="~/Scripts/jquery.md.bootstrap.datetimepicker.js"></script>
+    <link href="~/Content/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
+
+    <script type="text/javascript">
+        $('#date3-1').MdPersianDateTimePicker({
+            targetTextSelector: '#inputDate3-1',
+            monthsToShow: [1, 1],
+            selectedDate: new Date(2020, 6, 20),
+            selectedRangeDate: [new Date(2020, 6, 20), new Date(2020, 7, 10)],
+            rangeSelector: true
+        });
+    </script>
 }
 
 
@@ -109,16 +121,31 @@
                     <input style="width:70%; display:inline-block" class="form-control" id="searchText" />
                 </div>
                 <div class="col-lg-2">
+                    <p class="btn btn-success" style="display:inline-block" id="moreFilter"> فیلتر بیشتر</p>
+                    <p class="btn btn-success" style="display:none" id="lessFilter"> فیلتر کمتر</p>
+                </div>
+
+                <div class="col-lg-2">
                     <p class="btn btn-success" style="display:inline-block" id="orderFormSearch"> تایید</p>
 
                 </div>
 
-               
+
             </div>
-           
+
+
+            @*<div class="row " style="margin:40px 0px">
+                <div>
+                    <div class="">
+                        <p style="display:inline-block">تاریخ سفارش از :</p>
+                        <input style="display:inline-block" class="form-control" id="searchText" />
+                    </div>
+                </div>
+            </div>*@
+
             <p class="ORDERBUTT" style="display:none" id="dataOrder">11</p>
             <div id="OrderTableHolder">
-               
+
             </div>
             <script>
                 var getlofo = function (page) {
@@ -147,7 +174,7 @@
 
 
                     });
-                   
+
                 }
                 $("#orderFormSearch").click(function () {
                     $("#loading").show();
@@ -295,4 +322,16 @@
 </div>
 
 
+
+
+<script>
+    $("#moreFilter").click(function () {
+        $(this).hide();
+        $("#lessFilter").show();
+    })
+    $("#lessFilter").click(function () {
+        $(this).hide();
+        $("#moreFilter").show();
+    })
+</script>
 
