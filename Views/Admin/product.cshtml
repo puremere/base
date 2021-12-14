@@ -772,7 +772,7 @@
                                     تعداد :
                                 </label>
                                 <div>
-                                    <input value="-1" type="text" id="productCount" name="productCount" required="required" class="form-control col-md-7 col-xs-12">
+                                    <input value="0" type="text" id="productCount" name="productCount" required="required" class="form-control col-md-7 col-xs-12">
                                 </div>
                             </div>
                             <div class="row fieldholder col-lg-3" style="float:right">
@@ -790,7 +790,7 @@
                                         else
                                         {
                                             <div>
-                                                <input type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input value="10" type="text" id="productunit" name="productunit" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         }
                                     }
@@ -811,7 +811,7 @@
                                         else
                                         {
                                             <div>
-                                                <input type="text" id="productlimit" name="productlimit" required="required" class="form-control col-md-7 col-xs-12">
+                                                <input value="1000" type="text" id="productlimit" name="productlimit" required="required" class="form-control col-md-7 col-xs-12">
                                             </div>
                                         }
                                     }
@@ -1155,18 +1155,18 @@
                                             //if (color == "") {
                                             //
                                             //}
-                                            if (count == "0") {
-                                                toastr.options = {
-                                                    "debug": false,
-                                                    "positionClass": "toast-top-center",
-                                                    "onclick": null,
-                                                    "fadeIn": 300,
-                                                    "fadeOut": 1000,
-                                                    "timeOut": 5000,
-                                                    "extendedTimeOut": 1000
-                                                }
-                                                toastr.error('تعداد محصول نباید صفر باشد')
-                                            }
+                                            //if (count == "0") {
+                                            //    toastr.options = {
+                                            //        "debug": false,
+                                            //        "positionClass": "toast-top-center",
+                                            //        "onclick": null,
+                                            //        "fadeIn": 300,
+                                            //        "fadeOut": 1000,
+                                            //        "timeOut": 5000,
+                                            //        "extendedTimeOut": 1000
+                                            //    }
+                                            //    toastr.error('تعداد محصول نباید صفر باشد')
+                                            //}
                                             if (name == "") {
                                                 toastr.options = {
                                                     "debug": false,
