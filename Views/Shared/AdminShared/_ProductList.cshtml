@@ -1,14 +1,10 @@
 ﻿@model AdminPanel.ViewModel.oderdetaillist
 @*@model PagedList.IPagedList<AdminPanel.ViewModel.orderdetail>*@
-
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
-
 @{
     ViewBag.Title = "لیست محصولات";
 }
-
-
 
 
 @*@using (Html.BeginForm("Index", "Student", FormMethod.Get))
@@ -18,7 +14,6 @@
             <input type="submit" value="Search" />
         </p>
     }*@
-
 @{
 
 
@@ -26,7 +21,6 @@
     <p style="display:none" id="modalValue"></p>
     <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
             <!-- Modal content-->
             <div class="modal-content">
                 @*<div class="modal-header">
@@ -92,7 +86,7 @@
                                             }
                                         });
                                     }
-                                    
+
 
                                 },
                                 error: function () {
@@ -102,13 +96,172 @@
                         })
 
                     </script>
-
                 </div>
             </div>
-
         </div>
     </div>
-    if (Model.data == null )
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                @*<div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Modal Header</h4>
+                    </div>*@
+                <div class="modal-body">
+                    <p id="modalmessage">آیا از حذف محصول اطمینان دارید</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin:7px;">خیر</button>
+                    <button id="confirmdelete" type="button" class="btn btn-default" data-dismiss="modal" style="margin: 7px;">بله</button>
+                    <script>
+                        $("#confirmdelete").click(function () {
+                            $("#myModal").modal('hide');
+                            var id = $("#modalValue").text();
+                            $.ajax({
+                                url: '/Admin/Delete',
+                                dataType: 'html',
+                                data: {
+                                    id: id,
+                                },
+                                success: function (data) {
+                                    if (data == "error") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('محصول مورد نظر دارای گردش میباشد')
+                                    }
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.success('محصول مورد نظر حذف شد')
+                                        var value = $("#listofproduct").val();
+                                        var partner = $("#partnerList").val();
+                                        $.ajax({
+                                            url: '/Admin/GetTheListOfItems',
+                                            dataType: 'html',
+                                            data: {
+                                                value: value,
+                                                partner: partner
+                                            },
+                                            success: function (data) {
+
+                                                $('#listholder').html(data);
+                                                $('#listholder').css("display", "block");
+                                            },
+                                            error: function () {
+                                                alert("nashod")
+                                            }
+                                        });
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        })
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="repeatOrder" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                @*<div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title">Modal Header</h4>
+                    </div>*@
+                <div class="modal-body">
+                    <p id="modalmessage">آیا از حذف محصول اطمینان دارید</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="margin:7px;">خیر</button>
+                    <button id="confirmdelete" type="button" class="btn btn-default" data-dismiss="modal" style="margin: 7px;">بله</button>
+                    <script>
+                        $("#confirmdelete").click(function () {
+                            $("#myModal").modal('hide');
+                            var id = $("#modalValue").text();
+                            $.ajax({
+                                url: '/Admin/Delete',
+                                dataType: 'html',
+                                data: {
+                                    id: id,
+                                },
+                                success: function (data) {
+                                    if (data == "error") {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.error('محصول مورد نظر دارای گردش میباشد')
+                                    }
+                                    else {
+                                        toastr.options = {
+                                            "debug": false,
+                                            "positionClass": "toast-top-center",
+                                            "onclick": null,
+                                            "fadeIn": 300,
+                                            "fadeOut": 1000,
+                                            "timeOut": 5000,
+                                            "extendedTimeOut": 1000
+                                        }
+                                        toastr.success('محصول مورد نظر حذف شد')
+                                        var value = $("#listofproduct").val();
+                                        var partner = $("#partnerList").val();
+                                        $.ajax({
+                                            url: '/Admin/GetTheListOfItems',
+                                            dataType: 'html',
+                                            data: {
+                                                value: value,
+                                                partner: partner
+                                            },
+                                            success: function (data) {
+
+                                                $('#listholder').html(data);
+                                                $('#listholder').css("display", "block");
+                                            },
+                                            error: function () {
+                                                alert("nashod")
+                                            }
+                                        });
+                                    }
+
+
+                                },
+                                error: function () {
+                                    alert("nashod")
+                                }
+                            });
+                        })
+
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div> if (Model.data == null)
     {
         <p style="text-align:center">موردی وجود ندارد</p>
     }
@@ -140,15 +293,14 @@
                                             <th>
                                                 رنگ
                                             </th>
-
                                             <th>
                                                 تعداد
                                             </th>
                                             <th>
-                                                 فعال
+                                                فعال
                                             </th>
                                             <th>
-                                               موجود
+                                                موجود
                                             </th>
                                             <th>
                                                 پرفروش
@@ -157,10 +309,10 @@
                                                 پیشنهاد ویژه
                                             </th>
                                             <th>
-
                                             </th>
                                             <th>
-
+                                            </th>
+                                            <th>
                                             </th>
                                         </tr>
                                     </thead>
@@ -178,7 +330,6 @@
                                             <td>
                                                 <div style="width:20px; height:20px ; border-radius:50%; background-color:@color; border:1px solid #ddd"></div>
                                             </td>
-
                                             <td style="text-align: center;">
                                                 @{
 
@@ -197,7 +348,6 @@
                                                     }
 
                                                 }
-
                                             </td>
                                             <td style="text-align: center;">
                                                 @if (item.isActive == "1")
@@ -235,7 +385,6 @@
                                                     }
 
                                                 }
-
                                             </td>
                                             <td style="text-align: center;">
                                                 @{
@@ -251,10 +400,8 @@
                                                     }
 
                                                 }
-
                                             </td>
                                             <td>
-
                                                 @* @Html.ActionLink("ویرایش", "Edit", new { id = item.ID }, new { style = "background-color: #246388;padding: 5px;color: #fff;border-radius: 5px;" }) |*@
                                                 @{
                                                     var editclassname = "editproduct" + item.ID;
@@ -285,8 +432,6 @@
                                                     </script>
                                                 }
 
-
-
                                             </td>
                                             <td>
                                                 @{
@@ -303,7 +448,21 @@
                                                     </script>
                                                 }
                                             </td>
+                                            <td>
+                                                @{
+                                                    var classname2 = "cloneOrder" + item.ID;
+                                                    <a data-toggle="modal" data-target="#myModal" id=@item.ID class="btn btn-primary @classname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
+                                                    <script>
+                                                        var classname = "cloneOrder" + @item.ID
 
+                                                            $("." + classname).click(function () {
+                                                                $("#modal2Value").text(this.id);
+
+
+                                                            });
+                                                    </script>
+                                                }
+                                            </td>
                                             <td>
                                                 @{
                                                     if (item.serverRowID != null)
@@ -330,11 +489,8 @@
                                         </tr>
                                         }
 
-
-
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
@@ -476,14 +632,12 @@
                 if ((total - activ) > 3 & activ > 3)
                 {
                     <ul class="pagination">
-
                         <li><a>«</a></li>
                         <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
                         @if (activminus2 > 2)
                         {
                             <li><a>...</a></li>
                         }
-
                         <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
                         <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
                         <li class="active"><a>@activ</a></li>
@@ -497,8 +651,7 @@
                 else if ((total - activ > 3) && !(activ > 3))
                 {
                     <ul class="pagination">
-
-                        @for (int i = 1; i <activ; i++)
+                        @for (int i = 1; i < activ; i++)
                         {
                             <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
                         }
@@ -514,7 +667,6 @@
                 else if (!(total - activ > 3) && activ > 3)
                 {
                     <ul class="pagination">
-
                         <li><a>«</a></li>
                         <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
                         <li><a>...</a></li>
@@ -533,8 +685,7 @@
                 {
 
                     <ul class="pagination">
-
-                        @for (int i = 1; i <activ; i++)
+                        @for (int i = 1; i < activ; i++)
                         {
                             <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
                         }
@@ -543,13 +694,11 @@
                         {
                             <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
                         }
-
                     </ul>
 
                 }
 
             }
-
             <script>
                 $(".pagingnumberforall").click(function () {
 
@@ -579,7 +728,6 @@
 
             </script>
 
-
         </div>
 
         @*@Html.PagedListPager(Model, page => Url.Action("product", new { page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "listholder" }))*@
@@ -587,5 +735,4 @@
 
     }
 }
-
 
