@@ -126,7 +126,7 @@
 @{
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w < 720 && h > w))
+    if (Request.Browser.IsMobileDevice || (w < 820 && h > w))
     {
        
         <link href="~/Content/owl.carousel.min.css" rel="stylesheet" />
@@ -1325,7 +1325,7 @@
                     <div class="SECTIONHOLDER">
                         <div class="o-headline"><span>@Html.ActionLink("پیشنهادهای ویژه", "ProductList", new { sortID = 3 }, new { style = " color: #808080;" }) </span></div>
 
-                        <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
+                        <div id="bestholder" class="resCarousel " data-items="3-5-5-5" data-slide="1" data-speed="500">
 
                             <div class="resCarousel-inner">
                                 <div id="/Home/ProductList?sortID=3" class="item watchall" style="cursor:pointer;height: 100%;box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);">
@@ -2014,7 +2014,7 @@
     .imageholderindex img {
         object-fit: scale-down;
         width: 100%;
-        max-height: 260px;
+        max-height: 100%;
     }
 </style>
 <script>
@@ -2097,18 +2097,20 @@
 
     });
 
-    $(".watchall").each(function () {
-        var hi = $(this).parent().find(".showmedetailFirstDiv").height();
 
-        $(this).height(hi - 5);
+    $(document).ready(function () {
+        $(".watchall").each(function () {
+            $(this).height($(this).siblings(".showmedetail").height())
+        })
     })
 
     $(".watchall").click(function () {
+
         
         window.location.href = this.id 
        
     })
-
+   
 
 </script>
 

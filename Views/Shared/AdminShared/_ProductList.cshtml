@@ -1,5 +1,5 @@
-﻿@model AdminPanel.ViewModel.oderdetaillist
-@*@model PagedList.IPagedList<AdminPanel.ViewModel.orderdetail>*@
+﻿@model banimo.AdminPanelBoom.ViewModel.oderdetaillistNew
+@*@model PagedList.IPagedList<AdminPanelBoom.ViewModel.orderdetail>*@
 @using PagedList.Mvc;
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 @{
@@ -448,10 +448,10 @@
                                                     </script>
                                                 }
                                             </td>
-                                            <td>
+                                            @*<td>
                                                 @{
                                                     var classname2 = "cloneOrder" + item.ID;
-                                                    <a data-toggle="modal" data-target="#myModal" id=@item.ID class="btn btn-primary @classname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a> @*@Html.ActionLink("حذف", "Delete", new { id = item.ID })*@
+                                                    <a data-toggle="modal" data-target="#myModal" id=@item.ID class="btn btn-primary @classname" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a> 
                                                     <script>
                                                         var classname = "cloneOrder" + @item.ID
 
@@ -485,7 +485,7 @@
 
                                                     })
                                                 </script>
-                                            </td>
+                                            </td>*@
                                         </tr>
                                         }
 

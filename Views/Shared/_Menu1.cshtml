@@ -1,0 +1,219 @@
+﻿@model banimo.ViewModel.MyCollectionOfCatsList
+@section scripts{
+}
+
+<style>
+
+    .mainForParent {
+        background-color: #f6f5f5;
+    }
+
+    .parentItem {
+        padding: 5px;
+        display: inline-block;
+        padding: 30px;
+        background-color: #eee;
+        cursor: pointer;
+    }
+
+    .mainForParent .actv {
+        background-color: #4d4d4d;
+        color: white;
+    }
+
+    .parentItem:hover {
+        background-color: #808080;
+        color: white
+    }
+</style>
+<link href="~/fonts/icomoon/style.css" rel="stylesheet" />
+<link href="~/Content/style0.css" rel="stylesheet" />
+@{
+
+
+    if (Model.catsParents != null)
+    {
+        <div class="mainForParent" style="text-align:right ; direction:rtl">
+            @foreach (var item in Model.catsParents)
+            {
+                int index = Model.catsParents.IndexOf(item);
+                if (index == 0)
+                {
+                    <div class="parentItem actv " id=" @item.ID" style="">
+                        <p class="catparent">@item.title</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="parentItem " id=" @item.ID" style="">
+                        <p class="catparent">@item.title</p>
+                    </div>
+                }
+
+            }
+            <script>
+                $(".parentItem").click(function () {
+                    var id = $(this).attr("id");
+
+                })
+            </script>
+        </div>
+
+    }
+
+
+
+    <div class="site-navbar" role="banner">
+
+        <div class="container" style="margin:0 10px">
+            <div class="row align-items-center">
+
+
+                <div class="col-12 col-md-12 d-none d-xl-block">
+                    <nav class="site-navigation position-relative text-right" role="navigation">
+
+
+
+
+
+                        <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block">
+                            <li class="active"><a href="@Url.Action("Index", "Home")"><span>خانه</span></a></li>
+
+                            @{
+                                if (Model.catsdata.First().mycatcollection != null)
+                                {
+                                    foreach (var cat in Model.catsdata.First().mycatcollection)
+                                    {
+                                        string srtcat = "";
+                                        string subsrtcat = "";
+                                        string subsrtcat2 = "";
+
+                                        if (cat.IsFinal == "1")
+                                        {
+                                            srtcat = "1" + cat.ID;
+                                            <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtcat, value =  @cat.title})"><span>@cat.title</span></a></li>
+                                        }
+                                        else
+                                        {
+                                            string pID = "P" + cat.parentID;
+                                            srtcat = "1" + cat.ID;
+                                            int finalint = 0;
+                                            <li class="has-children">
+                                                <a href=""><span>@cat.title</span></a>
+                                                @if (Model.catsdata.First().mysubcatcollection != null)
+                                                {
+                                                <ul class="dropdown arrow-top">
+
+
+                                                    @foreach (var SB in Model.catsdata.First().mysubcatcollection)
+                                                    {
+                                                        if (SB.CatID == cat.ID)
+                                                        {
+                                                            if (SB.IsFinal == "1")
+                                                            {
+                                                                string srtsubcat = "2" + SB.ID;
+                                                                <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtsubcat, value =  @cat.title})">@SB.title</a></li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li class="has-children">
+                                                                    <a href="#">@SB.title</a>
+                                                                    <ul class="dropdown">
+                                                                        @if (Model.catsdata.First().mysubcatcollection2 != null)
+                                                                        {
+                                                                            foreach (var SB2 in Model.catsdata.First().mysubcatcollection2)
+                                                                            {
+                                                                                if (SB2.subcatid == SB.ID)
+                                                                                {
+                                                                                    subsrtcat2 = "3" + SB2.ID;
+
+                                                                                    <li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
+                                                                                }
+                                                                            }
+                                                                        }
+
+
+                                                                    </ul>
+                                                                </li>
+                                                            }
+                                                        }
+
+
+                                                    }
+                                                </ul>
+
+                                                }
+                                                
+                                            </li>
+                                        }
+                                    }
+                                }
+                            }
+                            
+                        </ul>
+                    </nav>
+                </div>
+
+
+                <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#" class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script>
+
+        $('#back').click(function () {
+
+            if ($(window).width() < 960) {
+                $("#main-nav").hide(500);
+                $("body").css("overflow", "scroll");
+            }
+            else {
+
+            }
+
+        });
+        //$("li .li").hover(function () {
+        //    $(this).parent().siblings().css("border-bottom", "3px red solid");
+
+        //}, function () {
+        //    $(this).parent().siblings().css("border-bottom", "");
+        //}
+        //);
+    </script>
+    if (@Model.catsParents != null)
+    {
+        <script>
+        var id ="P"+@Model.catsParents.First().ID
+            $(".catItem").css("display", "none");
+            $("." + id).css("display", "block");
+            $(".parentItem").click(function () {
+                var thidid = "P" + $(this).attr('id');
+                $(".catItem").css("display", "none");
+                $("." + thidid).css("display", "block");
+            })
+
+        </script>
+
+
+    }
+    <script>
+        $(".catItem").hover(function () {
+            $(this).css("position", "unset");
+            $(this).find('ul').css('display', "flex");
+
+
+        }
+            , function () {
+                $(this).css("position", "relative");
+                $(this).find('ul').css('display', "none");
+            }
+        )
+    </script>
+
+}

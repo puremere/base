@@ -1,0 +1,1273 @@
+﻿@*this is test comment*@
+@using System.Text.RegularExpressions;
+<!DOCTYPE html>
+<html lang="en">
+@{
+
+
+
+
+    string logo = TempData["logo"] as string;
+    string phone = TempData["phone"] as string;
+    string analyticID = TempData["analyticID"] as string;
+    TempData.Keep("phone");
+    TempData.Keep("logo");
+    TempData.Keep("analyticID");
+
+    int w = Request.Browser.ScreenPixelsWidth;
+    int h = Request.Browser.ScreenPixelsHeight;
+    if (Request.Browser.IsMobileDevice || (w < 820 && h > w)) 
+
+    //string u = Request.ServerVariables["HTTP_USER_AGENT"];
+    //Regex b = new Regex(@"(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+    //Regex v = new Regex(@"1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-", RegexOptions.IgnoreCase | RegexOptions.Multiline);
+    //if ((b.IsMatch(u) || v.IsMatch(u.Substring(0, 4))))
+
+    {
+<head>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+    <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+
+                gtag('config', '@analyticID');
+    </script>
+
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+
+    <title>@ViewBag.Title </title>
+
+
+    <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
+    <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
+    <meta http-equiv="content-language" content="fa" />
+
+    @{
+        string favsrt = @System.Configuration.ConfigurationManager.AppSettings["domain"] + "/fav.ico";
+        <link rel="icon" type="image/ico" href="@favsrt">
+    }
+    <!-- Mobile Specific Metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" sizes="192x192" href="nice-highres.png">
+
+
+    @RenderSection("HeadIncludes", required: false)
+    @Styles.Render("~/Content/css")
+
+
+
+
+    <link href="~/Content/bundle.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/jquery.flexslider2.js"></script>
+    <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+    <script src="~/Scripts/imagezoom.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    @RenderSection("header", required: false)
+
+    <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
+    <style>
+        .menuparentsection {
+            font-size: 13px;
+            color: #f6f5f5;
+            background-color: #656565;
+            padding-right: 0px;
+            border-bottom: 2px solid black
+        }
+
+        #loading {
+            align-content: center;
+            background: #fff;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999999;
+            opacity: 1;
+            margin: 0 auto;
+        }
+    </style>
+    <script src="~/Scripts/toastr.js"></script>
+    <link href="~/Content/toastr.css" rel="stylesheet" />
+
+</head>
+        <body>
+            <div id="loading" style="display:none">
+                <div style="padding:15px 35px; background-color:white;position:fixed;overflow: visible;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
+                    <img style="max-width:80px; display:block; margin:auto" src="~/images/@logo" />
+                    <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
+                </div>
+            </div>
+
+
+            @{
+                banimo.ViewModel.userdata userApp = Session["LogedInUser"] as banimo.ViewModel.userdata;
+            }
+            <!-- header-bot -->
+            <div class="header-bot" style="">
+                <div class="" style="direction:rtl; width:100%">
+                    <div >
+                        <div class="" style="width: 100%;display:flex;align-content:center; padding:5px 0 5px 5px;">
+                            <div id="barsformenu" class="col-sm-6 col-xs-6" style=" padding: 0px;padding-top: 0px;">
+                                <i class="fa fa-bars toolbarText"></i>
+                                <p class="toolbarText" style="display:inline-block;margin-right: 5px;">@System.Configuration.ConfigurationManager.AppSettings["siteName"]</p>
+                            </div>
+                            <div class="col-sm-6 col-xs-6" style="padding: 0;">
+
+                                <a href="/Home/checkout">
+                                    <p class="cartnumber simpleCart_quantityy" id="simpleCart_quantityy" style="border-radius: 50%;background-color:white;color:black;display: flex;position: absolute;left: 15px;padding: 0px 5px;align-items: center;justify-content: center;"></p>
+                                    <i class="fa fa-shopping-cart toolbarText" style="min-width: 35px;display:inline-block;float: left;"></i>@*<img  src="/images/cart.png">*@
+                                </a>
+                                @if (userApp != null)
+                                {
+                                    <a href="/Home/myprofile?type=1">
+                                        <i class="userButt fa fa-user toolbarText" style=" min-width: 27px;display:inline-block;float: left;"></i>
+                                    </a>
+
+                                }
+                                <i class="searchButt fa fa-search toolbarText" style=" min-width:35px;display:inline-block;float: left;"></i>
+                                @*<img class="searchButt toolbarText" src="/images/search.png" style="">*@
+                            </div>
+                            <script>
+                                $("#barsformenu").click(function () {
+
+                                    $("#barmenu").css("display", "block")
+                                    $("#barmenu").animate({
+                                        'margin-right': '0px'
+                                    }, function () {
+                                        $("#barmenu").css("background-color", "rgba(0, 0, 0, 0.2)")
+                                    });
+
+                                    $("body").css("overflow", "hidden");
+                                })
+                            </script>
+                        </div>
+
+                    </div>
+
+                    <style>
+
+                        #searchinput {
+                            border: none;
+                        }
+
+                            #searchinput:focus, #searchinput:focus {
+                                outline: none;
+                            }
+
+                        #barmanuholder a div span {
+                            font-size: 11px;
+                            font-weight: 400;
+                            color: black
+                        }
+
+                        #barmanuholder div span {
+                            font-size: 11px;
+                            font-weight: 400;
+                            color: black
+                        }
+                    </style>
+                    <div id="barmenu" style="display:none; height: 100%; width : 100% ;display:none; position: fixed;top: 0;z-index: 999999999;background-color:rgba(0, 0, 0, 0);right: 0;">
+                        <div id="barmanuholder" style="position:relative; overflow-y:scroll; width:65% ; background-color:white; float:right; height:100%; ">
+                            @{
+
+
+                                if (userApp != null)
+                                {
+                                    string name = userApp.fullname != "" ? userApp.fullname : userApp.phone;
+
+                                    <div class="menuAppHeader toolbarText" style="direction: rtl;padding: 15px;">
+                                        <a href="/Home/myprofile?type=1">
+                                            <i class="fal fa-user " style=" margin-left:10px; vertical-align:middle; color:white"></i> <span class="" style="color:white">@name</span>
+                                        </a>
+                                    </div>
+                                    <div class="menuAppHeader" style="direction: rtl;padding: 5px 15px 20px 5px;background-color: #E1A52B">
+
+                                        <a href="/CustomerLogin/LogOff">
+                                            <i class="fal fa-sign-out " style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white" class="">خروج</span>
+                                        </a>
+                                    </div>
+
+                                }
+                                else
+                                {
+                                    <a href="/Home/Login">
+                                        <div class="menuAppHeader" style="direction: rtl;padding: 15px;color: white;">
+
+                                            <i class="fal fa-sign-in" style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white">عضویت و ورود</span>
+                                        </div>
+                                    </a>
+                                }
+                            }
+                            <a href="/Home/Index">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right; direction:ltr">
+                                    <span>خانه</span> <i class="fal fa-home" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
+                                </div>
+                            </a>
+                            <a href="/Home/checkout">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right;direction:ltr">
+                                    <span>سبد خرید</span> <i class="fal fa-shopping-cart" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
+                                </div>
+                            </a>
+                            <div class="searchButt" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right;direction:ltr">
+                                <span>جستجو</span> <i class="fal fa-search" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
+                            </div>
+                            <div style="width:100%; border:1px solid #ddd"></div>
+                            <div style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right;direction:ltr">
+                                <a href="/Home/mag">
+                                    <span>مقالات</span> <i class="fal fa-file" style="font-weight:500;color:black; margin-left:10px; vertical-align:middle"></i>
+                                </a>
+
+                            </div>
+                            <div style="width:100%; border:1px solid #ddd"></div>
+                            <a href="/Home/ProductList?sortID=3">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
+                                    <span>پیشنهاد های ویژه @System.Configuration.ConfigurationManager.AppSettings["siteName"] </span>
+                                </div>
+                            </a>
+                            <a href="/Home/ProductList?sortID=2">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
+                                    <span>پرفروش ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span>
+                                </div>
+                            </a>
+                            <a href="/Home/ProductList?sortID=7">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
+                                    <span>بیشترین تخفیف ها @System.Configuration.ConfigurationManager.AppSettings["siteName"]</span>
+                                </div>
+                            </a>
+                            <a href="/Home/ProductList?sortID=1">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
+                                    <span>جدید ترین های @System.Configuration.ConfigurationManager.AppSettings["siteName"] </span>
+                                </div>
+                            </a>
+                            <div style="width:100%; border:1px solid #ddd"></div>
+                            <a href="@Url.Action("aboutus", "Home")">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
+                                    <span> درباره ما</span>
+                                </div>
+                            </a>
+                            <a id="contactUsButt">
+                                <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
+                                    <span>تماس با ما</span>
+                                </div>
+                            </a>
+                            <div style="width:100%;    text-align: center; position:absolute ; bottom:5px">
+                                <a href="http://www.supect.com"><img src="~/images/supect.png" style=" width:75px; margin:0 auto;" /></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="searchdiv" style="display:none; height: 100%; width : 100% ;display:none; position: fixed;top: 0;z-index: 99999;background-color:white;right: 0;">
+                        <div class="SearchReturnButt">
+                            <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                            <span style=" margin-right: 15px;font-size:15px">جستجو</span>
+                        </div>
+                        <form id="searchpanel" action="~/Home/ProductList">
+                            <div style="text-align:center; margin:20px 0;font-size: 11px;"><p>لطفا عبارت مورد نظر خود را برای جستجو وارد کنید</p></div>
+                            <div class="inputHolder"><i class="fal fa-search" style="margin-left:10px; font-weight:600 "></i><input name="newquery" style="text-align:right; direction:rtl" id="searchinput" type="text" placeholder="جستجو ..." /></div>
+                            <div type="submit" id="searchActButt" style="position:absolute; bottom:0px ; padding:15px; background-color:green; text-align:center; width:100%"> <p style="color:white"> <span>جستجو در @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span></p></div>
+                        </form>
+                    </div>
+                    <div id="contactUsDiv" style="display:none; height: 100%; width : 100% ;display:none; position: fixed;top: 0;z-index: 99999;background-color:white;right: 0;">
+                        <div class="contactUsReturnButt" style="direction: rtl;padding: 15px;background-color: #E1A52B;color: white;">
+                            <i class="fal fa-long-arrow-right" style="color: white;font-size: 20px;vertical-align: middle;"></i>
+                            <span style=" margin-right: 15px;font-size:15px">تماس با ما</span>
+
+                        </div>
+
+                        <div id="searchpanel" action="~/Home/ProductList" style="display:flex;padding:30px;width: 60%;margin: auto;">
+                            <img style="width: 100%;margin:auto;object-fit: scale-down;height: 100%;max-width: 100px;" src="~/images/@logo" />
+                        </div>
+                        <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
+                            <div class="contactItem"><i class="fa fa-envelope" style="margin-left: 10px"></i><span style="font-size:4vw"> Info&#64;<span>@System.Configuration.ConfigurationManager.AppSettings["serverName"]</span>.com</span> </div>
+                        </div>
+                        <div class="ContactPhoneHolder" id="searchpanel" action="~/Home/ProductList" style="display:flex">
+                            <div class="contactItem"><i class="fa fa-headphones" style="margin-left: 10px"></i><span style="font-size:4vw">تماس با @System.Configuration.ConfigurationManager.AppSettings["siteName"] @System.Configuration.ConfigurationManager.AppSettings["siteName2"]</span> </div>
+                        </div>
+                        <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
+                            <div class="contactItem"><i class="fa fa-bug" style="margin-left: 10px; "></i><span style="font-size:4vw">گزارشات مشکلات اپلیکیشن</span> </div>
+                        </div>
+                        <div class="modal" id="mymodal" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-body" style="text-align:center; padding:30px 15px">
+                                        <p id="contactPhone" style="font-size:16px;color:black"></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <!-- //header-bot -->
+            <!-- banner -->
+
+            <script>
+                var width = screen.width;
+                var number = "-" + width + "px";
+                $("#barmenu").css("margin-right", number);
+                $("#searchdiv").css("margin-right", number);
+                $("#contactUsDiv").css("margin-right", number);
+
+
+                $("#searchActButt").click(function () {
+                    var search = $("#searchinput").val();
+                    if (search.length < 3) {
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-top-full-width",
+                            "onclick": null,
+                            "fadeIn": 300,
+                            "fadeOut": 1000,
+                            "timeOut": 15000,
+                            "extendedTimeOut": 1000,
+
+
+
+                        }
+                        toastr.error('عبارت مورد نظر نباید کمتر از سه حرف باشد');
+                    }
+                    else {
+
+                        window.location.href = "/Home/ProductList?newquery=" + search
+                    }
+                })
+                $("#barmenu").click(function () {
+
+                    $("#barmenu").css("background-color", "rgba(0, 0, 0, 0)")
+                    $("#barmenu").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#barmenu").css("display", "none");
+                        $("#body").css("overflow", "scroll");
+
+                    });
+
+                    $("body").css("overflow", "scroll");
+                })
+                $("#barmenu #barmanuholder").click(function (e) {
+                    e.stopPropagation();
+                });
+                $(".searchButt").click(function () {
+
+                    $("#searchdiv").css("display", "block");
+                    $("#searchdiv").animate({
+                        'margin-right': '0px'
+                    });
+                    $("body").css("overflow", "hidden");
+
+                })
+                $(".SearchReturnButt").click(function () {
+
+                    $("#searchdiv").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#searchdiv").css("display", "none");
+                        $("body").css("overflow", "scroll");
+                    });
+
+
+                })
+
+                $("#contactUsButt").click(function () {
+                    $("#barmenu").css("background-color", "rgba(0, 0, 0, 0)")
+                    $("#barmenu").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#barmenu").css("display", "block");
+                        $("#contactUsDiv").css("display", "block");
+                        $("#contactUsDiv").animate({
+                            'margin-right': '0px'
+                        }, function () {
+
+                            $("body").css("overflow", "hidden");
+                        });
+                    });
+
+
+                })
+                $(".contactUsReturnButt").click(function () {
+
+                    $("#contactUsDiv").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#contactUsDiv").css("display", "scroll")
+                    });
+                })
+
+            </script>
+            <div class="row" style=" margin-right:0px" id="manuholder">
+                <div class="">
+                    <nav id="main-nav" class="col-lg-12 col-md-12 col-sm-12" style="font-size:13px; color:#f6f5f5; background-color:#656565; padding-right:0px; border-bottom:2px solid black">
+
+                        <!-- Sample menu definition -->
+
+                    </nav>
+                </div>
+            </div>
+            @RenderBody()
+
+            <!-- footer -->
+            <!-- //login -->
+
+
+            <script>
+
+                function addCommas(nStr) {
+                    nStr += '';
+                    var x = nStr.split('.');
+                    var x1 = x[0];
+                    var x2 = x.length > 1 ? '.' + x[1] : '';
+                    var rgx = /(\d+)(\d{3})/;
+                    while (rgx.test(x1)) {
+                        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    }
+                    return x1 + x2;
+                }
+                $(".ContactPhoneHolder").click(function () {
+
+                        $("#mymodal").modal('toggle');
+                        $("#contactPhone").text(@phone);
+
+
+                    })
+                    //$.ajax({
+                    //    url: '/Home/gogetfinalprice/',
+
+
+                    //    success: function (data) {
+                    //        var array = data.split(',');
+                    //        if (array[3] === "0") {
+                    //            $(".discountSection").css("display", "none");
+                    //        }
+                    //        $("#basepriceholder").text(addCommas(array[1]))
+                    //        $("#spanfortotal").text(addCommas(array[0]))
+                    //        $("#spanfortotal2").text(addCommas(array[0]))
+                    //        $(".simpleCart_quantityy").text(array[2])
+                    //        $("#simpleCart_quantityy").text(array[2])
+                    //        $(".discountfinal").text(addCommas(array[3]))
+                    //        $(".discountpercent").text(array[4])
+                    //        $.ajax({
+                    //            url: '/Home/getmenue/',
+                    //            dataType: 'html',
+
+                    //            success: function (data) {
+
+                    //                $('#main-nav').html(data);
+                    //                $.ajax({
+                    //                    url: '/Home/checkoutsummery',
+                    //                    dataType: 'html',
+                    //                    success: function (data) {
+
+                    //                        $('#summerydetailholder').html(data);
+
+                    //                        $("#loading").fadeOut();
+
+                    //                    },
+                    //                    error: function () {
+
+                    //                    }
+                    //                });
+
+                    //            },
+                    //            error: function () {
+                    //                alert("error")
+                    //            }
+                    //        });
+                    //    },
+                    //    error: function () {
+
+                    //    }
+                    //});
+
+
+
+                    //$('.showmedetail').click(function () {
+                    //    var ID = this.id;
+                    //    var url = "/Home/ProductDetail?id=" + ID;
+                    //    window.location.href = url;
+                    //})
+
+
+                    $('.tracotdda').click(function () {
+                        var ID = this.id;
+
+                        //var pricetotal = document.getElementById("spanfortotal").textContent;
+                        var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+                        //var counttotal = document.getElementById("simpleCart_quantityy").textContent;
+                        //var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
+                        //var finalcount = parseInt(counttotal, 10) + 1;
+                        //$('#spanfortotal').text(final);
+                        //$('#simpleCart_quantityy').text(finalcount)
+
+
+                        //$.ajax({
+                        //    url: '/Home/addtocart',
+                        //    dataType: 'html',
+                        //    data: {
+                        //        id: ID,
+                        //        price: tobeadded
+
+                        //    },
+                        //    success: function (data) {
+                        //        $.ajax({
+                        //            url: '/Home/gogetfinalprice',
+
+
+                        //            success: function (data) {
+                        //                var array = data.split(',');
+                        //                $("#basepriceholder").text(addCommas(array[1]))
+                        //                $("#spanfortotal").text(addCommas(array[0]))
+                        //                $("#spanfortotal2").text(addCommas(array[0]))
+                        //                $(".simpleCart_quantityy").text(array[2])
+
+                        //            },
+                        //            error: function () {
+
+                        //            }
+                        //        });
+
+
+                        //        toastr.options = {
+                        //            "debug": false,
+                        //            "positionClass": "toast-top-center",
+                        //            "onclick": null,
+                        //            "fadeIn": 300,
+                        //            "fadeOut": 1000,
+                        //            "timeOut": 5000,
+                        //            "extendedTimeOut": 1000,
+
+
+                        //        }
+                        //        toastr.success('محصول مورد نظر به سبد اضافه شد')
+
+
+
+                        //    },
+                        //    error: function () {
+
+                        //    }
+                        //});
+
+
+                    })
+
+
+            </script>
+            @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
+        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>*@
+            <div style="display:none" id="summerydetailholder"></div>
+            <script>
+                var getquntity = function () {
+                    $.ajax({
+                        url: '/Home/getquntitiy',
+                        dataType: 'html',
+                        success: function (data) {
+                            var total = 0;
+                            var srtcookie = data;
+
+                            if (srtcookie.length > 0) {
+                                srtcookie = srtcookie.replace(/&quot;/g, '"');
+                                JSON.parse(srtcookie).forEach(function (item) {
+                                    let valueID = "value" + item.productid;
+                                    $("." + valueID).text(item.quantity);
+                                    total += parseInt(item.quantity);
+                                });
+                                $(".simpleCart_quantityy").text(total)
+
+                            } else {
+                                $(".simpleCart_quantityy").text("0")
+                            };
+                        }
+
+                    })
+                };
+                getquntity();
+
+
+
+
+
+            </script>
+            @RenderSection("scripts", required: false)
+        </body>
+    }
+    else
+    {
+        <head>
+
+            <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+            <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag() { dataLayer.push(arguments); }
+                gtag('js', new Date());
+
+                gtag('config', '@analyticID');
+            </script>
+
+            <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+
+            <title>@ViewBag.Title </title>
+
+
+            <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
+            <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
+            <meta http-equiv="content-language" content="fa" />
+
+            <!-- Mobile Specific Metas
+    ================================================== -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+            <link rel="manifest" href="/site.webmanifest">
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">
+            <link rel="icon" sizes="192x192" href="nice-highres.png">
+
+            @{
+                string favsrt = @System.Configuration.ConfigurationManager.AppSettings["domain"] + "/fav.ico";
+                <link rel="icon" type="image/ico" href="@favsrt">
+            }
+
+            <style>
+                #loading {
+                    align-content: center;
+                    background: #fff;
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    z-index: 999999;
+                    opacity: 1;
+                    margin: 0 auto;
+                }
+            </style>
+            @RenderSection("HeadIncludes", required: false)
+
+
+
+
+
+
+            <link href="~/Content/bundle.css" rel="stylesheet" />
+            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+            <script src="~/Scripts/jquery.flexslider2.js"></script>
+            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+            <script src="~/Scripts/imagezoom.js"></script>
+            <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/jquery-ui.js"></script>
+
+            @RenderSection("header", required: false)
+
+            <link href="~/Content/layoutStyle1.css" rel="stylesheet" />
+            <script src="~/Scripts/toastr.js"></script>
+            <link href="~/Content/toastr.css" rel="stylesheet" />
+
+        </head>
+        <body>
+
+            <div id="loading" style="display:none">
+                <div style="padding:15px 35px; background-color:white;position:fixed;overflow: visible;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
+
+
+                    <img style="max-width:80px; display:block; margin:auto" src="~/images/@logo" />
+                    <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
+
+
+
+                </div>
+            </div>
+            @{
+                banimo.ViewModel.userdata userApp = Session["LogedInUser"] as banimo.ViewModel.userdata;
+            }
+
+            <!-- header-bot -->
+            <div class="header-bot" >
+                <div class="container" style="direction:rtl; width:100%">
+                    <div>
+                        <table style="width:100% ; direction:ltr">
+                            <tr>
+
+                                <th style="direction: rtl;  ">
+                                    <div id="cartholder">
+                                        <div class="cartdiv" style="float:left; cursor:pointer" id="arrowcart">
+                                            <table style="width:100%">
+                                                <tr>
+                                                    <th style="padding: 0 10px; " height="40px; "><img style="width:40px" src="~/images/cart.png" class="cartimage" /></th>
+                                                    <th style="padding: 0 10px;" width="45%"><p class="carttext">سبد خرید</p></th>
+                                                    @{
+
+                                                        <th style="padding: 0 0px;"><span class="cartnumber simpleCart_quantityy" id="simpleCart_quantityy"></span></th>
+
+                                                    }
+                                                    <th style="padding: 0 10px;"></th>
+
+                                                </tr>
+
+
+                                            </table>
+
+                                        </div>
+                                    </div>
+
+                                    <div id="loginarrow" style="float:left; cursor:pointer; border-left: 1px solid #fff; padding: 7px 0px 7px 30px;" class=" enterdiv">
+                                        @{
+                                            banimo.ViewModel.userdata user = Session["LogedInUser"] as banimo.ViewModel.userdata;
+
+                                            if (user != null)
+                                            {
+                                                string name = user.fullname != "" ? user.fullname : user.phone;
+                                                <a class="entertext" style="cursor: pointer; font-size: 12px;">@name</a><a style="margin-right:20px"></a>
+                                            }
+                                            else
+                                            {
+                                                <a class="entertext" style="cursor: pointer; font-size: 12px;"><i style="font-size:22px" class="fa fa-user"></i></a><a style="margin-right:20px"></a>
+                                            }
+                                        }
+
+                                    </div>
+                                    <script>
+
+                                        $("#loginarrow").click(function () {
+
+                                            var x = document.getElementById("loginsectin");
+                                            var left = $("#loginarrow").position().left;
+                                            //alert(left);
+
+                                            $("#loginsectin").css("left", left + "px");
+                                            if (x.style.display === "none") {
+                                                $("#loginsectin").show(150);
+
+                                            } else {
+                                                $("#loginsectin").hide(150);
+                                            }
+
+                                        });
+
+                                        $(document).scroll(function () {
+                                            var container = $("#cartsummery");
+                                            container.hide();
+                                            var loginarrow = $("#loginsectin");
+                                            loginarrow.hide();
+
+                                            var searchResultSection = $("#searchResultSection");
+                                            searchResultSection.hide();
+                                            
+                                        })
+                                        $(document).mouseup(function (e) {
+                                            var searchResultSection = $("#searchResultSection");
+                                            // if the target of the click isn't the container nor a descendant of the container
+                                            if (!searchResultSection.is(e.target) && searchResultSection.has(e.target).length === 0) {
+                                                searchResultSection.hide();
+                                            }
+
+                                            var container = $("#loginsectin");
+                                            // if the target of the click isn't the container nor a descendant of the container
+                                            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                                                container.hide();
+                                            }
+                                        });
+                                    </script>
+                                    <script>
+
+                                        $("#arrowcart").click(function () {
+
+                                            window.location.href = "/Home/checkout";
+
+                                            //var x = document.getElementById("cartsummery");
+                                            //if (x.style.display === "none") {
+                                            //    $.ajax({
+                                            //        url: '/Home/checkoutsummery/',
+                                            //        dataType: 'html',
+                                            //        success: function (data) {
+
+                                            //            $('#summerydetailholder').html(data);
+                                            //            $("#loading").fadeOut()
+                                            //        },
+                                            //        error: function () {
+
+                                            //        }
+                                            //    });
+                                            //    $.ajax({
+                                            //        url: '/Home/gogetfinalprice/',
+                                            //        success: function (data) {
+                                            //            var array = data.split(',');
+                                            //            if (array[3] === "0") {
+                                            //                $(".discountSection").css("display", "none");
+                                            //            }
+                                            //            $("#basepriceholder").text(addCommas(array[1]))
+                                            //            $("#spanfortotal").text(addCommas(array[0]))
+                                            //            $("#spanfortotal2").text(addCommas(array[0]))
+                                            //            $(".simpleCart_quantityy").text(array[2])
+                                            //            $("#simpleCart_quantityy").text(array[2])
+                                            //            $(".discountfinal").text(addCommas(array[3]))
+                                            //            $(".discountpercent").text(array[4])
+
+                                            //        },
+                                            //        error: function () {
+
+                                            //        }
+                                            //    });
+                                            //    $("#cartsummery").show(150);
+
+                                            //} else {
+                                            //    $("#cartsummery").hide(150);
+                                            //}
+
+                                        });
+                                        $(document).mouseup(function (e) {
+                                            var container = $("#cartsummery");
+                                            // if the target of the click isn't the container nor a descendant of the container
+                                            if (!container.is(e.target) && container.has(e.target).length === 0) {
+                                                container.hide();
+                                            }
+                                        });
+                                    </script>
+                                </th>
+
+                                <th style="direction:rtl;   ">
+
+
+                                </th>
+                                <th>
+                                    <div id="searchpanel" action="~/Home/ProductList" style="display:flex; align-items:center">
+
+                                       
+
+                                        <div type="submit" id="searchImageWeb" style="margin-left:10px; cursor:pointer; display: inline-block; border-radius: 10px 0px 0px 10px; position:absolute">
+                                           
+                                            <i class="fa fa-search" style="font-size:18px"></i>
+                                        </div>
+                                        <input id="searchInputWeb" name="newquery" type="text" style="outline:0; text-align:right; width:85%; height:40px; display:inline-block; padding:8px;border:1px solid #ddd;background-color:#fff; border-radius:10px 10px 10px 10px; text-align:right;direction:rtl;" placeholder="نام کالا، برند یا دسته مورد نظر را جستجو کنید .. " />
+
+
+
+                                    </div>
+                                </th>
+                                <th>
+                                    <h1 style="float:right">
+                                        <a href="/Home/Index"><img style="width:70px" src="~/images/@logo"></a>
+                                    </h1>
+                                </th>
+
+
+
+                            </tr>
+                        </table>
+
+                        <div id="searchResultSection" style="padding:15px; border: 1px #ddd solid; background-color: #fff; position: fixed; top: 65px;  z-index: 99000; display: none ; border-radius:0px 0px 10px 10px">
+
+                        </div>
+
+                        <script>
+                            $("#searchInputWeb").on('input', function () {
+                                var left = $("#searchpanel").position().left;
+                                $("#searchResultSection").css("left", left + "px");
+                                $("#searchResultSection").width($("#searchInputWeb").width());
+                                $("#searchResultSection").show();
+                                let val = $(this).val();
+                           
+                                if (val.length > 2) {
+                                    $("#searchResultSection").show(15);
+                                    $.ajax({
+                                        url: "/Home/getsearch",
+                                        dataType: "html",
+                                        data: {
+                                            val: val,
+                                        },
+                                        success: function (data) {
+                                            $("#searchResultSection").html(data);
+                                        }
+                                    })
+                                }
+                                else {
+                                    $("#searchResultSection").html("")
+                                    $("#searchResultSection").hide();
+                                }
+                            })
+                            $("#searchImageWeb").click(function () {
+                                var search = $("#searchInputWeb").val();
+                                if (search.length < 3) {
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-full-width",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 15000,
+                                        "extendedTimeOut": 1000,
+
+
+
+                                    }
+                                    toastr.error('عبارت مورد نظر نباید کمتر از سه حرف باشد');
+                                }
+                                else {
+
+                                    window.location.href = "/Home/ProductList?newquery=" + search
+                                }
+                                //    $("form#searchpanel").submit();
+
+                            })
+                        </script>
+                        <div id="loginsectin" style="padding:15px; border: 1px #ddd solid; background-color: #fff; position: fixed; top: 65px;  z-index: 99000; display: none ; border-radius:0px 0px 10px 10px">
+                            @{
+
+                                if (user == null)
+                                {
+                                    <a class="c-header__user-dropdown-login" href="../Home/login">
+                                        ورود
+                                        به
+                                        @{
+                                            if (TempData["partnerName"] != null)
+                                            {
+                                                @TempData["partnerName"];
+                                                TempData.Keep("partnerName");
+                                            }
+                                            else
+                                            {
+
+                                                @System.Configuration.ConfigurationManager.AppSettings["siteName"] 
+                                            }
+                                        }
+
+
+                                    </a>
+                                    <div class="c-header__user-dropdown-sign-up">
+                                        <span>کاربر جدید هستید؟</span>
+                                        <a data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;sign-up&quot;}" href="../Home/Register">ثبت‌نام</a>
+                                    </div>
+                                }
+
+                            }
+
+                            @{
+                                if (user == null)
+                                {
+                                    <a href="/Home/login" class="c-header__user-dropdown-action c-header__user-dropdown-action--profile">پروفایل</a>
+
+                                }
+                                else
+                                {
+                                    <a href="/Home/myprofile?type=1" class="c-header__user-dropdown-action c-header__user-dropdown-action--profile">پروفایل</a>
+
+
+                                }
+                            }
+                            @{
+                                if (user == null)
+                                {
+                                    <a href="/Home/myprofile?type=3" data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;orders&quot;}" class="c-header__user-dropdown-action c-header__user-dropdown-action--orders">
+                                        پیگیری
+                                        سفارش
+                                    </a>
+
+                                }
+                                else
+                                {
+                                    <a href="/Home/myprofile?type=3" data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;orders&quot;}" class="c-header__user-dropdown-action c-header__user-dropdown-action--orders">
+                                        سفارش های من
+                                    </a>
+                                    <a href="/CustomerLogin/LogOff" data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;sign-out&quot;}" class="c-header__user-dropdown-action c-header__user-dropdown-action--logout js-logout-button">خروج از حساب کاربری</a>
+
+                                }
+                            }
+
+                        </div>
+                        <div id="cartsummery" style="border: 1px #ddd solid; background-color: #fff; position: fixed; top: 70px; left: 55px; z-index: 99000; display: none ; border-radius:0px 0px 10px 10px">
+                            <div style="width:100% ; background-color:#eee; padding:15px; font-size:14px ; font-weight:600">
+                                <p style="color:#696464; display:inline-block"> مبلغ کل خرید:</p>
+                                <span style="color: red; margin-right:10px; display:inline-block" id="spanfortotal" class="simpleCart_totall"></span>
+                                <p style="color: red; margin-right:5px; display:inline-block">تومان</p>
+                                <p id="gotocheckout" style="cursor:pointer;color: #696464; float:left; display: inline-block; font-size:13px"><a style="color: #696464" href="/Home/checkout">مشاهده سبد خرید</a> </p>
+
+                            </div>
+                            <div style="" id="summerydetailholder"></div>
+                            <div style="height:50px; background-color:#64c4ef; padding-top:2%; border-radius:0px 0px 10px 10px">
+                                @{
+                                    if (@Session["LogedInUser"] != null)
+                                    {
+                                        <p id="" style="text-align:center; color:#fff; "> <a style="color:#fff; cursor:pointer" href="/Home/EndOrder">ثبت سفارش و ارسال</a></p>
+
+                                    }
+                                    else
+                                    {
+                                        <p id="endorder" style="text-align:center; color:#fff; "> <a style="color:#fff; cursor:pointer">ثبت سفارش و ارسال</a></p>
+
+                                    }
+                                }
+
+                            </div>
+                        </div>
+
+
+                        <script>
+                            $("#endorder").click(function () {
+
+                                window.location.href = "/Home/login";
+                            })
+
+                            var WI = $(document).width() / 4;
+                         
+                           // $("#searchResultSection").width($("#searchpanel").width());
+                         
+                            $("#loginsectin").width(WI);
+                           
+                        </script>
+                        <div class="clearfix"></div>
+                    </div>
+
+
+                </div>
+            </div>
+            <!-- //header-bot -->
+            <!-- banner -->
+
+
+            <script>
+                var width = screen.width;
+                var number = "-" + width + "px";
+                $("#barmenu").css("margin-right", number);
+                $("#searchdiv").css("margin-right", number);
+                $("#contactUsDiv").css("margin-right", number);
+
+
+                $("#searchActButt").click(function () {
+                    var search = $("#searchinput").val();
+                    if (search.length < 3) {
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-top-full-width",
+                            "onclick": null,
+                            "fadeIn": 300,
+                            "fadeOut": 1000,
+                            "timeOut": 15000,
+                            "extendedTimeOut": 1000,
+
+
+
+                        }
+                        toastr.error('عبارت مورد نظر نباید کمتر از سه حرف باشد');
+                    }
+                    else {
+
+                        window.location.href = "/Home/ProductList?newquery=" + search
+                    }
+                })
+                $("#barmenu").click(function () {
+
+                    $("#barmenu").css("background-color", "rgba(0, 0, 0, 0)")
+                    $("#barmenu").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#barmenu").css("display", "none");
+                        $("#body").css("overflow", "hidden");
+
+                    });
+
+                    $("body").css("overflow", "scroll");
+                })
+                $("#barmenu #barmanuholder").click(function (e) {
+                    e.stopPropagation();
+                });
+                $(".searchButt").click(function () {
+
+                    $("#searchdiv").css("display", "block");
+                    $("#searchdiv").animate({
+                        'margin-right': '0px'
+                    });
+                    $("body").css("overflow", "hidden");
+
+                })
+                $(".SearchReturnButt").click(function () {
+
+                    $("#searchdiv").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#searchdiv").css("display", "none");
+                        $("body").css("overflow", "scroll");
+                    });
+
+
+                })
+
+                $("#contactUsButt").click(function () {
+                    $("#barmenu").css("background-color", "rgba(0, 0, 0, 0)")
+                    $("#barmenu").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#barmenu").css("display", "block");
+                        $("#contactUsDiv").css("display", "block");
+                        $("#contactUsDiv").animate({
+                            'margin-right': '0px'
+                        }, function () {
+
+                            $("body").css("overflow", "hidden");
+                        });
+                    });
+
+
+                })
+                $(".contactUsReturnButt").click(function () {
+
+                    $("#contactUsDiv").animate({
+                        'margin-right': number
+                    }, function () {
+                        $("#contactUsDiv").css("display", "scroll")
+                    });
+                })
+
+            </script>
+            <div class="row" style=" margin:0px" id="manuholder">
+
+                <div class="">
+                    @{ Html.RenderAction("getmenue", "Home"); }
+                </div>
+
+            </div>
+
+            @RenderBody()
+
+
+
+
+            <!-- footer -->
+
+
+
+
+            @{Html.RenderAction("contactSection", "Home");}
+
+
+
+            <script>
+
+                function addCommas(nStr) {
+                    nStr += '';
+                    var x = nStr.split('.');
+                    var x1 = x[0];
+                    var x2 = x.length > 1 ? '.' + x[1] : '';
+                    var rgx = /(\d+)(\d{3})/;
+                    while (rgx.test(x1)) {
+                        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                    }
+                    return x1 + x2;
+                }
+                $(document).ready(function () {
+                    $(".ContactPhoneHolder").click(function () {
+
+                        $("#mymodal").modal('toggle');
+                        $("#contactPhone").text($("#footerPhone").text());
+
+                    })
+
+                    $('.showmedetail').click(function () {
+                        var ID = this.id;
+                        var url = "/Home/ProductDetail?id=" + ID;
+                        window.location.href = url;
+                    })
+
+                    $('.tracotdda').click(function () {
+                        var ID = this.id;
+                        var tobeadded = $('.item_price', $(this).parent('div:first')).text();
+
+
+                        $.ajax({
+                            url: '/Home/addtocart/',
+                            dataType: 'html',
+                            data: {
+                                id: ID,
+                                price: tobeadded
+
+                            },
+                            success: function (data) {
+
+                                toastr.options = {
+                                    "debug": false,
+                                    "positionClass": "toast-top-center",
+                                    "onclick": null,
+                                    "fadeIn": 300,
+                                    "fadeOut": 1000,
+                                    "timeOut": 5000,
+                                    "extendedTimeOut": 1000,
+
+
+                                }
+                                toastr.success('محصول مورد نظر به سبد اضافه شد')
+
+
+
+                            },
+                            error: function () {
+
+                            }
+                        });
+
+
+                    })
+
+
+
+                })
+
+            </script>
+            <script>
+                var getquntity = function () {
+                    $.ajax({
+                        url: '/Home/getquntitiy',
+                        dataType: 'html',
+                        success: function (data) {
+                            var total = 0;
+                            var srtcookie = data;
+
+                            if (srtcookie.length > 0) {
+                                srtcookie = srtcookie.replace(/&quot;/g, '"');
+                                JSON.parse(srtcookie).forEach(function (item) {
+                                    let valueID = "value" + item.productid;
+                                    $("." + valueID).text(item.quantity);
+                                    total += parseInt(item.quantity);
+                                });
+                                $(".simpleCart_quantityy").text(total)
+
+                            } else {
+                                $(".simpleCart_quantityy").text("0")
+                            };
+                        }
+
+                    })
+                };
+                getquntity();
+
+
+
+
+
+            </script>
+            @RenderSection("scripts", required: false)
+
+        </body>
+    }
+
+
+}
+</html>
+

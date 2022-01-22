@@ -16,7 +16,7 @@
 
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w < 720 && h > w)) 
+    if (Request.Browser.IsMobileDevice || (w < 720 && h > w))
 
     //string u = Request.ServerVariables["HTTP_USER_AGENT"];
     //Regex b = new Regex(@"(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino", RegexOptions.IgnoreCase | RegexOptions.Multiline);
@@ -24,81 +24,79 @@
     //if ((b.IsMatch(u) || v.IsMatch(u.Substring(0, 4))))
 
     {
-    <head>
+        <head>
 
-        <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
-        <script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+            <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
 
                 gtag('config', '@analyticID');
-        </script>
+            </script>
 
-        <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+            <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
-        <title>@ViewBag.Title </title>
-
-
-        <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
-        <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
-        <meta http-equiv="content-language" content="fa" />
-
-        @{
-            string favsrt = @System.Configuration.ConfigurationManager.AppSettings["domain"] + "/fav.ico";
-            <link rel="icon" type="image/ico" href="@favsrt">
-        }
-        <!-- Mobile Specific Metas
-    ================================================== -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.jpg" />
-        <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.jpg" />
-        <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.jpg" />
-        <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.jpg" />
+            <title>@ViewBag.Title </title>
 
 
-        @RenderSection("HeadIncludes", required: false)
-        @Styles.Render("~/Content/css")
+            <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
+            <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
+            <meta http-equiv="content-language" content="fa" />
 
+            <!-- Mobile Specific Metas
+                  ================================================== -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+            <link rel="manifest" href="/site.webmanifest">
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">
+            <link rel="icon" sizes="192x192" href="nice-highres.png">
+
+
+            @RenderSection("HeadIncludes", required: false)
+            @Styles.Render("~/Content/css")
 
 
 
-        <link href="~/Content/bundle.css" rel="stylesheet" />
-        <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-        <script src="~/Scripts/jquery.flexslider2.js"></script>
-        <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
-        <script src="~/Scripts/imagezoom.js"></script>
-        <script src="~/Scripts/toastr.js"></script>
-        <script src="~/Scripts/jquery-ui.js"></script>
-        @RenderSection("header", required: false)
+            <link href="~/Content/bundle.css" rel="stylesheet" />
+            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+            <script src="~/Scripts/jquery.flexslider2.js"></script>
+            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+            <script src="~/Scripts/imagezoom.js"></script>
+            <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/jquery-ui.js"></script>
+            @RenderSection("header", required: false)
 
-        <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
-        <style>
-            .menuparentsection {
-                font-size: 13px;
-                color: #f6f5f5;
-                background-color: #656565;
-                padding-right: 0px;
-                border-bottom: 2px solid black
-            }
+            <link href="~/Content/layoutStyleApp.css" rel="stylesheet" />
+            <style>
+                .menuparentsection {
+                    font-size: 13px;
+                    color: #f6f5f5;
+                    background-color: #656565;
+                    padding-right: 0px;
+                    border-bottom: 2px solid black
+                }
 
-            #loading {
-                align-content: center;
-                background: #fff;
-                width: 100%;
-                height: 100%;
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 999999;
-                opacity: 1;
-                margin: 0 auto;
-            }
-        </style>
-        <script src="~/Scripts/toastr.js"></script>
-        <link href="~/Content/toastr.css" rel="stylesheet" />
+                #loading {
+                    align-content: center;
+                    background: #fff;
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    z-index: 999999;
+                    opacity: 1;
+                    margin: 0 auto;
+                }
+            </style>
+            <script src="~/Scripts/toastr.js"></script>
+            <link href="~/Content/toastr.css" rel="stylesheet" />
 
-    </head>
+        </head>
         <body>
             <div id="loading" style="display:none">
                 <div style="padding:15px 35px; background-color:white;position:fixed;overflow: visible;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
@@ -114,7 +112,7 @@
             <!-- header-bot -->
             <div class="header-bot" style="">
                 <div class="" style="direction:rtl; width:100%">
-                    <div >
+                    <div>
                         <div class="" style="width: 100%;display:flex;align-content:center; padding:5px 0 5px 5px;">
                             <div id="barsformenu" class="col-sm-6 col-xs-6" style=" padding: 0px;padding-top: 0px;">
                                 <i class="fa fa-bars toolbarText"></i>
@@ -566,8 +564,8 @@
 
             </script>
             @*<script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/jquery-3.2.1.min.js"></script>
-        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
-        <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>*@
+                <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.env.js"></script>
+                <script type="text/javascript" src="https://cdn.map.ir/web-sdk/1.4.2/js/mapp.min.js"></script>*@
             <div style="display:none" id="summerydetailholder"></div>
             <script>
                 var getquntity = function () {
@@ -606,78 +604,72 @@
     }
     else
     {
-<head>
+        <head>
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
-    <script>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=@analyticID"></script>
+            <script>
                 window.dataLayer = window.dataLayer || [];
                 function gtag() { dataLayer.push(arguments); }
                 gtag('js', new Date());
 
                 gtag('config', '@analyticID');
-    </script>
+            </script>
 
-    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+            <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
 
-    <title>@ViewBag.Title </title>
-
-
-    <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
-    <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
-    <meta http-equiv="content-language" content="fa" />
-
-    <!-- Mobile Specific Metas
-    ================================================== -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            <title>@ViewBag.Title </title>
 
 
+            <meta name="description" content=" @System.Configuration.ConfigurationManager.AppSettings["description"] " />
+            <meta name="keywords" content=" @System.Configuration.ConfigurationManager.AppSettings["keywords"] " />
+            <meta http-equiv="content-language" content="fa" />
 
-    <link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.jpg" />
-    <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.jpg" />
-    <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.jpg" />
-    <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.jpg" />
-
-    @{
-        string favsrt = @System.Configuration.ConfigurationManager.AppSettings["domain"] + "/fav.ico";
-        <link rel="icon" type="image/ico" href="@favsrt">
-    }
-
-    <style>
-        #loading {
-            align-content: center;
-            background: #fff;
-            width: 100%;
-            height: 100%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 999999;
-            opacity: 1;
-            margin: 0 auto;
-        }
-    </style>
-    @RenderSection("HeadIncludes", required: false)
+            <!-- Mobile Specific Metas
+            ================================================== -->
+            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+            <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+            <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+            <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+            <link rel="manifest" href="/site.webmanifest">
+            <meta name="msapplication-TileColor" content="#da532c">
+            <meta name="theme-color" content="#ffffff">
+            <link rel="icon" sizes="192x192" href="nice-highres.png">
+            <style>
+                #loading {
+                    align-content: center;
+                    background: #fff;
+                    width: 100%;
+                    height: 100%;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    z-index: 999999;
+                    opacity: 1;
+                    margin: 0 auto;
+                }
+            </style>
+            @RenderSection("HeadIncludes", required: false)
 
 
 
 
 
 
-    <link href="~/Content/bundle.css" rel="stylesheet" />
-    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-    <script src="~/Scripts/jquery.flexslider2.js"></script>
-    <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
-    <script src="~/Scripts/imagezoom.js"></script>
-    <script src="~/Scripts/toastr.js"></script>
-    <script src="~/Scripts/jquery-ui.js"></script>
+            <link href="~/Content/bundle.css" rel="stylesheet" />
+            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+            <script src="~/Scripts/jquery.flexslider2.js"></script>
+            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+            <script src="~/Scripts/imagezoom.js"></script>
+            <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/jquery-ui.js"></script>
 
-    @RenderSection("header", required: false)
+            @RenderSection("header", required: false)
 
-    <link href="~/Content/layoutStyle.css" rel="stylesheet" />
-    <script src="~/Scripts/toastr.js"></script>
-    <link href="~/Content/toastr.css" rel="stylesheet" />
+            <link href="~/Content/layoutStyle.css" rel="stylesheet" />
+            <script src="~/Scripts/toastr.js"></script>
+            <link href="~/Content/toastr.css" rel="stylesheet" />
 
-</head>
+        </head>
         <body>
 
             <div id="loading" style="display:none">
@@ -766,7 +758,7 @@
 
                                             var searchResultSection = $("#searchResultSection");
                                             searchResultSection.hide();
-                                            
+
                                         })
                                         $(document).mouseup(function (e) {
                                             var searchResultSection = $("#searchResultSection");
@@ -865,12 +857,12 @@
 
                         <script>
                             $("#searchInputWeb").on('input', function () {
-                                var left = $("#searchpanel").position().left;
+                                var left = $("#searchInputWeb").position().left;
                                 $("#searchResultSection").css("left", left + "px");
                                 $("#searchResultSection").width($("#searchInputWeb").width());
                                 $("#searchResultSection").show();
                                 let val = $(this).val();
-                           
+
                                 if (val.length > 2) {
                                     $("#searchResultSection").show(15);
                                     $.ajax({
@@ -931,7 +923,7 @@
                                             else
                                             {
 
-                                                @System.Configuration.ConfigurationManager.AppSettings["siteName"] 
+                                                @System.Configuration.ConfigurationManager.AppSettings["siteName"]
                                             }
                                         }
 
@@ -1012,11 +1004,11 @@
                             })
 
                             var WI = $(document).width() / 4;
-                         
-                           // $("#searchResultSection").width($("#searchpanel").width());
-                         
+
+                            // $("#searchResultSection").width($("#searchpanel").width());
+
                             $("#loginsectin").width(WI);
-                           
+
                         </script>
                         <div class="clearfix"></div>
                     </div>
@@ -1131,9 +1123,9 @@
                         <!-- Sample menu definition -->
 
                         @{ Html.RenderAction("getmenue", "Home"); }
-                       
 
-                      
+
+
                     </nav>
                 </div>
 

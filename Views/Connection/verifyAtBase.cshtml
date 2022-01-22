@@ -69,7 +69,7 @@
     @{
         int w = Request.Browser.ScreenPixelsWidth;
         int h = Request.Browser.ScreenPixelsHeight;
-        if (Request.Browser.IsMobileDevice || (w < 720 && h > w))
+        if (Request.Browser.IsMobileDevice || (w < 820 && h > w))
         {
             string srt = @System.Configuration.ConfigurationManager.AppSettings["package"] + "://mellatgate-" + "NOTOK" + "-" + @ViewBag.message2;
             <script>

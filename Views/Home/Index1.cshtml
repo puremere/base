@@ -1,0 +1,1362 @@
+﻿
+@using BotDetect.Web.Mvc;
+@using banimo.Classes;
+
+@model banimo.ViewModePost.getMaindataViewModel
+
+@{
+    /**/
+
+
+    ViewBag.Title = @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
+    Layout = "~/Views/Shared/_Layout1.cshtml";
+
+}
+
+@section scripts{
+    <link href="~/Content/indexStyle1.css" rel="stylesheet" />
+}
+<style>
+
+    .jst-hours {
+        float: left;
+    }
+
+    .jst-minutes {
+        float: left;
+    }
+
+    .jst-seconds {
+        float: left;
+    }
+
+    .jst-clearDiv {
+        clear: both;
+    }
+
+    .jst-timeout {
+        color: red;
+    }
+</style>
+<script src="~/Scripts/jquery.simple.timer.js"></script>
+<div class="modal fade" id="iosModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="text-align:center; padding:15px;border-bottom:1px solid #ddd">
+                <p style="margin-bottom:20px">
+                    <img style="width:70px" src="~/images/logo.png" />
+                </p>
+                <h5 style="line-height:2" class="modal-title" id="exampleModalLabel">وب اپلیکیشن <span style="color:red">@System.Configuration.ConfigurationManager.AppSettings["siteName"]</span> را به صفحه اصلی موبایل خود اضافه کنید </h5>
+            </div>
+            <div class="modal-body" style="direction:rtl">
+                <p style="margin-bottom:10px; line-height:2; text-align:right">
+                    1- در نوار پایین دکمه <spna style="font-weight:600">  <img style="width:15px" src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/iosShareIcon.png" />  "share" </spna> را انتخاب کنید
+                </p>
+                <p style="margin-bottom:10px; line-height:2;text-align:right">
+                    2- منوی باز شده را به سمت چپ بکشید و گزینه <spna style="font-weight:600">  <img style="width:15px" src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/isoAddIcon.png" />  "Add to home screen" </spna> را انتخاب کنید
+                </p>
+                <p style="margin-bottom:10px; line-height:2;text-align:right">
+                    3- در مرحله بعد در قسمت بالا روی <spna style="font-weight:600">   "Add" </spna> کلیک کنید
+                </p>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button id="iosCookie" type="button" class="btn btn-primary" data-dismiss="modal">متوجه شدم</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+    if ( iOS && '@Model.iosCookie' == "0") {
+        $('#iosModal').modal('show');
+        $('#AppFooter').hide();
+    }
+    $("#iosCookie").click(function () {
+        $.ajax({
+            url: '/Home/setIOSCookie/',
+            dataType: 'html',
+
+            success: function (data) {
+
+            },
+            error: function () {
+
+            }
+        });
+    })
+</script>
+
+<style>
+
+    .bannerimage {
+        cursor: pointer;
+        width: 100%;
+        height: 75%;
+        object-fit: fill;
+        border-radius: 5px;
+        height: 100%
+    }
+
+    .indexbanner {
+        padding: 8px;
+        margin: 0px
+    }
+
+    .bannerholder {
+        margin-top: 8px;
+        padding: 0 20px;
+    }
+
+    .imageparent {
+        -webkit-box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
+        -moz-box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
+        box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
+        border-radius: 5px;
+        width: 100%;
+        height: 100%;
+    }
+
+    #myCarousel {
+        -webkit-box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
+        -moz-box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
+        box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);
+        border-radius: 5px;
+    }
+</style>
+@{
+    <link href="~/Content/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/Content/owl.theme.default.min.css" rel="stylesheet" />
+    <script src="~/Scripts/owl.carousel.min.js"></script>
+    int w = Request.Browser.ScreenPixelsWidth;
+    int h = Request.Browser.ScreenPixelsHeight;
+    if (Request.Browser.IsMobileDevice || (w < 820 && h > w))
+    {
+
+
+        if (Model.slides != null)
+        {
+
+            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    @foreach (var item in Model.slides)
+                    {
+                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + item.image;
+                        var index = Model.slides.IndexOf(item);
+                        if (index == 0)
+                        {
+                            <li data-target="#myCarousel" data-slide-to="@index" class="active"></li>
+                        }
+                        else
+                        {
+                            <li data-target="#myCarousel" data-slide-to="@index"></li>
+                        }
+
+                    }
+
+                </ol>
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                    @foreach (var item in Model.slides)
+                    {
+                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + item.image;
+                        if (Model.slides.IndexOf(item) == 0)
+                        {
+                            <div class="item active">
+                                <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="item ">
+                                <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
+                            </div>
+                        }
+
+                    }
+                </div>
+                <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+                <!-- Left and right controls -->
+            </div>
+
+        }
+        <div class="minwidth" style="display:none;margin: 0px">
+            <div style="background-color: #f6f5f5; padding: 2% 0px">
+                <div class="" style="width:98%; margin-left:auto; margin-right:auto; border-radius:8px">
+                    <div id="menuforapp"></div>
+                </div>
+            </div>
+            <script>
+                $.ajax({
+                    url: '/Home/getmenueforapp/',
+                    dataType: 'html',
+
+                    success: function (data) {
+
+                        $('#menuforapp').html(data);
+
+                    },
+                    error: function () {
+                        alert("menuForApperror")
+                    }
+                });
+            </script>
+        </div>
+        if (@System.Configuration.ConfigurationManager.AppSettings["hasMobile"] == "1")
+        {
+            <div id="AppFooter" class="" style="z-index:99;  padding:5px 15px;background-color: hsla(14, 100%, 53%, 0.8);position:fixed; bottom:0; left:0; width:100%">
+                <i id="removeAppFootr" class="fa fa-times" style="margin-left:10px; float:right; margin-top:5px; border-radius:100%; padding:5px 7px; background-color:#eee "></i>
+                <div class="btn btn-success" style="display:inline-block; float:left"><a href="/Home/downloadApp" style="color:white">دانلود</a></div>
+                <p style="display:inline-block; float:right; margin-top:6px;color:white"> سیستم در اپلکیشن عملکرد مناسبتری دارد </p>
+            </div>
+        }
+
+        <script>
+            $("#removeAppFootr").click(function () {
+
+                $("#AppFooter").fadeOut();
+            })
+        </script>
+        <script>
+            var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+            if (iOS) {
+
+                $('#AppFooter').fadeOut();
+            }
+        </script>
+
+        if (Model.wonderList != null)
+        {
+            <div style="background-color: #f6f5f5; padding: 2% 0px;padding: 10px; background-color:#ef394e; display:flex; align-items:center">
+                <div class="wonlistHolder" style=" ">
+                    <div class="owl-carousel">
+                        @foreach (var item in Model.wonderList)
+                        {
+                            string addID = "addtocarto" + item.ID;
+                            string minusID = "minus" + item.ID;
+                            string imagefile = "placeholder.jpg";
+                            if (item.title != null)
+                            {
+                                imagefile = item.image;
+                            }
+                            string ID = "N" + item.ID.ToString();
+                            string addtocartid = "addtocart" + ID;
+                            string price = item.price;
+
+                            string src = imagefile;
+                            <div>
+                                <div class="item showmedetail  showmedetailapp" id=@ID style="cursor:pointer;">
+
+                                    <div class="showmedetailFirstDiv showmedetailx" >
+                                        <div style="padding: 20px">
+
+                                            <a href="/Home/ProductDetail?id=@ID">
+                                                <div class="imageholderindex">
+                                                    <img style="max-width:100%; max-height:100%" class="imageitself" src="@src" />
+                                                </div>
+                                            </a>
+
+                                            <div class="">
+                                                @{
+                                                    if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                    {
+                                                        <p style="font-size:14px" class="numEn titleholder"> @item.title</p>
+                                                    }
+                                                    else
+                                                    {
+                                                        <p style="font-size:14px" class="titleholder">@item.title</p>
+                                                    }
+
+                                                }
+                                            </div>
+                                            @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                            {
+                                                string valueID = "value" + item.ID;
+                                                <div class="addholder" style="margin:8px;display: flex;justify-content: center;align-items:center">
+                                                    <i id="@minusID" class="fa fa-minus-circle value-minus" style=" margin:7px; border: none;  font-size: 22px; color: #36CDDF "></i>
+                                                    <div class="entry value  @valueID " style="text-align:center; margin:8px; border:0px; padding:0; width:10px;height:unset"><span>0</span></div>
+                                                    <i id="@addID" class="fa fa-plus-circle value-plus" style="margin:7px;border: none;  font-size: 22px; color: #36CDDF "></i>
+                                                </div>
+
+                                            }
+                                            <div style="margin-top:10px">
+                                                @{
+                                                    if (item.isAvailable == "0")
+                                                    {
+                                                        <div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>
+                                                    }
+                                                    else
+                                                    {
+
+
+                                                        if (item.price == "0")
+                                                        {
+                                                            <div class="row" style="margin:0px 15px;min-height: 49px;margin-top: 40px;">
+                                                                <p style="display:inline-block"> تماس بگیرید</p>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+
+
+                                                            <div style="display:flex; align-items:center; margin-top:10px">
+                                                                <div style="width:20%;margin-right:5px">
+                                                                    <span style="color: white;font-size:18px;font-weight:600;background-color: red;border-radius: 15px;padding: 5px 10px;">
+                                                                        @item.discount%
+
+                                                                    </span>
+                                                                </div>
+                                                                <div style="flex:1; direction:ltr">
+                                                                    <div>
+                                                                        <div class="" style="margin:0px 15px; min-height:20px;text-align:left">
+                                                                            <div class="">
+                                                                                <div class="">
+                                                                                    @if (item.price != item.oldPrice)
+                                                                                    {
+                                                                                        <p style="display: inline-block; "> تومان </p> <del style="font-size:15px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
+
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row" style="margin:0px 15px; text-align:left">
+                                                                            <p style="display: inline-block; color: black"> تومان </p> <p style="color:black; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        }
+                                                    }
+
+                                                }
+
+
+                                            </div>
+                                            <div style="direction:ltr; display:flex;align-items:center; margin-top : 10px; text-align:center; border-top:1px solid #ddd; padding-top:15px">
+                                                @*<h5 class='timer' data-minutes-left=1></h5>*@
+                                                <i class="fal fa-clock" style="margin-right:10px;font-size:18px"></i>
+                                                <p style="font-size:19px; text-align:center" class='timer' data-seconds-left=@item.time></p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+
+                        }
+                    </div>
+                </div>
+                <div style="flex:1">
+                    <div class="row" style=" text-align: center;margin:0">
+                        <img style="max-width: 70%;" src="/images/wonder.png">
+                        <p style="display:flex;border-radius:10px;border:1px solid #fff;margin: 50px 10px 0 10px;padding: 12px 0;align-items: center;justify-content: center;font-size: 16px;color: white;cursor: pointer;">
+                            <a style="text-decoration:none;" href="/Home/ProductList?wonder=1"><i id="getWonerList" class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span></a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $("#getWonerList").click(function () {
+
+                    })
+                    wid = window.width;
+                    ITM = 1;
+
+                    if (wid > 720) {
+                        ITM = 2;
+                    }
+                    if (wid > 1000) {
+                        ITM = 3;
+                    }
+
+                    $(".owl-carousel").owlCarousel({
+                        items: ITM,
+                        rtl: true,
+                        margin: 5
+                    });
+                });
+            </script>
+        }
+
+
+        if (Model.specialOffers != null)
+        {
+
+            <div class="minwidth" style="display:none">
+                <div class="" style=" padding: 10px">
+                    <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
+                    <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+                </div>
+                <div id="wonderholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
+
+                    <div class="resCarousel-inner" style="direction:rtl">
+                        @foreach (var item in Model.specialOffers)
+                        {
+                            string addID = "addtocarto" + item.ID;
+                            string minusID = "minus" + item.ID;
+                            string imagefile = "placeholder.jpg";
+                            if (item.title != null)
+                            {
+                                imagefile = item.image;
+                            }
+                            string ID = "N" + item.ID.ToString();
+                            string addtocartid = "addtocart" + ID;
+                            string price = item.price;
+
+                            string src = imagefile;
+
+                            <div class="item showmedetail" id=@ID style="cursor:pointer; ">
+
+                                <div class="showmedetailx">
+                                    <div style="padding:2px  ">
+                                        <a href="/Home/ProductDetail?id=@ID">
+                                            <div class="imageholderindex" style="width:100%; ">
+                                                <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                            </div>
+                                        </a>
+
+                                        <div class="titleholder" style=" ">
+                                            @{
+                                                if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                {
+                                                    <h6 class="numEn"> @item.title</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6>@item.title</h6>
+                                                }
+
+                                            }
+
+                                        </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            <div class="addholder" style="margin:5px;display: flex;justify-content: center;align-items:center">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF; margin:10px"></i>
+                                                <div class="entry value @valueID " style="margin:0; border:0px; padding:0; width:10px; height:unset"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;margin:10px "></i>
+                                            </div>
+
+                                        }
+                                        <div class="priceholder" style="display:flex; align-items:center">
+                                            <div style="width:30%">
+                                                @if (item.discount != "0")
+                                                {
+                                                    <span style="color: white;font-size:12px;font-weight:300;background-color: red;border-radius: 5px;padding: 2px 5px;">
+                                                        @item.discount%
+
+                                                    </span>
+                                                }
+                                            </div>
+                                            <div style="flex:1">
+                                                @{
+                                                    if (item.isAvailable == "0")
+                                                    {
+                                                        @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
+                                                        <div class="row">
+                                                            <div class="row" style="min-height:17px"></div>
+                                                            <p style="display:inline-block">ناموجود</p>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        if (item.price == "0")
+                                                        {
+                                                            <div class="row">
+                                                                <p style="display:inline-block">تماس بگیرید</p>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row" style="text-align:left;min-height:17px">
+                                                                <div class="">
+                                                                    <div class="" style="color:red">
+                                                                        @if (item.price != item.oldPrice)
+                                                                        {
+                                                                            <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del> <p style="display: inline-block">تومان</p>
+
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row" style="text-align:left; color:green">
+                                                                <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
+                                                            </div>
+                                                            <div>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                }
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                        }
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        }
+        if (Model.banners != null)
+        {
+            if (Model.banners.Count >= 7)
+            {
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
+                    <div class="imageparent">
+                        <img class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[6].image' id='@Model.banners[6].type-@Model.banners[6].catIDOrLink' />
+                    </div>
+                </div>
+            }
+        }
+        if (Model.banners != null)
+        {
+            <div class="row bannerholder" style="">
+                <div class="row bannerrow1" style="margin:0px">
+                    <div>
+                        @if (Model.banners.Count >= 5)
+                        {
+                            if (Model.banners[4].image != "")
+                            {
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 indexbanner">
+                                    <div class="imageparent">
+                                        <img style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[4].image' class="banner bannerimage" id='@Model.banners[4].type-@Model.banners[4].catIDOrLink' />
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        @if (Model.banners.Count >= 2)
+                        {
+                            if (Model.banners[1].image != "")
+                            {
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 indexbanner ">
+                                    <div class="imageparent">
+                                        <img style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[1].image' class="banner bannerimage" id='@Model.banners[1].type-@Model.banners[1].catIDOrLink' />
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        @if (Model.banners.Count >= 3)
+                        {
+                            if (Model.banners[2].image != "")
+                            {
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 indexbanner ">
+                                    <div class="imageparent">
+                                        <img src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[2].image' class="banner bannerimage" id='@Model.banners[2].type-@Model.banners[2].catIDOrLink' />
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                        @if (Model.banners.Count >= 5)
+                        {
+                            if (Model.banners[5].image != "")
+                            {
+                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 indexbanner">
+                                    <div class="imageparent">
+                                        <img src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[5].image' class="banner bannerimage" id='@Model.banners[5].type-@Model.banners[5].catIDOrLink' />
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                    </div>
+                    @if (Model.banners.Count >= 1)
+                    {
+                        if (Model.banners[0].image != "")
+                        {
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 indexbanner  indexbannerMiddleL">
+                                <div class="imageparent">
+                                    <img style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[0].image' class="banner bannerimage" id='@Model.banners[0].type-@Model.banners[0].catIDOrLink' />
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    @if (Model.banners.Count >= 4)
+                    {
+                        if (Model.banners[3].image != "")
+                        {
+                            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
+                                <div class="imageparent">
+                                    <img src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[3].image' class="banner bannerimage" id='@Model.banners[3].type-@Model.banners[3].catIDOrLink' />
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+                <script>
+                    $(".banner").each(function () {
+
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+
+                            $(this).css("cursor", "default");
+                        }
+                    })
+                    $(".banner").click(function () {
+                        var val = $(this).attr('id');
+                        if (!(val.indexOf("empty") >= 0)) {
+                            window.location.href = "/Home/ManageBanner?val=" + $(this).attr('id');
+
+                        }
+                    })
+
+
+                    $(".mySlide").each(function () {
+
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+
+                            $(this).css("cursor", "default");
+                        }
+                    })
+                    $(".mySlide").click(function () {
+                        var val = $(this).attr('id');
+                        if (!val.contain('image')) {
+                            window.location.href = "/Home/ManageSlide?val=" + $(this).attr('id');
+
+                        }
+                    })
+
+                </script>
+            </div>
+
+        }
+        if (Model.newest != null)
+        {
+
+        }
+        if (Model.banners != null)
+        {
+            if (Model.banners.Count >= 8)
+            {
+                <div class="" style="margin:0 5px">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
+                        <div class="imageparent">
+                            <img class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[7].image' id='@Model.banners[7].type-@Model.banners[7].catIDOrLink' />
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+        if (Model.bestseller != null)
+        {
+
+            <div class="minwidth" style="display:none">
+                <div class="" style=" padding: 10px">
+                    <span style="float:right;font-size: 11px;font-weight: 800;"> پرفروش ترین ها</span>
+                    <a href="/Home/ProductList?sortID=2" style="        cursor: pointer;
+        float: left;
+        font-size: 11px;
+        color: blue;
+">لیست کامل</a>
+                </div>
+                <div id="" class="resCarousel" data-items="3-4-4-4" data-slide="1" data-speed="500">
+
+                    <div class="resCarousel-inner" style="direction:rtl">
+                        @foreach (var item in Model.bestseller)
+                        {
+                            string addID = "addtocarto" + item.ID;
+                            string minusID = "minus" + item.ID;
+                            string imagefile = "placeholder.jpg";
+                            if (item.title != null)
+                            {
+                                imagefile = item.image;
+                            }
+                            string ID = "N" + item.ID.ToString();
+                            string addtocartid = "addtocart" + ID;
+                            string price = item.price;
+
+                            string src = imagefile;
+
+                            <div class="item showmedetail" id=@ID style="cursor:pointer; ; max-width:34%">
+
+                                <div class="showmedetailx">
+                                    <div style="padding:2px  ">
+                                        <a href="/Home/ProductDetail?id=@ID">
+                                            <div class="imageholderindex" style="width:100%; ">
+                                                <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                            </div>
+                                        </a>
+
+                                        <div class="titleholder" style=" ">
+                                            @{
+                                                if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                {
+                                                    <h6 class="numEn"> @item.title</h6>
+                                                }
+                                                else
+                                                {
+                                                    <h6>@item.title</h6>
+                                                }
+
+                                            }
+
+                                        </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            <div class="addholder" style="margin:5px;display: flex;justify-content: center;align-items:center">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF; margin:10px"></i>
+                                                <div class="entry value @valueID " style="margin:0; border:0px; padding:0; width:10px; height:unset"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;margin:10px "></i>
+                                            </div>
+
+                                        }
+                                        <div class="priceholder" style="display:flex; align-items:center">
+                                            <div style="width:30%">
+                                                @if (item.discount != "0")
+                                                {
+                                                    <span style="color: white;font-size:12px;font-weight:300;background-color: red;border-radius: 5px;padding: 2px 5px;">
+                                                        @item.discount%
+
+                                                    </span>
+                                                }
+                                            </div>
+                                            <div style="flex:1">
+                                                @{
+                                                    if (item.isAvailable == "0")
+                                                    {
+                                                        @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
+                                                        <div class="row">
+                                                            <div class="row" style="min-height:17px"></div>
+                                                            <p style="display:inline-block">ناموجود</p>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        if (item.price == "0")
+                                                        {
+                                                            <div class="row">
+                                                                <p style="display:inline-block">تماس بگیرید</p>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="row" style="text-align:left;min-height:17px">
+                                                                <div class="">
+                                                                    <div class="" style="color:red">
+                                                                        @if (item.price != item.oldPrice)
+                                                                        {
+                                                                            <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del> <p style="display: inline-block">تومان</p>
+
+                                                                        }
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row" style="text-align:left; color:green">
+                                                                <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
+                                                            </div>
+                                                            <div>
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                }
+                                            </div>
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        }
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        }
+
+
+        if (Model.gourpList != null)
+        {
+            foreach (var group in Model.gourpList)
+            {
+                string id = group.type + "-" + group.catIDOrLink;
+
+                if (group.value != null)
+                {
+                    <div class="minwidth" style="display:none">
+                        <div class="" style=" padding: 10px">
+
+                            <span style="float:right;font-size: 11px;font-weight: 800;"> @group.title</span>
+                            <a href="/Home/ManageSlide?val=@id" style="cursor:pointer; float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+                        </div>
+                        <div id="" class="resCarousel" data-items="3-4-4-4" data-slide="1" data-speed="500">
+
+                            <div class="resCarousel-inner" style="direction:rtl">
+
+                                @foreach (var item in group.value)
+                                {
+                                    string addID = "addtocarto" + item.ID;
+                                    string minusID = "minus" + item.ID;
+                                    string imagefile = "placeholder.jpg";
+                                    if (item.title != null)
+                                    {
+                                        imagefile = item.image;
+                                    }
+                                    string ID = "N" + item.ID.ToString();
+                                    string addtocartid = "addtocart" + ID;
+                                    string price = item.price;
+
+                                    string src = imagefile;
+
+                                    <div class="item showmedetail" id=@ID style="cursor:pointer; ; max-width:34%">
+
+                                        <div class="showmedetailx">
+                                            <div style="padding:2px  ">
+                                                <a href="/Home/ProductDetail?id=@ID">
+                                                    <div class="imageholderindex" style="width:100%; ">
+                                                        <img class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                                    </div>
+                                                </a>
+
+                                                <div class="titleholder" style=" ">
+                                                    @{
+                                                        if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                        {
+                                                            <h6 class="numEn"> @item.title</h6>
+                                                        }
+                                                        else
+                                                        {
+                                                            <h6>@item.title</h6>
+                                                        }
+
+                                                    }
+
+                                                </div>
+                                                @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                                {
+                                                    string valueID = "value" + item.ID;
+                                                    <div class="addholder" style="margin:5px;display: flex;justify-content: center;align-items:center">
+                                                        <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF; margin:10px"></i>
+                                                        <div class="entry value @valueID " style="margin:0; border:0px; padding:0; width:10px; height:unset"><span>0</span></div>
+                                                        <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;margin:10px "></i>
+                                                    </div>
+
+                                                }
+                                                <div class="priceholder" style="display:flex; align-items:center">
+                                                    <div style="width:30%">
+                                                        @if (item.discount != "0")
+                                                        {
+                                                            <span style="color: white;font-size:12px;font-weight:300;background-color: red;border-radius: 5px;padding: 2px 5px;">
+                                                                @item.discount%
+
+                                                            </span>
+                                                        }
+                                                    </div>
+                                                    <div style="flex:1">
+                                                        @{
+                                                            if (item.isAvailable == "0")
+                                                            {
+                                                                @*<div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>*@
+                                                                <div class="row">
+                                                                    <div class="row" style="min-height:17px"></div>
+                                                                    <p style="display:inline-block">ناموجود</p>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                if (item.price == "0")
+                                                                {
+                                                                    <div class="row">
+                                                                        <p style="display:inline-block">تماس بگیرید</p>
+                                                                    </div>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <div class="row" style="text-align:left;min-height:17px">
+                                                                        <div class="">
+                                                                            <div class="" style="color:red">
+                                                                                @if (item.price != item.oldPrice)
+                                                                                {
+                                                                                    <del> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del> <p style="display: inline-block">تومان</p>
+
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row" style="text-align:left; color:green">
+                                                                        <p style="text-align:left; display:inline-block;font-weight:600; margin-left:5px">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p><p style="display: inline-block;">تومان</p>
+                                                                    </div>
+                                                                    <div>
+                                                                    </div>
+                                                                }
+                                                            }
+
+                                                        }
+                                                    </div>
+
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                }
+
+            }
+        }
+
+
+        <div class=" " style="margin :10px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1); border-radius: 5px;background-color:white">
+            <div class="row" style="padding:15px">
+                @{Html.RenderAction("contactSection", "Home");}
+            </div>
+        </div>
+
+        <script>
+            $("a").click(function () {
+
+                var link = $(this).attr('href');
+                window.location.href = link;
+            })
+        </script>
+    }
+    else
+
+    {
+
+
+        <style>
+            .bgcolordarkgray:before {
+               
+            }
+            .bgcolordimgray:before {
+                
+            }
+
+
+            .bg-right-half:before {
+                /*background-color: rebeccapurple;
+                background: url(../../images/pattern3.jpg) no-repeat;*/
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                content: "";
+                right: 0;
+                top: 0%;
+            }
+            .bg-right-half:after {
+                /*background-color: #000000 ;*/
+                position: absolute;
+                width: 0%;
+                height: 10%;
+                z-index: -1;
+                content: "";
+                left: 0;
+                top: 0%;
+            }
+           
+           
+
+            .text-primary {
+                color: #007bff !important;
+            }
+
+            .pb-5, .py-5 {
+                padding-bottom: 3rem !important;
+                padding-top: 3rem !important;
+            }
+
+            .mb-5, .my-5 {
+                margin-bottom: 3rem !important;
+            }
+
+
+            h2 {
+                font-size: 20px;
+                
+            }
+            .bg-left-half h2 {
+                text-align: left;
+                color: white !important
+            }
+            .bg-right-half h2 {
+                text-align: right;
+                color: white !important
+            }
+        </style>
+
+
+        <div class="topHolder row" style="">
+            <div class="slidesectionParent" style="">
+                @if (Model.slides != null)
+                {
+                    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators">
+                            @foreach (var item in Model.slides)
+                            {
+                                string src = "/images/panelimages/" + item.image;
+                                var index = Model.slides.IndexOf(item);
+                                if (index == 0)
+                                {
+                                    <li data - target="#myCarousel" data-slide-to="@index" class="active"></li>
+                                }
+                                else
+                                {
+                                    <li data-target="#myCarousel" data-slide-to="@index"></li>
+                                }
+
+                            }
+
+                        </ol>
+                        <!-- Wrapper for slides -->
+                        <div class="carousel-inner">
+                            @foreach (var item in Model.slides)
+                            {
+                                string src = "/images/panelimages/" + item.image;
+                                if (Model.slides.IndexOf(item) == 0)
+                                {
+                                    <div class=" item active">
+                                        <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class=" item ">
+                                        <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
+                                    </div>
+                                }
+
+                            }
+                        </div>
+                        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+
+                        <!-- Left and right controls -->
+                    </div>
+
+
+                }
+            </div>
+         
+
+        </div>
+
+
+
+        if (Model.specialOffers != null)
+                        {
+
+            <div style="position:relative; padding:5px 50px;background-color:#5c5c5c">
+                <div class="site-section bg-right-half    mb-5">
+                    <h2 class="text-primary py-5 ">پیشنهاد های ویژه</h2>
+                    @Html.Partial("/Views/Shared/_Index1ListItem.cshtml",Model.specialOffers)
+                </div>
+            </div>
+        }
+        if (Model.banners != null)
+        {
+            <div class="row bannerholder" style="">
+                <div class="row bannerrow1" style="margin:5px 45px">
+                    @if (Model.banners.Count >= 7)
+                    {
+
+                        <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
+                            <div class="imageparent">
+                                <img class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[6].image' id='@Model.banners[6].type-@Model.banners[6].catIDOrLink' />
+                            </div>
+                        </div>
+
+
+
+                    }
+                    @if (Model.banners.Count >= 8)
+                    {
+                        <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
+                            <div class="imageparent">
+                                <img class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[7].image' id='@Model.banners[7].type-@Model.banners[7].catIDOrLink' />
+                            </div>
+                        </div>
+
+                    }
+                    @if (Model.banners.Count >= 1)
+                    {
+                        if (Model.banners[0].image != "")
+                        {
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 indexbanner  indexbannerMiddleL" >
+                                <div class="imageparent">
+                                    <img style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[0].image' class="banner bannerimage" id='@Model.banners[0].type-@Model.banners[0].catIDOrLink' />
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    @if (Model.banners.Count >= 4)
+                    {
+                        if (Model.banners[3].image != "")
+                        {
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 indexbanner indexbannerMiddleR ">
+                                <div class="imageparent">
+                                    <img src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[3].image' class="banner bannerimage" id='@Model.banners[3].type-@Model.banners[3].catIDOrLink' />
+                                </div>
+                            </div>
+                        }
+
+                    }
+
+                </div>
+                <script>
+                    $(".banner").each(function () {
+
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+
+                            $(this).css("cursor", "default");
+                        }
+                    })
+                    $(".banner").click(function () {
+                        var val = $(this).attr('id');
+                        if (!(val.indexOf("empty") >= 0)) {
+                            window.location.href = "/Home/ManageBanner?val=" + $(this).attr('id');
+
+                        }
+                    })
+
+
+                    $(".mySlide").each(function () {
+
+                        if (($(this).attr('id').indexOf("empty") >= 0)) {
+
+                            $(this).css("cursor", "default");
+                        }
+                    })
+                    $(".mySlide").click(function () {
+                        var val = $(this).attr('id');
+
+                        if (!val.contain('image')) {
+                            window.location.href = "/Home/ManageSlide?val=" + $(this).attr('id');
+
+                        }
+                    })
+
+                </script>
+            </div>
+
+        }
+
+        if (Model.newest != null)
+        {
+
+            <div style="position:relative; padding:5px 50px; background-color:#3397b2">
+                <div class="site-section bg-right-half  bg-left-half bgcolorRed mb-5" >
+                    <h2 class="text-primary py-5 ">جدید ترین ها</h2>
+                    @Html.Partial("/Views/Shared/_Index1ListItem.cshtml", Model.newest)
+                </div>
+            </div>
+        }
+
+
+    }
+}
+<!-- menuforapp-->
+<!-- //content-bottom -->
+<!-- product-nav -->
+<!-- //product-nav -->
+
+
+
+
+
+
+
+
+
+<style>
+
+
+
+    .imageholderindex img {
+        object-fit: scale-down;
+        width: 100%;
+        max-height: 260px;
+    }
+</style>
+<script>
+    $('.timer').startTimer();
+
+</script>
+<script>
+    $('.value-plus').on('click', function () {
+        event.stopPropagation();
+        $("#loading").fadeIn()
+        let newVal = $(this).parent().children(".value").text();
+        let finalVal = parseInt(newVal) + 1;
+        // $(this).parent().children(".value").text(finalVal);
+        var ID = $(this).attr('id');
+        let myid = "value" + ID.replace("addtocarto", "");
+
+        $("." + myid).text(finalVal);
+
+        $.ajax({
+            url: '/Home/addtocart',
+            dataType: 'html',
+            data: {
+                id: ID
+
+            },
+            success: function (data) {
+                var count = parseInt($(".simpleCart_quantityy").text());
+                count += 1;
+                $(".simpleCart_quantityy").text(count);
+                $("#loading").fadeOut()
+
+
+            },
+            error: function () {
+                alert("error")
+            }
+
+
+        });
+    });
+    $('.value-minus').on('click', function () {
+        event.stopPropagation();
+
+        var ID = $(this).attr('id');
+        let myid = "value" + ID.replace('minus', '');
+
+        let newVal = $(this).parent().children(".value").text();
+        if (newVal != "0") {
+            $("#loading").fadeIn()
+            let finalVal = parseInt(newVal) - 1;
+            $("." + myid).text(finalVal);
+            $.ajax({
+                url: '/Home/minusfromcart',
+                dataType: 'html',
+                data: {
+                    id: ID
+                },
+                success: function (data) {
+                    var count = parseInt($(".simpleCart_quantityy").text());
+                    count -= 1;
+                    $(".simpleCart_quantityy").text(count);
+                    $("#loading").fadeOut()
+
+
+                },
+                error: function () {
+                    alert("error")
+                }
+
+
+            });
+        }
+
+
+
+
+
+
+
+
+    });
+
+    $(".watchall").each(function () {
+        var hi = $(this).parent().find(".showmedetailFirstDiv").height();
+
+        $(this).height(hi - 5);
+    })
+
+    $(".watchall").click(function () {
+
+        window.location.href = this.id
+
+    })
+
+
+</script>
+
+
+
+
+
+<script src="~/Scripts/resCarousel.js"></script>
+<script>
+    $(".newItems").owlCarousel({
+        items: 5,
+        rtl: true,
+        margin: 5
+    });
+</script>
+
+
+
+
+
+@if (Request.Browser.IsMobileDevice)
+{
+
+
+    <script>
+
+        $(".carousel").on("swipeleft", function () {
+            console.log("ss");
+            $(this).carousel('next')
+        });
+
+        $(".carousel").on("swiperight", function () {
+            console.log("dd");
+            $(this).carousel('prev')
+        });
+    </script>
+}
+
+
+
+
+
+

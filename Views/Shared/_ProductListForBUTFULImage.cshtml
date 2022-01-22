@@ -203,7 +203,7 @@
 @{
     int w = Request.Browser.ScreenPixelsWidth;
     int h = Request.Browser.ScreenPixelsHeight;
-    if (Request.Browser.IsMobileDevice || (w < 720 && h > 720))
+    if (Request.Browser.IsMobileDevice || (w < 820 && h > 820))
     {
         <div class="minwidth" style="width:100%; display:none">
             <style>
@@ -302,9 +302,9 @@
                                             </div>
 
                                         }
-                                        <div class="descriptionSection" style="min-width:25px">
+                                        @*<div class="descriptionSection" style="min-width:25px">
                                             <p class="title" style="color:#605c5c">@Html.Raw(item.desc)</p>
-                                        </div>
+                                        </div>*@
                                         @*<div class="descholder">
             <p class="titledesc"> </p>
         </div>*@
@@ -610,7 +610,7 @@
 
                                                     <div class="row" style="margin: 0px 15px;  text-align: left;">
 
-                                                        <p style="display: inline-block; ">تومان</p>  <p style=" display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                        <p style="display: inline-block; ">تومان</p>  <p style=" display:inline-block;font-size:19px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
 
                                                     </div>
                                                 }

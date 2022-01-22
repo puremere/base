@@ -1,4 +1,4 @@
-﻿@model banimo.AdminPanel.ViewModel.AddressVM
+﻿@model banimo.AdminPanelBoom.ViewModel.AddressVM
 
 <style>
 
@@ -60,27 +60,53 @@
                                     <th>شهر</th>
                                     <th>آدرس</th>
                                     <th>کد پستی</th>
-
+                                    <th></th>
 
                                 </tr>
                             </thead>
                             <tbody style="">
-                                @foreach (var item in Model.address)
+                                @if (Model.address != null)
                                 {
-                                   
-                                    int i = Model.address.IndexOf(item) + 1;
+                                    foreach (var item in Model.address)
+                                    {
 
-                                <tr class="itemdetail" style="cursor:pointer ">
-                                    <td>@i</td>
-                                    <td>@item.title</td>
-                                    <td>@item.state</td>
-                                    <td>@item.city</td>
-                                    <td>@item.address</td>
-                                    <td>@item.postalCode</td>
+                                        int i = Model.address.IndexOf(item) + 1;
 
+                                        <tr class="itemdetail" style="cursor:pointer ">
+                                            <td>
+                                                <span class="">@i</span>
+                                                <input style="display:none" class="ID form-control" value="@item.ID" />
+                                            </td>
+                                            <td>
+                                                <span class="lbl"> @item.title</span>
+                                                <input style="display:none" class="title form-control" />
+                                            </td>
+                                            <td>
+                                                <span class="lbl">@item.state</span>
+                                                <input style="display:none" class="state form-control" />
+                                            </td>
+                                            <td>
+                                                <span class="lbl">@item.city</span>
+                                                <input style="display:none" class="city form-control" />
+                                            </td>
+                                            <td>
+                                                <span class="lbl">@item.address</span>
+                                                <input style="display:none" class="address form-control" />
+                                               
+                                            </td>
+                                            <td>
+                                                <span class="lbl">@item.postalCode</span>
+                                                <input style="display:none" class="postalcode form-control" />
+                                            </td>
+                                            <td>
+                                                <span class="btn btn-success edit">ویرایش</span>
+                                                <span style="display:none" class="btn btn-success verif">تایید</span>
+                                            </td>
 
-                                </tr>
+                                        </tr>
+                                    }
                                 }
+
 
 
 
@@ -94,3 +120,70 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(".edit").click(function () {
+        $(this).hide();
+        $(this).parent().parent().find(".lbl").each(function () {
+            $(this).siblings().val(($(this).text()));
+            $(this).hide(); 
+            $(this).siblings().show();
+
+        })
+        $(this).siblings().show()
+    })
+
+    $(".verif").click(function () {
+
+        let address = $(this).parent().parent().find(".address");
+        let title = $(this).parent().parent().find(".title");
+        let state = $(this).parent().parent().find(".state");
+        let city = $(this).parent().parent().find(".city");
+        let postalCode = $(this).parent().parent().find(".postalcode");
+       
+        let ID = $(this).parent().parent().find(".ID");
+        $.ajax({
+            url: "/Home/setAddress",
+            data: {
+                address: address.val(),
+                postalCode: postalCode.val(),
+                title: title.val(),
+                city: city.val(),
+                state: state.val(),
+                id: ID.val()
+            },
+            success: function (data) {
+                
+                if (data === "200") {
+                  
+
+                    address.siblings().text(address.val());
+                    address.siblings().show();
+                    address.hide(); 
+
+                    postalCode.siblings().text(postalCode.val());
+                    postalCode.siblings().show();
+                    postalCode.hide();
+
+                    title.siblings().text(title.val());
+                    title.siblings().show();
+                    title.hide();
+
+                    city.siblings().text(city.val());
+                    city.siblings().show();
+                    city.hide();
+
+                    state.siblings().text(state.val());
+                    state.siblings().show();
+                    state.hide();
+                }
+            }
+        })
+
+        $(this).hide();
+        $(this).siblings().show()
+
+
+    })
+</script>

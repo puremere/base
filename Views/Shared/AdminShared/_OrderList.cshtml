@@ -56,7 +56,7 @@
                     <div class="col-lg-6" style="padding:25px">
                         <p>تعداد تکرار سفارش</p>
                         <div style="display:flex">
-                            <input name="repeatNumber" class="form-control" />
+                            <input id="repeatNumber" name="repeatNumber" class="form-control" />
                             <div id="setRepeat" style="display:inline-block" class="btn  btn-default">تایید</div>
                         </div>
                     </div>
@@ -483,29 +483,9 @@
     $(".repeateOrder").click(function () {
         $("#myModal2").modal('toggle');
         idselected = $(this).attr('id');
+       
     })
 
-    $("#setRepeat").click(function () {
-        $("#myModal").modal('toggle');
-        var repeatNumber = $("#repeatNumber").val();
-        alert(repeatNumber)
-
-        //$.ajax({
-        //    url: '/Admin/finalizeOrderAndDeliver',
-        //    dataType: 'html',
-        //    data: {
-        //        id: idselected,
-        //        number: repeatNumber,
-        //    },
-
-        //    success: function (data) {
-
-        //        window.location.reload();
-        //    }
-
-
-
-        //});
     $("#setDeliver").click(function () {
         $("#myModal").modal('toggle');
         var deliverID = $("#deliverDromdown").val();
@@ -518,6 +498,27 @@
                 deliverID: deliverID,
                 type: "4",
                 desc: description
+            },
+
+            success: function (data) {
+
+                window.location.reload();
+            }
+
+
+
+        });
+    })
+    $("#setRepeat").click(function () {
+        $("#myModal2").modal('toggle');
+        var number = $("#repeatNumber").val();
+        
+        $.ajax({
+            url: '/Connection/copyRequest',
+            dataType: 'html',
+            data: {
+                num: number,
+                orderNum: idselected
             },
 
             success: function (data) {
