@@ -1,0 +1,4 @@
+﻿@model banimo.ViewModel.addressPartialVM
+
+
+@Html.DropDownList("userAddressForOrder", new SelectList(Model.MyProperty.address, "ID", "address"), new { @class = "form-control", id= "userAddressForOrder" })

@@ -1,4 +1,4 @@
-﻿@model banimo.AdminPanelBoom.ViewModel.AddressVM
+﻿@model banimo.ViewModel.addressPartialVM
 
 <style>
 
@@ -32,6 +32,21 @@
             }
 </style>
 
+
+<div class="modal fade" id="removeItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+           
+            <div class="modal-body">
+               آیا از حذف آیتم مورد نظر اطمینان دارید؟
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                <button id="removeVerify" type="button" class="btn btn-primary">تایید</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div style="overflow-x:auto;padding:10px">
         <div class="panel panel-default">
@@ -39,12 +54,12 @@
     background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
     background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
     background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                <form method="post" id="getPDF" action="/Admin/createUserReport">
+                <form method="post" id="getPDF" action="/Admin/createUserAddress">
                     <input name="data" hidden />
                     <input name="id" hidden />
                     <input value="user" name="type" hidden />
-                    <h3 class="panel-title"><i class="fa fa-home fa-fw"></i> آدرس های کاربر      </h3>
-
+                    <h3 class="panel-title"><i class="fa fa-home fa-fw"></i> آدرس های کاربر     <i id="addAddress" class="fa fa-plus" style="float:left; font-size:20px; cursor:pointer"></i>  </h3>
+                   
                 </form>
 
             </div>
@@ -65,45 +80,83 @@
                                 </tr>
                             </thead>
                             <tbody style="">
-                                @if (Model.address != null)
+
+                                <tr id="newHolder" class="itemdetail" style="display:none ">
+                                    <td>
+                                        
+                                    </td>
+                                    <td>
+                                       
+                                        <input id="addtitle" class="city form-control" />
+                                    </td>
+                                    <td>
+                                        
+                                        <input id="addstate"class="city form-control" />
+                                    </td>
+                                    <td>
+                                       
+                                        <input id="addcity" class="city form-control" />
+                                    </td>
+                                    <td>
+                                       
+                                        <input id="addaddress"  class="address form-control" />
+
+                                    </td>
+                                    <td>
+                                       
+                                        <input id="addpostalcode" class="postalcode form-control" />
+                                    </td>
+                                    <td>
+                                        
+                                        <span  class="btn btn-success addverif">تایید</span>
+                                    </td>
+
+                                </tr>
+                                @if (Model.MyProperty.address != null)
                                 {
-                                    foreach (var item in Model.address)
+                                    foreach (var item in Model.MyProperty.address)
                                     {
 
-                                        int i = Model.address.IndexOf(item) + 1;
+                                        int i = Model.MyProperty.address.IndexOf(item) + 1;
 
-                                        <tr class="itemdetail" style="cursor:pointer ">
-                                            <td>
-                                                <span class="">@i</span>
-                                                <input style="display:none" class="ID form-control" value="@item.ID" />
-                                            </td>
-                                            <td>
-                                                <span class="lbl"> @item.title</span>
-                                                <input style="display:none" class="title form-control" />
-                                            </td>
-                                            <td>
-                                                <span class="lbl">@item.state</span>
-                                                <input style="display:none" class="state form-control" />
-                                            </td>
-                                            <td>
-                                                <span class="lbl">@item.city</span>
-                                                <input style="display:none" class="city form-control" />
-                                            </td>
-                                            <td>
-                                                <span class="lbl">@item.address</span>
-                                                <input style="display:none" class="address form-control" />
-                                               
-                                            </td>
-                                            <td>
-                                                <span class="lbl">@item.postalCode</span>
-                                                <input style="display:none" class="postalcode form-control" />
-                                            </td>
-                                            <td>
-                                                <span class="btn btn-success edit">ویرایش</span>
-                                                <span style="display:none" class="btn btn-success verif">تایید</span>
-                                            </td>
 
-                                        </tr>
+                                <tr class="itemdetail" style="cursor:pointer ">
+                                    <td>
+                                        <span class="">@i</span>
+                                        <input style="display:none" class="ID form-control" value="@item.ID" />
+                                    </td>
+                                    <td>
+                                        <span class="lbl"> @item.title</span>
+                                        <input style="display:none" class="title form-control" />
+                                    </td>
+                                    <td>
+                                        <span class="lbl">@item.state</span>
+                                        <input style="display:none" class="state form-control" />
+                                    </td>
+                                    <td>
+                                        <span class="lbl">@item.city</span>
+                                        <input style="display:none" class="city form-control" />
+                                    </td>
+                                    <td>
+                                        <span class="lbl">@item.address</span>
+                                        <input style="display:none" class="address form-control" />
+
+                                    </td>
+                                    <td>
+                                        <span class="lbl">@item.postalCode</span>
+                                        <input style="display:none" class="postalcode form-control" />
+                                    </td>
+                                    <td>
+                                        <span class="btn btn-success edit">ویرایش</span>
+                                        <span style="display:none" class="btn btn-success verif">تایید</span>
+                                    </td>
+                                    <td>
+                                        <span class="btn btn-success remove">حذف</span>
+                                       
+                                    </td>
+
+
+                                </tr>
                                     }
                                 }
 
@@ -134,6 +187,88 @@
         $(this).siblings().show()
     })
 
+    $("#addAddress").click(function () {
+        $("#newHolder").show();
+    });
+    let toBeDelete = "";
+    $(".remove").click(function () {
+        toBeDelete = $(this).parent().parent().find(".ID").val();
+        $("#removeItem").modal('toggle');
+    })
+
+    $("#removeVerify").click(function () {
+
+       
+        $.ajax({
+            url: "/admin/removeAddress",
+            data: {
+                id: toBeDelete
+            },
+            success: function (data) {
+                $("#removeItem").modal('toggle');
+                $("#loading").hide();
+                $.ajax({
+                    url: '/Admin/AddressUser',
+                    dataType: 'html',
+                    data: {
+                         id: @Model.ID,
+                    },
+                    success: function (data) {
+                       
+                        $("#addressList").html(data)
+                        $('html,body').animate({
+                            scrollTop: $("#addressList").offset().top
+                        }, 'fast');
+                        $("#loading").hide();
+                    },
+                    error: function () {
+
+                    }
+                });
+            }
+        })
+
+    })
+    $(".addverif").click(function () {
+        let address = $("#addaddress");
+        let title = $("#addtitle");
+        let state = $("#addstate");
+        let city = $("#addcity");
+        let postalCode = $("#addpostalcode");
+        $.ajax({
+            url: "/admin/setAddress",
+            data: {
+                address: address.val(),
+                postalCode: postalCode.val(),
+                title: title.val(),
+                city: city.val(),
+                state: state.val(),
+                userID: '@Model.ID'
+            },
+            success: function (data) {
+
+                if (data === "200") {
+                    $.ajax({
+                        url: '/Admin/AddressUser',
+                        dataType: 'html',
+                        data: {
+                            id: @Model.ID,
+                        },
+                        success: function (data) {
+
+                            $("#addressList").html(data)
+                            $('html,body').animate({
+                                scrollTop: $("#addressList").offset().top
+                            }, 'fast');
+                        },
+                        error: function () {
+
+                        }
+                    });
+                }
+            }
+        })
+    })
     $(".verif").click(function () {
 
         let address = $(this).parent().parent().find(".address");
@@ -141,6 +276,7 @@
         let state = $(this).parent().parent().find(".state");
         let city = $(this).parent().parent().find(".city");
         let postalCode = $(this).parent().parent().find(".postalcode");
+        
        
         let ID = $(this).parent().parent().find(".ID");
         $.ajax({

@@ -1,7 +1,7 @@
 ﻿@*this is test comment*@
 @using System.Text.RegularExpressions;
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa">
 @{
 
 
@@ -35,7 +35,8 @@
                 gtag('config', '@analyticID');
             </script>
 
-            <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+            <meta charset="utf-8" />
+
 
             <title>@ViewBag.Title </title>
 
@@ -100,8 +101,8 @@
         <body>
             <div id="loading" style="display:none">
                 <div style="padding:15px 35px; background-color:white;position:fixed;overflow: visible;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
-                    <img style="max-width:80px; display:block; margin:auto" src="~/images/@logo" />
-                    <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
+                    <img style="max-width:80px; display:block; margin:auto" src="~/images/@logo" alt="لوگو" />
+                    <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" alt="لودینگ" />
                 </div>
             </div>
 
@@ -258,7 +259,7 @@
                                 </div>
                             </a>
                             <div style="width:100%;    text-align: center; position:absolute ; bottom:5px">
-                                <a href="http://www.supect.com"><img src="~/images/supect.png" style=" width:75px; margin:0 auto;" /></a>
+                                <a href="http://www.supect.com"><img src="~/images/supect.png" style=" width:75px; margin:0 auto;" alt="supect.com" /></a>
                             </div>
                         </div>
                     </div>
@@ -281,7 +282,7 @@
                         </div>
 
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex;padding:30px;width: 60%;margin: auto;">
-                            <img style="width: 100%;margin:auto;object-fit: scale-down;height: 100%;max-width: 100px;" src="~/images/@logo" />
+                            <img style="width: 100%;margin:auto;object-fit: scale-down;height: 100%;max-width: 100px;" src="~/images/@logo" alt="لوگو" />
                         </div>
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
                             <div class="contactItem"><i class="fa fa-envelope" style="margin-left: 10px"></i><span style="font-size:4vw"> Info&#64;<span>@System.Configuration.ConfigurationManager.AppSettings["serverName"]</span>.com</span> </div>
@@ -328,8 +329,8 @@
                             "onclick": null,
                             "fadeIn": 300,
                             "fadeOut": 1000,
-                            "timeOut": 15000,
-                            "extendedTimeOut": 1000,
+                            "timeOut": 150000,
+                            "extendedTimeOut": 10000,
 
 
 
@@ -615,7 +616,7 @@
                 gtag('config', '@analyticID');
             </script>
 
-            <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+            <meta charset="utf-8" />
 
             <title>@ViewBag.Title </title>
 
@@ -625,7 +626,7 @@
             <meta http-equiv="content-language" content="fa" />
 
             <!-- Mobile Specific Metas
-            ================================================== -->
+    ================================================== -->
             <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
             <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
             <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -655,19 +656,18 @@
 
 
 
-            <link href="~/Content/bundle.css" rel="stylesheet" />
-            <script src="~/Scripts/jquery-2.1.4.min.js"></script>
-            <script src="~/Scripts/jquery.flexslider2.js"></script>
-            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
-            <script src="~/Scripts/imagezoom.js"></script>
-            <script src="~/Scripts/toastr.js"></script>
-            <script src="~/Scripts/jquery-ui.js"></script>
+
+            <script src="~/Scripts/jquery-2.1.4.min.js" ></script>
 
             @RenderSection("header", required: false)
 
-            <link href="~/Content/layoutStyle.css" rel="stylesheet" />
+
+            <link href="~/Content/app_critical_min.css" rel="stylesheet" />
+            @*<link rel="stylesheet" href="~/Content/bundle.css">
+        <link href="~/Content/layoutStyle.css" rel="stylesheet" />
+        <link href="~/Content/toastr.css" rel="stylesheet" />*@
             <script src="~/Scripts/toastr.js"></script>
-            <link href="~/Content/toastr.css" rel="stylesheet" />
+
 
         </head>
         <body>
@@ -693,12 +693,12 @@
                     }
             </style>
             <button onclick="topFunction()" id="myBtn" title="Go to top"><i class="fa fa-chevron-up"></i></button>
-            <div id="loading" style="display:none">
+            <div id="loading" style="">
                 <div style="padding:15px 35px; background-color:white;position:fixed;overflow: visible;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
 
 
-                    <img style="max-width:80px; display:block; margin:auto" src="~/images/@logo" />
-                    <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
+                    <img style="max-width:80px; display:block; margin:auto" src="~/images/@logo" alt="لوگو" />
+                    <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" alt="لودینگ" />
 
 
 
@@ -720,7 +720,7 @@
                                         <div class="cartdiv" style="float:left; cursor:pointer" id="arrowcart">
                                             <table style="width:100%">
                                                 <tr>
-                                                    <th style="padding: 0 10px; " height="40px; "><img style="width:40px" src="~/images/cart.png" class="cartimage" /></th>
+                                                    <th style="padding: 0 10px; " height="40px; "><img style="width:40px" src="~/images/cart.png" class="cartimage" alt="سبد خرید" /></th>
                                                     <th style="padding: 0 10px;" width="45%"><p class="carttext">سبد خرید</p></th>
                                                     @{
 
@@ -744,11 +744,11 @@
                                             if (user != null)
                                             {
                                                 string name = user.fullname != "" ? user.fullname : user.phone;
-                                                <a class="entertext" style="cursor: pointer; font-size: 12px;">@name</a><a style="margin-right:20px"><img style="font-size:12px; width:15px; " src="~/images/arrow.png" /></a>
+                                                <a class="entertext" style="cursor: pointer; font-size: 12px;">@name</a><a style="margin-right:20px"><img style="font-size:12px; width:15px; " src="~/images/arrow.png" alt="بازشود" /></a>
                                             }
                                             else
                                             {
-                                                <a class="entertext" style="cursor: pointer; font-size: 12px;">ورود / ثبت نام</a><a style="margin-right:20px"><img style="font-size:12px; width:15px; " src="~/images/arrow.png" /></a>
+                                                <a class="entertext" style="cursor: pointer; font-size: 12px;">ورود / ثبت نام</a><a style="margin-right:20px"><img style="font-size:12px; width:15px; " src="~/images/arrow.png" alt="بازشود" /></a>
                                             }
                                         }
 
@@ -858,13 +858,11 @@
                                 </th>
                                 <th>
                                     <div id="searchpanel" action="~/Home/ProductList">
-                                        <div type="submit" id="searchImageWeb" style="cursor:pointer; display: inline-block; background-color: #64c4ef; border-radius: 10px 0px 0px 10px; position:absolute"> <img src="~/images/search.png" style="width:40px;" /></div><input id="searchInputWeb" name="newquery" type="text" style="outline:0; text-align:right; width:85%; height:40px; display:inline-block; padding:8px;border:1px solid #ddd;background-color:#eee; border-radius:10px 10px 10px 10px; text-align:right;direction:rtl;" placeholder="نام کالا، برند یا دسته مورد نظر را جستجو کنید .. " />
+                                        <div type="submit" id="searchImageWeb" style="cursor:pointer; display: inline-block; background-color: #64c4ef; border-radius: 10px 0px 0px 10px; position:absolute"> <img src="~/images/search.png" style="width:40px;" alt="جستجو" /></div><input id="searchInputWeb" name="newquery" type="text" style="outline:0; text-align:right; width:85%; height:40px; display:inline-block; padding:8px;border:1px solid #ddd;background-color:#eee; border-radius:10px 10px 10px 10px; text-align:right;direction:rtl;" placeholder="نام کالا، برند یا دسته مورد نظر را جستجو کنید .. " />
                                     </div>
                                 </th>
                                 <th>
-                                    <h1 style="float:right">
-                                        <a href="/Home/Index"><img style="width:70px" src="~/images/@logo"></a>
-                                    </h1>
+                                    <a href="/Home/Index"><img style="width:70px" src="~/images/@logo" alt="لوگو"></a>
                                 </th>
 
 
@@ -1164,7 +1162,12 @@
 
             @{Html.RenderAction("contactSection", "Home");}
 
-
+           
+            <script src="~/Scripts/jquery.flexslider2.js"></script>
+            <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+            <script src="~/Scripts/imagezoom.js"></script>
+            <script src="~/Scripts/toastr.js"></script>
+            <script src="~/Scripts/jquery-ui.js"></script>
 
             <script>
 
@@ -1262,7 +1265,11 @@
 
                     })
                 };
-                getquntity();
+
+                $(document).ready(function(){
+                      getquntity();
+                })
+              
 
 
 
@@ -1290,17 +1297,24 @@
                     $('body,html').animate({
                         scrollTop: 0
                     }, 800);
-                    
+
                 }
             </script>
             <script>
                 $(document).ajaxStart(function () {
                     $("#loading").show();
                 }).ajaxStop(function () {
-                    $("#loading").hide('slow');
+                    $("#loading").hide();
                 })
             </script>
-
+            <link href="~/Content/app_min.css" rel="stylesheet" />
+            <script>
+                $(document).ready(function () {
+                 
+                    $("#loading").hide();
+                    $("#loading").css("background-color", "transparent");
+                })
+            </script>
         </body>
     }
 

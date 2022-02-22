@@ -140,7 +140,55 @@
             var counter = 0;
             var payment = $("#payment").val();
             var houid = $("#hourid").val();
-            if (houid == "") {
+            var info = $(".info").text();
+            if (info == "done") {
+                if (houid != "") {
+                    if (addressID != "") {
+
+                        if (payment != "" && value != "0") {
+                            $("form#endOrderForm").submit();
+                        }
+                        else {
+                            toastr.options = {
+                                "debug": false,
+                                "positionClass": "toast-top-center",
+                                "onclick": null,
+                                "fadeIn": 300,
+                                "fadeOut": 1000,
+                                "timeOut": 3000,
+                                "extendedTimeOut": 1000
+                            }
+                            toastr.error("لطفا روش پرداخت را انتخاب کنید");
+                        }
+                        
+                    }
+                    else {
+                        toastr.options = {
+                            "debug": false,
+                            "positionClass": "toast-top-center",
+                            "onclick": null,
+                            "fadeIn": 300,
+                            "fadeOut": 1000,
+                            "timeOut": 3000,
+                            "extendedTimeOut": 1000
+                        }
+                        toastr.error("لطفا آدرس خود را انتخاب کنید");
+                    }
+                }
+                else {
+                    toastr.options = {
+                        "debug": false,
+                        "positionClass": "toast-top-center",
+                        "onclick": null,
+                        "fadeIn": 300,
+                        "fadeOut": 1000,
+                        "timeOut": 3000,
+                        "extendedTimeOut": 1000
+                    }
+                    toastr.error("لطفا زمان تحویل  را انتخاب کنید");
+                }
+            }
+            else {
                 toastr.options = {
                     "debug": false,
                     "positionClass": "toast-top-center",
@@ -150,50 +198,16 @@
                     "timeOut": 3000,
                     "extendedTimeOut": 1000
                 }
-                toastr.error("لطفا زمان تحویل  را انتخاب کنید");
+                toastr.error("لطفا اطلاعات فردی خود را وارد نمایید");
             }
-            if (addressID == "") {
-                toastr.options = {
-                    "debug": false,
-                    "positionClass": "toast-top-center",
-                    "onclick": null,
-                    "fadeIn": 300,
-                    "fadeOut": 1000,
-                    "timeOut": 3000,
-                    "extendedTimeOut": 1000
-                }
-                toastr.error("لطفا آدرس خود را انتخاب کنید");
-                $("#finalconfirm").click(function () {
-                    $("#finalconfirm").off('click');
-                    senddata();
+           
+            $("#finalconfirm").click(function () {
+                $("#finalconfirm").off('click');
+                senddata();
 
-                })
-                counter = 1;
-            }
+            })
 
-            if (payment == "" && value == "0") {
-                toastr.options = {
-                    "debug": false,
-                    "positionClass": "toast-top-center",
-                    "onclick": null,
-                    "fadeIn": 300,
-                    "fadeOut": 1000,
-                    "timeOut": 3000,
-                    "extendedTimeOut": 1000
-                }
-                toastr.error("لطفا روش پرداخت را انتخاب کنید");
-                $("#finalconfirm").click(function () {
-                    $("#finalconfirm").off('click');
-                    senddata();
 
-                })
-                counter = 1;
-            }
-            if (counter == 0) {
-
-                $("form#endOrderForm").submit();
-
-            }
         }
 
         $("#finalconfirm").click(function () {
@@ -240,7 +254,7 @@
             if ($("#lat").val() != "") {
 
                 lat = $("#lat").val();
-                lon = $("#lgn").val()
+                lon = $("#lng").val()
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 myMap.panTo(new L.LatLng(lat, lon));
             };
@@ -265,7 +279,7 @@
                 //Add a marker to show where you clicked.
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 $("#lat").val(lat);
-                $("#lgn").val(lon);
+                $("#lng").val(lon);
             });
                 theMarker = L.marker([lat, lon]).addTo(myMap);
                 $("#lat").val(lat);
@@ -303,7 +317,7 @@
                 if ($("#lat").val() != "") {
 
                     lat = $("#lat").val();
-                    lon = $("#lgn").val()
+                    lon = $("#lng").val()
                     theMarker = L.marker([lat, lon]).addTo(myMap);
                     myMap.panTo(new L.LatLng(lat, lon));
                 }
@@ -326,7 +340,7 @@
                     theMarker = L.marker([lat, lon]).addTo(myMap);
 
                     $("#lat").val(lat);
-                    $("#lgn").val(lon);
+                    $("#lng").val(lon);
                 });
 
 
@@ -380,7 +394,7 @@
                 $("#mapHolder").css("display", "none");
 
                 var lat = $("#lat").val();
-                var lon = $("#lgn").val();
+                var lon = $("#lng").val();
                 //myMap.panTo(new L.LatLng(lat, lon));
                 //$("#maphide").hide();
                 //$("#mapshow").show();
@@ -393,7 +407,7 @@
                         data: 'html',
                         data: {
                             lat: $("#lat").val(),
-                            log: $("#lgn").val(),
+                            log: $("#lng").val(),
                         },
                         success: function (data) {
 
@@ -448,7 +462,7 @@
 
         $("#verifyAddress").click(function () {
             var lat = $("#lat").val();
-            var lng = $("#lgn").val();
+            var lng = $("#lng").val();
             var address = $("#modalAddress").val();
             var postalCode = $("#modalpostalCode").val();
             var title = $("#modalTitle").val();
@@ -566,7 +580,7 @@
                                 var lon = item.lng;
 
                                 $("#lat").val(lat);
-                                $("#lgn").val(lon);
+                                $("#lng").val(lon);
                                 if (myMap == undefined) {
                                     getLocation();
                                 }
@@ -702,7 +716,6 @@
                 </button>
             </div>
             <div class="modal-body">
-
                 آیا از حذف آیتم مورد نظر اطمینان دارید؟
             </div>
             <div class="modal-footer">
@@ -730,7 +743,7 @@
         <input hidden name="addID" id="addID" value="0" />
         <input hidden name="disc" id="lon" value="0" />
         <input hidden name="lat" id="lat" value="" />
-        <input hidden name="lgn" id="lgn" value="" />
+        <input hidden name="lng" id="lng" value="" />
         <input hidden id="addressID" name="addressID" />
         <div id="app" style="width:100%; height:100%"></div>
         <div style="margin:30px 0px 30px 0px"></div>
@@ -759,14 +772,15 @@
                                 if (item.active == "1")
                                 {
                                     display = "block";
-
+                                    string lng = @item.lng == "" ? "0" : @item.lng;
+                                    string lat = @item.lng == "" ? "0" : @item.lng;
                                     <script>
 
                                         let latelement = document.getElementById('lat');
                                         let addelement = document.getElementById('addressID');
-                                        let lonelement = document.getElementById('lgn');
-                                        latelement.value = @item.lat;
-                                        lonelement.value = @item.lng;
+                                        let lonelement = document.getElementById('lng');
+                                        latelement.value = @lat;
+                                        lonelement.value = @lng;
                                         addelement.value = @item.ID;
 
 
@@ -838,42 +852,153 @@
 
                     </div>
                     @*<div class="row ">
-                            <div class="col-lg-12 col-sm-12 row1 ">
-                                <div class="inputdiv1"><p>شهر</p></div>
-                                <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
-                            </div>
+                    <div class="col-lg-12 col-sm-12 row1 ">
+                        <div class="inputdiv1"><p>شهر</p></div>
+                        <div class="inputdiv2"><input id="city" name="city" class="form-control field" type="text" value="@city" /></div>
+                    </div>
 
 
-                        </div>
-                        <div class="row ">
-                            <div class="col-lg-6 col-sm-6 row1 ">
-                                <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
-                                <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 row1">
-                                <div class="inputdiv1"><p>آدرس</p></div>
-                                <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
-                            </div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-6 col-sm-6 row1 ">
+                        <div class="inputdiv1"><p>نام و نام خانوادگی</p></div>
+                        <div class="inputdiv2"><input id="fullname" name="fullname" class="form-control field" type="text" value="@fullname" /></div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 row1">
+                        <div class="inputdiv1"><p>آدرس</p></div>
+                        <div class="inputdiv2"><input id="address" name="address" class="form-control field" type="text" value="@address" /></div>
+                    </div>
 
-                        </div>
-                        <div class="row ">
-                            <div class="col-lg-6 col-sm-6 row1">
-                                <div class="inputdiv1"><p>شماره تلفن</p></div>
-                                <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 row1 ">
-                                <div class="inputdiv1"><p>کد پستی</p></div>
-                                <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
-                            </div>
+                </div>
+                <div class="row ">
+                    <div class="col-lg-6 col-sm-6 row1">
+                        <div class="inputdiv1"><p>شماره تلفن</p></div>
+                        <div class="inputdiv2"><input id="phonenumber" name="phonenumber" class="form-control field" type="text" value="@phone" /></div>
+                    </div>
+                    <div class="col-lg-6 col-sm-6 row1 ">
+                        <div class="inputdiv1"><p>کد پستی</p></div>
+                        <div class="inputdiv2"><input id="postalcode" name="postalcode" class="form-control" type="text" /></div>
+                    </div>
 
 
-                        </div>*@
+                </div>*@
                 </div>
             </div>
+
+
+
+            @{
+                if (fullname == "")
+                {
+                    <div class="containerofform">
+                        <div class="header"><p> اطلاعات تکمیلی</p></div>
+                        <div class="sectionBody">
+                            <div class="row ">
+                                <div style="padding:7px 15px; width:70%; margin:10px auto; border-bottom:2px solid green">
+                                    <div class="row">
+                                        <i class="fa fa-pen" style="float:right; width:10%"></i>
+                                        <input id="formFullname" style="border:none; float:left; width:90%" placeholder="نام و نام خانوادگی" />
+
+
+                                    </div>
+
+                                </div>
+                                <div style="padding:7px 15px; width:70%; margin:25px auto; border-bottom:2px solid green">
+                                    <div class="row">
+                                        <i class="fa fa-pen" style="float:right; width:10%"></i>
+                                        <input id="formIDNumber" style="border:none; float:left; width:90%" placeholder="شماره ملی" />
+
+
+                                    </div>
+
+                                </div>
+                                <div class="row" style="width:80%; margin:auto;  color:#2585bd">
+                                    <div style="float:left" id="infoConfirm" class="btn-link-spoiler btn-link-spoiler--edit">
+                                        ثبت اطلاعات
+                                    </div>
+                                    <script>
+
+                                        $('#infoConfirm').click(function () {
+
+                                            var formIDNumber = $("#formIDNumber").val()
+                                            var formFullname = $('#formFullname').val();
+
+
+                                            //alert(discount);
+                                            if (formIDNumber == "" || formFullname == "") {
+
+
+                                                toastr.options = {
+                                                    "debug": false,
+                                                    "positionClass": "toast-top-center",
+                                                    "onclick": null,
+                                                    "fadeIn": 300,
+                                                    "fadeOut": 1000,
+                                                    "timeOut": 5000,
+                                                    "extendedTimeOut": 1000
+                                                }
+                                                toastr.error("نام و کد ملی خود را وارد نمایید");
+                                            }
+                                            else {
+                                                $.ajax({
+                                                    url: '/Home/updataProfile',
+                                                    dataType: 'html',
+                                                    data: {
+                                                        address: formIDNumber,
+                                                        fullname: formFullname
+                                                    },
+                                                    success: function (data) {
+
+
+
+                                                        if (data == "success") {
+
+                                                            toastr.options = {
+                                                                "debug": false,
+                                                                "positionClass": "toast-top-center",
+                                                                "onclick": null,
+                                                                "fadeIn": 300,
+                                                                "fadeOut": 1000,
+                                                                "timeOut": 5000,
+                                                                "extendedTimeOut": 1000
+                                                            }
+                                                            toastr.success("اطلاعات با موفقیت ثبت شد");
+                                                            $(".info").text("done")
+                                                            // let price = parseInt($("#finalprice").val())
+
+                                                        }
+
+                                                    },
+                                                    error: function () {
+
+                                                    }
+
+                                                })
+                                            }
+
+                                        })
+                                    </script>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div style="display:none" class="info"></div>
+                }
+                else
+                {
+                    <div style="display:none" class="info">done</div>
+                }
+
+            }
+
 
             <div class="containerofform">
                 <div class="header"><p> زمان ارسال</p></div>
                 <div class="sectionBody">
+
+
+
                     <div class="row ">
                         @{
                             if (Model.times != null)
@@ -894,13 +1019,13 @@
 
                                                 <div class="halfrow">
                                                     @*@if (@detail.isChecked == true)
-                                                        {
-                                                            <i class="fa fa-check finalrow" id="@finalname"></i>
-                                                        }
-                                                        else
-                                                        {
+                                                {
+                                                    <i class="fa fa-check finalrow" id="@finalname"></i>
+                                                }
+                                                else
+                                                {
 
-                                                        }*@
+                                                }*@
                                                     <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
                                                     <p>@detail.title</p>
                                                 </div>
@@ -917,13 +1042,13 @@
 
                                                 <div class="halfrow ">
                                                     @*@if (@detail.isChecked == true)
-                                                        {
-                                                            <i class="fa fa-check finalrow" id="@finalname"></i>
-                                                        }
-                                                        else
-                                                        {
+                                                {
+                                                    <i class="fa fa-check finalrow" id="@finalname"></i>
+                                                }
+                                                else
+                                                {
 
-                                                        }*@
+                                                }*@
                                                     <i class="fa fa-check finalrow" id="@finalname" style="display:none"></i>
                                                     <p>@detail.title</p>
                                                 </div>
@@ -940,13 +1065,13 @@
                                         string checkname = "check" + index;
                                         <div class="halfrow master">
                                             @*@if (@item.isChecked == true)
-                                                {
-                                                    <i class="fa fa-check dispath" id="@checkname"></i>
-                                                }
-                                                else
-                                                {
+                                        {
+                                            <i class="fa fa-check dispath" id="@checkname"></i>
+                                        }
+                                        else
+                                        {
 
-                                                }*@
+                                        }*@
                                             <i class="fa fa-check dispath" id="@checkname" style="display:none"></i>
                                             <p>@item.title</p>
                                         </div>
@@ -1083,8 +1208,8 @@
                                     decimal deliverPrice = decimal.Parse(@Model.priceDeliver);
                                     decimal amountPrice = decimal.Parse(@Model.finalAmount);
                                     decimal creditPrice = decimal.Parse(@Model.credit);
-                                    }
-                                <p class="col-lg-6 col-sm-6 Holder" style="display:flex"> <i id="finalprice">@String.Format("{0:n0}", amountPrice ) </i>&nbsp;تومان</p>
+                                }
+                                <p class="col-lg-6 col-sm-6 Holder" style="display:flex"> <i id="finalprice">@String.Format("{0:n0}", amountPrice) </i>&nbsp;تومان</p>
                                 <p class="col-lg-6 col-sm-6">مبلغ</p>
                             </div>
                             <div class="row priceitem">
@@ -1098,7 +1223,7 @@
                             <div class="row priceitem">
                                 <p class="col-lg-6 col-sm-6 Holder" style="display:flex"><span id="totalprice"> @String.Format("{0:n0}", totalprice)  </span>&nbsp;تومان</p>
                                 <p class="col-lg-6 col-sm-6">مبلغ نهایی</p>
-                            </div> 
+                            </div>
                         </div>
 
                     </div>
@@ -1111,7 +1236,7 @@
                     <div class="row ">
                         <div id="finalPriceHolder" style="">
                             <div class="row priceitem">
-                                <p class="col-lg-6 col-sm-6 Holder"  style="display:flex"> <i id="finalprice"> @String.Format("{0:n0}", creditPrice)</i>&nbsp;تومان</p>
+                                <p class="col-lg-6 col-sm-6 Holder" style="display:flex"> <i id="finalprice"> @String.Format("{0:n0}", creditPrice)</i>&nbsp;تومان</p>
                                 <p class="col-lg-6 col-sm-6">اعتبار</p>
                             </div>
                             <style>
@@ -1198,13 +1323,13 @@
                 <div class="sectionBody">
                     <div class="row " style="direction:rtl;">
                         @*<div class="col-lg-6 col-sm-6 " id="inplace" style="cursor:pointer; float:right">
-                                <div class="halfrow">
-                                    <i class="fa fa-check banky"></i>
+                        <div class="halfrow">
+                            <i class="fa fa-check banky"></i>
 
-                                    <p>پرداخت درمحل</p>
-                                </div>
+                            <p>پرداخت درمحل</p>
+                        </div>
 
-                            </div>*@
+                    </div>*@
 
                         @{
                             if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("inplace"))
@@ -1247,13 +1372,13 @@
                             if (@System.Configuration.ConfigurationManager.AppSettings["dargah"].Contains("wallet"))
                             {
                                 @*<div class="col-lg-6 col-sm-6 " id="Wallet" style="cursor:pointer; float:right">
-                                        <div class="halfrow">
-                                            <i class="fa fa-check banky" style="display:none"></i>
+                                <div class="halfrow">
+                                    <i class="fa fa-check banky" style="display:none"></i>
 
-                                            <p>کیف پول</p>
-                                        </div>
+                                    <p>کیف پول</p>
+                                </div>
 
-                                    </div>*@
+                            </div>*@
                             }
                         }
 
@@ -1263,8 +1388,8 @@
 
 
             @*<div id="finalconfirm" class="btn-link-spoiler btn-link-spoiler--edit">
-                    تایید اطلاعات
-                </div>*@
+            تایید اطلاعات
+        </div>*@
             <div style="width:100%; text-align:center; padding:20px">
                 <div id="finalconfirm" class="btn btn-success" style=" width: 60%;  padding: 10px; font-size: 14px; margin: 0 auto;">
                     پرداخت

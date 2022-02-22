@@ -104,14 +104,14 @@
 
                                             var val = $("#forgettext").val();
 
-
+                
                                             if (!isNotNull(val) || !isValidPhonenumber(val)) {
-
+                                                
                                                 $("#remember-error").css("display", "block");
                                                 $("#forgettext").css("color", "#ef5662");
                                                 $("#forgettext").css("border", "1px solid #ef5662");
                                                 $("#mainlabla2").addClass("error");
-
+                                                
                                             }
                                             else {
                                                 $("#loading").fadeIn();
@@ -119,7 +119,7 @@
                                                     url: '/CustomerLogin/forgetPass',
                                                     dataType: 'html',
                                                     data: {
-
+                                                        isRegister: "1",
                                                         phone: val
                                                     },
                                                     success: function (srt) {

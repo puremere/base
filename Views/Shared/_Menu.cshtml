@@ -65,7 +65,7 @@
     <nav style="font-size:13px; color:#f6f5f5; background-color:#656565; padding-right:0px; border-bottom:2px solid black">
 
 
-        <ul id="main-menu" class="sm sm-rtl sm-mint" style="z-index:9; ">
+        <ul id="main-menu" class="sm sm-rtl sm-mint" style="z-index:9999; ">
             
             
             <li id="back" style=" display:none; cursor: pointer; border-bottom: 3px solid ; border-bottom-color:transparent"><a style="padding-right:20px"><i class="fa fa-arrow-left" style="margin-left:25px"></i>بازگشت</a></li>
@@ -101,7 +101,7 @@
                                     <li>
                                         <ul class="ulinside" style="display:flex;height:400px ">
                                             <li style="width:70%; ">
-                                                <ul class="baseList"  style=" flex-direction:column; flex-wrap: wrap; height:380px; ">
+                                                <ul class="baseList"  style=" flex-direction:column; flex-wrap: wrap; height:380px;margin-right:20px ">
                                                     @if (Model.catsdata.First().mysubcatcollection != null)
                                                     { 
                                                         foreach (var SB in Model.catsdata.First().mysubcatcollection)
@@ -111,14 +111,14 @@
                                                             if (SB.IsFinal == "1" && SB.CatID == cat.ID)
                                                             {
                                                                 subsrtcat = "2" + SB.ID;
-                                                                <li style="display:flex; align-items:center;"><a style="font-weight:500; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat&value=@SB.title">@SB.title  </a> <i class="fa fa-angle-left" style="color:black"></i></li>
+                                                    <li style="display:flex; align-items:center;"> <i style="height:15px; width:2px; background-color:red"></i><a style="font-weight:500; font-size:14px" href="/Home/ProductList?catmode=@subsrtcat">@SB.title  </a> <i class="fa fa-angle-left" style="color:black"></i></li>
                                                             }
                                                             else if (SB.IsFinal == "0" && SB.CatID == cat.ID)
                                                             {
                                                                 subsrtcat = "2" + SB.ID;
                                                                 <li class="li" style="display:flex; align-items:center;">
 
-                                                                    <a style="font-weight:500; font-size:14px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">@SB.title </a> <i class="fa fa-angle-left" style="color:black"></i>
+                                                                    <i  style="height:15px; width:2px; background-color:red"></i> <a style="font-weight:500; font-size:14px" href="/Home/submenu?catmode=@subsrtcat&value=@SB.title">@SB.title </a> <i class="fa fa-angle-left" style="color:black"></i>
                                                                  
                                                                 </li>
                                                                 if (Model.catsdata.First().mysubcatcollection2 != null)
@@ -130,7 +130,7 @@
 
 
                                                                             subsrtcat2 = "3" + SB2.ID;
-                                                                            <li><a style="font-weight:400; font-size:13px" href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
+                                                                            <li><a style="font-weight:400; font-size:11px; color:#6d6d6d" href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
                                                                         }
                                                                     }
                                                                 }
@@ -236,8 +236,8 @@
                     
                  }
                      , function () {
-                     $(this).css("position", "relative");
-                     $(this).find('ul').css('display',"none");
+                     //$(this).css("position", "relative");
+                     //$(this).find('ul').css('display',"none");
                      }
                  )
     </script>

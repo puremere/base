@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <script src="~/Scripts/jquery.flexslider2.js"></script>
     <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
@@ -23,18 +24,59 @@
             box-shadow: -1px 4px 29px 5px rgb(0 0 0 / 30%);
         }
     </style>
+    @RenderSection("HeadIncludes", required: false)
+  
 </head>
 <body>
 
-    <div class="main" style="position:relative;z-index:9">
+    <div class="main" style="position:relative;z-index:9; background-color:white">
 
         @RenderBody()
 
     </div>
 
+    @{
+        banimo.ViewModel.userdata userApp = Session["LogedInUser"] as banimo.ViewModel.userdata;
+    }
 
+    <div style="z-index:9; position:fixed; right:70px; top:25px; width:150px">
+        @if (userApp != null)
+        {
+            string name = userApp.fullname != "" ? userApp.fullname : userApp.phone;
 
-    
+            <div class="menuAppHeader toolbarText" style="direction: rtl;padding: 15px;">
+                <a href="/Home/myprofile?type=1">
+                    <i class="fal fa-user " style=" margin-left:10px; vertical-align:middle; color:white"></i> <span class="" style="color:white">@name</span>
+                </a>
+            </div>
+            <div class="menuAppHeader" style="direction: rtl;background-color: #E1A52B">
+
+                <a href="/CustomerLogin/LogOff">
+                    <i class="fal fa-sign-out " style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white" class="">خروج</span>
+                </a>
+            </div>
+
+        }
+        else
+        {
+            <a href="/Home/Login">
+                <div class="menuAppHeader" style="direction: rtl;color: white;">
+
+                    <span style="color:black">عضویت و ورود</span>
+                </div>
+            </a>
+        }
+    </div>
+    <div style="z-index:9; position:fixed; right:180px; top:25px;">
+        <a href="/Home/Login">
+            <div class="menuAppHeader" style="direction: rtl;color: white;">
+
+                <span style="color:black">جستجو</span>
+            </div>
+        </a>
+    </div>
+   
+    <img src="~/images/logo.png" style="z-index:9; position:fixed; left:30px; top:30px; width:150px" />
     <i id="barsformenu" style="z-index:9; position:fixed; right:30px; top:30px; cursor:pointer" class="fal fa-bars"> </i>
 
     <style>

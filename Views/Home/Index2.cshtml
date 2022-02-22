@@ -413,12 +413,12 @@
         color: #fff;
         /*background: blueviolet no-repeat center/cover;*/
         background-blend-mode: overlay;
-        font-family: arial;
+      
         font-weight: bold;
         font-size: 22px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        overflow: hidden;
+        /*letter-spacing: 2px;
+        text-transform: uppercase;*/
+        text-align:right !important;
     }
 
     .C-carousel.initialized .C-slide {
@@ -587,7 +587,7 @@
         display: flex;
         justify-content: space-around;
         padding: 70px;
-        height: 100vh;
+       
         width: 100%
     }
 </style>
@@ -659,28 +659,64 @@
                 <source src="~/video/clip.mp4" type="video/mp4">
             </video>
             <video class="a3" style="display:none; width:100%;" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
-                <source src="~/video/kids.mp4" type="video/mp4">
+                <source src="~/video/k1-video.mp4" type="video/mp4">
             </video>
         </div>
         <div class="C-slide">
             <div class="a1 bannerHoder">
-                <img src="~/images/menbanner.jpg" />
-
+                <img src="~/images/m1-min.jpg" />
             </div>
             <div style="display:none;" class="a2 bannerHoder">
-                <img src="~/images/womenbanner.jpg" />
+                <img src="~/images/w1-min.jpg" />
             </div>
             <div style="display:none;" class="a3 bannerHoder">
-                <img src="~/images/kidsbanner.jpg" />
+                <img src="~/images/k1-min.jpg" />
 
             </div>
         </div>
         <div class="C-slide">
 
-
-
+            <video class="a1" style="" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="~/video/m2-video.mp4" type="video/mp4">
+            </video>
+            <video class="a2" style="display:none; " playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="~/video/w2-vieo.mp4" type="video/mp4">
+            </video>
+            <video class="a3" style="display:none;" playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+                <source src="~/video/k2-video.mp4" type="video/mp4">
+            </video>
         </div>
-        <div class="C-slide"><div class="C-slide-title">Slide 4</div></div>
+
+        <div class="C-slide">
+            <div class="a1 bannerHoder">
+                <img src="~/images/m2-min.jpg" />
+
+            </div>
+            <div style="display:none;" class="a2 bannerHoder">
+                <img src="~/images/w2-min.jpg" />
+            </div>
+            <div style="display:none;" class="a3 bannerHoder">
+                <img src="~/images/k2-min.jpg" />
+
+            </div>
+        </div>
+        <div class="C-slide">
+            <div class="a1 bannerHoder">
+                <img src="~/images/m3-min.jpg" />
+
+            </div>
+            <div style="display:none;" class="a2 bannerHoder">
+                <img src="~/images/w3-min.jpg" />
+            </div>
+            <div style="display:none;" class="a3 bannerHoder">
+                <img src="~/images/k3-min.jpg" />
+
+            </div>
+        </div>
+       
+        <div class="C-slide">
+            @{Html.RenderAction("contactSection", "Home");}
+        </div>
 
     </div>
     <div class="a1 arrowLeft" nametype="a1" nametype2="a2" style=" "><i class="  fal fa-chevron-left"> </i><p>زنانه</p> </div>

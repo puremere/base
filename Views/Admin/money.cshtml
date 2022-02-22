@@ -299,10 +299,15 @@
         </div>
         <div id="tamin" class="tab-pane fade in  " style="padding-top:20px">
             <div class="row" style="display:flex; align-items:center">
-                <div style="margin:5px;">
-                    <p>انتخاب تامین کننده :</p>
-                    @Html.DropDownList("taminlist", new SelectList(Model.partnerList, "ID", "title"), new { id = "taminlist", @class = "form-control" })
-                </div>
+                @if (Model.partnerList != null)
+                {
+                    <div style="margin:5px;">
+                        <p>انتخاب تامین کننده :</p>
+                        @Html.DropDownList("taminlist", new SelectList(Model.partnerList, "ID", "title"), new { id = "taminlist", @class = "form-control" })
+                    </div>
+                }
+
+
                 @*<div class="col-lg-2">
             <p>بدون کاربرها با شماره های :</p>
             <input id="excludeUsers" type="text" value="">
@@ -323,9 +328,7 @@
                         <option value="1">واریز</option>
                         <option value="0">برداشت</option>
                     </select>
-
                 </div>
-
                 <div style="position:relative; margin:5px" id="dateHolder">
                     <p>از تاریخ :</p>
                     <input type="text" class="form-control taminprojectDate inputfield" />
@@ -359,7 +362,6 @@
                 <div style="position:relative; margin:5px" id="">
                     <div class="btn btn-success" style="width:100%;margin-top:20px" id="taminverify">تایید</div>
                 </div>
-
                 <script>
                     $("#taminverify").click(function () {
                         $.ajax({
@@ -379,7 +381,6 @@
                         })
                     })
                 </script>
-
             </div>
 
         </div>

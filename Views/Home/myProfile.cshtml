@@ -366,7 +366,7 @@
                                                                 <input id="EditAddress" class="c-ui-input__field" type="text" value="@Model.userdata.address" placeholder=" آدرس خود را وارد کنید">
                                                             </label>
                                                             <p class="profile">
-                                                                <span>آدرس:</span>
+                                                                <span>شماره ملی:</span>
                                                                 @{
                                                                     if (Model.userdata.address == null || Model.userdata.address == "")
                                                                     {
@@ -380,45 +380,7 @@
                                                             </p>
                                                         </div>
                                                     </div>
-                                                    <div class="c-profile-stats__row">
-
-                                                        <div class="c-profile-stats__col ">
-                                                            <label class="c-ui-input edit" style="display:none">
-                                                                <input id="EditCity" class="c-ui-input__field" type="text" value="@Model.userdata.city" placeholder=" شهر را وارد کنید">
-                                                            </label>
-                                                            <p class="profile">
-                                                                <span>شهر:</span>
-                                                                @{
-                                                                    if (Model.userdata.city == null || Model.userdata.city == "")
-                                                                    {
-                                                                        <i id="addressholder">-</i>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        @Model.userdata.city
-                                                                    }
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                        <div class="c-profile-stats__col firstofrow">
-                                                            <label class="c-ui-input edit" style="display:none">
-                                                                <input id="EditProvice" class="c-ui-input__field" type="text" value="@Model.userdata.province" placeholder="استان خود را وارد کنید">
-                                                            </label>
-                                                            <p class="profile">
-                                                                <span>استان:</span>
-                                                                @{
-                                                                    if (Model.userdata.province == null)
-                                                                    {
-                                                                        <i>-</i>
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        @Model.userdata.province
-                                                                    }
-                                                                }
-                                                            </p>
-                                                        </div>
-                                                    </div>
+                                               
                                                     @*<div class="c-profile-stats__row">
                                                             <div class="c-profile-stats__col">
                                                                 <label class="c-ui-input edit" style="display:none">
@@ -468,8 +430,6 @@
                                                                     var email = $("#EditEmail").val();
                                                                     var address = $("#EditAddress").val();
                                                                     var fullname = $("#Editfullname").val();
-                                                                    var city = $("#EditCity").val();
-                                                                    var province = $("#EditProvice").val();
                                                                     var mobile = "@Model.userdata.phone";
 
 

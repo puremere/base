@@ -44,50 +44,74 @@
                                 @foreach (var item in Model.Users)
                                 {
 
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.ID)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.fullname)
-                                        </td>
-                                        <td style=" text-align:right">
-                                            @Html.DisplayFor(modelItem => item.email)
-                                        </td>
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.fullname)
+                                    </td>
+                                    <td style=" text-align:right">
+                                        @Html.DisplayFor(modelItem => item.email)
+                                    </td>
+                                    <td style=" text-align:right">
+                                        @Html.DisplayFor(modelItem => item.mobile)
+                                    </td>
+                                    <td style="text-align: right;">
+                                        @Html.DisplayFor(modelItem => item.address)
+                                    </td>
+                                    <td style="text-align: center;">
 
-                                        <td style=" text-align:right">
-                                            @Html.DisplayFor(modelItem => item.mobile)
-                                        </td>
-                                        <td style="text-align: right;">
-                                            @Html.DisplayFor(modelItem => item.address)
+                                        @{
+                                            var ID = @item.ID;
+                                            <a id=@ID class="btn btn-primary Abutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">آدرس ها</a>
 
-                                        </td>
+                                        }
 
-                                        <td style="text-align: center;">
+                                    </td>
+                                    <td style="text-align: center;">
+                                        @{
+                                             
+                                            <a id=@ID class="btn btn-primary Pbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
 
-                                            @{
-                                                var ID = @item.ID;
-                                                <a id=@ID class="btn btn-primary Pbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">ویرایش</a>
+                                        }
+                                    </td>
+                                    <td style="text-align: center;">
+                                        @{
 
-                                            }
+                                            <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
 
-                                        </td>
-                                        <td style="text-align: center;">
-
-                                            @{
-
-                                                <a id=@ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
-
-                                            }
-
-                                        </td>
-                                    </tr>
+                                        }
+                                    </td>
+                                </tr>
                                 }
 
 
                             </tbody>
                         </table>
                         <script>
+                            $(".Abutton").click(function () {
+
+                                var id = $(this).attr("id");
+
+                                $.ajax({
+                                    url: '/Admin/AddressUser',
+                                    dataType: 'html',
+                                    data: {
+                                        id: id,
+                                    },
+                                    success: function (data) {
+
+                                        $("#addressList").html(data)
+                                        $('html,body').animate({
+                                            scrollTop: $("#addressList").offset().top
+                                        }, 'fast');
+                                    },
+                                    error: function () {
+
+                                    }
+                                });
+                            });
 
                                                 $(".Dbutton").click(function () {
 

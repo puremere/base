@@ -1,0 +1,15 @@
+﻿
+
+@model banimo.ViewModel.TimeList
+
+
+<select class="form-control" id="userTimeForOrder">
+    @foreach (var item in Model.times)
+    {
+        foreach (var DETAIL in item.hours)
+        {
+            <option value="@DETAIL.ID"> @item.title  (@DETAIL.title)</option>
+        }
+    }
+
+</select>
