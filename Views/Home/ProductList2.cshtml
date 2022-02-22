@@ -2,16 +2,10 @@
 @model banimo.ViewModel.productlistclass
 @{
     //ViewBag.Title = "لیست محصولات";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout2.cshtml";
 }
-
-
-@*
-    <script src="~/Scripts/jquery.mobile-1.4.5.js"></script>
-    <link href="~/Content/jquery.mobile-1.4.5.css" rel="stylesheet" />*@
 @section scripts{
-    <link href="~/Content/ProductListStyle.css" rel="stylesheet" />
-
+    <link href="~/Content/ProductListStyle2.css" rel="stylesheet" />
 
     @*<script>
             $(document).ajaxStart(function () {
@@ -25,25 +19,54 @@
 
         </script>*@
 
+    <script>
+
+
+        window.addEventListener("pageshow", function (event) {
+            var historyTraversal = event.persisted ||
+                (typeof window.performance != "undefined" &&
+                    window.performance.navigation.type === 2);
+            if (historyTraversal) {
+                // Handle page restore.
+                window.location.reload();
+            }
+        });
+        $(".accholder").hide();
+
+        $("#filterButton").click(function () {
+            var width = screen.width / 4;
+            var number = parseInt(width) + "px";
+
+            $(".accholder").toggle();
+
+
+            fvalue = $('#FLTholder').css('width') === number ? 0 : number;
+
+            $('#FLTholder').animate({
+                width: fvalue
+            });
+        })
+        $("#closeFilter").click(function () {
+            var width = screen.width / 4;
+            var number = parseInt(width) + "px";
+
+            $(".accholder").toggle();
+
+
+            fvalue = $('#FLTholder').css('width') === number ? 0 : number;
+
+            $('#FLTholder').animate({
+                width: fvalue
+            });
+        })
+    </script>
+
+
 }
 
 
 
 
-
-<script>
-   
-   
-    window.addEventListener("pageshow", function (event) {
-        var historyTraversal = event.persisted ||
-            (typeof window.performance != "undefined" &&
-                window.performance.navigation.type === 2);
-        if (historyTraversal) {
-            // Handle page restore.
-            window.location.reload();
-        }
-    });
-</script>
 
 
 <div id="filterAndSortButt" class="row minwidth" style="display:none">
@@ -58,16 +81,11 @@
         <div id="sortholderBut" class="filtersortmenu" style="width:88%; float:right">  <i style=" margin-left: 10px" class="fal fa-sort-amount-up"></i><span style="font-size:11px" id="textOfSort">پرفروش ترین ها</span></div>
 
     }
-
     <div id="iconholder" class="filtersortmenu" style="width:12% ; float:right">
-
         <i class="fal fa-list" style="font-weight:400; font-size:16px"> </i>
         <i class="fal fa-th-large" style="display:none ; font-weight:400;font-size:16px"> </i>
-
     </div>
-
 </div>
-
 <div id="sortholder" style="display:none">
     <div id="horizontalTab">
         <label class="radoioholder">
@@ -104,10 +122,7 @@
             <div id="sortybutton" class="btn btn-success">انتخاب</div>
         </div>
 
-
     </div>
-
-
 
 </div>
 <script>
@@ -123,12 +138,12 @@
             dataType: 'html',
             success: function (data) {
                 //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-                getquntity()
+                //getquntity()
                 $.ajax({
                     url: '/Home/gogetproductlist',
                     aType: 'html',
                     success: function (data) {
-                        
+
                         $("#SIBdiv").css("height", "");
                         $('#productlist').html(data);
                         window.scrollTo(0, 0);
@@ -138,8 +153,7 @@
                         //alert("nashod")
                     },
                     complete: function () {
-                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                        $('#spaceholder').css("height", '');
+                       
                         $("#textOfSort").text(text);
 
                     }
@@ -214,6 +228,7 @@
     $("#sortholder #horizontalTab").click(function (e) {
         e.stopPropagation();
     });
+
     $(".fa-th-large").click(function () {
         $(".showmedetail").css("width", "50%");
         $(".c-price__discount-oval").hide();
@@ -233,134 +248,118 @@
         $(this).css("display", "none");
         $(".fa-th-large").css("display", "block");
     })
-
-
 </script>
-
 <div>
+    <div class="row devidfromheader" style="margin:0px; background-color:white; border-right:1px solid #eee;position:relative">
 
-    <div class="row devidfromheader" style="margin:0px; margin-top:25px; border-right:1px solid #eee">
-
-
-        <div id="SIBdiv" class="col-lg-9 col-lg-12 col-sm-12" style="padding-left:10px;width:80%">
-            <div id="contentholder" class="row" style="padding-bottom:10px; margin:2px">
-
-                <div id="sortholdermax" class="row" style="    display: flex; text-align: right;  direction: rtl; align-items: center;margin:5px; border:1px solid #eee; border-right:0px; background-color:white">
-                    <div style=" float:right; display:inline-block; padding:15px">
-                        <img src="~/images/bars.png" style="width:35px" />
-                    </div>
-
-                    <p style=" float:right; display:inline-block; padding:25px 0px; font-size:16px; text-align:right; width:20%; ">مرتب سازی بر اساس :</p>
-                    <div style="display:inline-block; float:right">
-                        <div id="horizontalTab" style="margin:0;  padding:15px; display:inline-block; float:right">
-                            <ul class="resp-tabs-list" style="direction:rtl; margin:0px">
-                                <li class="resp-tab-item selected" id="1sort" role="tab"><span>جدید ترین</span></li>
-                                <li class="resp-tab-item" id="5sort" role="tab"><span>قیمت از کم به زیاد </span></li>
-                                <li class="resp-tab-item" id="4sort" role="tab"><span>قیمت از زیاد به کم</span></li>
-                                <li class="resp-tab-item" id="3sort" role="tab"><span>پیشنهاد ویژه</span></li>
-                                <li class="resp-tab-item" id="2sort" role="tab"><span>پرفروش ترین</span></li>
-
-
-
-                            </ul>
-
+        <div id="SIBdiv" class="col-lg-12 col-lg-12 col-sm-12" style="direction:rtl; width:100%; margin-top:100px">
+            <span id="filterButton" style="text-align:right; padding:2px 5px; cursor:pointer; padding-right:20px" >فیلترها</span>
+            <div id="contentholder" class="row" style=" margin:100px; margin-top:0">
+                @*<div id="sortholdermax" class="row" style="    display: flex; text-align: right;  direction: rtl; align-items: center;margin:5px; border:1px solid #eee; border-right:0px; background-color:white">
+                        <div style=" float:right; display:inline-block; padding:15px">
+                            <img src="~/images/bars.png" style="width:35px" />
                         </div>
-                        <script>
-                            $(".resp-tab-item").click(function () {
-                                $(".resp-tab-item").removeClass('selected')
-                                $(this).addClass('selected');
-                                $("#loading").css("display", "block");
-                                var id = $(this).prop("id");
-                                $.ajax({
-                                    url: '/Home/changesortid',
-                                    data: {
-                                        ID: id,
+                        <p style=" float:right; display:inline-block; padding:25px 0px; font-size:16px; text-align:right; width:20%; ">مرتب سازی بر اساس :</p>
+                        <div style="display:inline-block; float:right">
+                            <div id="horizontalTab" style="margin:0;  padding:15px; display:inline-block; float:right">
+                                <ul class="resp-tabs-list" style="direction:rtl; margin:0px">
+                                    <li class="resp-tab-item selected" id="1sort" role="tab"><span>جدید ترین</span></li>
+                                    <li class="resp-tab-item" id="5sort" role="tab"><span>قیمت از کم به زیاد </span></li>
+                                    <li class="resp-tab-item" id="4sort" role="tab"><span>قیمت از زیاد به کم</span></li>
+                                    <li class="resp-tab-item" id="3sort" role="tab"><span>پیشنهاد ویژه</span></li>
+                                    <li class="resp-tab-item" id="2sort" role="tab"><span>پرفروش ترین</span></li>
 
-                                    },
-                                    dataType: 'html',
-                                    success: function () {
-                                        //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                </ul>
+                            </div>
+                            <script>
+                                $(".resp-tab-item").click(function () {
+                                    $(".resp-tab-item").removeClass('selected')
+                                    $(this).addClass('selected');
+                                    $("#loading").css("display", "block");
+                                    var id = $(this).prop("id");
+                                    $.ajax({
+                                        url: '/Home/changesortid',
+                                        data: {
+                                            ID: id,
 
-                                        $.ajax({
-                                            url: '/Home/gogetproductlist',
-                                            aType: 'html',
-                                            success: function (data) {
-                                                $("#SIBdiv").css("height", "");
-                                                $('#productlist').html(data);
-                                                window.scrollTo(0, 0);
-                                            },
-                                            error: function () {
-                                                //alert("nashod")
-                                            },
-                                            complete: function () {
-                                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                $('#spaceholder').css("height", '');
-                                                $("#loading").fadeOut();
+                                        },
+                                        dataType: 'html',
+                                        success: function () {
+                                            //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
 
-                                            }
-                                        });
+                                            $.ajax({
+                                                url: '/Home/gogetproductlist',
+                                                aType: 'html',
+                                                success: function (data) {
+                                                    $("#SIBdiv").css("height", "");
+                                                    $('#productlist').html(data);
+                                                    window.scrollTo(0, 0);
+                                                },
+                                                error: function () {
+                                                    //alert("nashod")
+                                                },
+                                                complete: function () {
+                                                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                    $('#spaceholder').css("height", '');
+                                                    $("#loading").fadeOut();
 
-                                    },
-                                    error: function () {
-                                        //alert("nashod")
-                                    }
+                                                }
+                                            });
+
+                                        },
+                                        error: function () {
+                                            //alert("nashod")
+                                        }
+                                    });
+
+
                                 });
 
-
-                            });
-
-                        </script>
-                    </div>
-                    @if (System.Configuration.ConfigurationManager.AppSettings["serverName"] == "santasho")
-                    {
-                        <div id="startpresentModel" style="color:yellow; font-size:46px; float:left; cursor:pointer"><span><i class="fa fa-star"></i></span></div>
-
-                    }
-                    <div class="modal fade" id="addToWishListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">جهت اضافه کردن لیست حاضر به موارد دلخواه خود یک نام برای لیست خود انتخاب کنید</h5>
-
-                                </div>
-                                <div class="modal-body">
-                                    <input id="listname" class="form-control" placeholder="نام مورد نظر خود را بنویسید" />
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
-                                    <div class="btn btn-primary" id="listVerify">تایید</div>
-                                </div>
-
-                            </div>
+                            </script>
                         </div>
-                    </div>
-                </div>
-
-                <div style="text-align:center; padding-top:10px" id="productlist">
-
-
-                    @{ 
-
-                        Html.RenderAction("gogetproductlist", "Home", new { fromList  = "1"});
+                        @if (System.Configuration.ConfigurationManager.AppSettings["serverName"] == "santasho")
+                        {
+                            <div id="startpresentModel" style="color:yellow; font-size:46px; float:left; cursor:pointer"><span><i class="fa fa-star"></i></span></div>
 
                         }
-                    @*<div>
-                        <div style="padding:15px 35px; background-color:white;position:relative;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
-
-                            <img style="max-width:80px; display:block; margin:auto" src="~/images/logo.png" />
-                            <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
-
+                        <div class="modal fade" id="addToWishListModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">جهت اضافه کردن لیست حاضر به موارد دلخواه خود یک نام برای لیست خود انتخاب کنید</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input id="listname" class="form-control" placeholder="نام مورد نظر خود را بنویسید" />
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                                        <div class="btn btn-primary" id="listVerify">تایید</div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>*@
 
-                </div>
+                <div style="text-align:center; padding-top:10px" id="productlist">
 
+                    @{
+                        Html.RenderAction("gogetproductlist", "Home", new { fromList = "1" });
+                    }
+                    @*<div>
+                            <div style="padding:15px 35px; background-color:white;position:relative;margin: auto;top: 0;left: 0; bottom: 0; right: 0;max-height:150px; max-width:250px">
+
+                                <img style="max-width:80px; display:block; margin:auto" src="~/images/logo.png" />
+                                <img src="~/images/adminloading.gif" style="display:block; margin:auto; margin-top:15px" />
+
+                            </div>
+                        </div>*@
+                </div>
 
             </div>
 
-
         </div>
         <style>
+
             .containner {
                 display: block;
                 position: relative;
@@ -436,15 +435,12 @@
             if (Request.Browser.IsMobileDevice || (w < 820 && h > 820))
             {
                 <div id="FLTholderForApp" style="display:none; height: 100%;display:none; position: fixed;top: 0;z-index: 999991;background-color:white;width: 100%;right: 0">
-
                     <div class="returnbutt">
                         <div>
                             <i class="fal fa-times" style="font-size: 20px;vertical-align: middle;"></i>
                             <span style=" margin-right: 15px;font-size:15px">فیلتر کردن محصول</span>
                         </div>
-
                     </div>
-
                     <div class="filtername" style="height:80%">
                         @{
                             if (Model.filtergroup.filters != null)
@@ -501,13 +497,11 @@
                                         <span>
                                             <i class="fal fa-check" style=""></i>
                                         </span>
-
                                     </div>
                                 }
                             }
 
                         }
-
 
                     </div>
                     <div class="filterdetail" style="height:80%">
@@ -536,7 +530,6 @@
                                                     var classname = "filtercheckbox " + item.ID;
 
                                                     <div class="detailitem">
-
 
                                                         <label class="containner CHcontainer" style="direction:ltr; margin:0px">
                                                             @detail.detailname
@@ -573,13 +566,11 @@
                                         var colorcode = color.title;
                                         <div class="detailitem" style="margin:0px 10px">
 
-
                                             <label class="containner CHcontainer colorchosen" style=" margin:0px">
                                                 @color.imagetitle
                                                 <input type="checkbox" class="colorcheckbox" id="@typid">
                                                 <span class="checkmark"></span>
                                                 <span class="dot" style="display:inline-block ; width:15px; height:15px; background-color:@colorcode; border-radius:100%; border: 1px solid @colorcode; float:left"></span>
-
                                             </label>
                                         </div>
                                     }
@@ -643,7 +634,6 @@
                         <div id="okbutt">
                             <p style="margin:auto">فیلتر کن</p>
                         </div>
-
                     </div>
                     <script>
                         $(document).ready(function () {
@@ -889,99 +879,18 @@
 
 
 
-
-
-
-
-
-
-
-
                 </div>
             }
             else
             {
-                <div class="maxwidth screenFilterSection">
-
-
-                    <div id="FLTholder" class="col-lg-3 col-md-12 col-sm-12" style="padding:0px 10px 0px 0px; width:20%">
-
+                <div style="height:100%">
+                    <div id="FLTholder" class="col-lg-3 col-md-12 col-sm-12" style=" margin-top:100px; height:100%;  width:0;  position:absolute;right:0; top:0;  background-color:white">
                         <div id="spaceholder"></div>
-
-                        <div id="exitholder" style="display:none;padding:8px;min-height:30px; background-color:#eee" class="accholder">
-                            <p style="float:right; display:inline-block"></p>
-                            <i id="filterback" class="fa fa-arrow-left" style="cursor:pointer; float:left; display:inline-block"></i>
+                        <div id="closeFilter" class="accholder" style="cursor:pointer; direction:rtl; padding-right:25px">
+                            <i class=" fa fa-times"></i>
                         </div>
-                        <script>
-                            $("#filterback").click(function () {
-                                $("#FLTholder").css("display", "none");
-                                $("#SIBdiv").css("display", "block");
-                            })
-                        </script>
+
                         @{
-
-
-                            <div class="accholder" style="padding:10px">
-                                <div class="row" style="margin:0px; padding-right:10px">
-                                    <label id="lableToggle" style="display:inline-block" class="switch">
-                                        <input type="checkbox">
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <p id="availableTiggle">فقط کالاهای موجود</p>
-                                </div>
-
-
-                                <script>
-                                    $("#lableToggle input").click(function () {
-                                        $("#loading").css("display", "block");
-                                        let value = "0";
-                                        if ($(this).is(':checked')) {
-                                            value = "1"
-                                        }
-                                        $.ajax({
-                                            url: '/Home/changeAvailableStatus',
-                                            data: {
-                                                status: value,
-
-                                            },
-                                            dataType: 'html',
-                                            success: function () {
-                                                //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-                                                //if ($(window).width() > 960) {
-
-                                                //}
-                                                if ($(window).width() > 960) {
-                                                    $.ajax({
-                                                        url: '/Home/gogetproductlist',
-                                                        aType: 'html',
-                                                        success: function (data) {
-                                                            $("#SIBdiv").css("height", "");
-                                                            $('#productlist').html(data);
-                                                            window.scrollTo(0, 0);
-                                                        },
-                                                        error: function () {
-                                                            //alert("nashod")
-                                                        },
-                                                        complete: function () {
-                                                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                            $('#spaceholder').css("height", '');
-                                                            $("#loading").fadeOut();
-                                                        }
-                                                    });
-                                                }
-
-
-                                            },
-                                            error: function () {
-
-                                            }
-                                        });
-
-                                    })
-                                </script>
-
-                            </div>
-
 
 
                             if (Model.filtergroup.filters != null)
@@ -996,9 +905,7 @@
                                         string countid = "count" + item.ID;
                                         <div class="accholder filterholder" id=@classspecific>
                                             <div class="accordion">@item.filtername</div>
-                                            <div class="panell" id="@detailpanel">
-
-
+                                            <div class="panell" id="@detailpanel" style="direction:rtl">
 
                                                 @if (item.filterdetailes != null)
                                                 {
@@ -1009,41 +916,18 @@
                                                         var classname = "filtercheckbox " + classspecific;
 
 
-                                                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-right: 3%;">
+                                                        <div class="filitem" style=" width:49%;display:inline-block; margin:0">
                                                             <label class="containner CHcontainer">
                                                                 @detail.detailname
                                                                 <input type="checkbox" class="@classname" id="@typid">
                                                                 <span class="checkmark"></span>
                                                             </label>
-                                                            @*<label class="CHcontainer">
-
-                                                                    <input type="checkbox">
-
-                                                                </label>*@
-
 
                                                         </div>
                                                     }
                                                 }
 
-                                                <script>
-                                                var detail = "detail" + "@item.ID";
-                                                var countid = "count" + "@item.ID";
-                                                var count = $("#" + countid).text();
-
-                                                if (count > 6) {
-                                                    $("#" + detail).css("overflow", "scroll");
-                                                    $("#" + detail).css("height", "450px");
-                                                    $("#" + detail).css("direction", "rtl");
-                                                    };
-
-
-
-                                                </script>
                                             </div>
-
-
-
 
 
 
@@ -1095,8 +979,7 @@
                                                                 //alert("nashod")
                                                             },
                                                             complete: function () {
-                                                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                                $('#spaceholder').css("height", '');
+
                                                                 $("#loading").fadeOut();
                                                             }
                                                         });
@@ -1136,23 +1019,12 @@
                                                     <input type="checkbox" class="colorcheckbox" id="@typid">
                                                     <span class="checkmark"></span>
                                                     <span class="dot" style="display:inline-block ; width:15px; height:15px; background-color:@colorcode; border-radius:100%; border: 1px solid @colorcode; float:left"></span>
-
                                                 </label>
-
-
 
                                             </div>
 
                                         }
-                                        <script>
-                                            var count = $("#colorcount").text();
-                                            if (count > 6) {
-                                                $("#panelofcolor").css("overflow", "scroll");
-                                                $("#panelofcolor").css("height", "450px");
-                                                $("#panelofcolor").css("direction", "rtl");
 
-                                            }
-                                        </script>
                                         <script>
                                             $(document).ready(function () {
 
@@ -1189,8 +1061,6 @@
                                                                         //alert("nashod")
                                                                     },
                                                                     complete: function () {
-                                                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                                        $('#spaceholder').css("height", '');
 
                                                                         $("#loading").fadeOut();
                                                                     }
@@ -1208,9 +1078,7 @@
 
 
                                         </script>
-
                                     </div>
-
                                 </div>
                             }
                             if (Model.filtergroup.ranges != null)
@@ -1227,17 +1095,12 @@
 
                                     <div class="accholder">
                                         <div class="accordion">@range.title</div>
-
                                         <div class="panell" style="">
-
-
-
 
 
                                             <div class="selector">
                                                 <div id="@rangeslider" class="price-slider">
                                                     <div id=@rangesliderCH class="slider-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content">
-
                                                     </div>
                                                     <div class="row" style="width:100%; margin:0px">
                                                         <div class="col-lg-6" style="border:1px solid #eee; border-right:0; padding:10px; display:inline-block">
@@ -1250,11 +1113,8 @@
                                                         </div>
                                                     </div>
 
-
-
                                                 </div>
                                             </div>
-
 
                                             <script>
                                         var range1a = "a" + '@range.ID';
@@ -1272,7 +1132,6 @@
                                         }
                                     })
                                             </script>
-
                                             <div id="@rangesliderbtn" class="btn btn-success" style="padding:10px ;width:90%; margin-left:6%;background-color:#64c4ef; border:0"> اعمال بازه</div>
                                             <script>
                                     var rangeslider = "rangeslider" + '@range.ID';
@@ -1315,8 +1174,7 @@
                                                         //alert("nashod")
                                                     },
                                                     complete: function () {
-                                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                        $('#spaceholder').css("height", '');
+
 
                                                         $("#loading").fadeOut();
                                                     }
@@ -1329,10 +1187,7 @@
                                     })
 
                                             </script>
-
                                         </div>
-
-
 
 
                                     </div>
@@ -1341,155 +1196,8 @@
                                 }
 
 
-
-                                @*
-                                    <script>
-                                                    $(document).ready(function () {
-
-                                                        $("div#range-slider").rangeslider();
-                                                        $('.min').each(function () {
-
-                                                            $(this).change(function (e) {
-                                                                var val = $(this).val();
-                                                                var id = e.target.id;
-                                                                setTimeout(function () {
-                                                                    var val2 = document.getElementById(id).value;
-                                                                    if (val === val2) {
-
-                                                                        var mins = "";
-                                                                        var maxes = "";
-                                                                        $('.min').each(function (a) {
-                                                                            var vle = $(this).val();
-                                                                            var tlt = this.id;
-                                                                            tlt = tlt.substr(1, tlt.length);
-                                                                            mins = mins + tlt + "-" + vle + ",";
-
-                                                                        })
-                                                                        $('.max').each(function (a) {
-                                                                            var vle = $(this).val();
-                                                                            var tlt = this.id;
-                                                                            tlt = tlt.substr(1, tlt.length);
-                                                                            maxes = maxes + tlt + "-" + vle + ",";
-
-                                                                        })
-                                                                        $.ajax({
-                                                                            url: '/Home/changeRangeIDes',
-                                                                            data: {
-                                                                                min: mins,
-                                                                                max: maxes
-
-                                                                            },
-                                                                            dataType: 'html',
-                                                                            success: function () {
-                                                                                // فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-                                                                                //$.ajax({
-                                                                                //    url: '/Home/gogetproductlist',
-                                                                                //    aType: 'html',
-                                                                                //    success: function (data) {
-                                                                                //        $("#SIBdiv").css("height", "");
-                                                                                //        $('#productlist').html(data);
-                                                                                //        window.scrollTo(0, 50);
-                                                                                //    },
-                                                                                //    error: function () {
-                                                                                //        //alert("nashod")
-                                                                                //    },
-                                                                                //    complete: function () {
-                                                                                //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                                                //        $('#spaceholder').css("height", '');
-
-
-                                                                                //    }
-                                                                                //});
-                                                                            },
-                                                                            error: function () {
-                                                                                alert("nashod")
-                                                                            }
-                                                                        });
-
-
-                                                                    }
-                                                                }, 1000);
-                                                            })
-                                                        })
-                                                        $('.max').each(function () {
-
-                                                            $(this).change(function (e) {
-                                                                var val = $(this).val();
-                                                                var id = e.target.id;
-                                                                setTimeout(function () {
-                                                                    var val2 = document.getElementById(id).value;
-                                                                    if (val === val2) {
-
-                                                                        var mins = "";
-                                                                        var maxes = "";
-                                                                        $('.min').each(function (a) {
-                                                                            var vle = $(this).val();
-                                                                            var tlt = this.id;
-                                                                            tlt = tlt.substr(1, tlt.length);
-                                                                            mins = mins + tlt + "-" + vle + ",";
-
-                                                                        })
-                                                                        $('.max').each(function (a) {
-                                                                            var vle = $(this).val();
-                                                                            var tlt = this.id;
-                                                                            tlt = tlt.substr(1, tlt.length);
-                                                                            maxes = maxes + tlt + "-" + vle + ",";
-
-                                                                        })
-                                                                        $.ajax({
-                                                                            url: '/Home/changeRangeIDes',
-                                                                            data: {
-                                                                                min: mins,
-                                                                                max: maxes
-
-                                                                            },
-                                                                            dataType: 'html',
-                                                                            success: function () {
-                                                                                //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-
-                                                                                if ($(window).width() > 960) {
-                                                                                    $.ajax({
-                                                                                        url: '/Home/gogetproductlist',
-                                                                                        aType: 'html',
-                                                                                        success: function (data) {
-                                                                                            $("#SIBdiv").css("height", "");
-                                                                                            $('#productlist').html(data);
-                                                                                            window.scrollTo(0, 50);
-                                                                                        },
-                                                                                        error: function () {
-                                                                                            //alert("nashod")
-                                                                                        },
-                                                                                        complete: function () {
-                                                                                            $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                                                                            $('#spaceholder').css("height", '');
-
-
-                                                                                        }
-                                                                                    });
-                                                                                }
-                                                                            },
-                                                                            error: function () {
-                                                                                alert("nashod")
-                                                                            }
-                                                                        });
-
-
-                                                                    }
-                                                                }, 1000);
-                                                            })
-                                                        })
-
-                                                    })
-
-                                    </script>*@
                             }
                         }
-
-
-
-
-
-
 
 
 
@@ -1498,161 +1206,11 @@
 
                     </div>
                 </div>
+
             }
         }
 
 
-
-        <script>
-            $(document).ready(function () {
-                $("#SIBdiv").css("height", "");
-                var sibdiv = $("#SIBdiv");
-                var sibdivheight = sibdiv.height();
-                var pardiv = $("#FLTholder");
-                var pardivheight = pardiv.height();
-
-                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                $('#spaceholder').css("height", '');
-                var stickyHeaderTop = $('#FLTholder').offset().top;
-                var stickyHeaderTop2 = $('#SIBdiv').offset().top;
-                var screen = $(window).width();
-                var bottomline = $('.footer').offset().top;
-                var lastScroll = 0;
-                var palaceholder = 0;
-
-                $(window).scroll(function () {
-
-                    if ($(window).width() > 960) {
-                        var sibdiv = $("#SIBdiv");
-                        var sibdivheight = sibdiv.height();
-                        var pardiv = $("#FLTholder");
-                        var filterdiv = $("#FLT");
-
-
-
-                        var pardivheight = pardiv.height();
-
-
-
-                        if (sibdivheight >= pardivheight - 10) {
-                            //alert("sssss");
-                            var st = $(this).scrollTop();
-
-                            if (st > lastScroll) {
-
-
-
-                                if (($(window).scrollTop() + $("#FLTholder")[0].scrollHeight < $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) && $(document).scrollTop() > stickyHeaderTop) {
-                                    $('#FLTholder').css("height", '');
-                                    $('#spaceholder').css("height", '');
-                                    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
-                                }
-                                else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
-                                    var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
-                                    palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
-                                    if (palaceholder == 0) {
-
-                                    }
-                                    else {
-                                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                        $('#spaceholder').css("height", palaceholder + 'px')
-                                    }
-                                    //alert($("#SIBdiv")[0].scrollHeight);
-                                    //alert($("#FLTholder")[0].scrollHeight);
-
-                                }
-                                else {
-
-                                }
-
-
-                            }
-                            else {
-
-
-                                //alert($(window).scrollTop() );
-                                //alert(bottomline)
-                                //alert(pardivheight)
-
-
-
-
-                                // alert($("#SIBdiv")[0].scrollHeight + stickyHeaderTop2);
-
-                                // if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() + $(window).height() <$("#SIBdiv")[0].scrollHeight + stickyHeaderTop2)) {
-                                if (($(window).scrollTop() > stickyHeaderTop2) && ($(window).scrollTop() < bottomline - (pardivheight - $("#spaceholder").height()))) {
-                                    $('#FLTholder').css("height", '');
-                                    $('#spaceholder').css("height", '');
-                                    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
-                                }
-                                else {
-                                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                }
-                                //else if ($(window).scrollTop() + $("#FLTholder")[0].scrollHeight > $("#SIBdiv")[0].scrollHeight + stickyHeaderTop2) {
-                                //    var bottom = bottomline - $("#FLTholder")[0].scrollHeight;
-                                //    palaceholder = $("#SIBdiv")[0].scrollHeight - $("#FLTholder")[0].scrollHeight;
-                                //    if (palaceholder == 0) {
-
-                                //    }
-                                //    else {
-                                //        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                                //        $('#spaceholder').css("height", palaceholder + 'px')
-                                //    }
-                                //    //alert($("#SIBdiv")[0].scrollHeight);
-                                //    //alert($("#FLTholder")[0].scrollHeight);
-
-                                //}
-                                //var myspot = $("#spaceholder").height();
-                                //if (($(window).scrollTop() <myspot + stickyHeaderTop2) && $(window).scrollTop() > stickyHeaderTop2) {
-
-
-                                //    $('#FLTholder').css("height", '');
-                                //    $('#spaceholder').css("height", '')
-                                //    $('#FLTholder').css({ position: 'fixed', top: '0px', right: '0px' });
-                                //}
-                                //else if ($(window).scrollTop() <stickyHeaderTop2) {
-
-
-                                //    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-
-                                //}
-                                //Replace this with your function call for upward-scrolling
-                                //alert("UP");
-                            }
-                            //Updates scroll position
-                            lastScroll = st;
-
-                        }
-                    }
-
-
-
-
-
-                });
-
-            })
-            //$.ajax({
-            //    url: '/Home/gogetproductlist',
-            //    dataType: 'html',
-            //    data: {
-            //        id: "1"
-
-            //    },
-            //    success: function (data) {
-                
-            //        $('#productlist').html(data);
-
-            //    },
-            //    error: function () {
-            //        alert("*****")
-            //    },
-            //    complete: function () {
-
-                    
-            //    }
-            //});
-        </script>
         <script>
 
             var stickyHeaderTop2 = $('#SIBdiv').offset().top;
@@ -1683,7 +1241,7 @@
                             var spacediv = $("#spaceholder").height();
 
                             if (pardiv + panelheight > sibdivheight + stickyHeaderTop2) {
-                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                //$('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
 
                             }
                         }
@@ -1694,17 +1252,6 @@
 
                 });
             }
-        </script>
-        <script>
-            if ('@Model.filtergroup.filters' === "" && '@Model.filtergroup.colors' === "" && '@Model.filtergroup.ranges' === "") {
-                 $("#SIBdiv").css("width", "80%");
-                $(".screenFilterSection").show();
-            }
-            else {
-                $("#SIBdiv").css("width", "80%");
-                $(".screenFilterSection").show();
-            }
-
         </script>
 
 
@@ -1719,7 +1266,6 @@
             });
 
         </script>
-
         <script>
             $(document).ready(function () {
                 $("#startpresentModel").click(function () {
@@ -1804,82 +1350,7 @@
 
 
 
-
-
-
-
-
-
     </div>
 </div>
-
-
-
-<!-- //Electronics -->
-<!-- //product-nav -->
-@*
-    <script>
-            $(document).ready(function () {
-
-
-
-
-                $('.gotodetail').click(function () {
-
-                    var ID = this.id;
-                    var url = "/Home/ProductDetail?id=" + ID;
-                    window.location.href = url;
-                })
-                $('.addtocart').click(function () {
-
-                    var pricetotal = document.getElementById("spanfortotal").textContent;
-                    var tobeadded = $('.item_price', $(this).parent('div:first')).text();
-                    var counttotal = document.getElementById("simpleCart_quantityy").textContent;
-                    var final = parseInt(pricetotal, 10) + parseInt(tobeadded, 10);
-                    var finalcount = parseInt(counttotal, 10) + 1;
-                    $('#spanfortotal').text(final);
-                    $('#simpleCart_quantityy').text(finalcount)
-                    alert(tobeadded);
-
-                    var ID = this.id;
-
-
-                    $.ajax({
-                        url: '/Home/addtocart',
-                        dataType: 'html',
-                        data: {
-                            id: ID,
-                            price: tobeadded
-
-                        },
-                        success: function (data) {
-
-
-                            toastr.options = {
-                                "debug": false,
-                                "positionClass": "toast-top-center",
-                                "onclick": null,
-                                "fadeIn": 300,
-                                "fadeOut": 1000,
-                                "timeOut": 5000,
-                                "extendedTimeOut": 1000,
-
-
-                            }
-                            toastr.success('محصول مورد نظر به سبد اضافه شد')
-
-                        },
-                        error: function () {
-
-                        }
-                    });
-
-
-                })
-
-            })
-
-    </script>*@
-
 
 

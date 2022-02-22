@@ -239,7 +239,7 @@
 
                                                 </td>
                                                 <td>@item.phone</td>
-                                                <td>@item.price</td>
+                                                <td> @string.Format("{0:n0}", Int32.Parse(item.price)) </td>
                                                 <td>
                                                     @switch (@item.status)
                                                     {
@@ -315,18 +315,18 @@
 
                                             int index = Model.lastProducts.IndexOf(pro) + 1;
 
-                                            <tr style=" ">
-                                                <td>@index</td>
-                                                <td>@pro.ID</td>
-                                                <td>
-                                                    @pro.title
+                                <tr style=" ">
+                                    <td>@index</td>
+                                    <td>@pro.ID</td>
+                                    <td>
+                                        @pro.title
+                                    </td>
+                                    <td>@pro.cat</td>
 
-                                                </td>
-                                                <td>@pro.cat</td>
-                                                <td>@pro.priceNow</td>
-                                                <td>@pro.date</td>
+                                    <td> @string.Format("{0:n0}", Int32.Parse(pro.priceNow)) </td>
 
-                                            </tr>
+                                    <td>@pro.date</td>
+                                </tr>
                                         }
                                     }
                                 }

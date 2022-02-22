@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script src="~/Scripts/jquery.flexslider2.js"></script>
+    <script src="~/Scripts/bootstrap-3.1.1.min.js"></script>
+    <script src="~/Scripts/imagezoom.js"></script>
+    <script src="~/Scripts/toastr.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <style>
+        .menuButt {
+            font-size: 14px;
+            background: white;
+            border-radius: 5px;
+            padding: 5px;
+            min-width: 30px;
+            text-align: center;
+            box-shadow: -1px 4px 29px 5px rgb(0 0 0 / 30%);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main" style="position:relative;z-index:9">
+
+        @RenderBody()
+
+    </div>
+
+
+
+    
+    <i id="barsformenu" style="z-index:9; position:fixed; right:30px; top:30px; cursor:pointer" class="fal fa-bars"> </i>
+
+    <style>
+        #menuDiv {
+            width: 100%;
+            padding: 25px 5px 50px 50px;
+            text-align: right;
+            height: 100%;
+            overflow-y: auto
+        }
+    </style>
+    <div id="barmenu" class="menuParent" style=" height: 100%; width : 25% ; position: fixed;top: 0;background-color:white;right: 0">
+        <div id="menuDiv" style="">
+            @{ Html.RenderAction("getmenue", "Home"); }
+        </div>
+
+    </div>
+
+
+    @RenderSection("scripts", required: false)
+    <script>
+        var width = screen.width / 4;
+        var number = width + "px";
+
+        $("#barsformenu").click(function () {
+
+
+            value = $('.main').css('right') === number ? 0 : number;
+
+            if (value == 0) {
+                $(this).find('i').removeClass("fa-times").addClass("fa-bars")
+            }
+            else {
+                $(this).find('i').removeClass("fa-bars").addClass("fa-times")
+            }
+            $('.main').animate({
+                right: value
+            });
+            $
+
+        })
+    </script>
+    <script>
+        $(document).ready(function () {
+            $("#nav1 li").click(
+                function () {
+                    $(this).find('ul').first().slideToggle();
+                    if ($(this).find('i').first().hasClass("fa fa-chevron-down")) {
+                        $(this).find('i').first().removeClass("fa fa-chevron-down").addClass("fa fa-chevron-up")
+                    }
+                    else {
+                        $(this).find('i').first().removeClass("fa fa-chevron-up").addClass("fa fa-chevron-down")
+                    }
+
+                });
+            $("#nav1 li ul li").click(
+                function () {
+                    event.stopPropagation();
+
+                    //$(this).find('ul').first().slideToggle();
+                });
+        });
+    </script>
+</body>
+</html>

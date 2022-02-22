@@ -5,6 +5,7 @@
     ViewBag.Title = "مدیریت سفارشات";
 
 }
+<link href="~/Content/persian-datepicker.css" rel="stylesheet" />
 @section scripts{
 
     <style>
@@ -31,17 +32,25 @@
     <link href="~/Content/easy-autocomplete.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.easy-autocomplete.min.js"></script>
 
-    <script src="~/Scripts/jquery.md.bootstrap.datetimepicker.js"></script>
-    <link href="~/Content/jquery.md.bootstrap.datetimepicker.style.css" rel="stylesheet" />
+   
 
-    <script type="text/javascript">
-        $('#date3-1').MdPersianDateTimePicker({
-            targetTextSelector: '#inputDate3-1',
-            monthsToShow: [1, 1],
-            selectedDate: new Date(2020, 6, 20),
-            selectedRangeDate: [new Date(2020, 6, 20), new Date(2020, 7, 10)],
-            rangeSelector: true
+    <script src="~/Scripts/persian-date.js"></script>
+    <script src="~/Scripts/persian-datepicker.js"></script>
+    <script>
+        $(function () {
+            $(".datePicker").pDatepicker({
+                format: 'YYYY/MM/DD',
+               // minDate: new persianDate().add('day', 2).valueOf(),
+                // options & callbacks here
+            });
         });
+
+       
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".datePicker").val("");
+        })
     </script>
 }
 
@@ -101,46 +110,68 @@
         <div id="home" class="tab-pane fade in active" style="padding-top:20px">
 
 
-
-            <div class="row">
-                <div class="col-lg-4">
-                    <p style="display:inline-block">وضعیت سفارش :</p>
-                    <select class="form-control" style="width:70%; display:inline-block" id="selectOrderType">
-                        <option value="">همه</option>
-                        <option value="1">پرداخت آنلاین</option>
-                        <option value="2">پرداخت در محل</option>
-                        <option value="3">درحال بررسی</option>
-                        <option value="4">ارسال شده</option>
-                        <option value="5">تحویل شده</option>
-                        <option value="0">ناموفق</option>
-                    </select>
+            <div id="moreFilterSection" class="row " style="margin:40px 0px; display:none">
+                <div>
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">تاریخ سفارش از :</p>
+                        <input id="dateFrom" style="display:inline-block" class="form-control inputForm datePicker" />
+                    </div>
                 </div>
-                <div class="col-lg-4">
-                    <p style="display:inline-block">عبارت مورد نظر :</p>
-                    <input style="width:70%; display:inline-block" class="form-control" id="searchText" />
+                <div>
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">تاریخ سفارش تا :</p>
+                        <input id="dateTo" style="display:inline-block" class="form-control inputForm datePicker" />
+                    </div>
                 </div>
-                <div class="col-lg-2">
+                <div>
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">قیمت سفارش از :</p>
+                        <input style="display:inline-block" class="form-control" id="priceFrom" />
+                    </div>
+                </div>
+                <div>
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">قیمت سفارش تا :</p>
+                        <input style="display:inline-block" class="form-control" id="priceTo" />
+                    </div>
+                </div>
+            </div>
+            <div class="row " style="margin:40px 0px; display:flex">
+                <div style="width:25%">
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">وضعیت سفارش :</p>
+                        <select class="form-control" style=" display:inline-block" id="selectOrderType">
+                            <option value="">همه</option>
+                            <option value="1">پرداخت آنلاین</option>
+                            <option value="2">پرداخت در محل</option>
+                            <option value="3">درحال بررسی</option>
+                            <option value="4">ارسال شده</option>
+                            <option value="5">تحویل شده</option>
+                            <option value="0">ناموفق</option>
+                        </select>
+                    </div>
+                </div>
+                <div style="width:25%">
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">عبارت مورد نظر :</p>
+                        <input style="display:inline-block" class="form-control" id="searchText" />
+                    </div>
+                </div>
+                <div class="" style="padding-top:30px">
                     <p class="btn btn-success" style="display:inline-block" id="moreFilter"> فیلتر بیشتر</p>
                     <p class="btn btn-success" style="display:none" id="lessFilter"> فیلتر کمتر</p>
                 </div>
 
-                <div class="col-lg-2">
+                <div class="" style="padding-top:30px">
                     <p class="btn btn-success" style="display:inline-block" id="orderFormSearch"> تایید</p>
 
                 </div>
 
-
             </div>
 
 
-            @*<div class="row " style="margin:40px 0px">
-                <div>
-                    <div class="">
-                        <p style="display:inline-block">تاریخ سفارش از :</p>
-                        <input style="display:inline-block" class="form-control" id="searchText" />
-                    </div>
-                </div>
-            </div>*@
+
+
 
             <p class="ORDERBUTT" style="display:none" id="dataOrder">11</p>
             <div id="OrderTableHolder">
@@ -152,7 +183,10 @@
                     order = "22";
                     type = $("#selectOrderType").val();
                     search = $("#searchText").val();
-
+                    dateFrom = $("#dateFrom").val();
+                    dateTo = $("#dateTo").val();
+                    priceFrom = $("#priceFrom").val();
+                    priceTo = $("#priceTo").val();
 
                     $.ajax({
                         url: '/Admin/ChangeOrderList',
@@ -161,7 +195,11 @@
                             type: type,
                             order: order,
                             search: search,
-                            page: page
+                            page: page,
+                            priceTo: priceTo,
+                            priceFrom: priceFrom,
+                            dateTo: dateTo,
+                            dateFrom: dateFrom
                         },
 
                         success: function (data) {
@@ -187,7 +225,7 @@
 
 
         </div>
-        
+
         <div id="menu1" class="tab-pane fade" style="padding-top:20px">
             <script>
                 $.ajax({
@@ -327,10 +365,12 @@
     $("#moreFilter").click(function () {
         $(this).hide();
         $("#lessFilter").show();
+        $("#moreFilterSection").css("display", "flex");
     })
     $("#lessFilter").click(function () {
         $(this).hide();
         $("#moreFilter").show();
+        $("#moreFilterSection").hide();
     })
 </script>
 

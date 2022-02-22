@@ -209,7 +209,14 @@
                                                         }
                                                         if (data === "200") {
 
-                                                            var url = '@Url.Action("ChangePass", "Home")';
+                                                            if ('@ViewBag.changPass' != "") {
+                                                                var url = '@Url.Action("ChangePass", "Home")';
+                                                            }
+                                                            else {
+                                                                 var url = '@Url.Action("index", "Home")';
+                                                            }
+
+                                                           
                                                             window.location.href = url;
                                                         }
 

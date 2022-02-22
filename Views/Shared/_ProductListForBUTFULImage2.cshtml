@@ -1,0 +1,863 @@
+﻿@model banimo.ViewModelPost.ProductListViewModel
+@using banimo.Classes;
+
+
+
+
+<script>
+      $("#productCount").text('@Model.productsCounts کالا');
+
+
+</script>
+<style>
+    .titleholder {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 10px auto;
+        text-align: center;
+        direction: rtl;
+        padding: 5px;
+        margin-top: 10px;
+        font-size: 14px;
+        font-weight: inherit;
+        margin-bottom: 5px;
+        color: #4d4d4d
+    }
+
+        .titleholder p {
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+        }
+
+    .descriptionSection {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin: 0px auto;
+        text-align: center;
+        direction: rtl;
+        padding: 5px;
+        margin-top: 0px;
+        font-size: 11px;
+        font-weight: inherit;
+        color: #ddd;
+        min-height: 25px;
+    }
+
+        .descriptionSection p {
+            white-space: nowrap;
+            overflow: hidden !important;
+            text-overflow: ellipsis;
+        }
+
+    .c-price__discount-oval {
+        background-color: #fb3449;
+        font-weight: 300;
+        color: #fff;
+        border-radius: 20px;
+        padding: 0px 12px 1px;
+        letter-spacing: 0;
+        margin-bottom: 3px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: inline-block;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        font-size: 16px;
+        font-size: 1.143rem;
+        line-height: 1.375;
+        margin-right: 8px;
+        min-width: 43px;
+        height: 23px;
+    }
+
+    .c-promotion-box__cover--out-of-stock {
+        border-bottom: 1px solid #969696;
+        z-index: 2;
+        height: 27px;
+    }
+
+    .c-promotion-box__cover {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 27px;
+    }
+
+    .c-promotion-box__cover--out-of-stock .c-promotion-box__cover-text {
+        color: #ababab;
+        font-size: 1.286rem;
+        line-height: 1.222;
+        font-weight: 400;
+    }
+
+    .c-promotion-box__cover > div {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        top: 20%;
+        height: 31px;
+    }
+
+    .c-promotion-box__cover-text {
+        white-space: nowrap;
+        z-index: 4;
+        background-color: #fff;
+        padding: 0 10px;
+    }
+
+    .c-product-box__row--price {
+        margin-top: 13px;
+        height: 41px;
+    }
+
+    .c-product-box__row {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-direction: row-reverse;
+    }
+
+    .c-price {
+        display: flex;
+        align-items: center;
+    }
+
+    .c-price__value {
+        font-size: 1.429rem;
+        line-height: 35px;
+    }
+
+    .c-price__value--plp {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
+    .c-price__value {
+        color: #fb3449;
+        letter-spacing: .8px;
+    }
+
+    .c-promotion-box__cover--out-of-stock {
+        border-bottom: 1px solid #969696;
+        z-index: 2;
+        height: 27px;
+    }
+
+    .c-promotion-box__cover {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 0;
+        position: relative;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 27px;
+    }
+
+    .c-promotion-box__cover--out-of-stock .c-promotion-box__cover-text {
+        color: #ababab;
+        font-size: 18px;
+        font-size: 1.286rem;
+        line-height: 1.222;
+        font-weight: 400;
+    }
+
+    .c-promotion-box__cover > div {
+        position: absolute;
+        left: 50%;
+        -webkit-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+        top: 20%;
+        height: 31px;
+    }
+
+    .c-promotion-box__cover-text {
+        white-space: nowrap;
+        font-weight: 700;
+        z-index: 4;
+        background-color: #fff;
+        padding: 0 10px;
+    }
+
+    .c-promotion-box__cover-text, .m-t-lg, .m-v-lg {
+        margin-top: 2rem;
+    }
+</style>
+@{
+    int w = Request.Browser.ScreenPixelsWidth;
+    int h = Request.Browser.ScreenPixelsHeight;
+    if (Request.Browser.IsMobileDevice || (w < 820 && h > 820))
+    {
+        <div class="minwidth" style="width:100%; display:none">
+            <style>
+                .showmedetail {
+                    width: 50%;
+                }
+
+                .product-men {
+                    float: right;
+                    border-top: 0px;
+                    border-right: 0px;
+                }
+
+                    .product-men #detailholdermain {
+                        /*border: 1px solid #eee;*/
+                    }
+
+                        .product-men #detailholdermain:hover {
+                            box-shadow: 0px 0px 5px 5px #eee;
+                        }
+
+                .promotion__badge {
+                    color: red;
+                    border-bottom: 1px solid red;
+                    padding-bottom: 15px;
+                }
+            </style>
+            @{
+                if (Model.products.Count() != 0)
+                {
+                    foreach (var item in Model.products)
+                    {
+                        string addID = "addtocarto" + item.ID;
+                        string minusID = "minus" + item.ID;
+                        string ID = "o" + item.ID.ToString();
+                        string addtocartid = "addtocart" + ID;
+                        string price = item.oldPrice.ToString("###,###");
+                        string imagefile = "placeholder.jpg";
+                        if (item.title != null)
+                        {
+                            imagefile = item.image;
+                        }
+                        string src = imagefile;
+
+
+
+
+
+
+                        <div id=@ID class="col-md-3 product-men showmedetail" style=" z-index:8;cursor:pointer; padding:2px 5px">
+
+                            <div id="detailholdermain" style="background-color:white;">
+
+                                <div id="contentholderofAll" style="padding:3px">
+
+                                    <a style="cursor:pointer" href="/Home/ProductDetail?id=@ID&title=@item.title">
+                                        <div id="productlistimageholder">
+                                            <img src="@src" alt="" class="pro-image-front" style="width:100%; object-fit:scale-down;">
+                                        </div>
+                                    </a>
+
+
+                                    <div id="maintitleholder" style="padding:8px">
+                                        <div class="titleholder">
+                                            @{
+                                                if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                {
+
+                                                    <p class="title numEn" style="font-weight:500">@item.title</p>
+
+                                                }
+                                                else
+                                                {
+                                                    <p class="title" style="font-weight:500">@item.title</p>
+                                                }
+
+                                            }
+
+                                        </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            string iconcolor = "#36CDDF";
+                                            string iconcurson = "pointer";
+                                            string pointer = "";
+                                            if (item.isAvailable == 0)
+                                            {
+                                                iconcolor = "gray";
+                                                iconcurson = "auto";
+                                                pointer = "pointer-events: none;";
+                                            }
+                                            <div class="addholder" style="margin:5px;display: flex;justify-content: center;align-items:center">
+                                                <i id="@minusID" class="fa fa-minus-circle value-minus" style=" border: none;  font-size: 22px; color: #36CDDF; margin:10px"></i>
+                                                <div class="entry value @valueID " style="margin:0; border:0px; padding:0; width:10px; height:unset"><span>0</span></div>
+                                                <i id="@addID" class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF;margin:10px "></i>
+                                            </div>
+
+                                        }
+                                        @*<div class="descriptionSection" style="min-width:25px">
+                                                <p class="title" style="color:#605c5c">@Html.Raw(item.desc)</p>
+                                            </div>*@
+                                        @*<div class="descholder">
+                                                <p class="titledesc"> </p>
+                                            </div>*@
+                                    </div>
+
+
+                                    <div class="priceSection" style="margin-top: 10px; border-top:1px solid #eee">
+
+                                        @{
+                                            if (item.isAvailable == 0)
+                                            {
+                                                <div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>
+
+                                            }
+                                            else
+                                            {
+                                                <div class="row" style="margin: 0px 5px;padding-top:10px ; text-align: left; min-height: 36px">
+
+                                                    @if (item.price != item.oldPrice & item.price > 0)
+                                                    {
+                                                        <div class="discountholder">
+
+                                                            <div class="c-price__discount-oval">
+                                                                <span>
+                                                                    @item.discount%
+                                                                </span>
+                                                            </div>
+                                                            <div class="" style="display:inline-block">
+
+                                                                <del style="color:#8e8686"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del>
+
+                                                            </div>
+                                                        </div>
+                                                        if (item.oldPrice != item.price)
+                                                        {
+                                                            <div class="specialBadgHoldr">
+                                                                <div style="font-size:8px; padding:5px 8px; background-color:red; color:white;">فروش ویژه</div>
+                                                            </div>
+                                                        }
+
+                                                    }
+                                                </div>
+
+                                                <div class="row" style="margin: 0px 5px;  text-align: left;">
+
+                                                    <p class="toman" style="display: inline-block; font-size:12px; color:green ">تومان</p>  <p class="pricetoman" style=" display:inline-block;font-size:16px;color:green; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                    <div class="colorholder" style="">
+
+                                                        @{
+                                                            if (item.color != "")
+                                                            {
+                                                                if (@item.colors != null)
+                                                                {
+
+
+
+                                                                    int i = 1;
+
+                                                                    int count = Convert.ToInt32(@item.colors.Count);
+
+                                                                    //foreach (var color in @item.colors)
+                                                                    foreach (var color in @item.colors)
+                                                                    {
+
+
+                                                                        if (i < 5)
+                                                                        {
+                                                                            <span class="dot" style="display:inline-block ; width:15px; height:15px; background-color:@color; border-radius:100%; border: 1px solid @color"></span>
+                                                                            i += 1;
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            int dif = count - i;
+                                                                            if (dif != 0)
+                                                                            {
+                                                                                <span>
+
+                                                                                    <i class="fal fa-plus " style="vertical-align:top; border:1px solid #ddd;border-radius:50%;color: black;font-size: 8px;font-weight:500;padding: 3px 4px;"></i>
+
+                                                                                </span>
+                                                                            }
+                                                                            i = 1;
+                                                                            break;
+                                                                        }
+
+                                                                    }
+                                                                }
+
+                                                            }
+
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+
+
+
+
+                    }
+
+                }
+                else
+                {
+                    <div class="c-profile-empty" style="text-align: center;direction: rtl;font-size: 25px;margin-bottom: 25px;background: white;border: 1px solid #ddd;padding-bottom: 40px;">
+
+                        موردی برای نمایش وجود ندارد!
+                    </div>
+                }
+
+            }
+        </div>
+    }
+    else
+    {
+        <div class="maxwidth">
+            @{
+                if (Model.products.Count() != 0)
+                {
+                    foreach (var item in Model.products)
+                    {
+                        string addID = "addtocarto" + item.ID;
+                        string minusID = "minus" + item.ID;
+                        string ID = "o" + item.ID.ToString();
+                        string addtocartid = "addtocart" + ID;
+                        string price = item.oldPrice.ToString("###,###");
+                        string imagefile = "placeholder.jpg";
+                        if (item.title != null)
+                        {
+                            imagefile = item.image;
+                        }
+                        string src = imagefile;
+
+                        <div class="maxwidth">
+                            <style>
+                                .product-men {
+                                    float: right;
+                                    border-top: 0px;
+                                    border-right: 0px;
+                                }
+
+                                    .product-men #detailholdermain {
+                                        /*border: 1px solid #eee;*/
+                                    }
+
+                                        .product-men #detailholdermain:hover {
+                                            box-shadow: 0px 0px 5px 5px #eee;
+                                        }
+
+                                .promotion__badge {
+                                    color: red;
+                                    border-bottom: 1px solid red;
+                                    padding-bottom: 15px;
+                                }
+                            </style>
+
+                            <div id=@ID class="col-md-3 product-men showmedetail" style=" z-index:8;cursor:pointer; padding:5px">
+
+                                <div id="detailholdermain" style="background-color:white;">
+                                    <div class="badgeholder" style=" min-height: 38px">
+                                        @{
+                                            if (item.oldPrice != item.price)
+                                            {
+                                                <div class="c-promotion__badge" style="font-size:12px; color: red; border-bottom: 1px solid red; padding: 8px 0px 10px 0px">فروش ویژه</div>
+
+                                            }
+                                        }
+                                    </div>
+                                    <div id="contentholderofAll" style="padding:3px">
+
+
+                                        <a style="cursor:pointer" href="/Home/ProductDetail?id=@ID&title=@item.title">
+                                            <div id="productlistimageholder" style="height:225px; width:100%">
+                                                <img src="@src" alt="" class="pro-image-front" style="max-width:100%; max-height:100%; object-fit:scale-down; padding:5px">
+                                            </div>
+                                        </a>
+
+                                        <div id="maintitleholder" style="padding:10px; border-bottom:1px solid #ddd">
+
+                                            <div class="titleholder">
+                                                @{
+                                                    if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
+                                                    {
+
+                                                        <p class="numEn">@item.title</p>
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <p>@item.title</p>
+                                                    }
+
+                                                }
+
+
+                                            </div>
+                                        </div>
+                                        @if (@System.Configuration.ConfigurationManager.AppSettings["bigDetail"] == "1")
+                                        {
+                                            string valueID = "value" + item.ID;
+                                            string iconcolor = "#36CDDF";
+                                            string iconcurson = "pointer";
+                                            string pointer = "";
+                                            if (item.isAvailable == 0)
+                                            {
+                                                iconcolor = "gray";
+                                                iconcurson = "auto";
+                                                pointer = "pointer-events: none;";
+                                            }
+                                            
+
+                                        }
+                                        <div class="item-info-product " style="direction: rtl; text-align: right; min-height: 21px; position: absolute; max-width: 10px; top: 25px; right: 15px;">
+
+                                            @{
+                                                if (item.color != "")
+                                                {
+                                                    if (@item.colors != null)
+                                                    {
+                                                        int i = 1;
+                                                        int count = Convert.ToInt32(@item.colors.Count);
+
+                                                        foreach (var color in @item.colors)
+                                                        {
+
+
+                                                            if (i < 5)
+                                                            {
+                                                                <span class="dot" style="display:inline-block ; width:10px; height:10px; background-color:@color; border-radius:100%; border: 1px solid @color"></span>
+                                                                i += 1;
+                                                            }
+                                                            else
+                                                            {
+                                                                int dif = count - i;
+                                                                if (dif != 0)
+                                                                {
+                                                                    <i class="glyphicon glyphicon-plus " style="color: #808080; font-size: 10px;"></i>
+
+                                                                }
+                                                                i = 1;
+                                                                break;
+                                                            }
+
+                                                        }
+                                                    }
+
+                                                }
+
+
+                                            }
+                                        </div>
+
+                                        <div style="margin-top: 10px; min-height: 20px">
+
+                                            @{
+                                                if (item.isAvailable == 0)
+                                                {
+                                                    <div class="c-product-box__row c-product-box__row--price"><div class="c-price"><div class="c-price__value c-price__value--plp"></div></div><div class="c-promotion-box__cover c-promotion-box__cover--out-of-stock"><div class="c-promotion-box__cover-text js-product-status">ناموجود</div></div></div>
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="row" style="margin: 0px 15px; text-align: right; min-height: 26px">
+
+                                                        @if (item.price != item.oldPrice & item.price > 0)
+                                                        {
+                                                            <div class="" style="">
+
+                                                                
+                                                                <div class="" style="display:inline-block">
+
+                                                                    <del style="color:#8e8686"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </del>
+
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+
+                                                    <div class="row" style="margin: 0px 15px;  text-align: right; display:flex; align-items:center;direction:rtl">
+                                                        <div class="c-price__discount-oval" style="width:unset">
+                                                            <span>
+                                                                @item.discount%
+                                                            </span>
+                                                        </div>
+                                                        <p style="width:unset;font-size:19px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                        <p style="width:unset; padding:1px ">تومان</p>
+
+                                                    </div>
+                                                }
+                                            }
+
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+
+                    }
+
+                }
+                else
+                {
+                    <div class="c-profile-empty" style="text-align: center;direction: rtl;font-size: 25px;margin-bottom: 25px;background: white;border: 1px solid #ddd;padding-bottom: 40px;">
+
+                        موردی برای نمایش وجود ندارد!
+                    </div>
+                }
+
+            }
+
+
+        </div>
+    }
+}
+
+
+
+
+
+
+
+@*<div class="col-lg-12 col-md-12">
+    @{
+        var total = Convert.ToInt32(Model.pageNumber);
+        var activ = Convert.ToInt32(Model.currentPage);
+        var activminus2 = activ - 2;
+        var activminus1 = activ - 1;
+        var activplus1 = activ + 1;
+        var activplus2 = activ + 2;
+
+
+
+        if ((total - activ) > 3 & activ > 3)
+        {
+            <ul class="pagination">
+
+                <li><a>«</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                <li><a>...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                <li class="active"><a>@activ</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                <li> ...</li>
+                <li><a>@total</a></li>
+                <li><a>»</a></li>
+            </ul>
+        }
+        else if ((total - activ > 3) && !(activ > 3))
+        {
+            <ul class="pagination">
+
+                @for (int i = 1; i < activ; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li class="active"><a>@activ </a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                <li><a href="#">...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@total</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+
+        }
+        else if (!(total - activ > 3) && activ > 3)
+        {
+            <ul class="pagination">
+
+                <li><a>«</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                <li><a>...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                <li style="cursor:pointer" class="active"><a>@activ </a></li>
+                @for (int i = activ + 1; i <= total; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li><a>»</a></li>
+            </ul>
+
+        }
+        else if (total > 1 && !((total - activ) > 3) && !(activ > 3))
+        {
+            <ul class="pagination">
+
+                @for (int i = 1; i < activ; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li class="active"><a href="#">@activ</a></li>
+                @for (int i = activ + 1; i <= total; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+
+            </ul>
+        }
+
+    }
+
+    <script>
+        $(".pagingnumberforall").click(function () {
+            var num = this.textContent;
+            $.ajax({
+                url: '/Home/allpaginationid',
+                dataType: 'html',
+                data: {
+                    id: num,
+                },
+                success: function (data) {
+                    if (data === "1") {
+                        $.ajax({
+                            url: '/Home/gogetproductlist',
+                            dataType: 'html',
+                            success: function (data) {
+
+                                $('#productlist').html(data);
+                                window.scrollTo(0, 500);
+                                //getquntity();
+                            },
+                            error: function () {
+                                alert("nashod")
+                            },
+                            complete: function () {
+                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                $('#spaceholder').css("height", '');
+                                $('#SIBdiv').scrollTop();
+                                window.scrollTo(0, 0);
+
+                            }
+                        });
+
+                    }
+                },
+                error: function () {
+
+                }
+
+            })
+        })
+
+    </script>
+
+
+</div>
+<script>
+    $('.value-plus').on('click', function () {
+
+        event.stopPropagation();
+        $("#loading").fadeIn()
+        let newVal = $(this).parent().children(".value").text();
+        let finalVal = parseInt(newVal) + 1;
+        // $(this).parent().children(".value").text(finalVal);
+        var ID = $(this).attr('id');
+        let myid = "value" + ID.replace("addtocarto", "");
+
+        $("." + myid).text(finalVal);
+
+        $.ajax({
+            url: '/Home/addtocart',
+            dataType: 'html',
+            data: {
+                id: ID
+
+            },
+            success: function (data) {
+                var count = parseInt($(".simpleCart_quantityy").text());
+                count += 1;
+                $(".simpleCart_quantityy").text(count);
+                $("#loading").fadeOut()
+
+            },
+            error: function () {
+                alert("error")
+            }
+
+
+        });
+    });
+    $('.value-minus').on('click', function () {
+        event.stopPropagation();
+        $("#loading").fadeIn()
+        var ID = $(this).attr('id');
+        let myid = "value" + ID.replace('minus', '');
+
+        let newVal = $(this).parent().children(".value").text();
+        if (newVal != "0") {
+            let finalVal = parseInt(newVal) - 1;
+            $("." + myid).text(finalVal);
+        }
+
+
+        $.ajax({
+            url: '/Home/minusfromcart',
+            dataType: 'html',
+            data: {
+                id: ID
+            },
+            success: function (data) {
+
+                var count = parseInt($(".simpleCart_quantityy").text());
+                count -= 1;
+                $(".simpleCart_quantityy").text(count);
+                $("#loading").fadeOut()
+
+            },
+            error: function () {
+                alert("error")
+            }
+
+
+        });
+
+
+
+
+
+    });
+
+
+
+
+</script>*@
+<script>
+            //getquntity();
+</script>

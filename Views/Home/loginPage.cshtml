@@ -1,19 +1,15 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
-
 <html style="direction:rtl">
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Register</title>
     <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
     <link href="~/Content/custom.css" rel="stylesheet" />
     <link href="/Content/style.css" rel="stylesheet" type="text/css" media="all" />
-
 
     <link href="~/Content/forgetPassStyle.css" rel="stylesheet" />
     <!-- js -->
@@ -22,8 +18,7 @@
     <!-- for bootstrap working -->
     <script type="text/javascript" src="/Scripts/bootstrap-3.1.1.min.js"></script>
     <!-- //for bootstrap working -->
-    <script>
-        $(document).ready(function () {
+    <script>$(document).ready(function () {
             function isValidPhonenumber(phonenumber) {
                 var pattern = /^09[0-9]{9}$/;
                 return pattern.test(phonenumber);
@@ -62,24 +57,21 @@
                 }
 
             });
-           
 
-        })
-    </script>
 
+        })</script>
     <script src="~/Scripts/toastr.js"></script>
     <link href="~/Content/toastr.css" rel="stylesheet" />
     <link href="~/Content/all.css" rel="stylesheet" />
 </head>
 <body>
     <div>
-
         <main id="main">
             <div class="semi-modal-layout">
                 <section class="o-page o-page--account-box">
                     <div class="c-account-box">
                         <a href="/" class="c-account-box__logo">sup-ect.ir</a>
-                        <div class="c-account-box__headline">ورود با کد یک بارمصرف</div>
+                        <div class="c-account-box__headline">ورود با رمز یکبار مصرف</div>
                         <div class="c-account-box__content">
                             <form class="c-form-account" data-name="remember" method="post" id="rememberForm" novalidate="novalidate">
                                 <input type="hidden" name="rc" value="UC93TE55a281dk5QYnZBMjRRcjZHdz09"><input type="hidden" name="rd" value="cHdSdHlsMkFjckE4UG44NFFDZEtpcWdKMzRqVVRSM1k4L1FldlVBVEQ0UjFNbFF2TUFnamdOYlR2aHJ3UFU5TA~~">
@@ -95,9 +87,8 @@
                                 <div id="fogetconfirm" class="mybtn addtocart" style="">
                                     <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 30%; padding: 10px; display: inline-block">
                                         <i style="font-size:25px;color:white;margin-right:20px" class="fas fa-lock"></i>
-
                                     </div>
-                                    <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">تغییر رمز عبور</p>
+                                    <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">تایید</p>
                                     <script>
                                         $("#fogetconfirm").click(function () {
                                             function isNotNull(str) {
@@ -169,10 +160,8 @@
 
                                         })
                                     </script>
-
                                     @*<p > افزودن به سبد خرید</p>*@
                                 </div>
-
                             </form>
                         </div>
                     </div>

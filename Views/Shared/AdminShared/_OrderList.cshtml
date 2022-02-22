@@ -120,7 +120,8 @@
                                     <th>روز تحویل</th>
                                     <th>ساعت تحویل</th>
                                     <th>آدرس</th>
-                                    <th>وضعیت</th>
+                                    <th>وضعیت سفارش</th>
+                                    <th>وضعیت پرداخت</th>
                                     <th>توضیحات</th>
                                     <th>کد پستی</th>
 
@@ -141,64 +142,75 @@
 
                                             int i = Model.myOrder.IndexOf(item) + 1;
 
-                                            <tr style=" ">
-                                                <td>@i</td>
-                                                <td>@item.orderNumber</td>
-                                                <td style="white-space: nowrap;">@item.fullname</td>
-                                                <td>@item.phone</td>
-                                                <td>@item.price</td>
-                                                <td>@item.date</td>
-                                                <td>@item.Rdate</td>
-                                                <td>@item.DayText</td>
-                                                <td>@item.TimeFrom  - @item.TimeTo</td>
-                                                <td>@item.address</td>
-                                                <td>@item.statusTitle</td>
-                                                <td> @item.desc</td>
-                                                <td>@item.postalcode</td>
-                                                @{
-                                                    if (item.statusTitle == "پرداخت نشده")
-                                                    {
-                                                        <td><div class="btn btn-default endOrder" id="@item.ID">اتمام سفارش</div></td>
+                                <tr style=" ">
+                                    <td>@i</td>
+                                    <td>@item.orderNumber</td>
+                                    <td style="white-space: nowrap;">@item.fullname</td>
+                                    <td>@item.phone</td>
+                                    <td>@String.Format("{0:n0}", Int32.Parse(@item.price)) </td>
+                                    <td>@item.date</td>
+                                    <td>@item.Rdate</td>
+                                    <td>@item.DayText</td>
+                                    <td>@item.TimeFrom  - @item.TimeTo</td>
+                                    <td style="min-width:200px">@item.address</td>
+                                    <td>@item.statusTitle</td>
+                                    <td>
+                                        @if (item.payment == "1")
+                                        {
+                                            <span>پرداخت شده</span>
+                                        }
+                                        else if (item.payment == "2")
+                                        {
+                                            <span>پرداخت در محل</span>
+                                        }
+                                    </td>
+                                   
+                                    <td> @item.desc</td>
+                                    <td>@item.postalcode</td>
+                                    @{
+                                        if (item.statusTitle == "پرداخت نشده")
+                                        {
+                                            <td><div class="btn btn-default endOrder" id="@item.ID">اتمام سفارش</div></td>
 
-                                                    }
-                                                    else
-                                                    {
-                                                        <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
+                                        }
+                                        else
+                                        {
+                                            <td><div class="btn btn-default orderdetail" id="@item.ID">مشاهده جزئیات</div></td>
 
-                                                    }
-                                                }
-                                                <td>
-                                                    @{
-                                                        if (item.statusTitle == "ارسال شده")
-                                                        {
-                                                            <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
-
-
-                                                        }
-                                                        else if (item.statusTitle == "تحویل شده")
-                                                        {
+                                        }
+                                    }
+                                    <td>
+                                        @{
+                                            if (item.statusTitle == "ارسال شده")
+                                            {
+                                                <div class="btn btn-default deliverorder" id="@item.ID">تحویل سفارش</div>
 
 
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
-                                                        }
+                                            }
+                                            else if (item.statusTitle == "تحویل شده")
+                                            {
 
-                                                    }
-                                                </td>
-                                                <td>
-                                                    @item.code
-                                                </td>
-                                                <td class="deliver" id="@item.ID" style="cursor:pointer">
-                                                    @item.deliver
-                                                </td>
 
-                                                <td class="repeat" style="cursor:pointer">
-                                                    <div class="btn btn-default repeateOrder" id="@item.ID">تکرار سفارش</div>
-                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <div class="btn btn-default finalorder" id="@item.ID">ارسال سفارش</div>
+                                            }
 
-                                            </tr>
+                                        }
+                                    </td>
+                                    <td>
+                                        @item.code
+                                    </td>
+                                    <td class="deliver" id="@item.ID" style="cursor:pointer">
+                                        @item.deliver
+                                    </td>
+
+                                    <td class="repeat" style="cursor:pointer">
+                                        <div class="btn btn-default repeateOrder" id="@item.ID">تکرار سفارش</div>
+                                    </td>
+
+                                </tr>
                                         }
                                     }
                                 }
