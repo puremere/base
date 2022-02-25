@@ -54,7 +54,7 @@
         <div class="modal-content">
             <div class="modal-header" style="text-align:center; padding:15px;border-bottom:1px solid #ddd">
                 <p style="margin-bottom:20px">
-                    <img style="width:70px" src="~/images/logo.png"  alt="لوگو"/>
+                    <img style="width:70px" src="~/images/logo.png" alt="لوگو" />
                 </p>
                 <p style="line-height:2" class="modal-title" id="exampleModalLabel">وب اپلیکیشن <span style="color:red">@System.Configuration.ConfigurationManager.AppSettings["siteName"]</span> را به صفحه اصلی موبایل خود اضافه کنید </p>
             </div>
@@ -63,7 +63,7 @@
                     1- در نوار پایین دکمه <spna style="font-weight:600">  <img style="width:15px" src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/iosShareIcon.png" alt="ios logo" />  "share" </spna> را انتخاب کنید
                 </p>
                 <p style="margin-bottom:10px; line-height:2;text-align:right">
-                    2- منوی باز شده را به سمت چپ بکشید و گزینه <spna style="font-weight:600">  <img style="width:15px" src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/isoAddIcon.png" alt="افزودن"/>  "Add to home screen" </spna> را انتخاب کنید
+                    2- منوی باز شده را به سمت چپ بکشید و گزینه <spna style="font-weight:600">  <img style="width:15px" src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/isoAddIcon.png" alt="افزودن" />  "Add to home screen" </spna> را انتخاب کنید
                 </p>
                 <p style="margin-bottom:10px; line-height:2;text-align:right">
                     3- در مرحله بعد در قسمت بالا روی <spna style="font-weight:600">   "Add" </spna> کلیک کنید
@@ -138,10 +138,32 @@
     int h = Request.Browser.ScreenPixelsHeight;
     if (Request.Browser.IsMobileDevice || (w < 820 && h > w))
     {
-       
+
         <link href="~/Content/owl.carousel.min.css" rel="stylesheet" />
         <link href="~/Content/owl.theme.default.min.css" rel="stylesheet" />
         <script src="~/Scripts/owl.carousel.min.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#getWonerList").click(function () {
+
+                })
+                wid = window.width;
+                ITM = 1;
+
+                if (wid > 720) {
+                    ITM = 2;
+                }
+                if (wid > 1000) {
+                    ITM = 3;
+                }
+
+                $(".owl-carousel").owlCarousel({
+                    items: ITM,
+                    rtl: true,
+                    margin: 5
+                });
+            });
+        </script>
         if (Model.slides != null)
         {
 
@@ -150,7 +172,7 @@
                 <ol class="carousel-indicators">
                     @foreach (var item in Model.slides)
                     {
-                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"]+"/images/panelimages/" + item.image;
+                        string src = System.Configuration.ConfigurationManager.AppSettings["domain"] + "/images/panelimages/" + item.image;
                         var index = Model.slides.IndexOf(item);
                         if (index == 0)
                         {
@@ -172,7 +194,7 @@
                         if (Model.slides.IndexOf(item) == 0)
                         {
                             <div class="item active">
-                                <img  style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
+                                <img style="cursor:pointer" src="@src" alt="@item.title" class="mySlide" id='@item.type-@item.catIDOrLink'>
                             </div>
                         }
                         else
@@ -266,13 +288,13 @@
 
                                     <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
                                         <div style="padding: 20px">
-                                         
+
                                             <a href="/Home/ProductDetail?id=@ID">
                                                 <div class="imageholderindex">
-                                                    <img style="max-width:100%; max-height:100%" class="imageitself" src="@src"  alt="@item.ID" />
+                                                    <img style="max-width:100%; max-height:100%" class="imageitself" src="@src" alt="@item.ID" />
                                                 </div>
                                             </a>
-                                            
+
                                             <div class="">
                                                 @{
                                                     if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -370,33 +392,12 @@
                     <div class="row" style=" text-align: center;margin:0">
                         <img style="max-width: 70%;" src="/images/wonder.png" alt="شگفت انگیز">
                         <p style="display:flex;border-radius:10px;border:1px solid #fff;margin: 50px 10px 0 10px;padding: 12px 0;align-items: center;justify-content: center;font-size: 16px;color: white;cursor: pointer;">
-                            <a style="text-decoration:none;" href="/Home/ProductList?wonder=1"><i id="getWonerList" class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span></a> 
+                            <a style="text-decoration:none;" href="/Home/ProductList?wonder=1"><i id="getWonerList" class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span></a>
                         </p>
                     </div>
                 </div>
             </div>
-            <script>
-                $(document).ready(function () {
-                    $("#getWonerList").click(function () {
 
-                    })
-                    wid = window.width;
-                    ITM = 1;
-                   
-                    if (wid > 720) {
-                        ITM = 2;
-                    }
-                    if (wid > 1000) {
-                        ITM = 3;
-                    }
-                   
-                    $(".owl-carousel").owlCarousel({
-                        items: ITM,
-                        rtl: true,
-                        margin : 5
-                    });
-                });
-            </script>
         }
 
 
@@ -404,9 +405,9 @@
         {
 
             <div class="minwidth" style="display:none">
-                <div class="" style=" padding: 10px">
-                    <span style="float:right;font-size: 11px;font-weight: 800;"> پیشنهاد ویژه</span>
-                    <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+                <div class="row" style=" padding:20px 10px">
+                    <span style="float:right;font-size: 16px;font-weight: 800;"> پیشنهاد ویژه</span>
+                    <a class="alink" href="/Home/ProductList?sortID=3" style="cursor:pointer;float:left;font-size: 16px;color: blue;"> لیست کامل</a>
                 </div>
                 <div id="wonderholder" class="resCarousel" data-items="3-4-4-4" data-slide="3" data-speed="500">
 
@@ -432,10 +433,10 @@
                                     <div style="padding:2px  ">
                                         <a href="/Home/ProductDetail?id=@ID">
                                             <div class="imageholderindex" style="width:100%; ">
-                                                <img alt="@item.ID" class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                                <img alt="@item.ID" class="imageitself" src="@src" style="max-width:100%;max-height:100%; object-fit:scale-down" />
                                             </div>
                                         </a>
-                                       
+
                                         <div class="titleholder" style=" ">
                                             @{
                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -660,9 +661,9 @@
         if (Model.newest != null)
         {
             <div class="minwidth" style="display:block">
-                <div class="" style=" padding: 10px">
-                    <span style="float:right;font-size: 11px;font-weight: 800;"> جدید ترین ها</span>
-                    <a href="/Home/ProductList?sortID=1" style="cursor:pointer; float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+                <div class="row" style=" padding: 20px 10px">
+                    <span style="float:right;font-size: 16px;font-weight: 800;"> جدید ترین ها</span>
+                    <a href="/Home/ProductList?sortID=1" style="cursor:pointer; float:left;font-size: 16px;color: blue;"> لیست کامل</a>
                 </div>
                 <div id="" class="resCarousel" data-items="3-4-4-4" data-slide="1" data-speed="500">
 
@@ -686,11 +687,12 @@
                                 <div class="showmedetailx">
                                     <div style="padding:2px  ">
                                         <a href="/Home/ProductDetail?id=@ID">
+
                                             <div class="imageholderindex" style="width:100%; ">
-                                                <img alt="@item.title" class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                                <img alt="@item.title" class="imageitself" src="@src" style="max-width:100%;max-height:100%; object-fit:scale-down" />
                                             </div>
                                         </a>
-                                      
+
                                         <div class="titleholder" style=" ">
                                             @{
                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -788,7 +790,7 @@
         {
             if (Model.banners.Count >= 8)
             {
-                <div class="" style="margin:0 5px">
+                <div class="row" style="margin:0 5px">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 indexbanner indexbannerMiddleR">
                         <div class="imageparent">
                             <img alt="بنر" class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[7].image' id='@Model.banners[7].type-@Model.banners[7].catIDOrLink' />
@@ -802,13 +804,13 @@
         {
 
             <div class="minwidth" style="display:none">
-                <div class="" style=" padding: 10px">
-                    <span style="float:right;font-size: 11px;font-weight: 800;"> پرفروش ترین ها</span>
+                <div class="row" style=" padding:20px 10px">
+                    <span style="float:right;font-size: 16px;font-weight: 800;"> پرفروش ترین ها</span>
                     <a href="/Home/ProductList?sortID=2" style="        cursor: pointer;
         float: left;
-        font-size: 11px;
+        font-size: 16px;
         color: blue;
-"> لیست کامل</a>
+">لیست کامل</a>
                 </div>
                 <div id="" class="resCarousel" data-items="3-4-4-4" data-slide="1" data-speed="500">
 
@@ -834,10 +836,10 @@
                                     <div style="padding:2px  ">
                                         <a href="/Home/ProductDetail?id=@ID">
                                             <div class="imageholderindex" style="width:100%; ">
-                                                <img alt="@item.title" class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                                <img alt="@item.title" class="imageitself" src="@src" style="max-width:100%;max-height:100%; object-fit:scale-down" />
                                             </div>
                                         </a>
-                                       
+
                                         <div class="titleholder" style=" ">
                                             @{
                                                 if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -943,10 +945,10 @@
                 if (group.value != null)
                 {
                     <div class="minwidth" style="display:none">
-                        <div class="" style=" padding: 10px">
-                          
-                            <span style="float:right;font-size: 11px;font-weight: 800;"> @group.title</span>
-                            <a href="/Home/ManageSlide?val=@id" style="cursor:pointer; float:left;font-size: 11px;color: blue;"> لیست کامل</a>
+                        <div class="row" style=" padding:20px 10px">
+
+                            <span style="float:right;font-size: 16px;font-weight: 800;"> @group.title</span>
+                            <a href="/Home/ManageSlide?val=@id" style="cursor:pointer; float:left;font-size: 16px;color: blue;"> لیست کامل</a>
                         </div>
                         <div id="" class="resCarousel" data-items="3-4-4-4" data-slide="1" data-speed="500">
 
@@ -973,10 +975,10 @@
                                             <div style="padding:2px  ">
                                                 <a href="/Home/ProductDetail?id=@ID">
                                                     <div class="imageholderindex" style="width:100%; ">
-                                                        <img alt="@item.title" class="imageitself" src="@src" style="width:100%;height:100%; object-fit:fill" />
+                                                        <img alt="@item.title" class="imageitself" src="@src" style="max-width:100%;max-height:100%; object-fit:scale-down" />
                                                     </div>
                                                 </a>
-                                               
+
                                                 <div class="titleholder" style=" ">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1069,18 +1071,20 @@
 
                         </div>
                     </div>
-                  
+
                 }
 
             }
         }
+        @*<div class=" " style="margin :10px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1); border-radius: 5px;background-color:white">
+                <div class="row" style="padding:15px">
 
-
-        <div class=" " style="margin :10px;box-shadow: 2px 2px 5px -1px rgba(148,149,153,1); border-radius: 5px;background-color:white">
-            <div class="row" style="padding:15px">
-                @{Html.RenderAction("contactSection", "Home");}
-            </div>
+                </div>
+            </div>*@
+        <div>
+            @{Html.RenderAction("contactSection", "Home");}
         </div>
+
 
         <script>
             $("a").click(function () {
@@ -1160,7 +1164,7 @@
                         {
                             <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 indexbanner  indexbannerMiddleL" style="height:50%">
                                 <div class="imageparent">
-                                    <img  alt="بنر" style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[0].image' class="banner bannerimage" id='@Model.banners[0].type-@Model.banners[0].catIDOrLink' />
+                                    <img alt="بنر" style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[0].image' class="banner bannerimage" id='@Model.banners[0].type-@Model.banners[0].catIDOrLink' />
                                 </div>
                             </div>
                         }
@@ -1172,7 +1176,7 @@
                         {
                             <div class="col-lg-12 col-md-12 col-sm-6 col-xs-12 indexbanner indexbannerMiddleR " style="height:50%">
                                 <div class="imageparent">
-                                    <img  alt="بنر" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[3].image' class="banner bannerimage" id='@Model.banners[3].type-@Model.banners[3].catIDOrLink' />
+                                    <img alt="بنر" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[3].image' class="banner bannerimage" id='@Model.banners[3].type-@Model.banners[3].catIDOrLink' />
                                 </div>
                             </div>
                         }
@@ -1213,11 +1217,11 @@
                                         <div class="showmedetailFirstDiv showmedetailx" style="background-color:white;">
                                             <div style="padding: 20px">
                                                 <a href="/Home/ProductDetail?id=@ID" nofollow>
-                                                <div class="imageholderindex">
-                                                    <img alt="@item.title" class="imageitself" src="@src" />
-                                                </div>
+                                                    <div class="imageholderindex">
+                                                        <img alt="@item.title" class="imageitself" src="@src" />
+                                                    </div>
                                                 </a>
-                                                
+
                                                 <div class="">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1319,7 +1323,7 @@
                         <div class="row" style=" text-align: center;">
                             <img style="max-width: 70%;" src="/images/wonder.png" alt="شگفت انگیز">
                             <p style="display:flex;border-radius:10px;border:1px solid #fff;margin: 50px 50px 0 50px;padding: 12px 0;align-items: center;justify-content: center;font-size: 16px;color: white;cursor: pointer;">
-                                <a style="text-decoration:none;color:white" href="/Home/ProductList?wonder=1"><i class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span></a> 
+                                <a style="text-decoration:none;color:white" href="/Home/ProductList?wonder=1"><i class="fa fa-angle-left" style="margin-right: 11px;"></i><span>نمایش همه</span></a>
                             </p>
                         </div>
                     </div>
@@ -1365,13 +1369,13 @@
 
                                         <div class="showmedetailFirstDiv showmedetailx">
                                             <div style="padding:15px">
-                                            
-                                                <a  href="/Home/ProductDetail?id=@ID" nofollow>
+
+                                                <a href="/Home/ProductDetail?id=@ID" nofollow>
                                                     <div class="imageholderindex">
                                                         <img alt="@item.title" class="imageitself" src="@src" />
                                                     </div>
                                                 </a>
-                                              
+
                                                 <div class="titleholder">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1475,7 +1479,7 @@
 
                         <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
                             <div class="imageparent">
-                                <img  alt="بنر" class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[6].image' id='@Model.banners[6].type-@Model.banners[6].catIDOrLink' />
+                                <img alt="بنر" class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[6].image' id='@Model.banners[6].type-@Model.banners[6].catIDOrLink' />
                             </div>
                         </div>
 
@@ -1486,7 +1490,7 @@
                     {
                         <div class="col-lg-6 col-md- col-sm-6 col-xs-12 indexbanner indexbannerMiddleR">
                             <div class="imageparent">
-                                <img  alt="بنر" class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[7].image' id='@Model.banners[7].type-@Model.banners[7].catIDOrLink' />
+                                <img alt="بنر" class="banner bannerimage" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[7].image' id='@Model.banners[7].type-@Model.banners[7].catIDOrLink' />
                             </div>
                         </div>
 
@@ -1572,7 +1576,7 @@
                                                         <img alt="@item.title" class="imageitself" src="@src" />
                                                     </div>
                                                 </a>
-                                                
+
                                                 <div class="titleholder">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -1674,7 +1678,7 @@
                         {
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 indexbanner">
                                 <div class="imageparent">
-                                    <img  alt="بنر" style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[4].image' class="banner bannerimage" id='@Model.banners[4].type-@Model.banners[4].catIDOrLink' />
+                                    <img alt="بنر" style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[4].image' class="banner bannerimage" id='@Model.banners[4].type-@Model.banners[4].catIDOrLink' />
                                 </div>
                             </div>
                         }
@@ -1686,7 +1690,7 @@
                         {
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 indexbanner ">
                                 <div class="imageparent">
-                                    <img  alt="بنر" style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[1].image' class="banner bannerimage" id='@Model.banners[1].type-@Model.banners[1].catIDOrLink' />
+                                    <img alt="بنر" style="" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[1].image' class="banner bannerimage" id='@Model.banners[1].type-@Model.banners[1].catIDOrLink' />
                                 </div>
                             </div>
                         }
@@ -1698,7 +1702,7 @@
                         {
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 indexbanner ">
                                 <div class="imageparent">
-                                    <img  alt="بنر" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[2].image' class="banner bannerimage" id='@Model.banners[2].type-@Model.banners[2].catIDOrLink' />
+                                    <img alt="بنر" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[2].image' class="banner bannerimage" id='@Model.banners[2].type-@Model.banners[2].catIDOrLink' />
                                 </div>
                             </div>
                         }
@@ -1710,7 +1714,7 @@
                         {
                             <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 indexbanner">
                                 <div class="imageparent">
-                                    <img  alt="بنر" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[5].image' class="banner bannerimage" id='@Model.banners[5].type-@Model.banners[5].catIDOrLink' />
+                                    <img alt="بنر" src='@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[5].image' class="banner bannerimage" id='@Model.banners[5].type-@Model.banners[5].catIDOrLink' />
                                 </div>
                             </div>
                         }
@@ -1729,7 +1733,7 @@
                         <div id="bestholder" class="resCarousel" data-items="3-5-5-5" data-slide="1" data-speed="500">
 
                             <div class="resCarousel-inner">
-                                <div id="/Home/ProductList?sortID=2" class="item watchall"  style="cursor:pointer;height: 100%;box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);">
+                                <div id="/Home/ProductList?sortID=2" class="item watchall" style="cursor:pointer;height: 100%;box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.29);">
                                     <div href="" style="width:100%;height:100%; display:flex; flex-direction:column; align-items:center;justify-content:center">
                                         <span>
                                             <i style="color:cornflowerblue; font-size:28px" class="fa fa-angle-left"></i>
@@ -1761,7 +1765,7 @@
                                                         <img alt="@item.title" class="imageitself" src="@src" />
                                                     </div>
                                                 </a>
-                                                
+
                                                 <div class="titleholder">
                                                     @{
                                                         if (@System.Configuration.ConfigurationManager.AppSettings["numberType"] == "1")
@@ -2116,11 +2120,11 @@
 
     $(".watchall").click(function () {
 
-        
-        window.location.href = this.id 
-       
+
+        window.location.href = this.id
+
     })
-   
+
 
 </script>
 

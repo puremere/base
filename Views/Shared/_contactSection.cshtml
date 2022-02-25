@@ -5,7 +5,7 @@
     int h = Request.Browser.ScreenPixelsHeight;
     if (Request.Browser.IsMobileDevice || (w <720 && h > 720))
     {
-        <div class="col-lg-12">
+        @*<div class="col-lg-12">
             <div class="row" style="margin:0px; display:flex">
                 <div class="col-lg-4 col-md-5 col-sm-6" style="margin:0;padding:5px; display:inline-block; padding:7px; margin-right:3px; background-color:#eee;border-radius: 5px; border: 1px solid #eee;">
 
@@ -23,23 +23,12 @@
 
 
                 </div>
-                <div class="col-lg-4 col-md-5 col-sm-6" style="margin:0;padding:5px; display:inline-block; padding:0px; margin-right:3; background-color:#eee;border-radius: 5px; border: 1px solid #eee;">
-                    @{
-                        if (Model.samanLink != "")
-                        {
-                            <div style="padding:5px; display:flex; object-fit:cover">
-                                <img id='@Model.samanCode' style='width:100%;cursor:pointer' onclick='window.open("@Model.samanLink", "Popup","toolbar=no, scrollbars=no, location=no, statusbar=no, menubar=no, resizable=0, width=450, height=630, top=30")' alt='logo-samandehi' src=@Model.samanLink2 />
-
-                            </div>
-
-                        }
-                    }
-                </div>
+                
 
             </div>
 
 
-        </div>
+        </div>*@
                         }
                         else
                         {
@@ -184,10 +173,10 @@
                     <a href="/Home/portfolio" style="cursor:pointer; color:#3d4d4d"><p style="   text-align: right; margin-bottom: 25px; ">گالری </p></a>
                 </div>
                 <div class="footerdiv" style="width: 31%; float: right; margin-top: 25px">
-                    <p style=" font-weight:bold;  text-align:right; margin-bottom:35px">تماس با ما</p>
+                    <p style=" font-weight:bold;  text-align:right; margin-bottom:15px">تماس با ما</p>
 
-                    <p id="footerPhone" style="   text-align: right; margin-bottom: 25px; ">شماره تماس : @Model.phone</p>
-                    <p style="   text-align: right; margin-bottom: 25px; ">  آدرس: @Model.address </p>
+                    <p id="footerPhone" style="white-space: pre-line;    text-align: right; margin-bottom: 15px; direction:rtl; line-height:2 ">شماره تماس : <br> @Model.phone</p>
+                    <p style="white-space: pre-line;   text-align: right; margin-bottom: 15px; direction:rtl; line-height:2">  آدرس:<br> @Html.Raw(@Model.address) </p>
 
 
                 </div>
