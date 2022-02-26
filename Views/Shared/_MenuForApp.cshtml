@@ -16,29 +16,42 @@
 
                         string ID = item.ID;
 
-                        <div class="item  ITEMCAT" id=@ID style="">
+                        <div class="item  ITEMCAT  itemToclick" id=@ID style="">
                             @item.title
                         </div>
 
                     }
+
+                  
                 }
             }
 
         }
 
 
-
-
         <script>
+            $(".contactUsButt").click(function () {
+                $("#barmenu").css("background-color", "rgba(0, 0, 0, 0)")
+                $("#barmenu").animate({
+                    'margin-right': number
+                }, function () {
+                    $("#barmenu").css("display", "block");
+                    $("#contactUsDiv").css("display", "block");
+                    $("#contactUsDiv").animate({
+                        'margin-right': '0px'
+                    }, function () {
+
+                        $("body").css("overflow", "hidden");
+                    });
+                });
+            })
+
             var width = screen.width;
             var number = "-" + width + "px";
             $(".subcatSection").css("margin-right", number);
             $(".subcatSection2").css("margin-right", number);
 
         </script>
-
-
-
 
 
 
@@ -95,7 +108,7 @@
         <script>
            
 
-            $(".ITEMCAT").click(function () {
+            $(".itemToclick").click(function () {
                 const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
                 
                 var id = "holder-" + $(this).attr('id');

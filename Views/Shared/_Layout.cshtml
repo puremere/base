@@ -287,7 +287,8 @@
                                     <span> درباره ما</span>
                                 </div>
                             </a>
-                            <div id="contactUsButt">
+                            <div id="contactUsButt" >
+                              
 
                                 <div class="" style="width:100%; margin:10px 0; padding:6px 10px ; text-align:right">
                                     <span>تماس با ما</span>
@@ -323,7 +324,7 @@
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
                             <div class="contactItem"><i class="fa fa-envelope" style="margin-left: 10px"></i><span style="font-size:4vw"> Info&#64;<span>@System.Configuration.ConfigurationManager.AppSettings["serverName"]</span>.com</span> </div>
                         </div>
-                        <div class="ContactPhoneHolder" id="searchpanel" action="~/Home/ProductList" style="display:flex">
+                        <div  data-toggle="modal" data-target="#mymodal" class="ContactPhoneHolder" id="searchpanel" action="~/Home/ProductList" style="display:flex">
                             <div class="contactItem"><i class="fa fa-headphones" style="margin-left: 10px"></i><span style="font-size:4vw">تماس با @System.Configuration.ConfigurationManager.AppSettings["siteName"] </span> </div>
                         </div>
                         <div id="searchpanel" action="~/Home/ProductList" style="display:flex">
@@ -472,7 +473,7 @@
                 }
                 $(".ContactPhoneHolder").click(function () {
 
-                    $("#mymodal").modal('toggle');
+                    //$("#mymodal").modal('toggle');
 
                 })
                 //$.ajax({

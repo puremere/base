@@ -347,19 +347,19 @@
                                                                 </div>
                                                                 <div style="flex:1; direction:ltr">
                                                                     <div>
-                                                                        <div class="" style="margin:0px 15px; min-height:20px;text-align:left">
+                                                                        <div class="" style=" min-height:20px;text-align:left">
                                                                             <div class="">
                                                                                 <div class="">
                                                                                     @if (item.price != item.oldPrice)
                                                                                     {
-                                                                                        <p style="display: inline-block; "> تومان </p> <del style="font-size:15px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
+                                                                                        <p style="display: inline-block; ">  </p> <del style="font-size:15px"> @string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice)) </del>
 
                                                                                     }
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        <div class="row" style="margin:0px 15px; text-align:left">
-                                                                            <p style="display: inline-block; color: black"> تومان </p> <p style="color:black; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
+                                                                        <div class="row" style=" text-align:left; display:flex; align-items:center">
+                                                                            <p style="display: inline-block; color: black; margin-right:5px"> تومان </p> <p style="color:black; display:inline-block;font-size:20px; font-weight:600">@string.Format("{0:n0}", Convert.ToInt32(@item.price))</p>
                                                                         </div>
                                                                     </div>
                                                                 </div>
