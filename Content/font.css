@@ -4,9 +4,13 @@
     font-family: IRANSans;
     font-style: normal;
     font-weight: 900;
-    src: url('../fonts/faNum/eot/IRANSansWeb(FaNum)_Black.eot');
-    src: url('../fonts/faNum/eot/IRANSansWeb(FaNum)_Black.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
-    url('../fonts/faNum/woff2/IRANSansWeb(FaNum)_Black.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
-    url('../fonts/faNum/woff/IRANSansWeb(FaNum)_Black.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-    url('../fonts/faNum/ttf/IRANSansWeb(FaNum)_Black.ttf') format('truetype');
+    src: url('../fonts/normalFont/eot/IRANSansWeb_Medium.eot');
+    src: url('../fonts/normalFont/eot/IRANSansWeb_Medium.eot?#iefix') format('embedded-opentype'), /* IE6-8 */
+    url('../fonts/normalFont/woff2/IRANSansWeb_Medium.woff2') format('woff2'), /* FF39+,Chrome36+, Opera24+*/
+    url('../fonts/normalFont/woff/IRANSansWeb_Medium.woff') format('woff'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+    url('../fonts/normalFont/ttf/IRANSansWeb_Medium.ttf') format('truetype');
+}
+
+h1, h2, h3, h4, h5, h6, div,  p,  li {
+    font-family: IRANSans !important
 }

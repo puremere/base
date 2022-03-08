@@ -91,6 +91,7 @@
                                     <p style="position: absolute; margin-top: 20px; text-align: center; display: inline-block; font-size: 18px; width: 65%; color: white; " class=" ">تایید</p>
                                     <script>
                                         $("#fogetconfirm").click(function () {
+
                                             function isNotNull(str) {
                                                 var pattern = /^[A-Za-z0-9]{1,20}$/;
                                                 return pattern.test(str);
@@ -104,14 +105,14 @@
 
                                             var val = $("#forgettext").val();
 
-                
+
                                             if (!isNotNull(val) || !isValidPhonenumber(val)) {
-                                                
+
                                                 $("#remember-error").css("display", "block");
                                                 $("#forgettext").css("color", "#ef5662");
                                                 $("#forgettext").css("border", "1px solid #ef5662");
                                                 $("#mainlabla2").addClass("error");
-                                                
+
                                             }
                                             else {
                                                 $("#loading").fadeIn();
@@ -163,6 +164,10 @@
                                     @*<p > افزودن به سبد خرید</p>*@
                                 </div>
                             </form>
+                        </div>
+                        <div class="c-account-box__footer">
+                          
+                            <a data-snt-event="dkLoginClick" data-snt-params="{&quot;type&quot;:&quot;login&quot;,&quot;site&quot;:&quot;registration-page&quot;}" href="/Home/Register" class="btn-link-spoiler">ثبت نام و ورود با رمز عبور در @System.Configuration.ConfigurationManager.AppSettings["siteName"]</a>
                         </div>
                     </div>
                 </section>

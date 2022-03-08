@@ -232,7 +232,7 @@
                                 }
                                 else
                                 {
-                                    <a href="/Home/Login">
+                                    <a href="/Home/LoginPage">
                                         <div class="menuAppHeader" style="direction: rtl;padding: 15px;color: white;">
 
                                             <i class="fal fa-sign-in" style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white">عضویت و ورود</span>
@@ -1114,28 +1114,17 @@
 
                                 if (user == null)
                                 {
-                                    <a class="c-header__user-dropdown-login" href="../Home/login">
+                                    <a class="c-header__user-dropdown-login" href="../Home/loginPage">
                                         ورود
-                                        به
-                                        @{
-                                            if (TempData["partnerName"] != null)
-                                            {
-                                                @TempData["partnerName"];
-                                                TempData.Keep("partnerName");
-                                            }
-                                            else
-                                            {
-
-                                                @System.Configuration.ConfigurationManager.AppSettings["siteName"]
-                                            }
-                                        }
+                                        و ثبت نام
+                            
 
 
                                     </a>
-                                    <div class="c-header__user-dropdown-sign-up">
+                                    @*<div class="c-header__user-dropdown-sign-up">
                                         <span>کاربر جدید هستید؟</span>
                                         <a data-snt-event="dkHeaderClick" data-snt-params="{&quot;item&quot;:&quot;account&quot;,&quot;item_option&quot;:&quot;sign-up&quot;}" href="../Home/Register">ثبت‌نام</a>
-                                    </div>
+                                    </div>*@
                                 }
 
                             }

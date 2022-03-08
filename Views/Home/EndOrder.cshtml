@@ -512,8 +512,14 @@
                         id: ID
                     },
                     success: function (data) {
+                        if (data == "200") {
+                            window.location.reload();
+                        }
+                        else {
+                            alert(data)
+                        }
                        
-                        window.location.reload();
+                       
                     }
                 });
             }

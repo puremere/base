@@ -236,10 +236,9 @@
             line-height: 22px;
             position: absolute;
             display: none;
-            right: 100%;
+          
             bottom: 100%;
-            margin-right: -150px;
-            margin-bottom: 10px;
+          
             background: #ef5662;
             white-space: nowrap;
             padding: 9px 25px;

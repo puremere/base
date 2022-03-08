@@ -1,7 +1,7 @@
 ﻿
 :root {
-    --toolbar: #ff6700;
-    --toolbarText: #e6cb00;
+    --toolbar: #e6cb00;
+    --toolbarText: #000;
     --menuColor: #222222;
     --catCOlor: #686868;
     --titleDirection: rtl;

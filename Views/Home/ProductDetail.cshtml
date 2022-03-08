@@ -852,8 +852,15 @@
 
 
                         }
-
+                        <div style="background-color:white; margin:10px">
+                            <div class="btn btn-success addtocart" style=" width: 100%; padding: 10px;  ">
+                                <i class="fal fa-shopping-cart" style="    display: inline-block;   color: white; margin-left: 10px;"></i>
+                                <p style="display:inline-block" class=" ">افزودن به سبد خرید</p>
+                            </div>
+                        </div>
                     </div>
+                   
+                   
 
                 </div>
                 @{
@@ -904,6 +911,7 @@
                         <span> نظرات کاربران</span>
                     </div>
                 </div>
+               
                 <div class="row" style=" box-shadow: 2px 2px 5px -1px rgba(148,149,153,1);margin:5px;background-color: white;padding: 10px;">
                     <p style="width:100%; text-align:right;font-weight:500; padding:5px; border-bottom:1px solid #eee">توضیحات</p>
                     <div class="featureAppsection" style="direction:rtl; padding:10px; line-height:2.5">
@@ -1861,7 +1869,7 @@
         var ID = $('#idholder').text();
         var RealID = "addtocarto";
         var tobeid = RealID.concat(ID);
-        var tobeadded = $('#producttedailprice').text();
+        var tobeadded ='@Model.price';
 
 
         var price = tobeadded;
@@ -1876,18 +1884,7 @@
             success: function (data) {
 
 
-                //$.ajax({
-                //    url: '/Home/gogetfinalquantity',
-
-
-                //    success: function (data) {
-                //        $("#simpleCart_quantityy").text(data)
-
-                //    },
-                //    error: function () {
-
-                //    }
-                //});
+                getquntity();
                 toastr.options = {
                     "debug": false,
                     "positionClass": "toast-top-center",

@@ -1,0 +1,83 @@
+﻿@model banimo.ViewModel.MyCollectionOfCatsList
+
+
+<nav>
+    <ul>
+        <li><a href="@Url.Action("Index", "Home")">خانه</a></li>
+        @{
+            if (Model.catsdata.First().mycatcollection != null)
+            {
+                foreach (var cat in Model.catsdata.First().mycatcollection)
+                {
+                    string srtcat = "";
+                    string subsrtcat = "";
+                    string subsrtcat2 = "";
+                    if (cat.IsFinal == "1")
+                    {
+                        srtcat = "1" + cat.ID;
+                        <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtcat, value =  @cat.title})">@cat.title</a></li>
+                    }
+                    else
+                    {
+                        string pID = "P" + cat.parentID;
+                        srtcat = "1" + cat.ID;
+                        int finalint = 0;
+                        <li class="has-children">
+                            <a>@cat.title <i class="ion-ios-arrow-down"></i></a>
+                            @if (Model.catsdata.First().mysubcatcollection != null)
+                            {
+                                <ul class="dropdown arrow-top">
+
+
+                                    @foreach (var SB in Model.catsdata.First().mysubcatcollection)
+                                    {
+                                        if (SB.CatID == cat.ID)
+                                        {
+                                            if (SB.IsFinal == "1")
+                                            {
+                                                string srtsubcat = "2" + SB.ID;
+                                                <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtsubcat, value =  @cat.title})">@SB.title</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li class="has-children">
+                                                    <a>@SB.title <i class="ion-ios-arrow-down"></i></a>
+                                                    <ul class="dropdown">
+                                                        @if (Model.catsdata.First().mysubcatcollection2 != null)
+                                                        {
+                                                            foreach (var SB2 in Model.catsdata.First().mysubcatcollection2)
+                                                            {
+                                                                if (SB2.subcatid == SB.ID)
+                                                                {
+                                                                    subsrtcat2 = "3" + SB2.ID;
+
+                                                                    <li><a href="@Url.Action("ProductList", "Home", new { catmode = subsrtcat2, value = @SB2.title })">@SB2.title</a></li>
+                                                                }
+                                                            }
+                                                        }
+
+
+                                                    </ul>
+                                                </li>
+                                            }
+                                        }
+
+
+                                    }
+                                </ul>
+
+                            }
+
+                        </li>
+                    }
+                }
+            }
+        }
+
+        
+    </ul>
+</nav>
+
+
+
+
