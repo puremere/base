@@ -1,0 +1,357 @@
+﻿@model banimo.ViewModelPost.viewProductViewModel
+@using banimo.Classes;
+@{
+    ViewBag.Title = Model.title + " | " + @System.Configuration.ConfigurationManager.AppSettings["siteName2"];
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+
+}
+@section HeadIncludes{
+
+    <link rel="stylesheet" href="~/webAsset/3/assets/css/easyzoom.css">
+    <meta name="product_name" content="@Model.title">
+    <meta name="product_price" content="@Model.price">
+    <meta name="product_id" content="@Model.ID">
+    <meta name="product_old_price" content="@Model.oldPrice">
+
+
+    @if (Model.isAvailable == "1")
+    {
+        <meta name="availability" content="instockor">
+    }
+    else
+    {
+        <meta name="availability" content="outofstock ">
+    }
+    @if (Model.imgGallery != null)
+    {
+        if (Model.imgGallery.Count() > 0)
+        {
+            <meta property="og:image" content="@Model.imgGallery.First().src">
+        }
+
+    }
+
+    @if (Model.filter.Count() > 0)
+    {
+        foreach (var item in Model.filter.ToList())
+        {
+            if (item.filtername == "گارانتی")
+            {
+                <meta name="guarantee" content="@item.detailname">
+
+            }
+
+        }
+
+
+    }
+
+}
+<header>
+    <div class="header-area transparent-bar">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-2 col-md-2 col-sm-7 col-7 bascketHolder">
+                    <div class="header-site-icon">
+                        <div class="header-search same-style">
+                            <button class="sidebar-trigger-search">
+                                <span class="ti-search"></span>
+                            </button>
+                        </div>
+                        <div class="header-login same-style">
+                            <a href="login-register.html">
+                                <span class="ti-user"></span>
+                            </a>
+                        </div>
+                        <div class="header-cart same-style">
+                            <button class="sidebar-trigger">
+                                <i class="ti-shopping-cart"></i>
+                                <span class="count-style">03</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-2 col-sm-7 col-7 " style="text-align:center; margin-top:15px">
+                    <div class="logo">
+                        <a href="index.html"><img src="~/images/logo.png" alt="" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-7 col-7"></div>
+                <div class="col-lg-12 col-md-8 d-none d-md-block">
+                    <div class="logo-menu-wrapper text-center">
+
+                        <div class="main-menu">
+                            @{ Html.RenderAction("getmenue", "Home"); }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mobile-menu-area col-12">
+                    <div class="mobile-menu">
+                        <nav id="mobile-menu-active">
+                            <ul class="menu-overflow">
+                                <li>
+                                    <a href="#">HOME</a>
+                                    <ul>
+                                        <li><a href="index.html">home version 1</a></li>
+                                        <li><a href="index-2.html">home version 2</a></li>
+                                        <li><a href="index-3.html">home version 3</a></li>
+                                        <li><a href="index-4.html">home version 4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">pages</a>
+                                    <ul>
+                                        <li><a href="about-us.html">about us</a></li>
+                                        <li><a href="cart.html">cart page</a></li>
+                                        <li><a href="checkout.html">checkout</a></li>
+                                        <li><a href="wishlist.html">wishlist</a></li>
+                                        <li><a href="login-register.html">login</a></li>
+                                        <li><a href="contact.html">contact</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">shop</a>
+                                    <ul>
+                                        <li>
+                                            <a href="#">shop grid</a>
+                                            <ul>
+                                                <li><a href="shop-grid-2-col.html"> grid 2 column</a></li>
+                                                <li><a href="shop-grid-3-col.html"> grid 3 column</a></li>
+                                                <li><a href="shop.html"> grid 4 column</a></li>
+                                                <li><a href="shop-grid-6-col.html"> grid 6 column</a></li>
+                                                <li><a href="shop-grid-box.html"> grid box style</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">shop list</a>
+                                            <ul>
+                                                <li><a href="shop-list.html"> list 1 column</a></li>
+                                                <li><a href="shop-list-2-col.html"> list 2 column</a></li>
+                                                <li><a href="shop-list-3-col.html"> list 3 column</a></li>
+                                                <li><a href="shop-list-box.html"> list box style</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="shop-grid-view-5-col.html">product details</a>
+                                            <ul>
+                                                <li><a href="product-details.html">tab style</a></li>
+                                                <li><a href="product-details-sticky.html">sticky style</a></li>
+                                                <li><a href="product-details-gallery.html">gallery style</a></li>
+                                                <li><a href="product-details-fixed-img.html">fixed image style</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">BLOG</a>
+                                    <ul>
+                                        <li><a href="blog-masonry.html">Blog Masonry</a></li>
+                                        <li>
+                                            <a href="#">Blog Standard</a>
+                                            <ul>
+                                                <li><a href="blog-left-sidebar.html">left sidebar</a></li>
+                                                <li><a href="blog-right-sidebar.html">right sidebar</a></li>
+                                                <li><a href="blog-no-sidebar.html">no sidebar</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Post Types</a>
+                                            <ul>
+                                                <li><a href="blog-details-standerd.html">Standard post</a></li>
+                                                <li><a href="blog-details-audio.html">audio post</a></li>
+                                                <li><a href="blog-details-video.html">video post</a></li>
+                                                <li><a href="blog-details-gallery.html">gallery post</a></li>
+                                                <li><a href="blog-details-link.html">link post</a></li>
+                                                <li><a href="blog-details-quote.html">quote post</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html"> Contact us</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="header-height"></div>
+<!-- main-search start -->
+<div class="main-search-active">
+    <div class="sidebar-search-icon">
+        <button class="search-close"><span class="ti-close"></span></button>
+    </div>
+    <div class="sidebar-search-input">
+        <form>
+            <div class="form-search">
+                <input id="search" class="input-text" value="" placeholder="Search Entire Store" type="search">
+                <button>
+                    <i class="ti-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="product-details-area hm-3-padding ptb-130">
+    <div class="container-fluid">
+        <div class="row" style="">
+            <div class="col-lg-6">
+                <div class="product-details-img-content">
+                    <div class="product-details-tab mr-40">
+                        <div class="product-details-large tab-content">
+                            @foreach (var item in @Model.slides)
+                            {
+                                int index = Model.slides.IndexOf(item);
+                                string name = "pro-details" + index;
+                                if (index == 0)
+                                {
+                                    <div class="tab-pane active" id="@name">
+                                        <div class="easyzoom easyzoom--overlay">
+                                            <a href="@item.image">
+                                                <img src="@item.image" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="tab-pane" id="@name">
+                                        <div class="easyzoom easyzoom--overlay">
+                                            <a href="@item.image">
+                                                <img src="@item.image" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                }
+
+                            }
+
+
+
+
+
+                        </div>
+                        <div class="product-details-small nav mt-12 product-dec-slider owl-carousel">
+                            @foreach (var item in @Model.slides)
+                            {
+                                int index = Model.slides.IndexOf(item);
+                                string name = "#pro-details" + index;
+                                if (index == 0)
+                                {
+                                    <a class="active" href="@name">
+                                        <img src="@item.image" alt="">
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="@name">
+                                        <img src="@item.image" alt="">
+                                    </a>
+                                }
+                            }
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6" style="text-align:right">
+                <div class="product-details-content">
+                    <h2>@Model.title </h2>
+
+
+                    <div class="product-overview">
+                        <h5 class="pd-sub-title">توضیحات</h5>
+                        <p>@Html.Raw(@Model.desc)</p>
+                    </div>
+                    @if (Model.color != "")
+                    {
+                        <div class="product-color">
+                            <h5 class="pd-sub-title">رنگ محصول</h5>
+                            <ul>
+                                <li class="" style="float:right;background-color:@Model.color">
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    }
+                    @if (Model.otherColors != null)
+                    {
+                        <div class="product-color">
+                            <h5 class="pd-sub-title">Product color</h5>
+                            <ul>
+                                @foreach (var item in Model.otherColors)
+                                {
+                                    <li style="float:right; background-color:@item.colorCode">@item.colorTitle</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+
+                    @*<div class="product-categories">
+            <h5 class="pd-sub-title">Categories</h5>
+            <ul>
+                <li>
+                    <a href="#">fashion ,</a>
+                </li>
+                <li>
+                    <a href="#">electronics ,</a>
+                </li>
+                <li>
+                    <a href="#">toys ,</a>
+                </li>
+                <li>
+                    <a href="#">food ,</a>
+                </li>
+                <li>
+                    <a href="#">jewellery </a>
+                </li>
+            </ul>
+        </div>*@
+                    <div class="product-share">
+                        <h5 class="pd-sub-title">اشتراک گذاری</h5>
+                        <ul>
+                            <li>
+                                <a href="#"><i class="ion-social-twitter"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-tumblr"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"><i class="ion-social-facebook"></i></a>
+                            </li>
+                            <li>
+                                <a href="#"> <i class="ion-social-instagram-outline"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="product-price" style="text-align:left">
+                        @if (Model.price != Model.oldPrice)
+                        {
+
+                            <span style="font-family:IRANSansfaNum" class="old">@string.Format("{0:n0}", Convert.ToInt32(@Model.oldPrice))  </span>
+                        }
+
+                        <span style="font-family:IRANSansfaNum ; display:flex" > <span style="margin-right:5px">تومان</span>  <span>@string.Format("{0:n0}", Convert.ToInt32(@Model.price))</span> </span>
+
+                    </div>
+                    <div class="quickview-plus-minus" style="margin-top:30px">
+                        
+                        <div class="quickview-btn-cart" style="margin-left:0">
+                            <a class="btn-style cr-btn" href="#"><span>افزودن به سبد خرید</span></a>
+                        </div>
+                        <div class="quickview-btn-wishlist">
+                            <a class="btn-hover cr-btn" href="#"><span><i class="ion-ios-heart-outline"></i></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

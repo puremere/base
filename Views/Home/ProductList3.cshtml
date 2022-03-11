@@ -10,136 +10,232 @@
 @section header{
     <link rel="stylesheet" href="~/webAsset/3/assets/css/jquery-ui.css">
 }
-<script>
-    $(".resp-tab-item").click(function () {
-        var id = $(this).prop("id");
-
-        $.ajax({
-            url: '/Home/changesortid',
-            data: {
-                ID: id,
-
-            },
-            dataType: 'html',
-            success: function (data) {
-                //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
-                getquntity()
-                $.ajax({
-                    url: '/Home/gogetproductlist',
-                    aType: 'html',
-                    success: function (data) {
-
-                        $("#SIBdiv").css("height", "");
-                        $('#productlist').html(data);
-                        window.scrollTo(0, 0);
-
-                    },
-                    error: function () {
-                        //alert("nashod")
-                    },
-                    complete: function () {
-                        $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
-                        $('#spaceholder').css("height", '');
-                        $("#textOfSort").text(text);
-
-                    }
-                });
-
-            },
-            error: function () {
-                //alert("nashod")
-            }
-        });
 
 
-    });
-    $("#sortybutton").click(function () {
-        var id = "";
-        var text = "";
-        $("input[name=radio]").each(function () {
-            if (this.checked) {
-                id = $(this).attr('id');
-                text = $(this).parent().text();
+<header>
+    <div class="header-area transparent-bar">
+        <div class="container">
+            <div class="row">
 
-            }
-        })
+                <div class="col-lg-2 col-md-2 col-sm-7 col-7 bascketHolder">
+                    <div class="header-site-icon">
+                        <div class="header-search same-style">
+                            <button class="sidebar-trigger-search">
+                                <span class="ti-search"></span>
+                            </button>
+                        </div>
+                        <div class="header-login same-style">
+                            <a href="login-register.html">
+                                <span class="ti-user"></span>
+                            </a>
+                        </div>
+                        <div class="header-cart same-style">
+                            <button class="sidebar-trigger">
+                                <i class="ti-shopping-cart"></i>
+                                <span class="count-style">03</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-2 col-sm-7 col-7 " style="text-align:center; margin-top:15px">
+                    <div class="logo">
+                        <a href="index.html"><img src="~/images/logo.png" alt="" /></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-7 col-7"></div>
+                <div class="col-lg-12 col-md-8 d-none d-md-block">
+                    <div class="logo-menu-wrapper text-center">
 
-        $.ajax({
-            url: '/Home/changesortid',
-            data: {
-                ID: id,
+                        <div class="main-menu">
+                            @{ Html.RenderAction("getmenue", "Home"); }
+                        </div>
+                    </div>
+                </div>
 
-            },
-            dataType: 'html',
-            success: function () {
+                <div class="mobile-menu-area col-12">
+                    <div class="mobile-menu">
+                        <nav id="mobile-menu-active">
+                            <ul class="menu-overflow">
+                                <li>
+                                    <a href="#">HOME</a>
+                                    <ul>
+                                        <li><a href="index.html">home version 1</a></li>
+                                        <li><a href="index-2.html">home version 2</a></li>
+                                        <li><a href="index-3.html">home version 3</a></li>
+                                        <li><a href="index-4.html">home version 4</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">pages</a>
+                                    <ul>
+                                        <li><a href="about-us.html">about us</a></li>
+                                        <li><a href="cart.html">cart page</a></li>
+                                        <li><a href="checkout.html">checkout</a></li>
+                                        <li><a href="wishlist.html">wishlist</a></li>
+                                        <li><a href="login-register.html">login</a></li>
+                                        <li><a href="contact.html">contact</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">shop</a>
+                                    <ul>
+                                        <li>
+                                            <a href="#">shop grid</a>
+                                            <ul>
+                                                <li><a href="shop-grid-2-col.html"> grid 2 column</a></li>
+                                                <li><a href="shop-grid-3-col.html"> grid 3 column</a></li>
+                                                <li><a href="shop.html"> grid 4 column</a></li>
+                                                <li><a href="shop-grid-6-col.html"> grid 6 column</a></li>
+                                                <li><a href="shop-grid-box.html"> grid box style</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">shop list</a>
+                                            <ul>
+                                                <li><a href="shop-list.html"> list 1 column</a></li>
+                                                <li><a href="shop-list-2-col.html"> list 2 column</a></li>
+                                                <li><a href="shop-list-3-col.html"> list 3 column</a></li>
+                                                <li><a href="shop-list-box.html"> list box style</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="shop-grid-view-5-col.html">product details</a>
+                                            <ul>
+                                                <li><a href="product-details.html">tab style</a></li>
+                                                <li><a href="product-details-sticky.html">sticky style</a></li>
+                                                <li><a href="product-details-gallery.html">gallery style</a></li>
+                                                <li><a href="product-details-fixed-img.html">fixed image style</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">BLOG</a>
+                                    <ul>
+                                        <li><a href="blog-masonry.html">Blog Masonry</a></li>
+                                        <li>
+                                            <a href="#">Blog Standard</a>
+                                            <ul>
+                                                <li><a href="blog-left-sidebar.html">left sidebar</a></li>
+                                                <li><a href="blog-right-sidebar.html">right sidebar</a></li>
+                                                <li><a href="blog-no-sidebar.html">no sidebar</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Post Types</a>
+                                            <ul>
+                                                <li><a href="blog-details-standerd.html">Standard post</a></li>
+                                                <li><a href="blog-details-audio.html">audio post</a></li>
+                                                <li><a href="blog-details-video.html">video post</a></li>
+                                                <li><a href="blog-details-gallery.html">gallery post</a></li>
+                                                <li><a href="blog-details-link.html">link post</a></li>
+                                                <li><a href="blog-details-quote.html">quote post</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html"> Contact us</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="header-height"></div>
+<!-- main-search start -->
+<div class="main-search-active">
+    <div class="sidebar-search-icon">
+        <button class="search-close"><span class="ti-close"></span></button>
+    </div>
+    <div class="sidebar-search-input">
+        <form>
+            <div class="form-search">
+                <input id="search" class="input-text" value="" placeholder="Search Entire Store" type="search">
+                <button>
+                    <i class="ti-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    html {
+        /* scrollbar firefox */
+        scrollbar-color: rgb(1, 1, 1) #f3a395; /*rgb(110, 110, 110)*/
+    }
 
-                $.ajax({
-                    url: '/Home/gogetproductlist',
-                    aType: 'html',
-                    success: function (data) {
-                        $("#SIBdiv").css("height", "");
-                        $('#productlist').html(data);
-                        window.scrollTo(0, 0);
-                    },
-                    error: function () {
-                        //alert("nashod")
-                    },
-                    complete: function () {
-                        $("#sortholder").css("display", "none")
-                        $("body").css("overflow", "scroll");
-                        $("#textOfSort").text(text);
+    /* Note: The -webkit-scrollbar is not supported by Firefox or IE and Edge. */
 
-                    }
-                });
+    ::-webkit-scrollbar {
+        /* width */
+        width: 8px;
+    }
 
-            },
-            error: function () {
-                //alert("nashod")
-            }
-        });
-        //$("#textOfSort").text($(this).text());
-        //$("#sortholder").css("display", "none");
-        //$("#sortholder")
+    ::-webkit-scrollbar-track {
+        /* Track */
+        box-shadow: inset 0 0 5px grey;
+        border-radius: 8px;
+    }
 
-    })
+    ::-webkit-scrollbar-thumb {
+        /* Handle */
+        background: rgb(110, 110, 110);
+        border-radius: 10px;
+    }
 
-    $("#sortholderBut").click(function () {
-        $("#sortholder").css("display", "flex")
-        $("body").css("overflow", "hidden");
-    })
-    $("#sortholder").click(function () {
-        $('#sortholder').hide();
-        $("body").css("overflow", "scroll");
-    })
-    $("#sortholder #horizontalTab").click(function (e) {
-        e.stopPropagation();
-    });
-    $(".fa-th-large").click(function () {
-        $(".showmedetail").css("width", "50%");
-        $(".c-price__discount-oval").hide();
+        ::-webkit-scrollbar-thumb:hover {
+            /* Handle on hover */
+            background: rgb(110, 110, 110);
+        }
 
-        $(".colorholder").hide();
-        $(this).css("display", "none");
-        $(".fa-list").css("display", "block");
+    ::-webkit-scrollbar-track-piece {
+        /* not handle on */
+        background: rgb(1, 1, 1);
+    }
+
+    /*dark bg*/
 
 
+    p, h1 {
+        color: rgb(245,245,245);
+    }
 
-    })
-    $(".fa-list").click(function () {
-        $(".showmedetail").css("width", "100%");
-        $(".c-price__discount-oval").show();
+    .filtercheckbox {
+        width: 30%
+    }
 
-        $(".colorholder").show();
-        $(this).css("display", "none");
-        $(".fa-th-large").css("display", "block");
-    })
+    #butholder {
+        width: 100%;
+        bottom: 0;
+        max-width: 100%;
+        margin: 0;
+        border-radius: 0px;
+        border: 0;
+        padding-top: 65px;
+    }
 
+    #okbutt {
+        width: 100%;
+        padding: 10px;
+        text-align: center;
+        border: 0;
+        background-color: #f3a395;
+        color: white;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+    }
 
-</script>
-
-
-
-<div class="shop-wrapper hm-3-padding pt-120 pb-100">
+    .filterScroll {
+        height: 200px;
+        overflow-y: scroll;
+        padding: 0 10px;
+        padding-left: 15px
+    }
+</style>
+<div class="shop-wrapper hm-3-padding pt-120 pb-100" style="padding-top:250px">
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -151,7 +247,7 @@
                         </ul>
                     </div>
                     <div class="shop-filter">
-                        <button class="product-filter-toggle">filter</button>
+                        <button class="product-filter-toggle">فیلتر</button>
                     </div>
                 </div>
             </div>
@@ -159,494 +255,370 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="product-filter-wrapper">
-                    <div class="row">
-                        <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
-                            <h5>Sort by</h5>
-                            <ul class="sort-by">
-                                <li><a href="#">Default</a></li>
-                                <li><a href="#">Popularity</a></li>
-                                <li><a href="#">Average rating</a></li>
-                                <li><a href="#">Newness</a></li>
-                                <li><a href="#">Price: Low to High</a></li>
-                                <li><a href="#">Price: High to Low</a></li>
-                            </ul>
-                        </div>
-                        <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
-                            <h5>color filters</h5>
-                            <ul class="color-filter">
-                                <li><a href="#"><i style="background-color: #000000;"></i>Black</a></li>
-                                <li><a href="#"><i style="background-color: #663300;"></i>Brown</a></li>
-                                <li><a href="#"><i style="background-color: #FF6801;"></i>Orange</a></li>
-                                <li><a href="#"><i style="background-color: #ff0000;"></i>red</a></li>
-                                <li><a href="#"><i style="background-color: #FFEE00;"></i>Yellow</a></li>
-                            </ul>
-                        </div>
-                        <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
-                            <h5>product tags</h5>
-                            <div class="product-tags">
-                                <a href="#">New ,</a>
-                                <a href="#">brand ,</a>
-                                <a href="#">black ,</a>
-                                <a href="#">white ,</a>
-                                <a href="#">chire ,</a>
-                                <a href="#">table ,</a>
-                                <a href="#">Lorem ,</a>
-                                <a href="#">ipsum ,</a>
-                                <a href="#">dolor ,</a>
-                                <a href="#">sit ,</a>
-                                <a href="#">amet ,</a>
+                    <div class="row" style="direction:ltr">
+
+
+
+                        @if (Model.filtergroup.ranges != null)
+                        {
+                            <div class="col-md-4 col-sm-6 col-xs-12 mb-30" style="padding:40px">
+
+                                @foreach (var ranges in Model.filtergroup.ranges)
+                                {
+                                    string srt = "price-range" + ranges.ID;
+                                    <div>
+                                        <div class="product-filter ">
+                                            <h5>@ranges.title</h5>
+                                            <div class=" price-range" id="@srt"></div>
+                                            <div class="price-values">
+                                                <span>@ranges.vahed</span>
+                                                <input type="text" class="price-amount">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                }
+                                <div id="butholder" style=" height:10%">
+                                    <div id="okbutt">
+                                        <p style="margin:auto">فیلتر کن</p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                        }
+
+                        @if (Model.filtergroup.colors != null)
+                        {
+                            int index = Model.filtergroup.filters != null ? 1 : 0;
+                            string display = "none";
+                            if (index == 0)
+                            {
+                                display = "inline-block";
+                            }
+                            <div class="col-md-4 col-sm-6 col-xs-12 mb-30" style="padding:40px">
+                                <div class="detail product-filter filterScroll " id="colorC0" style="height:200px; overflow-y:scroll">
+
+                                    <h5>رنگبندی</h5>
+                                    <ul style="">
+                                        @foreach (var color in Model.filtergroup.colors)
+                                        {
+                                            var typid = color.ID;
+                                            var classname = "colorbox " + typid;
+                                            var colorcode = color.title;
+                                            <li class="detailitem" style="direction:rtl">
+
+                                                <label class="containner CHcontainer" style="direction:ltr; margin:0px; display:flex; margin-bottom:10px">
+
+                                                    <input type="checkbox" class="colorcheckbox" id="@typid" style="height:20px">
+                                                    <span class="checkmark" style=" text-align:right; width:60%">  @color.imagetitle</span>
+                                                    <i class="dot" style="display:inline-block ; width:25px; height:15px; background-color:@colorcode; border-radius:100%; border: 1px solid @colorcode; float:left; margin-left:15px"></i>
+                                                </label>
+                                            </li>
+
+                                        }
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                        }
+                        <div class="col-md-4 col-sm-6 col-xs-12 mb-30" style="padding:40px">
+                            <div class="product-filter  filterScroll" style="">
+                                @if (Model.filtergroup.filters != null)
+                                {
+                                    foreach (var item in Model.filtergroup.filters)
+                                    {
+                                        if (item.filterdetailes != null)
+                                        {
+                                            string FID = "filterF" + item.ID;
+                                            int index = Model.filtergroup.filters.IndexOf(item);
+                                            string display = "none";
+                                            if (index == 0)
+                                            {
+                                                display = "inline-block";
+                                            }
+                                            <div class="detail " id=@FID style="margin-bottom:20px; border-bottom:1px solid #ddd">
+
+                                                <h5>@item.filtername</h5>
+                                                <ul>
+                                                    @{
+
+                                                        foreach (var detail in item.filterdetailes)
+                                                        {
+                                                            var typid = detail.ID;
+
+
+                                                            <li class="detailitem" style="direction:rtl">
+
+                                                                <label class="containner CHcontainer" style="direction:ltr; margin:0px; display:flex; margin-bottom:10px">
+
+                                                                    <input type="checkbox" class="filtercheckbox" id="@typid" style="height:20px">
+                                                                    <span class="checkmark" style=" text-align:right; width:60%"> @detail.detailname</span>
+
+                                                                </label>
+                                                            </li>
+                                                        }
+
+
+                                                    }
+                                                </ul>
+
+                                            </div>
+                                        }
+
+
+
+
+                                    }
+
+                                }
                             </div>
                         </div>
-                        <div class="product-filter col-md-3 col-sm-6 col-xs-12 mb-30">
-                            <h5>Filter by price</h5>
-                            <div id="price-range"></div>
-                            <div class="price-values">
-                                <span>Price:</span>
-                                <input type="text" class="price-amount">
-                            </div>
-                        </div>
+
+                        @section scripts{
+                            <script>
+                                $(document).ready(function () {
+                                    $('.filtercheckbox').change(function () {
+                                        $("#loading").css("display", "block");
+                                        var filterid = "";
+                                        $(".filtercheckbox").each(function () {
+
+                                            if (this.checked) {
+                                                var id = this.id;
+
+                                                filterid = filterid + id + ",";
+
+                                            }
+
+                                        })
+
+
+
+                                        $.ajax({
+                                            url: '/Home/changefilterides',
+                                            data: {
+                                                ID: filterid,
+
+                                            },
+                                            dataType: 'html',
+                                            success: function () {
+                                                //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                                //if ($(window).width() > 960) {
+
+                                                //}
+                                                if ($(window).width() > 960) {
+                                                    $.ajax({
+                                                        url: '/Home/gogetproductlist',
+                                                        aType: 'html',
+                                                        success: function (data) {
+                                                            $('#productlist').html(data);
+
+                                                        },
+                                                        error: function () {
+                                                            //alert("nashod")
+                                                        },
+                                                        complete: function () {
+
+                                                            $("#loading").fadeOut();
+                                                        }
+                                                    });
+                                                }
+
+
+                                            },
+                                            error: function () {
+
+                                            }
+                                        });
+
+
+                                    });
+                                })
+
+
+                            </script>
+                            <script>
+                                function addCommas(nStr) {
+                                    nStr += '';
+                                    var x = nStr.split('.');
+                                    var x1 = x[0];
+                                    var x2 = x.length > 1 ? '.' + x[1] : '';
+                                    var rgx = /(\d+)(\d{3})/;
+                                    while (rgx.test(x1)) {
+                                        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                                    }
+                                    return x1 + x2;
+                                }
+
+                                $(".resp-tab-item").click(function () {
+                                    var id = $(this).prop("id");
+
+                                    $.ajax({
+                                        url: '/Home/changesortid',
+                                        data: {
+                                            ID: id,
+
+                                        },
+                                        dataType: 'html',
+                                        success: function (data) {
+                                            //فقط برای پروژه مسکن که آپدیت لحظه ای نمی خوایم
+                                            getquntity()
+                                            $.ajax({
+                                                url: '/Home/gogetproductlist',
+                                                aType: 'html',
+                                                success: function (data) {
+
+                                                    $("#SIBdiv").css("height", "");
+                                                    $('#productlist').html(data);
+                                                    window.scrollTo(0, 0);
+
+                                                },
+                                                error: function () {
+                                                    //alert("nashod")
+                                                },
+                                                complete: function () {
+                                                    $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                                    $('#spaceholder').css("height", '');
+                                                    $("#textOfSort").text(text);
+
+                                                }
+                                            });
+
+                                        },
+                                        error: function () {
+                                            //alert("nashod")
+                                        }
+                                    });
+
+
+                                });
+                                $("#sortybutton").click(function () {
+                                    var id = "";
+                                    var text = "";
+                                    $("input[name=radio]").each(function () {
+                                        if (this.checked) {
+                                            id = $(this).attr('id');
+                                            text = $(this).parent().text();
+
+                                        }
+                                    })
+
+                                    $.ajax({
+                                        url: '/Home/changesortid',
+                                        data: {
+                                            ID: id,
+
+                                        },
+                                        dataType: 'html',
+                                        success: function () {
+
+                                            $.ajax({
+                                                url: '/Home/gogetproductlist',
+                                                aType: 'html',
+                                                success: function (data) {
+                                                    $("#SIBdiv").css("height", "");
+                                                    $('#productlist').html(data);
+                                                    window.scrollTo(0, 0);
+                                                },
+                                                error: function () {
+                                                    //alert("nashod")
+                                                },
+                                                complete: function () {
+                                                    $("#sortholder").css("display", "none")
+                                                    $("body").css("overflow", "scroll");
+                                                    $("#textOfSort").text(text);
+
+                                                }
+                                            });
+
+                                        },
+                                        error: function () {
+                                            //alert("nashod")
+                                        }
+                                    });
+                                    //$("#textOfSort").text($(this).text());
+                                    //$("#sortholder").css("display", "none");
+                                    //$("#sortholder")
+
+                                })
+
+                                $("#sortholderBut").click(function () {
+                                    $("#sortholder").css("display", "flex")
+                                    $("body").css("overflow", "hidden");
+                                })
+                                $("#sortholder").click(function () {
+                                    $('#sortholder').hide();
+                                    $("body").css("overflow", "scroll");
+                                })
+                                $("#sortholder #horizontalTab").click(function (e) {
+                                    e.stopPropagation();
+                                });
+                                $(".fa-th-large").click(function () {
+                                    $(".showmedetail").css("width", "50%");
+                                    $(".c-price__discount-oval").hide();
+
+                                    $(".colorholder").hide();
+                                    $(this).css("display", "none");
+                                    $(".fa-list").css("display", "block");
+
+
+
+                                })
+                                $(".fa-list").click(function () {
+                                    $(".showmedetail").css("width", "100%");
+                                    $(".c-price__discount-oval").show();
+
+                                    $(".colorholder").show();
+                                    $(this).css("display", "none");
+                                    $(".fa-th-large").css("display", "block");
+                                })
+
+
+                            </script>
+                            @foreach (var ranges in Model.filtergroup.ranges)
+                            {
+                                <script>
+                                     var id = @ranges.ID;
+                                     var srt = 'price-range' + id;
+                                var PriceRange = $('#'+srt);
+                                var PriceAmount = $('.price-amount');
+
+                                PriceRange.slider({
+                                    range: true,
+                                    min: @ranges.min,
+                                    max: @ranges.max,
+                                    values: [0, @ranges.max],
+                                    slide: function (event, ui) {
+                                        PriceAmount.val(addCommas(ui.values[0]) + ' - ' + addCommas(ui.values[1]));
+                                    }
+                                });
+                                    PriceAmount.val( addCommas(PriceRange.slider('values', 0)) +
+                                        ' - ' + addCommas(PriceRange.slider('values', 1)));
+                                $('.product-filter-toggle').on('click', function () {
+                                    $('.product-filter-wrapper').slideToggle();
+                                })
+                                </script>
+                            }
+
+
+                        }
+
                     </div>
                 </div>
             </div>
         </div>
         <div class="grid-list-product-wrapper">
-            <div class="product-grid product-view">
-                <div class="row">
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/21.jpg" alt="">
-                                </a>
-                                <div class="price-decrease">
-                                    <span>30% off</span>
-                                </div>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Jewelry</a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span class="old">$200.00 </span>
-                                        <span>$120.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Awesome Cloth Jewelry</a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/22.jpg" alt="">
-                                </a>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Jewelry</a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span>$150.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Awesome Cloth Jewelry</a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/23.jpg" alt="">
-                                </a>
-                                <div class="price-decrease">
-                                    <span>50% off</span>
-                                </div>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Bracelet </a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span class="old">$200.00 </span>
-                                        <span>$120.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Nice Cloth Bracelet </a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/24.jpg" alt="">
-                                </a>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Jewelry</a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span>$200.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Cloth Hairpin</a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/25.jpg" alt="">
-                                </a>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Jewelry</a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span class="old">$200.00 </span>
-                                        <span>$120.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Awesome Cloth Jewelry</a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/26.jpg" alt="">
-                                </a>
-                                <div class="price-decrease">
-                                    <span>20% off</span>
-                                </div>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Bracelet</a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span>$100.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Cloth Bracelet</a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/27.jpg" alt="">
-                                </a>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Hairpin</a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span class="old">$200.00 </span>
-                                        <span>$120.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Awesome Cloth Jewelry</a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-width col-md-6 col-xl-3 col-lg-4">
-                        <div class="product-wrapper mb-35">
-                            <div class="product-img">
-                                <a href="#">
-                                    <img src="~/webAsset/3/assets/img/product/28.jpg" alt="">
-                                </a>
-                                <div class="price-decrease">
-                                    <span>30% off</span>
-                                </div>
-                                <div class="product-action-3">
-                                    <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                        <i class="ti-plus"></i> Quict View
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-wishlist">
-                                    <div class="product-title-3">
-                                        <h4><a href="product-details.html">Cloth Jewelry</a></h4>
-                                    </div>
-                                    <div class="product-wishlist-3">
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                    </div>
-                                </div>
-                                <div class="product-peice-addtocart">
-                                    <div class="product-peice-3">
-                                        <span>$170.00</span>
-                                    </div>
-                                    <div class="product-addtocart">
-                                        <a href="#"> <i class="ti-shopping-cart"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product-list-details">
-                                <h2><a href="product-details.html">Awesome Cloth Jewelry</a></h2>
-                                <div class="product-rating">
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                    <i class="ion-ios-star"></i>
-                                </div>
-                                <div class="product-price">
-                                    <span class="old">$22.00 </span>
-                                    <span>$19.00</span>
-                                </div>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipic it, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat</p>
-                                <div class="shop-list-cart">
-                                    <a href="cart.html"><i class="ti-shopping-cart"></i> Add to cart</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pagination-style text-center mt-30">
-                    <ul>
-                        <li>
-                            <a class="active" href="#">1</a>
-                        </li>
-                        <li>
-                            <a href="#">2</a>
-                        </li>
-                        <li>
-                            <a href="#">3</a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="ion-chevron-right"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="product-grid product-view" id="productlist">
+                @{
+
+                    Html.RenderAction("gogetproductlist", "Home", new { fromList = "1" });
+
+                }
             </div>
         </div>
     </div>

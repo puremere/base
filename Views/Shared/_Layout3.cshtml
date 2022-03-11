@@ -18,17 +18,21 @@
     <link rel="stylesheet" href="~/webAsset/3/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/webAsset/3/assets/css/chosen.min.css">
     <link rel="stylesheet" href="~/webAsset/3/assets/css/themify-icons.css">
-    <link rel="stylesheet" href="~/webAsset/3/assets/css/ionicons.min.css">
+
     <link rel="stylesheet" href="~/webAsset/3/assets/css/meanmenu.min.css">
     <link rel="stylesheet" href="~/webAsset/3/assets/css/bundle.css">
-    <link rel="stylesheet" href="~/webAsset/3/assets/css/style.css">
+
     <link rel="stylesheet" href="~/webAsset/3/assets/css/responsive.css">
-   
+
     @RenderSection("header", required: false)
-    
+
+
+    <link rel="stylesheet" href="~/webAsset/3/assets/css/style.css">
     <script src="~/webAsset/3/assets/js/vendor/modernizr-2.8.3.min.js"></script>
     <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
     <link href="~/Content/font.css" rel="stylesheet" />
+    @RenderSection("HeadIncludes", required: false)
+    <link href="~/webAsset/3/assets/css/ionicons.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -53,6 +57,7 @@
     <script src="~/webAsset/3/assets/js/owl.carousel.min.js"></script>
     <script src="~/webAsset/3/assets/js/plugins.js"></script>
     <script src="~/webAsset/3/assets/js/main.js"></script>
+    @RenderSection("scripts", required: false)
 
 
 </body>

@@ -1,0 +1,348 @@
+﻿@model banimo.ViewModelPost.ProductListViewModel
+@using banimo.Classes;
+
+
+
+
+<script>
+      $("#productCount").text('@Model.productsCounts کالا');
+
+
+</script>
+
+<div class="row" style="direction:rtl">
+    @foreach (var item in Model.products)
+    {
+        string ID = "o" + item.ID.ToString();
+        <div class="product-width col-md-6 col-xl-4 col-lg-4">
+            <div class="product-wrapper mb-35">
+                <div class="product-img">
+                    <a href="/Home/ProductDetail?id=@ID">
+                        <img src="@item.image.Trim(',').Split(',').First()" alt="">
+                    </a>
+                    @if(item.discount != "0")
+                    {
+                    <div class="price-decrease">
+
+                        <span  style="font-family:IRANSansfaNum">@item.discount% </span>
+                    </div>
+                    }
+                    
+                    <div class="product-action-3">
+                        <a class="action-plus-2" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
+                            <i class="ti-plus"></i> مشاهده محصول
+                        </a>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <div class="product-title-wishlist">
+                        <div class="product-title-3">
+                            <h4><a href="product-details.html">@item.title</a></h4>
+                        </div>
+                        <div class="product-wishlist-3">
+                            <a href="#"><i class="ti-heart"></i></a>
+                        </div>
+                    </div>
+                    <div class="product-peice-addtocart">
+                        <div class="product-peice-3">
+                            @if (item.price != item.oldPrice)
+                            {
+                               
+                                <span style="font-family:IRANSansfaNum" class="old">@string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </span>
+                            }
+
+                                <span style="font-family:IRANSansfaNum"> <span>@string.Format("{0:n0}", Convert.ToInt32(@item.price))</span><span style="margin-right:5px">تومان</span>   </span>
+                        </div>
+                       
+                        <div class="product-addtocart">
+                            <a href="#"> <i class="ti-shopping-cart"></i> افزودن به سبد خرید</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-list-details">
+                    <h2><a href="product-details.html">@item.title</a></h2>
+
+                    <div class="product-price">
+                        @if (item.price != item.oldPrice)
+                        {
+                            <span style="font-family:IRANSansfaNum" class="old">@string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </span>
+                        }
+
+                        <span style="font-family:IRANSansfaNum">@string.Format("{0:n0}", Convert.ToInt32(@item.price))  <span>تومان</span></span>
+                    </div>
+                    <p>@item.desc</p>
+                    <div class="shop-list-cart">
+                        <a href="cart.html"><i class="ti-shopping-cart"></i> افزودن به سبد خرید</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+
+@*<div>
+        <ul>
+            <li>
+                <a class="active" href="#">1</a>
+            </li>
+            <li>
+                <a href="#">2</a>
+            </li>
+            <li>
+                <a href="#">3</a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="ion-chevron-right"></i>
+                </a>
+            </li>
+        </ul>
+    </div>*@
+
+
+
+
+
+
+
+
+<div class="pagination-style text-center mt-30">
+    @{
+        var total = Convert.ToInt32(Model.pageNumber);
+        var activ = Convert.ToInt32(Model.currentPage);
+        var activminus2 = activ - 2;
+        var activminus1 = activ - 1;
+        var activplus1 = activ + 1;
+        var activplus2 = activ + 2;
+
+
+
+        if ((total - activ) > 3 & activ > 3)
+        {
+            <ul>
+
+                <li><a>«</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                <li><a>...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                <li class="active"><a>@activ</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                <li> ...</li>
+                <li><a>@total</a></li>
+                <li><a>»</a></li>
+            </ul>
+        }
+        else if ((total - activ > 3) && !(activ > 3))
+        {
+            <ul class="pagination">
+
+                @for (int i = 1; i < activ; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li class="active"><a>@activ </a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus1</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activplus2</a></li>
+                <li><a href="#">...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@total</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
+
+        }
+        else if (!(total - activ > 3) && activ > 3)
+        {
+            <ul class="pagination">
+
+                <li><a>«</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>1</a></li>
+                <li><a>...</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus2</a></li>
+                <li style="cursor:pointer" class="pagingnumberforall"><a>@activminus1</a></li>
+                <li style="cursor:pointer" class="active"><a>@activ </a></li>
+                @for (int i = activ + 1; i <= total; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li><a>»</a></li>
+            </ul>
+
+        }
+        else if (total > 1 && !((total - activ) > 3) && !(activ > 3))
+        {
+
+            <ul class="pagination">
+
+                @for (int i = 1; i < activ; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+                <li class="active"><a href="#">@activ</a></li>
+                @for (int i = activ + 1; i <= total; i++)
+                {
+                    <li style="cursor:pointer" class="pagingnumberforall"><a>@i</a></li>
+                }
+
+            </ul>
+
+        }
+
+    }
+
+    <script>
+        var getquntity = function () {
+            $.ajax({
+                url: '/Home/getquntitiy',
+                dataType: 'html',
+                success: function (data) {
+                    var total = 0;
+                    var srtcookie = data;
+
+                    if (srtcookie.length > 0) {
+                        srtcookie = srtcookie.replace(/&quot;/g, '"');
+                        JSON.parse(srtcookie).forEach(function (item) {
+                            let valueID = "value" + item.productid;
+                            $("." + valueID).text(item.quantity);
+                            total += parseInt(item.quantity);
+                        });
+                        $(".simpleCart_quantityy").text(total)
+
+                    } else {
+                        $(".simpleCart_quantityy").text("0")
+                    };
+                }
+
+            })
+        };
+    </script>
+    <script>
+        $(".pagingnumberforall").click(function () {
+            var num = this.textContent;
+            $.ajax({
+                url: '/Home/allpaginationid',
+                dataType: 'html',
+                data: {
+                    id: num,
+                },
+                success: function (data) {
+                    if (data === "1") {
+                        $.ajax({
+                            url: '/Home/gogetproductlist',
+                            dataType: 'html',
+                            success: function (data) {
+
+                                $('#productlist').html(data);
+                                window.scrollTo(0, 500);
+                                getquntity();
+                            },
+                            error: function () {
+                                alert("nashod")
+                            },
+                            complete: function () {
+                                $('#FLTholder').css({ position: 'relative', top: '0px', right: '0px' });
+                                $('#spaceholder').css("height", '');
+                                $('#SIBdiv').scrollTop();
+                                window.scrollTo(0, 0);
+
+                            }
+                        });
+
+                    }
+                },
+                error: function () {
+
+                }
+
+            })
+        })
+
+    </script>
+    <script>
+        $('.value-plus').on('click', function () {
+
+            event.stopPropagation();
+            $("#loading").fadeIn()
+            let newVal = $(this).parent().children(".value").text();
+            let finalVal = parseInt(newVal) + 1;
+            // $(this).parent().children(".value").text(finalVal);
+            var ID = $(this).attr('id');
+            let myid = "value" + ID.replace("addtocarto", "");
+
+            $("." + myid).text(finalVal);
+
+            $.ajax({
+                url: '/Home/addtocart',
+                dataType: 'html',
+                data: {
+                    id: ID
+
+                },
+                success: function (data) {
+                    var count = parseInt($(".simpleCart_quantityy").text());
+                    count += 1;
+                    $(".simpleCart_quantityy").text(count);
+                    $("#loading").fadeOut()
+
+                },
+                error: function () {
+                    alert("error")
+                }
+
+
+            });
+        });
+        $('.value-minus').on('click', function () {
+            event.stopPropagation();
+            $("#loading").fadeIn()
+            var ID = $(this).attr('id');
+            let myid = "value" + ID.replace('minus', '');
+
+            let newVal = $(this).parent().children(".value").text();
+            if (newVal != "0") {
+                let finalVal = parseInt(newVal) - 1;
+                $("." + myid).text(finalVal);
+            }
+
+
+            $.ajax({
+                url: '/Home/minusfromcart',
+                dataType: 'html',
+                data: {
+                    id: ID
+                },
+                success: function (data) {
+
+                    var count = parseInt($(".simpleCart_quantityy").text());
+                    count -= 1;
+                    $(".simpleCart_quantityy").text(count);
+                    $("#loading").fadeOut()
+
+                },
+                error: function () {
+                    alert("error")
+                }
+
+
+            });
+
+
+
+
+
+        });
+
+
+
+
+    </script>
+    <script>
+        getquntity();
+    </script>
+
+
+
+
+</div>

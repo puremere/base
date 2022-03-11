@@ -16,41 +16,8 @@
         <div class="header-area transparent-bar">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-2 col-md-2 col-sm-5 col-5">
-                        <div class="language-currency">
-                            <div class="language">
-                                <select class="select-header orderby">
-                                    <option value="">ENGLISH</option>
-                                    <option value="">BANGLA </option>
-                                    <option value="">HINDI</option>
-                                </select>
-                            </div>
-                            <div class="currency">
-                                <select class="select-header orderby">
-                                    <option value="">USD</option>
-                                    <option value="">US </option>
-                                    <option value="">EURO</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="sticky-logo">
-                            <a href="index.html"><img src="~/webAsset/3/assets/img/logo/2.png" alt="" /></a>
-                        </div>
-                        <div class="logo-small-device">
-                            <a href="index.html"><img alt="" src="~/webAsset/3/assets/img/logo/logo.png"></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 d-none d-md-block">
-                        <div class="logo-menu-wrapper text-center">
-                            <div class="logo">
-                                <a href="index.html"><img src="~/webAsset/3/assets/img/logo/logo.png" alt="" /></a>
-                            </div>
-                            <div class="main-menu">
-                                @{ Html.RenderAction("getmenue", "Home"); }
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-2 col-sm-7 col-7">
+                    
+                    <div class="col-lg-2 col-md-2 col-sm-7 col-7 bascketHolder" >
                         <div class="header-site-icon">
                             <div class="header-search same-style">
                                 <button class="sidebar-trigger-search">
@@ -70,6 +37,21 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-8 col-md-2 col-sm-7 col-7 " style="text-align:center; margin-top:15px">
+                        <div class="logo">
+                            <a href="index.html"><img src="~/images/logo.png" alt="" /></a>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-7 col-7"></div>
+                    <div class="col-lg-12 col-md-8 d-none d-md-block">
+                        <div class="logo-menu-wrapper text-center">
+                           
+                            <div class="main-menu">
+                                @{ Html.RenderAction("getmenue", "Home"); }
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="mobile-menu-area col-12">
                         <div class="mobile-menu">
                             <nav id="mobile-menu-active">
@@ -239,42 +221,70 @@
     </div>
     <div class="slider-area">
         <div class="slider-active owl-carousel">
-            <div class="single-slider slider-1 gray-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="slider-content slider-animated-1">
-                                <h2 class="animated">Sale off <span>30%</span> for all </h2>
-                                <p class="animated">Lorem ipsum dolor sit amet consectetur adipisici elit, sed do eius tempor incididunt ut labore et dolore magna.</p>
-                                <a class="slider-btn animated" href="shop.html">shop now</a>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="slider-single-img slider-animated-1">
-                                <img class="animated" src="~/webAsset/3/assets/img/slider/1.png" alt="slider images">
+            @{
+                string title0 = "";
+                string title1 = "";
+                string title2 = "";
+                string title3 = "";
+                string title4 = "";
+                string desc0 = "";
+                string desc1 = "";
+                string desc2 = "";
+                string desc3 = "";
+                string desc4 = "";
+
+                foreach (var item in Model.slides)
+                {
+                    int index = Model.slides.IndexOf(item);
+                    string title = "";
+                    string desc = "";
+
+                    switch(index)
+                    {
+                        case 0:
+                            title = title0;
+                            desc = desc0;
+                            break;
+                        case 1:
+                            title = title1;
+                            desc = desc1;
+                            break;
+                        case 2:
+                            title = title2;
+                            desc = desc2;
+                            break;
+                        case 3:
+                            title = title3;
+                            desc = desc3;
+                            break;
+                        case 4:
+                            title = title4;
+                            desc = desc4;
+                            break;
+
+                    }
+                    <div class="single-slider slider-1 gray-bg">
+                        <div class="container">
+                            <div class="row" style="direction:rtl">
+                                <div class="col-md-6" style="text-align:right">
+                                    <div class="slider-content slider-animated-1">
+                                        <h2 class="animated">@title</h2>
+                                        <p class="">@desc</p>
+                                      
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="slider-single-img slider-animated-1">
+                                        <img class="animated" src="~/images/panelimages/@item.image" alt="slider images">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="single-slider slider-1 gray-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="slider-content slider-animated-2">
-                                <h2 class="animated">Sale off <span>30%</span> for all </h2>
-                                <p class="animated">Lorem ipsum dolor sit amet consectetur adipisici elit, sed do eius tempor incididunt ut labore et dolore magna.</p>
-                                <a class="slider-btn animated" href="shop.html">shop now</a>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="slider-single-img slider-animated-2">
-                                <img class="animated" src="~/webAsset/3/assets/img/slider/4.png" alt="slider images">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                }
+                }
+
+
         </div>
     </div>
     <div class="banner-area hm1-banner pt-130 pb-107">
@@ -283,7 +293,7 @@
                 <div class="col-md-12 col-lg-4">
                     <div class="banner-wrapper banner-border ml-10 mb-30 wow fadeInLeft">
                         <div class="banner-img">
-                            <a href="#"><img src="~/webAsset/3/assets/img/banner/1.jpg" alt="image"></a>
+                            <a href="#"><img src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[0].image" alt="image"></a>
                         </div>
                         <div class="banner-content-style1 banner-position-center-right">
                             <h2>30% <span><img src="~/webAsset/3/assets/img/icon-img/discount.png" alt="image"></span> <br>Products</h2>
@@ -291,7 +301,7 @@
                     </div>
                     <div class="banner-wrapper banner-border ml-10 mb-30 wow fadeInLeft">
                         <div class="banner-img">
-                            <a href="#"><img src="~/webAsset/3/assets/img/banner/2.jpg" alt="image"></a>
+                            <a href="#"><img src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[1].image" alt="image"></a>
                         </div>
                         <div class="banner-content-style2 banner-position-center-left">
                             <h3>Don’t Miss</h3>
@@ -302,7 +312,7 @@
                 <div class="col-md-12 col-lg-4">
                     <div class="banner-wrapper mrg-mb-md ">
                         <div class="banner-img">
-                            <a href="#"><img src="~/webAsset/3/assets/img/banner/3.jpg" alt="image"></a>
+                            <a href="#"><img src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[2].image" alt="image"></a>
                         </div>
                         <div class="banner-content-style3 banner-position-top">
                             <h3>Black Friday Offer</h3>
@@ -315,7 +325,7 @@
                 <div class="col-md-12 col-lg-4">
                     <div class="banner-wrapper banner-border-2 mr-10 mb-30 wow fadeInRight">
                         <div class="banner-img">
-                            <a href="#"><img src="~/webAsset/3/assets/img/banner/4.jpg" alt="image"></a>
+                            <a href="#"><img src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[3].image" alt="image"></a>
                         </div>
                         <div class="banner-content-style2 banner-position-center-left">
                             <h3>Don’t Miss</h3>
@@ -324,7 +334,7 @@
                     </div>
                     <div class="banner-wrapper banner-border-2 mr-10 mb-30 wow fadeInRight">
                         <div class="banner-img">
-                            <a href="#"><img src="~/webAsset/3/assets/img/banner/5.jpg" alt="image"></a>
+                            <a href="#"><img src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[4].image" alt="image"></a>
                         </div>
                         <div class="banner-content-style1 banner-position-center-right">
                             <h2>30% <span> <img src="~/webAsset/3/assets/img/icon-img/discount.png" alt="image"></span> <br>Products</h2>
@@ -354,7 +364,7 @@
                 <div class="tab-pane active" id="home1" role="tabpanel">
                     <div class="row">
                         @foreach (var item in Model.specialOffers)
-                        {
+                {
                             <div class="col-md-6 col-lg-4 col-xl-3">
                                 <div class="product-wrapper mb-45">
                                     <div class="product-img">
@@ -401,9 +411,9 @@
                 <div class="tab-pane" id="home2" role="tabpanel">
                     <div class="row">
                         @if (Model.newest != null)
-                        {
-                            foreach (var item in Model.newest)
-                            {
+                {
+                    foreach (var item in Model.newest)
+                    {
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="product-wrapper mb-45">
                                         <div class="product-img">
@@ -451,9 +461,9 @@
                 <div class="tab-pane" id="home3" role="tabpanel">
                     <div class="row">
                         @if (Model.bestseller != null)
-                        {
-                            foreach (var item in Model.bestseller)
-                            {
+                {
+                    foreach (var item in Model.bestseller)
+                    {
                                 <div class="col-md-6 col-lg-4 col-xl-3">
                                     <div class="product-wrapper mb-45">
                                         <div class="product-img">
@@ -508,7 +518,7 @@
                     <div class="banner-wrapper overflow mb-30 wow fadeInDown">
                         <div class="banner-img">
                             <a href="#">
-                                <img alt="image" src="~/webAsset/3/assets/img/banner/6.jpg">
+                                <img alt="image" src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[5].image">
                             </a>
                         </div>
                         <div class="banner-content-5">
@@ -523,7 +533,7 @@
                     <div class="banner-wrapper overflow mb-30 wow fadeInUp">
                         <div class="banner-img">
                             <a href="#">
-                                <img alt="image" src="~/webAsset/3/assets/img/banner/7.jpg">
+                                <img alt="image" src="@System.Configuration.ConfigurationManager.AppSettings["domain"]/images/panelimages/@Model.banners[6].image">
                             </a>
                         </div>
                         <div class="banner-content-5">
@@ -537,125 +547,18 @@
             </div>
         </div>
     </div>
-    <div class="new-collection-area pb-90">
-        <div class="container">
-            <div class="section-title text-center mb-55">
-                <h2>New Collection</h2>
-            </div>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="new-collection-slider owl-carousel mb-30">
-                        <div class="single-new-collection">
-                            <a href="shop.html"><img alt="image" src="~/webAsset/3/assets/img/product/9.jpg"></a>
-                            <div class="new-collection-content slider-animated-3">
-                                <h2 class="animated">Black Friday Offer</h2>
-                                <a href="#" class="btn-style cr-btn animated"><span>shop now</span></a>
-                            </div>
-                        </div>
-                        <div class="single-new-collection">
-                            <a href="shop.html"><img alt="image" src="~/webAsset/3/assets/img/product/10.jpg"></a>
-                            <div class="new-collection-content slider-animated-4">
-                                <h2 class="animated">Black Friday Offer</h2>
-                                <a href="#" class="btn-style cr-btn animated"><span>shop now</span></a>
-                            </div>
-                        </div>
-                        <div class="single-new-collection">
-                            <a href="shop.html"><img alt="image" src="~/webAsset/3/assets/img/product/11.jpg"></a>
-                            <div class="new-collection-content slider-animated-3">
-                                <h2 class="animated">Black Friday Offer</h2>
-                                <a href="#" class="btn-style cr-btn animated"><span>shop now</span></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="product-wrapper mb-45">
-                                <div class="product-img">
-                                    <a href="#">
-                                        <img src="~/webAsset/3/assets/img/product/3.jpg" alt="">
-                                    </a>
-                                    <div class="product-action">
-                                        <div class="product-action-style">
-                                            <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                <i class="ti-plus"></i>
-                                            </a>
-                                            <a class="action-heart" title="Wishlist" href="#">
-                                                <i class="ti-heart"></i>
-                                            </a>
-                                            <a class="action-cart" title="Add To Cart" href="#">
-                                                <i class="ti-shopping-cart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content text-center">
-                                    <h4><a href="product-details.html">Rattan Tissue Holder</a></h4>
-                                    <div class="product-rating">
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star"></i>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$20.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="product-wrapper mb-45">
-                                <div class="product-img">
-                                    <a href="#">
-                                        <img src="~/webAsset/3/assets/img/product/4.jpg" alt="">
-                                    </a>
-                                    <div class="product-action">
-                                        <div class="product-action-style">
-                                            <a class="action-plus" title="Quick View" data-toggle="modal" data-target="#exampleModal" href="#">
-                                                <i class="ti-plus"></i>
-                                            </a>
-                                            <a class="action-heart" title="Wishlist" href="#">
-                                                <i class="ti-heart"></i>
-                                            </a>
-                                            <a class="action-cart" title="Add To Cart" href="#">
-                                                <i class="ti-shopping-cart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="product-content text-center">
-                                    <h4><a href="product-details.html">Rattan Cat Chair</a></h4>
-                                    <div class="product-rating">
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star"></i>
-                                        <i class="ion-ios-star-outline"></i>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$25.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
 
 
     @if (Model.gourpList != null)
-    {
-        foreach (var group in Model.gourpList)
-        {
-            string id = group.type + "-" + group.catIDOrLink;
+                {
+                    foreach (var group in Model.gourpList)
+                    {
+                        string id = group.type + "-" + group.catIDOrLink;
 
-            if (group.value != null)
-            {
+                        if (group.value != null)
+                        {
 
 
                 <div class="product-area pb-125 product-padding">
@@ -666,19 +569,19 @@
                         </div>
                         <div class="collection-product-active owl-carousel owl-loaded owl-drag">
                             @foreach (var item in group.value)
-                            {
-                                string addID = "addtocarto" + item.ID;
-                                string minusID = "minus" + item.ID;
-                                string imagefile = "placeholder.jpg";
-                                if (item.title != null)
-                                {
-                                    imagefile = item.image;
-                                }
-                                string ID = "N" + item.ID.ToString();
-                                string addtocartid = "addtocart" + ID;
-                                string price = item.price;
+                {
+                    string addID = "addtocarto" + item.ID;
+                    string minusID = "minus" + item.ID;
+                    string imagefile = "placeholder.jpg";
+                    if (item.title != null)
+                    {
+                        imagefile = item.image;
+                    }
+                    string ID = "N" + item.ID.ToString();
+                    string addtocartid = "addtocart" + ID;
+                    string price = item.price;
 
-                                string src = imagefile;
+                    string src = imagefile;
                                 <div class="product-wrapper mb-45">
                                     <div class="product-img">
                                         <a href="#">
@@ -703,7 +606,7 @@
 
                                         <div class="product-price">
                                             @if (item.price != item.oldPrice)
-                                            {
+                {
                                                 <del>   </del>
                                                 <span class="old">@string.Format("{0:n0}", Convert.ToInt32(@item.oldPrice))  </span>
                                             }

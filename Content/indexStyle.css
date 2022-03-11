@@ -206,13 +206,13 @@
 .bannerSectionPrent {
     display: flex;
     padding: 0px;
-    width: 40%;
+    width: 35%;
     display: inline-block
 }
 
 .slidesectionParent {
     padding: 0px;
-    width: 60%;
+    width: 65%;
     display: inline-block
 }
 

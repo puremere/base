@@ -1256,10 +1256,13 @@
                 }
                 @if (Model.isAvailable != "0")
                 {
-                    <div class="btn btn-success addtocart" style=" width: 100%; padding: 10px;  position:fixed; bottom:0; z-index:99999999">
-                        <i class="fal fa-shopping-cart" style="    display: inline-block;   color: white; margin-left: 10px;"></i>
-                        <p style="display:inline-block" class=" ">افزودن به سبد خرید</p>
-                    </div>
+                    <a href="/Home/checkout">
+                        <div class="btn btn-success " style=" width: 100%; padding: 10px;  position:fixed; bottom:0; z-index:99999999; background-color:dodgerblue; border-color:dodgerblue">
+                            <i class="fal fa-shopping-cart" style="    display: inline-block;   color: white; margin-left: 10px;"></i>
+                            <p style="display:inline-block" class=" ">ادامه ثبت سفارش</p>
+                        </div>
+                    </a>
+                    
 
                 }
             </div>

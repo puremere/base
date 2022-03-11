@@ -49,7 +49,7 @@
                 <div id="headofshopcart" class="row" style="margin:25px; padding:0px">
                     <p id="headofshopcartP" style="font-size:22px; float:right">سبد خرید</p>
                 </div>
-                <div class="row" style="direction:rtl; margin-bottom:100px">
+                <div class="row" style="direction:rtl; margin-bottom:20px">
                     <div class="col-lg-4" id="finalpricediv" style="width:25%; margin: 0px; float: left;margin:5px; padding: 5px; padding-left:25px; background-color: #f5f5f5; display: inline-block; ">
                         <div class="rowabove" style="width: 100%; background-color: #fff; padding: 20px; border: 1px solid #eee;">
                             <div class="row" style="padding:15px 15px">
@@ -60,7 +60,6 @@
                                     <p style="float: left; text-align: right; font-size: 14px; font-weight: 700; color: #808080; "><span id="basepriceholder">@String.Format("{0:n0}", @leftbaseprice)</span>  تومان</p>
 
                                 }
-
 
                             </div>
                             <div class="row discountSection" style="padding:5px 15px">
@@ -74,7 +73,6 @@
                                 }
                             </div>
                         </div>
-
                         <div class="rowabove" style="width: 100%; background-color: #fff; padding: 20px; border: 1px solid #eee;">
                             <p style=" text-align:center; font-size:20px; padding:10px">مبلغ قابل پرداخت</p>
                             @{
@@ -84,8 +82,8 @@
                                 <p style=" font-size: 22px; color: red; text-align: center; padding: 10px"><span id="spanfortotal2">@String.Format("{0:n0}", @payment)</span> تومان</p>
 
                             }
-
                             <style>
+
                                 .mybtn {
                                     background-image: linear-gradient(to right, #00BFD6 50%, #36CDDF 50%);
                                     background-position: left bottom;
@@ -98,38 +96,14 @@
                                     border: 1px #0094ff solid;
                                     border-radius: 5px;
                                 }
+
                                     .mybtn:hover {
                                         background-position: right bottom;
                                     }
                             </style>
-                            @{
-                                List<banimo.ViewModel.CheckoutViewModel> isitemexist = Model.Where(x => x.limit < x.quantity || x.quantity > x.count).ToList();
-                                if (isitemexist.Count() == 0 && ViewBag.message == "")
-                                {
-
-                                    <div class="mybtn " style="">
-                                        <div style="border-radius: 50px 0 0 50px; background-color: #36CDDF; width: 20%; padding: 20px; display: inline-block">
-                                            <img style="display:inline-block;width:30px " src="~/images/arrleft2.png" />
-
-                                        </div>
-
-                                        <p id="confirmation" style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:65%; color:white" class=" ">ادامه ثبت سفارش</p>
-
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="mybtn " style="    background-color: #4d4d4d;background-image: none; border: none;">
-                                        <p style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:100%;padding:20px;  color:white" class=" ">فاکتور خود را اصلاح کنید</p>
-                                    </div>
-                                }
-
-                            }
-
 
 
                         </div>
-
                     </div>
                     @{
                         int w = Request.Browser.ScreenPixelsWidth;
@@ -137,7 +111,6 @@
                         if (Request.Browser.IsMobileDevice || (w < 820 && h > 820))
                         {
                             <div id="tr2" class="col-lg-8" style=" display:none; width:100%; margin: 0px; float: right; padding: 5px;background-color: #f5f5f5">
-
 
                                 @{
 
@@ -234,7 +207,6 @@
                                                         <div class="invert" style="text-align: right; margin-bottom: 45px; font-weight:600">
                                                             @name
                                                         </div>
-
                                                         @if (@message != "")
                                                         {
 
@@ -258,14 +230,11 @@
                                                                         <div>
                                                                             <del style="display: inline-block; color: red" class="@pricesectionbase">@string.Format("{0:n0}", Convert.ToInt32(totalbase)) </del>
                                                                         </div>
-
                                                                         <div>
                                                                             <p style="display:inline-block; color:green">تومان</p>
                                                                             <p style="display: inline-block; color: green; font-size:16px; font-weight:600" class="@pricesection">@string.Format("{0:n0}", Convert.ToInt32(total)) </p>
                                                                         </div>
                                                                     </div>
-
-
 
 
                                                                 </div>
@@ -275,28 +244,19 @@
 
 
 
-
-
-
-
                                                     </div>
                                                     <div style="width: 100%;display: inline-block; text-align:center; padding:5px" class="invert ">
                                                         <div>
                                                             <div class="quantity" style="">
                                                                 <div class="quantity-select row">
-
                                                                     <i id=@classminusname class="fa fa-minus-circle value-minus" style="border: none;  font-size: 22px; color: #36CDDF; "></i>
-
                                                                     <div style="background-color:@background; color:@color" class="entry value"><span>@quantity</span></div>
                                                                     <i id=@classaddname class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #36CDDF; "></i>
-
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-
-
 
 
                                             </div>
@@ -309,10 +269,6 @@
 
 
 
-
-
-
-
                             </div>
                         }
                         else
@@ -321,7 +277,6 @@
                                 <div id="tableholder" style="width: 100%; background-color: #fff; border: 1px solid #eee;">
                                     <div class="table-responsive checkout-right animated wow slideInUp" data-wow-delay=".5s">
                                         <table class="timetable_sub">
-
                                             @{
 
 
@@ -422,7 +377,6 @@
                                                         <td id="row1_td3" style="width:25%" class="invert">
                                                             @name
                                                         </td>
-
                                                         <td id="row1_td4" style="width:25%" class="invert ">
                                                             <div class="quantity">
                                                                 <div class="quantity-select row">
@@ -432,7 +386,6 @@
                                                                 </div>
                                                             </div>
                                                         </td>
-
                                                         @if (@message != "")
                                                         {
 
@@ -457,9 +410,6 @@
 
 
 
-
-
-
                                                     </tr>
 
                                                 }
@@ -468,22 +418,13 @@
 
 
 
-
-
-
                                         </table>
-
-
 
                                     </div>
                                 </div>
                             </div>
                         }
                     }
-
-
-
-
 
 
 
@@ -521,8 +462,8 @@
                             var divUpd = $(this).siblings('.value'),
                                 newVal = parseInt(divUpd.text(), 10) - 1;
 
-
-                            if (newVal >= 1) {
+                         
+                            if (newVal >= 0) {
 
 
                                 var ID = this.id
@@ -553,15 +494,31 @@
 
 
 
-
-
-
-
-
                 </div>
 
+                <div class="row" style="margin-bottom:60px;padding:0 10px">
+                    @{
+                        List<banimo.ViewModel.CheckoutViewModel> isitemexist = Model.Where(x => x.limit < x.quantity || x.quantity > x.count).ToList();
+                        if (isitemexist.Count() == 0 && ViewBag.message == "")
+                        {
 
+                            <div class="mybtn " style="">
+                                <div style="border-radius: 50px 0 0 50px;  width: 20%; padding: 20px; display: inline-block">
+                                    <img style="display:inline-block;width:30px " src="~/images/arrleft2.png" />
+                                </div>
+                                <p id="confirmation" style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:65%; color:white" class=" ">ادامه ثبت سفارش</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mybtn " style="    background-color: #4d4d4d;background-image: none; border: none;">
+                                <p style="padding:10px; text-align:center; display:inline-block; font-size:15px; width:100%;padding:20px;  color:white" class=" ">فاکتور خود را اصلاح کنید</p>
+                            </div>
+                        }
 
+                    }
+                </div>
+               
 
             </div>
 
@@ -595,7 +552,7 @@
                             }
                             else {
 
-                                window.location.href = "/Home/login"
+                                window.location.href = "/Home/loginPage"
 
                             }
 

@@ -2,7 +2,7 @@
 
 
 <nav>
-    <ul>
+    <ul style="direction:rtl">
         <li><a href="@Url.Action("Index", "Home")">خانه</a></li>
         @{
             if (Model.catsdata.First().mycatcollection != null)
@@ -15,7 +15,7 @@
                     if (cat.IsFinal == "1")
                     {
                         srtcat = "1" + cat.ID;
-                        <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtcat, value =  @cat.title})">@cat.title</a></li>
+                        <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtcat})">@cat.title</a></li>
                     }
                     else
                     {
@@ -36,7 +36,7 @@
                                             if (SB.IsFinal == "1")
                                             {
                                                 string srtsubcat = "2" + SB.ID;
-                                                <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtsubcat, value =  @cat.title})">@SB.title</a></li>
+                                                <li><a href="@Url.Action("ProductList", "Home", new { catmode = srtsubcat})">@SB.title</a></li>
                                             }
                                             else
                                             {

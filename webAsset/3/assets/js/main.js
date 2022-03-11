@@ -338,24 +338,24 @@
     })
     
     
-    /*-- Price Range --*/
-	var PriceRange = $('#price-range');
-	var PriceAmount = $('.price-amount');
+ //   /*-- Price Range --*/
+	//var PriceRange = $('#price-range');
+	//var PriceAmount = $('.price-amount');
 	
-    PriceRange.slider({
-        range: true,
-        min: 0,
-        max: 700,
-        values: [70, 500],
-        slide: function(event, ui) {
-            PriceAmount.val('$' + ui.values[0] + ' - $' + ui.values[1]);
-        }
-    });
-    PriceAmount.val('$' + PriceRange.slider('values', 0) +
-        ' - $' + PriceRange.slider('values', 1));
-    $('.product-filter-toggle').on('click', function() {
-        $('.product-filter-wrapper').slideToggle();
-    })
+ //   PriceRange.slider({
+ //       range: true,
+ //       min: 0,
+ //       max: 700,
+ //       values: [70, 500],
+ //       slide: function(event, ui) {
+ //           PriceAmount.val('$' + ui.values[0] + ' - $' + ui.values[1]);
+ //       }
+ //   });
+ //   PriceAmount.val('$' + PriceRange.slider('values', 0) +
+ //       ' - $' + PriceRange.slider('values', 1));
+ //   $('.product-filter-toggle').on('click', function() {
+ //       $('.product-filter-wrapper').slideToggle();
+ //   })
     
     
     // Instantiate EasyZoom instances

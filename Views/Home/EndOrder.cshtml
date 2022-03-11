@@ -226,6 +226,19 @@
             integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
             crossorigin="">
     </script>
+    <script>
+        var
+            persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g],
+            arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
+            fixNumbers = function (str) {
+                if (typeof str === 'string') {
+                    for (var i = 0; i < 10; i++) {
+                        str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+                    }
+                }
+                return str;
+            };
+    </script>
     <script type="text/javascript">
                 var myMap;
                 var theMarker = {};
@@ -464,7 +477,7 @@
             var lat = $("#lat").val();
             var lng = $("#lng").val();
             var address = $("#modalAddress").val();
-            var postalCode = $("#modalpostalCode").val();
+            var postalCode = fixNumbers($("#modalpostalCode").val());
             var title = $("#modalTitle").val();
             var city = $("#modalCity").val();
             var state = $("#modalState").val();
@@ -518,10 +531,13 @@
                         else {
                             alert(data)
                         }
-                       
-                       
+
+
                     }
                 });
+            }
+            else {
+                alert(postalCode)
             }
 
 
@@ -579,7 +595,7 @@
                                 $("#modalCity").val(item.city);
                                 $("#modalState").val(item.state);
                                 $("#modalAddress").val(item.address);
-                                $("#modalpostalCode").val(item.postalCode);
+                                $("#modalpostalCode").val(fixNumbers(item.postalCode));
                                 $("#modalID").val(item.ID);
 
                                 var lat = item.lat;
@@ -824,23 +840,23 @@
                                         <h4 style="text-align:right; margin-bottom:20px">جزئیات آدرس</h4>
                                         <h5 style="text-align:right">لطفا جزئیات آدرس را وارد نمایید.</h5>
                                         <div class="form__group field">
-                                            <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle' required />
-                                            <label for="name" class="form__label">عنوان</label>
+                                            <input type="text" class="form__field" placeholder="عنوان" name="modalTitle" id='modalTitle'  />
+                                            <label for="name" class="form__label">عنوان آدرس</label>
                                         </div>
                                         <div class="form__group field">
-                                            <input type="text" class="form__field" placeholder="استان" name="modalState" id='modalState' required />
+                                            <input type="text" class="form__field" placeholder="استان" name="modalState" id='modalState'  />
                                             <label for="name" class="form__label">استان</label>
                                         </div>
                                         <div class="form__group field">
-                                            <input type="text" class="form__field" placeholder="شهر" name="modalCity" id='modalCity' required />
+                                            <input type="text" class="form__field" placeholder="شهر" name="modalCity" id='modalCity'  />
                                             <label for="name" class="form__label">شهر</label>
                                         </div>
                                         <div class="form__group field">
-                                            <input type="text" class="form__field" placeholder="نشانی پستی" name="modalAddress" id='modalAddress' required />
+                                            <input type="text" class="form__field" placeholder="نشانی پستی" name="modalAddress" id='modalAddress'  />
                                             <label for="name" class="form__label">نشانی پستی</label>
                                         </div>
                                         <div class="form__group field">
-                                            <input type="text" class="form__field" placeholder="کد پستی" name="modalpostalCode" id='modalpostalCode' required />
+                                            <input type="text" class="form__field" placeholder="کد پستی" name="modalpostalCode" id='modalpostalCode'  />
                                             <label for="name" class="form__label">کد پستی</label>
                                         </div>
 
