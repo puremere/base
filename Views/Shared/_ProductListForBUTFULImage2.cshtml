@@ -244,7 +244,7 @@
                         string imagefile = "placeholder.jpg";
                         if (item.title != null)
                         {
-                            imagefile = item.image;
+                            imagefile = item.image.Trim(',').Split(',').First();
                         }
                         string src = imagefile;
 
@@ -449,7 +449,7 @@
                         string imagefile = "placeholder.jpg";
                         if (item.title != null)
                         {
-                            imagefile = item.image;
+                            imagefile = item.image.Trim(',').Split(',').First();
                         }
                         string src = imagefile;
 

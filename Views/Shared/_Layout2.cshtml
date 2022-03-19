@@ -33,6 +33,7 @@
 
         @RenderBody()
 
+      
     </div>
 
     @{
@@ -75,7 +76,7 @@
             </div>
         </a>
     </div>
-   
+
     <img src="~/images/logo.png" style="z-index:9; position:fixed; left:30px; top:30px; width:150px" />
     <i id="barsformenu" style="z-index:9; position:fixed; right:30px; top:30px; cursor:pointer" class="fal fa-bars"> </i>
 
@@ -97,6 +98,8 @@
 
 
     @RenderSection("scripts", required: false)
+
+  
     <script>
         var width = screen.width / 4;
         var number = width + "px";

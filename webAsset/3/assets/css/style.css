@@ -159,7 +159,7 @@
 }
 /* logo */
 .logo-menu-wrapper {
-    padding-top: 37px;
+    /*padding-top: 37px;*/
 }
 .logo-small-device {
     padding-top: 30px;
@@ -334,8 +334,8 @@
 .header-cart button span {
     font-size: 12px;
     position: absolute;
-    right: -1px;
-    top: -6px;
+    right: -12px;
+    top: -8px;
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -911,14 +911,23 @@ a.slider-btn:hover::before {
 .product-tab-list a h4:hover {
     color: #f3a395;
 }
+.product-wrapper {
+    box-shadow: 2px 2px 5px -1px rgb(148 149 153);
+    border: 1px solid #ddd;
+    border-radius:8px;
+}
 .product-wrapper,
 .product-img {
     overflow: hidden;
     position: relative;
+   
 }
-.product-img img {
-    width: 100%;
+.product-img {
+    border-radius: 8px 8px 0 0 ;
 }
+    .product-img img {
+        width: 100%;
+    }
 .product-action {
     bottom: 0px;
     left: 0;
@@ -933,7 +942,7 @@ a.slider-btn:hover::before {
     opacity: 1;
 }
 .product-content {
-    padding-top: 26px;
+    padding: 26px 10px 10px;
 }
 .product-content > h4 {
     color: #646464;
@@ -944,10 +953,10 @@ a.slider-btn:hover::before {
 .product-content > h4 a {
     color: #646464;
 }
-.product-content > h4 a:hover,
-.product-action-style > a:hover {
-    color: #f3a395;
-}
+    .product-content > h4 a:hover,
+    .product-action-style > a:hover, .product-action-style > div:hover {
+        color: #f3a395;
+    }
 .product-rating i {
     color: #f3a395;
     font-size: 16px;
@@ -974,35 +983,35 @@ a.slider-btn:hover::before {
     display: inline-block;
     padding: 16px 2px 12px;
 }
-.product-action-style > a {
-    color: #979797;
-    line-height: 1;
-    padding: 0 21px;
-    position: relative;
-}
-.product-action-style > a.action-plus {
-    font-size: 18px;
-}
-.product-action-style > a.action-heart {
-    font-size: 16px;
-}
-.product-action-style > a.action-cart {
-    font-size: 20px;
-    position: relative;
-    top: 2px;
-}
-.product-action-style > a::before {
-    background: #d2d2d2 none repeat scroll 0 0;
-    content: "";
-    height: 28px;
-    position: absolute;
-    right: 2px;
-    top: -5px;
-    width: 1px;
-}
-.product-action-style > a:last-child::before {
-    display: none;
-}
+    .product-action-style > a, .product-action-style > div {
+        color: #979797;
+        line-height: 1;
+        padding: 0 21px;
+        position: relative;
+    }
+        .product-action-style > a.action-plus, .product-action-style > div.action-plus {
+            font-size: 18px;
+        }
+        .product-action-style > a.action-heart, .product-action-style > div.action-heart {
+            font-size: 16px;
+        }
+        .product-action-style > a.action-cart, .product-action-style > div.action-cart {
+            font-size: 20px;
+            position: relative;
+            top: 2px;
+        }
+        .product-action-style > a::before, .product-action-style > div::before {
+            background: #d2d2d2 none repeat scroll 0 0;
+            content: "";
+            height: 28px;
+            position: absolute;
+            right: 2px;
+            top: -5px;
+            width: 1px;
+        }
+        .product-action-style > a:last-child::before, .product-action-style > div:last-child::before {
+            display: none;
+        }
 .product-img > span {
     background-color: #fff;
     box-shadow: 0 0 8px 1.7px rgba(0, 0, 0, 0.06);
@@ -3697,6 +3706,7 @@ h1.cart-heading {
     text-transform: uppercase;
     transition: all .3s ease 0s;
 }
+
 .shop-total > h3 {
     background-color: #f3a395;
     color: #fff;
@@ -3704,15 +3714,22 @@ h1.cart-heading {
     margin: 0;
     padding: 23px 30px 22px;
     text-transform: capitalize;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 2px 2px 5px -1px rgb(148 149 153)
 }
 .shop-total ul {
-    padding: 37px 0 35px;
+    padding: 37px 10px 35px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 2px 2px 5px -1px rgb(148 149 153)
 }
 .shop-total ul li {
     color: #333;
     font-size: 16px;
     padding-bottom: 22px;
     text-transform: capitalize;
+    display:flex
 }
 .shop-total ul li.order-total {
     border-bottom: 1px solid #ebebeb;
@@ -3720,7 +3737,7 @@ h1.cart-heading {
     padding-bottom: 32px;
 }
 .shop-total ul li span {
-    float: right;
+   flex:1
 }
 .cart-btn > a,
 .continue-shopping-btn > a {
@@ -4721,5 +4738,14 @@ blockquote {
 #scrollUp:hover {
     background: #333 none repeat scroll 0 0;
 }
+th, td 
+{
+    text-align: right;
+    direction: rtl;
+}
+.faNum {
+   font-family:IRANSansfaNum
+}
+
 
 

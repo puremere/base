@@ -516,16 +516,18 @@
                 server: ""
             },
             success: function (data) {
-
+                
                 var productItems = {
                     data: JSON.parse(data),
+
                     getValue: "title",
                     list: {
                         maxNumberOfElements: 100,
-
+                         match: {
+                            enabled: true
+                        },
                         onSelectItemEvent: function () {
                             var value = $("#addItemToOrderInput").getSelectedItemData().ID;
-                        
                             $("#IDholder").val(value).trigger("change");
                         }
                     }

@@ -3,8 +3,9 @@
     ViewBag.Title = "bank";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
-
+<link href="~/Content/persian-datepicker.css" rel="stylesheet" />
 <style>
+
     .nav-tabs {
         padding-right: 0px;
     }
@@ -25,27 +26,28 @@
 </style>
 <div class="row" style="background-color:white; padding:10px; margin:0px; margin-top:65px">
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">سرفصل ها</a></li>
-        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">ثبت تراکنش</a></li>
-        @*<li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">ثبت درآمد ها</a></li>*@
-
+        <li class="active"><a data-toggle="tab" href="#home" style=" color: #8d8d8d; ">کدینگ</a></li>
+        <li><a data-toggle="tab" href="#menu1" style=" color: #8d8d8d; ">ثبت سند</a></li>
+        <li><a data-toggle="tab" href="#menu2" style=" color: #8d8d8d; ">لیست اسناد</a></li>
+        <li><a data-toggle="tab" href="#menu3" style=" color: #8d8d8d; ">گزارشات</a></li>
 
     </ul>
-
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active" style="padding-top:20px">
             <div class="modal fade" id="delAccountModal" tabindex="-1" role="dialog">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                        <form id="delAccountForm" action="DelAccount" method="post">
+                            <input id="deleteID" name="deleteID" hidden />
+                            <div class="modal-body">
+                                <p>آیا از حذف آیتم مورد نظر اطمینان دارید؟</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button i type="button" class="btn btn-primary" id="modalDelVerify">تایید</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
+                            </div>
+                        </form>
 
-                        <div class="modal-body">
-                            <p>آیا از حذف آیتم مورد نظر اطمینان دارید؟</p>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" id="modalDelaccount">تایید</button>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -54,53 +56,31 @@
                     <div class="modal-content">
                         <form id="accountForm" action="setNewAccount" method="post">
                             <input name="typeID" hidden id="typeID" />
+                            <input name="parentID" hidden id="parentID" />
+
                             <div class="formsection main1" style="display:none">
                                 <div class="modal-body">
-                                    <p>عنوان درآمد</p>
-                                    <input id="daramadTitle"   name="daramadTitle" class="form-control" />
+                                    <p id="codingTitle"></p>
+                                    <input id="codeTitle" name="codeTitle" class="form-control" />
                                 </div>
                             </div>
-                            <div class="formsection main2" style="display:none">
-                                <div class="modal-body">
-                                    <p>عنوان هزینه</p>
-                                    <input id="hazineTitle" name="hazineTitle" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="formsection main3" style="display:none">
-                                <div class="modal-body">
-                                    <p>عنوان صندوق</p>
-                                    <input id="sandoghTitle" name="sandoghTitle" class="form-control" />
-                                </div>
-                            </div>
-                            <div class="formsection main4" style="display:none">
-                                <div class="modal-body">
-                                    <p>عنوان بانک</p>
-                                    <input id="bankTitle" name="bankTitle" class="form-control" />
-                                    <p>شعبه بانک</p>
-                                    <input id="bankshobe" name="bankshobe" class="form-control" />
-                                    <p>شماره حساب</p>
-                                    <input id="bankShomare" name="bankShomare" class="form-control" />
-                                </div>
-                            </div>
+
                         </form>
-
-
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-primary" id="addAccountVerify">تایید</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">انصراف</button>
                         </div>
-
                         <script>
                             $("#addAccountVerify").click(function () {
 
-                              
+
                                 var typeID = $("#typeID").val();
 
-                            
+
                                 if (typeID == "1") {
                                     var title = $("#daramadTitle").val();
-                                   
+
                                     if (title == "") {
                                         toastr.options = {
                                             "debug": false,
@@ -175,358 +155,536 @@
                                 }
                             })
                         </script>
-
                     </div>
                 </div>
             </div>
             <div class="row" style="background-color:white; padding:10px; margin:0px;">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#daramad" style=" color: #8d8d8d; ">درآمد</a></li>
-                    <li><a data-toggle="tab" href="#hazine" style=" color: #8d8d8d; ">هزینه</a></li>
-                    <li><a data-toggle="tab" href="#sandogh" style=" color: #8d8d8d; ">صندوق</a></li>
-                    <li><a data-toggle="tab" href="#bank" style=" color: #8d8d8d; ">بانک</a></li>
-                </ul>
-
-                <div class="tab-content">
-                    <div id="daramad" class="tab-pane fade in active" style="padding-top:20px">
-                        <div class="row">
-
-                            <div id="Listholder">
-                                <div class="row" style="padding:20px">
-                                    <div style="overflow-x:auto;padding:10px">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+                <div class="row">
+                    <div id="Listholder">
+                        <div class="row" style="padding:20px">
+                            <div style="overflow-x:auto;padding:10px">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
     background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
     background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
     background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست درآمد ها  <i id="1" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="morris-area-chart">
-                                                    <div style="overflow:auto">
-                                                        <table class="table table-bordered table-hover table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        ID
-                                                                    </th>
-                                                                    <th>
-                                                                        عنوان
-                                                                    </th>
-
-                                                                    <th>
-
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @{
-                                                                    if (Model.List.Where(x => x.type == "درآمد") != null)
-                                                                    {
-                                                                        foreach (var item in Model.List.Where(x => x.type == "درآمد"))
-                                                                        {
-
-                                                                            <tr>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.ID)
-                                                                                </td>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.title)
-                                                                                </td>
-
-
-
-                                                                                <td style="text-align: center;">
-
-                                                                                    @{
-                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
-                                                                                    }
-
-                                                                                </td>
-                                                                            </tr>
-                                                                        }
-
-                                                                    }
-                                                                }
-
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <h3 class="panel-title"> جدول کدینگ  <i myparent="0" mytype="1" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
                                     </div>
-                                </div>
-                            </div>
+                                    <div class="panel-body">
+                                        <div id="morris-area-chart">
+                                            <div style="overflow:auto">
+                                                <table class="table table-bordered table-hover table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>
+                                                                کدینگ
+                                                            </th>
+                                                            <th>
+                                                                گروه
+                                                            </th>
+                                                            <th>
+                                                                کل
+                                                            </th>
+                                                            <th>
+                                                                معین
+                                                            </th>
+                                                            <th>
+                                                                تفصیل
+                                                            </th>
+                                                            <th>
+                                                                حذف
+                                                            </th>
+                                                            <th>
+                                                                افزودن
+                                                            </th>
+                                                            <th>
+                                                                بیشتر/کمتر
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
 
-
-
-
-
-
-                        </div>
-                    </div>
-                    <div id="hazine" class="tab-pane fade in " style="padding-top:20px">
-                        <div class="row">
-
-                            <div id="Listholder">
-                                <div class="row" style="padding:20px">
-                                    <div style="overflow-x:auto;padding:10px">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
-    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست هزینه ها  <i id="2" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="morris-area-chart">
-                                                    <div style="overflow:auto">
-                                                        <table class="table table-bordered table-hover table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        ID
-                                                                    </th>
-                                                                    <th>
-                                                                        عنوان
-                                                                    </th>
-
-                                                                    <th>
-
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @{
-                                                                    if (Model.List.Where(x => x.type == "هزینه") != null)
-                                                                    {
-                                                                        foreach (var item in Model.List.Where(x => x.type == "هزینه"))
-                                                                        {
-
-                                                                            <tr>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.ID)
-                                                                                </td>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.title)
-                                                                                </td>
-
-
-
-                                                                                <td style="text-align: center;">
-
-                                                                                    @{
-                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
-                                                                                    }
-
-                                                                                </td>
-                                                                            </tr>
-                                                                        }
-
-                                                                    }
-                                                                }
-
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-
-                        </div>
-                    </div>
-                    <div id="sandogh" class="tab-pane fade in " style="padding-top:20px">
-                        <div class="row">
-
-                            <div id="Listholder">
-                                <div class="row" style="padding:20px">
-                                    <div style="overflow-x:auto;padding:10px">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
-    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست صندوق ها  <i id="3" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="morris-area-chart">
-                                                    <div style="overflow:auto">
-                                                        <table class="table table-bordered table-hover table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        ID
-                                                                    </th>
-                                                                    <th>
-                                                                        عنوان
-                                                                    </th>
-
-                                                                    <th>
-
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @{
-                                                                    if (Model.List.Where(x => x.type == "صندوق") != null)
-                                                                    {
-                                                                        foreach (var item in Model.List.Where(x => x.type == "صندوق"))
-                                                                        {
-
-                                                                            <tr>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.ID)
-                                                                                </td>
-                                                                                <td>
-                                                                                    @Html.DisplayFor(modelItem => item.title)
-                                                                                </td>
-
-
-
-                                                                                <td style="text-align: center;">
-
-                                                                                    @{
-                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
-                                                                                    }
-
-                                                                                </td>
-                                                                            </tr>
-                                                                        }
-
-                                                                    }
-                                                                }
-
-
-                                                            </tbody>
-                                                        </table>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-
-                        </div>
-                    </div>
-                    <div id="bank" class="tab-pane fade in " style="padding-top:20px">
-                        <div class="row">
-
-                            <div id="Listholder">
-                                <div class="row" style="padding:20px">
-                                    <div style="overflow-x:auto;padding:10px">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
-    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
-    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
-                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست بانک ها  <i id="4" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
-                                            </div>
-                                            <div class="panel-body">
-                                                <div id="morris-area-chart">
-                                                    <div style="overflow:auto">
-                                                        <table class="table table-bordered table-hover table-striped">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>
-                                                                        ID
-                                                                    </th>
-                                                                    <th>
-                                                                        عنوان
-                                                                    </th>
-                                                                    <th>
-                                                                        شعبه
-                                                                    </th>
-                                                                    <th>
-                                                                        شماره حساب
-                                                                    </th>
-
-                                                                    <th>
-
-                                                                    </th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @{
-                                                                    if (Model.List.Where(x => x.type == "بانک") != null)
-                                                                    {
-                                                                        foreach (var item in Model.List.Where(x => x.type == "بانک"))
-                                                                        {
-
+                                                        @if (Model.CodingList != null)
+                                                        {
+                                                            List<banimo.ViewModel.CodingList> kollList = Model.CodingList.Where(x => x.codingType == "2").ToList();
+                                                            foreach (var koll in kollList)
+                                                            {
+                                                                string kollclassname = "koll" + koll.ID;
+                                                                List<banimo.ViewModel.CodingList> moinList = Model.CodingList.Where(x => x.parentID == koll.ID.ToString()).ToList();
                                                                 <tr>
                                                                     <td>
-                                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                                        @Html.DisplayFor(modelItem => koll.codeHesab)
                                                                     </td>
+                                                                    <td></td>
                                                                     <td>
-                                                                        @Html.DisplayFor(modelItem => item.title)
+                                                                        @Html.DisplayFor(modelItem => koll.title)
                                                                     </td>
-
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.shobe)
-                                                                    </td>
-                                                                    <td>
-                                                                        @Html.DisplayFor(modelItem => item.shomare)
-                                                                    </td>
+                                                                    <td></td>
+                                                                    <td></td>
 
                                                                     <td style="text-align: center;">
+                                                                        @if (moinList.Count() == 0)
+                                                                        {
+                                                                            <a id=@koll.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
 
-                                                                        @{
-                                                                            <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
                                                                         }
 
                                                                     </td>
-                                                                </tr>
-                                                                        }
+                                                                    <td>
+                                                                        <a myparent="@koll.ID" mytype="3" class="btn btn-primary addacount" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">افزودن معین</a>
 
+                                                                    </td>
+                                                                    <td>
+                                                                        @if (moinList.Count() != 0)
+                                                                        {
+                                                                            <a myparent="@koll.ID" mytype="2" class="btn btn-primary  openacount" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;"> باز/ بستن</a>
+
+                                                                        }
+                                                                    </td>
+                                                                </tr>
+                                                                foreach (var moin in moinList)
+                                                                {
+                                                                    string moinclassname = "moin" + moin.ID;
+                                                                    List<banimo.ViewModel.CodingList> tafsilList = Model.CodingList.Where(x => x.parentID == moin.ID.ToString()).ToList();
+
+                                                                    <tr class="@kollclassname" style="display:none">
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => moin.codeHesab)
+                                                                        </td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => moin.title)
+                                                                        </td>
+                                                                        <td></td>
+
+                                                                        <td style="text-align: center;">
+                                                                            @if (tafsilList.Count() == 0)
+                                                                            {
+                                                                                <a id=@moin.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                                            }
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <a myparent="@moin.ID" mytype="4" class="btn btn-primary addacount" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">افزودن تفصیلی</a>
+
+                                                                        </td>
+                                                                        <td>
+                                                                            @if (tafsilList.Count() != 0)
+                                                                            {
+                                                                                <a myparent="@moin.ID" mytype="3" class="btn btn-primary  openacount" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;"> باز/ بستن</a>
+
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+                                                                    foreach (var tafsil in tafsilList)
+                                                                    {
+
+                                                                        <tr class="@moinclassname" style="display:none">
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => tafsil.codeHesab)
+                                                                            </td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td></td>
+                                                                            <td>
+                                                                                @Html.DisplayFor(modelItem => tafsil.title)
+                                                                            </td>
+
+                                                                            <td style="text-align: center;">
+                                                                                <a id=@tafsil.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                                            </td>
+                                                                            <td></td>
+                                                                        </tr>
                                                                     }
                                                                 }
 
+                                                            }
+                                                            @*List<banimo.ViewModel.CodingList> groupList = Model.CodingList.Where(x => x.codingType == "1").ToList();
 
-                                                            </tbody>
-                                                        </table>
+                                                                foreach (var item in groupList)
+                                                                {
+                                                                    string groupClassName = "group" + item.ID;
 
-                                                    </div>
-                                                </div>
+                                                                    <tr>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.codeHesab)
+                                                                        </td>
+                                                                        <td>
+                                                                            @Html.DisplayFor(modelItem => item.title)
+                                                                        </td>
+                                                                        <td></td>
+                                                                        <td></td>
+                                                                        <td></td>
+
+                                                                        <td style="text-align: center;">
+                                                                            @if (kollList.Count() == 0)
+                                                                            {
+                                                                                <a class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+
+                                                                            }
+
+                                                                        </td>
+                                                                        <td>
+                                                                            <a myparent="@item.ID" mytype="2" class="btn btn-primary addacount" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">افزودن کل</a>
+
+
+                                                                        </td>
+                                                                        <td>
+                                                                            @if (kollList.Count() != 0)
+                                                                            {
+                                                                                <a myparent="@item.ID" mytype="1" class="btn btn-primary  openacount" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;"> باز/ بستن</a>
+
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
+
+
+                                                                }*@
+                                                        }
+
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
-
-
-
                         </div>
                     </div>
 
+
+
                 </div>
+                @*<ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#daramad" style=" color: #8d8d8d; ">درآمد</a></li>
+                                    <li><a data-toggle="tab" href="#hazine" style=" color: #8d8d8d; ">هزینه</a></li>
+                                    <li><a data-toggle="tab" href="#sandogh" style=" color: #8d8d8d; ">صندوق</a></li>
+                                    <li><a data-toggle="tab" href="#bank" style=" color: #8d8d8d; ">بانک</a></li>
+                                </ul>
+
+                                <div class="tab-content">
+                                    <div id="daramad" class="tab-pane fade in active" style="padding-top:20px">
+
+                                    </div>
+                                    <div id="hazine" class="tab-pane fade in " style="padding-top:20px">
+                                        <div class="row">
+
+                                            <div id="Listholder">
+                                                <div class="row" style="padding:20px">
+                                                    <div style="overflow-x:auto;padding:10px">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+                    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+                    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+                    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست هزینه ها  <i id="2" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="morris-area-chart">
+                                                                    <div style="overflow:auto">
+                                                                        <table class="table table-bordered table-hover table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        ID
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        عنوان
+                                                                                    </th>
+
+                                                                                    <th>
+
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{
+                                                                                    if (Model.List.Where(x => x.type == "هزینه") != null)
+                                                                                    {
+                                                                                        foreach (var item in Model.List.Where(x => x.type == "هزینه"))
+                                                                                        {
+
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.title)
+                                                                                                </td>
+
+
+
+                                                                                                <td style="text-align: center;">
+
+                                                                                                    @{
+                                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                                                    }
+
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        }
+
+                                                                                    }
+                                                                                }
+
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div id="sandogh" class="tab-pane fade in " style="padding-top:20px">
+                                        <div class="row">
+
+                                            <div id="Listholder">
+                                                <div class="row" style="padding:20px">
+                                                    <div style="overflow-x:auto;padding:10px">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+                    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+                    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+                    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست صندوق ها  <i id="3" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="morris-area-chart">
+                                                                    <div style="overflow:auto">
+                                                                        <table class="table table-bordered table-hover table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        ID
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        عنوان
+                                                                                    </th>
+
+                                                                                    <th>
+
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{
+                                                                                    if (Model.List.Where(x => x.type == "صندوق") != null)
+                                                                                    {
+                                                                                        foreach (var item in Model.List.Where(x => x.type == "صندوق"))
+                                                                                        {
+
+                                                                                            <tr>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.ID)
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    @Html.DisplayFor(modelItem => item.title)
+                                                                                                </td>
+
+
+
+                                                                                                <td style="text-align: center;">
+
+                                                                                                    @{
+                                                                                                        <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                                                    }
+
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        }
+
+                                                                                    }
+                                                                                }
+
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+                                    <div id="bank" class="tab-pane fade in " style="padding-top:20px">
+                                        <div class="row">
+
+                                            <div id="Listholder">
+                                                <div class="row" style="padding:20px">
+                                                    <div style="overflow-x:auto;padding:10px">
+                                                        <div class="panel panel-default">
+                                                            <div class="panel-heading" style="    background-image: -webkit-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+                    background-image: -o-linear-gradient(top,#2a85ae 0,#246388 100%) !important;
+                    background-image: -webkit-gradient(linear,left top,left bottom,from(#2a85ae),to(#246388)) !important;
+                    background-image: linear-gradient(to bottom,#2a85ae 0,#246388 100%) !important;color: #fff">
+                                                                <h3 class="panel-title"><i class="fa fa-shopping-basket fa-fw"></i>لیست بانک ها  <i id="4" style="cursor:pointer; float:left; margin-left:20px" class="fa fa-plus addacount"></i></h3>
+                                                            </div>
+                                                            <div class="panel-body">
+                                                                <div id="morris-area-chart">
+                                                                    <div style="overflow:auto">
+                                                                        <table class="table table-bordered table-hover table-striped">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>
+                                                                                        ID
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        عنوان
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        شعبه
+                                                                                    </th>
+                                                                                    <th>
+                                                                                        شماره حساب
+                                                                                    </th>
+
+                                                                                    <th>
+
+                                                                                    </th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                @{
+                                                                                    if (Model.List.Where(x => x.type == "بانک") != null)
+                                                                                    {
+                                                                                        foreach (var item in Model.List.Where(x => x.type == "بانک"))
+                                                                                        {
+
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        @Html.DisplayFor(modelItem => item.ID)
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @Html.DisplayFor(modelItem => item.title)
+                                                                                    </td>
+
+                                                                                    <td>
+                                                                                        @Html.DisplayFor(modelItem => item.shobe)
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        @Html.DisplayFor(modelItem => item.shomare)
+                                                                                    </td>
+
+                                                                                    <td style="text-align: center;">
+
+                                                                                        @{
+                                                                                            <a id=@item.ID class="btn btn-primary Dbutton" style="  margin:5px ; cursor: pointer;  padding: 5px; color: #fff; border-radius: 5px;">حذف</a>
+                                                                                        }
+
+                                                                                    </td>
+                                                                                </tr>
+                                                                                        }
+
+                                                                                    }
+                                                                                }
+
+
+                                                                            </tbody>
+                                                                        </table>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+                                        </div>
+                                    </div>
+
+                                </div>*@
                 <script>
+                    $(".Dbutton").click(function () {
+                        var ID = $(this).attr('id');
+                        $("#deleteID").val(ID);
+                        $("#delAccountModal").modal('toggle')
+                    })
+                    $("#modalDelVerify").click(function () {
+                        var title = $("#daramadTitle").val();
+
+
+                        $("#delAccountForm").submit();
+                    })
+                    $(".openacount").click(function () {
+                        var parnetID = $(this).attr('myparent');
+                        var codingType = $(this).attr('mytype');
+                        switch (codingType) {
+                            case ("1"):
+                                var title = "group" + parnetID;
+                                break;
+                            case ("2"):
+                                var title = "koll" + parnetID;
+                                break;
+                            case ("3"):
+                                var title = "moin" + parnetID;
+                                break;
+                            case ("4"):
+                                var title = "tafsil" + parnetID;
+                                break;
+
+                        }
+                        $("." + title).each(function () {
+                            if ($(this).is(":visible")) {
+                                $(this).fadeOut();
+                            }
+                            else {
+                                $(this).fadeIn();
+                            }
+
+                        })
+                    })
                     $(".addacount").click(function () {
-                        var id = this.id;
-                        $("#typeID").val(id);
+                        var parnetID = $(this).attr('myparent');
+                        var codingType = $(this).attr('mytype');
+                        switch (codingType) {
+                            case ("1"):
+                                var title = "";
+                                break;
+                            case ("2"):
+                                var title = "نام کل جدید";
+                                break;
+                            case ("3"):
+                                var title = "نام معین جدید";
+                                break;
+                            case ("4"):
+                                var title = "نام تفصیلی جدید";
+                                break;
+
+                        }
+                        $("#codingTitle").text(title);
+                        $("#typeID").val(codingType);
+                        $("#parentID").val(parnetID);
                         $(".formsection").css("display", "none");
-                        $(".main" + id).css("display", "inline-block");
+                        $(".main1").css("display", "inline-block");
                         $("#createAccount").modal('toggle');
                     })
                 </script>
@@ -534,400 +692,620 @@
         </div>
         <div id="menu1" class="tab-pane fade in " style="padding-top:20px">
             <div class="row" style="background-color:white; padding:10px; margin:0px; ">
-                <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#Sdaramad" style=" color: #8d8d8d; ">ثبت درآمد</a></li>
-                    <li><a data-toggle="tab" href="#Shazine" style=" color: #8d8d8d; ">ثبت هزینه</a></li>
-                    <li><a data-toggle="tab" href="#factor" style=" color: #8d8d8d; ">تسویه فاکتور</a></li>
-                    <li><a data-toggle="tab" href="#deliver" style=" color: #8d8d8d; ">تسویه دلیور</a></li>
-                    <li><a data-toggle="tab" href="#enteghal" style=" color: #8d8d8d; ">انتقال</a></li>
-                </ul>
+                <form id="addTransaction" action="addCodingTransaction">
+                    <div class="row" style=" margin: 20px; padding: 35px; ">
+                        <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                            <label>مبدا تراکنش :</label>
 
-                <div class="tab-content">
-                    <div id="Sdaramad" class="tab-pane fade in active" style="padding-top:20px">
-                        <form id="">
-                            <div class="row" style=" margin: 20px; padding: 35px; ">
-
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>انتخاب نوع درآمد :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("income1", new SelectList(Model.List.Where(x => x.type == "درآمد"), "ID", "title"), "-- انتخاب درآمد --", new { id = "partnerListForPartner", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مقصد تراکنش :</label>
-                                    @{
-
-
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("destination1", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "catListforPartner", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبلغ :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="price1" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>توضیحات :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="Desc1" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-
-                                <div id="verifyCat" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
-
-                            </div>
-                        </form>
-                        <script>
-                            $("#verifyCat").click(function () {
-                                var daramad = $("#income1").val();
-                                var destination = $("#destination1").val();
-                                var price = $("#price1").val();
-                                var desc = $("#Desc1").val();
-
-
-                                $.ajax({
-                                    url: "setCustomTransaction",
-                                    dataType: "html",
-                                    data: {
-                                        fromSource: daramad,
-                                        toSource: destination,
-                                        price: price,
-                                        desc: desc,
-                                        typeto: "2",
-                                        typefrom: "2",
-                                        sourseID: "6"
-
-
-                                    },
-                                    success: function (data) {
-                                        window.location.reload();
-                                    }
-                                })
-                            })
-                        </script>
-                    </div>
-                    <div id="Shazine" class="tab-pane fade in " style="padding-top:20px">
-                        <form id="">
-                            <div class="row" style=" margin: 20px; padding: 35px; ">
-
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>انتخاب نوع هزینه :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("to2", new SelectList(Model.List.Where(x => x.type == "هزینه"), "ID", "title"), "-- انتخاب هزینه --", new { id = "to2", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبدا تراکنش :</label>
-                                    @{
-
-
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("from2", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "from2", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبلغ :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="price2" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>توضیحات :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="Desc2" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-
-                                <div id="verifyCat2" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
-
-                            </div>
-                        </form>
-                        <script>
-                            $("#verifyCat2").click(function () {
-                                var from = $("#from2").val();
-                                var to = $("#to2").val();
-                                var price = $("#price2").val();
-                                var desc = $("#Desc2").val();
-
-
-                                $.ajax({
-                                    url: "setCustomTransaction",
-                                    dataType: "html",
-                                    data: {
-                                        fromSource: from,
-                                        toSource: to,
-                                        price: price,
-                                        desc: desc,
-                                        typeto: "2",
-                                        typefrom: "2",
-                                        sourseID: "6"
-
-
-
-                                    },
-                                    success: function (data) {
-                                        window.location.reload();
-                                    }
-                                })
-                            })
-                        </script>
-                    </div>
-                    <div id="factor" class="tab-pane fade in " style="padding-top:20px">
-                        <form id="">
-                            <div class="row" style=" margin: 20px; padding: 35px; ">
-
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>انتخاب تامین کننده :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("to2", new SelectList(Model.partnerList, "ID", "title"), "-- انتخاب تامین کننده --", new { id = "to3", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبدا تراکنش :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("from2", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "from3", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبلغ :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            <input id="price3" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>توضیحات :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="Desc3" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-
-                                <div id="verifyCat3" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
-
-                            </div>
-                        </form>
-                        <script>
-                            $("#verifyCat3").click(function () {
-                                var from = $("#from3").val();
-                                var to = $("#to3").val();
-                                var price = $("#price3").val();
-                                var desc = $("#Desc3").val();
-
-
-                                $.ajax({
-                                    url: "setCustomTransaction",
-                                    dataType: "html",
-                                    data: {
-                                        fromSource: from,
-                                        toSource: to,
-                                        price: price,
-                                        desc: desc,
-                                        typeto: "3",
-                                        typefrom: "2",
-                                        sourseID: "6"
-
-
-                                    },
-                                    success: function (data) {
-                                        window.location.reload();
-                                    }
-                                })
-                            })
-                        </script>
-                    </div>
-                    <div id="deliver" class="tab-pane fade in " style="padding-top:20px">
-                        <form id="">
-                            <div class="row" style=" margin: 20px; padding: 35px; ">
-
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>آی دی انتقال دهنده  :</label>
-                                    @{
-                                    <div class=" " style="width:100%">
-                                        <input id="deliverID" class="form-control" style="width:100%; min-height:43px" />
-
-                                    </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مقصد تراکنش :</label>
-                                    @{
-
-
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("destinationD", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "destinationD", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبلغ :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="priceD" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>توضیحات :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="DescD" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-
-                                <div id="verifydeliver" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
-
-                            </div>
-                        </form>
-                        <script>
-                            $("#verifydeliver").click(function () {
-                              
-                                var daramad = $("#deliverID").val();
-                                var destination = $("#destinationD").val();
-                                var price = $("#priceD").val();
-                                var desc = $("#DescD").val();
-
-
-                                $.ajax({
-                                    url: "setCustomTransaction",
-                                    dataType: "html",
-                                    data: {
-                                        fromSource: daramad,
-                                        toSource: destination,
-                                        price: price,
-                                        desc: desc,
-                                        typeto: "2",
-                                        typefrom: "0",
-                                        sourseID : "6"
-
-
-                                    },
-                                    success: function (data) {
-                                        toastr.options = {
-                                            "debug": false,
-                                            "positionClass": "toast-top-center",
-                                            "onclick": null,
-                                            "fadeIn": 300,
-                                            "fadeOut": 1000,
-                                            "timeOut": 5000,
-                                            "extendedTimeOut": 1000
+                            <div class=" " style="width:100%">
+                                @{
+                                    List<banimo.ViewModel.CodingList> M2 = Model.CodingList.Where(x => x.codingType == "2").ToList();
+                                    <select name="M2" id="M2" class="form-control">
+                                        <option value="0">انتخاب گروه</option>
+                                        @foreach (var item in M2)
+                                        {
+                                            <option parentValue="" value="@item.ID">@item.title</option>
                                         }
-                                        toastr.success('باموفقیت انجام شد')
-                                       // window.location.reload();
-                                        $("#deliverID").val("");
-                                        $("#destinationD").val("");
-                                        $("#priceD").val("");
-                                        $("#DescD").val("");
-                                    }
-                                })
-                            })
-                        </script>
-                    </div>
-                    <div id="enteghal" class="tab-pane fade in " style="padding-top:20px">
-                        <form id="">
-                            <div class="row" style=" margin: 20px; padding: 35px; ">
-
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبدا تراکنش :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("from4", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب تامین کننده --", new { id = "from4", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مقصد تراکنش :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            @Html.DropDownList("to4", new SelectList(Model.List.Where(x => x.type == "بانک" || x.type == "صندوق"), "ID", "title"), "-- انتخاب مقصد تراکنش --", new { id = "to4", style = "width:100%; min-height:43px", @class = "form-control" })
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>مبلغ :</label>
-                                    @{
-                                        <div class=" " style="width:100%">
-                                            <input id="price4" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-                                <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
-                                    <label>توضیحات :</label>
-                                    @{
-
-                                        <div class=" " style="width:100%">
-                                            <input id="Desc4" class="form-control" style="width:100%; min-height:43px" />
-                                        </div>
-                                    }
-                                </div>
-
-                                <div id="verifyCat4" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+                                    </select>
+                                }
 
                             </div>
-                        </form>
+                            <div class=" " style="width:100%">
+                                @{
+                                    List<banimo.ViewModel.CodingList> M3 = Model.CodingList.Where(x => x.codingType == "3").ToList();
+                                    <select name="M3" id="M3" class="form-control">
+                                        <option value="0">انتخاب معین</option>
+                                        @foreach (var item in M3)
+                                        {
+                                            <option parentValue="@item.parentID" value="@item.ID">@item.title</option>
+                                        }
+                                    </select>
+                                }
+
+                            </div>
+                            <div class=" " style="width:100%">
+                                @{
+                                    List<banimo.ViewModel.CodingList> M4 = Model.CodingList.Where(x => x.codingType == "4").ToList();
+                                    <select name="M4" id="M4" class="form-control">
+                                        <option value="0">انتخاب تفصیلی</option>
+                                        @foreach (var item in M4)
+                                        {
+                                            <option parentValue="@item.parentID" value="@item.ID">@item.title</option>
+                                        }
+                                    </select>
+                                }
+
+                            </div>
+
+
+                        </div>
                         <script>
-                            $("#verifyCat4").click(function () {
-                                var from = $("#from4").val();
-                                var to = $("#to4").val();
-                                var price = $("#price4").val();
-                                var desc = $("#Desc4").val();
-
-
-                                $.ajax({
-                                    url: "setCustomTransaction",
-                                    dataType: "html",
-                                    data: {
-                                        fromSource: from,
-                                        toSource: to,
-                                        price: price,
-                                        desc: desc,
-                                        typeto: "2",
-                                        typefrom: "2",
-                                        sourseID: "6"
-
-
-                                    },
-                                    success: function (data) {
-                                        window.location.reload();
+                            $("#M2").change(function () {
+                                var id = $(this).val();
+                                console.log(id)
+                                $("#M3 option").each(function () {
+                                    var val = $(this).val();
+                                    if (val == "0") {
+                                        $(this).prop('selected', true);
+                                    }
+                                    else {
+                                        $(this).prop('selected', false);
+                                    }
+                                    var optionid = $(this).attr('parentValue');
+                                    if (optionid != id) {
+                                        $(this).hide();
+                                    }
+                                    else {
+                                        $(this).show();
+                                    }
+                                })
+                                $("#M4 option").each(function () {
+                                    var val = $(this).val();
+                                    if (val == "0") {
+                                        $(this).prop('selected', true);
+                                    }
+                                    else {
+                                        $(this).prop('selected', false);
+                                    }
+                                    $(this).hide();
+                                });
+                            })
+                            $("#M3").change(function () {
+                                var id = $(this).val();
+                                console.log(id)
+                                $("#M4 option").each(function () {
+                                    var val = $(this).val();
+                                    if (val == "0") {
+                                        $(this).prop('selected', true);
+                                    }
+                                    else {
+                                        $(this).prop('selected', false);
+                                    }
+                                    var optionid = $(this).attr('parentValue');
+                                    if (optionid != id) {
+                                        $(this).hide();
+                                    }
+                                    else {
+                                        $(this).show();
                                     }
                                 })
                             })
-                        </script>
-                    </div>
 
-                </div>
+                        </script>
+
+                        <div class="autocomplete col-md-3 col-sm-3 col-xs-12">
+                            <label>مقصد تراکنش :</label>
+                            @{
+                                <div class=" " style="width:100%">
+                                    @{
+
+                                        <select name="M12" id="M12" class="form-control">
+                                            <option value="0">انتخاب گروه</option>
+                                            @foreach (var item in M2)
+                                            {
+                                                <option parentValue="" value="@item.ID">@item.title</option>
+                                            }
+                                        </select>
+                                    }
+
+                                </div>
+                                <div class=" " style="width:100%">
+                                    @{
+
+                                        <select name="M13" id="M13" class="form-control">
+                                            <option value="0">انتخاب معین</option>
+                                            @foreach (var item in M3)
+                                            {
+                                                <option parentValue="@item.parentID" value="@item.ID">@item.title</option>
+                                            }
+                                        </select>
+                                    }
+
+                                </div>
+                                <div class=" " style="width:100%">
+                                    @{
+
+                                        <select name="M14" id="M14" class="form-control">
+                                            <option value="0">انتخاب تفصیلی</option>
+                                            @foreach (var item in M4)
+                                            {
+                                                <option parentValue="@item.parentID" value="@item.ID">@item.title</option>
+                                            }
+                                        </select>
+                                    }
+
+                                </div>
+                            }
+                        </div>
+                        <script>
+                            $("#M12").change(function () {
+                                var id = $(this).val();
+                                console.log(id)
+                                $("#M13 option").each(function () {
+                                    var val = $(this).val();
+                                    if (val == "0") {
+                                        $(this).prop('selected', true);
+                                    }
+                                    else {
+                                        $(this).prop('selected', false);
+                                    }
+
+                                    var optionid = $(this).attr('parentValue');
+                                    if (optionid != id) {
+                                        $(this).hide();
+                                    }
+                                    else {
+                                        $(this).show();
+                                    }
+                                })
+                                $("#M14 option").each(function () {
+                                    var val = $(this).val();
+                                    if (val == "0") {
+                                        $(this).prop('selected', true);
+                                    }
+                                    else {
+                                        $(this).prop('selected', false);
+                                    }
+                                    $(this).hide();
+                                });
+                            })
+                            $("#M13").change(function () {
+                                var id = $(this).val();
+                                console.log(id)
+                                $("#M14 option").each(function () {
+                                    var val = $(this).val();
+                                    if (val == "0") {
+                                        $(this).prop('selected', true);
+                                    }
+                                    else {
+                                        $(this).prop('selected', false);
+                                    }
+                                    var optionid = $(this).attr('parentValue');
+                                    if (optionid != id) {
+                                        $(this).hide();
+                                    }
+                                    else {
+                                        $(this).show();
+                                    }
+                                })
+                            })
+
+                        </script>
+
+
+                        <div class=" col-md-3 col-sm-3 col-xs-12">
+                            <div>
+                                <label>زمان :</label>
+                                <div class=" " style="width:100%">
+                                    <input name="dateFrom" id="dateFrom" style="display:inline-block" class="form-control inputForm datePicker" />
+                                    <input name="abserver" id="abserver" style="display:none" class="form-control abserver " />
+
+                                </div>
+                            </div>
+
+
+                            <div>
+                                <label>مبلغ :</label>
+                                @{
+                                    <div class=" " style="width:100%">
+                                        <input name="price" id="price" class="form-control inputnumber" style="width:100%; " />
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class=" col-md-3 col-sm-3 col-xs-12">
+                            <label>توضیحات :</label>
+                            @{
+
+                                <div class=" " style="width:100%">
+                                    @*<input id="Desc" class="form-control" style="width:100%; " />*@
+                                    <textarea name="description" id="description" class="form-control" style="width:100%; height:100px"></textarea>
+                                </div>
+                            }
+                        </div>
+
+
+
+                    </div>
+                    <div id="verifyCat" class="btn btn-primary" style="width:50px; margin-top:28px">تایید</div>
+                </form>
+                <script>
+                    $("#verifyCat").click(function () {
+
+                        // $("#addTransaction").submit();
+
+
+                        var M2 = $("#M2").val();
+                        var M3 = $("#M3").val();
+                        var M4 = $("#M4").val();
+                        var M12 = $("#M12").val();
+                        var M13 = $("#M13").val();
+                        var M14 = $("#M14").val();
+                        var price = $("#price").val().replace(',', '');
+                        var description = $("#description").val();
+                        var abserver = $("#abserver").val();
+
+
+                        $.ajax({
+                            url: "addCodingTransaction",
+                            dataType: "html",
+                            data: {
+                                M2: M2,
+                                M3: M3,
+                                M4: M4,
+                                M12: M12,
+                                M13: M13,
+                                M14: M14,
+                                price: price,
+                                description: description,
+                                abserver: abserver
+                            },
+                            success: function (data) {
+                                if (data == "200") {
+                                    //$("#M2").val('');
+                                    //$("#M3").val('');
+                                    //$("#M4").val('');
+                                    //$("#M12").val('');
+                                    //$("#M13").val('');
+                                    //$("#M14").val('');
+                                    //$("#price").val('');
+                                    //$("#description").val('');
+                                    //$("#abserver").val('');
+
+                                    toastr.options = {
+                                        "debug": false,
+                                        "positionClass": "toast-top-center",
+                                        "onclick": null,
+                                        "fadeIn": 300,
+                                        "fadeOut": 1000,
+                                        "timeOut": 5000,
+                                        "extendedTimeOut": 1000,
+
+
+                                    }
+                                    toastr.success('سند شما با موفقیت ثبت شد')
+                                }
+                                //window.location.reload();
+                            }
+                        })
+                    })
+                </script>
             </div>
         </div>
 
+        <div id="menu2" class="tab-pane fade in " style="padding-top:20px">
+
+            <div id="moreFilterSection" class="row " style="margin:40px 0px; display:flex">
+                <div>
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">تاریخ سند از :</p>
+                        <input id="dateFrom" style="display:inline-block" class="form-control inputForm FromdatePicker" />
+                        <input name="Fromabserver" id="Fromabserver" style="display:none" class="form-control Fromabserver " />
+
+                    </div>
+                </div>
+                <div>
+                    <div class="" style="margin : 0 5px">
+                        <p style="display:inline-block">تاریخ سند تا :</p>
+                        <input id="dateTo" style="display:inline-block" class="form-control inputForm TodatePicker" />
+                        <input name="Toabserver" id="Toabserver" style="display:none" class="form-control Toabserver " />
+
+                    </div>
+                </div>
+
+                <div class="" style="margin : 0 5px">
+                    <p style="display:inline-block">وضعیت سند :</p>
+                    <select class="form-control" style=" display:inline-block" id="selectOrderType">
+                        <option value="0">همه</option>
+                        <option value="1">ثبت اولی</option>
+                        <option value="2">ثبت نهایی</option>
+                        <option value="3">ثبت دائم</option>
+
+                    </select>
+                </div>
+            </div>
+            <div class="row " style="margin:40px 0px; display:flex">
+
+
+                <div class="" style="padding-top:30px">
+                    <p class="btn btn-success" style="display:inline-block" id="orderFormSearch"> تایید</p>
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <p class="ORDERBUTT" style="display:none" id="dataOrder">11</p>
+            <div id="OrderTableHolder">
+
+            </div>
+            <script>
+                var getlofo = function (page) {
+                    $("#loading").show();
+                    order = "22";
+                    type = $("#selectOrderType").val();
+                    dateFrom = $("#Fromabserver").val();
+                    dateTo = $("#Toabserver").val();
+
+                    $.ajax({
+                        url: '/Admin/ChangeRecietList',
+                        dataType: 'html',
+                        data: {
+                            type: type,
+                            page: page,
+                            dateTo: dateTo,
+                            dateFrom: dateFrom
+                        },
+
+                        success: function (data) {
+
+                            $("#OrderTableHolder").html(data);
+                            $("#loading").hide();
+                        }
+
+
+
+                    });
+
+                }
+                $("#orderFormSearch").click(function () {
+                    $("#loading").show();
+                    getlofo(1)
+                });
+
+
+            </script>
+
+        </div>
+        <div id="menu3" class="tab-pane fade in " style="padding-top:20px">
+            <div class="row">
+                <div class="col-lg-9 col-md-8 col-sm-3 col-xs-12">
+                    <p>حساب مقصد</p>
+
+                    <div style="display:flex; align-items:center">
+                        <div class=" " style="width:100% ; margin:10px">
+                            @{
+                                <select name="M22" id="M22" class="form-control">
+                                    <option value="0">انتخاب گروه</option>
+                                    @foreach (var item in M2)
+                                    {
+                                        <option parentValue="" value="@item.ID">@item.title</option>
+                                    }
+                                </select>
+                            }
+
+                        </div>
+                        <div class=" " style="width:100% ; margin:10px">
+                            @{
+                                <select name="M33" id="M33" class="form-control">
+                                    <option value="0">انتخاب معین</option>
+                                    @foreach (var item in M3)
+                                    {
+                                        <option parentValue="@item.parentID" value="@item.ID">@item.title</option>
+                                    }
+                                </select>
+                            }
+
+                        </div>
+                        <div class=" " style="width:100% ; margin:10px">
+                            @{
+                                <select name="M44" id="M44" class="form-control">
+                                    <option value="0">انتخاب تفصیلی</option>
+                                    @foreach (var item in M4)
+                                    {
+                                        <option parentValue="@item.parentID" value="@item.ID">@item.title</option>
+                                    }
+                                </select>
+                            }
+
+                        </div>
+
+                    </div>
+                   
+
+                </div>
+                <div class="col-lg-12 col-md-8 col-sm-3 col-xs-12">
+                    <div style="display:flex">
+
+                        <div style="margin:10px;width:100%">
+                            <p>نوع تراکنش :</p>
+                            <select id="trantype" class="form-control">
+                                <option value="">همه</option>
+                                <option value="1">واریز</option>
+                                <option value="0">برداشت</option>
+                            </select>
+                        </div>
+                        <div style="margin:10px;width:100%" id="dateHolder">
+                            <p>از تاریخ :</p>
+                            <input type="text" class="form-control projectDate inputfield" />
+                            <input class="PDabserver" style="display:none" />
+                        </div>
+                        <div style="margin:10px;width:100%" id="dateHolder2">
+                            <p>تا تاریخ :</p>
+                            <input type="text" class="form-control projectDate2 inputfield" />
+                            <input class="PD2abserver" style="display:none" />
+
+                        </div>
+                        <div style="width:100%;margin:10px;">
+                            <div style="position:relative; margin:5px" id="">
+                                <div class="btn btn-success" style="width:100%;margin-top:20px" id="verifyCodeingTran">تایید</div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div>
+
+                        <script>
+                            $("#verifyCodeingTran").click(function () {
+                                $.ajax({
+                                    url: 'getCodingTranList',
+                                    dataType: 'html',
+                                    data: {
+                                        M22: $("#M22").val(),
+                                        M33: $("#M33").val(),
+                                        M44: $("#M44").val(),
+                                        datefrom: $(".PDabserver").val(),
+                                        dateTo: $(".PD2abserver").val(),
+                                        transactionType: $("#trantype").val(),
+                                    },
+                                    success: function (data) {
+
+                                        $("#detailHolder").html(data)
+                                    }
+                                })
+                            })
+                        </script>
+                    </div>
+                    <div id="detailHolder" class="row">
+                    </div>
+                </div>
+                <script>
+                    $("#getTransactoin").click(function () {
+
+                    })
+                    $("#M22").change(function () {
+                        var id = $(this).val();
+                       // console.log(id)
+                        $("#M33 option").each(function () {
+                            var val = $(this).val();
+                            if (val == "0") {
+                                $(this).prop('selected', true);
+                            }
+                            else{
+                                $(this).prop('selected', false);
+                            }
+                            var optionid = $(this).attr('parentValue');
+                            if (optionid != id) {
+                                $(this).hide();
+                            }
+                            else {
+                                $(this).show();
+                            }
+                        })
+                        $("#M44 option").each(function () {
+                            var val = $(this).val();
+                            if (val == "0") {
+                                $(this).prop('selected', true);
+                            }
+                            else {
+                                $(this).prop('selected', false);
+                            }
+                            $(this).hide();
+                        });
+                    })
+                    $("#M33").change(function () {
+                        var id = $(this).val();
+                        console.log(id)
+                        $("#M44 option").each(function () {
+
+                            var val = $(this).val();
+                            if (val == "0") {
+                                $(this).prop('selected', true);
+                            }
+                            else {
+                                $(this).prop('selected', false);
+                            }
+
+                            var optionid = $(this).attr('parentValue');
+                            if (optionid != id) {
+                                $(this).hide();
+                            }
+                            else {
+                                $(this).show();
+                            }
+                        })
+                    })
+
+                </script>
+            </div>
+        </div>
     </div>
 </div>
+
+<script src="~/Scripts/persian-date.js"></script>
+<script src="~/Scripts/persian-datepicker.js"></script>
+<script>
+
+    $(function () {
+        $(".datePicker").pDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+            altField: '.abserver',
+            autoClose: true
+
+            // minDate: new persianDate().add('day', 2).valueOf(),
+            // options & callbacks here
+        });
+        $(".FromdatePicker").pDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+            altField: '.Fromabserver',
+            autoClose: true
+        });
+        $(".TodatePicker").pDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+            altField: '.Toabserver',
+            autoClose: true
+        });
+        $(".projectDate2").pDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+            altField: '.PD2abserver',
+            autoClose: true
+        });
+        $(".projectDate").pDatepicker({
+            observer: true,
+            format: 'YYYY/MM/DD',
+            altField: '.PDabserver',
+            autoClose: true
+        });
+       
+    });
+
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+    });
+</script>
+<script>
+    $('input.inputnumber').keyup(function (event) {
+        if (event.which >= 37 && event.which <= 40) return;
+        $(this).val(function (index, value) {
+            return value
+                // Keep only digits and decimal points:
+                .replace(/[^\d.]/g, "")
+                // Remove duplicated decimal point, if one exists:
+                .replace(/^(\d*\.)(.*)\.(.*)$/, '$1$2$3')
+                // Keep only two digits past the decimal point:
+                .replace(/\.(\d{2})\d+/, '.$1')
+                // Add thousands separators:
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        });
+    });
+</script>

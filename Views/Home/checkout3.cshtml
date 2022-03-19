@@ -1,0 +1,309 @@
+﻿@model IEnumerable<banimo.ViewModel.CheckoutViewModel>
+@{
+    ViewBag.Title = "سبد خرید";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+
+@{
+
+    <link href="~/Content/checkoutStyle.css" rel="stylesheet" />
+    @section scripts{
+        <script>
+            function addCommas(nStr) {
+                nStr += '';
+                var x = nStr.split('.');
+                var x1 = x[0];
+                var x2 = x.length > 1 ? '.' + x[1] : '';
+                var rgx = /(\d+)(\d{3})/;
+                while (rgx.test(x1)) {
+                    x1 = x1.replace(rgx, '$1' + ',' + '$2');
+                }
+                return x1 + x2;
+            }
+        </script>
+        <script>
+            $(document).ready(function (c) {
+                $('.classclosename').on('click', function (c) {
+
+
+                    var ID = this.id;
+
+                    $.ajax({
+                        url: '/Home/deletefromcart',
+                        dataType: 'html',
+                        data: {
+                            id: ID
+
+                        },
+                        success: function (data) {
+                            window.location.reload()
+
+                        },
+                        error: function () {
+
+                        }
+
+
+                    });
+
+
+
+
+
+                });
+            });
+        </script>
+        <script>
+
+            $('.value-plus').on('click', function () {
+                $("#loading").show();
+                var ID = this.id
+                $.ajax({
+                    url: '/Home/addtocart2',
+                    dataType: 'html',
+                    data: {
+                        id: ID
+
+                    },
+                    success: function (data) {
+                        window.location.reload();
+
+
+
+                    },
+                    error: function () {
+                        alert("error")
+                    }
+
+
+                });
+
+
+
+            });
+
+            $('.value-minus').on('click', function () {
+                $("#loading").show();
+                var divUpd = $(this).siblings('.value'),
+                    newVal = parseInt(divUpd.text(), 10) - 1;
+
+
+                if (newVal >= 0) {
+
+
+                    var ID = this.id
+                    $.ajax({
+                        url: '/Home/minusfromcart',
+                        dataType: 'html',
+                        data: {
+                            id: ID
+                        },
+                        success: function (data) {
+                            window.location.reload();
+                        },
+                        error: function () {
+                            alert("error")
+                        }
+
+
+                    });
+
+
+
+                }
+
+
+            });
+        </script>
+        if (ViewBag.Message != "")
+        {
+        <script>
+
+            @*toastr.options = {
+                "debug": false,
+                "positionClass": "toast-top-center",
+                "onclick": null,
+                "fadeIn": 300,
+                "fadeOut": 1000,
+                "timeOut": 5000,
+                "extendedTimeOut": 1000
+            }
+            toastr.error('@ViewBag.message' + " ، تنها یک مورد از این گروه میتواند در سبد خرید وجود داشته باشد")*@
+        </script>
+        }
+    }
+
+
+
+
+
+    if (@Model.Count() > 0)
+    {
+        <div class="product-cart-area hm-3-padding pt-120 pb-130" style="padding-top:250px">
+            <div class="">
+            
+                <div class="row" style="margin:10px">
+                    <div class="col-lg-3 col-md-5 col-sm-6" style="direction:rtl">
+
+                        <div class="">
+                            <div class="shop-total">
+                                <h3 style="direction:rtl;text-align:center">سبد خرید</h3>
+                                <ul>
+                                    <li>
+                                        <span style="text-align:right">
+                                            مبلغ کل ( <i class="simpleCart_quantityy"></i>  کالا)
+                                        </span>
+                                       
+                                        @{
+
+                                            decimal leftbaseprice = Model.Sum(x => x.baseprice * x.quantity);
+                                            <span><span id="basepriceholder" class="faNum">@String.Format("{0:n0}", @leftbaseprice)</span>  تومان</span>
+                                        }
+
+                                    </li>
+                                    <li>
+                                        <span  style="text-align:right">
+                                            سود شما از خرید
+                                        </span>
+                                      
+                                        @{
+
+                                            decimal benefit = Model.Sum(x => x.baseprice * x.quantity) - Model.Sum(x => x.price * x.quantity);
+                                            <span><span id="basepriceholder" class="faNum">@String.Format("{0:n0}", benefit)</span>  تومان</span>
+                                        }
+                                    </li>
+                                    <li class="order-total">
+                                       
+                                    </li>
+                                    <li>
+                                        <span  style="text-align:right">   مبلغ قابل پرداخت</span>
+                                        @{
+                                            decimal payment = Model.Sum(x => x.price * x.quantity);
+                                            <span><span id="basepriceholder" class="faNum">@String.Format("{0:n0}", payment)</span>  تومان</span>
+                                        }
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="continue-shopping-btn text-center" style=" margin-top: 10px; border-radius: 8px; box-shadow: 2px 2px 5px -1px rgb(148 149 153);">
+                                <a href="#">ثبت سفارش</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                        <div class="table-content table-responsive">
+                            <table style="direction:rtl">
+                                <thead>
+                                    <tr style="direction:rtl">
+                                        <th class="product-name">محصول</th>
+                                        <th class="product-price">نام محصول</th>
+                                        <th class="product-name">قیمت</th>
+                                        <th class="product-price">تعداد</th>
+                                        <th class="product-quantity">کل</th>
+                                        <th class="product-subtotal">حذف</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        string imagefile = "placeholder.jpg";
+                                        if (item.imageaddress != null)
+                                        {
+                                            imagefile = item.imageaddress;
+                                        }
+                                        int i = item.productid;
+                                        string classremname = "rem" + i;
+                                        string classclosename = "close" + i;
+                                        string classminusname = "minus" + i;
+                                        string classaddname = "add" + i;
+                                        string tobeadded = "tobeadded" + i;
+                                        string tobeaddedbase = "tobeaddedbase" + i;
+                                        string pricesectionbase = "pricesectionbase" + i;
+                                        string pricesection = "pricesection" + i;
+                                        string finaltotal = "total" + i;
+                                        string imagesrc = imagefile;
+                                        string quantity = item.quantity.ToString();
+                                        string price = item.price.ToString();
+                                        string baseprice = item.baseprice.ToString();
+                                        string discount = item.discount.ToString();
+                                        decimal total = item.quantity * item.price;
+                                        decimal totalbase = item.quantity * item.baseprice;
+                                        string name = item.productname;
+                                        string background = "white";
+                                        string color = "black";
+                                        string message = "";
+                                        if (item.count < decimal.Parse(quantity))
+                                        {
+                                            background = "gray";
+                                            color = "white";
+                                            if (item.count != 0)
+                                            {
+                                                message = " موجود در انبار : " + item.count;
+                                            }
+                                            else
+                                            {
+                                                message = " ناموجود ";
+                                            }
+                                        }
+                                        if (item.limit < decimal.Parse(quantity))
+                                        {
+                                            background = "gray";
+                                            color = "white";
+                                            message = " محدودیت خرید : " + item.limit;
+                                        }
+                                        <tr style="direction:rtl">
+                                            <td class="product-thumbnail">
+                                                <a href="#"><img style="width:100px" src="@item.imageaddress" alt=""></a>
+                                            </td>
+                                            <td class="product-name">
+                                                <a href="#">@item.productname</a>
+                                            </td>
+                                            <td class="product-price"><span style="font-family:IRANSansfaNum" class="amount">@String.Format("{0:n0}", @item.price)</span></td>
+                                            <td class="product-quantity">
+                                                <div class="quantity-range">
+                                                    <div class="quantity" style="">
+                                                        <div class="quantity-select row">
+                                                            <i id=@classminusname class="fa fa-minus-circle value-minus" style="border: none;  font-size: 22px; color: #f3a395; "></i>
+                                                            <div style=" margin:0 20px; background-color:@background; color:@color" class="entry value faNum"><span>@quantity</span></div>
+                                                            <i id=@classaddname class="fa fa-plus-circle value-plus" style="border: none;  font-size: 22px; color: #f3a395; "></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="product-subtotal" style="font-family:IRANSansfaNum">@String.Format("{0:n0}", @item.price * @item.quantity)</td>
+                                            <td class="product-cart-icon product-subtotal"><a href="#"><i id=@classremname class="classclosename ion-ios-trash-outline" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                    }
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </div>
+        <div class="checkout noData" style="display:none">
+            <div class="c-profile-empty">
+                موردی برای نمایش وجود ندارد!
+            </div>
+        </div>
+        <!-- //banner -->
+        <!-- check out -->
+
+    }
+    else
+    {
+        <div class="checkout noData" style="padding-top:250px">
+            <div class="c-profile-empty" style="text-align:center">
+                موردی برای نمایش وجود ندارد!
+            </div>
+        </div>
+    }
+}
+
