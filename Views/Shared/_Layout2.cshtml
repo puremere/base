@@ -36,59 +36,64 @@
       
     </div>
 
+
+
     @{
         banimo.ViewModel.userdata userApp = Session["LogedInUser"] as banimo.ViewModel.userdata;
     }
+    <div class="row">
+        <div style="z-index:9; position:fixed; right:70px; top:25px; width:150px">
+            @if (userApp != null)
+            {
+                string name = userApp.fullname != "" ? userApp.fullname : userApp.phone;
 
-    <div style="z-index:9; position:fixed; right:70px; top:25px; width:150px">
-        @if (userApp != null)
-        {
-            string name = userApp.fullname != "" ? userApp.fullname : userApp.phone;
+                <div class="menuAppHeader toolbarText" style="direction: rtl;padding: 15px;">
+                    <a href="/Home/myprofile?type=1">
+                        <i class="fal fa-user " style=" margin-left:10px; vertical-align:middle; color:white"></i> <span class="" style="color:white">@name</span>
+                    </a>
+                </div>
+                <div class="menuAppHeader" style="direction: rtl;background-color: #E1A52B">
 
-            <div class="menuAppHeader toolbarText" style="direction: rtl;padding: 15px;">
-                <a href="/Home/myprofile?type=1">
-                    <i class="fal fa-user " style=" margin-left:10px; vertical-align:middle; color:white"></i> <span class="" style="color:white">@name</span>
+                    <a href="/CustomerLogin/LogOff">
+                        <i class="fal fa-sign-out " style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white" class="">خروج</span>
+                    </a>
+                </div>
+
+            }
+            else
+            {
+                <a href="/Home/Login">
+                    <div class="menuAppHeader" style="direction: rtl;color: white;">
+
+                        <span style="color:black">عضویت و ورود</span>
+                    </div>
                 </a>
-            </div>
-            <div class="menuAppHeader" style="direction: rtl;background-color: #E1A52B">
-
-                <a href="/CustomerLogin/LogOff">
-                    <i class="fal fa-sign-out " style="color:white; margin-left:10px; vertical-align:middle"></i> <span style="color:white" class="">خروج</span>
-                </a>
-            </div>
-
-        }
-        else
-        {
+            }
+        </div>
+        <div style="z-index:9; position:fixed; right:180px; top:25px;">
             <a href="/Home/Login">
                 <div class="menuAppHeader" style="direction: rtl;color: white;">
 
-                    <span style="color:black">عضویت و ورود</span>
+                    <span style="color:black">جستجو</span>
                 </div>
             </a>
-        }
+        </div>
+
+        <img src="~/images/logo.png" style="z-index:9; position:fixed; left:30px; top:30px; width:150px" />
+        <i id="barsformenu" style="z-index:9; position:fixed; right:30px; top:30px; cursor:pointer" class="fal fa-bars"> </i>
+
+        <style>
+            #menuDiv {
+                width: 100%;
+                padding: 25px 5px 50px 50px;
+                text-align: right;
+                height: 100%;
+                overflow-y: auto
+            }
+        </style>
     </div>
-    <div style="z-index:9; position:fixed; right:180px; top:25px;">
-        <a href="/Home/Login">
-            <div class="menuAppHeader" style="direction: rtl;color: white;">
 
-                <span style="color:black">جستجو</span>
-            </div>
-        </a>
-    </div>
-
-    <img src="~/images/logo.png" style="z-index:9; position:fixed; left:30px; top:30px; width:150px" />
-    <i id="barsformenu" style="z-index:9; position:fixed; right:30px; top:30px; cursor:pointer" class="fal fa-bars"> </i>
-
-    <style>
-        #menuDiv {
-            width: 100%;
-            padding: 25px 5px 50px 50px;
-            text-align: right;
-            height: 100%;
-            overflow-y: auto
-        }
-    </style>
+   
     <div id="barmenu" class="menuParent" style=" height: 100%; width : 25% ; position: fixed;top: 0;background-color:white;right: 0">
         <div id="menuDiv" style="">
             @{ Html.RenderAction("getmenue", "Home"); }
@@ -142,6 +147,17 @@
                     //$(this).find('ul').first().slideToggle();
                 });
         });
+    </script>
+    <script>
+        window.onscroll = function (e) {
+            if (window.scrollY == 0) {
+                //user scrolled to the top of the page
+            }
+            else {
+
+            }
+           
+        }
     </script>
 </body>
 </html>
